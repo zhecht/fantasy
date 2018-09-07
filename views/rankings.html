@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="plot_div" style="width:100%;margin-left:0;float:left;"></div>
+
+{% for graph in graphs %}
+<input type="hidden" id="actual_ranks_{{graph.position}}" value="{{graph.actual}}" />
+<input type="hidden" id="yahoo_ranks_{{graph.position}}" value="{{graph.yahoo}}" />
+<input type="hidden" id="espn_ranks_{{graph.position}}" value="{{graph.espn}}" />
+<input type="hidden" id="fantasypros_ranks_{{graph.position}}" value="{{graph.fantasypros}}" />
+{% endfor %}
+
+<script>
+	var espn_data = {
+		x: [],
+		y: [],
+		mode: "markers+text",
+		name: "ESPN",
+		text: [],
+		textposition: 'bottom center',
+		textfont: {
+			family: 'Raleway, sans-serif'
+		},
+		marker: {
+			size: 14,
+			color: "#d00"
+		},
+		type: 'scatter'
+	};
+	var yahoo_data = {
+		x: [],
+		y: [],
+		mode: "markers+text",
+		name: "Yahoo",
+		text: [],
+		textposition: 'top center',
+		textfont: {
+			family: 'Raleway, sans-serif'
+		},
+		marker: {
+			size: 14,
+			color: "green"
+		},
+		type: 'scatter'
+	};
+	var fantasypros_data = {
+		x: [],
+		y: [],
+		mode: "markers+text",
+		name: "FantasyPros",
+		text: [],
+		textposition: 'top center',
+		textfont: {
+			family: 'Raleway, sans-serif'
+		},
+		marker: {
+			size: 14,
+			color: "blue"
+		},
+		type: 'scatter'
+	};
+	var layout = {
+		title: "Projected Vs. Actual Rank",
+		xaxis: {
+			title: "Rank",
+			titlefont: {
+				family: 'Courier New, monospace',
+				size: 18,
+				color: '#7f7f7f'
+			}
+		},
+		yaxis: {
+			title: "Projected Rank",
+			titlefont: {
+				family: 'Courier New, monospace',
+				size: 18,
+				color: '#7f7f7f'
+			}
+		}
+	};
+
+	function clear_arrays() {
+		espn_data["x"] = [];
+		espn_data["y"] = [];
+		yahoo_data["x"] = [];
+		yahoo_data["y"] = [];
+		fantasypros_data["x"] = [];
+		fantasypros_data["y"] = [];
+	}
+	function change_position(position) {
+		var actual_rank_arr = $("#actual_ranks_"+position).val().split(",");
+		var espn_rank_arr = $("#espn_ranks_"+position).val().split(",");
+		var yahoo_rank_arr = $("#yahoo_ranks_"+position).val().split(",");
+		var fantasypros_rank_arr = $("#fantasypros_ranks_"+position).val().split(",");
+
+		clear_arrays();
+		for (var i = 0; i < actual_rank_arr.length; ++i) {
+			espn_data["x"].append(actual_rank_arr[i]);
+			yahoo_data["x"].append(actual_rank_arr[i]);
+			fantasypros_data["x"].append(actual_rank_arr[i]);
+
+			espn_data["y"].append(espn_rank_arr[i]);
+			yahoo_data["y"].append(yahoo_rank_arr[i]);
+			fantasypros_data["y"].append(fantasypros_rank_arr[i]);
+		}
+
+		layout["title"] = "Projected Vs. Actual Rank ["+position+"]";
+		var data = [yahoo_data, espn_data, fantasypros_data];
+		Plotly.newPlot("plot_div", data, layout);
+	}
+
+	change_position("qb");
+
+	
+
+</script>
+{% endblock %}
+

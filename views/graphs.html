@@ -1,0 +1,250 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="plot_div" style="width:100%;margin-left:0;float:left;"></div>
+<div id="espn_plot_div" style="width:50%;margin-left:0;float:left;"></div>
+<div id="yahoo_plot_div" style="width:50%;margin-left:0;float:left;"></div>
+
+<div style="width:100%;margin-top:5%;float:left;">
+	<table id="projection_stat_table">
+		<tr>
+			<th></th>
+			<th>Projected Over/Under</th>
+			<th>Average % Error</th>
+		</tr>
+		<tr>
+			<td>ESPN</td>
+			<td>{{espn_over_under}}</td>
+			<td>{{espn_average_error}}</td>
+		</tr>
+		<tr>
+			<td>Yahoo</td>
+			<td>{{yahoo_over_under}}</td>
+			<td>{{yahoo_average_error}}</td>
+		</tr>
+		<tr>
+			<td>FantasyPros</td>
+			<td>{{fantasypros_over_under}}</td>
+			<td>{{fantasypros_average_error}}</td>
+		</tr>
+	</table>
+</div>
+<script>
+	var actual_data = {
+		x: [],
+		y: [],
+		mode: "markers+text",
+		text: [],
+		textposition: 'top center',
+		textfont: {
+			family: 'Raleway, sans-serif'
+		},
+		type: 'scatter'
+	};
+	var espn_data_next = {
+		x: [],
+		y: [],
+		mode: "markers+text",
+		name: "ESPN",
+		text: [],
+		textposition: 'bottom center',
+		textfont: {
+			family: 'Raleway, sans-serif'
+		},
+		marker: {
+			size: 14,
+			color: "#d00"
+		},
+		type: 'scatter'
+	};
+	var yahoo_data_next = {
+		x: [],
+		y: [],
+		mode: "markers+text",
+		name: "YAHOO",
+		text: [],
+		textposition: 'top center',
+		textfont: {
+			family: 'Raleway, sans-serif'
+		},
+		marker: {
+			size: 14,
+			color: "green"
+		},
+		type: 'scatter'
+	};
+	var yahoo_proj_data_next = {
+		x: [],
+		y: [],
+		mode: "markers+text",
+		name: "YAHOO",
+		text: [],
+		textposition: 'top center',
+		textfont: {
+			family: 'Raleway, sans-serif'
+		},
+		marker: {
+			size: 14,
+			color: "green"
+		},
+		type: 'scatter'
+	};
+	var espn_proj_data_next = {
+		x: [],
+		y: [],
+		mode: "markers+text",
+		name: "ESPN",
+		text: [],
+		textposition: 'top center',
+		textfont: {
+			family: 'Raleway, sans-serif'
+		},
+		marker: {
+			size: 14,
+			color: "#d00"
+		},
+		type: 'scatter'
+	};
+	var espn_data = {
+		x: [],
+		y: [],
+		mode: "markers+text",
+		name: "ESPN",
+		text: [],
+		textposition: 'bottom center',
+		textfont: {
+			family: 'Raleway, sans-serif'
+		},
+		marker: {
+			size: 14,
+			color: "#d00"
+		},
+		type: 'scatter'
+	};
+	var yahoo_data = {
+		x: [],
+		y: [],
+		mode: "markers+text",
+		name: "YAHOO",
+		text: [],
+		textposition: 'top center',
+		textfont: {
+			family: 'Raleway, sans-serif'
+		},
+		marker: {
+			size: 14,
+			color: "green"
+		},
+		type: 'scatter'
+	};
+	var fantasypros_data = {
+		x: [],
+		y: [],
+		mode: "markers+text",
+		name: "FantasyPros",
+		text: [],
+		textposition: 'top center',
+		textfont: {
+			family: 'Raleway, sans-serif'
+		},
+		marker: {
+			size: 14,
+			color: "blue"
+		},
+		type: 'scatter'
+	};
+	
+	function push_data(which_data, key, data_string) {
+		var arr = data_string.split(",");
+
+		for (var i = 0; i < arr.length; ++i) {
+			if (key === "text") {
+				//data[site_idx][key].push(arr[i].split(" ")[1]);
+				which_data[key].push(arr[i]);
+			} else if (key === "error_y") {
+				which_data[key][sub_key].push(parseFloat(arr[i]));
+			} else if (key === "x") {
+				
+				which_data[key].push(arr[i].split(" ")[1] + " (" + actual_arr[i] + ")");
+			} else {
+				which_data[key].push(parseFloat(arr[i]));
+			}
+		}
+	}
+	function push_data_next(which_data, key, proj_data_string, error_data_string) {
+		var error_data_arr = error_data_string.split(",");
+		var proj_data_arr = proj_data_string.split(",");
+		for (var i = 0; i < proj_data_arr.length; ++i) {
+			//var 
+			if (key === "x") {
+				which_data[key].push(proj_data_arr[i].split(" ")[1]);
+			} else {
+				var err = parseFloat(error_data_arr[i]);
+				var proj = parseFloat(proj_data_arr[i]);
+				var actual = (100 * proj) / (err + 100);
+				which_data[key].push(actual);
+			}
+		}
+	}
+	
+</script>
+{% for graph in graphs %}
+	<script>
+		//push_data("espn", "text", "{{graph.text}}");
+		var actual_arr = "{{graph.actual}}".split(",");
+		var title = "{{graph.title}}";
+		
+		push_data(espn_data, "text", "{{graph.espn_proj}}");
+		push_data(espn_data, "x", "{{graph.text}}");
+		push_data(espn_data, "y", "{{graph.espn}}");
+
+		push_data(yahoo_data, "text", "{{graph.yahoo_proj}}");
+		push_data(yahoo_data, "x", "{{graph.text}}");
+		push_data(yahoo_data, "y", "{{graph.yahoo}}");
+
+		//push_data(fantasypros_data, "text", "{{graph.fantasypros_proj}}");
+		push_data(fantasypros_data, "x", "{{graph.text}}");
+		push_data(fantasypros_data, "y", "{{graph.fantasypros}}");
+				
+		push_data(espn_proj_data_next, "y", "{{graph.espn_proj_next}}");
+		push_data_next(espn_proj_data_next, "x", "{{graph.text}}", "");
+		push_data_next(espn_data_next, "x", "{{graph.text}}", "");
+		push_data_next(espn_data_next, "y", "{{graph.espn_proj_next}}", "{{graph.espn}}");
+		var espn_data_next_arr = [espn_data_next, espn_proj_data_next];
+
+		push_data(yahoo_proj_data_next, "y", "{{graph.yahoo_proj_next}}");
+		push_data_next(yahoo_proj_data_next, "x", "{{graph.text}}", "");
+		push_data_next(yahoo_data_next, "x", "{{graph.text}}", "");
+		push_data_next(yahoo_data_next, "y", "{{graph.yahoo_proj_next}}", "{{graph.yahoo}}");
+		var yahoo_data_next_arr = [yahoo_data_next, yahoo_proj_data_next];
+
+		var data = [yahoo_data,espn_data,fantasypros_data];
+		var layout = {
+			title: "{{graph.title}}",
+			xaxis: {
+				title: "Week 1 Points (.5 PPR)",
+				titlefont: {
+					family: 'Courier New, monospace',
+					size: 18,
+					color: '#7f7f7f'
+				}
+			},
+			yaxis: {
+				title: "% Error",
+				titlefont: {
+				family: 'Courier New, monospace',
+				size: 18,
+				color: '#7f7f7f'
+				}
+			}
+		};
+		Plotly.newPlot("plot_div", data, layout);
+		//Plotly.newPlot("espn_plot_div", espn_data_next_arr);
+		//Plotly.newPlot("yahoo_plot_div", yahoo_data_next_arr);
+	</script>
+{% endfor %}
+<script>
+	
+</script>
+{% endblock %}
+
