@@ -7,6 +7,7 @@ import json
 import glob
 import constants
 import operator
+import os
 try:
   import urllib2 as urllib
 except:
@@ -16,6 +17,43 @@ def merge_two_dicts(x, y):
 	z = x.copy()
 	z.update(y)
 	return z
+
+def write_cron_yahoo_FA():
+	ghost = Ghost()
+	logged_in = False
+	with ghost.start() as session:
+		session.wait_timeout = 100
+
+		for count in range(0,201,25):
+			fa_json = {}
+			page, extra_resources = session.open("https://football.fantasysports.yahoo.com/f1/1000110/players?sort=PTS&count={}".format(count))
+		
+			if page.http_status == 200:
+				if not logged_in:
+					#SIGN IN
+					result, extra = session.evaluate("document.getElementById('login-username').value = '{}';".format(constants.YAHOO_USERNAME))
+					page, extra = session.evaluate("document.getElementById('login-signin').click();", expect_loading=True)	
+					session.wait_for_selector('#login-passwd')
+					result, extra = session.evaluate("document.getElementById('login-passwd').value = '{}';".format(constants.YAHOO_PWD))
+					page, extra = session.evaluate("document.getElementById('login-signin').click();", expect_loading=True)
+					logged_in = True
+
+			with open('out.html', 'w') as f:
+				f.write(page.content)
+			f = open('out.html')
+			soup = BeautifulSoup(f.read(), "lxml")
+			f.close()
+
+			table = soup.find("table", class_="Table")
+			rows = table.find_all("tr")
+
+			for player_row in rows[2:]:
+				name_div = player_row.find('div',class_='ysf-player-name')
+				full_name = name_div.find('a').text.lower().replace("'", "")
+				fa_json[full_name] = 1
+				
+			with open("static/players/FA/FA_{}_{}.json".format(count, count + 25), "w") as outfile:
+					json.dump(fa_json, outfile, indent=4)
 
 def write_cron_yahoo_FA_actual(start_week, end_week):
 	ghost = Ghost()
@@ -58,6 +96,8 @@ def write_cron_yahoo_FA_actual(start_week, end_week):
 
 				actuals_json[full_name] = actual
 
+			if os.path.isdir("static/projections/{}/FA".format(week)) is False:
+				os.mkdir("static/projections/{}/FA".format(week))
 			with open("static/projections/{}/FA/actual_{}_{}.json".format(week, count, count + 25), "w") as outfile:
 					json.dump(actuals_json, outfile, indent=4)
 
@@ -99,10 +139,10 @@ def write_cron_yahoo_FA_proj(start_week, end_week):
 					proj = 0
 				else:
 					proj = float(proj)
-
 				projections_json[full_name] = proj
-
-
+				
+			if os.path.isdir("static/projections/{}/FA".format(week)) is False:
+				os.mkdir("static/projections/{}/FA".format(week))
 			with open("static/projections/{}/FA/proj_{}_{}.json".format(week, count, count + 25), "w") as outfile:
 					json.dump(projections_json, outfile, indent=4)
 
@@ -266,9 +306,10 @@ if __name__ == "__main__":
 
 	if args.cron:
 		print("WRITING YAHOO STATS")
-		write_cron_yahoo_stats(curr_week, end_week)
-		write_cron_yahoo_FA_actual(curr_week, end_week)
-		write_cron_yahoo_FA_proj(curr_week, end_week)
+		#write_cron_yahoo_stats(curr_week, end_week)
+		#write_cron_yahoo_FA_actual(curr_week, end_week)
+		#write_cron_yahoo_FA_proj(curr_week, end_week)
+		write_cron_yahoo_FA()
 	else:
 		read_yahoo_stats(curr_week, end_week)
 		#test(2,3)

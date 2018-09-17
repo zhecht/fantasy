@@ -33,7 +33,7 @@ def write_cron_FA():
 	import oauth
 	oauth = oauth.MyOAuth()
 
-	for i in range(0,700,25):
+	for i in range(0,1000,25):
 		html = oauth.getData("https://fantasysports.yahooapis.com/fantasy/v2/league/{}/players;start={};status=FA".format(oauth.league_key, i)).text
 		
 		with open("static/players/FA/FA_{}_{}.xml".format(i,i+25), "w") as fh:
@@ -121,8 +121,8 @@ if __name__ == "__main__":
 
 	if args.cron:
 		print("WRITING ROSTERS")
-		write_cron_standings()
-		write_cron_rosters()
+		#write_cron_standings()
+		#write_cron_rosters()
 		write_cron_FA()
 	else:
 		pass

@@ -30,8 +30,8 @@ def write_cron_fantasypros_rankings(curr_week=1):
 	fantasypros_stats = {}
 	for position in ["qb", "rb", "wr", "te"]:
 		fantasypros_stats = {}
-
-		url = "https://www.fantasypros.com/nfl/rankings/half-point-ppr-{}.php?scoring=HALF&week={}".format(position, curr_week)
+		path = "half-point-ppr-{}".format(position) if position != "qb" else "qb"
+		url = "https://www.fantasypros.com/nfl/rankings/{}.php?scoring=HALF&week={}".format(path, curr_week)
 		html = urllib.urlopen(url, "lxml")
 		soup = BeautifulSoup(html, "lxml")
 		player_rows = soup.find("table", id="rank-data").find("tbody").find_all("tr")
@@ -51,8 +51,6 @@ def write_cron_fantasypros_rankings(curr_week=1):
 		with open("static/rankings/{}/{}/fantasypros.json".format(curr_week, position), "w") as outfile:
 			json.dump(fantasypros_stats, outfile, indent=4)
 
-	with open("static/rankings/{}/fantasypros.json".format(curr_week), "w") as outfile:
-		json.dump(fantasypros_stats, outfile, indent=4)
 
 def write_cron_fantasypros_stats(curr_week=1):
 	

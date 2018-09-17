@@ -79,7 +79,6 @@ def write_cron_espn_rankings(curr_week, end_week):
 		soup = BeautifulSoup(html, "lxml")
 		player_rows = soup.find_all("tr", class_="pncPlayerRow")
 
-		print(position, len(player_rows))
 		for row in player_rows:
 			all_tds = row.find_all("td")
 			name_link = all_tds[0].find("a")
@@ -88,12 +87,12 @@ def write_cron_espn_rankings(curr_week, end_week):
 			try:
 				rec = float(all_tds[-8].text)
 				act = float(all_tds[-1].text)
-			
-				act -= (rec / 2.0)
-				act = round(act, 2)
+				
+				if position != "qb":
+					act -= (rec / 2.0)
 
 				if full_name not in espn_actual[position]:
-					espn_actual[position].append({"actual": act, "name": full_name})
+					espn_actual[position].append({"actual": round(act, 2), "name": full_name})
 			except:
 				pass
 		espn_ranks = {}
@@ -125,6 +124,7 @@ def read_espn_rankings(curr_week, players_on_teams):
 	espn_json = read_espn_stats(curr_week, curr_week + 1)
 	espn_list = {"qb": [], "rb": [], "wr": [], "te": []}
 	for player in espn_json:
+
 		if player in players_on_teams:
 			position = players_on_teams[player]["position"].lower()
 
