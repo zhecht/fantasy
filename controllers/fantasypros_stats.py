@@ -24,6 +24,12 @@ def fix_name(name):
 		return "paul richardson jr."
 	elif name == "allen robinson":
 		return "allen robinson ii"
+	elif name == "mitch trubisky":
+		return "mitchell trubisky"
+	elif name == "todd gurley":
+		return "todd gurley ii"
+	elif name == "willie snead":
+		return "willie snead iv"
 	return name
 
 def write_cron_fantasypros_rankings(curr_week=1):

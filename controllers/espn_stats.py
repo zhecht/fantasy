@@ -127,7 +127,6 @@ def read_espn_rankings(curr_week, players_on_teams):
 
 		if player in players_on_teams:
 			position = players_on_teams[player]["position"].lower()
-
 			if position in ["qb", "rb", "wr", "te"]:
 				espn_list[position].append({"name": player, "proj": espn_json[player]})
 

@@ -1,6 +1,7 @@
 import argparse
 import datetime
 import glob
+import json
 import operator
 import time
 
@@ -64,17 +65,14 @@ def read_FA():
 	players_on_FA = {}
 
 	for fn in files:
-		#f = open(fn)
-		tree = etree.parse(fn)
-		players_xpath = tree.xpath('.//base:player', namespaces=ns)
+		fa_json = {}
+		with open(fn) as fh:
+			fa_json = json.loads(fh.read())
+		for player in fa_json:
+			
+			team, position = fa_json[player]
+			players_on_FA[player] = {"team_id": 0, "position": position, "pid": 0, "nfl_team": team}
 
-		for player in players_xpath:
-			full = player.find('.//base:full', namespaces=ns).text
-			pid = player.find('.//base:player_id', namespaces=ns).text
-			pos = player.find('.//base:display_position', namespaces=ns).text
-			nfl_team = player.find('.//base:editorial_team_abbr', namespaces=ns).text
-
-			players_on_FA[full.lower().replace("'", "")] = {"team_id": 0, "position": pos, "pid": pid, "nfl_team": nfl_team}
 	return players_on_FA
 
 def read_rosters():
@@ -123,6 +121,5 @@ if __name__ == "__main__":
 		print("WRITING ROSTERS")
 		#write_cron_standings()
 		#write_cron_rosters()
-		write_cron_FA()
 	else:
 		pass
