@@ -13,6 +13,8 @@ def fix_name(name):
 		return "ted ginn jr."
 	elif name == "ben watson":
 		return "benjamin watson"
+	elif name == "allen robinson":
+		return "allen robinson ii"
 	return name
 
 if __name__ == '__main__':

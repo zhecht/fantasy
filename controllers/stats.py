@@ -24,7 +24,7 @@ def write_cron_yahoo_FA():
 	with ghost.start() as session:
 		session.wait_timeout = 100
 
-		for count in range(0,201,25):
+		for count in range(0,150,25):
 			fa_json = {}
 			page, extra_resources = session.open("https://football.fantasysports.yahoo.com/f1/1000110/players?sort=PTS&count={}".format(count))
 		
@@ -50,7 +50,10 @@ def write_cron_yahoo_FA():
 			for player_row in rows[2:]:
 				name_div = player_row.find('div',class_='ysf-player-name')
 				full_name = name_div.find('a').text.lower().replace("'", "")
-				fa_json[full_name] = 1
+				span = name_div.find('span').text
+				team = span.split(" - ")[0]
+				position = span.split(" - ")[1]
+				fa_json[full_name] = [team, position]
 				
 			with open("static/players/FA/FA_{}_{}.json".format(count, count + 25), "w") as outfile:
 					json.dump(fa_json, outfile, indent=4)

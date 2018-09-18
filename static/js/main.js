@@ -5,9 +5,10 @@ $(document).ready(function(){
 	var path_arr = window.location.pathname.split('/');
 	var team_loc = $.inArray("team", path_arr);
 	var graphs_loc = $.inArray("graphs", path_arr);
+	var is_rankings_loc = $.inArray("rankings", path_arr);
 	var is_team_page = (team_loc !== -1);
 	var is_graphs_page = (graphs_loc !== -1);
-	if (!is_team_page && !is_graphs_page) {
+	if (!is_team_page && !is_graphs_page && !is_rankings_loc) {
 		if (my_team !== null) {
 			window.location.href = "/team/"+my_team;
 			return;

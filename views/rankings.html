@@ -1,23 +1,44 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div id="plot_div" style="width:100%;margin-left:0;float:left;"></div>
+<div id="plot_div" style="display:none;width:100%;margin-left:0;float:left;"></div>
+<div id="yahoo_error_plot_div" style="width:100%;margin-left:0;float:left;"></div>
+<div id="espn_error_plot_div" style="width:100%;margin-left:0;float:left;"></div>
+<div id="fantasypros_error_plot_div" style="width:100%;margin-left:0;float:left;"></div>
+<input type="hidden" id="curr_week" value="{{curr_week}}" />
 
 {% for graph in graphs %}
+<input type="hidden" id="names_{{graph.position}}" value="{{graph.name}}" />
 <input type="hidden" id="actual_ranks_{{graph.position}}" value="{{graph.actual}}" />
 <input type="hidden" id="yahoo_ranks_{{graph.position}}" value="{{graph.yahoo}}" />
 <input type="hidden" id="espn_ranks_{{graph.position}}" value="{{graph.espn}}" />
 <input type="hidden" id="fantasypros_ranks_{{graph.position}}" value="{{graph.fantasypros}}" />
 {% endfor %}
 
+{% for graph in error_graphs %}
+<div style="width:100%;margin-top:5%;float:left;">
+	<span>{{graph.title}}</span>
+	<span>Average Abs Error: {{graph.avg_abs_err}}</span>
+	<span>Average Abs Error ({{graph.position}}1-{{graph.position}}10): </span>
+	<span>Average Abs Error ({{graph.position}}10-{{graph.position}}20):</span>
+</div>
+<input type="hidden" id="{{graph.site}}_names_{{graph.position}}" value="{{graph.name}}" />
+<input type="hidden" id="{{graph.site}}_actual_ranks_{{graph.position}}" value="{{graph.actual}}" />
+<input type="hidden" id="{{graph.site}}_err_{{graph.position}}" value="{{graph.err}}" />
+<input type="hidden" id="{{graph.site}}_perc_err_{{graph.position}}" value="{{graph.perc_err}}" />
+<input type="hidden" id="{{graph.site}}_avg_perc_err_{{graph.position}}" value="{{graph.avg_err}}" />
+<input type="hidden" id="{{graph.site}}_avg_abs_perc_err_{{graph.position}}" value="{{graph.avg_abs_err}}" />
+{% endfor %}
+
 <script>
+	var curr_week = {{curr_week}};
 	var espn_data = {
 		x: [],
 		y: [],
 		mode: "markers+text",
 		name: "ESPN",
 		text: [],
-		textposition: 'bottom center',
+		textposition: 'top center',
 		textfont: {
 			family: 'Raleway, sans-serif'
 		},
@@ -62,7 +83,7 @@
 	var layout = {
 		title: "Projected Vs. Actual Rank",
 		xaxis: {
-			title: "Rank",
+			title: "Week {{curr_week}} Rank",
 			titlefont: {
 				family: 'Courier New, monospace',
 				size: 18,
@@ -87,7 +108,54 @@
 		fantasypros_data["x"] = [];
 		fantasypros_data["y"] = [];
 	}
+	function change_position_err(position) {
+		var sites = ["Yahoo", "ESPN", "FantasyPros"];
+		for (var i = 0; i < sites.length; ++i) {
+			var name_arr = $("#"+sites[i].toLowerCase()+"_names_"+position).val().split(",");
+			var actual_rank_arr = $("#"+sites[i].toLowerCase()+"_actual_ranks_"+position).val().split(",");
+			var perc_err_arr = $("#"+sites[i].toLowerCase()+"_perc_err_"+position).val().split(",");
+			var err_arr = $("#"+sites[i].toLowerCase()+"_err_"+position).val().split(",");
+			var d = {
+				x: name_arr,
+				y: err_arr,
+				mode: "markers+text",
+				name: sites[i],
+				text: [],
+				textposition: 'top center',
+				textfont: {
+					family: 'Raleway, sans-serif'
+				},
+				marker: {
+					size: 14,
+					color: "black"
+				},
+				type: 'scatter'
+			};
+			var l = {
+				title: "Rank Error Vs. "+sites[i]+" Projected Rank",
+				xaxis: {
+					title: "Week {{curr_week}} Projected Rank",
+					titlefont: {
+						family: 'Courier New, monospace',
+						size: 18,
+						color: '#7f7f7f'
+					}
+				},
+				yaxis: {
+					title: "Rank Error",
+					titlefont: {
+						family: 'Courier New, monospace',
+						size: 18,
+						color: '#7f7f7f'
+					}
+				}
+			}
+			Plotly.newPlot(sites[i].toLowerCase()+"_error_plot_div", [d], l);
+		}
+	}
 	function change_position(position) {
+		
+		var name_arr = $("#names_"+position).val().split(",");
 		var actual_rank_arr = $("#actual_ranks_"+position).val().split(",");
 		var espn_rank_arr = $("#espn_ranks_"+position).val().split(",");
 		var yahoo_rank_arr = $("#yahoo_ranks_"+position).val().split(",");
@@ -95,21 +163,39 @@
 
 		clear_arrays();
 		for (var i = 0; i < actual_rank_arr.length; ++i) {
-			espn_data["x"].append(actual_rank_arr[i]);
-			yahoo_data["x"].append(actual_rank_arr[i]);
-			fantasypros_data["x"].append(actual_rank_arr[i]);
 
-			espn_data["y"].append(espn_rank_arr[i]);
-			yahoo_data["y"].append(yahoo_rank_arr[i]);
-			fantasypros_data["y"].append(fantasypros_rank_arr[i]);
+			var cutoff = position === "qb" ? 30 : 40;
+			cutoff = 50;
+			if (parseFloat(actual_rank_arr[i]) <= cutoff) {
+				var espn_name = "", yahoo_name = "", fantasypros_name = "";
+				if (parseFloat(espn_rank_arr[i]) > parseFloat(yahoo_rank_arr[i]) && parseFloat(espn_rank_arr[i]) > parseFloat(fantasypros_rank_arr[i])) {
+					espn_name = name_arr[i];
+				} else if (parseFloat(yahoo_rank_arr[i]) > parseFloat(espn_rank_arr[i]) && parseFloat(yahoo_rank_arr[i]) > parseFloat(fantasypros_rank_arr[i])) {
+					yahoo_name = name_arr[i];
+				} else {
+					fantasypros_name = name_arr[i];
+				}
+				espn_data["text"].push(espn_name);
+				yahoo_data["text"].push(yahoo_name);
+				fantasypros_data["text"].push(fantasypros_name);
+
+				espn_data["x"].push(parseFloat(actual_rank_arr[i]));
+				yahoo_data["x"].push(parseFloat(actual_rank_arr[i]));
+				fantasypros_data["x"].push(parseFloat(actual_rank_arr[i]));
+
+				espn_data["y"].push(parseFloat(espn_rank_arr[i]));
+				yahoo_data["y"].push(parseFloat(yahoo_rank_arr[i]));
+				fantasypros_data["y"].push(parseFloat(fantasypros_rank_arr[i]));
+			}
 		}
 
-		layout["title"] = "Projected Vs. Actual Rank ["+position+"]";
+		layout["title"] = "Week "+curr_week+" Projected Rank Vs. Actual Rank ["+position.toUpperCase()+"]";
 		var data = [yahoo_data, espn_data, fantasypros_data];
 		Plotly.newPlot("plot_div", data, layout);
 	}
 
-	change_position("qb");
+	change_position("wr");
+	change_position_err("wr");
 
 	
 
