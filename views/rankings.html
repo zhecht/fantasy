@@ -23,12 +23,10 @@
 	<span>Average Abs Error: {{graph.avg_abs_err}}</span>
 	<span>Average Abs Error ({{graph.position}}1-{{graph.position}}10): </span>
 	<span>Average Abs Error ({{graph.position}}10-{{graph.position}}20):</span>
-
 </div>
 <input type="hidden" id="{{graph.site}}_names_{{graph.position}}" value="{{graph.name}}" />
 <input type="hidden" id="{{graph.site}}_actual_ranks_{{graph.position}}" value="{{graph.actual}}" />
 <input type="hidden" id="{{graph.site}}_err_{{graph.position}}" value="{{graph.err}}" />
-
 <input type="hidden" id="{{graph.site}}_avg_perc_err_{{graph.position}}" value="{{graph.avg_err}}" />
 <input type="hidden" id="{{graph.site}}_avg_abs_perc_err_{{graph.position}}" value="{{graph.avg_abs_err}}" />
 {% endfor %}
