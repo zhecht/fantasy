@@ -4,8 +4,8 @@ try:
 except:
   import constants
 
-import pymysql
-
+#import pymysql
+"""
 def makeDB():
   db = pymysql.connect(
     host = constants.HOST_CONST,
@@ -14,7 +14,7 @@ def makeDB():
     db = constants.DB_CONST
   )
   return db
-
+"""
 def makeCursor():
   return makeDB().cursor()
 

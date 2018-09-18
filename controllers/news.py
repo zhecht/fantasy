@@ -2,7 +2,7 @@ import datetime
 import operator
 
 from bs4 import BeautifulSoup as BS
-from dateutil.parser import parse
+#from dateutil.parser import parse
 
 try:
 	import urllib2 as urllib
@@ -44,7 +44,7 @@ def read_news(players_on_teams, players_on_FA, team_names):
 		report = row.find("div", class_="report").find("p").text
 		impact = row.find("div", class_="impact").text
 		source = row.find("div", class_="source")
-		date = unix_time_seconds(parse(row.find("div", class_="date").text))
+		#date = unix_time_seconds(parse(row.find("div", class_="date").text))
 		twitter_name = ""
 
 		if source.find("a"):

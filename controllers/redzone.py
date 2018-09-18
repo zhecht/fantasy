@@ -17,12 +17,18 @@ def fix_name(name):
 		return "ted ginn jr."
 	elif name == "ben watson":
 		return "benjamin watson"
+	elif name == "allen robinson":
+		return "allen robinson ii"
+	elif name == "todd gurley":
+		return "todd gurley ii"
+	elif name == "marvin jones jr":
+		return "marvin jones jr."
 	return name
 
 def write_redzone(curr_week=1):
+	print("WRITIING REDZONE")
 	redzone_json = {}
 	team_total_json = {}
-	file = open('static/snap_counts.txt', 'w')
 
 	for link in constants.SNAP_LINKS:
 		link = "{}3.php".format(link)
@@ -74,23 +80,32 @@ def write_redzone(curr_week=1):
 			perc_arr.append(round(perc, 2))
 
 		redzone_json[player]["looks_perc"] = ','.join(str(x) for x in perc_arr)
-		redzone_json[player].pop("team", None)
+		#redzone_json[player].pop("team", None)
 	#print(redzone_json)
 	#print(team_total_json)
 
 	with open("static/looks/redzone.json", "w") as outfile:
 		json.dump(redzone_json, outfile, indent=4)
+	with open("static/looks/team_total.json", "w") as outfile:
+		json.dump(team_total_json, outfile, indent=4)
+
 
 def read_redzone():
 	with open("static/looks/redzone.json") as fh:
 		returned_json = json.loads(fh.read())
 	return returned_json
 
+def read_team_total():
+	with open("static/looks/team_total.json") as fh:
+		returned_json = json.loads(fh.read())
+	return returned_json	
+
 if __name__ == '__main__':
 	curr_week = 2
 
 	#write_redzone(curr_week)
 	redzone_json = read_redzone()
+	team_total_json = read_team_total()
 	players_on_teams,translations = read_rosters()
 
 	top_redzone = []
@@ -107,14 +122,13 @@ if __name__ == '__main__':
 			looks = int(looks_arr[week - 1])
 			looks_perc = float(looks_perc_arr[week - 1])
 
-			if looks_perc != 0:
-				total_team_looks += int(round(looks / looks_perc))
-				total_player_looks += looks
-		
+			total_team_looks += team_total_json[redzone_json[player]["team"]][week - 1]
+			total_player_looks += looks
+
 		#for i in range(len(player), 20):
 			#player += ' '
 		if total_team_looks != 0 and total_player_looks != 0:
-			top_redzone.append({"name": player, "looks": total_player_looks, "looks_perc": round(float(total_player_looks) / total_team_looks, 2)})		
+			top_redzone.append({"name": player, "looks": total_player_looks, "looks_perc": round(float(total_player_looks) / total_team_looks, 2), "total_team_looks": total_team_looks, "team": redzone_json[player]["team"]})		
 
 
 	sorted_looks = sorted(top_redzone, key=operator.itemgetter("looks"), reverse=True)
@@ -122,7 +136,7 @@ if __name__ == '__main__':
 
 	
 	
-	print("MOST LOOKS IN REDZONE (TOTAL)")
+	print("A Redzone look is a target or rushing attempt within the opponents 20 yard line.")
 	for player in sorted_looks[:20]:
 		continue
 		print("{}\t{}".format(player["name"], player["looks"]))
@@ -130,9 +144,9 @@ if __name__ == '__main__':
 	#print("\nMOST LOOKS IN REDZONE (PERCENT OF W/R/T)")
 	print("\nPlayer|% of team's redzone looks|(redzone looks / total redzone looks)")
 	print(":--|:--|:--")
-	for player in sorted_looks_perc[:40]:
+	for player in sorted_looks_perc:
 		#print("{}\t{}%\t({}/{})".format(player["name"], player["looks_perc"] * 100, player["looks"], int(player["looks"] / player["looks_perc"])))
-		if player["looks"] >= 5:
-			print("{}|{}%|({}/{})".format(player["name"].title(), player["looks_perc"] * 100, player["looks"], int(round(player["looks"] / player["looks_perc"]))))
+		if player["looks"] >= 0 and player["team"].lower() == "det":
+			print("{}|{}%|({}/{})".format(player["name"].title(), player["looks_perc"] * 100, player["looks"], player["total_team_looks"]))
 
 

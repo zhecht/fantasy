@@ -66,7 +66,6 @@ def write_cron_fantasypros_stats(curr_week=1):
 		url = "https://www.fantasypros.com/nfl/projections/{}.php?scoring=HALF&week={}".format(position, curr_week)
 		html = urllib.urlopen(url, "lxml")
 		soup = BeautifulSoup(html, "lxml")
-		id_name = "data" if stat == "projections" else "rank-data"
 		player_rows = soup.find("table", id="data").find("tbody").find_all("tr")
 
 		for row in player_rows:
@@ -115,7 +114,7 @@ if __name__ == "__main__":
 	
 	if args.cron:
 		print("WRITING FANTASYPROS STATS")
-		#write_cron_fantasypros_stats(curr_week)
+		write_cron_fantasypros_stats(curr_week)
 		write_cron_fantasypros_rankings(curr_week)
 	else:
 		read_fantasypros_stats(curr_week, end_week)

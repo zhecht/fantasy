@@ -2,6 +2,7 @@
 from bs4 import BeautifulSoup
 
 import argparse
+import os
 import sys
 import re
 import operator
@@ -65,6 +66,8 @@ def write_cron_espn_stats(curr_week, end_week):
 				except:
 					pass
 		
+		if os.path.isdir("static/projections/{}".format(week)) is False:
+			os.mkdir("static/projections/{}".format(week))
 		with open("static/projections/{}/espn.json".format(week), "w") as outfile:
 			json.dump(espn_stats, outfile, indent=4)
 	
@@ -99,6 +102,12 @@ def write_cron_espn_rankings(curr_week, end_week):
 		espn_actual_sorted = sorted(espn_actual[position], key=operator.itemgetter("actual"), reverse=True)
 		for rank_idx, rank in enumerate(espn_actual[position]):
 			espn_ranks[rank["name"]] = rank_idx + 1
+
+		if os.path.isdir("static/rankings/{}".format(curr_week)) is False:
+			os.mkdir("static/rankings/{}".format(curr_week))
+
+		if os.path.isdir("static/rankings/{}/{}".format(curr_week, position)) is False:
+			os.mkdir("static/rankings/{}/{}".format(curr_week, position))
 
 		with open("static/rankings/{}/{}/rankings.json".format(curr_week, position), "w") as fh:
 			json.dump(espn_ranks, fh, indent=4)
@@ -158,7 +167,7 @@ if __name__ == "__main__":
 	
 	if args.cron:
 		print("WRITING ESPN STATS")
-		#write_cron_espn_stats(curr_week, end_week)
+		write_cron_espn_stats(curr_week, end_week)
 		write_cron_espn_rankings(curr_week, end_week)
 	else:
 		read_espn_stats(curr_week, end_week)

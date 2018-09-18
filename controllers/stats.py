@@ -27,7 +27,7 @@ def write_cron_yahoo_FA():
 		for count in range(0,150,25):
 			fa_json = {}
 			page, extra_resources = session.open("https://football.fantasysports.yahoo.com/f1/1000110/players?sort=PTS&count={}".format(count))
-		
+
 			if page.http_status == 200:
 				if not logged_in:
 					#SIGN IN
@@ -54,9 +54,10 @@ def write_cron_yahoo_FA():
 				team = span.split(" - ")[0]
 				position = span.split(" - ")[1]
 				fa_json[full_name] = [team, position]
-				
+
 			with open("static/players/FA/FA_{}_{}.json".format(count, count + 25), "w") as outfile:
 					json.dump(fa_json, outfile, indent=4)
+		return
 
 def write_cron_yahoo_FA_actual(start_week, end_week):
 	ghost = Ghost()
@@ -99,10 +100,15 @@ def write_cron_yahoo_FA_actual(start_week, end_week):
 
 				actuals_json[full_name] = actual
 
+			if os.path.isdir("static/projections/{}".format(week)) is False:
+				os.mkdir("static/projections/{}".format(week))
+
 			if os.path.isdir("static/projections/{}/FA".format(week)) is False:
 				os.mkdir("static/projections/{}/FA".format(week))
+
 			with open("static/projections/{}/FA/actual_{}_{}.json".format(week, count, count + 25), "w") as outfile:
 					json.dump(actuals_json, outfile, indent=4)
+		return
 
 def write_cron_yahoo_FA_proj(start_week, end_week):
 	ghost = Ghost()
@@ -143,11 +149,16 @@ def write_cron_yahoo_FA_proj(start_week, end_week):
 				else:
 					proj = float(proj)
 				projections_json[full_name] = proj
-				
+			
+			if os.path.isdir("static/projections/{}".format(week)) is False:
+				os.mkdir("static/projections/{}".format(week))
+
 			if os.path.isdir("static/projections/{}/FA".format(week)) is False:
 				os.mkdir("static/projections/{}/FA".format(week))
+
 			with open("static/projections/{}/FA/proj_{}_{}.json".format(week, count, count + 25), "w") as outfile:
 					json.dump(projections_json, outfile, indent=4)
+		return
 
 def write_cron_yahoo_stats(start_week, end_week):
 	ghost = Ghost()
@@ -226,24 +237,16 @@ def write_cron_yahoo_stats(start_week, end_week):
 						actuals_json[p2_full_name] = p2_act
 					#print(p1_name,p1_proj,p1_act)
 					#print(p2_name,p2_proj,p2_act)
-					"""
-					if p1_id != None:
-					  #print(p1_id,p1_name,p1_team,getName(p1_id))
-					  if getName(p1_id) == None:
-						createPlayer(p1_id, p1_name, p1_team)
-					  updateStats(p1_id, week, p1_proj, p1_act)
-					if p2_id != None:
-					  if getName(p2_id) == None:
-						createPlayer(p2_id, p2_name, p2_team)
-					  updateStats(p2_id, week, p2_proj, p2_act)
-					"""
+		if os.path.isdir("static/projections/{}".format(week)) is False:
+			os.mkdir("static/projections/{}".format(week))
+			
 		with open("static/projections/{}/yahoo.json".format(week), "w") as outfile:
 			json.dump(projections_json, outfile, indent=4)
 
 		with open("static/projections/{}/actual.json".format(week), "w") as outfile:
 			json.dump(actuals_json, outfile, indent=4)
 
-	return
+		return
 
 def read_yahoo_stats(curr_week, end_week):
 	yahoo_json = {}
@@ -309,10 +312,22 @@ if __name__ == "__main__":
 
 	if args.cron:
 		print("WRITING YAHOO STATS")
-		#write_cron_yahoo_stats(curr_week, end_week)
-		#write_cron_yahoo_FA_actual(curr_week, end_week)
-		#write_cron_yahoo_FA_proj(curr_week, end_week)
-		write_cron_yahoo_FA()
+		try:
+			write_cron_yahoo_stats(curr_week, end_week)
+		except:
+			pass
+		try:
+			write_cron_yahoo_FA()
+		except:
+			pass
+		try:
+			write_cron_yahoo_FA_actual(curr_week, end_week)
+		except:
+			pass
+		try:
+			write_cron_yahoo_FA_proj(curr_week, end_week)
+		except:
+			pass
 	else:
 		read_yahoo_stats(curr_week, end_week)
 		#test(2,3)
