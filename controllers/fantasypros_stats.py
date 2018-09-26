@@ -20,16 +20,22 @@ def merge_two_dicts(x, y):
 	return z
 
 def fix_name(name):
-	if name == "paul richardson":
-		return "paul richardson jr."
-	elif name == "allen robinson":
-		return "allen robinson ii"
+	if name == "todd gurley":
+		return "todd gurley ii"
 	elif name == "mitch trubisky":
 		return "mitchell trubisky"
-	elif name == "todd gurley":
-		return "todd gurley ii"
 	elif name == "willie snead":
 		return "willie snead iv"
+	elif name == "allen robinson":
+		return "allen robinson ii"
+	elif name == "ted ginn":
+		return "ted ginn jr."
+	elif name == "marvin jones":
+		return "marvin jones jr."
+	elif name == "will fuller":
+		return "will fuller v"
+	elif name == "paul richardson":
+		return "paul richardson jr."
 	return name
 
 def write_cron_fantasypros_rankings(curr_week=1):
@@ -81,10 +87,8 @@ def write_cron_fantasypros_stats(curr_week=1):
 
 def read_fantasypros_stats(curr_week, end_week):
 	fantasypros_json = {}
-	for week in range(curr_week, end_week):
-		with open("static/projections/{}/fantasypros.json".format(week)) as fh:
-			returned_json = json.loads(fh.read())
-			fantasypros_json = merge_two_dicts(returned_json, fantasypros_json)
+	with open("static/projections/{}/fantasypros.json".format(curr_week)) as fh:
+		fantasypros_json = json.loads(fh.read())
 	return fantasypros_json
 
 def read_fantasypros_rankings(curr_week, end_week):

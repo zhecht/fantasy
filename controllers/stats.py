@@ -24,7 +24,7 @@ def write_cron_yahoo_FA():
 	with ghost.start() as session:
 		session.wait_timeout = 100
 
-		for count in range(0,150,25):
+		for count in range(0,100,25):
 			fa_json = {}
 			page, extra_resources = session.open("https://football.fantasysports.yahoo.com/f1/1000110/players?sort=PTS&count={}".format(count))
 
@@ -92,8 +92,10 @@ def write_cron_yahoo_FA_actual(start_week, end_week):
 			for player_row in rows[2:]:
 				name_div = player_row.find('div',class_='ysf-player-name')
 				full_name = name_div.find('a').text.lower().replace("'", "")				
-				actual = player_row.find_all("td")[6].find("div").text
-				if actual == "-":
+				#actual = player_row.find_all("td")[7].find("div").text
+				actual = player_row.find_all("td", class_="Ta-end")[0].find("div").text
+
+				if actual == "-" or actual == u'\u2013':
 					actual = 0
 				else:
 					actual = float(actual)
@@ -143,8 +145,10 @@ def write_cron_yahoo_FA_proj(start_week, end_week):
 			for player_row in rows[2:]:
 				name_div = player_row.find('div',class_='ysf-player-name')
 				full_name = name_div.find('a').text.lower().replace("'", "")
-				proj = player_row.find_all("td")[6].find("div").text
-				if proj == "-":
+				#proj = player_row.find_all("td")[7].find("div").text
+				proj = player_row.find_all("td", class_="Ta-end")[0].find("div").text
+
+				if proj == "-" or proj == u'\u2013':
 					proj = 0
 				else:
 					proj = float(proj)
@@ -207,27 +211,35 @@ def write_cron_yahoo_stats(start_week, end_week):
 					try:
 						p1_id = all_tds[1].find('a',class_='playernote')['data-ys-playerid']
 						name_div = all_tds[1].find('div',class_='ysf-player-name')
-						p1_name = name_div.find('a').text
-						p1_full_name = name_translations[p1_name]
 						p1_team = name_div.find('span').text.split(" - ")[0]
+						p1_name = name_div.find('a').text
+						p1_full_name = name_translations[p1_name+" "+p1_team]
+						
 						p1_proj = all_tds[2].find('div').text
 						p1_act = all_tds[3].find('a')
-						p1_act = "-" if p1_act is None else all_tds[3].find('a').text					
+						p1_act = "-" if p1_act is None else all_tds[3].find('a').text
 					except:
 						p1_id = None
 
 					try:
 						p2_id = all_tds[9].find('a',class_='playernote')['data-ys-playerid']
 						name_div = all_tds[9].find('div',class_='ysf-player-name')
-						p2_name = name_div.find('a').text
-						p2_full_name = name_translations[p2_name]
 						p2_team = name_div.find('span').text.split(" - ")[0]
+						p2_name = name_div.find('a').text
+						p2_full_name = name_translations[p2_name+" "+p2_team]
+						
 						p2_proj = all_tds[8].find('div').text
 						p2_act = all_tds[7].find('a')
-						p2_act = "-" if p2_act is None else all_tds[7].find('a').text					
+						p2_act = "-" if p2_act is None else all_tds[7].find('a').text
 					except:
 						p2_id = None
 
+					if p1_proj == u'\u2013':
+						p1_proj = 0
+					if p2_proj == u'\u2013':
+						p2_proj = 0
+
+					#print(p2_full_name, p2_act, p2_proj)
 					if p1_full_name not in projections_json:
 						projections_json[p1_full_name] = float(p1_proj)
 						actuals_json[p1_full_name] = p1_act
@@ -235,6 +247,7 @@ def write_cron_yahoo_stats(start_week, end_week):
 					if p2_full_name not in projections_json:
 						projections_json[p2_full_name] = float(p2_proj)
 						actuals_json[p2_full_name] = p2_act
+					
 					#print(p1_name,p1_proj,p1_act)
 					#print(p2_name,p2_proj,p2_act)
 		if os.path.isdir("static/projections/{}".format(week)) is False:
@@ -281,16 +294,15 @@ def read_yahoo_rankings(curr_week, players_on_teams):
 
 def read_actual_stats(curr_week, end_week):
 	actual_json = {}
-	for week in range(curr_week, end_week):
-		with open("static/projections/{}/actual.json".format(week)) as fh:
+	with open("static/projections/{}/actual.json".format(curr_week)) as fh:
+		returned_json = json.loads(fh.read())
+		actual_json = merge_two_dicts(returned_json, actual_json)
+
+	FA_actual_files = glob.glob("static/projections/{}/FA/actual*".format(curr_week))
+	for filename in FA_actual_files:
+		with open(filename) as fh:
 			returned_json = json.loads(fh.read())
 			actual_json = merge_two_dicts(returned_json, actual_json)
-
-		FA_actual_files = glob.glob("static/projections/{}/FA/actual*".format(week))
-		for filename in FA_actual_files:
-			with open(filename) as fh:
-				returned_json = json.loads(fh.read())
-				actual_json = merge_two_dicts(returned_json, actual_json)
 	return actual_json
 
 if __name__ == "__main__":
@@ -312,25 +324,12 @@ if __name__ == "__main__":
 
 	if args.cron:
 		print("WRITING YAHOO STATS")
-		try:
-			write_cron_yahoo_stats(curr_week, end_week)
-		except:
-			pass
-		try:
-			write_cron_yahoo_FA()
-		except:
-			pass
-		try:
-			write_cron_yahoo_FA_actual(curr_week, end_week)
-		except:
-			pass
-		try:
-			write_cron_yahoo_FA_proj(curr_week, end_week)
-		except:
-			pass
+		write_cron_yahoo_stats(curr_week, end_week)
+		write_cron_yahoo_FA()
+		write_cron_yahoo_FA_actual(curr_week, end_week)
+		write_cron_yahoo_FA_proj(curr_week, end_week)
 	else:
 		read_yahoo_stats(curr_week, end_week)
-		#test(2,3)
 
 
 

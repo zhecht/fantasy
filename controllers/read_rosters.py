@@ -46,17 +46,15 @@ def write_cron_rosters():
 	oauth = oauth.MyOAuth()
 
 	for i in range(1,13):
-		html = oauth.getData("https://fantasysports.yahooapis.com/fantasy/v2/team/{}.t.{}/roster".format(oauth.league_key, i)).text
-		
+		html = oauth.getData("https://fantasysports.yahooapis.com/fantasy/v2/team/{}.t.{}/roster".format(oauth.league_key, i)).text.encode("utf-8")
 		with open("static/players/{}/roster.xml".format(i), "w") as fh:
 			fh.write(html)
-		time.sleep(3)
 
 def write_cron_standings():
 	import oauth
 	oauth = oauth.MyOAuth()
 
-	xml = oauth.getData("https://fantasysports.yahooapis.com/fantasy/v2/league/{}/standings".format(oauth.league_key)).text
+	xml = oauth.getData("https://fantasysports.yahooapis.com/fantasy/v2/league/{}/standings".format(oauth.league_key)).text.encode("utf-8")
 	with open("static/standings.xml", "w") as fh:
 		fh.write(xml)
 
@@ -71,9 +69,32 @@ def read_FA():
 		for player in fa_json:
 			
 			team, position = fa_json[player]
+			if position == "WR,RB":
+				position = "WR"
 			players_on_FA[player] = {"team_id": 0, "position": position, "pid": 0, "nfl_team": team}
 
 	return players_on_FA
+
+def read_FA_translations():
+	files = glob.glob("static/players/FA/*")
+	players_on_FA = {}
+	translations = {}
+
+	for fn in files:
+		fa_json = {}
+		with open(fn) as fh:
+			fa_json = json.loads(fh.read())
+		for player in fa_json:
+			
+			team, position = fa_json[player]
+			if position == "WR,RB":
+				position = "WR"
+			players_on_FA[player] = {"team_id": 0, "position": position, "pid": 0, "nfl_team": team}
+			if position == "DEF":				
+				translations[full] = full
+			else:
+				translations["{}. {}".format(first[0], last, nfl_team)] = full.lower().replace("'", "")
+	return players_on_FA, translations
 
 def read_rosters():
 	players_on_teams = {}
@@ -92,8 +113,15 @@ def read_rosters():
 			selected_pos = player.findall('.//base:position', namespaces=ns)[-1].text
 			nfl_team = player.find('.//base:editorial_team_abbr', namespaces=ns).text
 
+			if pos == "WR,RB":
+				pos = "WR"
+
 			players_on_teams[full.lower().replace("'", "")] = {"team_id": i, "position": pos, "pid": pid, "nfl_team": nfl_team, "fantasy_position": position_priority[selected_pos]}
-			name_translations["{}. {}".format(first[0], last)] = full.lower().replace("'", "")
+			if pos == "DEF":				
+				name_translations[full] = full
+			else:
+				name_translations["{}. {} {}".format(first[0], last, nfl_team)] = full.lower().replace("'", "")
+
 
 	return players_on_teams, name_translations
 
@@ -119,7 +147,7 @@ if __name__ == "__main__":
 
 	if args.cron:
 		print("WRITING ROSTERS")
-		#write_cron_standings()
-		#write_cron_rosters()
+		write_cron_standings()
+		write_cron_rosters()
 	else:
 		pass

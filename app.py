@@ -5,6 +5,7 @@ import controllers
 app = Flask(__name__, template_folder='views')
 
 app.register_blueprint(controllers.main)
+app.register_blueprint(controllers.extension)
 app.register_blueprint(controllers.team)
 app.register_blueprint(controllers.graphs)
 app.register_blueprint(controllers.rankings)

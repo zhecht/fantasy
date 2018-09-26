@@ -73,34 +73,36 @@ def write_cron_espn_stats(curr_week, end_week):
 	
 	
 def write_cron_espn_rankings(curr_week, end_week):
-
+	print("WRITING ACTUAL RANKINGS")
 	espn_actual = {}
 	for idx, position in enumerate(["qb", "rb", "wr", "te"]):
 		espn_actual[position] = []
-		url = "http://games.espn.com/ffl/leaders?&scoringPeriodId={}&slotCategoryId={}".format(curr_week, idx * 2)
-		html = urllib.urlopen(url).read()
-		soup = BeautifulSoup(html, "lxml")
-		player_rows = soup.find_all("tr", class_="pncPlayerRow")
+		
+		for start_idx in range(0, 100, 50):
+			url = "http://games.espn.com/ffl/leaders?&scoringPeriodId={}&slotCategoryId={}&startIndex={}".format(curr_week, idx * 2, start_idx)
+			html = urllib.urlopen(url).read()
+			soup = BeautifulSoup(html, "lxml")
+			player_rows = soup.find_all("tr", class_="pncPlayerRow")
 
-		for row in player_rows:
-			all_tds = row.find_all("td")
-			name_link = all_tds[0].find("a")
-			full_name_arr = name_link.text.split(" ")
-			full_name = fix_name(name_link.text.lower().replace("'", ""))
-			try:
-				rec = float(all_tds[-8].text)
-				act = float(all_tds[-1].text)
-				
-				if position != "qb":
-					act -= (rec / 2.0)
+			for row in player_rows:
+				all_tds = row.find_all("td")
+				name_link = all_tds[0].find("a")
+				full_name_arr = name_link.text.split(" ")
+				full_name = fix_name(name_link.text.lower().replace("'", ""))
+				try:
+					rec = float(all_tds[-8].text)
+					act = float(all_tds[-1].text)
+					
+					if position != "qb":
+						act -= (rec / 2.0)
 
-				if full_name not in espn_actual[position]:
-					espn_actual[position].append({"actual": round(act, 2), "name": full_name})
-			except:
-				pass
+					if full_name not in espn_actual[position]:
+						espn_actual[position].append({"actual": round(act, 2), "name": full_name})
+				except:
+					pass
 		espn_ranks = {}
 		espn_actual_sorted = sorted(espn_actual[position], key=operator.itemgetter("actual"), reverse=True)
-		for rank_idx, rank in enumerate(espn_actual[position]):
+		for rank_idx, rank in enumerate(espn_actual_sorted):
 			espn_ranks[rank["name"]] = rank_idx + 1
 
 		if os.path.isdir("static/rankings/{}".format(curr_week)) is False:

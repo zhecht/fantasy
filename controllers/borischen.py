@@ -2,6 +2,32 @@ import argparse
 import json
 from subprocess import call
 
+from read_rosters import *
+
+def merge_two_dicts(x, y):
+	z = x.copy()
+	z.update(y)
+	return z
+
+def fix_name(name):
+	if name == "todd gurley":
+		return "todd gurley ii"
+	elif name == "mitch trubisky":
+		return "mitchell trubisky"
+	elif name == "willie snead":
+		return "willie snead iv"
+	elif name == "allen robinson":
+		return "allen robinson ii"
+	elif name == "ted ginn":
+		return "ted ginn jr."
+	elif name == "marvin jones":
+		return "marvin jones jr."
+	elif name == "will fuller":
+		return "will fuller v"
+	elif name == "paul richardson":
+		return "paul richardson jr."
+	return name
+
 def read_borischen_rankings(curr_week=1):
 	rankings = {}
 	for position in ["qb", "rb", "wr", "te"]:
@@ -12,16 +38,22 @@ def read_borischen_rankings(curr_week=1):
 
 def read_github_borischen_rankings(curr_week=1):
 	rankings = {}
+	players_on_teams, name_translations = read_rosters()
+	players_on_FA = read_FA()
+	players_on_teams = merge_two_dicts(players_on_teams, players_on_FA)
 
 	for pos in ["qb", "rb", "wr", "te"]:
 		rankings[pos] = {}
 		f = open("/Users/hechtor/Documents/projects/fftiers/data/{}/w{}.csv".format(pos, curr_week), "r")
-		idx = 0
+		idx = 1
 
 		for line in f:
-			if idx != 0:
-				split_line = line.split(",")
-				rankings[pos][split_line[1].lower().replace("'", "")] = int(split_line[0])
+			split_line = line.split(",")
+			name = fix_name(split_line[1].lower().replace("'", ""))
+
+			if name not in players_on_teams:
+				continue
+			rankings[pos][name] = idx
 			idx += 1
 		f.close()
 	return rankings

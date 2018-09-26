@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.1000110/standings" time="118.24297904968ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="120" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
+<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.1000110/standings" time="161.18907928467ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="120" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
  <league>
   <league_key>380.l.1000110</league_key>
   <league_id>1000110</league_id>
@@ -8,9 +8,9 @@
   <logo_url></logo_url>
   <draft_status>postdraft</draft_status>
   <num_teams>12</num_teams>
-  <edit_key>2</edit_key>
+  <edit_key>4</edit_key>
   <weekly_deadline/>
-  <league_update_timestamp>1537164115</league_update_timestamp>
+  <league_update_timestamp>1538375233</league_update_timestamp>
   <scoring_type>head</scoring_type>
   <league_type>private</league_type>
   <renew>371_1056233</renew>
@@ -19,7 +19,7 @@
   <allow_add_to_dl_extra_pos>1</allow_add_to_dl_extra_pos>
   <is_pro_league>0</is_pro_league>
   <is_cash_league>0</is_cash_league>
-  <current_week>2</current_week>
+  <current_week>4</current_week>
   <start_week>1</start_week>
   <start_date>2018-09-06</start_date>
   <end_week>16</end_week>
@@ -28,68 +28,6 @@
   <season>2018</season>
   <standings>
    <teams count="12">
-    <team>
-     <team_key>380.l.1000110.t.2</team_key>
-     <team_id>2</team_id>
-     <name>A Team Has No Name</name>
-     <url>https://football.fantasysports.yahoo.com/f1/1000110/2</url>
-     <team_logos>
-      <team_logo>
-       <size>large</size>
-       <url>https://s.yimg.com/cv/api/default/20180727/nfl_04.png</url>
-      </team_logo>
-     </team_logos>
-     <waiver_priority>2</waiver_priority>
-     <number_of_moves>0</number_of_moves>
-     <number_of_trades>0</number_of_trades>
-     <roster_adds>
-      <coverage_type>week</coverage_type>
-      <coverage_value>2</coverage_value>
-      <value>0</value>
-     </roster_adds>
-     <league_scoring_type>head</league_scoring_type>
-     <has_draft_grade>1</has_draft_grade>
-     <draft_grade>B</draft_grade>
-     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/1000110/2/draftrecap</draft_recap_url>
-     <managers>
-      <manager>
-       <manager_id>2</manager_id>
-       <nickname>Matt</nickname>
-       <guid>JCBOKTD2WOTVLBQ7P5U6GEIU2Q</guid>
-       <email>mssilv@yahoo.com</email>
-       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
-      </manager>
-      <manager>
-       <manager_id>23</manager_id>
-       <nickname>Jason</nickname>
-       <guid>2BIWWAIAGS52RL3IG2HZDSE5ZI</guid>
-       <is_comanager>1</is_comanager>
-       <email>jasonbass17@yahoo.com</email>
-       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
-      </manager>
-     </managers>
-     <team_points>
-      <coverage_type>season</coverage_type>
-      <season>2018</season>
-      <total>141.96</total>
-     </team_points>
-     <team_standings>
-      <rank>1</rank>
-      <playoff_seed>1</playoff_seed>
-      <outcome_totals>
-       <wins>1</wins>
-       <losses>0</losses>
-       <ties>0</ties>
-       <percentage>1.000</percentage>
-      </outcome_totals>
-      <streak>
-       <type>win</type>
-       <value>1</value>
-      </streak>
-      <points_for>141.96</points_for>
-      <points_against>109.48</points_against>
-     </team_standings>
-    </team>
     <team>
      <team_key>380.l.1000110.t.4</team_key>
      <team_id>4</team_id>
@@ -101,13 +39,13 @@
        <url>https://ct.yimg.com/cy/4433/36865050316_34f113_192sq.jpg?ct=fantasy</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>6</waiver_priority>
-     <number_of_moves>2</number_of_moves>
+     <waiver_priority>5</waiver_priority>
+     <number_of_moves>3</number_of_moves>
      <number_of_trades>0</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
-      <coverage_value>2</coverage_value>
-      <value>2</value>
+      <coverage_value>4</coverage_value>
+      <value>1</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
      <has_draft_grade>1</has_draft_grade>
@@ -133,406 +71,34 @@
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2018</season>
-      <total>135.04</total>
+      <total>392.14</total>
      </team_points>
      <team_standings>
-      <rank>2</rank>
-      <playoff_seed>2</playoff_seed>
+      <rank>1</rank>
+      <playoff_seed>1</playoff_seed>
       <outcome_totals>
-       <wins>1</wins>
+       <wins>3</wins>
        <losses>0</losses>
        <ties>0</ties>
        <percentage>1.000</percentage>
       </outcome_totals>
       <streak>
        <type>win</type>
-       <value>1</value>
+       <value>3</value>
       </streak>
-      <points_for>135.04</points_for>
-      <points_against>107.54</points_against>
-     </team_standings>
-    </team>
-    <team>
-     <team_key>380.l.1000110.t.9</team_key>
-     <team_id>9</team_id>
-     <name>Daddy's Are Home</name>
-     <url>https://football.fantasysports.yahoo.com/f1/1000110/9</url>
-     <team_logos>
-      <team_logo>
-       <size>large</size>
-       <url>https://s.yimg.com/cv/api/default/20180727/nfl_12.png</url>
-      </team_logo>
-     </team_logos>
-     <waiver_priority>4</waiver_priority>
-     <number_of_moves>2</number_of_moves>
-     <number_of_trades>0</number_of_trades>
-     <roster_adds>
-      <coverage_type>week</coverage_type>
-      <coverage_value>2</coverage_value>
-      <value>2</value>
-     </roster_adds>
-     <league_scoring_type>head</league_scoring_type>
-     <has_draft_grade>1</has_draft_grade>
-     <draft_grade>C</draft_grade>
-     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/1000110/9/draftrecap</draft_recap_url>
-     <managers>
-      <manager>
-       <manager_id>9</manager_id>
-       <nickname>Adam</nickname>
-       <guid>LOS4KE4OJIDVOM5CLCVP6KOS6I</guid>
-       <email>adamseidenberg@gmail.com</email>
-       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
-      </manager>
-      <manager>
-       <manager_id>14</manager_id>
-       <nickname>Kyle</nickname>
-       <guid>6YDVQSYTIA6BZCRXVJNEBXE34E</guid>
-       <is_comanager>1</is_comanager>
-       <email>kman150@yahoo.com</email>
-       <image_url>https://ct.yimg.com/cy/4643/38333243394_cfeae0_64sq.jpg</image_url>
-      </manager>
-     </managers>
-     <team_points>
-      <coverage_type>season</coverage_type>
-      <season>2018</season>
-      <total>123.86</total>
-     </team_points>
-     <team_standings>
-      <rank>3</rank>
-      <playoff_seed>3</playoff_seed>
-      <outcome_totals>
-       <wins>1</wins>
-       <losses>0</losses>
-       <ties>0</ties>
-       <percentage>1.000</percentage>
-      </outcome_totals>
-      <streak>
-       <type>win</type>
-       <value>1</value>
-      </streak>
-      <points_for>123.86</points_for>
-      <points_against>122.16</points_against>
-     </team_standings>
-    </team>
-    <team>
-     <team_key>380.l.1000110.t.12</team_key>
-     <team_id>12</team_id>
-     <name>Full Chubb</name>
-     <url>https://football.fantasysports.yahoo.com/f1/1000110/12</url>
-     <team_logos>
-      <team_logo>
-       <size>large</size>
-       <url>https://ct.yimg.com/cy/1871/43725325441_250e10_192sq.jpg?ct=fantasy?ct=fantasy</url>
-      </team_logo>
-     </team_logos>
-     <waiver_priority>10</waiver_priority>
-     <number_of_moves>4</number_of_moves>
-     <number_of_trades>0</number_of_trades>
-     <roster_adds>
-      <coverage_type>week</coverage_type>
-      <coverage_value>2</coverage_value>
-      <value>2</value>
-     </roster_adds>
-     <league_scoring_type>head</league_scoring_type>
-     <has_draft_grade>1</has_draft_grade>
-     <draft_grade>B</draft_grade>
-     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/1000110/12/draftrecap</draft_recap_url>
-     <managers>
-      <manager>
-       <manager_id>12</manager_id>
-       <nickname>Tyler</nickname>
-       <guid>J6HE657H4U7ECXFG4TIQGFDC2M</guid>
-       <email>tyjama@umich.edu</email>
-       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
-      </manager>
-      <manager>
-       <manager_id>13</manager_id>
-       <nickname>Stone Mitchell</nickname>
-       <guid>5IXSGKJ74JXEKYKCSOCEKMWMNQ</guid>
-       <is_comanager>1</is_comanager>
-       <email>stonemtchll@yahoo.com</email>
-       <image_url>https://ct.yimg.com/cy/4692/38134671550_f09cd4_64sq.jpg</image_url>
-      </manager>
-     </managers>
-     <team_points>
-      <coverage_type>season</coverage_type>
-      <season>2018</season>
-      <total>118.64</total>
-     </team_points>
-     <team_standings>
-      <rank>4</rank>
-      <playoff_seed>4</playoff_seed>
-      <outcome_totals>
-       <wins>1</wins>
-       <losses>0</losses>
-       <ties>0</ties>
-       <percentage>1.000</percentage>
-      </outcome_totals>
-      <streak>
-       <type>win</type>
-       <value>1</value>
-      </streak>
-      <points_for>118.64</points_for>
-      <points_against>112.72</points_against>
-     </team_standings>
-    </team>
-    <team>
-     <team_key>380.l.1000110.t.8</team_key>
-     <team_id>8</team_id>
-     <name>Can you DIGGS it?</name>
-     <url>https://football.fantasysports.yahoo.com/f1/1000110/8</url>
-     <team_logos>
-      <team_logo>
-       <size>large</size>
-       <url>https://ct.yimg.com/cy/1781/30434580128_aac914_192sq.jpg?ct=fantasy</url>
-      </team_logo>
-     </team_logos>
-     <waiver_priority>7</waiver_priority>
-     <number_of_moves>1</number_of_moves>
-     <number_of_trades>0</number_of_trades>
-     <roster_adds>
-      <coverage_type>week</coverage_type>
-      <coverage_value>2</coverage_value>
-      <value>0</value>
-     </roster_adds>
-     <league_scoring_type>head</league_scoring_type>
-     <has_draft_grade>1</has_draft_grade>
-     <draft_grade>C-</draft_grade>
-     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/1000110/8/draftrecap</draft_recap_url>
-     <managers>
-      <manager>
-       <manager_id>8</manager_id>
-       <nickname>Hippopotamus</nickname>
-       <guid>V3VVCED2XND44ZAD3GWQZBETCQ</guid>
-       <email>deadchain219@aol.com</email>
-       <image_url>https://ct.yimg.com/cy/4520/27081192959_7ea20a_64sq.jpg</image_url>
-      </manager>
-      <manager>
-       <manager_id>24</manager_id>
-       <nickname>Henry Goldman</nickname>
-       <guid>LRCZ7GH6S2PAOOMEVKGUTAP5CU</guid>
-       <is_comanager>1</is_comanager>
-       <email>henrygoldman1014@yahoo.com</email>
-       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
-      </manager>
-     </managers>
-     <team_points>
-      <coverage_type>season</coverage_type>
-      <season>2018</season>
-      <total>116.20</total>
-     </team_points>
-     <team_standings>
-      <rank>5</rank>
-      <playoff_seed>5</playoff_seed>
-      <outcome_totals>
-       <wins>1</wins>
-       <losses>0</losses>
-       <ties>0</ties>
-       <percentage>1.000</percentage>
-      </outcome_totals>
-      <streak>
-       <type>win</type>
-       <value>1</value>
-      </streak>
-      <points_for>116.20</points_for>
-      <points_against>111.46</points_against>
-     </team_standings>
-    </team>
-    <team>
-     <team_key>380.l.1000110.t.3</team_key>
-     <team_id>3</team_id>
-     <name>Pan Seared Halibut</name>
-     <url>https://football.fantasysports.yahoo.com/f1/1000110/3</url>
-     <team_logos>
-      <team_logo>
-       <size>large</size>
-       <url>https://ct.yimg.com/cy/1756/42514747800_d7cd15_192sq.jpg?ct=fantasy</url>
-      </team_logo>
-     </team_logos>
-     <waiver_priority>8</waiver_priority>
-     <number_of_moves>1</number_of_moves>
-     <number_of_trades>0</number_of_trades>
-     <roster_adds>
-      <coverage_type>week</coverage_type>
-      <coverage_value>2</coverage_value>
-      <value>1</value>
-     </roster_adds>
-     <league_scoring_type>head</league_scoring_type>
-     <has_draft_grade>1</has_draft_grade>
-     <draft_grade>B</draft_grade>
-     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/1000110/3/draftrecap</draft_recap_url>
-     <managers>
-      <manager>
-       <manager_id>3</manager_id>
-       <nickname>Evan</nickname>
-       <guid>4S47CUP6D3SYNEJJPP6D5E2MYY</guid>
-       <email>tabackevan@yahoo.com</email>
-       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
-      </manager>
-      <manager>
-       <manager_id>19</manager_id>
-       <nickname>Jason</nickname>
-       <guid>ZQKWBYLMDAQ6DVLPFWWRMRQMUQ</guid>
-       <is_comanager>1</is_comanager>
-       <email>jasontgold12@yahoo.com</email>
-       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
-      </manager>
-     </managers>
-     <team_points>
-      <coverage_type>season</coverage_type>
-      <season>2018</season>
-      <total>102.14</total>
-     </team_points>
-     <team_standings>
-      <rank>6</rank>
-      <playoff_seed>6</playoff_seed>
-      <outcome_totals>
-       <wins>1</wins>
-       <losses>0</losses>
-       <ties>0</ties>
-       <percentage>1.000</percentage>
-      </outcome_totals>
-      <streak>
-       <type>win</type>
-       <value>1</value>
-      </streak>
-      <points_for>102.14</points_for>
-      <points_against>95.02</points_against>
-     </team_standings>
-    </team>
-    <team>
-     <team_key>380.l.1000110.t.5</team_key>
-     <team_id>5</team_id>
-     <name>Jarvis Laundry</name>
-     <url>https://football.fantasysports.yahoo.com/f1/1000110/5</url>
-     <team_logos>
-      <team_logo>
-       <size>large</size>
-       <url>https://ct.yimg.com/cy/1792/43385566645_38a289_192sq.jpg?ct=fantasy</url>
-      </team_logo>
-     </team_logos>
-     <waiver_priority>3</waiver_priority>
-     <number_of_moves>2</number_of_moves>
-     <number_of_trades>0</number_of_trades>
-     <roster_adds>
-      <coverage_type>week</coverage_type>
-      <coverage_value>2</coverage_value>
-      <value>1</value>
-     </roster_adds>
-     <league_scoring_type>head</league_scoring_type>
-     <has_draft_grade>1</has_draft_grade>
-     <draft_grade>C</draft_grade>
-     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/1000110/5/draftrecap</draft_recap_url>
-     <managers>
-      <manager>
-       <manager_id>5</manager_id>
-       <nickname>Charlie</nickname>
-       <guid>GGIFVNDUASI7KWFZPEP2KBYVCQ</guid>
-       <email>charliesprayregen@gmail.com</email>
-       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
-      </manager>
-      <manager>
-       <manager_id>17</manager_id>
-       <nickname>Zack Karmin</nickname>
-       <guid>5BSPVWUAVXZQIZ3SHOJSIONTFQ</guid>
-       <is_comanager>1</is_comanager>
-       <email>zackkarmin@yahoo.com</email>
-       <image_url>https://ct.yimg.com/cy/4578/38694432401_c1eee0_64sq.jpg</image_url>
-      </manager>
-     </managers>
-     <team_points>
-      <coverage_type>season</coverage_type>
-      <season>2018</season>
-      <total>122.16</total>
-     </team_points>
-     <team_standings>
-      <rank>7</rank>
-      <playoff_seed>7</playoff_seed>
-      <outcome_totals>
-       <wins>0</wins>
-       <losses>1</losses>
-       <ties>0</ties>
-       <percentage>.000</percentage>
-      </outcome_totals>
-      <streak>
-       <type>loss</type>
-       <value>1</value>
-      </streak>
-      <points_for>122.16</points_for>
-      <points_against>123.86</points_against>
-     </team_standings>
-    </team>
-    <team>
-     <team_key>380.l.1000110.t.7</team_key>
-     <team_id>7</team_id>
-     <name>Macklich</name>
-     <url>https://football.fantasysports.yahoo.com/f1/1000110/7</url>
-     <team_logos>
-      <team_logo>
-       <size>large</size>
-       <url>https://s.yimg.com/cv/api/default/20180727/nfl_12.png</url>
-      </team_logo>
-     </team_logos>
-     <waiver_priority>9</waiver_priority>
-     <number_of_moves>4</number_of_moves>
-     <number_of_trades>0</number_of_trades>
-     <roster_adds>
-      <coverage_type>week</coverage_type>
-      <coverage_value>2</coverage_value>
-      <value>1</value>
-     </roster_adds>
-     <league_scoring_type>head</league_scoring_type>
-     <has_draft_grade>1</has_draft_grade>
-     <draft_grade>D+</draft_grade>
-     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/1000110/7/draftrecap</draft_recap_url>
-     <managers>
-      <manager>
-       <manager_id>7</manager_id>
-       <nickname>Jordan</nickname>
-       <guid>5SBLKECT2TGTOGZQUKQVLPB3FA</guid>
-       <email>jmack923@aol.com</email>
-       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
-      </manager>
-      <manager>
-       <manager_id>21</manager_id>
-       <nickname>Josh</nickname>
-       <guid>RI2LR625VYW4PV35PDY5G77XQ4</guid>
-       <is_comanager>1</is_comanager>
-       <email>joshuagehrlich@yahoo.com</email>
-       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
-      </manager>
-     </managers>
-     <team_points>
-      <coverage_type>season</coverage_type>
-      <season>2018</season>
-      <total>112.72</total>
-     </team_points>
-     <team_standings>
-      <rank>8</rank>
-      <playoff_seed>8</playoff_seed>
-      <outcome_totals>
-       <wins>0</wins>
-       <losses>1</losses>
-       <ties>0</ties>
-       <percentage>.000</percentage>
-      </outcome_totals>
-      <streak>
-       <type>loss</type>
-       <value>1</value>
-      </streak>
-      <points_for>112.72</points_for>
-      <points_against>118.64</points_against>
+      <points_for>392.14</points_for>
+      <points_against>328.4</points_against>
      </team_standings>
     </team>
     <team>
      <team_key>380.l.1000110.t.6</team_key>
      <team_id>6</team_id>
-     <name>Huge Kaners</name>
+     <name>Not Black I’m O.J.</name>
      <url>https://football.fantasysports.yahoo.com/f1/1000110/6</url>
      <team_logos>
       <team_logo>
        <size>large</size>
-       <url>https://s.yimg.com/cv/api/default/20180727/nfl_05.png</url>
+       <url>https://s.yimg.com/cv/api/default/20180727/nfl_04.png</url>
       </team_logo>
      </team_logos>
      <waiver_priority>1</waiver_priority>
@@ -540,7 +106,7 @@
      <number_of_trades>0</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
-      <coverage_value>2</coverage_value>
+      <coverage_value>4</coverage_value>
       <value>0</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
@@ -567,23 +133,457 @@
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2018</season>
-      <total>111.46</total>
+      <total>369.04</total>
      </team_points>
      <team_standings>
-      <rank>9</rank>
-      <playoff_seed>9</playoff_seed>
+      <rank>2</rank>
+      <playoff_seed>2</playoff_seed>
       <outcome_totals>
-       <wins>0</wins>
+       <wins>2</wins>
        <losses>1</losses>
        <ties>0</ties>
-       <percentage>.000</percentage>
+       <percentage>.667</percentage>
+      </outcome_totals>
+      <streak>
+       <type>win</type>
+       <value>2</value>
+      </streak>
+      <points_for>369.04</points_for>
+      <points_against>357.66</points_against>
+     </team_standings>
+    </team>
+    <team>
+     <team_key>380.l.1000110.t.8</team_key>
+     <team_id>8</team_id>
+     <name>Can you DIGGS it?</name>
+     <url>https://football.fantasysports.yahoo.com/f1/1000110/8</url>
+     <team_logos>
+      <team_logo>
+       <size>large</size>
+       <url>https://ct.yimg.com/cy/1781/30434580128_aac914_192sq.jpg?ct=fantasy</url>
+      </team_logo>
+     </team_logos>
+     <waiver_priority>12</waiver_priority>
+     <number_of_moves>7</number_of_moves>
+     <number_of_trades>0</number_of_trades>
+     <roster_adds>
+      <coverage_type>week</coverage_type>
+      <coverage_value>4</coverage_value>
+      <value>5</value>
+     </roster_adds>
+     <league_scoring_type>head</league_scoring_type>
+     <has_draft_grade>1</has_draft_grade>
+     <draft_grade>C-</draft_grade>
+     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/1000110/8/draftrecap</draft_recap_url>
+     <managers>
+      <manager>
+       <manager_id>8</manager_id>
+       <nickname>Hippopotamus</nickname>
+       <guid>V3VVCED2XND44ZAD3GWQZBETCQ</guid>
+       <email>deadchain219@aol.com</email>
+       <image_url>https://ct.yimg.com/cy/4520/27081192959_7ea20a_64sq.jpg</image_url>
+      </manager>
+      <manager>
+       <manager_id>24</manager_id>
+       <nickname>Henry Goldman</nickname>
+       <guid>LRCZ7GH6S2PAOOMEVKGUTAP5CU</guid>
+       <is_comanager>1</is_comanager>
+       <email>henrygoldman1014@yahoo.com</email>
+       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
+      </manager>
+     </managers>
+     <team_points>
+      <coverage_type>season</coverage_type>
+      <season>2018</season>
+      <total>351.10</total>
+     </team_points>
+     <team_standings>
+      <rank>3</rank>
+      <playoff_seed>3</playoff_seed>
+      <outcome_totals>
+       <wins>2</wins>
+       <losses>1</losses>
+       <ties>0</ties>
+       <percentage>.667</percentage>
       </outcome_totals>
       <streak>
        <type>loss</type>
        <value>1</value>
       </streak>
-      <points_for>111.46</points_for>
-      <points_against>116.2</points_against>
+      <points_for>351.10</points_for>
+      <points_against>296.5</points_against>
+     </team_standings>
+    </team>
+    <team>
+     <team_key>380.l.1000110.t.9</team_key>
+     <team_id>9</team_id>
+     <name>Daddy's Are Home</name>
+     <url>https://football.fantasysports.yahoo.com/f1/1000110/9</url>
+     <team_logos>
+      <team_logo>
+       <size>large</size>
+       <url>https://s.yimg.com/cv/api/default/20180727/nfl_12.png</url>
+      </team_logo>
+     </team_logos>
+     <waiver_priority>3</waiver_priority>
+     <number_of_moves>4</number_of_moves>
+     <number_of_trades>0</number_of_trades>
+     <roster_adds>
+      <coverage_type>week</coverage_type>
+      <coverage_value>4</coverage_value>
+      <value>1</value>
+     </roster_adds>
+     <league_scoring_type>head</league_scoring_type>
+     <has_draft_grade>1</has_draft_grade>
+     <draft_grade>C</draft_grade>
+     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/1000110/9/draftrecap</draft_recap_url>
+     <managers>
+      <manager>
+       <manager_id>9</manager_id>
+       <nickname>Adam</nickname>
+       <guid>LOS4KE4OJIDVOM5CLCVP6KOS6I</guid>
+       <email>adamseidenberg@gmail.com</email>
+       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
+      </manager>
+      <manager>
+       <manager_id>14</manager_id>
+       <nickname>Kyle</nickname>
+       <guid>6YDVQSYTIA6BZCRXVJNEBXE34E</guid>
+       <is_comanager>1</is_comanager>
+       <email>kman150@yahoo.com</email>
+       <image_url>https://ct.yimg.com/cy/4643/38333243394_cfeae0_64sq.jpg</image_url>
+      </manager>
+     </managers>
+     <team_points>
+      <coverage_type>season</coverage_type>
+      <season>2018</season>
+      <total>349.60</total>
+     </team_points>
+     <team_standings>
+      <rank>4</rank>
+      <playoff_seed>4</playoff_seed>
+      <outcome_totals>
+       <wins>2</wins>
+       <losses>1</losses>
+       <ties>0</ties>
+       <percentage>.667</percentage>
+      </outcome_totals>
+      <streak>
+       <type>win</type>
+       <value>1</value>
+      </streak>
+      <points_for>349.60</points_for>
+      <points_against>345.98</points_against>
+     </team_standings>
+    </team>
+    <team>
+     <team_key>380.l.1000110.t.12</team_key>
+     <team_id>12</team_id>
+     <name>Full Chubb</name>
+     <url>https://football.fantasysports.yahoo.com/f1/1000110/12</url>
+     <team_logos>
+      <team_logo>
+       <size>large</size>
+       <url>https://ct.yimg.com/cy/1871/43725325441_250e10_192sq.jpg?ct=fantasy?ct=fantasy</url>
+      </team_logo>
+     </team_logos>
+     <waiver_priority>11</waiver_priority>
+     <number_of_moves>11</number_of_moves>
+     <number_of_trades>0</number_of_trades>
+     <roster_adds>
+      <coverage_type>week</coverage_type>
+      <coverage_value>4</coverage_value>
+      <value>4</value>
+     </roster_adds>
+     <league_scoring_type>head</league_scoring_type>
+     <has_draft_grade>1</has_draft_grade>
+     <draft_grade>B</draft_grade>
+     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/1000110/12/draftrecap</draft_recap_url>
+     <managers>
+      <manager>
+       <manager_id>12</manager_id>
+       <nickname>Tyler</nickname>
+       <guid>J6HE657H4U7ECXFG4TIQGFDC2M</guid>
+       <email>tyjama@umich.edu</email>
+       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
+      </manager>
+      <manager>
+       <manager_id>13</manager_id>
+       <nickname>Stone Mitchell</nickname>
+       <guid>5IXSGKJ74JXEKYKCSOCEKMWMNQ</guid>
+       <is_comanager>1</is_comanager>
+       <email>stonemtchll@yahoo.com</email>
+       <image_url>https://ct.yimg.com/cy/4692/38134671550_f09cd4_64sq.jpg</image_url>
+      </manager>
+     </managers>
+     <team_points>
+      <coverage_type>season</coverage_type>
+      <season>2018</season>
+      <total>301.34</total>
+     </team_points>
+     <team_standings>
+      <rank>5</rank>
+      <playoff_seed>5</playoff_seed>
+      <outcome_totals>
+       <wins>2</wins>
+       <losses>1</losses>
+       <ties>0</ties>
+       <percentage>.667</percentage>
+      </outcome_totals>
+      <streak>
+       <type>win</type>
+       <value>1</value>
+      </streak>
+      <points_for>301.34</points_for>
+      <points_against>294.7</points_against>
+     </team_standings>
+    </team>
+    <team>
+     <team_key>380.l.1000110.t.2</team_key>
+     <team_id>2</team_id>
+     <name>A Team Has No Name</name>
+     <url>https://football.fantasysports.yahoo.com/f1/1000110/2</url>
+     <team_logos>
+      <team_logo>
+       <size>large</size>
+       <url>https://s.yimg.com/cv/api/default/20180727/nfl_04.png</url>
+      </team_logo>
+     </team_logos>
+     <waiver_priority>2</waiver_priority>
+     <number_of_moves>5</number_of_moves>
+     <number_of_trades>0</number_of_trades>
+     <roster_adds>
+      <coverage_type>week</coverage_type>
+      <coverage_value>4</coverage_value>
+      <value>3</value>
+     </roster_adds>
+     <league_scoring_type>head</league_scoring_type>
+     <has_draft_grade>1</has_draft_grade>
+     <draft_grade>B</draft_grade>
+     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/1000110/2/draftrecap</draft_recap_url>
+     <managers>
+      <manager>
+       <manager_id>2</manager_id>
+       <nickname>Matt</nickname>
+       <guid>JCBOKTD2WOTVLBQ7P5U6GEIU2Q</guid>
+       <email>mssilv@yahoo.com</email>
+       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
+      </manager>
+      <manager>
+       <manager_id>23</manager_id>
+       <nickname>Jason</nickname>
+       <guid>2BIWWAIAGS52RL3IG2HZDSE5ZI</guid>
+       <is_comanager>1</is_comanager>
+       <email>jasonbass17@yahoo.com</email>
+       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
+      </manager>
+     </managers>
+     <team_points>
+      <coverage_type>season</coverage_type>
+      <season>2018</season>
+      <total>301.28</total>
+     </team_points>
+     <team_standings>
+      <rank>6</rank>
+      <playoff_seed>6</playoff_seed>
+      <outcome_totals>
+       <wins>2</wins>
+       <losses>1</losses>
+       <ties>0</ties>
+       <percentage>.667</percentage>
+      </outcome_totals>
+      <streak>
+       <type>loss</type>
+       <value>1</value>
+      </streak>
+      <points_for>301.28</points_for>
+      <points_against>269.88</points_against>
+     </team_standings>
+    </team>
+    <team>
+     <team_key>380.l.1000110.t.3</team_key>
+     <team_id>3</team_id>
+     <name>Pan Seared Halibut</name>
+     <url>https://football.fantasysports.yahoo.com/f1/1000110/3</url>
+     <team_logos>
+      <team_logo>
+       <size>large</size>
+       <url>https://ct.yimg.com/cy/1756/42514747800_d7cd15_192sq.jpg?ct=fantasy</url>
+      </team_logo>
+     </team_logos>
+     <waiver_priority>9</waiver_priority>
+     <number_of_moves>6</number_of_moves>
+     <number_of_trades>0</number_of_trades>
+     <roster_adds>
+      <coverage_type>week</coverage_type>
+      <coverage_value>4</coverage_value>
+      <value>2</value>
+     </roster_adds>
+     <league_scoring_type>head</league_scoring_type>
+     <has_draft_grade>1</has_draft_grade>
+     <draft_grade>B</draft_grade>
+     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/1000110/3/draftrecap</draft_recap_url>
+     <managers>
+      <manager>
+       <manager_id>3</manager_id>
+       <nickname>Evan</nickname>
+       <guid>4S47CUP6D3SYNEJJPP6D5E2MYY</guid>
+       <email>tabackevan@yahoo.com</email>
+       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
+      </manager>
+      <manager>
+       <manager_id>19</manager_id>
+       <nickname>Jason</nickname>
+       <guid>ZQKWBYLMDAQ6DVLPFWWRMRQMUQ</guid>
+       <is_comanager>1</is_comanager>
+       <email>jasontgold12@yahoo.com</email>
+       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
+      </manager>
+     </managers>
+     <team_points>
+      <coverage_type>season</coverage_type>
+      <season>2018</season>
+      <total>271.38</total>
+     </team_points>
+     <team_standings>
+      <rank>7</rank>
+      <playoff_seed>7</playoff_seed>
+      <outcome_totals>
+       <wins>2</wins>
+       <losses>1</losses>
+       <ties>0</ties>
+       <percentage>.667</percentage>
+      </outcome_totals>
+      <streak>
+       <type>win</type>
+       <value>1</value>
+      </streak>
+      <points_for>271.38</points_for>
+      <points_against>258.94</points_against>
+     </team_standings>
+    </team>
+    <team>
+     <team_key>380.l.1000110.t.10</team_key>
+     <team_id>10</team_id>
+     <name>Bad Bitch Braden's</name>
+     <url>https://football.fantasysports.yahoo.com/f1/1000110/10</url>
+     <team_logos>
+      <team_logo>
+       <size>large</size>
+       <url>https://s.yimg.com/cv/api/default/20180727/nfl_05.png</url>
+      </team_logo>
+     </team_logos>
+     <waiver_priority>6</waiver_priority>
+     <number_of_moves>7</number_of_moves>
+     <number_of_trades>0</number_of_trades>
+     <roster_adds>
+      <coverage_type>week</coverage_type>
+      <coverage_value>4</coverage_value>
+      <value>2</value>
+     </roster_adds>
+     <league_scoring_type>head</league_scoring_type>
+     <has_draft_grade>1</has_draft_grade>
+     <draft_grade>B</draft_grade>
+     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/1000110/10/draftrecap</draft_recap_url>
+     <managers>
+      <manager>
+       <manager_id>10</manager_id>
+       <nickname>spencer</nickname>
+       <guid>PE2L5AWDOVJT3YPGYAENEQJIWE</guid>
+       <email>howie710@gmail.com</email>
+       <image_url>https://ct.yimg.com/cy/4557/23772282247_9d6371_64sq.jpg</image_url>
+      </manager>
+      <manager>
+       <manager_id>15</manager_id>
+       <nickname>Andrew</nickname>
+       <guid>KUZIDPP2VXHAQGO3BO2DRTKPL4</guid>
+       <is_comanager>1</is_comanager>
+       <email>drewcolang@gmail.com</email>
+       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
+      </manager>
+     </managers>
+     <team_points>
+      <coverage_type>season</coverage_type>
+      <season>2018</season>
+      <total>382.94</total>
+     </team_points>
+     <team_standings>
+      <rank>8</rank>
+      <playoff_seed>8</playoff_seed>
+      <outcome_totals>
+       <wins>1</wins>
+       <losses>2</losses>
+       <ties>0</ties>
+       <percentage>.333</percentage>
+      </outcome_totals>
+      <streak>
+       <type>loss</type>
+       <value>1</value>
+      </streak>
+      <points_for>382.94</points_for>
+      <points_against>343.02</points_against>
+     </team_standings>
+    </team>
+    <team>
+     <team_key>380.l.1000110.t.5</team_key>
+     <team_id>5</team_id>
+     <name>I’m Sorry Ms Mackson</name>
+     <url>https://football.fantasysports.yahoo.com/f1/1000110/5</url>
+     <team_logos>
+      <team_logo>
+       <size>large</size>
+       <url>https://ct.yimg.com/cy/1778/29876765717_a8cf9c_192sq.jpg?ct=fantasy</url>
+      </team_logo>
+     </team_logos>
+     <waiver_priority>7</waiver_priority>
+     <number_of_moves>4</number_of_moves>
+     <number_of_trades>0</number_of_trades>
+     <roster_adds>
+      <coverage_type>week</coverage_type>
+      <coverage_value>4</coverage_value>
+      <value>1</value>
+     </roster_adds>
+     <league_scoring_type>head</league_scoring_type>
+     <has_draft_grade>1</has_draft_grade>
+     <draft_grade>C</draft_grade>
+     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/1000110/5/draftrecap</draft_recap_url>
+     <managers>
+      <manager>
+       <manager_id>5</manager_id>
+       <nickname>Charlie</nickname>
+       <guid>GGIFVNDUASI7KWFZPEP2KBYVCQ</guid>
+       <email>charliesprayregen@gmail.com</email>
+       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
+      </manager>
+      <manager>
+       <manager_id>17</manager_id>
+       <nickname>Zack Karmin</nickname>
+       <guid>5BSPVWUAVXZQIZ3SHOJSIONTFQ</guid>
+       <is_comanager>1</is_comanager>
+       <email>zackkarmin@yahoo.com</email>
+       <image_url>https://ct.yimg.com/cy/4578/38694432401_c1eee0_64sq.jpg</image_url>
+      </manager>
+     </managers>
+     <team_points>
+      <coverage_type>season</coverage_type>
+      <season>2018</season>
+      <total>350.64</total>
+     </team_points>
+     <team_standings>
+      <rank>9</rank>
+      <playoff_seed>9</playoff_seed>
+      <outcome_totals>
+       <wins>1</wins>
+       <losses>2</losses>
+       <ties>0</ties>
+       <percentage>.333</percentage>
+      </outcome_totals>
+      <streak>
+       <type>win</type>
+       <value>1</value>
+      </streak>
+      <points_for>350.64</points_for>
+      <points_against>387.4</points_against>
      </team_standings>
     </team>
     <team>
@@ -598,12 +598,12 @@
        <url>https://s.yimg.com/cv/api/default/20180727/nfl_11.png</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>5</waiver_priority>
-     <number_of_moves>1</number_of_moves>
+     <waiver_priority>4</waiver_priority>
+     <number_of_moves>2</number_of_moves>
      <number_of_trades>0</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
-      <coverage_value>2</coverage_value>
+      <coverage_value>4</coverage_value>
       <value>1</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
@@ -632,85 +632,23 @@
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2018</season>
-      <total>109.48</total>
+      <total>301.56</total>
      </team_points>
      <team_standings>
       <rank>10</rank>
       <playoff_seed>10</playoff_seed>
       <outcome_totals>
-       <wins>0</wins>
-       <losses>1</losses>
+       <wins>1</wins>
+       <losses>2</losses>
        <ties>0</ties>
-       <percentage>.000</percentage>
+       <percentage>.333</percentage>
       </outcome_totals>
       <streak>
        <type>loss</type>
        <value>1</value>
       </streak>
-      <points_for>109.48</points_for>
-      <points_against>141.96</points_against>
-     </team_standings>
-    </team>
-    <team>
-     <team_key>380.l.1000110.t.10</team_key>
-     <team_id>10</team_id>
-     <name>Bad Bitch Braden's</name>
-     <url>https://football.fantasysports.yahoo.com/f1/1000110/10</url>
-     <team_logos>
-      <team_logo>
-       <size>large</size>
-       <url>https://s.yimg.com/cv/api/default/20180727/nfl_05.png</url>
-      </team_logo>
-     </team_logos>
-     <waiver_priority>12</waiver_priority>
-     <number_of_moves>4</number_of_moves>
-     <number_of_trades>0</number_of_trades>
-     <roster_adds>
-      <coverage_type>week</coverage_type>
-      <coverage_value>2</coverage_value>
-      <value>2</value>
-     </roster_adds>
-     <league_scoring_type>head</league_scoring_type>
-     <has_draft_grade>1</has_draft_grade>
-     <draft_grade>B</draft_grade>
-     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/1000110/10/draftrecap</draft_recap_url>
-     <managers>
-      <manager>
-       <manager_id>10</manager_id>
-       <nickname>spencer</nickname>
-       <guid>PE2L5AWDOVJT3YPGYAENEQJIWE</guid>
-       <email>howie710@gmail.com</email>
-       <image_url>https://ct.yimg.com/cy/4557/23772282247_9d6371_64sq.jpg</image_url>
-      </manager>
-      <manager>
-       <manager_id>15</manager_id>
-       <nickname>Andrew</nickname>
-       <guid>KUZIDPP2VXHAQGO3BO2DRTKPL4</guid>
-       <is_comanager>1</is_comanager>
-       <email>drewcolang@gmail.com</email>
-       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
-      </manager>
-     </managers>
-     <team_points>
-      <coverage_type>season</coverage_type>
-      <season>2018</season>
-      <total>107.54</total>
-     </team_points>
-     <team_standings>
-      <rank>11</rank>
-      <playoff_seed>11</playoff_seed>
-      <outcome_totals>
-       <wins>0</wins>
-       <losses>1</losses>
-       <ties>0</ties>
-       <percentage>.000</percentage>
-      </outcome_totals>
-      <streak>
-       <type>loss</type>
-       <value>1</value>
-      </streak>
-      <points_for>107.54</points_for>
-      <points_against>135.04</points_against>
+      <points_for>301.56</points_for>
+      <points_against>341.6</points_against>
      </team_standings>
     </team>
     <team>
@@ -724,13 +662,13 @@
        <url>https://ct.yimg.com/cy/1727/43614328114_35d2a9_192sq.jpg?ct=fantasy?ct=fantasy</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>11</waiver_priority>
-     <number_of_moves>4</number_of_moves>
+     <waiver_priority>8</waiver_priority>
+     <number_of_moves>7</number_of_moves>
      <number_of_trades>0</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
-      <coverage_value>2</coverage_value>
-      <value>3</value>
+      <coverage_value>4</coverage_value>
+      <value>1</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
      <has_draft_grade>1</has_draft_grade>
@@ -756,23 +694,85 @@
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2018</season>
-      <total>95.02</total>
+      <total>319.06</total>
+     </team_points>
+     <team_standings>
+      <rank>11</rank>
+      <playoff_seed>11</playoff_seed>
+      <outcome_totals>
+       <wins>0</wins>
+       <losses>3</losses>
+       <ties>0</ties>
+       <percentage>.000</percentage>
+      </outcome_totals>
+      <streak>
+       <type>loss</type>
+       <value>3</value>
+      </streak>
+      <points_for>319.06</points_for>
+      <points_against>387.78</points_against>
+     </team_standings>
+    </team>
+    <team>
+     <team_key>380.l.1000110.t.7</team_key>
+     <team_id>7</team_id>
+     <name>Macklich</name>
+     <url>https://football.fantasysports.yahoo.com/f1/1000110/7</url>
+     <team_logos>
+      <team_logo>
+       <size>large</size>
+       <url>https://s.yimg.com/cv/api/default/20180727/nfl_12.png</url>
+      </team_logo>
+     </team_logos>
+     <waiver_priority>10</waiver_priority>
+     <number_of_moves>8</number_of_moves>
+     <number_of_trades>0</number_of_trades>
+     <roster_adds>
+      <coverage_type>week</coverage_type>
+      <coverage_value>4</coverage_value>
+      <value>2</value>
+     </roster_adds>
+     <league_scoring_type>head</league_scoring_type>
+     <has_draft_grade>1</has_draft_grade>
+     <draft_grade>D+</draft_grade>
+     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/1000110/7/draftrecap</draft_recap_url>
+     <managers>
+      <manager>
+       <manager_id>7</manager_id>
+       <nickname>Jordan</nickname>
+       <guid>5SBLKECT2TGTOGZQUKQVLPB3FA</guid>
+       <email>jmack923@aol.com</email>
+       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
+      </manager>
+      <manager>
+       <manager_id>21</manager_id>
+       <nickname>Josh</nickname>
+       <guid>RI2LR625VYW4PV35PDY5G77XQ4</guid>
+       <is_comanager>1</is_comanager>
+       <email>joshuagehrlich@yahoo.com</email>
+       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
+      </manager>
+     </managers>
+     <team_points>
+      <coverage_type>season</coverage_type>
+      <season>2018</season>
+      <total>280.14</total>
      </team_points>
      <team_standings>
       <rank>12</rank>
       <playoff_seed>12</playoff_seed>
       <outcome_totals>
        <wins>0</wins>
-       <losses>1</losses>
+       <losses>3</losses>
        <ties>0</ties>
        <percentage>.000</percentage>
       </outcome_totals>
       <streak>
        <type>loss</type>
-       <value>1</value>
+       <value>3</value>
       </streak>
-      <points_for>95.02</points_for>
-      <points_against>102.14</points_against>
+      <points_for>280.14</points_for>
+      <points_against>358.36</points_against>
      </team_standings>
     </team>
    </teams>
@@ -780,4 +780,4 @@
  </league>
 </fantasy_content>
 
-<!-- fanos1561.sports.bf1.yahoo.com Mon Sep 17 14:36:55 UTC 2018 -->
+<!-- fanos228.sports.bf1.yahoo.com Mon Oct  1 14:37:37 UTC 2018 -->

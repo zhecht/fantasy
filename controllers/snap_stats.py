@@ -23,6 +23,15 @@ def fix_name(name):
 	return name
 
 
+def read_reception_stats():
+	with open("static/reception_counts.json") as fh:
+		returned_json = json.loads(fh.read())
+	new_json = {}
+	for player in returned_json:
+		real_name = " ".join(player.split(" ")[:-1])
+		new_json[real_name] = returned_json[player]
+	return new_json
+
 def read_snap_stats():
 	with open("static/snap_counts.json") as fh:
 		returned_json = json.loads(fh.read())
@@ -33,9 +42,40 @@ def read_snap_stats():
 	#for player in new_json:
 	return new_json
 
-if __name__ == '__main__':
-	teamnum = 0
-	print("WRITING SNAPS")
+def write_reception_stats():
+	base_url = "http://subscribers.footballguys.com/teams/"
+	j = {}
+	for link in constants.SNAP_LINKS:
+		link = "{}1.php".format(link)
+		team = link.split('-')[1]
+		
+		html = urllib.urlopen(base_url+link)
+		soup = BeautifulSoup(html.read(), "lxml")
+		all_tables = soup.find_all('table', class_='data')
+
+		# RB / WR
+		for table in all_tables[1:3]:
+			rows = table.find_all("tr")
+			for row in rows[1:]:
+				tds = row.find_all('td')
+				full = tds[0].find('a').text
+				full_name = fix_name(full.lower().replace("'", ""))
+
+				j[full_name+" "+team] = int(tds[2].text) + int(tds[7].text)
+		# TE
+		rows = all_tables[3].find_all("tr")
+		for row in rows[1:]:
+			tds = row.find_all('td')
+			full = tds[0].find('a').text
+			full_name = fix_name(full.lower().replace("'", ""))
+
+			j[full_name+" "+team] = int(tds[3].text)
+
+	with open("static/reception_counts.json", "w") as outfile:
+		json.dump(j, outfile, indent=4)
+
+
+def write_snap_stats():
 	j = {}
 	for link in constants.SNAP_LINKS:
 		link = "{}6.php".format(link)
@@ -72,20 +112,12 @@ if __name__ == '__main__':
 
 
 				j[full_name+" "+team] = {"perc": snap_counts_perc, "counts": snap_counts}
-				#file.write("{}\t{}\n".format(full_name,snap_counts))
-				#pid = getPlayerID(full, constants.SNAP_TEAMS[teamnum])
-
-				#if pid != None:
-				#  pid = pid[0]
-				#  updateSnaps(pid,snap_counts)
-		teamnum += 1
 
 	with open("static/snap_counts.json", "w") as outfile:
 		json.dump(j, outfile, indent=4)
-					
-					
-
-			
 
 
-
+if __name__ == '__main__':
+	print("WRITING SNAPS")
+	write_snap_stats()
+	write_reception_stats()

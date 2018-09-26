@@ -17,14 +17,14 @@ def merge_two_dicts(x, y):
 
 @rankings.route('/rankings')
 def rankings_route():
-	real_week = 4
+	real_week = 5
 
 	try:
 		arg_week = int(request.args.get("week"))
 		cutoff = arg_week + 1
 		is_all_weeks = False
 	except:
-		arg_week = real_week - 1
+		arg_week = 1
 		cutoff = real_week
 		is_all_weeks = True
 
@@ -65,14 +65,14 @@ def rankings_route():
 					borischen_rank = borischen_rankings_json[position][player]
 					actual_rank = actual_json[position][player]
 				except:
-					print(player)
+					#print(player)
 					continue
 
 				
 				player_rankings.append({"name": player, "espn": espn_rank, "yahoo": yahoo_rank, "fantasypros": fantasypros_rank, "borischen": borischen_rank, "actual": actual_rank, "position": position})
 
 		
-		# Graph: Player x % ERR
+		# 
 		
 		yahoo_rankings_sorted = sorted(player_rankings, key=operator.itemgetter("yahoo"))
 		espn_rankings_sorted = sorted(player_rankings, key=operator.itemgetter("espn"))
@@ -213,18 +213,38 @@ def rankings_route():
 				avg_abs_err += abs(float(proj_rank) - float(act_rank))
 			site_avg_abs_err[idx] = avg_abs_err
 
-		if len(player_accuracy_dict[player]["yahoo_projected_ranks"]) == real_week - 1 and len(player_accuracy_dict[player]["espn_projected_ranks"]) == real_week - 1 and len(player_accuracy_dict[player]["fantasypros_projected_ranks"]) == real_week - 1 and len(player_accuracy_dict[player]["borischen_projected_ranks"]) == real_week - 1:			
-			data = {"name": player}
+		if len(player_accuracy_dict[player]["yahoo_projected_ranks"]) == real_week - 1 and len(player_accuracy_dict[player]["espn_projected_ranks"]) == real_week - 1 and len(player_accuracy_dict[player]["fantasypros_projected_ranks"]) == real_week - 1 and len(player_accuracy_dict[player]["borischen_projected_ranks"]) == real_week - 1:
+			data = {"name": player, "avg_abs_err": 0}
 			for idx, site in enumerate(["yahoo", "espn", "fantasypros", "borischen"]):
-				data[site+"_avg_abs_err"] = site_avg_abs_err[idx] / float(len(player_accuracy_dict[player]["actual_ranks"]))
+				data[site+"_avg_abs_err"] = round(site_avg_abs_err[idx] / float(len(player_accuracy_dict[player]["actual_ranks"])), 2)
+				data["avg_abs_err"] += site_avg_abs_err[idx] / float(len(player_accuracy_dict[player]["actual_ranks"]))
 			player_accuracy.append(data)
 
 		#if len(player_accuracy_dict[player]["actual_ranks"]) == real_week - 1:
 			#player_accuracy.append({"name": player, "yahoo_avg_abs_err": yahoo_avg_abs_err / float(len(player_accuracy_dict[player]["actual_ranks"])), "espn_avg_abs_err": espn_avg_abs_err / float(len(player_accuracy_dict[player]["actual_ranks"])), "fantasypros_avg_abs_err": fantasypros_avg_abs_err / float(len(player_accuracy_dict[player]["actual_ranks"])), "borischen_avg_abs_err": borischen_avg_abs_err / float(len(player_accuracy_dict[player]["actual_ranks"]))})
 
-	player_accuracy = sorted(player_accuracy, key=operator.itemgetter("espn_avg_abs_err"))
-	for player in player_accuracy[:5]:
-		print(player, player_accuracy_dict[player["name"]]["espn_projected_ranks"])
+	overall_player_accuracy = sorted(player_accuracy, key=operator.itemgetter("avg_abs_err"))
+
+	print("#Average Rank Error")
+	print("Player|Avg Err|Yahoo|ESPN|FantasyPros|Borischen")
+	for player in overall_player_accuracy[:40]:
+		print("{}|{}|{}|{}|{}|{}".format(player["name"], round(player["avg_abs_err"] / 4.0, 2), player["yahoo_avg_abs_err"], player["espn_avg_abs_err"], player["fantasypros_avg_abs_err"], player["borischen_avg_abs_err"]))
+	"""
+	yahoo_player_accuracy = sorted(player_accuracy, key=operator.itemgetter("yahoo_avg_abs_err"))
+	espn_player_accuracy = sorted(player_accuracy, key=operator.itemgetter("espn_avg_abs_err"))
+	fantasypros_player_accuracy = sorted(player_accuracy, key=operator.itemgetter("fantasypros_avg_abs_err"))
+	borischen_player_accuracy = sorted(player_accuracy, key=operator.itemgetter("borischen_avg_abs_err"))
+
+	end = 10
+	for player in yahoo_player_accuracy[:end]:
+		print("YAHOO:", player["name"], player_accuracy_dict[player["name"]]["actual_ranks"])
+	for player in espn_player_accuracy[:end]:
+		print("ESPN:", player["name"], player_accuracy_dict[player["name"]]["actual_ranks"])
+	for player in fantasypros_player_accuracy[:end]:
+		print("FantasyPros:", player["name"], player_accuracy_dict[player["name"]]["actual_ranks"])
+	for player in borischen_player_accuracy[:end]:
+		print("Borischen:", player["name"], player_accuracy_dict[player["name"]]["actual_ranks"])
+	"""
 
 	return render_template("rankings.html", real_week=real_week, graphs=graphs,error_graphs=error_graphs, curr_week=arg_week, sites=["yahoo", "espn", "fantasypros", "borischen"], all_weeks=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17], is_all_weeks=is_all_weeks, pos=arg_pos)
 

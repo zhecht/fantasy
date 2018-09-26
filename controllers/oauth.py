@@ -1,6 +1,6 @@
 
 
-#from yahoo_oauth import OAuth2
+from yahoo_oauth import OAuth2
 
 
 class MyOAuth:
