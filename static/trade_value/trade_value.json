@@ -1,132 +1,657 @@
 {
-    "carson wentz": 11.5, 
-    "geronimo allison": 5.0, 
-    "allen robinson ii": 17.5, 
-    "eric ebron": 8.0, 
-    "kenyan drake": 12.0, 
-    "travis kelce": 33.5, 
-    "rob gronkowski": 25.5, 
-    "larry fitzgerald": 5.0, 
-    "t.y. hilton": 22.0, 
-    "nyheim hines": 3.0, 
-    "chris hogan": 3.0, 
-    "julio jones": 40.5, 
-    "james white": 12.0, 
-    "russell wilson": 4.5, 
-    "george kittle": 12.0, 
-    "jordan reed": 14.5, 
-    "kenny golladay": 16.5, 
-    "todd gurley ii": 60.0, 
-    "chris carson": 12.0, 
-    "james conner": 14.5, 
-    "doug baldwin": 17.0, 
-    "josh gordon": 13.0, 
-    "desean jackson": 7.0, 
-    "jared goff": 14.5, 
-    "antonio brown": 46.0, 
-    "nelson agholor": 12.0, 
-    "chris godwin": 7.0, 
-    "kenny stills": 8.5, 
-    "duke johnson": 2.5, 
-    "mike williams": 6.0, 
-    "carlos hyde": 22.0, 
-    "tyreek hill": 24.5, 
-    "bears dst": 10.0, 
-    "zach ertz": 24.5, 
-    "dalvin cook": 25.5, 
-    "devin funchess": 11.0, 
-    "javorius allen": 7.0, 
-    "golden tate": 16.0, 
-    "kareem hunt": 37.5, 
-    "royce freeman": 11.5, 
-    "isaiah crowell": 6.5, 
-    "marshawn lynch": 20.0, 
-    "odell beckham jr.": 37.5, 
-    "kyle rudolph": 11.0, 
-    "melvin gordon iii": 56.5, 
-    "nick chubb": 4.5, 
-    "corey davis": 14.0, 
-    "saquon barkley": 47.5, 
-    "a.j. green": 40.0, 
-    "alshon jeffery": 17.0, 
-    "mark ingram": 25.0, 
-    "cam newton": 20.0, 
-    "tarik cohen": 8.5, 
-    "matt breida": 14.5, 
-    "tevin coleman": 14.0, 
-    "derrick henry": 10.0, 
-    "stefon diggs": 33.5, 
-    "chris thompson": 11.0, 
-    "adam thielen": 34.5, 
-    "andy dalton": 7.0, 
-    "emmanuel sanders": 17.5, 
-    "kirk cousins": 14.0, 
-    "amari cooper": 15.5, 
-    "evan engram": 2.5, 
-    "sterling shepard": 4.5, 
-    "lesean mccoy": 10.5, 
-    "trey burton": 14.0, 
-    "christian mccaffrey": 43.0, 
-    "tom brady": 18.0, 
-    "matt ryan": 16.0, 
-    "austin ekeler": 11.5, 
-    "jimmy graham": 12.5, 
-    "jamaal williams": 9.0, 
-    "michael thomas": 49.0, 
-    "juju smith-schuster": 32.0, 
-    "los": 6.0, 
-    "alex collins": 14.0, 
-    "drew brees": 23.0, 
-    "john brown": 13.0, 
-    "alfred morris": 2.5, 
-    "tyler boyd": 10.0, 
-    "bilal powell": 7.0, 
-    "dede westbrook": 2.5, 
-    "michael crabtree": 4.5, 
-    "marvin jones jr.": 12.0, 
-    "patrick mahomes": 22.0, 
-    "kerryon johnson": 18.0, 
-    "adrian peterson": 19.0, 
-    "philip rivers": 14.5, 
-    "matthew stafford": 11.5, 
-    "giovani bernard": 8.0, 
-    "jaguars dst": 7.0, 
-    "davante adams": 36.5, 
-    "ben roethlisberger": 15.5, 
-    "sony michel": 19.0, 
-    "deandre hopkins": 34.0, 
-    "cooper kupp": 17.5, 
-    "deshaun watson": 16.5, 
-    "calvin ridley": 12.0, 
-    "ezekiel elliott": 54.5, 
-    "jarvis landry": 23.0, 
-    "quincy enunwa": 5.0, 
-    "jay ajayi": 17.5, 
-    "vance mcdonald": 18.0, 
-    "t.j. yeldon": 7.0, 
-    "jared cook": 11.5, 
-    "leonard fournette": 24.5, 
-    "david johnson": 37.5, 
-    "phillip lindsay": 11.5, 
-    "demaryius thomas": 7.0, 
-    "aaron jones": 14.0, 
-    "jordan howard": 24.5, 
-    "aaron rodgers": 14.0, 
-    "will fuller v": 18.0, 
-    "randall cobb": 2.5, 
-    "andrew luck": 10.5, 
-    "mike evans": 37.5, 
-    "joe mixon": 35.5, 
-    "keenan allen": 31.5, 
-    "alvin kamara": 54.0, 
-    "dion lewis": 12.5, 
-    "julian edelman": 12.5, 
-    "lamar miller": 17.0, 
-    "david njoku": 4.5, 
-    "brandin cooks": 26.5, 
-    "leveon bell": 24.5, 
-    "keelan cole": 6.5, 
-    "sammy watkins": 9.0, 
-    "robert woods": 17.0, 
-    "devonta freeman": 19.0
+    "carson wentz": [
+        7.5, 
+        8.0, 
+        8.0
+    ], 
+    "geronimo allison": [
+        7.0, 
+        6.5, 
+        7.0
+    ], 
+    "allen robinson ii": [
+        11.5, 
+        12.5, 
+        14.0
+    ], 
+    "eric ebron": [
+        11.5, 
+        12.0, 
+        15.0
+    ], 
+    "kenyan drake": [
+        6.0, 
+        6.5, 
+        8.0
+    ], 
+    "travis kelce": [
+        26.0, 
+        28.0, 
+        32.5
+    ], 
+    "rob gronkowski": [
+        21.0, 
+        23.0, 
+        24.0
+    ], 
+    "larry fitzgerald": [
+        4.0, 
+        4.5, 
+        6.0
+    ], 
+    "corey clement": [
+        10.0, 
+        10.0, 
+        10.0
+    ], 
+    "t.y. hilton": [
+        16.0, 
+        16.0, 
+        17.0
+    ], 
+    "nyheim hines": [
+        3.5, 
+        4.0, 
+        4.5
+    ], 
+    "ravens dst": [
+        9.0, 
+        8.5, 
+        9.0
+    ], 
+    "julio jones": [
+        33.0, 
+        34.0, 
+        37.0
+    ], 
+    "james white": [
+        21.0, 
+        23.5, 
+        28.5
+    ], 
+    "russell wilson": [
+        6.0, 
+        6.5, 
+        6.0
+    ], 
+    "aaron jones": [
+        7.5, 
+        8.5, 
+        10.5
+    ], 
+    "jordan reed": [
+        6.0, 
+        6.5, 
+        9.0
+    ], 
+    "jordan howard": [
+        15.5, 
+        16.0, 
+        17.0
+    ], 
+    "todd gurley ii": [
+        60.0, 
+        63.0, 
+        69.0
+    ], 
+    "chris carson": [
+        11.5, 
+        12.0, 
+        13.0
+    ], 
+    "james conner": [
+        28.5, 
+        30.0, 
+        32.5
+    ], 
+    "doug baldwin": [
+        9.0, 
+        10.0, 
+        13.0
+    ], 
+    "josh gordon": [
+        13.5, 
+        13.5, 
+        17.5
+    ], 
+    "desean jackson": [
+        8.0, 
+        9.0, 
+        12.0
+    ], 
+    "marquise goodwin": [
+        5.5, 
+        4.5, 
+        5.5
+    ], 
+    "jared goff": [
+        11.5, 
+        12.0, 
+        11.0
+    ], 
+    "antonio brown": [
+        46.0, 
+        48.0, 
+        51.5
+    ], 
+    "nelson agholor": [
+        3.5, 
+        3.5, 
+        5.5
+    ], 
+    "chris godwin": [
+        6.0, 
+        6.0, 
+        7.0
+    ], 
+    "mike williams": [
+        4.0, 
+        4.5, 
+        6.0
+    ], 
+    "carlos hyde": [
+        18.0, 
+        18.5, 
+        19.5
+    ], 
+    "tyreek hill": [
+        31.5, 
+        34.0, 
+        37.0
+    ], 
+    "bears dst": [
+        5.5, 
+        4.5, 
+        5.5
+    ], 
+    "zach ertz": [
+        23.0, 
+        25.0, 
+        27.0
+    ], 
+    "tyler lockett": [
+        7.5, 
+        8.0, 
+        10.0
+    ], 
+    "wendell smallwood": [
+        5.5, 
+        5.5, 
+        5.5
+    ], 
+    "dalvin cook": [
+        16.0, 
+        16.5, 
+        17.5
+    ], 
+    "devin funchess": [
+        6.0, 
+        5.5, 
+        7.0
+    ], 
+    "javorius allen": [
+        3.0, 
+        3.0, 
+        3.5
+    ], 
+    "golden tate": [
+        19.0, 
+        20.0, 
+        23.0
+    ], 
+    "kareem hunt": [
+        41.5, 
+        41.5, 
+        41.5
+    ], 
+    "taylor gabriel": [
+        4.0, 
+        4.0, 
+        4.0
+    ], 
+    "royce freeman": [
+        6.0, 
+        6.5, 
+        7.0
+    ], 
+    "isaiah crowell": [
+        12.0, 
+        13.0, 
+        14.0
+    ], 
+    "marshawn lynch": [
+        17.5, 
+        18.0, 
+        19.0
+    ], 
+    "odell beckham jr.": [
+        31.5, 
+        32.0, 
+        32.5
+    ], 
+    "kyle rudolph": [
+        6.0, 
+        6.5, 
+        8.0
+    ], 
+    "melvin gordon iii": [
+        55.5, 
+        58.0, 
+        62.5
+    ], 
+    "corey davis": [
+        7.0, 
+        8.5, 
+        12.5
+    ], 
+    "saquon barkley": [
+        51.5, 
+        53.0, 
+        56.5
+    ], 
+    "joe mixon": [
+        38.0, 
+        40.0, 
+        43.5
+    ], 
+    "alshon jeffery": [
+        19.0, 
+        21.0, 
+        24.0
+    ], 
+    "mark ingram": [
+        31.5, 
+        34.0, 
+        38.5
+    ], 
+    "cam newton": [
+        14.5, 
+        14.5, 
+        14.0
+    ], 
+    "tarik cohen": [
+        14.5, 
+        16.0, 
+        19.0
+    ], 
+    "matt breida": [
+        15.5, 
+        16.5, 
+        18.0
+    ], 
+    "tevin coleman": [
+        18.5, 
+        19.0, 
+        21.0
+    ], 
+    "stefon diggs": [
+        26.0, 
+        28.0, 
+        32.5
+    ], 
+    "chris thompson": [
+        11.5, 
+        12.5, 
+        15.0
+    ], 
+    "adam thielen": [
+        38.0, 
+        40.0, 
+        45.0
+    ], 
+    "andy dalton": [
+        5.5, 
+        5.5, 
+        5.5
+    ], 
+    "emmanuel sanders": [
+        18.0, 
+        19.0, 
+        21.0
+    ], 
+    "kirk cousins": [
+        11.5, 
+        11.5, 
+        10.5
+    ], 
+    "jameis winston": [
+        8.0, 
+        8.5, 
+        9.0
+    ], 
+    "amari cooper": [
+        7.0, 
+        6.5, 
+        8.0
+    ], 
+    "evan engram": [
+        5.5, 
+        5.5, 
+        6.0
+    ], 
+    "sterling shepard": [
+        3.5, 
+        4.0, 
+        4.5
+    ], 
+    "lesean mccoy": [
+        12.0, 
+        13.5, 
+        16.0
+    ], 
+    "trey burton": [
+        8.0, 
+        8.5, 
+        10.0
+    ], 
+    "christian mccaffrey": [
+        36.0, 
+        38.0, 
+        41.0
+    ], 
+    "tom brady": [
+        15.5, 
+        15.0, 
+        15.0
+    ], 
+    "greg olsen": [
+        3.5, 
+        4.0, 
+        3.5
+    ], 
+    "marlon mack": [
+        6.0, 
+        6.0, 
+        6.0
+    ], 
+    "matt ryan": [
+        13.5, 
+        13.0, 
+        13.0
+    ], 
+    "austin ekeler": [
+        8.0, 
+        8.5, 
+        10.0
+    ], 
+    "jimmy graham": [
+        12.0, 
+        13.0, 
+        16.5
+    ], 
+    "michael thomas": [
+        36.0, 
+        38.0, 
+        41.0
+    ], 
+    "juju smith-schuster": [
+        26.0, 
+        27.0, 
+        30.0
+    ], 
+    "alex collins": [
+        13.5, 
+        14.5, 
+        16.5
+    ], 
+    "drew brees": [
+        23.0, 
+        23.5, 
+        23.0
+    ], 
+    "john brown": [
+        13.0, 
+        14.5, 
+        17.5
+    ], 
+    "o.j. howard": [
+        5.5, 
+        4.5, 
+        5.5
+    ], 
+    "tyler boyd": [
+        14.5, 
+        15.0, 
+        16.0
+    ], 
+    "bilal powell": [
+        4.0, 
+        4.5, 
+        5.5
+    ], 
+    "michael crabtree": [
+        5.5, 
+        5.5, 
+        8.0
+    ], 
+    "marvin jones jr.": [
+        10.0, 
+        11.5, 
+        13.0
+    ], 
+    "rams dst": [
+        7.0, 
+        7.5, 
+        8.0
+    ], 
+    "patrick mahomes": [
+        18.0, 
+        18.0, 
+        18.0
+    ], 
+    "mohamed sanu": [
+        3.0, 
+        2.5, 
+        3.0
+    ], 
+    "austin hooper": [
+        4.0, 
+        4.0, 
+        4.0
+    ], 
+    "kerryon johnson": [
+        11.5, 
+        12.0, 
+        13.0
+    ], 
+    "adrian peterson": [
+        18.0, 
+        18.5, 
+        19.0
+    ], 
+    "philip rivers": [
+        8.0, 
+        8.0, 
+        8.0
+    ], 
+    "matthew stafford": [
+        6.0, 
+        6.0, 
+        6.0
+    ], 
+    "ito smith": [
+        4.0, 
+        4.0, 
+        4.0
+    ], 
+    "jaguars dst": [
+        8.0, 
+        8.0, 
+        8.0
+    ], 
+    "davante adams": [
+        36.0, 
+        38.0, 
+        41.5
+    ], 
+    "ben roethlisberger": [
+        9.0, 
+        9.0, 
+        9.0
+    ], 
+    "sony michel": [
+        31.5, 
+        34.0, 
+        39.0
+    ], 
+    "deandre hopkins": [
+        38.0, 
+        40.0, 
+        43.5
+    ], 
+    "cooper kupp": [
+        17.5, 
+        19.0, 
+        22.0
+    ], 
+    "deshaun watson": [
+        9.0, 
+        8.5, 
+        9.0
+    ], 
+    "calvin ridley": [
+        8.0, 
+        8.5, 
+        11.0
+    ], 
+    "ezekiel elliott": [
+        50.5, 
+        51.0, 
+        51.5
+    ], 
+    "jarvis landry": [
+        12.0, 
+        13.0, 
+        15.0
+    ], 
+    "quincy enunwa": [
+        3.0, 
+        3.0, 
+        3.5
+    ], 
+    "t.j. yeldon": [
+        14.5, 
+        16.5, 
+        20.0
+    ], 
+    "jared cook": [
+        8.0, 
+        9.5, 
+        13.0
+    ], 
+    "leonard fournette": [
+        16.0, 
+        16.5, 
+        17.5
+    ], 
+    "david johnson": [
+        31.0, 
+        32.0, 
+        33.5
+    ], 
+    "phillip lindsay": [
+        11.0, 
+        11.5, 
+        12.5
+    ], 
+    "demaryius thomas": [
+        7.0, 
+        8.0, 
+        10.0
+    ], 
+    "george kittle": [
+        9.0, 
+        10.0, 
+        13.0
+    ], 
+    "kenny golladay": [
+        18.0, 
+        20.0, 
+        24.0
+    ], 
+    "aaron rodgers": [
+        18.0, 
+        18.5, 
+        19.0
+    ], 
+    "will fuller v": [
+        9.0, 
+        9.5, 
+        10.5
+    ], 
+    "andrew luck": [
+        10.0, 
+        9.5, 
+        10.0
+    ], 
+    "mike evans": [
+        28.5, 
+        30.0, 
+        33.5
+    ], 
+    "a.j. green": [
+        32.0, 
+        34.0, 
+        36.0
+    ], 
+    "keenan allen": [
+        18.5, 
+        20.0, 
+        23.0
+    ], 
+    "alvin kamara": [
+        46.0, 
+        48.0, 
+        52.0
+    ], 
+    "dion lewis": [
+        5.0, 
+        5.5, 
+        6.0
+    ], 
+    "julian edelman": [
+        11.5, 
+        12.0, 
+        16.5
+    ], 
+    "lamar miller": [
+        7.0, 
+        7.5, 
+        9.0
+    ], 
+    "david njoku": [
+        6.0, 
+        6.0, 
+        6.0
+    ], 
+    "brandin cooks": [
+        21.0, 
+        21.0, 
+        21.0
+    ], 
+    "leveon bell": [
+        23.0, 
+        23.0, 
+        23.0
+    ], 
+    "keelan cole": [
+        3.0, 
+        2.5, 
+        4.0
+    ], 
+    "sammy watkins": [
+        6.0, 
+        6.5, 
+        8.0
+    ], 
+    "peyton barber": [
+        5.5, 
+        5.5, 
+        5.5
+    ], 
+    "robert woods": [
+        21.0, 
+        23.5, 
+        28.5
+    ]
 }

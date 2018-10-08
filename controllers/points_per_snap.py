@@ -17,7 +17,7 @@ def merge_two_dicts(x, y):
 	z.update(y)
 	return z
 
-curr_week = 4
+curr_week = 6
 players_on_teams, name_translations = read_rosters.read_rosters()
 #players_on_FA = read_rosters.read_FA()
 #players_on_teams = merge_two_dicts(players_on_teams, players_on_FA)
@@ -30,7 +30,7 @@ player_stats = {}
 for week in range(1, curr_week + 1):
 	actual_json = stats.read_actual_stats(week, week + 1)
 
-	for player in players_on_teams:		
+	for player in players_on_teams:
 		if player not in player_stats:
 			player_stats[player] = {"total_snaps": 0, "total_points": 0.0, "team_total_snaps": 0}
 		try:

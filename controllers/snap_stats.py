@@ -61,7 +61,10 @@ def write_reception_stats():
 				full = tds[0].find('a').text
 				full_name = fix_name(full.lower().replace("'", ""))
 
-				j[full_name+" "+team] = int(tds[2].text) + int(tds[7].text)
+				try:
+					j[full_name+" "+team] = int(tds[2].text) + int(tds[7].text)
+				except:
+					print(tds[2], tds[7])
 		# TE
 		rows = all_tables[3].find_all("tr")
 		for row in rows[1:]:

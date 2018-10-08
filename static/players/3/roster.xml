@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/team/nfl.l.1000110.t.3/roster" time="106.44197463989ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="120" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
+<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/team/nfl.l.1000110.t.3/roster" time="107.18297958374ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
  <team>
   <team_key>380.l.1000110.t.3</team_key>
   <team_id>3</team_id>
@@ -11,13 +11,13 @@
     <url>https://ct.yimg.com/cy/1756/42514747800_d7cd15_192sq.jpg?ct=fantasy</url>
    </team_logo>
   </team_logos>
-  <waiver_priority>9</waiver_priority>
-  <number_of_moves>6</number_of_moves>
-  <number_of_trades>0</number_of_trades>
+  <waiver_priority>10</waiver_priority>
+  <number_of_moves>14</number_of_moves>
+  <number_of_trades>1</number_of_trades>
   <roster_adds>
    <coverage_type>week</coverage_type>
-   <coverage_value>4</coverage_value>
-   <value>2</value>
+   <coverage_value>7</coverage_value>
+   <value>0</value>
   </roster_adds>
   <league_scoring_type>head</league_scoring_type>
   <has_draft_grade>1</has_draft_grade>
@@ -42,44 +42,43 @@
   </managers>
   <roster>
    <coverage_type>week</coverage_type>
-   <week>4</week>
+   <week>7</week>
    <is_editable>0</is_editable>
    <players count="15">
     <player>
-     <player_key>380.p.7200</player_key>
-     <player_id>7200</player_id>
+     <player_key>380.p.7177</player_key>
+     <player_id>7177</player_id>
      <name>
-      <full>Aaron Rodgers</full>
-      <first>Aaron</first>
-      <last>Rodgers</last>
-      <ascii_first>Aaron</ascii_first>
-      <ascii_last>Rodgers</ascii_last>
+      <full>Alex Smith</full>
+      <first>Alex</first>
+      <last>Smith</last>
+      <ascii_first>Alex</ascii_first>
+      <ascii_last>Smith</ascii_last>
      </name>
-     <injury_note>knee</injury_note>
-     <editorial_player_key>nfl.p.7200</editorial_player_key>
-     <editorial_team_key>nfl.t.9</editorial_team_key>
-     <editorial_team_full_name>Green Bay Packers</editorial_team_full_name>
-     <editorial_team_abbr>GB</editorial_team_abbr>
+     <editorial_player_key>nfl.p.7177</editorial_player_key>
+     <editorial_team_key>nfl.t.28</editorial_team_key>
+     <editorial_team_full_name>Washington Redskins</editorial_team_full_name>
+     <editorial_team_abbr>Was</editorial_team_abbr>
      <bye_weeks>
-      <week>7</week>
+      <week>4</week>
      </bye_weeks>
-     <uniform_number>12</uniform_number>
+     <uniform_number>11</uniform_number>
      <display_position>QB</display_position>
      <headshot>
-      <url>https://s.yimg.com/iu/api/res/1.2/KAybTAwhxN0pAbtPslho1A--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08212018/7200.png</url>
+      <url>https://s.yimg.com/iu/api/res/1.2/KlcQffH_6RIawqW.lgD4.A--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/09302018/7177.png</url>
       <size>small</size>
      </headshot>
-     <image_url>https://s.yimg.com/iu/api/res/1.2/KAybTAwhxN0pAbtPslho1A--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08212018/7200.png</image_url>
+     <image_url>https://s.yimg.com/iu/api/res/1.2/KlcQffH_6RIawqW.lgD4.A--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/09302018/7177.png</image_url>
      <is_undroppable>0</is_undroppable>
      <position_type>O</position_type>
      <eligible_positions>
       <position>QB</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
+     <player_notes_last_timestamp>1539548280</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>4</week>
+      <week>7</week>
       <position>QB</position>
      </selected_position>
     </player>
@@ -114,37 +113,39 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
+     <player_notes_last_timestamp>1539561360</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>4</week>
+      <week>7</week>
       <position>WR</position>
      </selected_position>
     </player>
     <player>
-     <player_key>380.p.27737</player_key>
-     <player_id>27737</player_id>
+     <player_key>380.p.25793</player_key>
+     <player_id>25793</player_id>
      <name>
-      <full>Quincy Enunwa</full>
-      <first>Quincy</first>
-      <last>Enunwa</last>
-      <ascii_first>Quincy</ascii_first>
-      <ascii_last>Enunwa</ascii_last>
+      <full>Mohamed Sanu</full>
+      <first>Mohamed</first>
+      <last>Sanu</last>
+      <ascii_first>Mohamed</ascii_first>
+      <ascii_last>Sanu</ascii_last>
      </name>
-     <editorial_player_key>nfl.p.27737</editorial_player_key>
-     <editorial_team_key>nfl.t.20</editorial_team_key>
-     <editorial_team_full_name>New York Jets</editorial_team_full_name>
-     <editorial_team_abbr>NYJ</editorial_team_abbr>
+     <status>Q</status>
+     <status_full>Questionable</status_full>
+     <editorial_player_key>nfl.p.25793</editorial_player_key>
+     <editorial_team_key>nfl.t.1</editorial_team_key>
+     <editorial_team_full_name>Atlanta Falcons</editorial_team_full_name>
+     <editorial_team_abbr>Atl</editorial_team_abbr>
      <bye_weeks>
-      <week>11</week>
+      <week>8</week>
      </bye_weeks>
-     <uniform_number>81</uniform_number>
+     <uniform_number>12</uniform_number>
      <display_position>WR</display_position>
      <headshot>
-      <url>https://s.yimg.com/iu/api/res/1.2/np8EH2VInJGQjF98PImZWw--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08272018/27737.png</url>
+      <url>https://s.yimg.com/iu/api/res/1.2/OSci6bqT9H94bO2Iim6GuA--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08222018/25793.png</url>
       <size>small</size>
      </headshot>
-     <image_url>https://s.yimg.com/iu/api/res/1.2/np8EH2VInJGQjF98PImZWw--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08272018/27737.png</image_url>
+     <image_url>https://s.yimg.com/iu/api/res/1.2/OSci6bqT9H94bO2Iim6GuA--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08222018/25793.png</image_url>
      <is_undroppable>0</is_undroppable>
      <position_type>O</position_type>
      <eligible_positions>
@@ -153,9 +154,10 @@
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
      <has_recent_player_notes>1</has_recent_player_notes>
+     <player_notes_last_timestamp>1539632340</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>4</week>
+      <week>7</week>
       <position>WR</position>
      </selected_position>
     </player>
@@ -190,11 +192,89 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
+     <player_notes_last_timestamp>1539548100</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>4</week>
+      <week>7</week>
       <position>RB</position>
+     </selected_position>
+    </player>
+    <player>
+     <player_key>380.p.24815</player_key>
+     <player_id>24815</player_id>
+     <name>
+      <full>Mark Ingram</full>
+      <first>Mark</first>
+      <last>Ingram</last>
+      <ascii_first>Mark</ascii_first>
+      <ascii_last>Ingram</ascii_last>
+     </name>
+     <editorial_player_key>nfl.p.24815</editorial_player_key>
+     <editorial_team_key>nfl.t.18</editorial_team_key>
+     <editorial_team_full_name>New Orleans Saints</editorial_team_full_name>
+     <editorial_team_abbr>NO</editorial_team_abbr>
+     <bye_weeks>
+      <week>6</week>
+     </bye_weeks>
+     <uniform_number>22</uniform_number>
+     <display_position>RB</display_position>
+     <headshot>
+      <url>https://s.yimg.com/iu/api/res/1.2/kk7Qy84wLeV3AQ2gy4KcDw--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08252018/24815.png</url>
+      <size>small</size>
+     </headshot>
+     <image_url>https://s.yimg.com/iu/api/res/1.2/kk7Qy84wLeV3AQ2gy4KcDw--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08252018/24815.png</image_url>
+     <is_undroppable>0</is_undroppable>
+     <position_type>O</position_type>
+     <eligible_positions>
+      <position>RB</position>
+      <position>W/R/T</position>
+     </eligible_positions>
+     <has_player_notes>1</has_player_notes>
+     <player_notes_last_timestamp>1539055500</player_notes_last_timestamp>
+     <selected_position>
+      <coverage_type>week</coverage_type>
+      <week>7</week>
+      <position>RB</position>
+     </selected_position>
+    </player>
+    <player>
+     <player_key>380.p.30259</player_key>
+     <player_id>30259</player_id>
+     <name>
+      <full>George Kittle</full>
+      <first>George</first>
+      <last>Kittle</last>
+      <ascii_first>George</ascii_first>
+      <ascii_last>Kittle</ascii_last>
+     </name>
+     <injury_note>knee</injury_note>
+     <editorial_player_key>nfl.p.30259</editorial_player_key>
+     <editorial_team_key>nfl.t.25</editorial_team_key>
+     <editorial_team_full_name>San Francisco 49ers</editorial_team_full_name>
+     <editorial_team_abbr>SF</editorial_team_abbr>
+     <bye_weeks>
+      <week>11</week>
+     </bye_weeks>
+     <uniform_number>85</uniform_number>
+     <display_position>TE</display_position>
+     <headshot>
+      <url>https://s.yimg.com/iu/api/res/1.2/mALnZ42dZZVOkuAiuDXDBA--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08202018/30259.png</url>
+      <size>small</size>
+     </headshot>
+     <image_url>https://s.yimg.com/iu/api/res/1.2/mALnZ42dZZVOkuAiuDXDBA--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08202018/30259.png</image_url>
+     <is_undroppable>0</is_undroppable>
+     <position_type>O</position_type>
+     <eligible_positions>
+      <position>TE</position>
+      <position>W/R/T</position>
+     </eligible_positions>
+     <has_player_notes>1</has_player_notes>
+     <has_recent_player_notes>1</has_recent_player_notes>
+     <player_notes_last_timestamp>1539664140</player_notes_last_timestamp>
+     <selected_position>
+      <coverage_type>week</coverage_type>
+      <week>7</week>
+      <position>TE</position>
      </selected_position>
     </player>
     <player>
@@ -207,6 +287,8 @@
       <ascii_first>Dalvin</ascii_first>
       <ascii_last>Cook</ascii_last>
      </name>
+     <status>Q</status>
+     <status_full>Questionable</status_full>
      <injury_note>hamstring</injury_note>
      <editorial_player_key>nfl.p.30154</editorial_player_key>
      <editorial_team_key>nfl.t.16</editorial_team_key>
@@ -229,48 +311,11 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
+     <player_notes_last_timestamp>1539531120</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>4</week>
-      <position>RB</position>
-     </selected_position>
-    </player>
-    <player>
-     <player_key>380.p.27538</player_key>
-     <player_id>27538</player_id>
-     <name>
-      <full>Eric Ebron</full>
-      <first>Eric</first>
-      <last>Ebron</last>
-      <ascii_first>Eric</ascii_first>
-      <ascii_last>Ebron</ascii_last>
-     </name>
-     <editorial_player_key>nfl.p.27538</editorial_player_key>
-     <editorial_team_key>nfl.t.11</editorial_team_key>
-     <editorial_team_full_name>Indianapolis Colts</editorial_team_full_name>
-     <editorial_team_abbr>Ind</editorial_team_abbr>
-     <bye_weeks>
-      <week>9</week>
-     </bye_weeks>
-     <uniform_number>85</uniform_number>
-     <display_position>TE</display_position>
-     <headshot>
-      <url>https://s.yimg.com/iu/api/res/1.2/otiMtnja49DNnJdp_SGLuw--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/09202018/27538.png</url>
-      <size>small</size>
-     </headshot>
-     <image_url>https://s.yimg.com/iu/api/res/1.2/otiMtnja49DNnJdp_SGLuw--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/09202018/27538.png</image_url>
-     <is_undroppable>0</is_undroppable>
-     <position_type>O</position_type>
-     <eligible_positions>
-      <position>TE</position>
+      <week>7</week>
       <position>W/R/T</position>
-     </eligible_positions>
-     <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
-     <selected_position>
-      <coverage_type>week</coverage_type>
-      <week>4</week>
-      <position>TE</position>
      </selected_position>
     </player>
     <player>
@@ -283,6 +328,8 @@
       <ascii_first>Calvin</ascii_first>
       <ascii_last>Ridley</ascii_last>
      </name>
+     <status>Q</status>
+     <status_full>Questionable</status_full>
      <editorial_player_key>nfl.p.30996</editorial_player_key>
      <editorial_team_key>nfl.t.1</editorial_team_key>
      <editorial_team_full_name>Atlanta Falcons</editorial_team_full_name>
@@ -305,85 +352,10 @@
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
      <has_recent_player_notes>1</has_recent_player_notes>
+     <player_notes_last_timestamp>1539626040</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>4</week>
-      <position>W/R/T</position>
-     </selected_position>
-    </player>
-    <player>
-     <player_key>380.p.31139</player_key>
-     <player_id>31139</player_id>
-     <name>
-      <full>Jordan Wilkins</full>
-      <first>Jordan</first>
-      <last>Wilkins</last>
-      <ascii_first>Jordan</ascii_first>
-      <ascii_last>Wilkins</ascii_last>
-     </name>
-     <editorial_player_key>nfl.p.31139</editorial_player_key>
-     <editorial_team_key>nfl.t.11</editorial_team_key>
-     <editorial_team_full_name>Indianapolis Colts</editorial_team_full_name>
-     <editorial_team_abbr>Ind</editorial_team_abbr>
-     <bye_weeks>
-      <week>9</week>
-     </bye_weeks>
-     <uniform_number>20</uniform_number>
-     <display_position>RB</display_position>
-     <headshot>
-      <url>https://s.yimg.com/iu/api/res/1.2/CiaVVKNaYfl0JBsHCp0IqQ--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08282018/31139.png</url>
-      <size>small</size>
-     </headshot>
-     <image_url>https://s.yimg.com/iu/api/res/1.2/CiaVVKNaYfl0JBsHCp0IqQ--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08282018/31139.png</image_url>
-     <is_undroppable>0</is_undroppable>
-     <position_type>O</position_type>
-     <eligible_positions>
-      <position>RB</position>
-      <position>W/R/T</position>
-     </eligible_positions>
-     <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
-     <selected_position>
-      <coverage_type>week</coverage_type>
-      <week>4</week>
-      <position>BN</position>
-     </selected_position>
-    </player>
-    <player>
-     <player_key>380.p.30997</player_key>
-     <player_id>30997</player_id>
-     <name>
-      <full>Rashaad Penny</full>
-      <first>Rashaad</first>
-      <last>Penny</last>
-      <ascii_first>Rashaad</ascii_first>
-      <ascii_last>Penny</ascii_last>
-     </name>
-     <editorial_player_key>nfl.p.30997</editorial_player_key>
-     <editorial_team_key>nfl.t.26</editorial_team_key>
-     <editorial_team_full_name>Seattle Seahawks</editorial_team_full_name>
-     <editorial_team_abbr>Sea</editorial_team_abbr>
-     <bye_weeks>
       <week>7</week>
-     </bye_weeks>
-     <uniform_number>20</uniform_number>
-     <display_position>RB</display_position>
-     <headshot>
-      <url>https://s.yimg.com/iu/api/res/1.2/MPhFYae2WetO7k8.6Ugcag--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08212018/30997.png</url>
-      <size>small</size>
-     </headshot>
-     <image_url>https://s.yimg.com/iu/api/res/1.2/MPhFYae2WetO7k8.6Ugcag--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08212018/30997.png</image_url>
-     <is_undroppable>0</is_undroppable>
-     <position_type>O</position_type>
-     <eligible_positions>
-      <position>RB</position>
-      <position>W/R/T</position>
-     </eligible_positions>
-     <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
-     <selected_position>
-      <coverage_type>week</coverage_type>
-      <week>4</week>
       <position>BN</position>
      </selected_position>
     </player>
@@ -419,39 +391,114 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
+     <player_notes_last_timestamp>1539547500</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>4</week>
+      <week>7</week>
       <position>BN</position>
      </selected_position>
     </player>
     <player>
-     <player_key>380.p.24815</player_key>
-     <player_id>24815</player_id>
+     <player_key>380.p.28514</player_key>
+     <player_id>28514</player_id>
      <name>
-      <full>Mark Ingram</full>
-      <first>Mark</first>
-      <last>Ingram</last>
-      <ascii_first>Mark</ascii_first>
-      <ascii_last>Ingram</ascii_last>
+      <full>Mike Davis</full>
+      <first>Mike</first>
+      <last>Davis</last>
+      <ascii_first>Mike</ascii_first>
+      <ascii_last>Davis</ascii_last>
      </name>
-     <status>SUSP</status>
-     <status_full>Suspended</status_full>
-     <editorial_player_key>nfl.p.24815</editorial_player_key>
-     <editorial_team_key>nfl.t.18</editorial_team_key>
-     <editorial_team_full_name>New Orleans Saints</editorial_team_full_name>
-     <editorial_team_abbr>NO</editorial_team_abbr>
+     <editorial_player_key>nfl.p.28514</editorial_player_key>
+     <editorial_team_key>nfl.t.26</editorial_team_key>
+     <editorial_team_full_name>Seattle Seahawks</editorial_team_full_name>
+     <editorial_team_abbr>Sea</editorial_team_abbr>
      <bye_weeks>
-      <week>6</week>
+      <week>7</week>
      </bye_weeks>
-     <uniform_number>22</uniform_number>
+     <uniform_number>27</uniform_number>
      <display_position>RB</display_position>
      <headshot>
-      <url>https://s.yimg.com/iu/api/res/1.2/kk7Qy84wLeV3AQ2gy4KcDw--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08252018/24815.png</url>
+      <url>https://s.yimg.com/iu/api/res/1.2/SqIraq3lMzuVKbdK.dnSUQ--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/09062018/28514.1.png</url>
       <size>small</size>
      </headshot>
-     <image_url>https://s.yimg.com/iu/api/res/1.2/kk7Qy84wLeV3AQ2gy4KcDw--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08252018/24815.png</image_url>
+     <image_url>https://s.yimg.com/iu/api/res/1.2/SqIraq3lMzuVKbdK.dnSUQ--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/09062018/28514.1.png</image_url>
+     <is_undroppable>0</is_undroppable>
+     <position_type>O</position_type>
+     <eligible_positions>
+      <position>RB</position>
+      <position>W/R/T</position>
+     </eligible_positions>
+     <has_player_notes>1</has_player_notes>
+     <player_notes_last_timestamp>1539549960</player_notes_last_timestamp>
+     <selected_position>
+      <coverage_type>week</coverage_type>
+      <week>7</week>
+      <position>BN</position>
+     </selected_position>
+    </player>
+    <player>
+     <player_key>380.p.7200</player_key>
+     <player_id>7200</player_id>
+     <name>
+      <full>Aaron Rodgers</full>
+      <first>Aaron</first>
+      <last>Rodgers</last>
+      <ascii_first>Aaron</ascii_first>
+      <ascii_last>Rodgers</ascii_last>
+     </name>
+     <injury_note>knee</injury_note>
+     <editorial_player_key>nfl.p.7200</editorial_player_key>
+     <editorial_team_key>nfl.t.9</editorial_team_key>
+     <editorial_team_full_name>Green Bay Packers</editorial_team_full_name>
+     <editorial_team_abbr>GB</editorial_team_abbr>
+     <bye_weeks>
+      <week>7</week>
+     </bye_weeks>
+     <uniform_number>12</uniform_number>
+     <display_position>QB</display_position>
+     <headshot>
+      <url>https://s.yimg.com/iu/api/res/1.2/KAybTAwhxN0pAbtPslho1A--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08212018/7200.png</url>
+      <size>small</size>
+     </headshot>
+     <image_url>https://s.yimg.com/iu/api/res/1.2/KAybTAwhxN0pAbtPslho1A--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08212018/7200.png</image_url>
+     <is_undroppable>0</is_undroppable>
+     <position_type>O</position_type>
+     <eligible_positions>
+      <position>QB</position>
+     </eligible_positions>
+     <has_player_notes>1</has_player_notes>
+     <has_recent_player_notes>1</has_recent_player_notes>
+     <player_notes_last_timestamp>1539697620</player_notes_last_timestamp>
+     <selected_position>
+      <coverage_type>week</coverage_type>
+      <week>7</week>
+      <position>BN</position>
+     </selected_position>
+    </player>
+    <player>
+     <player_key>380.p.28482</player_key>
+     <player_id>28482</player_id>
+     <name>
+      <full>Ty Montgomery</full>
+      <first>Ty</first>
+      <last>Montgomery</last>
+      <ascii_first>Ty</ascii_first>
+      <ascii_last>Montgomery</ascii_last>
+     </name>
+     <editorial_player_key>nfl.p.28482</editorial_player_key>
+     <editorial_team_key>nfl.t.9</editorial_team_key>
+     <editorial_team_full_name>Green Bay Packers</editorial_team_full_name>
+     <editorial_team_abbr>GB</editorial_team_abbr>
+     <bye_weeks>
+      <week>7</week>
+     </bye_weeks>
+     <uniform_number>88</uniform_number>
+     <display_position>RB</display_position>
+     <headshot>
+      <url>https://s.yimg.com/iu/api/res/1.2/NDXFhG1lL6MUtvcjSyjmdA--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08212018/28482.png</url>
+      <size>small</size>
+     </headshot>
+     <image_url>https://s.yimg.com/iu/api/res/1.2/NDXFhG1lL6MUtvcjSyjmdA--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08212018/28482.png</image_url>
      <is_undroppable>0</is_undroppable>
      <position_type>O</position_type>
      <eligible_positions>
@@ -460,74 +507,37 @@
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
      <has_recent_player_notes>1</has_recent_player_notes>
+     <player_notes_last_timestamp>1539665040</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>4</week>
+      <week>7</week>
       <position>BN</position>
      </selected_position>
     </player>
     <player>
-     <player_key>380.p.30197</player_key>
-     <player_id>30197</player_id>
+     <player_key>380.p.9526</player_key>
+     <player_id>9526</player_id>
      <name>
-      <full>Chris Godwin</full>
-      <first>Chris</first>
-      <last>Godwin</last>
-      <ascii_first>Chris</ascii_first>
-      <ascii_last>Godwin</ascii_last>
+      <full>Graham Gano</full>
+      <first>Graham</first>
+      <last>Gano</last>
+      <ascii_first>Graham</ascii_first>
+      <ascii_last>Gano</ascii_last>
      </name>
-     <editorial_player_key>nfl.p.30197</editorial_player_key>
-     <editorial_team_key>nfl.t.27</editorial_team_key>
-     <editorial_team_full_name>Tampa Bay Buccaneers</editorial_team_full_name>
-     <editorial_team_abbr>TB</editorial_team_abbr>
+     <editorial_player_key>nfl.p.9526</editorial_player_key>
+     <editorial_team_key>nfl.t.29</editorial_team_key>
+     <editorial_team_full_name>Carolina Panthers</editorial_team_full_name>
+     <editorial_team_abbr>Car</editorial_team_abbr>
      <bye_weeks>
-      <week>5</week>
-     </bye_weeks>
-     <uniform_number>12</uniform_number>
-     <display_position>WR</display_position>
-     <headshot>
-      <url>https://s.yimg.com/iu/api/res/1.2/dbpTx_Vjsm0gfYCKCy3vMw--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/09272018/30197.png</url>
-      <size>small</size>
-     </headshot>
-     <image_url>https://s.yimg.com/iu/api/res/1.2/dbpTx_Vjsm0gfYCKCy3vMw--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/09272018/30197.png</image_url>
-     <is_undroppable>0</is_undroppable>
-     <position_type>O</position_type>
-     <eligible_positions>
-      <position>WR</position>
-      <position>W/R/T</position>
-     </eligible_positions>
-     <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
-     <selected_position>
-      <coverage_type>week</coverage_type>
       <week>4</week>
-      <position>BN</position>
-     </selected_position>
-    </player>
-    <player>
-     <player_key>380.p.8565</player_key>
-     <player_id>8565</player_id>
-     <name>
-      <full>Matt Prater</full>
-      <first>Matt</first>
-      <last>Prater</last>
-      <ascii_first>Matt</ascii_first>
-      <ascii_last>Prater</ascii_last>
-     </name>
-     <editorial_player_key>nfl.p.8565</editorial_player_key>
-     <editorial_team_key>nfl.t.8</editorial_team_key>
-     <editorial_team_full_name>Detroit Lions</editorial_team_full_name>
-     <editorial_team_abbr>Det</editorial_team_abbr>
-     <bye_weeks>
-      <week>6</week>
      </bye_weeks>
-     <uniform_number>5</uniform_number>
+     <uniform_number>9</uniform_number>
      <display_position>K</display_position>
      <headshot>
-      <url>https://s.yimg.com/iu/api/res/1.2/GFdwIxp81DIP3WadC9PX.g--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08272018/8565.png</url>
+      <url>https://s.yimg.com/iu/api/res/1.2/MIeKU1N8aj510yrY97xbDg--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08222017/9526.png</url>
       <size>small</size>
      </headshot>
-     <image_url>https://s.yimg.com/iu/api/res/1.2/GFdwIxp81DIP3WadC9PX.g--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08272018/8565.png</image_url>
+     <image_url>https://s.yimg.com/iu/api/res/1.2/MIeKU1N8aj510yrY97xbDg--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08222017/9526.png</image_url>
      <is_undroppable>0</is_undroppable>
      <position_type>K</position_type>
      <eligible_positions>
@@ -535,43 +545,8 @@
      </eligible_positions>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>4</week>
+      <week>7</week>
       <position>K</position>
-     </selected_position>
-    </player>
-    <player>
-     <player_key>380.p.100008</player_key>
-     <player_id>100008</player_id>
-     <name>
-      <full>Detroit</full>
-      <first>Detroit</first>
-      <last/>
-      <ascii_first>Detroit</ascii_first>
-      <ascii_last/>
-     </name>
-     <editorial_player_key>nfl.p.100008</editorial_player_key>
-     <editorial_team_key>nfl.t.8</editorial_team_key>
-     <editorial_team_full_name>Detroit Lions</editorial_team_full_name>
-     <editorial_team_abbr>Det</editorial_team_abbr>
-     <bye_weeks>
-      <week>6</week>
-     </bye_weeks>
-     <uniform_number></uniform_number>
-     <display_position>DEF</display_position>
-     <headshot>
-      <url>https://s.yimg.com/lq/i/us/sp/v/nfl/teams/1/50x50w/det2.gif</url>
-      <size>small</size>
-     </headshot>
-     <image_url>https://s.yimg.com/lq/i/us/sp/v/nfl/teams/1/50x50w/det2.gif</image_url>
-     <is_undroppable>0</is_undroppable>
-     <position_type>DT</position_type>
-     <eligible_positions>
-      <position>DEF</position>
-     </eligible_positions>
-     <selected_position>
-      <coverage_type>week</coverage_type>
-      <week>4</week>
-      <position>DEF</position>
      </selected_position>
     </player>
     <player>
@@ -605,7 +580,42 @@
      </eligible_positions>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>4</week>
+      <week>7</week>
+      <position>DEF</position>
+     </selected_position>
+    </player>
+    <player>
+     <player_key>380.p.100026</player_key>
+     <player_id>100026</player_id>
+     <name>
+      <full>Seattle</full>
+      <first>Seattle</first>
+      <last/>
+      <ascii_first>Seattle</ascii_first>
+      <ascii_last/>
+     </name>
+     <editorial_player_key>nfl.p.100026</editorial_player_key>
+     <editorial_team_key>nfl.t.26</editorial_team_key>
+     <editorial_team_full_name>Seattle Seahawks</editorial_team_full_name>
+     <editorial_team_abbr>Sea</editorial_team_abbr>
+     <bye_weeks>
+      <week>7</week>
+     </bye_weeks>
+     <uniform_number></uniform_number>
+     <display_position>DEF</display_position>
+     <headshot>
+      <url>https://s.yimg.com/lq/i/us/sp/v/nfl/teams/1/50x50w/sea.gif</url>
+      <size>small</size>
+     </headshot>
+     <image_url>https://s.yimg.com/lq/i/us/sp/v/nfl/teams/1/50x50w/sea.gif</image_url>
+     <is_undroppable>0</is_undroppable>
+     <position_type>DT</position_type>
+     <eligible_positions>
+      <position>DEF</position>
+     </eligible_positions>
+     <selected_position>
+      <coverage_type>week</coverage_type>
+      <week>7</week>
       <position>BN</position>
      </selected_position>
     </player>
@@ -614,4 +624,4 @@
  </team>
 </fantasy_content>
 
-<!-- fanos480.sports.bf1.yahoo.com Mon Oct  1 14:37:37 UTC 2018 -->
+<!-- fanos1530.sports.bf1.yahoo.com Tue Oct 16 14:58:21 UTC 2018 -->

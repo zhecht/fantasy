@@ -66,7 +66,7 @@ def write_cron_yahoo_FA_actual(start_week, end_week):
 	with ghost.start() as session:
 		session.wait_timeout = 100
 
-		for count in range(0,101,25):
+		for count in range(0,100,25):
 			actuals_json = {}
 			page, extra_resources = session.open("https://football.fantasysports.yahoo.com/f1/1000110/players?sort=PTS&stat1=S_W_{}&count={}".format(week, count))
 		
@@ -119,7 +119,7 @@ def write_cron_yahoo_FA_proj(start_week, end_week):
 	with ghost.start() as session:
 		session.wait_timeout = 100
 
-		for count in range(0,101,25):
+		for count in range(0,100,25):
 			projections_json = {}
 			page, extra_resources = session.open("https://football.fantasysports.yahoo.com/f1/1000110/players?sort=PTS&stat1=S_PW_{}&count={}".format(week, count))
 		
@@ -325,9 +325,9 @@ if __name__ == "__main__":
 	if args.cron:
 		print("WRITING YAHOO STATS")
 		write_cron_yahoo_stats(curr_week, end_week)
-		write_cron_yahoo_FA()
-		write_cron_yahoo_FA_actual(curr_week, end_week)
-		write_cron_yahoo_FA_proj(curr_week, end_week)
+		#write_cron_yahoo_FA()
+		#write_cron_yahoo_FA_actual(curr_week, end_week)
+		#write_cron_yahoo_FA_proj(curr_week, end_week)
 	else:
 		read_yahoo_stats(curr_week, end_week)
 

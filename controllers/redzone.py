@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+import argparse
 import json
 
 try:
@@ -11,6 +12,41 @@ try:
 	import urllib2 as urllib
 except:
 	import urllib.request as urllib
+
+full_team_names = {
+	"ram": "Rams",
+	"nor": "Saints",
+	"phi": "Eagles",
+	"rai": "Raiders",
+	"clt": "Colts",
+	"rav": "Ravens",
+	"nwe": "Patriots",
+	"htx": "Texans",
+	"sfo": "49ers",
+	"sdg": "Chargers",
+	"cin": "Bengals",
+	"kan": "Chiefs",
+	"atl": "Falcons",
+	"pit": "Steelers",
+	"den": "Broncos",
+	"jax": "Jaguars",
+	"det": "Lions",
+	"chi": "Bears",
+	"gnb": "Packers",
+	"nyj": "Jets",
+	"nyg": "Giants",
+	"oti": "Titans",
+	"dal": "Cowboys",
+	"min": "Vikings",
+	"was": "Redskins",
+	"tam": "Buccaneers",
+	"cle": "Browns",
+	"sea": "Seahawks",
+	"car": "Panthers",
+	"crd": "Cardinals",
+	"mia": "Dolphins",
+	"buf": "Bills"
+}
 
 def fix_name(name):
 	if name == "ted ginn jr":
@@ -26,7 +62,6 @@ def fix_name(name):
 	return name
 
 def write_redzone(curr_week=1):
-	print("WRITIING REDZONE")
 	redzone_json = {}
 	team_total_json = {}
 
@@ -155,25 +190,54 @@ def get_player_looks_arr(curr_week=1):
 	return top_redzone
 
 if __name__ == '__main__':
-	curr_week = 4
+	parser = argparse.ArgumentParser()
+	parser.add_argument("-c", "--cron", help="Do Cron job", action="store_true")
+	parser.add_argument("-t", "--team", help="Group By Team", action="store_true")
+	parser.add_argument("-s", "--start", help="Start Week", type=int)
+	parser.add_argument("-e", "--end", help="End Week", type=int)
 
-	#write_redzone(curr_week)
+	args = parser.parse_args()
+
+	curr_week = 1
+	end_week = 2
+
+	if args.start:
+		curr_week = args.start
+		end_week = curr_week + 1
+		if args.end:
+			end_week = args.end
+
+	if args.cron:
+		print("WRITING REDZONE")
+		write_redzone(curr_week)
+
 	top_redzone = get_player_looks_arr(curr_week)
-	sorted_looks = sorted(top_redzone, key=operator.itemgetter("looks"), reverse=True)
-	sorted_looks_perc = sorted(top_redzone, key=operator.itemgetter("looks_perc"), reverse=True)
 
-	
-	print("A Redzone look is a target or rushing attempt within the opponents 20 yard line.")
-	for player in sorted_looks[:20]:
-		continue
-		print("{}|{}".format(player["name"].title(), player["looks"]))
+	if args.team:
+		
+		# Team
+		team_totals = {}
+		for arr in top_redzone:
+			if arr["team"] not in team_totals:
+				team_totals[arr["team"]] = arr["total_team_looks"]
+		team_totals = sorted(team_totals.items(), key=lambda x: x[1], reverse=True)
 
-	#print("\nMOST LOOKS IN REDZONE (PERCENT OF W/R/T)")
-	print("\nPlayer|% of team's redzone looks|(player redzone looks / team redzone looks)")
-	print(":--|:--|:--")
-	for player in sorted_looks_perc:
-		#print("{}\t{}%\t({}/{})".format(player["name"], player["looks_perc"] * 100, player["looks"], int(player["looks"] / player["looks_perc"])))
-		if player["looks"] >= 0:
-			print("{}|{}%|({}/{})".format(player["name"].title(), player["looks_perc"] * 100, player["looks"], player["total_team_looks"]))
+		print("\nTeam|Total Redzone Looks")
+		print(":--|:--")
+		for team, tot in team_totals:
+			print("{}|{}".format(full_team_names[team], tot))
+	else:
+		sorted_looks = sorted(top_redzone, key=operator.itemgetter("looks"), reverse=True)
+		sorted_looks_perc = sorted(top_redzone, key=operator.itemgetter("looks_perc"), reverse=True)
 
+		for player in sorted_looks[:20]:
+			continue
+			print("{}|{}".format(player["name"].title(), player["looks"]))
 
+		#print("\nMOST LOOKS IN REDZONE (PERCENT OF W/R/T)")
+		print("\nPlayer|% of team's redzone looks|(player redzone looks / team redzone looks)")
+		print(":--|:--|:--")
+		for player in sorted_looks_perc:
+			#print("{}\t{}%\t({}/{})".format(player["name"], player["looks_perc"] * 100, player["looks"], int(player["looks"] / player["looks_perc"])))
+			if player["looks"] >= 0:
+				print("{}|{}%|({}/{})".format(player["name"].title(), player["looks_perc"] * 100, player["looks"], player["total_team_looks"]))
