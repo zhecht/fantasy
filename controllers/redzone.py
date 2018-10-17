@@ -5,9 +5,11 @@ import json
 try:
 	import controllers.constants as constants
 	from controllers.read_rosters import *
+	from controllers.snap_stats import *
 except:
 	import constants
 	from read_rosters import *
+	from snap_stats import *
 try:
 	import urllib2 as urllib
 except:
@@ -115,9 +117,6 @@ def write_redzone(curr_week=1):
 			perc_arr.append(round(perc, 2))
 
 		redzone_json[player]["looks_perc"] = ','.join(str(x) for x in perc_arr)
-		#redzone_json[player].pop("team", None)
-	#print(redzone_json)
-	#print(team_total_json)
 
 	with open("static/looks/redzone.json", "w") as outfile:
 		json.dump(redzone_json, outfile, indent=4)
@@ -157,8 +156,6 @@ def get_player_looks_json(curr_week=1):
 			total_team_looks += team_total_json[redzone_json[player]["team"]][week - 1]
 			total_player_looks += looks
 
-		#for i in range(len(player), 20):
-			#player += ' '
 		if total_team_looks != 0 and total_player_looks != 0:
 			top_redzone[player] = total_player_looks
 	return top_redzone
@@ -167,6 +164,7 @@ def get_player_looks_arr(curr_week=1):
 	redzone_json = read_redzone()
 	team_total_json = read_team_total()
 	players_on_teams,translations = read_rosters()
+	snap_stats = read_snap_stats()
 
 	top_redzone = []
 	for player in redzone_json:
@@ -178,6 +176,8 @@ def get_player_looks_arr(curr_week=1):
 		total_player_looks = 0
 		total_team_looks = 0
 		for week in range(1, curr_week + 1):
+			if int(snap_stats[player]["counts"].split(",")[week - 1]) == 0:
+				continue
 
 			looks = int(looks_arr[week - 1])
 			looks_perc = float(looks_perc_arr[week - 1])

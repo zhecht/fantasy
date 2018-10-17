@@ -26,9 +26,12 @@ csv = open("static/airyards.csv")
 
 indexes = {
 	"targets": 0,
+	"tgt_share": 0,
+	"adot": 0,
 	"air_yards": 0,
 	"yac": 0,
-	"adot": 0
+	#"ppr": 0
+	#"wopr": 0
 }
 
 stats_arr = []
@@ -36,7 +39,10 @@ for idx, line in enumerate(csv):
 	split_line = line.split(",")
 	if idx == 0:
 		for key in indexes:
-			indexes[key] = split_line.index("\"{}\"".format(key))
+			if key == "ppr":
+				indexes[key] = -1
+			else:
+				indexes[key] = split_line.index("\"{}\"".format(key))
 		continue
 
 	arr = {}
@@ -57,11 +63,13 @@ for stat in ["adot", "air_yards"]:
 	print("\nPlayer|{}".format(stat.upper()))
 	print(":--|:--")
 	for arr in sorted_stats_arr[:20]:
-		print("{}|{}".format(arr["full_name"].title(), arr[stat]))
+		#print("{}|{}".format(arr["full_name"].title(), arr[stat]))
 		pass
 
+"""
 #######################################################################
 # Split by team and then sort
+
 teams = {}
 for arr in stats_arr:
 	if arr["team"] not in teams:
@@ -80,6 +88,33 @@ for team, json in sorted_teams:
 	pass
 
 #######################################################################
+"""
+for rank in range(4):
+	print("#WR{} Players".format(rank + 1))
+	totals = {"names": []}
+	for i in range(12):
+		totals["names"].append(stats_arr[(rank * 12) + i]["full_name"].title())
+	print("\n-{}\n".format(', '.join(totals["names"])))
+
+print(" |{}".format('|'.join(sorted(indexes.keys()))))
+print(":--|{}".format('|'.join([":--"]*len(indexes.keys()))))
+for rank in range(4):
+	#print("WR{}".format(rank + 1))
+	totals = {}
+	for i in range(12):
+		for key in sorted(indexes):
+			try:
+				totals[key] += stats_arr[(rank * 12) + i][key]
+			except:
+				totals[key] = stats_arr[(rank * 12) + i][key]
+	col = []
+	for key in sorted(indexes):
+		#totals[key] = round(totals[key] / 12.0, 2)
+		col.append(str(round(totals[key] / 12.0, 2)))
+		#print("\t{}: {}".format(key, round(totals[key] / 12.0, 2)))
+	print("**WR{}**|{}".format(rank + 1, '|'.join(col)))
+		
+
 
 
 

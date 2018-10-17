@@ -324,10 +324,10 @@ if __name__ == "__main__":
 
 	if args.cron:
 		print("WRITING YAHOO STATS")
-		write_cron_yahoo_stats(curr_week, end_week)
+		#write_cron_yahoo_stats(curr_week, end_week)
 		#write_cron_yahoo_FA()
 		#write_cron_yahoo_FA_actual(curr_week, end_week)
-		#write_cron_yahoo_FA_proj(curr_week, end_week)
+		write_cron_yahoo_FA_proj(curr_week, end_week)
 	else:
 		read_yahoo_stats(curr_week, end_week)
 

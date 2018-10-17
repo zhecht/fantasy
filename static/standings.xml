@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.1000110/standings" time="152.91285514832ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
+<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.1000110/standings" time="149.93500709534ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
  <league>
   <league_key>380.l.1000110</league_key>
   <league_id>1000110</league_id>
@@ -10,7 +10,7 @@
   <num_teams>12</num_teams>
   <edit_key>7</edit_key>
   <weekly_deadline/>
-  <league_update_timestamp>1539671657</league_update_timestamp>
+  <league_update_timestamp>1540189170</league_update_timestamp>
   <scoring_type>head</scoring_type>
   <league_type>private</league_type>
   <renew>371_1056233</renew>
@@ -39,13 +39,13 @@
        <url>https://ct.yimg.com/cy/4433/36865050316_34f113_192sq.jpg?ct=fantasy</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>3</waiver_priority>
-     <number_of_moves>5</number_of_moves>
+     <waiver_priority>2</waiver_priority>
+     <number_of_moves>7</number_of_moves>
      <number_of_trades>0</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
       <coverage_value>7</coverage_value>
-      <value>0</value>
+      <value>2</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
      <has_draft_grade>1</has_draft_grade>
@@ -101,13 +101,13 @@
        <url>https://ct.yimg.com/cy/1871/43725325441_250e10_192sq.jpg?ct=fantasy?ct=fantasy</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>7</waiver_priority>
-     <number_of_moves>18</number_of_moves>
-     <number_of_trades>0</number_of_trades>
+     <waiver_priority>12</waiver_priority>
+     <number_of_moves>22</number_of_moves>
+     <number_of_trades>1</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
       <coverage_value>7</coverage_value>
-      <value>0</value>
+      <value>4</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
      <has_draft_grade>1</has_draft_grade>
@@ -163,13 +163,13 @@
        <url>https://s.yimg.com/cv/api/default/20180727/nfl_05.png</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>6</waiver_priority>
-     <number_of_moves>12</number_of_moves>
+     <waiver_priority>4</waiver_priority>
+     <number_of_moves>13</number_of_moves>
      <number_of_trades>0</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
       <coverage_value>7</coverage_value>
-      <value>0</value>
+      <value>1</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
      <has_draft_grade>1</has_draft_grade>
@@ -211,7 +211,7 @@
        <value>3</value>
       </streak>
       <points_for>781.70</points_for>
-      <points_against>638.52</points_against>
+      <points_against>638.62</points_against>
      </team_standings>
     </team>
     <team>
@@ -225,13 +225,13 @@
        <url>https://ct.yimg.com/cy/1778/29876765717_a8cf9c_192sq.jpg?ct=fantasy</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>9</waiver_priority>
-     <number_of_moves>9</number_of_moves>
+     <waiver_priority>7</waiver_priority>
+     <number_of_moves>10</number_of_moves>
      <number_of_trades>0</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
       <coverage_value>7</coverage_value>
-      <value>0</value>
+      <value>1</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
      <has_draft_grade>1</has_draft_grade>
@@ -287,13 +287,13 @@
        <url>https://s.yimg.com/cv/api/default/20180727/nfl_12.png</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>8</waiver_priority>
-     <number_of_moves>8</number_of_moves>
+     <waiver_priority>5</waiver_priority>
+     <number_of_moves>9</number_of_moves>
      <number_of_trades>0</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
       <coverage_value>7</coverage_value>
-      <value>0</value>
+      <value>1</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
      <has_draft_grade>1</has_draft_grade>
@@ -319,7 +319,7 @@
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2018</season>
-      <total>695.84</total>
+      <total>695.94</total>
      </team_points>
      <team_standings>
       <rank>5</rank>
@@ -334,7 +334,7 @@
        <type>loss</type>
        <value>2</value>
       </streak>
-      <points_for>695.84</points_for>
+      <points_for>695.94</points_for>
       <points_against>755.52</points_against>
      </team_standings>
     </team>
@@ -350,12 +350,12 @@
       </team_logo>
      </team_logos>
      <waiver_priority>1</waiver_priority>
-     <number_of_moves>8</number_of_moves>
+     <number_of_moves>9</number_of_moves>
      <number_of_trades>0</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
       <coverage_value>7</coverage_value>
-      <value>0</value>
+      <value>1</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
      <has_draft_grade>1</has_draft_grade>
@@ -412,12 +412,12 @@
       </team_logo>
      </team_logos>
      <waiver_priority>10</waiver_priority>
-     <number_of_moves>14</number_of_moves>
+     <number_of_moves>18</number_of_moves>
      <number_of_trades>1</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
       <coverage_value>7</coverage_value>
-      <value>0</value>
+      <value>4</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
      <has_draft_grade>1</has_draft_grade>
@@ -473,13 +473,13 @@
        <url>https://ct.yimg.com/cy/1781/30434580128_aac914_192sq.jpg?ct=fantasy</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>5</waiver_priority>
-     <number_of_moves>8</number_of_moves>
+     <waiver_priority>8</waiver_priority>
+     <number_of_moves>10</number_of_moves>
      <number_of_trades>1</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
       <coverage_value>7</coverage_value>
-      <value>0</value>
+      <value>2</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
      <has_draft_grade>1</has_draft_grade>
@@ -505,7 +505,7 @@
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2018</season>
-      <total>698.22</total>
+      <total>698.26</total>
      </team_points>
      <team_standings>
       <rank>8</rank>
@@ -520,7 +520,7 @@
        <type>loss</type>
        <value>4</value>
       </streak>
-      <points_for>698.22</points_for>
+      <points_for>698.26</points_for>
       <points_against>703.82</points_against>
      </team_standings>
     </team>
@@ -535,13 +535,13 @@
        <url>https://ct.yimg.com/cy/1870/44602967354_2ad123_192sq.jpg?ct=fantasy</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>4</waiver_priority>
-     <number_of_moves>9</number_of_moves>
+     <waiver_priority>3</waiver_priority>
+     <number_of_moves>13</number_of_moves>
      <number_of_trades>0</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
       <coverage_value>7</coverage_value>
-      <value>0</value>
+      <value>4</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
      <has_draft_grade>1</has_draft_grade>
@@ -583,7 +583,7 @@
        <value>1</value>
       </streak>
       <points_for>667.94</points_for>
-      <points_against>701.56</points_against>
+      <points_against>701.6</points_against>
      </team_standings>
     </team>
     <team>
@@ -598,13 +598,13 @@
        <url>https://s.yimg.com/cv/api/default/20180727/nfl_11.png</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>2</waiver_priority>
-     <number_of_moves>10</number_of_moves>
+     <waiver_priority>11</waiver_priority>
+     <number_of_moves>17</number_of_moves>
      <number_of_trades>1</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
       <coverage_value>7</coverage_value>
-      <value>0</value>
+      <value>7</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
      <has_draft_grade>1</has_draft_grade>
@@ -648,7 +648,7 @@
        <value>1</value>
       </streak>
       <points_for>616.46</points_for>
-      <points_against>652.62</points_against>
+      <points_against>652.52</points_against>
      </team_standings>
     </team>
     <team>
@@ -662,13 +662,13 @@
        <url>https://s.yimg.com/cv/api/default/20180727/nfl_12.png</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>12</waiver_priority>
-     <number_of_moves>13</number_of_moves>
-     <number_of_trades>1</number_of_trades>
+     <waiver_priority>9</waiver_priority>
+     <number_of_moves>17</number_of_moves>
+     <number_of_trades>2</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
       <coverage_value>7</coverage_value>
-      <value>0</value>
+      <value>4</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
      <has_draft_grade>1</has_draft_grade>
@@ -694,7 +694,7 @@
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2018</season>
-      <total>604.52</total>
+      <total>604.42</total>
      </team_points>
      <team_standings>
       <rank>11</rank>
@@ -709,7 +709,7 @@
        <type>win</type>
        <value>2</value>
       </streak>
-      <points_for>604.52</points_for>
+      <points_for>604.42</points_for>
       <points_against>658.96</points_against>
      </team_standings>
     </team>
@@ -724,13 +724,13 @@
        <url>https://s.yimg.com/cv/api/default/20180727/nfl_04.png</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>11</waiver_priority>
-     <number_of_moves>4</number_of_moves>
-     <number_of_trades>0</number_of_trades>
+     <waiver_priority>6</waiver_priority>
+     <number_of_moves>6</number_of_moves>
+     <number_of_trades>2</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
       <coverage_value>7</coverage_value>
-      <value>0</value>
+      <value>2</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
      <has_draft_grade>1</has_draft_grade>
@@ -780,4 +780,4 @@
  </league>
 </fantasy_content>
 
-<!-- fanos1962.sports.bf1.yahoo.com Tue Oct 16 14:58:19 UTC 2018 -->
+<!-- fanos153.sports.bf1.yahoo.com Mon Oct 22 21:35:22 UTC 2018 -->
