@@ -53,6 +53,8 @@ full_team_names = {
 def fix_name(name):
 	if name == "ted ginn jr":
 		return "ted ginn jr."
+	elif name == "odell beckham jr":
+		return "odell beckham jr."
 	elif name == "ben watson":
 		return "benjamin watson"
 	elif name == "allen robinson":
@@ -103,8 +105,8 @@ def write_redzone(curr_week=1):
 				else:
 					redzone_counts.append(perc)
 
-			if full_name and full_name not in redzone_json:
-				redzone_json[full_name] = {"looks": ','.join(str(x) for x in redzone_counts), "team": team, "looks_perc": ""}				
+			if full_name:# and full_name not in redzone_json:
+				redzone_json[full_name] = {"looks": ','.join(str(x) for x in redzone_counts), "team": team, "looks_perc": ""}
 	
 	for player in redzone_json:
 		
@@ -237,7 +239,9 @@ if __name__ == '__main__':
 		#print("\nMOST LOOKS IN REDZONE (PERCENT OF W/R/T)")
 		print("\nPlayer|% of team's redzone looks|(player redzone looks / team redzone looks)")
 		print(":--|:--|:--")
+		players_on_teams,translations = read_rosters()
 		for player in sorted_looks_perc:
 			#print("{}\t{}%\t({}/{})".format(player["name"], player["looks_perc"] * 100, player["looks"], int(player["looks"] / player["looks_perc"])))
-			if player["looks"] >= 0:
+			if player["looks"] >= 0 and players_on_teams[player["name"]]["position"] == "TE":
 				print("{}|{}%|({}/{})".format(player["name"].title(), player["looks_perc"] * 100, player["looks"], player["total_team_looks"]))
+				#pass

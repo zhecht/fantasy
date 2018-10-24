@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/team/nfl.l.1000110.t.4/roster" time="106.31585121155ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
+<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/team/nfl.l.1000110.t.4/roster" time="126.27005577087ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
  <team>
   <team_key>380.l.1000110.t.4</team_key>
   <team_id>4</team_id>
@@ -11,13 +11,13 @@
     <url>https://ct.yimg.com/cy/4433/36865050316_34f113_192sq.jpg?ct=fantasy</url>
    </team_logo>
   </team_logos>
-  <waiver_priority>2</waiver_priority>
+  <waiver_priority>1</waiver_priority>
   <number_of_moves>7</number_of_moves>
   <number_of_trades>0</number_of_trades>
   <roster_adds>
    <coverage_type>week</coverage_type>
-   <coverage_value>7</coverage_value>
-   <value>2</value>
+   <coverage_value>8</coverage_value>
+   <value>0</value>
   </roster_adds>
   <league_scoring_type>head</league_scoring_type>
   <has_draft_grade>1</has_draft_grade>
@@ -42,7 +42,7 @@
   </managers>
   <roster>
    <coverage_type>week</coverage_type>
-   <week>7</week>
+   <week>8</week>
    <is_editable>0</is_editable>
    <players count="15">
     <player>
@@ -78,7 +78,7 @@
      <player_notes_last_timestamp>1540152420</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>7</week>
+      <week>8</week>
       <position>QB</position>
      </selected_position>
     </player>
@@ -116,7 +116,7 @@
      <player_notes_last_timestamp>1540157040</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>7</week>
+      <week>8</week>
       <position>WR</position>
      </selected_position>
     </player>
@@ -151,11 +151,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
      <player_notes_last_timestamp>1540165800</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>7</week>
+      <week>8</week>
       <position>WR</position>
      </selected_position>
     </player>
@@ -169,8 +168,8 @@
       <ascii_first>Bilal</ascii_first>
       <ascii_last>Powell</ascii_last>
      </name>
-     <status>Q</status>
-     <status_full>Questionable</status_full>
+     <status>IR</status>
+     <status_full>Injured Reserve</status_full>
      <editorial_player_key>nfl.p.24913</editorial_player_key>
      <editorial_team_key>nfl.t.20</editorial_team_key>
      <editorial_team_full_name>New York Jets</editorial_team_full_name>
@@ -192,10 +191,11 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1540146840</player_notes_last_timestamp>
+     <has_recent_player_notes>1</has_recent_player_notes>
+     <player_notes_last_timestamp>1540390440</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>7</week>
+      <week>8</week>
       <position>RB</position>
      </selected_position>
     </player>
@@ -230,11 +230,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
      <player_notes_last_timestamp>1540164780</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>7</week>
+      <week>8</week>
       <position>RB</position>
      </selected_position>
     </player>
@@ -269,11 +268,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
      <player_notes_last_timestamp>1540180440</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>7</week>
+      <week>8</week>
       <position>TE</position>
      </selected_position>
     </player>
@@ -312,7 +310,7 @@
      <player_notes_last_timestamp>1540155720</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>7</week>
+      <week>8</week>
       <position>W/R/T</position>
      </selected_position>
     </player>
@@ -326,8 +324,8 @@
       <ascii_first>Chris</ascii_first>
       <ascii_last>Thompson</ascii_last>
      </name>
-     <status>O</status>
-     <status_full>Out</status_full>
+     <status>Q</status>
+     <status_full>Questionable</status_full>
      <injury_note>ribs, knee</injury_note>
      <editorial_player_key>nfl.p.26777</editorial_player_key>
      <editorial_team_key>nfl.t.28</editorial_team_key>
@@ -353,7 +351,7 @@
      <player_notes_last_timestamp>1540093800</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>7</week>
+      <week>8</week>
       <position>BN</position>
      </selected_position>
     </player>
@@ -391,7 +389,7 @@
      <player_notes_last_timestamp>1539547920</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>7</week>
+      <week>8</week>
       <position>BN</position>
      </selected_position>
     </player>
@@ -427,11 +425,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
      <player_notes_last_timestamp>1540216380</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>7</week>
+      <week>8</week>
       <position>BN</position>
      </selected_position>
     </player>
@@ -470,7 +467,7 @@
      <player_notes_last_timestamp>1540156680</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>7</week>
+      <week>8</week>
       <position>BN</position>
      </selected_position>
     </player>
@@ -507,11 +504,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
-     <player_notes_last_timestamp>1540214580</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1540244040</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>7</week>
+      <week>8</week>
       <position>BN</position>
      </selected_position>
     </player>
@@ -546,11 +542,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
      <player_notes_last_timestamp>1540160220</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>7</week>
+      <week>8</week>
       <position>BN</position>
      </selected_position>
     </player>
@@ -585,7 +580,7 @@
      </eligible_positions>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>7</week>
+      <week>8</week>
       <position>K</position>
      </selected_position>
     </player>
@@ -620,7 +615,7 @@
      </eligible_positions>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>7</week>
+      <week>8</week>
       <position>DEF</position>
      </selected_position>
     </player>
@@ -629,4 +624,4 @@
  </team>
 </fantasy_content>
 
-<!-- fanos1719.sports.bf1.yahoo.com Mon Oct 22 21:35:24 UTC 2018 -->
+<!-- fanos2163.sports.bf1.yahoo.com Wed Oct 24 15:24:03 UTC 2018 -->

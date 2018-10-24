@@ -4,12 +4,15 @@ from bs4 import BeautifulSoup as BS
 
 import json
 import operator
+import re
 import urllib
 
 try:
   import controllers.read_rosters as read_rosters
+  import controllers.stats as yahoo_stats
 except:
   import read_rosters
+  import stats as yahoo_stats
 
 
 extension = Blueprint('extension', __name__, template_folder='views')
@@ -35,6 +38,8 @@ def fix_name(name):
 		return "will fuller v"
 	elif name == "paul richardson":
 		return "paul richardson jr."
+	elif name == "duke johnson":
+		return "duke johnson jr."
 	elif name == "odell beckham":
 		return "odell beckham jr."
 	elif name == "mark ingram ii":
@@ -45,12 +50,15 @@ def write_cron_trade_values():
 	html = open("static/trade_value/trade_value.html")
 	soup = BS(html.read(), "lxml")
 
-	table_ids = ["1945815333", "1224738490", "559389759"]
+	table_ids = ["1542195646", "517260624", "824793263"]
 	trade_values = {}
 	for table_id in table_ids:
 		rows = soup.find("div", id=table_id).find_all("tr")
 		for row in rows[5:]:
-			value = float(row.find("td", class_="s18").find("span").text)
+			try:
+				value = float(row.find("td", class_="s18").find("span").text)
+			except:
+				value = float(row.find("td", class_="s22").find("span").text)
 			tds = row.find_all("td", class_="s19") + row.find_all("td", class_="s21")
 			for td in tds:
 				try:
@@ -64,15 +72,65 @@ def write_cron_trade_values():
 	with open("static/trade_value/trade_value.json", "w") as fh:
 		json.dump(trade_values, fh, indent=4)
 
+
 def read_trade_values():
 	with open("static/trade_value/trade_value.json") as fh:
 		returned_json = json.loads(fh.read())
 	return returned_json
 
+def write_borischen_extension():
+
+	stats = {}
+	positions = ["quarterback", "half-05-5-ppr-running-back", "half-05-5-ppr-wide-receiver", "half-05-5-ppr-tight-end", "kicker", "defense-dst"]
+	player_ids = yahoo_stats.read_yahoo_ids()
+
+	for pos in positions:
+		if pos.find("wide") == -1:
+			html = urllib.urlopen("http://www.borischen.co/p/{}-tier-rankings.html".format(pos))
+		else:
+			html = urllib.urlopen("http://www.borischen.co/p/{}-tier.html".format(pos))
+		soup = BS(html.read(), "lxml")
+		aws_link = soup.find("object").get("data")
+
+		html = urllib.urlopen(aws_link)
+		soup = BS(html.read(), "lxml")
+
+		tiers = soup.find("p").text.split("\n")[:-1]
+		for tier in tiers:
+			m = re.search(r"Tier ([0-9]+): (.*)", tier)
+			tier = int(m.group(1))
+			players = m.group(2).split(", ")
+			
+			for name in players:
+				try:
+					if pos.find("defense") == -1:
+						stats[player_ids[fix_name(name.lower().replace("'", ""))]] = tier
+					else:
+						stats[player_ids[' '.join(name.lower().split())[:-1]]] = tier
+				except:
+					#print(name)
+					pass
+				#stats[name.lower()] = tier
+	return
+	with open("static/borischen_tiers.json", "w") as fh:
+		json.dump(stats, fh, indent=4)
+
+write_borischen_extension()
+
+def read_borischen_extension(host):
+	with open("static/borischen_tiers.json") as fh:
+		returned_json = json.loads(fh.read())
+	return returned_json
+
+
 @extension.route('/extension')
 def extension_route():
 
+	if request.args.get("borischen"):
+		return jsonify(tiers=read_borischen_extension(request.args.get("host")))
+
 	is_espn = request.args.get("is_espn") == "true"
+	is_nfl = request.args.get("is_nfl") == "true"
 	rosters, translations = read_rosters.read_rosters()
 	trade_values = read_trade_values()
 	results_arr = []
@@ -87,12 +145,12 @@ def extension_route():
 			except:
 				continue
 			full_name = name.lower()
-			if not is_espn and pos != "DEF" and request.args.get("evaluate") == "false":
+			if not is_nfl and not is_espn and pos != "DEF" and request.args.get("evaluate") == "false":
 				try:
 					full_name = translations[name+" "+team]
 				except:
 					continue
-			elif is_espn:
+			elif is_espn or is_nfl:
 				full_name = fix_name(full_name.replace("'", "").replace("/", ""))
 
 			try:

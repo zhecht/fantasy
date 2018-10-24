@@ -68,7 +68,7 @@ def read_FA():
 			fa_json = json.loads(fh.read())
 		for player in fa_json:
 			
-			team, position = fa_json[player]
+			team, position, pid = fa_json[player]
 			if position == "WR,RB":
 				position = "WR"
 			players_on_FA[player] = {"team_id": 0, "position": position, "pid": 0, "nfl_team": team}
@@ -86,7 +86,7 @@ def read_FA_translations():
 			fa_json = json.loads(fh.read())
 		for player in fa_json:
 			
-			team, position = fa_json[player]
+			team, position, pid = fa_json[player]
 			if position == "WR,RB":
 				position = "WR"
 			players_on_FA[player] = {"team_id": 0, "position": position, "pid": 0, "nfl_team": team}

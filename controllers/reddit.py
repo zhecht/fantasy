@@ -44,7 +44,7 @@ def post3(curr_week):
 
 
 if __name__ == '__main__':
-	curr_week = 6
+	curr_week = 7
 
 	if len(sys.argv) > 1:
 		if int(sys.argv[1]) == 1:

@@ -8,6 +8,7 @@ import glob
 import constants
 import operator
 import os
+from lxml import etree
 try:
   import urllib2 as urllib
 except:
@@ -24,7 +25,7 @@ def write_cron_yahoo_FA():
 	with ghost.start() as session:
 		session.wait_timeout = 100
 
-		for count in range(0,100,25):
+		for count in range(0,150,25):
 			fa_json = {}
 			page, extra_resources = session.open("https://football.fantasysports.yahoo.com/f1/1000110/players?sort=PTS&count={}".format(count))
 
@@ -49,11 +50,13 @@ def write_cron_yahoo_FA():
 
 			for player_row in rows[2:]:
 				name_div = player_row.find('div',class_='ysf-player-name')
-				full_name = name_div.find('a').text.lower().replace("'", "")
+				link = name_div.find('a')
+				pid = link.get("href").split("/")[-1]
+				full_name = link.text.lower().replace("'", "")
 				span = name_div.find('span').text
 				team = span.split(" - ")[0]
 				position = span.split(" - ")[1]
-				fa_json[full_name] = [team, position]
+				fa_json[full_name] = [team, position, pid]
 
 			with open("static/players/FA/FA_{}_{}.json".format(count, count + 25), "w") as outfile:
 					json.dump(fa_json, outfile, indent=4)
@@ -261,6 +264,45 @@ def write_cron_yahoo_stats(start_week, end_week):
 
 		return
 
+def write_cron_yahoo_ids():
+	ns = {
+		'base': "http://fantasysports.yahooapis.com/fantasy/v2/base.rng"
+	}
+	id_translations = {}
+	for team_idx in range(1,13):
+		
+		tree = etree.parse("static/players/{}/roster.xml".format(team_idx))
+		players_xpath = tree.xpath('.//base:player', namespaces=ns)
+
+		for player in players_xpath:
+			pid = player.find('.//base:player_id', namespaces=ns).text
+			first = player.find('.//base:first', namespaces=ns).text
+			last = player.find('.//base:last', namespaces=ns).text
+			full = player.find('.//base:full', namespaces=ns).text
+			pos = player.find('.//base:display_position', namespaces=ns).text
+			selected_pos = player.findall('.//base:position', namespaces=ns)[-1].text
+			nfl_team = player.find('.//base:editorial_team_abbr', namespaces=ns).text
+
+			id_translations[full.lower().replace("'", "")] = pid
+
+	for count in range(0,150,25):
+		with open("static/players/FA/FA_{}_{}.json".format(count, count + 25)) as fh:
+			returned_json = json.loads(fh.read())
+		for name in returned_json:
+			id_translations[name.replace("'", "")] = returned_json[name][-1]
+
+	
+	with open("static/player_ids.json", "w") as outfile:
+		json.dump(id_translations, outfile, indent=4)
+
+#write_cron_yahoo_ids()
+#write_cron_yahoo_FA()
+
+def read_yahoo_ids():
+	with open("static/player_ids.json") as fh:
+		returned_json = json.loads(fh.read())
+	return returned_json
+
 def read_yahoo_stats(curr_week, end_week):
 	yahoo_json = {}
 	for week in range(curr_week, end_week):
@@ -325,9 +367,9 @@ if __name__ == "__main__":
 	if args.cron:
 		print("WRITING YAHOO STATS")
 		#write_cron_yahoo_stats(curr_week, end_week)
-		#write_cron_yahoo_FA()
+		write_cron_yahoo_FA()
 		#write_cron_yahoo_FA_actual(curr_week, end_week)
-		write_cron_yahoo_FA_proj(curr_week, end_week)
+		#write_cron_yahoo_FA_proj(curr_week, end_week)
 	else:
 		read_yahoo_stats(curr_week, end_week)
 

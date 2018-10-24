@@ -12,6 +12,8 @@ except:
 def fix_name(name):
 	if name == "ted ginn jr":
 		return "ted ginn jr."
+	elif name == "odell beckham jr":
+		return "odell beckham jr."
 	elif name == "ben watson":
 		return "benjamin watson"
 	elif name == "allen robinson":
