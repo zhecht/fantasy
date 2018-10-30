@@ -17,7 +17,7 @@ def merge_two_dicts(x, y):
 	z.update(y)
 	return z
 
-curr_week = 7
+curr_week = 8
 players_on_teams, name_translations = read_rosters.read_rosters()
 #players_on_FA = read_rosters.read_FA()
 #players_on_teams = merge_two_dicts(players_on_teams, players_on_FA)

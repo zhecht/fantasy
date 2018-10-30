@@ -46,11 +46,10 @@ def fix_name(name):
 		return "mark ingram"
 	return name
 
-def write_cron_trade_values():
+def write_cron_trade_values(table_ids=["1542195646", "517260624", "824793263"]):
 	html = open("static/trade_value/trade_value.html")
 	soup = BS(html.read(), "lxml")
 
-	table_ids = ["1542195646", "517260624", "824793263"]
 	trade_values = {}
 	for table_id in table_ids:
 		rows = soup.find("div", id=table_id).find_all("tr")

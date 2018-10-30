@@ -80,7 +80,9 @@ def write_redzone(curr_week=1):
 
 		saw_QB = False
 		total_redzone = 0
-		team_total_json[team] = [0]*17
+		team_total_json[team] = {"RB": [], "WR/TE": []}
+		team_total_json[team]["RB"] = [0]*17
+		team_total_json[team]["WR/TE"] = [0]*17
 
 		for row in rows[1:]:
 			tds = row.find_all('td')
@@ -101,7 +103,10 @@ def write_redzone(curr_week=1):
 
 				if which_total.find("TOTAL") != -1:
 					if which_total.find("QB") == -1:
-						team_total_json[team][week - 1] += perc
+						if which_total.find("RB") > -1:
+							team_total_json[team]["RB"][week - 1] += perc
+						else:
+							team_total_json[team]["WR/TE"][week - 1] += perc
 				else:
 					redzone_counts.append(perc)
 
@@ -114,8 +119,9 @@ def write_redzone(curr_week=1):
 		for week in range(1,17):
 			team = redzone_json[player]["team"]
 			looks = [int(x) for x in redzone_json[player]["looks"].split(",")]
-			team_total = team_total_json[team][week - 1]
-			perc = 0 if team_total == 0 else (looks[week - 1] / float(team_total))
+			team_total_rb = team_total_json[team]["RB"][week - 1]
+			team_total_wrte = team_total_json[team]["WR/TE"][week - 1]
+			perc = 0 if team_total_rb + team_total_wrte == 0 else (looks[week - 1] / float(team_total_rb + team_total_wrte))
 			perc_arr.append(round(perc, 2))
 
 		redzone_json[player]["looks_perc"] = ','.join(str(x) for x in perc_arr)
@@ -170,13 +176,15 @@ def get_player_looks_arr(curr_week=1):
 
 	top_redzone = []
 	for player in redzone_json:
-		if player not in players_on_teams or players_on_teams[player]["position"] == "QB":
+		player_check = "mark ingram" if player == "mark ingram ii" else player 
+		if player_check not in players_on_teams or players_on_teams[player_check]["position"] == "QB":
 			continue
 
 		looks_arr = redzone_json[player]["looks"].split(",")
 		looks_perc_arr = redzone_json[player]["looks_perc"].split(",")
 		total_player_looks = 0
-		total_team_looks = 0
+		total_rb_looks = 0
+		total_wrte_looks = 0
 		for week in range(1, curr_week + 1):
 			if int(snap_stats[player]["counts"].split(",")[week - 1]) == 0:
 				continue
@@ -184,11 +192,13 @@ def get_player_looks_arr(curr_week=1):
 			looks = int(looks_arr[week - 1])
 			looks_perc = float(looks_perc_arr[week - 1])
 
-			total_team_looks += team_total_json[redzone_json[player]["team"]][week - 1]
+			total_rb_looks += team_total_json[redzone_json[player]["team"]]["RB"][week - 1]
+			total_wrte_looks += team_total_json[redzone_json[player]["team"]]["WR/TE"][week - 1]
 			total_player_looks += looks
 
+		total_team_looks = total_rb_looks + total_wrte_looks
 		if total_team_looks != 0 and total_player_looks != 0:
-			top_redzone.append({"name": player, "looks": total_player_looks, "looks_perc": round(float(total_player_looks) / total_team_looks, 2), "total_team_looks": total_team_looks, "team": redzone_json[player]["team"]})
+			top_redzone.append({"name": player, "looks": total_player_looks, "looks_perc": round(float(total_player_looks) / total_team_looks, 2), "total_team_looks": total_team_looks, "total_rb_looks": total_rb_looks, "total_wrte_looks": total_wrte_looks, "team": redzone_json[player]["team"]})
 	return top_redzone
 
 if __name__ == '__main__':
@@ -232,16 +242,54 @@ if __name__ == '__main__':
 		sorted_looks = sorted(top_redzone, key=operator.itemgetter("looks"), reverse=True)
 		sorted_looks_perc = sorted(top_redzone, key=operator.itemgetter("looks_perc"), reverse=True)
 
-		for player in sorted_looks[:20]:
-			continue
-			print("{}|{}".format(player["name"].title(), player["looks"]))
+		feelsbad_players = ["emmanuel sanders", "amari cooper", "doug baldwin", "julio jones", "keenan allen", "rob gronkowski"]
+		feelsbad = {}
 
-		#print("\nMOST LOOKS IN REDZONE (PERCENT OF W/R/T)")
+		print("\n#The FeelsBad Table")
+		print("\nPlayer|% of team's redzone looks|(player redzone looks / team redzone looks)")
+		print(":--|:--|:--")
+		for player in sorted_looks_perc:
+			continue
+			if player["looks"] >= 0 and player["name"] in feelsbad_players:
+				print("{}|{}%|({}/{})".format(player["name"].title(), player["looks_perc"] * 100, player["looks"], player["total_team_looks"]))
+
+		print("\n#Top 20 RB")
 		print("\nPlayer|% of team's redzone looks|(player redzone looks / team redzone looks)")
 		print(":--|:--|:--")
 		players_on_teams,translations = read_rosters()
+		printed = 0
 		for player in sorted_looks_perc:
-			#print("{}\t{}%\t({}/{})".format(player["name"], player["looks_perc"] * 100, player["looks"], int(player["looks"] / player["looks_perc"])))
-			if player["looks"] >= 0 and players_on_teams[player["name"]]["position"] == "TE":
+			#continue
+			if printed == 20:
+				break
+			if player["looks"] >= 0 and player["team"] == "nyj":# and players_on_teams[player["name"]]["position"] == "RB":
+				#printed += 1
 				print("{}|{}%|({}/{})".format(player["name"].title(), player["looks_perc"] * 100, player["looks"], player["total_team_looks"]))
-				#pass
+
+		print("\n#Top 20 WR")
+		print("\nPlayer|% of team's redzone looks|(player redzone looks / team redzone looks)")
+		print(":--|:--|:--")
+		players_on_teams,translations = read_rosters()
+		printed = 0
+		for player in sorted_looks_perc:
+			continue
+			if printed == 20:
+				break
+			if player["looks"] >= 0 and players_on_teams[player["name"]]["position"] == "WR":
+				printed += 1
+				print("{}|{}%|({}/{})".format(player["name"].title(), player["looks_perc"] * 100, player["looks"], player["total_team_looks"]))
+
+		print("\n#Top 10 TE")
+		print("\nPlayer|% of team's redzone looks|(player redzone looks / team redzone looks)")
+		print(":--|:--|:--")
+		players_on_teams,translations = read_rosters()
+		printed = 0
+		for player in sorted_looks_perc:
+			continue
+			if printed == 10:
+				break
+			if player["looks"] >= 0 and players_on_teams[player["name"]]["position"] == "TE":
+				printed += 1
+				print("{}|{}%|({}/{})".format(player["name"].title(), player["looks_perc"] * 100, player["looks"], player["total_team_looks"]))
+
+		

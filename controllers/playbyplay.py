@@ -15,33 +15,81 @@ def write_cron_playbyplay():
 	rbs = [
 		{"team": "wsh", "player": "A.Peterson"},
 		{"team": "wsh", "player": "C.Thompson"},
-		{"team": "lar", "player": "T.Gurley"},
-		{"team": "kc", "player": "K.Hunt"},
+
+		{"team": "tb", "player": "P.Barber"},
+		{"team": "tb", "player": "R.Jones"},
+
+		{"team": "sf", "player": "M.Breida"},
+
+		{"team": "sea", "player": "C.Carson"},
+		{"team": "sea", "player": "M.Davis"},
+
 		{"team": "pit", "player": "J.Conner"},
+
+		{"team": "phi", "player": "C.Clement"},		
+
+		{"team": "oak", "player": "J.Richard"},
+		{"team": "oak", "player": "D.Martin"},
+
+		{"team": "nyj", "player": "I.Crowell"},
+		{"team": "nyj", "player": "B.Powell"},
+
+		{"team": "nyg", "player": "S.Barkley"},
+
 		{"team": "no", "player": "A.Kamara"},
 		{"team": "no", "player": "M.Ingram"},
-		{"team": "dal", "player": "E.Elliot"},
-		{"team": "ari", "player": "D.Johnson"},
-		{"team": "lac", "player": "M.Gordon"},
-		{"team": "lac", "player": "A.Ekeler"},
-		{"team": "car", "player": "C.McCaffrey"},
-		{"team": "nyg", "player": "S.Barkley"},
+
 		{"team": "ne", "player": "J.White"},
 		{"team": "ne", "player": "S.Michel"},
+
+		{"team": "min", "player": "D.Cook"},
+		{"team": "min", "player": "L.Murray"},
+
+		{"team": "lar", "player": "T.Gurley"},
+
+		{"team": "lac", "player": "M.Gordon"},
+		{"team": "lac", "player": "A.Ekeler"},
+
+		{"team": "kc", "player": "K.Hunt"},
+
+		{"team": "jax", "player": "L.Fournette"},
+		{"team": "jax", "player": "T.Yeldon"},
+
+		{"team": "ind", "player": "M.Mack"},
+		{"team": "ind", "player": "N.Hines"},
+
+		{"team": "hou", "player": "L.Miller"},
+
+		{"team": "gb", "player": "A.Jones"},
+		{"team": "gb", "player": "J.Williams"},
+
+		{"team": "det", "player": "K.Johnson"},
+
+		{"team": "den", "player": "P.Lindsay"},
+		{"team": "den", "player": "R.Freeman"},
+
+		{"team": "dal", "player": "E.Elliot"},
+
+		{"team": "cle", "player": "N.Chubb"},
+		{"team": "cle", "player": "D.Johnson Jr."},
+
+		{"team": "cin", "player": "J.Mixon"},
+
 		{"team": "chi", "player": "T.Cohen"},
 		{"team": "chi", "player": "J.Howard"},
-		{"team": "sf", "player": "M.Breida"},
-		{"team": "cin", "player": "J.Mixon"},
-		{"team": "det", "player": "K.Johnson"},
-		{"team": "hou", "player": "L.Miller"},
-		{"team": "phi", "player": "C.Clement"},
-		{"team": "ind", "player": "M.Mack"},
-		{"team": "cle", "player": "N.Chubb"},
-		{"team": "nyj", "player": "I.Crowell"},
-		{"team": "den", "player": "P.Lindsey"},
+
+		{"team": "car", "player": "C.McCaffrey"},
+
+		{"team": "buf", "player": "L.McCoy"},
+		{"team": "buf", "player": "C.Ivory"},
+
+		{"team": "bal", "player": "A.Collins"},
+		{"team": "bal", "player": "J.Allen"},
+
 		{"team": "atl", "player": "T.Coleman"},
 		{"team": "atl", "player": "I.Smith"},
 
+		{"team": "ari", "player": "D.Johnson"},
 		]
 
 	for rb in rbs:
@@ -128,4 +176,4 @@ def read_playbyplay():
 			print("{}|{}".format(stat["name"], stat[key]))
 
 
-read_playbyplay()
+write_cron_playbyplay()
