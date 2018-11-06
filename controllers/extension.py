@@ -45,23 +45,20 @@ def fix_name(name):
 	elif name == "mark ingram ii":
 		return "mark ingram"
 	return name
-
-def write_cron_trade_values(table_ids=["1542195646", "517260624", "824793263"]):
-	html = open("static/trade_value/trade_value.html")
-	soup = BS(html.read(), "lxml")
-
+	
+def write_cron_trade_values():
+	# Save Standard page as trade_value0.csv
+	# Save HALF-PPR as trade_value1.csv
+	# Save FULL-PPR as trade_value2.csv
 	trade_values = {}
-	for table_id in table_ids:
-		rows = soup.find("div", id=table_id).find_all("tr")
-		for row in rows[5:]:
-			try:
-				value = float(row.find("td", class_="s18").find("span").text)
-			except:
-				value = float(row.find("td", class_="s22").find("span").text)
-			tds = row.find_all("td", class_="s19") + row.find_all("td", class_="s21")
-			for td in tds:
+	for table_id in ["trade_value0", "trade_value1", "trade_value2"]:
+		html = open("static/trade_value/{}.csv".format(table_id)).readlines()		
+		for row in html[4:]:
+			data = row.split(",")
+			value = float(data[2])
+			for td in data[3:]:
 				try:
-					name = fix_name(td.find("span").text.lower().replace("'", ""))
+					name = fix_name(td.lower().replace("'", ""))
 					if name not in trade_values:
 						trade_values[name] = []
 					trade_values[name].append(value)
@@ -70,7 +67,6 @@ def write_cron_trade_values(table_ids=["1542195646", "517260624", "824793263"]):
 
 	with open("static/trade_value/trade_value.json", "w") as fh:
 		json.dump(trade_values, fh, indent=4)
-
 
 def read_trade_values():
 	with open("static/trade_value/trade_value.json") as fh:
@@ -114,7 +110,7 @@ def write_borischen_extension():
 	with open("static/borischen_tiers.json", "w") as fh:
 		json.dump(stats, fh, indent=4)
 
-write_borischen_extension()
+#write_borischen_extension()
 
 def read_borischen_extension(host):
 	with open("static/borischen_tiers.json") as fh:

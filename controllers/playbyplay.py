@@ -154,10 +154,12 @@ def read_playbyplay():
 
 	for player in playbyplay:
 		rushes = playbyplay[player]
-		j = {"name": player, "negative_rushes": 0, "negative_rushing_yards": 0, "rushes_over_10": 0, "rushes_over_20": 0}
+		j = {"name": player, "negative_rushes": 0, "negative_rushing_yards": 0, "rushes_over_5": 0, "rushes_over_10": 0, "rushes_over_20": 0}
 		for weekly_rushes in rushes:
 			if len(weekly_rushes) > 0:
 				for rush in weekly_rushes:
+					if rush >= 5:
+						j["rushes_over_5"] += 1
 					if rush >= 10:
 						j["rushes_over_10"] += 1
 					if rush >= 20:
@@ -167,13 +169,14 @@ def read_playbyplay():
 						j["negative_rushing_yards"] += rush
 		stats.append(j)
 
-	for key in ["negative_rushing_yards", "rushes_over_10", "rushes_over_20"]:
+	for key in ["negative_rushing_yards", "rushes_over_5", "rushes_over_10", "rushes_over_20"]:
 		is_reverse = False if key == "negative_rushing_yards" else True
 		sort = sorted(stats, key=operator.itemgetter(key), reverse=is_reverse)
 		print("\nPlayer|{}".format( ' '.join(key.split("_")).title()) )
 		print(":--|:--")
-		for stat in sort[:5]:
+		for stat in sort[:10]:
 			print("{}|{}".format(stat["name"], stat[key]))
 
 
-write_cron_playbyplay()
+#write_cron_playbyplay()
+read_playbyplay()
