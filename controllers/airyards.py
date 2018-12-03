@@ -26,12 +26,14 @@ csv = open("static/airyards.csv")
 
 indexes = {
 	"targets": 0,
+	"rec": 0,
 	"tgt_share": 0,
 	"adot": 0,
 	"air_yards": 0,
 	"yac": 0,
+	"td": 0,
 	#"ppr": 0
-	#"wopr": 0
+	"wopr": 0
 }
 
 stats_arr = []
@@ -52,6 +54,9 @@ for idx, line in enumerate(csv):
 	for key in indexes:
 		arr[key] = float(split_line[indexes[key]])
 	stats_arr.append(arr)
+
+	if arr["full_name"] in ["davante adams", "robert woods", "juju smith-schuster", "tyler boyd"]:
+		print(arr)
 
 	if idx >= 75:
 		break
@@ -89,7 +94,7 @@ for team, json in sorted_teams:
 
 #######################################################################
 """
-for rank in range(4):
+for rank in range(0):
 	print("#WR{} Players".format(rank + 1))
 	totals = {"names": []}
 	for i in range(12):
@@ -98,7 +103,7 @@ for rank in range(4):
 
 print(" |{}".format('|'.join(sorted(indexes.keys()))))
 print(":--|{}".format('|'.join([":--"]*len(indexes.keys()))))
-for rank in range(4):
+for rank in range(0):
 	#print("WR{}".format(rank + 1))
 	totals = {}
 	for i in range(12):

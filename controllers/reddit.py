@@ -33,7 +33,7 @@ def post3(curr_week):
 
 
 if __name__ == '__main__':
-	curr_week = 8
+	curr_week = 9
 
 	if len(sys.argv) > 1:
 		if int(sys.argv[1]) == 1:

@@ -92,6 +92,7 @@ def write_cron_playbyplay():
 		{"team": "ari", "player": "D.Johnson"},
 		]
 
+	rbs = [{"team": "pit", "player": "J.Conner"}]
 	for rb in rbs:
 		team = rb["team"]
 		player = rb["player"]
@@ -136,8 +137,17 @@ def write_cron_playbyplay():
 				drive_plays = section.find_all("span", class_="post-play")
 				for play in drive_plays:
 					regex = re.search(r"{} .* for ([-0-9]+) yard".format(player), play.text)
-					if regex and play.text.find("pass") == -1 and play.text.find("No Play") == -1 and play.text.find("punts") == -1:
+
+					if play.text.find("J.Conner") >= 0:
+						if regex:
+							pass
+						else:
+							print(play.text)
+
+					if regex and play.text.find("pass") == -1 and play.text.find("No Play") == -1 and play.text.find("punts") == -1 and play.text.find("kicks") == -1:
 						rushes.append(int(regex.group(1)))
+					elif not regex and play.text.find("no gain") >= 0 and play.text.find(player) >= 0 and play.text.find("pass") == -1 and play.text.find("No Play") == -1 and play.text.find("punts") == -1 and play.text.find("kicks") == -1:
+						rushes.append(0)
 
 			j[player].append(rushes)
 
@@ -178,5 +188,5 @@ def read_playbyplay():
 			print("{}|{}".format(stat["name"], stat[key]))
 
 
-#write_cron_playbyplay()
-read_playbyplay()
+write_cron_playbyplay()
+#read_playbyplay()
