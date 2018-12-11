@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/team/nfl.l.1000110.t.11/roster" time="111.84597015381ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
+<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/team/nfl.l.1000110.t.11/roster" time="113.29698562622ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
  <team>
   <team_key>380.l.1000110.t.11</team_key>
   <team_id>11</team_id>
@@ -11,12 +11,12 @@
     <url>https://ct.yimg.com/cy/1870/44602967354_2ad123_192sq.jpg?ct=fantasy</url>
    </team_logo>
   </team_logos>
-  <waiver_priority>6</waiver_priority>
+  <waiver_priority>5</waiver_priority>
   <number_of_moves>21</number_of_moves>
   <number_of_trades>1</number_of_trades>
   <roster_adds>
    <coverage_type>week</coverage_type>
-   <coverage_value>13</coverage_value>
+   <coverage_value>15</coverage_value>
    <value>0</value>
   </roster_adds>
   <league_scoring_type>head</league_scoring_type>
@@ -42,7 +42,7 @@
   </managers>
   <roster>
    <coverage_type>week</coverage_type>
-   <week>13</week>
+   <week>15</week>
    <is_editable>0</is_editable>
    <players count="15">
     <player>
@@ -76,10 +76,10 @@
       <position>QB</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1543181580</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1544406060</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>13</week>
+      <week>15</week>
       <position>QB</position>
      </selected_position>
     </player>
@@ -114,10 +114,49 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1543192320</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1544402340</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>13</week>
+      <week>15</week>
+      <position>WR</position>
+     </selected_position>
+    </player>
+    <player>
+     <player_key>380.p.26650</player_key>
+     <player_id>26650</player_id>
+     <name>
+      <full>DeAndre Hopkins</full>
+      <first>DeAndre</first>
+      <last>Hopkins</last>
+      <ascii_first>DeAndre</ascii_first>
+      <ascii_last>Hopkins</ascii_last>
+     </name>
+     <injury_note>thumb, ankle, hamstring</injury_note>
+     <editorial_player_key>nfl.p.26650</editorial_player_key>
+     <editorial_team_key>nfl.t.34</editorial_team_key>
+     <editorial_team_full_name>Houston Texans</editorial_team_full_name>
+     <editorial_team_abbr>Hou</editorial_team_abbr>
+     <bye_weeks>
+      <week>10</week>
+     </bye_weeks>
+     <uniform_number>10</uniform_number>
+     <display_position>WR</display_position>
+     <headshot>
+      <url>https://s.yimg.com/iu/api/res/1.2/yZDrmUs3Sg2oIrO4x3Pf0Q--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08212018/26650.png</url>
+      <size>small</size>
+     </headshot>
+     <image_url>https://s.yimg.com/iu/api/res/1.2/yZDrmUs3Sg2oIrO4x3Pf0Q--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08212018/26650.png</image_url>
+     <is_undroppable>0</is_undroppable>
+     <position_type>O</position_type>
+     <eligible_positions>
+      <position>WR</position>
+      <position>W/R/T</position>
+     </eligible_positions>
+     <has_player_notes>1</has_player_notes>
+     <player_notes_last_timestamp>1544391120</player_notes_last_timestamp>
+     <selected_position>
+      <coverage_type>week</coverage_type>
+      <week>15</week>
       <position>WR</position>
      </selected_position>
     </player>
@@ -152,11 +191,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
-     <player_notes_last_timestamp>1543785720</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1544403600</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>13</week>
+      <week>15</week>
       <position>RB</position>
      </selected_position>
     </player>
@@ -170,8 +208,6 @@
       <ascii_first>Chris</ascii_first>
       <ascii_last>Carson</ascii_last>
      </name>
-     <status>Q</status>
-     <status_full>Questionable</status_full>
      <injury_note>hip</injury_note>
      <editorial_player_key>nfl.p.30362</editorial_player_key>
      <editorial_team_key>nfl.t.26</editorial_team_key>
@@ -195,10 +231,10 @@
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
      <has_recent_player_notes>1</has_recent_player_notes>
-     <player_notes_last_timestamp>1543796040</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1544501640</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>13</week>
+      <week>15</week>
       <position>RB</position>
      </selected_position>
     </player>
@@ -233,11 +269,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
-     <player_notes_last_timestamp>1543788120</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1544393700</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>13</week>
+      <week>15</week>
       <position>TE</position>
      </selected_position>
     </player>
@@ -272,11 +307,48 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1543181340</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1544405880</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>13</week>
+      <week>15</week>
       <position>W/R/T</position>
+     </selected_position>
+    </player>
+    <player>
+     <player_key>380.p.29638</player_key>
+     <player_id>29638</player_id>
+     <name>
+      <full>Maurice Harris</full>
+      <first>Maurice</first>
+      <last>Harris</last>
+      <ascii_first>Maurice</ascii_first>
+      <ascii_last>Harris</ascii_last>
+     </name>
+     <injury_note>concussion</injury_note>
+     <editorial_player_key>nfl.p.29638</editorial_player_key>
+     <editorial_team_key>nfl.t.28</editorial_team_key>
+     <editorial_team_full_name>Washington Redskins</editorial_team_full_name>
+     <editorial_team_abbr>Was</editorial_team_abbr>
+     <bye_weeks>
+      <week>4</week>
+     </bye_weeks>
+     <uniform_number>13</uniform_number>
+     <display_position>WR</display_position>
+     <headshot>
+      <url>https://s.yimg.com/iu/api/res/1.2/nOfsGqIIPZ.yYNs..h125A--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/09302018/29638.png</url>
+      <size>small</size>
+     </headshot>
+     <image_url>https://s.yimg.com/iu/api/res/1.2/nOfsGqIIPZ.yYNs..h125A--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/09302018/29638.png</image_url>
+     <is_undroppable>0</is_undroppable>
+     <position_type>O</position_type>
+     <eligible_positions>
+      <position>WR</position>
+      <position>W/R/T</position>
+     </eligible_positions>
+     <selected_position>
+      <coverage_type>week</coverage_type>
+      <week>15</week>
+      <position>BN</position>
      </selected_position>
     </player>
     <player>
@@ -312,10 +384,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1543767780</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1544363460</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>13</week>
+      <week>15</week>
       <position>BN</position>
      </selected_position>
     </player>
@@ -350,51 +422,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
-     <player_notes_last_timestamp>1543788480</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1544392260</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>13</week>
-      <position>BN</position>
-     </selected_position>
-    </player>
-    <player>
-     <player_key>380.p.26650</player_key>
-     <player_id>26650</player_id>
-     <name>
-      <full>DeAndre Hopkins</full>
-      <first>DeAndre</first>
-      <last>Hopkins</last>
-      <ascii_first>DeAndre</ascii_first>
-      <ascii_last>Hopkins</ascii_last>
-     </name>
-     <injury_note>thumb, ankle, hamstring</injury_note>
-     <editorial_player_key>nfl.p.26650</editorial_player_key>
-     <editorial_team_key>nfl.t.34</editorial_team_key>
-     <editorial_team_full_name>Houston Texans</editorial_team_full_name>
-     <editorial_team_abbr>Hou</editorial_team_abbr>
-     <bye_weeks>
-      <week>10</week>
-     </bye_weeks>
-     <uniform_number>10</uniform_number>
-     <display_position>WR</display_position>
-     <headshot>
-      <url>https://s.yimg.com/iu/api/res/1.2/yZDrmUs3Sg2oIrO4x3Pf0Q--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08212018/26650.png</url>
-      <size>small</size>
-     </headshot>
-     <image_url>https://s.yimg.com/iu/api/res/1.2/yZDrmUs3Sg2oIrO4x3Pf0Q--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08212018/26650.png</image_url>
-     <is_undroppable>0</is_undroppable>
-     <position_type>O</position_type>
-     <eligible_positions>
-      <position>WR</position>
-      <position>W/R/T</position>
-     </eligible_positions>
-     <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
-     <player_notes_last_timestamp>1543785900</player_notes_last_timestamp>
-     <selected_position>
-      <coverage_type>week</coverage_type>
-      <week>13</week>
+      <week>15</week>
       <position>BN</position>
      </selected_position>
     </player>
@@ -435,7 +466,7 @@
      <player_notes_last_timestamp>1543686000</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>13</week>
+      <week>15</week>
       <position>BN</position>
      </selected_position>
     </player>
@@ -470,48 +501,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
-     <player_notes_last_timestamp>1543786200</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1544390340</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>13</week>
-      <position>BN</position>
-     </selected_position>
-    </player>
-    <player>
-     <player_key>380.p.29638</player_key>
-     <player_id>29638</player_id>
-     <name>
-      <full>Maurice Harris</full>
-      <first>Maurice</first>
-      <last>Harris</last>
-      <ascii_first>Maurice</ascii_first>
-      <ascii_last>Harris</ascii_last>
-     </name>
-     <injury_note>concussion</injury_note>
-     <editorial_player_key>nfl.p.29638</editorial_player_key>
-     <editorial_team_key>nfl.t.28</editorial_team_key>
-     <editorial_team_full_name>Washington Redskins</editorial_team_full_name>
-     <editorial_team_abbr>Was</editorial_team_abbr>
-     <bye_weeks>
-      <week>4</week>
-     </bye_weeks>
-     <uniform_number>13</uniform_number>
-     <display_position>WR</display_position>
-     <headshot>
-      <url>https://s.yimg.com/iu/api/res/1.2/nOfsGqIIPZ.yYNs..h125A--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/09302018/29638.png</url>
-      <size>small</size>
-     </headshot>
-     <image_url>https://s.yimg.com/iu/api/res/1.2/nOfsGqIIPZ.yYNs..h125A--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/09302018/29638.png</image_url>
-     <is_undroppable>0</is_undroppable>
-     <position_type>O</position_type>
-     <eligible_positions>
-      <position>WR</position>
-      <position>W/R/T</position>
-     </eligible_positions>
-     <selected_position>
-      <coverage_type>week</coverage_type>
-      <week>13</week>
+      <week>15</week>
       <position>BN</position>
      </selected_position>
     </player>
@@ -546,11 +539,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
-     <player_notes_last_timestamp>1543789500</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1544394180</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>13</week>
+      <week>15</week>
       <position>BN</position>
      </selected_position>
     </player>
@@ -586,7 +578,7 @@
      </eligible_positions>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>13</week>
+      <week>15</week>
       <position>K</position>
      </selected_position>
     </player>
@@ -621,7 +613,7 @@
      </eligible_positions>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>13</week>
+      <week>15</week>
       <position>DEF</position>
      </selected_position>
     </player>
@@ -630,4 +622,4 @@
  </team>
 </fantasy_content>
 
-<!-- fanos458.sports.bf1.yahoo.com Mon Dec  3 21:10:52 UTC 2018 -->
+<!-- fanos232.sports.bf1.yahoo.com Tue Dec 11 20:38:08 UTC 2018 -->

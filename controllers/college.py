@@ -179,14 +179,15 @@ def write_leaders(curr_week=13):
 			name = fix_name(" ".join(tds[1].find("a").get("href").split("/")[-1].split("-"))[:-4])
 			team = tds[2].find("a").text
 
+			new_pos = pos
 			if pos == "idp":
 				new_pos = tds[3].text
 				if not new_pos:
 					continue
 				rank = idp_ranks[new_pos]
 				idp_ranks[new_pos] += 1
-				pos = new_pos
-			leaders[name] = {"rank": rank, "points": points, "team": team, "pos": pos}
+
+			leaders[name] = {"rank": rank, "points": points, "team": team, "pos": new_pos}
 	
 	with open("static/leaders.txt", "w") as outfile:
 		json.dump(leaders, outfile, indent=4)
@@ -199,38 +200,53 @@ def read_leaders():
 
 if __name__ == '__main__':
 
-	#write_leaders(13)
+	#write_leaders(15) # 12/17/18
 
 	leaders = read_leaders()
 	colleges = read_college()
 
 	stats = []
 	looked_at = []
+	nfl_teams = {}
 
 	for college in colleges:
 		players = colleges[college]
-		j = {"total_points": 0, "total_ranked_top_12": 0, "ranked_top_12": [], "college": college}
+		j = {"total_points": 0, "total_top": 0, "top": {}, "college": college}
 
 		for player in players:
 			looked_at.append(player)
 			try:
 				leader_stats = leaders[player]
+				
+				#if leader_stats["team"] not in nfl_teams:
+				#	nfl_teams[leader_stats["team"]] = 0
+				#nfl_teams[leader_stats["team"]] += 1
+				
 				j["total_points"] = round(j["total_points"] + float(leader_stats["points"]), 2)
-				if leader_stats["rank"] <= 50:
-					#j["ranked_top_12"].append(player)
-					j["total_ranked_top_12"] += 1
+				if (leader_stats["pos"] in ["rb", "qb", "te", "k"] and leader_stats["rank"] <= 24) or leader_stats["rank"] <= 36:
+					j["total_top"] += 1
+
+					if leader_stats["pos"] not in j["top"]:
+						j["top"][leader_stats["pos"]] = [{"name": player, "rank": leader_stats["rank"]}]
+					else:
+						j["top"][leader_stats["pos"]].append({"name": player, "rank": leader_stats["rank"]})
 			except:
 				pass
 
 		stats.append(j)
 
-	sorted_stats = sorted(stats, key=operator.itemgetter("total_points"), reverse=True)
-	for stat in sorted_stats[:10]:
-		print(stat)
+	#sorted_stats = sorted(stats, key=operator.itemgetter("total_points"), reverse=True)
+	#for stat in sorted_stats[:10]:
+	#	print(stat)
 
-	sorted_stats = sorted(stats, key=operator.itemgetter("total_ranked_top_12"), reverse=True)
-	for stat in sorted_stats[:5]:
-		print(stat)
+	sorted_stats = sorted(stats, key=operator.itemgetter("total_top"), reverse=True)
+	print("College|Total Top|Players")
+	print(":--|:--|:--")
+	for stat in sorted_stats[:30]:
+		#print([stat["top"][pos] for pos in stat["top"]])
+		players = ["{} ({}{})".format(player["name"].title(), pos.upper(), player["rank"]) for pos in stat["top"] for player in stat["top"][pos]]
+		print("{}|{}|{}".format(stat['college'].title(), stat['total_top'], ", ".join(players)))
+		
 
 
 
