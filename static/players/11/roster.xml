@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/team/nfl.l.1000110.t.11/roster" time="113.29698562622ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
+<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/team/nfl.l.1000110.t.11/roster" time="110.44311523438ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
  <team>
   <team_key>380.l.1000110.t.11</team_key>
   <team_id>11</team_id>
@@ -16,7 +16,7 @@
   <number_of_trades>1</number_of_trades>
   <roster_adds>
    <coverage_type>week</coverage_type>
-   <coverage_value>15</coverage_value>
+   <coverage_value>17</coverage_value>
    <value>0</value>
   </roster_adds>
   <league_scoring_type>head</league_scoring_type>
@@ -42,7 +42,7 @@
   </managers>
   <roster>
    <coverage_type>week</coverage_type>
-   <week>15</week>
+   <week>16</week>
    <is_editable>0</is_editable>
    <players count="15">
     <player>
@@ -55,7 +55,9 @@
       <ascii_first>Carson</ascii_first>
       <ascii_last>Wentz</ascii_last>
      </name>
-     <injury_note>knee</injury_note>
+     <status>O</status>
+     <status_full>Out</status_full>
+     <injury_note>back</injury_note>
      <editorial_player_key>nfl.p.29236</editorial_player_key>
      <editorial_team_key>nfl.t.21</editorial_team_key>
      <editorial_team_full_name>Philadelphia Eagles</editorial_team_full_name>
@@ -76,10 +78,10 @@
       <position>QB</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1544406060</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1546549380</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>15</week>
+      <week>16</week>
       <position>QB</position>
      </selected_position>
     </player>
@@ -93,6 +95,7 @@
       <ascii_first>JuJu</ascii_first>
       <ascii_last>Smith-Schuster</ascii_last>
      </name>
+     <injury_note>groin</injury_note>
      <editorial_player_key>nfl.p.30175</editorial_player_key>
      <editorial_team_key>nfl.t.23</editorial_team_key>
      <editorial_team_full_name>Pittsburgh Steelers</editorial_team_full_name>
@@ -114,10 +117,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1544402340</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1546217940</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>15</week>
+      <week>16</week>
       <position>WR</position>
      </selected_position>
     </player>
@@ -131,7 +134,7 @@
       <ascii_first>DeAndre</ascii_first>
       <ascii_last>Hopkins</ascii_last>
      </name>
-     <injury_note>thumb, ankle, hamstring</injury_note>
+     <injury_note>ankle</injury_note>
      <editorial_player_key>nfl.p.26650</editorial_player_key>
      <editorial_team_key>nfl.t.34</editorial_team_key>
      <editorial_team_full_name>Houston Texans</editorial_team_full_name>
@@ -153,10 +156,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1544391120</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1546204980</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>15</week>
+      <week>16</week>
       <position>WR</position>
      </selected_position>
     </player>
@@ -170,6 +173,9 @@
       <ascii_first>Phillip</ascii_first>
       <ascii_last>Lindsay</ascii_last>
      </name>
+     <status>IR</status>
+     <status_full>Injured Reserve</status_full>
+     <injury_note>wrist</injury_note>
      <editorial_player_key>nfl.p.31379</editorial_player_key>
      <editorial_team_key>nfl.t.7</editorial_team_key>
      <editorial_team_full_name>Denver Broncos</editorial_team_full_name>
@@ -191,10 +197,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1544403600</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1545844740</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>15</week>
+      <week>16</week>
       <position>RB</position>
      </selected_position>
     </player>
@@ -230,11 +236,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
-     <player_notes_last_timestamp>1544501640</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1546389120</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>15</week>
+      <week>16</week>
       <position>RB</position>
      </selected_position>
     </player>
@@ -269,10 +274,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1544393700</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1546205820</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>15</week>
+      <week>16</week>
       <position>TE</position>
      </selected_position>
     </player>
@@ -307,10 +312,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1544405880</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1546215600</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>15</week>
+      <week>16</week>
       <position>W/R/T</position>
      </selected_position>
     </player>
@@ -324,6 +329,8 @@
       <ascii_first>Maurice</ascii_first>
       <ascii_last>Harris</ascii_last>
      </name>
+     <status>IR</status>
+     <status_full>Injured Reserve</status_full>
      <injury_note>concussion</injury_note>
      <editorial_player_key>nfl.p.29638</editorial_player_key>
      <editorial_team_key>nfl.t.28</editorial_team_key>
@@ -345,9 +352,11 @@
       <position>WR</position>
       <position>W/R/T</position>
      </eligible_positions>
+     <has_player_notes>1</has_player_notes>
+     <player_notes_last_timestamp>1546212840</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>15</week>
+      <week>16</week>
       <position>BN</position>
      </selected_position>
     </player>
@@ -383,11 +392,9 @@
       <position>RB</position>
       <position>W/R/T</position>
      </eligible_positions>
-     <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1544363460</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>15</week>
+      <week>16</week>
       <position>BN</position>
      </selected_position>
     </player>
@@ -422,10 +429,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1544392260</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1546207980</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>15</week>
+      <week>16</week>
       <position>BN</position>
      </selected_position>
     </player>
@@ -462,11 +469,9 @@
       <position>RB</position>
       <position>W/R/T</position>
      </eligible_positions>
-     <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1543686000</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>15</week>
+      <week>16</week>
       <position>BN</position>
      </selected_position>
     </player>
@@ -480,6 +485,9 @@
       <ascii_first>Frank</ascii_first>
       <ascii_last>Gore</ascii_last>
      </name>
+     <status>IR</status>
+     <status_full>Injured Reserve</status_full>
+     <injury_note>foot</injury_note>
      <editorial_player_key>nfl.p.7241</editorial_player_key>
      <editorial_team_key>nfl.t.15</editorial_team_key>
      <editorial_team_full_name>Miami Dolphins</editorial_team_full_name>
@@ -500,11 +508,9 @@
       <position>RB</position>
       <position>W/R/T</position>
      </eligible_positions>
-     <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1544390340</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>15</week>
+      <week>16</week>
       <position>BN</position>
      </selected_position>
     </player>
@@ -518,6 +524,7 @@
       <ascii_first>John</ascii_first>
       <ascii_last>Brown</ascii_last>
      </name>
+     <injury_note>hamstring</injury_note>
      <editorial_player_key>nfl.p.27619</editorial_player_key>
      <editorial_team_key>nfl.t.33</editorial_team_key>
      <editorial_team_full_name>Baltimore Ravens</editorial_team_full_name>
@@ -539,10 +546,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1544394180</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1546220040</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>15</week>
+      <week>16</week>
       <position>BN</position>
      </selected_position>
     </player>
@@ -578,7 +585,7 @@
      </eligible_positions>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>15</week>
+      <week>16</week>
       <position>K</position>
      </selected_position>
     </player>
@@ -613,7 +620,7 @@
      </eligible_positions>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>15</week>
+      <week>16</week>
       <position>DEF</position>
      </selected_position>
     </player>
@@ -622,4 +629,4 @@
  </team>
 </fantasy_content>
 
-<!-- fanos232.sports.bf1.yahoo.com Tue Dec 11 20:38:08 UTC 2018 -->
+<!-- fanos1747.sports.bf1.yahoo.com Fri Jan  4 23:13:26 UTC 2019 -->

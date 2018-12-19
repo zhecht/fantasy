@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/team/nfl.l.1000110.t.6/roster" time="125.13899803162ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
+<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/team/nfl.l.1000110.t.6/roster" time="109.52711105347ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
  <team>
   <team_key>380.l.1000110.t.6</team_key>
   <team_id>6</team_id>
@@ -16,7 +16,7 @@
   <number_of_trades>2</number_of_trades>
   <roster_adds>
    <coverage_type>week</coverage_type>
-   <coverage_value>15</coverage_value>
+   <coverage_value>17</coverage_value>
    <value>0</value>
   </roster_adds>
   <league_scoring_type>head</league_scoring_type>
@@ -42,7 +42,7 @@
   </managers>
   <roster>
    <coverage_type>week</coverage_type>
-   <week>15</week>
+   <week>16</week>
    <is_editable>0</is_editable>
    <players count="15">
     <player>
@@ -75,10 +75,10 @@
       <position>QB</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1544403780</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1546217820</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>15</week>
+      <week>16</week>
       <position>QB</position>
      </selected_position>
     </player>
@@ -113,10 +113,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1544391180</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1546204320</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>15</week>
+      <week>16</week>
       <position>WR</position>
      </selected_position>
     </player>
@@ -151,52 +151,11 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1544403240</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1546204980</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>15</week>
+      <week>16</week>
       <position>WR</position>
-     </selected_position>
-    </player>
-    <player>
-     <player_key>380.p.9317</player_key>
-     <player_id>9317</player_id>
-     <name>
-      <full>LeSean McCoy</full>
-      <first>LeSean</first>
-      <last>McCoy</last>
-      <ascii_first>LeSean</ascii_first>
-      <ascii_last>McCoy</ascii_last>
-     </name>
-     <status>Q</status>
-     <status_full>Questionable</status_full>
-     <injury_note>concussion</injury_note>
-     <editorial_player_key>nfl.p.9317</editorial_player_key>
-     <editorial_team_key>nfl.t.2</editorial_team_key>
-     <editorial_team_full_name>Buffalo Bills</editorial_team_full_name>
-     <editorial_team_abbr>Buf</editorial_team_abbr>
-     <bye_weeks>
-      <week>11</week>
-     </bye_weeks>
-     <uniform_number>25</uniform_number>
-     <display_position>RB</display_position>
-     <headshot>
-      <url>https://s.yimg.com/iu/api/res/1.2/mdG7t5jI1vLr7ce71pRWmg--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08232018/9317.png</url>
-      <size>small</size>
-     </headshot>
-     <image_url>https://s.yimg.com/iu/api/res/1.2/mdG7t5jI1vLr7ce71pRWmg--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08232018/9317.png</image_url>
-     <is_undroppable>0</is_undroppable>
-     <position_type>O</position_type>
-     <eligible_positions>
-      <position>RB</position>
-      <position>W/R/T</position>
-     </eligible_positions>
-     <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1544467020</player_notes_last_timestamp>
-     <selected_position>
-      <coverage_type>week</coverage_type>
-      <week>15</week>
-      <position>RB</position>
      </selected_position>
     </player>
     <player>
@@ -209,7 +168,9 @@
       <ascii_first>Leonard</ascii_first>
       <ascii_last>Fournette</ascii_last>
      </name>
-     <injury_note>hamstring</injury_note>
+     <status>Q</status>
+     <status_full>Questionable</status_full>
+     <injury_note>ankle, foot</injury_note>
      <editorial_player_key>nfl.p.30117</editorial_player_key>
      <editorial_team_key>nfl.t.30</editorial_team_key>
      <editorial_team_full_name>Jacksonville Jaguars</editorial_team_full_name>
@@ -231,10 +192,49 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1544159400</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1546451640</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>15</week>
+      <week>16</week>
+      <position>RB</position>
+     </selected_position>
+    </player>
+    <player>
+     <player_key>380.p.28424</player_key>
+     <player_id>28424</player_id>
+     <name>
+      <full>T.J. Yeldon</full>
+      <first>T.J.</first>
+      <last>Yeldon</last>
+      <ascii_first>T.J.</ascii_first>
+      <ascii_last>Yeldon</ascii_last>
+     </name>
+     <injury_note>ankle</injury_note>
+     <editorial_player_key>nfl.p.28424</editorial_player_key>
+     <editorial_team_key>nfl.t.30</editorial_team_key>
+     <editorial_team_full_name>Jacksonville Jaguars</editorial_team_full_name>
+     <editorial_team_abbr>Jax</editorial_team_abbr>
+     <bye_weeks>
+      <week>9</week>
+     </bye_weeks>
+     <uniform_number>24</uniform_number>
+     <display_position>RB</display_position>
+     <headshot>
+      <url>https://s.yimg.com/iu/api/res/1.2/kL.zOF1drp4X_f3T3SL29w--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/09132018/28424.png</url>
+      <size>small</size>
+     </headshot>
+     <image_url>https://s.yimg.com/iu/api/res/1.2/kL.zOF1drp4X_f3T3SL29w--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/09132018/28424.png</image_url>
+     <is_undroppable>0</is_undroppable>
+     <position_type>O</position_type>
+     <eligible_positions>
+      <position>RB</position>
+      <position>W/R/T</position>
+     </eligible_positions>
+     <has_player_notes>1</has_player_notes>
+     <player_notes_last_timestamp>1546208640</player_notes_last_timestamp>
+     <selected_position>
+      <coverage_type>week</coverage_type>
+      <week>16</week>
       <position>RB</position>
      </selected_position>
     </player>
@@ -270,11 +270,50 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1544407200</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1546214700</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>15</week>
+      <week>16</week>
       <position>W/R/T</position>
+     </selected_position>
+    </player>
+    <player>
+     <player_key>380.p.9317</player_key>
+     <player_id>9317</player_id>
+     <name>
+      <full>LeSean McCoy</full>
+      <first>LeSean</first>
+      <last>McCoy</last>
+      <ascii_first>LeSean</ascii_first>
+      <ascii_last>McCoy</ascii_last>
+     </name>
+     <injury_note>hamstring</injury_note>
+     <editorial_player_key>nfl.p.9317</editorial_player_key>
+     <editorial_team_key>nfl.t.2</editorial_team_key>
+     <editorial_team_full_name>Buffalo Bills</editorial_team_full_name>
+     <editorial_team_abbr>Buf</editorial_team_abbr>
+     <bye_weeks>
+      <week>11</week>
+     </bye_weeks>
+     <uniform_number>25</uniform_number>
+     <display_position>RB</display_position>
+     <headshot>
+      <url>https://s.yimg.com/iu/api/res/1.2/mdG7t5jI1vLr7ce71pRWmg--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08232018/9317.png</url>
+      <size>small</size>
+     </headshot>
+     <image_url>https://s.yimg.com/iu/api/res/1.2/mdG7t5jI1vLr7ce71pRWmg--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08232018/9317.png</image_url>
+     <is_undroppable>0</is_undroppable>
+     <position_type>O</position_type>
+     <eligible_positions>
+      <position>RB</position>
+      <position>W/R/T</position>
+     </eligible_positions>
+     <has_player_notes>1</has_player_notes>
+     <player_notes_last_timestamp>1546288140</player_notes_last_timestamp>
+     <selected_position>
+      <coverage_type>week</coverage_type>
+      <week>16</week>
+      <position>BN</position>
      </selected_position>
     </player>
     <player>
@@ -310,50 +349,9 @@
       <position>TE</position>
       <position>W/R/T</position>
      </eligible_positions>
-     <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1543954680</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>15</week>
-      <position>BN</position>
-     </selected_position>
-    </player>
-    <player>
-     <player_key>380.p.28424</player_key>
-     <player_id>28424</player_id>
-     <name>
-      <full>T.J. Yeldon</full>
-      <first>T.J.</first>
-      <last>Yeldon</last>
-      <ascii_first>T.J.</ascii_first>
-      <ascii_last>Yeldon</ascii_last>
-     </name>
-     <injury_note>ankle</injury_note>
-     <editorial_player_key>nfl.p.28424</editorial_player_key>
-     <editorial_team_key>nfl.t.30</editorial_team_key>
-     <editorial_team_full_name>Jacksonville Jaguars</editorial_team_full_name>
-     <editorial_team_abbr>Jax</editorial_team_abbr>
-     <bye_weeks>
-      <week>9</week>
-     </bye_weeks>
-     <uniform_number>24</uniform_number>
-     <display_position>RB</display_position>
-     <headshot>
-      <url>https://s.yimg.com/iu/api/res/1.2/kL.zOF1drp4X_f3T3SL29w--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/09132018/28424.png</url>
-      <size>small</size>
-     </headshot>
-     <image_url>https://s.yimg.com/iu/api/res/1.2/kL.zOF1drp4X_f3T3SL29w--~B/YXBwaWQ9c2hhcmVkO2NoPTIzMzY7Y3I9MTtjdz0xNzkwO2R4PTg1NztkeT0wO2ZpPXVsY3JvcDtoPTYwO3E9MTAwO3c9NDY-/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/09132018/28424.png</image_url>
-     <is_undroppable>0</is_undroppable>
-     <position_type>O</position_type>
-     <eligible_positions>
-      <position>RB</position>
-      <position>W/R/T</position>
-     </eligible_positions>
-     <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1544160240</player_notes_last_timestamp>
-     <selected_position>
-      <coverage_type>week</coverage_type>
-      <week>15</week>
+      <week>16</week>
       <position>BN</position>
      </selected_position>
     </player>
@@ -388,10 +386,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1544395680</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1546217940</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>15</week>
+      <week>16</week>
       <position>BN</position>
      </selected_position>
     </player>
@@ -405,9 +403,9 @@
       <ascii_first>Corey</ascii_first>
       <ascii_last>Clement</ascii_last>
      </name>
-     <status>Q</status>
-     <status_full>Questionable</status_full>
-     <injury_note>quadriceps</injury_note>
+     <status>IR</status>
+     <status_full>Injured Reserve</status_full>
+     <injury_note>right knee</injury_note>
      <editorial_player_key>nfl.p.30707</editorial_player_key>
      <editorial_team_key>nfl.t.21</editorial_team_key>
      <editorial_team_full_name>Philadelphia Eagles</editorial_team_full_name>
@@ -428,11 +426,9 @@
       <position>RB</position>
       <position>W/R/T</position>
      </eligible_positions>
-     <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1544451720</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>15</week>
+      <week>16</week>
       <position>BN</position>
      </selected_position>
     </player>
@@ -468,10 +464,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1543789500</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1546218120</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>15</week>
+      <week>16</week>
       <position>BN</position>
      </selected_position>
     </player>
@@ -505,9 +501,11 @@
       <position>RB</position>
       <position>W/R/T</position>
      </eligible_positions>
+     <has_player_notes>1</has_player_notes>
+     <player_notes_last_timestamp>1546200060</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>15</week>
+      <week>16</week>
       <position>BN</position>
      </selected_position>
     </player>
@@ -542,7 +540,7 @@
      </eligible_positions>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>15</week>
+      <week>16</week>
       <position>K</position>
      </selected_position>
     </player>
@@ -577,7 +575,7 @@
      </eligible_positions>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>15</week>
+      <week>16</week>
       <position>DEF</position>
      </selected_position>
     </player>
@@ -612,7 +610,7 @@
      </eligible_positions>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>15</week>
+      <week>16</week>
       <position>BN</position>
      </selected_position>
     </player>
@@ -621,4 +619,4 @@
  </team>
 </fantasy_content>
 
-<!-- fanos1661.sports.bf1.yahoo.com Tue Dec 11 20:38:07 UTC 2018 -->
+<!-- fanos190.sports.bf1.yahoo.com Fri Jan  4 23:13:25 UTC 2019 -->

@@ -163,11 +163,11 @@ def read_college():
 	return returned_json
 
 
-def write_leaders(curr_week=13):
+def write_leaders(curr_week=13, year=2018):
 	leaders = {}
 	idp_ranks = {"LB": 1, "DT": 1, "DE": 1, "S": 1, "CB": 1}
 	for pos in ["qb", "rb", "wr", "te", "k", "idp"]:
-		url = "https://www.fantasypros.com/nfl/reports/leaders/{}.php?year=2018&start=1&end={}".format(pos, curr_week)
+		url = "https://www.fantasypros.com/nfl/reports/leaders/{}.php?year={}&start=1&end={}".format(pos, year, curr_week)
 		html = urllib.urlopen(url)
 		soup = BS(html.read(), "lxml")
 		trs = soup.find("table", id="data").find("tbody").find_all("tr")
@@ -189,51 +189,62 @@ def write_leaders(curr_week=13):
 
 			leaders[name] = {"rank": rank, "points": points, "team": team, "pos": new_pos}
 	
-	with open("static/leaders.txt", "w") as outfile:
+	with open("static/leaders/{}.txt".format(year), "w") as outfile:
 		json.dump(leaders, outfile, indent=4)
 
+def merge_two_dicts(x, y):
+	z = x.copy()
+	z.update(y)
+	return z
+
 def read_leaders():
-	with open("static/leaders.txt") as fh:
-		returned_json = json.loads(fh.read())
-	return returned_json
+	j = {}
+	for year in range(2008, 2019):
+		with open("static/leaders/{}.txt".format(year)) as fh:
+			returned_json = json.loads(fh.read())
+			j[year] = returned_json
+	return j
 
 
 if __name__ == '__main__':
 
 	#write_leaders(15) # 12/17/18
-
-	leaders = read_leaders()
+	#for y in range(2008, 2019):
+		#write_leaders(17, y)
 	colleges = read_college()
-
+	leaders = read_leaders()
+	
 	stats = []
 	looked_at = []
 	nfl_teams = {}
 
 	for college in colleges:
-		players = colleges[college]
 		j = {"total_points": 0, "total_top": 0, "top": {}, "college": college}
+		for year in range(2008, 2019):
+			players = colleges[college]
+			for player in players:
+				looked_at.append(player)
+				try:
+					leader_stats = leaders[year][player]
+					
+					#if leader_stats["team"] not in nfl_teams:
+					#	nfl_teams[leader_stats["team"]] = 0
+					#nfl_teams[leader_stats["team"]] += 1
+					
+					j["total_points"] = round(j["total_points"] + float(leader_stats["points"]), 2)
+					if (leader_stats["pos"].lower() in ["rb", "qb", "te", "k"] and int(leader_stats["rank"]) <= 24) or (leader_stats["pos"].lower() not in ["rb", "qb", "te", "k"] and int(leader_stats["rank"]) <= 36):
+						j["total_top"] += 1
 
-		for player in players:
-			looked_at.append(player)
-			try:
-				leader_stats = leaders[player]
-				
-				#if leader_stats["team"] not in nfl_teams:
-				#	nfl_teams[leader_stats["team"]] = 0
-				#nfl_teams[leader_stats["team"]] += 1
-				
-				j["total_points"] = round(j["total_points"] + float(leader_stats["points"]), 2)
-				if (leader_stats["pos"] in ["rb", "qb", "te", "k"] and leader_stats["rank"] <= 24) or leader_stats["rank"] <= 36:
-					j["total_top"] += 1
+						if leader_stats["pos"] not in j["top"]:
+							j["top"][leader_stats["pos"]] = [{"name": player, "rank": leader_stats["rank"]}]
+						else:
+							j["top"][leader_stats["pos"]].append({"name": player, "rank": leader_stats["rank"]})
+				except:
+					#print(player)
+					pass
 
-					if leader_stats["pos"] not in j["top"]:
-						j["top"][leader_stats["pos"]] = [{"name": player, "rank": leader_stats["rank"]}]
-					else:
-						j["top"][leader_stats["pos"]].append({"name": player, "rank": leader_stats["rank"]})
-			except:
-				pass
+			stats.append(j)
 
-		stats.append(j)
 
 	#sorted_stats = sorted(stats, key=operator.itemgetter("total_points"), reverse=True)
 	#for stat in sorted_stats[:10]:
@@ -242,7 +253,7 @@ if __name__ == '__main__':
 	sorted_stats = sorted(stats, key=operator.itemgetter("total_top"), reverse=True)
 	print("College|Total Top|Players")
 	print(":--|:--|:--")
-	for stat in sorted_stats[:30]:
+	for stat in sorted_stats[:50]:
 		#print([stat["top"][pos] for pos in stat["top"]])
 		players = ["{} ({}{})".format(player["name"].title(), pos.upper(), player["rank"]) for pos in stat["top"] for player in stat["top"][pos]]
 		print("{}|{}|{}".format(stat['college'].title(), stat['total_top'], ", ".join(players)))

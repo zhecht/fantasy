@@ -277,7 +277,7 @@ if __name__ == '__main__':
 		sorted_looks = sorted(top_redzone, key=operator.itemgetter("looks"), reverse=True)
 		sorted_looks_perc = sorted(top_redzone, key=operator.itemgetter("looks_perc"), reverse=True)
 
-		feelsbad_players = ["george kittle", "doug baldwin", "jordan reed", "brandon cooks", "jimmy graham", "tyler boyd", "robert woods", "mike evans", "calvin ridley", "tyler lockett", "rob gronkowski", "evan engram", "courtland sutton", "david njoku", "trequan smith"]
+		feelsbad_players = ["robert woods", "mike evans", "evan engram", "rob gronkowski", "calvin ridley", "tyler lockett", "courtland sutton", "david njoku", "trequan smith"]
 		feelsbad = {}
 		players_on_teams,translations = read_rosters()
 
