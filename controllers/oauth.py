@@ -5,7 +5,7 @@ from yahoo_oauth import OAuth2
 
 class MyOAuth:
   oauth = None
-  league_key = "nfl.l.1000110"
+  league_key = "nfl.l.468862"
   def __init__(self):
     self.oauth = OAuth2(None,None,from_file='controllers/oauth2.json')
 

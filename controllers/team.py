@@ -10,7 +10,6 @@ try:
 	import controllers.constants as constants
 	import controllers.read_rosters as read_rosters
 	import controllers.helper as helper
-	import controllers.news as news
 	import controllers.stats as stats
 	import controllers.espn_stats as espn_stats
 	from controllers.oauth import *
@@ -18,16 +17,15 @@ except:
 	import constants
 	import read_rosters
 	import helper
-	import news
 	import stats
 	import espn_stats
 	from oauth import *
 
-team = Blueprint('team', __name__, template_folder='views')
+team_blueprint = Blueprint('team', __name__, template_folder='views')
 
 teams_not_played = ["NYJ", "DET", "LAR", "OAK"]
 
-@team.route('/team/<teamnum>')
+@team_blueprint.route('/team/<teamnum>')
 def team_route(teamnum):
 	oauth = MyOAuth()
 	teamnum = int(teamnum)

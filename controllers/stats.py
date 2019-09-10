@@ -2,10 +2,8 @@ import sys
 import argparse
 from ghost import Ghost
 from bs4 import BeautifulSoup
-import read_rosters
 import json
 import glob
-import constants
 import operator
 import os
 from lxml import etree
@@ -13,6 +11,13 @@ try:
   import urllib2 as urllib
 except:
   import urllib.request as urllib
+
+try:
+	from controllers.read_rosters import *
+	import controllers.constants
+except:
+	from read_rosters import *
+	import constants
 
 def merge_two_dicts(x, y):
 	z = x.copy()
@@ -170,7 +175,7 @@ def write_cron_yahoo_FA_proj(start_week, end_week):
 def write_cron_yahoo_stats(start_week, end_week):
 	ghost = Ghost()
 	logged_in = False
-	players_on_teams, name_translations = read_rosters.read_rosters()
+	players_on_teams, name_translations = read_rosters()
 	projections_json = {}
 	actuals_json = {}
 	with ghost.start() as session:
@@ -356,7 +361,7 @@ if __name__ == "__main__":
 	args = parser.parse_args()
 
 	curr_week = 1
-	end_week = 2
+	end_week = 17
 
 	if args.start:
 		curr_week = args.start
@@ -366,10 +371,10 @@ if __name__ == "__main__":
 
 	if args.cron:
 		print("WRITING YAHOO STATS")
-		#write_cron_yahoo_stats(curr_week, end_week)
-		#write_cron_yahoo_FA()
+		write_cron_yahoo_stats(curr_week, end_week)
+		write_cron_yahoo_FA()
 		#write_cron_yahoo_FA_actual(curr_week, end_week)
-		write_cron_yahoo_FA_proj(curr_week, end_week)
+		#write_cron_yahoo_FA_proj(curr_week, end_week)
 	else:
 		read_yahoo_stats(curr_week, end_week)
 

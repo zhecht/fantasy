@@ -2,7 +2,10 @@ import argparse
 import json
 from subprocess import call
 
-from read_rosters import *
+try:
+	from controllers.read_rosters import *
+except:
+	from read_rosters import *
 
 def merge_two_dicts(x, y):
 	z = x.copy()

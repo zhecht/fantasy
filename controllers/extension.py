@@ -15,9 +15,22 @@ except:
   import stats as yahoo_stats
 
 
-extension = Blueprint('extension', __name__, template_folder='views')
+extension_blueprint = Blueprint('extension', __name__, template_folder='views')
+
+prefix = "/home/zhecht/fantasy/"
 
 def fix_name(name):
+	name = name.lower().replace("'", "")
+	# Skip Cols
+	if name in ["", "\n"] or name[0] == '-':
+		return ""
+	try:
+		# If number, return empty
+		name = float(name)
+		return ""
+	except:
+		pass
+		
 	if name.find("(") != -1:
 		name = name.split(" ")[0]
 	elif name == "todd gurley":
@@ -44,32 +57,39 @@ def fix_name(name):
 		return "odell beckham jr."
 	elif name == "mark ingram ii":
 		return "mark ingram"
+	elif name == "darrell henderson":
+		return "darrell henderson jr."
 	return name
 	
 def write_cron_trade_values():
-	# Save Standard page as trade_value0.csv
-	# Save HALF-PPR as trade_value1.csv
-	# Save FULL-PPR as trade_value2.csv
-	trade_values = {}
-	for table_id in ["trade_value0", "trade_value1", "trade_value2"]:
-		html = open("static/trade_value/{}.csv".format(table_id)).readlines()		
-		for row in html[4:]:
-			data = row.split(",")
-			value = float(data[2])
-			for td in data[3:]:
-				try:
-					name = fix_name(td.lower().replace("'", ""))
-					if name not in trade_values:
-						trade_values[name] = []
-					trade_values[name].append(value)
-				except:
-					pass
+	tradevalues = {}
+	tier = 1
+	for scoring in ["standard", "half", "full"]:
+		lines = open("tradevalues_{}.csv".format(scoring)).readlines()
+		for line in lines[3:]:
+			all_tds = line.split(",")
 
-	with open("static/trade_value/trade_value.json", "w") as fh:
-		json.dump(trade_values, fh, indent=4)
+			# If tier column exists
+			if len(all_tds[0]) > 0:
+				tier = int(all_tds[0])
+			# If points column exists
+			if len(all_tds[1]) > 0:
+				value = float(all_tds[1])
+				for td in all_tds[2:]:
+					try:
+						name =  fix_name(td)
+						if not name:
+							continue
+						if name not in tradevalues:
+							tradevalues[name] = {"standard": 0, "half": 0, "full": 0, "tier": tier}
+						tradevalues[name][scoring] = value
+					except:
+						pass
+	with open("{}static/trade_value/tradevalues.json".format(prefix), "w") as fh:
+		json.dump(tradevalues, fh, indent=4)
 
 def read_trade_values():
-	with open("static/trade_value/trade_value.json") as fh:
+	with open("{}static/trade_value/tradevalues.json".format(prefix)) as fh:
 		returned_json = json.loads(fh.read())
 	return returned_json
 
@@ -118,19 +138,30 @@ def read_borischen_extension(host):
 	return returned_json
 
 
-@extension.route('/extension')
+@extension_blueprint.route('/extension')
 def extension_route():
 
 	if request.args.get("borischen"):
 		return jsonify(tiers=read_borischen_extension(request.args.get("host")))
 
+	try:
+		total_teams = int(request.args.get("total_teams"))
+	except:
+		total_teams = 2
 	is_espn = request.args.get("is_espn") == "true"
 	is_nfl = request.args.get("is_nfl") == "true"
+	is_yahoo = request.args.get("is_yahoo") == "true"
+	try:
+		is_sleeper = request.args.get("is_sleeper") == "true"
+		is_cbs = request.args.get("is_cbs") == "true"
+	except:
+		is_sleeper = False
+		is_cbs = False
 	rosters, translations = read_rosters.read_rosters()
 	trade_values = read_trade_values()
 	results_arr = []
 
-	for team_idx in range(2):
+	for team_idx in range(total_teams):
 		player_len = int(request.args.get("team_{}_len".format(team_idx)))
 
 		for player_idx in range(player_len):
@@ -140,24 +171,39 @@ def extension_route():
 			except:
 				continue
 			full_name = name.lower()
-			if not is_nfl and not is_espn and pos != "DEF" and request.args.get("evaluate") == "false":
+			
+			if is_sleeper:
+				try:
+					if len(name.split(" ")[0]) == 2 and name.split(" ")[0][-1] == '.':
+						# if shortened name
+						full_name = translations[name+" "+team]
+					else:
+						full_name = fix_name(full_name.replace("'", "").replace("/", ""))
+				except:
+					continue
+			elif not is_cbs and not is_nfl and not is_espn and pos != "DEF" and request.args.get("evaluate") == "false":
 				try:
 					full_name = translations[name+" "+team]
 				except:
 					continue
-			elif is_espn or is_nfl:
+			elif is_cbs or is_espn or is_nfl:
 				full_name = fix_name(full_name.replace("'", "").replace("/", ""))
 
 			try:
-				vals = [str(x) for x in trade_values[full_name.lower()]]
+				vals = [ str(trade_values[full_name.lower()][s]) for s in ["standard", "half", "full"] ]
 			except:
 				vals = ["0","0","0"]
 
 			results_arr.append({"team": team_idx, "full": full_name.title(), "full_val": float(vals[-1]),"vals": vals, "clicked": clicked})
 	
 	results_arr = sorted(results_arr, key=operator.itemgetter("full_val"), reverse=True)
-	results = {"team0": [], "team1": []}
+	results = {}
+	for i in range(total_teams):
+		results["team{}".format(i)] = []
+
 	for res in results_arr:
 		results["team{}".format(res["team"])].append("{},{},{}".format(res["full"], "_".join(res["vals"]), res["clicked"]))
-	return jsonify(team0=results["team0"], team1=results["team1"])
+
+	updated = open("{}static/trade_value/updated".format(prefix)).read()
+	return jsonify(teams=results, team0=results["team0"], team1=results["team1"], updated=updated, total_teams=total_teams)
 

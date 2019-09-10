@@ -10,10 +10,10 @@ except:
   import read_rosters
   #from oauth import *
 
-main = Blueprint('main', __name__, template_folder='views')
+main_blueprint = Blueprint('main', __name__, template_folder='views')
 
 
-@main.route('/')
+@main_blueprint.route('/')
 def main_route():
   #oauth = MyOAuth()
 
