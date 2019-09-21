@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/team/nfl.l.468862.t.6/roster" time="32.511949539185ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
+<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/team/nfl.l.468862.t.6/roster" time="83.024978637695ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
  <team>
   <team_key>390.l.468862.t.6</team_key>
   <team_id>6</team_id>
@@ -189,7 +189,7 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1568579820</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1568825520</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
       <week>3</week>
@@ -229,7 +229,8 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1568577720</player_notes_last_timestamp>
+     <has_recent_player_notes>1</has_recent_player_notes>
+     <player_notes_last_timestamp>1569075060</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
       <week>3</week>
@@ -287,6 +288,9 @@
       <ascii_first>Mark</ascii_first>
       <ascii_last>Andrews</ascii_last>
      </name>
+     <status>Q</status>
+     <status_full>Questionable</status_full>
+     <injury_note>foot</injury_note>
      <editorial_player_key>nfl.p.31056</editorial_player_key>
      <editorial_team_key>nfl.t.33</editorial_team_key>
      <editorial_team_full_name>Baltimore Ravens</editorial_team_full_name>
@@ -309,7 +313,7 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1568580120</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1569008100</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
       <week>3</week>
@@ -369,6 +373,7 @@
      </name>
      <status>O</status>
      <status_full>Out</status_full>
+     <injury_note>right thumb</injury_note>
      <editorial_player_key>nfl.p.5479</editorial_player_key>
      <editorial_team_key>nfl.t.18</editorial_team_key>
      <editorial_team_full_name>New Orleans Saints</editorial_team_full_name>
@@ -390,8 +395,7 @@
       <position>QB</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
-     <player_notes_last_timestamp>1568753340</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1568900280</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
       <week>3</week>
@@ -409,8 +413,6 @@
       <ascii_first>Sterling</ascii_first>
       <ascii_last>Shepard</ascii_last>
      </name>
-     <status>Q</status>
-     <status_full>Questionable</status_full>
      <injury_note>concussion</injury_note>
      <editorial_player_key>nfl.p.29274</editorial_player_key>
      <editorial_team_key>nfl.t.19</editorial_team_key>
@@ -434,7 +436,8 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1568392680</player_notes_last_timestamp>
+     <has_recent_player_notes>1</has_recent_player_notes>
+     <player_notes_last_timestamp>1569016980</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
       <week>3</week>
@@ -514,7 +517,7 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1568595360</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1569006900</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
       <week>3</week>
@@ -640,4 +643,4 @@
   </roster>
  </team>
 </fantasy_content>
-<!-- fantasy-sports-api- -public-production-bf1-67658dc7d4-g6f48 Wed Sep 18 11:24:50 UTC 2019 -->
+<!-- fanos283.sports.bf1.yahoo.com Sat Sep 21 20:42:54 UTC 2019 -->

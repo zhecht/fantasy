@@ -69,7 +69,7 @@ def get_fp_html(player1, player2):
 		get_fp_name(player1), get_fp_name(player2)
 	)
 	call(["curl", "-k", url, "-o", "{}static/fantasypros/{}_{}.html".format(prefix, '_'.join(player1), '_'.join(player2))])
-	html = open("{}static/fantasypros/{}_{}.html".format(prefix, '_'.join(player1), '_'.join(player2)))
+	html = open("{}static/fantasypros/{}_{}.html".format(prefix, join(player1.replace(" ", "_")), join(player2.replace(" ", "_"))))
 	soup = BS(html.read(), "lxml")
 	table = soup.find("table")
 	html = "<table id='fp_table' class='table full-width table-wsis' cellspacing='0' cellpadding='0' border='0'>"
