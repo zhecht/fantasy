@@ -1,5 +1,6 @@
 from string import ascii_lowercase
 from bs4 import BeautifulSoup as BS
+from sys import platform
 import operator
 import json
 
@@ -13,6 +14,10 @@ try:
 except:
 	import urllib.request as urllib
 
+prefix = ""
+if platform != "darwin":
+	# if on linux aka prod
+	prefix = "/home/zhecht/fantasy"
 
 def fix_name(name):
 	if name == "dj moore wr":
@@ -154,11 +159,11 @@ def write_college():
 				player = " ".join(row.find("a").get("href").split("/")[-1].split("-"))
 				j[college].append(player)
 
-	with open("static/colleges.txt", "w") as outfile:
+	with open("{}static/colleges.txt".format(prefix), "w") as outfile:
 		json.dump(j, outfile, indent=4)
 
 def read_college():
-	with open("static/colleges.txt") as fh:
+	with open("{}static/colleges.txt".format(prefix)) as fh:
 		returned_json = json.loads(fh.read())
 	return returned_json
 
@@ -189,7 +194,7 @@ def write_leaders(curr_week=13, year=2018):
 
 			leaders[name] = {"rank": rank, "points": points, "team": team, "pos": new_pos}
 	
-	with open("static/leaders/{}.txt".format(year), "w") as outfile:
+	with open("{}static/leaders/{}.txt".format(prefix, year), "w") as outfile:
 		json.dump(leaders, outfile, indent=4)
 
 def merge_two_dicts(x, y):
@@ -200,7 +205,7 @@ def merge_two_dicts(x, y):
 def read_leaders():
 	j = {}
 	for year in range(2008, 2019):
-		with open("static/leaders/{}.txt".format(year)) as fh:
+		with open("{}static/leaders/{}.txt".format(prefix, year)) as fh:
 			returned_json = json.loads(fh.read())
 			j[year] = returned_json
 	return j

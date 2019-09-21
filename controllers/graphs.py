@@ -8,14 +8,14 @@ from controllers.read_rosters import *
 from controllers.borischen import *
 
 
-graphs = Blueprint('graphs', __name__, template_folder='views')
+graphs_blueprint = Blueprint('graphs', __name__, template_folder='views')
 
 def merge_two_dicts(x, y):
 	z = x.copy()
 	z.update(y)
 	return z
 
-@graphs.route('/graphs')
+@graphs_blueprint.route('/graphs')
 def graphs_route():
 	real_week = 5
 

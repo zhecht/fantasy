@@ -8,14 +8,14 @@ from controllers.read_rosters import *
 from controllers.borischen import *
 
 
-rankings = Blueprint('rankings', __name__, template_folder='views')
+rankings_print = Blueprint('rankings', __name__, template_folder='views')
 
 def merge_two_dicts(x, y):
 	z = x.copy()
 	z.update(y)
 	return z
 
-@rankings.route('/rankings')
+@rankings_print.route('/rankings')
 def rankings_route():
 	real_week = 5
 

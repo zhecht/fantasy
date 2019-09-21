@@ -1,6 +1,7 @@
 
 from flask import *
 from bs4 import BeautifulSoup as BS
+from sys import platform
 
 import json
 import operator
@@ -17,7 +18,10 @@ except:
 
 extension_blueprint = Blueprint('extension', __name__, template_folder='views')
 
-prefix = "/home/zhecht/fantasy/"
+prefix = ""
+if platform != "darwin":
+	# if on linux aka prod
+	prefix = "/home/zhecht/fantasy"
 
 def fix_name(name):
 	name = name.lower().replace("'", "")
@@ -55,10 +59,14 @@ def fix_name(name):
 		return "duke johnson jr."
 	elif name == "odell beckham":
 		return "odell beckham jr."
+	elif name == "odell beckham jr":
+		return "odell beckham jr."
 	elif name == "mark ingram ii":
 		return "mark ingram"
 	elif name == "darrell henderson":
 		return "darrell henderson jr."
+	elif name == "dj moore":
+		return "d.j. moore"
 	return name
 	
 def write_cron_trade_values():
@@ -186,7 +194,7 @@ def extension_route():
 					full_name = translations[name+" "+team]
 				except:
 					continue
-			elif is_cbs or is_espn or is_nfl:
+			elif is_cbs or is_espn or is_nfl or is_yahoo:
 				full_name = fix_name(full_name.replace("'", "").replace("/", ""))
 
 			try:

@@ -7,9 +7,10 @@ app = Flask(__name__, template_folder='views')
 app.register_blueprint(controllers.main_blueprint)
 app.register_blueprint(controllers.extension_blueprint)
 app.register_blueprint(controllers.team_blueprint)
-app.register_blueprint(controllers.graphs)
-app.register_blueprint(controllers.read_rosters)
-app.register_blueprint(controllers.rankings)
+app.register_blueprint(controllers.graphs_blueprint)
+#app.register_blueprint(controllers.read_rosters)
+app.register_blueprint(controllers.rankings_print)
+app.register_blueprint(controllers.compare_print)
 
 app.secret_key = os.urandom(24)
 

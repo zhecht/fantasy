@@ -27,6 +27,10 @@ def fix_name(name):
 		return "duke johnson jr."
 	return name
 
+def merge_two_dicts(x, y):
+	z = x.copy()
+	z.update(y)
+	return z
 
 def read_reception_stats():
 	with open("static/reception_counts.json") as fh:
@@ -35,6 +39,17 @@ def read_reception_stats():
 	for player in returned_json:
 		real_name = " ".join(player.split(" ")[:-1])
 		new_json[real_name] = returned_json[player]
+
+	new_j = {}
+	for player in new_json:
+		new_name = player.lower().replace("'", "").replace(".", "")
+		new_j[new_name] = new_json[player].copy()
+
+		if new_name.split(" ")[-1] in ["jr", "iii", "ii", "sr", "v"]:
+			new_name = " ".join(new_name.split(" ")[:-1])
+			new_j[new_name] = new_json[player].copy()
+
+	new_json = merge_two_dicts(new_j, new_json)
 	return new_json
 
 def read_snap_stats():
@@ -44,7 +59,16 @@ def read_snap_stats():
 	for player in returned_json:
 		real_name = " ".join(player.split(" ")[:-1])
 		new_json[real_name] = {"perc": returned_json[player]["perc"], "counts": returned_json[player]["counts"]}
-	#for player in new_json:
+	new_j = {}
+	for player in new_json:
+		new_name = player.lower().replace("'", "").replace(".", "")
+		new_j[new_name] = new_json[player].copy()
+
+		if new_name.split(" ")[-1] in ["jr", "iii", "ii", "sr", "v"]:
+			new_name = " ".join(new_name.split(" ")[:-1])
+			new_j[new_name] = new_json[player].copy()
+
+	new_json = merge_two_dicts(new_j, new_json)
 	return new_json
 
 def read_target_stats():
@@ -180,6 +204,10 @@ def write_target_stats():
 				target_counts_perc = ','.join(str(x) for x in target_counts_perc)
 
 				j[full_name+" "+team] = {"perc": target_counts_perc, "counts": target_counts, "pos": new_pos}
+				j[full_name.replace(".", "")+" "+team] = {"perc": target_counts_perc, "counts": target_counts, "pos": new_pos}
+				if full_name.replace(".", "").split(" ")[-1] in ["jr", "iii", "ii", "sr", "v"]:
+					new_name = " ".join(full_name.replace(".", "").split(" ")[:-1])
+					j[new_name+" "+team] = {"perc": target_counts_perc, "counts": target_counts, "pos": new_pos}
 			else:
 				# Total row
 				curr_pos = row.find("b").text

@@ -7,7 +7,7 @@ import operator
 import time
 
 from bs4 import BeautifulSoup as BS
-#from dateutil.parser import parse
+from sys import platform
 from lxml import etree
 
 try:
@@ -15,8 +15,10 @@ try:
 except:
   import urllib.request as urllib
 
-prefix = "/home/zhecht/fantasy/"
 prefix = ""
+if platform != "darwin":
+	# if on linux aka prod
+	prefix = "/home/zhecht/fantasy"
 
 ns = {
 	'base': "http://fantasysports.yahooapis.com/fantasy/v2/base.rng"
@@ -32,6 +34,11 @@ position_priority = {
 	"DEF": 6,
 	"BN": 7
 }
+
+def merge_two_dicts(x, y):
+	z = x.copy()
+	z.update(y)
+	return z
 
 def write_cron_FA():
 	#4murcjs
@@ -123,7 +130,24 @@ def read_FA_translations():
 				translations[full] = full
 			else:
 				translations["{}. {}".format(first[0], last, nfl_team)] = full.lower().replace("'", "")
+	translations["D. Johnson Hou"] = "duke johnson jr."
 	return players_on_FA, translations
+
+def update_players_on_teams(players_on_teams):
+	players_on_teams["duke johnson jr."] = players_on_teams["duke johnson"].copy()
+	players_on_teams['kalen ballage'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Mia'}
+	players_on_teams['jeff wilson'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Sfo'}
+	players_on_teams['chris thompson'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Was'}
+	players_on_teams['chase edmonds'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Ari'}
+
+	players_on_teams['dk metcalf'] = {'team_id': 0, 'position': 'WR', 'pid': 0, 'nfl_team': 'Sea'}
+	players_on_teams['d.j. chark jr'] = {'team_id': 0, 'position': 'WR', 'pid': 0, 'nfl_team': 'Jax'}
+	players_on_teams['paul richardson jr'] = {'team_id': 0, 'position': 'WR', 'pid': 0, 'nfl_team': 'Was'}
+	players_on_teams['hunter renfrow'] = {'team_id': 0, 'position': 'WR', 'pid': 0, 'nfl_team': 'Rai'}
+	players_on_teams['d.j. moore'] = {'team_id': 0, 'position': 'WR', 'pid': 0, 'nfl_team': 'Sea'}
+	players_on_teams['john ross'] = {'team_id': 0, 'position': 'WR', 'pid': 0, 'nfl_team': 'Cin'}
+	players_on_teams['mohamed sanu'] = {'team_id': 0, 'position': 'WR', 'pid': 0, 'nfl_team': 'Atl'}
+	return
 
 def read_rosters():
 	players_on_teams = {}
@@ -151,8 +175,18 @@ def read_rosters():
 			else:
 				name_translations["{}. {} {}".format(first[0], last, nfl_team)] = full.lower().replace("'", "")
 				name_translations["{}. {} {}".format(first[0], last, nfl_team.upper())] = full.lower().replace("'", "")
+	name_translations["D. Johnson Hou"] = "duke johnson jr."
+	update_players_on_teams(players_on_teams)
+	new_j = {}
+	for player in players_on_teams:
+		new_name = player.lower().replace("'", "").replace(".", "")
+		new_j[new_name] = players_on_teams[player].copy()
 
-	players_on_teams["duke johnson jr."] = players_on_teams["duke johnson"]
+		if new_name.split(" ")[-1] in ["jr", "iii", "ii", "sr", "v"]:
+			new_name = " ".join(new_name.split(" ")[:-1])
+			new_j[new_name] = players_on_teams[player].copy()
+
+	players_on_teams = merge_two_dicts(new_j, players_on_teams)
 	#players_on_teams["mark ingram"] = players_on_teams["mark ingram ii"]
 	return players_on_teams, name_translations
 
