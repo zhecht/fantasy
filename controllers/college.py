@@ -17,7 +17,7 @@ except:
 prefix = ""
 if platform != "darwin":
 	# if on linux aka prod
-	prefix = "/home/zhecht/fantasy"
+	prefix = "/home/zhecht/fantasy/"
 
 def fix_name(name):
 	if name == "dj moore wr":

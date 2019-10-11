@@ -10,10 +10,8 @@ import urllib
 
 try:
   import controllers.read_rosters as read_rosters
-  import controllers.stats as yahoo_stats
 except:
   import read_rosters
-  import stats as yahoo_stats
 
 
 extension_blueprint = Blueprint('extension', __name__, template_folder='views')
@@ -21,7 +19,7 @@ extension_blueprint = Blueprint('extension', __name__, template_folder='views')
 prefix = ""
 if platform != "darwin":
 	# if on linux aka prod
-	prefix = "/home/zhecht/fantasy"
+	prefix = "/home/zhecht/fantasy/"
 
 def fix_name(name):
 	name = name.lower().replace("'", "")
@@ -105,7 +103,7 @@ def write_borischen_extension():
 
 	stats = {}
 	positions = ["quarterback", "half-05-5-ppr-running-back", "half-05-5-ppr-wide-receiver", "half-05-5-ppr-tight-end", "kicker", "defense-dst"]
-	player_ids = yahoo_stats.read_yahoo_ids()
+	#player_ids = yahoo_stats.read_yahoo_ids()
 
 	for pos in positions:
 		if pos.find("wide") == -1:
@@ -173,7 +171,7 @@ def extension_route():
 		player_len = int(request.args.get("team_{}_len".format(team_idx)))
 
 		for player_idx in range(player_len):
-			player = request.args.get("team_{}_player_{}".format(team_idx, player_idx))
+			player = request.args.get("team_{}_player_{}".format(team_idx, player_idx))			
 			try:
 				name,team,pos,clicked = player.split(",")
 			except:

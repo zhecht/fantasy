@@ -18,7 +18,10 @@ except:
 prefix = ""
 if platform != "darwin":
 	# if on linux aka prod
-	prefix = "/home/zhecht/fantasy"
+	prefix = "/home/zhecht/fantasy/"
+
+players_prefix = "players"
+is_merrick = False
 
 ns = {
 	'base': "http://fantasysports.yahooapis.com/fantasy/v2/base.rng"
@@ -32,7 +35,8 @@ position_priority = {
 	"W/R/T": 4,
 	"K": 5,
 	"DEF": 6,
-	"BN": 7
+	"BN": 7,
+	"IR": 8
 }
 
 def merge_two_dicts(x, y):
@@ -43,18 +47,18 @@ def merge_two_dicts(x, y):
 def write_cron_FA():
 	#4murcjs
 	import oauth
-	oauth = oauth.MyOAuth()
+	oauth = oauth.MyOAuth(is_merrick)
 
 	for i in range(0,1000,25):
 		html = oauth.getData("https://fantasysports.yahooapis.com/fantasy/v2/league/{}/players;start={};status=FA".format(oauth.league_key, i)).text
-		with open("static/players/FA/FA_{}_{}.xml".format(i,i+25), "w") as fh:
+		with open("{}static/{}/FA/FA_{}_{}.xml".format(prefix, players_prefix, i, i+25), "w") as fh:
 			fh.write(html)
 		time.sleep(3)
 
 def write_cron_FA_json():	
 	for i in range(0,1000,25):
 		j = {}
-		tree = etree.parse("{}static/players/FA/FA_{}_{}.xml".format(prefix, i, i+25).format(i,i+25))
+		tree = etree.parse("{}static/{}/FA/FA_{}_{}.xml".format(prefix, players_prefix , i, i+25).format(i,i+25))
 		players_xpath = tree.xpath('.//base:player', namespaces=ns)
 		for player in players_xpath:
 			
@@ -70,29 +74,71 @@ def write_cron_FA_json():
 				pos = "WR"
 
 			j[full.lower().replace("'", "")] = [nfl_team, pos, pid]
-		with open("{}static/players/FA/FA_{}_{}.json".format(prefix, i, i+25), "w") as fh:
+		with open("{}static/{}/FA/FA_{}_{}.json".format(prefix, players_prefix , i, i+25), "w") as fh:
 			json.dump(j, fh, indent=4)
-		os.remove("{}static/players/FA/FA_{}_{}.xml".format(prefix, i, i+25))
+		os.remove("{}static/{}/FA/FA_{}_{}.xml".format(prefix, players_prefix , i, i+25))
 
 def write_cron_rosters():
 	import oauth
-	oauth = oauth.MyOAuth()
+	oauth = oauth.MyOAuth(is_merrick)
 
 	for i in range(1,13):
 		html = oauth.getData("https://fantasysports.yahooapis.com/fantasy/v2/team/{}.t.{}/roster".format(oauth.league_key, i)).text
-		with open("{}static/players/{}/roster.xml".format(prefix, i), "w") as fh:
+		if not os.path.exists("{}static/{}/{}".format(prefix, players_prefix, i)):
+			os.mkdir("{}static/{}/{}".format(prefix, players_prefix, i))
+		with open("{}static/{}/{}/roster.xml".format(prefix, players_prefix, i), "w") as fh:
 			fh.write(html)
+
+# return total amt of players at RB/WR in league settings
+def get_total_at_pos(settings):
+	roster_positions = settings["fantasy_content"]["league"][1]["settings"][0]["roster_positions"]
+	total_at_pos = {}
+	for j in roster_positions:
+		pos = j["roster_position"]["position"]
+		total_at_pos[pos] = j["roster_position"]["count"]
+	return total_at_pos
+
+def write_settings():
+	import oauth
+	oauth = oauth.MyOAuth(is_merrick)
+
+	xml = oauth.getData("https://fantasysports.yahooapis.com/fantasy/v2/league/{}/settings?format=json".format(oauth.league_key)).text
+	extra = "" if players_prefix == "players" else "_merrick"
+	with open("{}static/settings{}.json".format(prefix, extra), "w") as fh:
+		fh.write(xml)
+
+def read_settings():
+	j = {}
+	extra = "" if players_prefix == "players" else "_merrick"
+	with open("{}static/settings{}.json".format(prefix, extra)) as fh:
+		j = json.loads(fh.read())
+	return j
 
 def write_cron_standings():
 	import oauth
-	oauth = oauth.MyOAuth()
+	oauth = oauth.MyOAuth(is_merrick)
 
 	xml = oauth.getData("https://fantasysports.yahooapis.com/fantasy/v2/league/{}/standings".format(oauth.league_key)).text
 	with open("{}static/standings.xml".format(prefix), "w") as fh:
 		fh.write(xml)
 
+def write_scoreboard():
+	import oauth
+	oauth = oauth.MyOAuth(is_merrick)
+
+	xml = oauth.getData("https://fantasysports.yahooapis.com/fantasy/v2/league/{}/scoreboard?format=json".format(oauth.league_key)).text
+	extra = "" if players_prefix == "players" else "_merrick"
+	with open("{}static/scoreboard{}.json".format(prefix, extra), "w") as fh:
+		fh.write(xml)
+
+def read_scoreboard(merrick):
+	j = {}
+	with open("{}static/scoreboard{}.json".format(prefix, extra)) as fh:
+		j = json.loads(fh.read())
+	scoreboard = j["fantasy_content"]["league"][1]["scoreboard"]
+
 def read_FA():
-	files = glob.glob("{}static/players/FA/*".format(prefix))
+	files = glob.glob("{}static/{}/FA/*".format(prefix, players_prefix))
 	players_on_FA = {}
 
 	for fn in files:
@@ -112,7 +158,7 @@ def read_FA():
 	return players_on_FA
 
 def read_FA_translations():
-	files = glob.glob("{}static/players/FA/*".format(prefix))
+	files = glob.glob("{}static/{}/FA/*".format(prefix, players_prefix))
 	players_on_FA = {}
 	translations = {}
 
@@ -139,6 +185,13 @@ def update_players_on_teams(players_on_teams):
 	players_on_teams['jeff wilson'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Sfo'}
 	players_on_teams['chris thompson'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Was'}
 	players_on_teams['chase edmonds'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Ari'}
+	players_on_teams['cj prosise'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Sea'}
+	players_on_teams['ronald jones'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'TB'}
+	players_on_teams['tj yeldon'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'TB'}
+	players_on_teams['wayne gallman'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'NYG'}
+	players_on_teams['adrian peterson'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Was'}
+	players_on_teams['jaylen samuels'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Pit'}
+	players_on_teams['nyheim hines'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Ind'}
 
 	players_on_teams['dk metcalf'] = {'team_id': 0, 'position': 'WR', 'pid': 0, 'nfl_team': 'Sea'}
 	players_on_teams['d.j. chark jr'] = {'team_id': 0, 'position': 'WR', 'pid': 0, 'nfl_team': 'Jax'}
@@ -149,11 +202,12 @@ def update_players_on_teams(players_on_teams):
 	players_on_teams['mohamed sanu'] = {'team_id': 0, 'position': 'WR', 'pid': 0, 'nfl_team': 'Atl'}
 	return
 
-def read_rosters():
+def read_rosters(skip_remove_puncuation=False, players_prefix=players_prefix):
 	players_on_teams = {}
 	name_translations = {}
+	print(players_prefix)
 	for i in range(1,13):
-		tree = etree.parse("{}static/players/{}/roster.xml".format(prefix, i))
+		tree = etree.parse("{}static/{}/{}/roster.xml".format(prefix, players_prefix, i))
 		players_xpath = tree.xpath('.//base:player', namespaces=ns)
 
 		for player in players_xpath:
@@ -168,15 +222,15 @@ def read_rosters():
 
 			if pos == "WR,RB":
 				pos = "WR"
-
 			players_on_teams[full.lower().replace("'", "")] = {"team_id": i, "position": pos, "pid": pid, "nfl_team": nfl_team, "fantasy_position": position_priority[selected_pos]}
 			if pos == "DEF":				
 				name_translations[full] = full
 			else:
 				name_translations["{}. {} {}".format(first[0], last, nfl_team)] = full.lower().replace("'", "")
 				name_translations["{}. {} {}".format(first[0], last, nfl_team.upper())] = full.lower().replace("'", "")
+	if skip_remove_puncuation:
+		return players_on_teams, name_translations
 	name_translations["D. Johnson Hou"] = "duke johnson jr."
-	update_players_on_teams(players_on_teams)
 	new_j = {}
 	for player in players_on_teams:
 		new_name = player.lower().replace("'", "").replace(".", "")
@@ -188,6 +242,8 @@ def read_rosters():
 
 	players_on_teams = merge_two_dicts(new_j, players_on_teams)
 	#players_on_teams["mark ingram"] = players_on_teams["mark ingram ii"]
+	update_players_on_teams(players_on_teams)
+	name_translations["D. Williams KC"] = "damien williams"
 	return players_on_teams, name_translations
 
 def read_standings():
@@ -207,15 +263,25 @@ def read_standings():
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-c", "--cron", action="store_true", help="Start Cron Job")
+	parser.add_argument("-merrick", "--merrick", action="store_true")
 
 	args = parser.parse_args()
 
+	if args.merrick:
+		players_prefix = "merrick_players"
+		is_merrick = True
+
 	if args.cron:
 		print("WRITING ROSTERS")
+		write_settings()
+		write_scoreboard()
 		write_cron_standings()
 		write_cron_rosters()
 		write_cron_FA()
 		write_cron_FA_json()
 	else:
+		#write_scoreboard()
+		write_cron_FA()
 		write_cron_FA_json()
+		#write_settings()
 		pass

@@ -219,8 +219,8 @@ def write_target_stats():
 	with open("static/target_counts.json", "w") as outfile:
 		json.dump(j, outfile, indent=4)
 
-# total teams targets up to each week
-def get_team_targets_to_week(team_targets):
+# total teams targets up to each week. 
+def get_team_targets_to_week(snap_stats, team_targets):
 	j = {}
 	for team in team_targets:
 		j[team] = {"RB": [], "WR/TE": []}
@@ -236,28 +236,47 @@ def get_team_targets_to_week(team_targets):
 
 	return j
 
+# skip counting if snaps == 0
+def get_player_target_aggregate(aggregates, snaps):
+	targets = map(int, aggregates.split(","))
+	diff = []
+	curr = 0
+	for target in targets:
+		curr = abs(target - curr)
+		diff.append(curr)
+		curr = target
+	j = []
+	curr = 0
+	targets = map(int, aggregates.split(","))
+	for week, target in enumerate(targets):
+		if int(snaps["counts"].split(",")[week]) != 0:
+			curr += diff[week]
+		j.append(curr)
+	return j
 
 def get_target_aggregate_stats(curr_week=1):
 	# these take the weekly target stats and adds up target share throughout season
+	snap_stats = read_snap_stats()
 	team_targets = read_team_target_stats()
-	team_targets_aggregate = get_team_targets_to_week(team_targets)
+	team_targets_aggregate = get_team_targets_to_week(snap_stats, team_targets)
 
 	target_stats = {}
 	with open("static/target_counts.json") as fh:
 		target_stats = json.loads(fh.read())
 	j = {}
 	for name_team in target_stats:
-		player = " ".join(name_team.split(" ")[:-1])
+		player = " ".join(name_team.split(" ")[:-1])		
 		team = name_team.split(" ")[-1]
 		targets_arr = target_stats[name_team]["counts"].split(",")
 		pos = "RB" if target_stats[name_team]["pos"].find("RB") >= 0 else "WR/TE"
 		total_targets = 0
 		target_shares = []
 		targets = []
+		player_targets_aggregate = get_player_target_aggregate(team_targets_aggregate[team][pos], snap_stats[player])
 		for week, target in enumerate(targets_arr):
 			total_targets += int(target)
 			try:
-				target_share = round(total_targets / int(team_targets_aggregate[team][pos].split(",")[week]), 3)
+				target_share = round(total_targets / player_targets_aggregate[week], 3)
 			except:
 				target_share = 0
 			

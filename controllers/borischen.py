@@ -14,7 +14,7 @@ prefix = ""
 borischen_prefix = "/Users/zhecht/Documents/fftiers"
 if platform != "darwin":
 	# if on linux aka prod
-	prefix = "/home/zhecht/fantasy"
+	prefix = "/home/zhecht/fantasy/"
 	borischen_prefix = "/home/zhecht/fftiers"
 
 def merge_two_dicts(x, y):

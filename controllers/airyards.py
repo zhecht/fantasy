@@ -7,7 +7,7 @@ from sys import platform
 prefix = ""
 if platform != "darwin":
 	# if on linux aka prod
-	prefix = "/home/zhecht/fantasy"
+	prefix = "/home/zhecht/fantasy/"
 
 def fix_name(name):
 	name = name.lower().replace("'", "")

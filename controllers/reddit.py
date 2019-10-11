@@ -2,6 +2,9 @@
 from subprocess import call
 import sys
 
+# GLOBALS
+
+
 
 # POST 1 is redzone %
 def post1(curr_week):
@@ -28,12 +31,14 @@ def post3(curr_week):
 	print("- #Display to show when data was last updated\n")
 
 
+def defensive_post(curr_week):
+	print("ctrl+f for easy look at team")
 
 
 
 
 if __name__ == '__main__':
-	curr_week = 9
+	curr_week = 4
 
 	if len(sys.argv) > 1:
 		if int(sys.argv[1]) == 1:
