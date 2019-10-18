@@ -1,8 +1,4 @@
 #import MySQLdb
-try:
-  import controllers.constants as constants
-except:
-  import constants
 
 #import pymysql
 """

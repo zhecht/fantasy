@@ -3,18 +3,18 @@ from flask import *
 
 from lxml import etree
 #from sql_helper import *
-import controllers.constants
+#import controllers.constants
 import operator
 
 try:
-	import controllers.constants as constants
+	#import controllers.constants as constants
 	import controllers.read_rosters as read_rosters
 	import controllers.helper as helper
 	import controllers.stats as stats
 	import controllers.espn_stats as espn_stats
 	from controllers.oauth import *
 except:
-	import constants
+	#import constants
 	import read_rosters
 	import helper
 	import stats

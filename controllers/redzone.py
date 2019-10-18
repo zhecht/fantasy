@@ -5,12 +5,10 @@ import json
 
 
 try:
-	import controllers.constants as constants
 	from controllers.read_rosters import *
 	from controllers.reddit import *
 	from controllers.snap_stats import *
 except:
-	import constants
 	from read_rosters import *
 	from snap_stats import *
 	from reddit import *

@@ -14,10 +14,10 @@ except:
 
 try:
 	from controllers.read_rosters import *
-	import controllers.constants
+	#import controllers.constants
 except:
 	from read_rosters import *
-	import constants
+	#import constants
 
 def merge_two_dicts(x, y):
 	z = x.copy()
@@ -37,10 +37,10 @@ def write_cron_yahoo_FA():
 			if page.http_status == 200:
 				if not logged_in:
 					#SIGN IN
-					result, extra = session.evaluate("document.getElementById('login-username').value = '{}';".format(constants.YAHOO_USERNAME))
+					#result, extra = session.evaluate("document.getElementById('login-username').value = '{}';".format(constants.YAHOO_USERNAME))
 					page, extra = session.evaluate("document.getElementById('login-signin').click();", expect_loading=True)	
 					session.wait_for_selector('#login-passwd')
-					result, extra = session.evaluate("document.getElementById('login-passwd').value = '{}';".format(constants.YAHOO_PWD))
+					#result, extra = session.evaluate("document.getElementById('login-passwd').value = '{}';".format(constants.YAHOO_PWD))
 					page, extra = session.evaluate("document.getElementById('login-signin').click();", expect_loading=True)
 					logged_in = True
 

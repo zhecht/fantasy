@@ -2,10 +2,6 @@ from bs4 import BeautifulSoup
 import argparse
 import json
 try:
-	import controllers.constants as constants
-except:
-	import constants
-try:
 	import urllib2 as urllib
 except:
 	import urllib.request as urllib
