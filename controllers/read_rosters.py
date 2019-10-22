@@ -192,6 +192,9 @@ def update_players_on_teams(players_on_teams):
 	players_on_teams['adrian peterson'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Was'}
 	players_on_teams['jaylen samuels'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Pit'}
 	players_on_teams['nyheim hines'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Ind'}
+	players_on_teams['jd mckissic'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Det'}
+	players_on_teams['tra carson'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Det'}
+	players_on_teams['darrell henderson'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Lar'}
 
 	players_on_teams['dk metcalf'] = {'team_id': 0, 'position': 'WR', 'pid': 0, 'nfl_team': 'Sea'}
 	players_on_teams['d.j. chark jr'] = {'team_id': 0, 'position': 'WR', 'pid': 0, 'nfl_team': 'Jax'}

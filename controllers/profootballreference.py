@@ -29,21 +29,6 @@ def merge_two_dicts(x, y):
     z.update(y)
     return z
 
-def get_points(key, val):
-    if key in ["rush_yds", "rec_yds"]:
-        return val * .1
-    elif key in ["rush_td", "rec_td"]:
-        return val * 6
-    elif key == "pass_td":
-        return val * 4
-    elif key == "pass_yds":
-        return val * .04
-    elif key == "rec":
-        return val * .5
-    elif key in ["fumbles_lost", "pass_int"]:
-        return val * -2
-    return 0
-
 def get_abbr(team):
     if team == "ari":
         return "crd"
@@ -73,7 +58,88 @@ def get_abbr(team):
         return "nwe"
     return team
 
-def calculate_aggregate_stats():
+def get_default(key):
+    # return default
+    if key in ["rush_yds", "rec_yds"]:
+        return 0.1
+    elif key in ["pass_yds"]:
+        return 0.04
+    elif key == "ppr":
+        return 0.5
+    elif key in ["rush_td", "rec_td"]:
+        return 6
+    elif key in ["pass_td"]:
+        return 4
+    elif key in ["fumbles_lost", "pass_int"]:
+        return -2
+    elif key in ["xpm"]:
+        return 1
+    return 0
+
+def get_points(key, val, settings):
+    if key == "rec":
+        key = "ppr"
+    multiply = settings[key] if key in settings else get_default(key)
+    if key in settings and key in ["rush_yds", "rec_yds", "pass_yds"]:
+        multiply = 1.0 / multiply
+
+    if key == "fg_made":
+        pts = 0
+        for fg in val:
+            if int(fg) >= 50:
+                pts += settings["field_goal_50+"] if "field_goal_50+" in settings else 5
+            elif int(fg) >= 40:
+                pts += settings["field_goal_40-49"] if "field_goal_40-49" in settings else 4
+            elif int(fg) >= 30:
+                pts += settings["field_goal_30-39"] if "field_goal_30-39" in settings else 3
+            elif int(fg) >= 20:
+                pts += settings["field_goal_20-29"] if "field_goal_20-29" in settings else 3
+            else:
+                pts += settings["field_goal_0-19"] if "field_goal_0-19" in settings else 3
+        return pts
+    return val * multiply
+    return 0
+
+def get_points_from_PA(pts_allowed, settings):
+    points = settings["0_points_allowed"] if "0_points_allowed" in settings else 10
+    if pts_allowed >= 1 and pts_allowed <= 6:
+        points = settings["1-6_points_allowed"] if "1-6_points_allowed" in settings else 7
+    elif pts_allowed >= 7 and pts_allowed <= 13:
+        points = settings["7-13_points_allowed"] if "7-13_points_allowed" in settings else 4
+    elif pts_allowed >= 14 and pts_allowed <= 20:
+        points = settings["14-20_points_allowed"] if "14-20_points_allowed" in settings else 1
+    elif pts_allowed >= 21 and pts_allowed <= 27:
+        points = settings["21-27_points_allowed"] if "21-27_points_allowed" in settings else 0
+    elif pts_allowed >= 28 and pts_allowed <= 34:
+        points = settings["28-34_points_allowed"] if "28-34_points_allowed" in settings else -1
+    elif pts_allowed >= 35:
+        points = settings["35+_points_allowed"] if "35+_points_allowed" in settings else -4
+    return points
+
+def calculate_defense_points(stats, settings):
+    
+    pts_allowed = stats["rush_td"]*6 + stats["pass_td"]*6 + stats["xpm"] + stats["fgm"]*3 + stats["2pt_conversions"]*2
+    points = get_points_from_PA(pts_allowed, settings)
+    points += (stats["kick_ret_td"] * 6)
+    points += (stats["punt_ret_td"] * 6)
+    
+    multiply = settings["interception"] if "interception" in settings else 2
+    points += (stats["pass_int"] * multiply)
+    
+    multiply = settings["fumble_recovery"] if "fumble_recovery" in settings else 2
+    points += (stats["fumbles_lost"] * multiply)
+
+    multiply = settings["safety"] if "safety" in settings else 2
+    points += (stats["safety"] * multiply)
+
+    multiply = settings["sack"] if "sack" in settings else 1
+    points += (stats["pass_sacked"] * multiply)
+    return points
+
+def calculate_aggregate_stats(settings=None):
+    if not settings:
+        settings = {"ppr": 0.5}
+    test_settings = settings.copy()
     teamlinks = {}
     with open("{}static/profootballreference/teams.json".format(prefix)) as fh:
         teamlinks = json.loads(fh.read())
@@ -91,20 +157,40 @@ def calculate_aggregate_stats():
 
             for player in team_stats:
                 if player not in stats:
-                    stats[player] = {"tot": {"points": 0}}
+                    stats[player] = {"tot": {"standard_points": 0, "half_points": 0, "full_points": 0}}
                 if "wk{}".format(week) not in stats[player]:
                     stats[player]["wk{}".format(week)] = {}
 
                 points = 0
+                points_arr = {"standard": 0, "half": 0, "full": 0}
                 for player_stats_str in team_stats[player]:
                     if player_stats_str not in stats[player]["tot"]:
-                        stats[player]["tot"][player_stats_str] = 0
+                        if player_stats_str == "fg_made":
+                            stats[player]["tot"][player_stats_str] = []
+                        else:
+                            stats[player]["tot"][player_stats_str] = 0
                     stats[player]["wk{}".format(week)][player_stats_str] = team_stats[player][player_stats_str]
-                    stats[player]["tot"][player_stats_str] += team_stats[player][player_stats_str]
-                    points += get_points(player_stats_str, team_stats[player][player_stats_str])
-                
-                stats[player]["wk{}".format(week)]["points"] = round(points, 2)
-                stats[player]["tot"]["points"] += round(points, 2)
+                    if player_stats_str == "fg_made":
+                        stats[player]["tot"][player_stats_str].extend(team_stats[player][player_stats_str])
+                    else:
+                        stats[player]["tot"][player_stats_str] += team_stats[player][player_stats_str]
+
+                    if player_stats_str == "rec":
+                        test_settings["ppr"] = 0
+                        points_arr["standard"] += get_points(player_stats_str, team_stats[player][player_stats_str], test_settings)
+                        test_settings["ppr"] = 0.5
+                        points_arr["half"] += get_points(player_stats_str, team_stats[player][player_stats_str], test_settings)
+                        test_settings["ppr"] = 1
+                        points_arr["full"] += get_points(player_stats_str, team_stats[player][player_stats_str], test_settings)
+                    else:
+                        points += get_points(player_stats_str, team_stats[player][player_stats_str], settings)
+                # calculate def points
+                for s in ["standard", "half", "full"]:
+                    pts = round(points + points_arr[s], 2)
+                    if player == "OFF":
+                        pts = calculate_defense_points(team_stats[player], settings)
+                    stats[player]["wk{}".format(week)]["{}_points".format(s)] = pts
+                    stats[player]["tot"]["{}_points".format(s)] += pts
             
         with open("{}/stats.json".format(path), "w") as fh:
             json.dump(stats, fh, indent=4)
@@ -157,8 +243,9 @@ def get_tot_team_games(curr_week, schedule):
             j[t2] += 1
     return j
 
-def get_point_totals(curr_week):
+def get_point_totals(curr_week, settings):
     teams = os.listdir("{}static/profootballreference".format(prefix))
+    scoring_key = "half"
     all_team_stats = {}
     # read all team stats into { team -> player -> [tot, wk1, wk2]}
     for team in teams:
@@ -171,17 +258,24 @@ def get_point_totals(curr_week):
     ranks = []
     for team in all_team_stats:
         pos_tot = {}
-        for pos in ["RB", "WR", "TE", "QB"]:
+        for pos in ["QB", "RB", "WR", "TE", "K", "DEF"]:
             pos_tot[pos] = {}
             players = get_players_by_pos_team(team, pos)
             
+            if pos == "DEF":
+                players = ["OFF"]
             for player in players:
-                if player not in all_team_stats[team]:                  
+                if pos != "DEF" and player not in all_team_stats[team]:
                     continue
                 for wk in all_team_stats[team][player]: # tot, wk1, wk2
                     if wk not in pos_tot[pos]:
                         pos_tot[pos][wk] = 0
-                    pos_tot[pos][wk] += all_team_stats[team][player][wk]["points"]
+                    if player == "OFF":
+                        real_pts = calculate_defense_points(all_team_stats[team][player][wk], settings)
+                    else:
+                        real_pts = get_points_from_settings(all_team_stats[team][player][wk], settings)
+                    pos_tot[pos][wk] += real_pts
+                    #pos_tot[pos][wk] += all_team_stats[team][player][wk]["half_points"]
         j = { "team": team }
         for pos in pos_tot:
             #if "{}_tot".format(pos) not in j:
@@ -214,7 +308,7 @@ def get_defense_tot(curr_week, point_totals_dict):
         j = {"team": team}
         opponents = get_opponents(team)[:curr_week]
         for week, opp_team in enumerate(opponents):
-            for pos in ["QB", "RB", "WR", "TE"]:
+            for pos in ["QB", "RB", "WR", "TE", "K", "DEF"]:
                 key = "{}_wk{}".format(pos, week + 1)
                 tot_key = "{}_tot".format(pos)
                 if key not in j:
@@ -222,26 +316,31 @@ def get_defense_tot(curr_week, point_totals_dict):
                 if tot_key not in j:
                     j[tot_key] = 0
                 if opp_team != "BYE":
-                    j[key] += point_totals_dict[opp_team][key]
-                    j[tot_key] += point_totals_dict[opp_team][key]
-        for pos in ["QB", "RB", "WR", "TE"]:
+                    if pos == "DEF":
+                        # we calculate the stats for other defenses. No need to iterate over opp_team
+                        j[key] += point_totals_dict[team][key]
+                        j[tot_key] += point_totals_dict[team][key]
+                    else:
+                        j[key] += point_totals_dict[opp_team][key]
+                        j[tot_key] += point_totals_dict[opp_team][key]
+        for pos in ["QB", "RB", "WR", "TE", "K", "DEF"]:
             games = tot_team_games[team]
             j["{}_ppg".format(pos)] = round(j["{}_tot".format(pos)] / games, 2)
         defense_tot.append(j)
     return defense_tot
 
 # get rankns of teeams sorted by highest fantasy points scored
-def get_ranks(curr_week):
+def get_ranks(curr_week, settings):
     ranks = {}
-    point_totals = get_point_totals(curr_week)
-    for pos in ["RB", "WR", "TE", "QB"]:
+    point_totals = get_point_totals(curr_week, settings)
+    for pos in ["QB", "RB", "WR", "TE", "K", "DEF"]:
         for week in range(1, curr_week + 1):
             key = "{}_wk{}".format(pos, week)
             # storred like RB_wk3, etc
             sorted_ranks = sorted(point_totals, key=operator.itemgetter(key), reverse=True)
             for idx, arr in enumerate(sorted_ranks):
                 if arr["team"] not in ranks:
-                    ranks[arr["team"]] = {"RB": {}, "WR": {}, "TE": {}, "QB": {}}
+                    ranks[arr["team"]] = {"RB": {}, "WR": {}, "TE": {}, "QB": {}, "K": {}, "DEF": {}}
                 ranks[arr["team"]][pos]["wk{}".format(week)] = idx + 1
 
     # total opponent's numbers for DEFENSE outlooks
@@ -250,7 +349,7 @@ def get_ranks(curr_week):
         point_totals_dict[arr["team"]] = arr.copy()
     defense_tot = get_defense_tot(curr_week, point_totals_dict)
 
-    for pos in ["RB", "WR", "TE", "QB"]:
+    for pos in ["QB", "RB", "WR", "TE", "K", "DEF"]:
         sorted_ranks = sorted(defense_tot, key=operator.itemgetter("{}_tot".format(pos)), reverse=True)
         for idx, arr in enumerate(sorted_ranks):
             ranks[arr["team"]][pos]["tot"] = idx + 1
@@ -258,11 +357,12 @@ def get_ranks(curr_week):
     return ranks, defense_tot
 
 
-def get_pretty_stats(stats, pos):
+def get_pretty_stats(stats, pos, settings):
     #s = "{} PTS - {}".format(stats["points"], player.title())
     s = ""
     pos = pos.upper()
     if pos == "QB":
+        #print(stats)
         s += "{}/{} {} Pass Yds".format(stats["pass_cmp"], stats["pass_att"], stats["pass_yds"])
         if stats["pass_td"]:
             s += ", {} Pass TD".format(stats["pass_td"])
@@ -272,6 +372,24 @@ def get_pretty_stats(stats, pos):
         s = "{}/{} {} Rec Yds".format(stats["rec"], stats["targets"], stats["rec_yds"])
         if stats["rec_td"]:
             s += " {} Rec TD".format(stats["rec_td"])
+    elif pos == "K":
+        if "fg_made" not in stats:
+            s = "{} XP / {} FG made".format(stats["xpm"], stats["fgm"])
+        elif "xpm" in stats:
+            s = "{} XP / {} FG made {}".format(stats["xpm"], stats["fgm"], stats["fg_made"])
+    elif pos == "DEF":
+        pts_allowed = stats["rush_td"]*6 + stats["pass_td"]*6 + stats["xpm"] + stats["fgm"]*3 + stats["2pt_conversions"]*2
+        s += "{} pts allowed".format(pts_allowed)
+        if stats["pass_int"]:
+            s += " / {} Int".format(stats["pass_int"])
+        if stats["pass_sacked"]:
+            plural = "s" if stats["pass_sacked"] > 1 else ""
+            s += " / {} Sack{}".format(stats["pass_sacked"], plural)
+        if stats["fumbles_lost"]:
+            plural = "s" if stats["fumbles_lost"] > 1 else ""
+            s += " / {} Fumble{}".format(stats["fumbles_lost"], plural)
+        if stats["safety"]:
+            s += " / {} Safety".format(stats["safety"])
     else: # RB
         s += "{} Rush Yds".format(stats["rush_yds"])
         if stats["rush_td"]:
@@ -295,29 +413,55 @@ def get_suffix(num):
         return "rd"
     return "th"
 
+def get_points_from_settings(stats, settings):
+    points = 0
+    for s in stats:
+        if s.find("points") >= 0:
+            continue
+        points += get_points(s, stats[s], settings)
+    return points
+
 # Given a team, show stats from other players at the same pos 
-def position_vs_opponent_stats(team, pos, ranks):
+def position_vs_opponent_stats(team, pos, ranks, settings=None):
+
     opp_stats = []
     tot_stats = {"points": 0, "stats": {}, "title": "TOTAL vs. {}".format(pos.upper())}
     team = get_abbr(team)
     team_schedule = get_opponents(team)
-    for idx, opp_team in enumerate(team_schedule):
-        if opp_team == "BYE":
-            continue
+    scoring_key = "half"
+    if settings:
+        if settings["ppr"] == 0:
+            scoring_key = "standard"
+        elif settings["ppr"] == 1:
+            scoring_key = "full"
+    for idx, opp_team in enumerate(team_schedule):        
         week = idx + 1
-        path = "{}static/profootballreference/{}".format(prefix, opp_team)
+        if opp_team == "BYE":
+            opp_stats.append({"week": week, "players": "", "team": team})
+            continue
+        if pos == "DEF":
+            path = "{}static/profootballreference/{}".format(prefix, team)
+        else:
+            path = "{}static/profootballreference/{}".format(prefix, opp_team)
         team_stats = {}
         with open("{}/stats.json".format(path)) as fh:
             team_stats = json.loads(fh.read())
-        players_arr = get_players_by_pos_team(opp_team, pos)
+
+        if pos == "DEF":
+            players_arr = ["OFF"]
+        else:
+            players_arr = get_players_by_pos_team(opp_team, pos)
         display_team = team_trans[team] if team in team_trans else team
         display_opp_team = team_trans[opp_team] if opp_team in team_trans else opp_team
+        
         j = {
             "title": "<i style='text-decoration:underline;'>{} vs. {} {}</i>".format(
                 display_team.upper(),
                 display_opp_team.upper(),
                 pos.upper()
             ),
+            "week": week,
+            "opp": display_opp_team.upper(),
             "text": "",
             "rank": "",
             "points": 0.0,
@@ -332,28 +476,33 @@ def position_vs_opponent_stats(team, pos, ranks):
             week_stats = team_stats[player]["wk{}".format(week)]
             
             for s in week_stats:
+                #print(player, s, week)
                 if s not in total_stats:
-                    total_stats[s] = 0
-                if s == "points":
-                    player_txt.append("wk{} {}: {} {} pts ({})".format(idx, opp_team, player, week_stats[s],get_pretty_stats(week_stats, pos)))
-                    #print("wk{} {}: {} {} pts ({})".format(
-                    #   idx, opp_team, player, week_stats[s],get_pretty_stats(week_stats, pos))
-                    #)
-                total_stats[s] += week_stats[s]
+                    total_stats[s] = [] if s == "fg_made" else 0
+
+                if s == "fg_made":
+                    total_stats[s].extend(week_stats[s])
+                else:
+                    total_stats[s] += week_stats[s]
+            if player == "OFF":
+                real_pts = calculate_defense_points(week_stats, settings)
+            else:
+                real_pts = get_points_from_settings(week_stats, settings)
+
+            player_txt.append("wk{} {}: {} {} pts ({})".format(idx, opp_team, player, real_pts, get_pretty_stats(week_stats, pos, settings)))
+            if "points" not in total_stats:
+                total_stats["points"] = 0
+            total_stats["points"] += real_pts
         try:
-            
-            if 0:
-                j["rank"] = "{} points allowed <span>{}{} highest</span>".format(
-                    #total_stats[pos.upper()]["points"],
-                    total_stats["points"],              
-                    ranks[opp_team][pos.upper()]["wk{}".format(week)],
-                    get_suffix(ranks[opp_team][pos.upper()]["wk{}".format(week)])
-                )
             j["team"] = team
             j["opp_team"] = opp_team
             j["stats"] = total_stats 
-            j["text"] = get_pretty_stats(total_stats, pos)
-            j["points"] = round(total_stats["points"], 2)
+            j["text"] = get_pretty_stats(total_stats, pos, settings)
+            if player == "OFF":
+                real_pts = calculate_defense_points(total_stats, settings)
+            else:
+                real_pts = get_points_from_settings(total_stats, settings)
+            j["points"] = round(real_pts, 2)
             j["players"] = player_txt
 
             # TOT
@@ -366,7 +515,8 @@ def position_vs_opponent_stats(team, pos, ranks):
             pass
 
         opp_stats.append(j)
-    tot_stats["text"] = get_pretty_stats(tot_stats["stats"], pos)
+    #print(pos, tot_stats)
+    tot_stats["text"] = get_pretty_stats(tot_stats["stats"], pos, settings)
     tot_stats["rank"] = "{} points allowed <span>{}{} highest</span>".format(
         round(tot_stats["points"], 2),
         0,0)
@@ -378,17 +528,17 @@ def position_vs_opponent_stats(team, pos, ranks):
 def get_total_ranks(curr_week):
     ranks, defense_tot = get_ranks(curr_week)
 
-    print("RANK|RB|WR|TE|QB")
+    print("RANK|QB|RB|WR|TE|K|DEF")
     print(":--|:--|:--|:--|:--")
     for idx in range(1, 33):
         s = "**{}**".format(idx)
-        for pos in ["RB", "WR", "TE", "QB"]:
+        for pos in ["QB", "RB", "WR", "TE", "K", "DEF"]:
             sorted_ranks = sorted(defense_tot, key=operator.itemgetter("{}_ppg".format(pos)), reverse=False)
             display_team = sorted_ranks[idx - 1]["team"]
             if display_team in team_trans:
                 display_team = team_trans[display_team]
             tot = round(sorted_ranks[idx - 1]["{}_tot".format(pos)], 2)
-            s += "|{} {} PPG".format(display_team, sorted_ranks[idx - 1]["{}_ppg".format(pos)])
+            s += "|{} {}".format(display_team, sorted_ranks[idx - 1]["{}_ppg".format(pos)])
         print(s)
 
 def write_team_links():
@@ -427,10 +577,25 @@ def write_boxscore_links():
         with open("{}/boxscores.json".format(path), "w") as fh:
             json.dump(boxscore_links, fh, indent=4)
 
-def write_team_rosters():
-    teamlinks = {}
-    with open("{}static/profootballreference/teams.json".format(prefix)) as fh:
-        teamlinks = json.loads(fh.read())
+def fix_roster(roster, team):
+    if team == "rai":
+        roster["darren waller"] = "TE"
+    elif team == "det":
+        roster["ty johnson"] = "RB"
+        roster["jd mckissic"] = "RB"
+    elif team == "nyg":
+        roster["rhett ellison"] = "TE"
+    elif team == "min":
+        roster["cj ham"] = "RB"
+    elif team == "sfo":
+        roster["kyle juszczyk"] = "RB"
+    return
+
+def write_team_rosters(teamlinks={}):
+    if not teamlinks:
+        teamlinks = {}
+        with open("{}static/profootballreference/teams.json".format(prefix)) as fh:
+            teamlinks = json.loads(fh.read())
 
     for team in teamlinks:
         roster = {}
@@ -468,14 +633,14 @@ def write_team_rosters():
             tds = tr.find_all("td")
             name = tds[0].text.lower().replace("'", "").replace(".", "")
             pos = tds[2].text
+            if name in roster and roster[name] != pos:
+                print(name, roster[name], pos)
             roster[name] = pos
-        if team == "rai":
-            roster["darren waller"] = "TE"
-        elif team == "det":
-            roster["ty johnson"] = "RB"
-            roster["jd mckissic"] = "RB"
+        fix_roster(roster, team.split("/")[-2])
         with open("{}/roster.json".format(path), "w") as fh:
             json.dump(roster, fh, indent=4)
+    call(["rm", "-rf", "{}static/profootballreference/teams".format(prefix)])
+    return
 
 def get_indexes(header_row):
     indexes = {}
@@ -505,6 +670,122 @@ def write_schedule():
     with open("{}static/profootballreference/schedule.json".format(prefix), "w") as fh:
         json.dump(schedule, fh, indent=4)
 
+short_names = {"falcons": "atl", "bills": "buf", "panthers": "car", "bears": "chi", "bengals": "cin", "browns": "cle", "colts": "clt", "cardinals": "crd", "cowboys": "dal", "broncos": "den", "lions": "det", "packers": "gnb", "texans": "htx", "jaguars": "jax", "chiefs": "kan", "dolphins": "mia", "vikings": "min", "saints": "nor", "patriots": "nwe", "giants": "nyg", "jets": "nyj", "titans": "oti", "eagles": "phi", "steelers": "pit", "raiders": "rai", "rams": "ram", "ravens": "rav", "chargers": "sdg", "seahawks": "sea", "49ers": "sfo", "buccaneers": "tam", "redskins": "was"}
+
+def get_kicking_stats(outfile):
+    soup = BS(open(outfile).read(), "lxml")
+    rows = soup.find("table", id="scoring").find_all("tr")
+    stats = {}
+    for row in rows[1:]:
+        tds = row.find_all("td")
+        team = short_names[tds[1].text.lower()]
+        detail = tds[2]
+        m = re.search(r"(\d+) yard field goal", detail.text)
+        if m:
+            name = detail.find("a").text.lower().replace(".", "").replace("'", "")
+            if name not in stats:
+                stats[name] = []
+            distance = m.group(1)
+            stats[name].append(distance)
+    return stats
+
+def get_defense_stats_from_scoring(outfile, team):
+    soup = BS(open(outfile).read(), "lxml")
+    rows = soup.find("table", id="scoring").find_all("tr")
+    vis_score = 0
+    home_score = 0
+    conversions = 0
+    safety = 0
+    for row in rows[1:]:
+        tds = row.find_all("td")
+        ck_team = short_names[tds[1].text.lower()]        
+        if ck_team == team:
+            if int(tds[-2].text) - vis_score == 8:
+                conversions += 1
+            elif int(tds[-1].text) - home_score == 8:
+                conversions += 1
+        else:
+            if tds[2].text.find("Safety") >= 0:
+                safety += 1
+        vis_score = int(tds[-2].text)
+        home_score = int(tds[-1].text)
+    return {"2pt_conversions": conversions, "safety": safety}
+
+def add_defense_stats(stats, tds):
+    for td in tds:
+        key = td.get("data-stat")
+        if key not in ["pass_int", "pass_sacked", "pass_td", "rush_td", "fumbles_lost", "fgm", "xpm", "punt_ret_td", "kick_ret_td"]:
+            continue
+        
+        if not td.text:
+            val = 0
+        else:
+            val = int(td.text)
+        if key not in stats["OFF"]:
+            stats["OFF"][key] = 0
+        stats["OFF"][key] += val
+    return
+
+def add_stats(boxscorelinks, team, teampath, boxlink):
+    url = "https://www.pro-football-reference.com{}#all_team_stats".format(boxlink)
+    outfile = "{}/wk{}.html".format(teampath, boxscorelinks[boxlink])
+    call(["curl", "-k", url, "-o", outfile])
+    
+    kicking_stats = get_kicking_stats(outfile)
+    def_stats = get_defense_stats_from_scoring(outfile, team)
+    stats = {"OFF": def_stats}
+    outer_ids = ["all_player_offense", "all_kicking", "all_returns"]
+    inner_ids = ["player_offense", "kicking", "returns"]
+
+    for i in range(len(outer_ids)):
+        soup = BS(open(outfile).read(), "lxml")
+        children = soup.find("div", id=outer_ids[i]).children
+        if soup.find("table", id=inner_ids[i]) is None:
+            html = None
+            for c in children:
+                if isinstance(c, Comment):
+                    soup = BS(c, "lxml")
+                    break
+
+        #print(i, html is None, outfile)
+        rows = soup.find("table", id=inner_ids[i]).find_all("tr")
+        for tr in rows[2:]:
+            classes = tr.get("class")
+            if classes and "thead" in classes:
+                continue
+            name = tr.find("th").text.lower().replace("'", "").replace(".", "")
+            data = tr.find_all("td")
+            ck_team = get_abbr(data[0].text.lower()) # might have different abbr
+            
+            if outer_ids[i] == "all_returns":
+                # add kick_ret , punt_ret for other team
+                if team != ck_team:
+                    add_defense_stats(stats, data[1:])
+            elif team == ck_team:
+                if name not in stats:
+                    stats[name] = {}
+                add_defense_stats(stats, data[1:])
+                if inner_ids[i] == "kicking":
+                    try:
+                        stats[name]["fg_made"] = kicking_stats[name]
+                    except:
+                        pass
+                for td in data[1:]: # skip team
+                    try:                        
+                        if td.get("data-stat") == "pass_rating":
+                            stats[name][td.get("data-stat")] = float(td.text)
+                        else:   
+                            stats[name][td.get("data-stat")] = int(td.text)
+                    except:
+                        stats[name][td.get("data-stat")] = 0
+    for s in ["kick_ret_td", "punt_ret_td"]:
+        if s not in stats["OFF"]:
+            stats["OFF"][s] = 0
+    with open("{}/wk{}.json".format(teampath, boxscorelinks[boxlink]), "w") as fh:
+        json.dump(stats, fh, indent=4)
+    
+    os.remove(outfile)
+
 def write_boxscore_stats():
     teamlinks = {}
     with open("{}static/profootballreference/teams.json".format(prefix)) as fh:
@@ -517,56 +798,21 @@ def write_boxscore_stats():
         with open("{}/boxscores.json".format(teampath)) as fh:
             boxscorelinks = json.loads(fh.read())
         for boxlink in boxscorelinks:
-            #print(team, boxlink)
-            url = "https://www.pro-football-reference.com{}#all_team_stats".format(boxlink)
-            outfile = "{}/wk{}.html".format(teampath, boxscorelinks[boxlink])
-            call(["curl", "-k", url, "-o", outfile])
+            add_stats(boxscorelinks, team, teampath, boxlink)
 
-            # for some reason, the real HTML is commented out?
-            soup = BS(open(outfile).read(), "lxml")
-            if soup.find("div", id="all_player_offense") is None:
-                continue
-            children = soup.find("div", id="all_player_offense").children
-            html = None
-            for c in children:
-                if isinstance(c, Comment):
-                    html = c
-            soup = BS(html, "lxml")
-            rows = soup.find("table", id="player_offense").find_all("tr")
-            stats = {}
-            for tr in rows[2:]:
-                classes = tr.get("class")
-                if classes and "thead" in classes:
-                    continue
-                name = tr.find("th").text.lower().replace("'", "").replace(".", "")
-                data = tr.find_all("td")
-                ck_team = get_abbr(data[0].text.lower()) # might have different abbr
-                
-                if team == ck_team:
-                    stats[name] = {}
-                    for td in data[1:]: # skip team
-                        try:
-                            if td.get("data-stat") == "pass_rating":
-                                stats[name][td.get("data-stat")] = float(td.text)
-                            else:   
-                                stats[name][td.get("data-stat")] = int(td.text)
-                        except:
-                            stats[name][td.get("data-stat")] = 0
-
-            with open("{}/wk{}.json".format(teampath, boxscorelinks[boxlink]), "w") as fh:
-                json.dump(stats, fh, indent=4)
-            os.remove(outfile)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-c", "--cron", action="store_true", help="Start Cron Job")
-    parser.add_argument("-r", "--ranks", action="store_true", help="Get Ranks")
+    parser.add_argument("-r", "--ranks", action="store_true", help="Get Ranks")    
     parser.add_argument("-schedule", "--schedule", help="Print Schedule", action="store_true")
     parser.add_argument("-s", "--start", help="Start Week", type=int)
     parser.add_argument("-e", "--end", help="End Week", type=int)
+    parser.add_argument("-t", "--team", help="Get Team")
+    parser.add_argument("-p", "--pos", help="Get Pos")
 
     args = parser.parse_args()
-    curr_week = 6
+    curr_week = 8
 
     if args.start:
         curr_week = args.start
@@ -576,16 +822,30 @@ if __name__ == "__main__":
         print(schedule[str(curr_week)])
     elif args.ranks:
         get_total_ranks(curr_week)
-        #ranks = get_ranks(3)
-        #opp1 = position_vs_opponent_stats("nwe", "RB", ranks)
+    elif args.team and args.pos:
+        settings = {'0_points_allowed': 10, '7-13_points_allowed': 4, 'sack': 1, 'ppr': 0.5, 'touchdown': 6, 'pass_tds': 4, 'fumble_recovery': 2, '1-6_points_allowed': 7, 'xpm': 1, 'fumbles_lost': -2, 'rec_tds': 6, 'interception': 2, 'field_goal_0-19': 3, 'safety': 2, 'field_goal_50+': 5, 'pass_yds': 25, 'field_goal_20-29': 3, 'pass_int': -2, 'rush_yds': 10, 'rush_tds': 6, '21-27_points_allowed': 0, '28-34_points_allowed': -1, '14-20_points_allowed': 1, 'field_goal_30-39': 3, 'field_goal_40-49': 4, '35+_points_allowed': -4, 'rec_yds': 10}
+        ranks = get_ranks(curr_week, settings)
+        opp, tot = position_vs_opponent_stats(args.team, args.pos, ranks, settings)
+        teamname = team_trans[args.team] if args.team in team_trans else args.team
+        print("**{} vs. {}**".format(teamname.upper(), args.pos))
+        for idx, data in enumerate(opp):
+            if idx + 1 > curr_week:
+                continue
+            print("\n#Wk{} vs. {} {} - {} pts".format(data["week"], data["opp"], args.pos, data["points"]))
+            arr = [ d.split(": ")[1] for d in data["players"] ]
+            print("\n".join(arr))
         #print(opp1)
-
     elif args.cron:
         pass
         # only needs to be run once in a while
         write_schedule()
         write_team_rosters()
         write_team_links()
-        write_boxscore_links()      
+        write_boxscore_links()
         write_boxscore_stats()
         calculate_aggregate_stats()
+
+    #write_team_rosters()
+    #write_boxscore_stats()
+    #calculate_aggregate_stats()
+    #get_opponents("ari")

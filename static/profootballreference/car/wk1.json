@@ -1,4 +1,17 @@
 {
+    "OFF": {
+        "2pt_conversions": 0,
+        "safety": 0,
+        "pass_td": 0,
+        "pass_int": 1,
+        "pass_sacked": 3,
+        "rush_td": 3,
+        "fumbles_lost": 2,
+        "xpm": 3,
+        "fgm": 2,
+        "kick_ret_td": 0,
+        "punt_ret_td": 0
+    },
     "cam newton": {
         "pass_cmp": 25,
         "pass_att": 38,
@@ -153,6 +166,28 @@
         "fumbles": 0,
         "fumbles_lost": 0
     },
+    "chris hogan": {
+        "pass_cmp": 0,
+        "pass_att": 0,
+        "pass_yds": 0,
+        "pass_td": 0,
+        "pass_int": 0,
+        "pass_sacked": 0,
+        "pass_sacked_yds": 0,
+        "pass_long": 0,
+        "pass_rating": 0,
+        "rush_att": 0,
+        "rush_yds": 0,
+        "rush_td": 0,
+        "rush_long": 0,
+        "targets": 1,
+        "rec": 0,
+        "rec_yds": 0,
+        "rec_td": 0,
+        "rec_long": 0,
+        "fumbles": 0,
+        "fumbles_lost": 0
+    },
     "ian thomas": {
         "pass_cmp": 0,
         "pass_att": 0,
@@ -175,26 +210,28 @@
         "fumbles": 0,
         "fumbles_lost": 0
     },
-    "chris hogan": {
-        "pass_cmp": 0,
-        "pass_att": 0,
-        "pass_yds": 0,
-        "pass_td": 0,
-        "pass_int": 0,
-        "pass_sacked": 0,
-        "pass_sacked_yds": 0,
-        "pass_long": 0,
-        "pass_rating": 0,
-        "rush_att": 0,
-        "rush_yds": 0,
-        "rush_td": 0,
-        "rush_long": 0,
-        "targets": 1,
-        "rec": 0,
-        "rec_yds": 0,
-        "rec_td": 0,
-        "rec_long": 0,
-        "fumbles": 0,
-        "fumbles_lost": 0
+    "joey slye": {
+        "fg_made": [
+            "46",
+            "52"
+        ],
+        "xpm": 3,
+        "xpa": 3,
+        "fgm": 2,
+        "fga": 3,
+        "punt": 0,
+        "punt_yds": 0,
+        "punt_yds_per_punt": 0,
+        "punt_long": 0
+    },
+    "michael palardy": {
+        "xpm": 0,
+        "xpa": 0,
+        "fgm": 0,
+        "fga": 0,
+        "punt": 4,
+        "punt_yds": 193,
+        "punt_yds_per_punt": 0,
+        "punt_long": 58
     }
 }

@@ -4,28 +4,51 @@
     <title>Defensive Ranks</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <style>
+      html { min-height:100%; position: relative; }
+      body { height: 100%; }
       #header { width: 100%; text-align: center; }
       #header h2 { line-height: 0.5; }
-      #main_div { display: flex; width: 100%; flex-direction: column; align-items: center;}
-      table { width: 70%; border-collapse: collapse; justify-content: center;margin-top: 2.5%; }
+      #main_div { display: flex; width: 100%; flex-direction: column; align-items: center; overflow: auto;}
+      table { width: 70%; border-collapse: collapse; justify-content: center;margin-top: 1.5%; }
       .click_tables { width: 70%; display: none;}
       .clickable { cursor: pointer; }
       .players_table { width: 100%; margin-top: 0; }      
       .players_table th { font-style: italic; text-decoration: underline; }
       .players_table th, .players_table td { border:0px; padding: 2.5px; margin: 0; text-align: left; }
-      #ppg_by_team { display: none; }
+      #scoring { display: none; width: 70%; background: #f1f1f1; position: absolute; height: 650px; top:30px; align-items: center; justify-content: center; flex-direction: column; }
+      #main_scoring { display: flex; width: 100%; justify-content: center; }
+      #main_scoring div { display: flex; flex-direction: column; flex: 1; text-align: center; }
+      #main_scoring h3 { text-decoration: underline; }
+      
+      #scoring label { padding-right: 10px; }
+      #scoring div {  }
+      #scoring_result { display: none; padding: 5px; }
+      #save_div {  }
+      #scoring_offense div, #scoring_kicking div, #scoring_defense div { flex-direction: row; justify-content: space-evenly; padding: 0 5%; padding-bottom: 5%; }
+      #ppg_by_pos { display: none; }
       #color_table {  }
       #value_overview {  }
       button { width: 250px;text-align: center; cursor: pointer; background: rgba(0,0,0,0);  padding: 7px; flex: 1; font-weight: bold; }
+      #scoring button { width: 125px;  }
+      #main_scoring button { width: 50px;padding:5px;margin-top:-5px; }
+      #save_div button { width: 200px; }
       button.active { box-shadow: inset 0 0 0 0px white,inset 0 5px 40px #231F20; }
       td, th { padding: 5px; border: 1px solid; text-align: center; }
       td { font-weight: bold; background-color: #f1f1f1; }
       img { width: 35%; justify-content: center; }
       #darkened_back { position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,.6); display: none; }
       @media (max-width: 450px) {
+        td { padding: 7px; }
         table { width: 100%; }
         button { width: 150px; }
         .click_tables { width: 100%; }
+        #scoring { width: 100%; justify-content: normal; overflow: scroll; }
+        #ppg_by_team, #ppg_by_pos { overflow: scroll; }
+        #main_scoring { flex-direction: column; display: none; }
+        #scoring button { width: 100px; }
+        #ppr { margin-top: 10%; }
+        #save_div { position: relative; bottom: 0; }
+        #main_scoring button { margin-top: 0; }
       }
     </style>
   </head>
@@ -33,12 +56,17 @@
     <div id="darkened_back"></div>
     <div id="header"><h2></h2></div>
     <div id="main_div">
-      <div style="flex-direction: row;"><button class="active">Sorted By Pos</button><button>Sorted By Team</button></div>
+      <div id="sort_div" style="flex-direction: row;"><button class="active">Sorted By Team</button><button>Sorted By Pos</button></div>
+      {{ scoring_html|safe }}
       {{ click_html|safe }}
       {{ color_html|safe }}
       {{ table_html|safe }}
     </div>
+
     <script src="/static/js/defense.js"></script>
+    <script>
+      settings = JSON.parse('{{ settings_string|safe }}');
+    </script>
     <input type="hidden" id="showing" value="" />
   </body>
 </html>

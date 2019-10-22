@@ -457,7 +457,7 @@ if __name__ == '__main__':
 
 	if args.snaps:
 		team_trans = {"rav": "bal", "htx": "hou", "oti": "ten", "sdg": "lac", "ram": "lar", "rai": "oak", "clt": "ind", "crd": "ari"}
-		rbbc_teams = ["crd", "atl", "rav", "buf", "car", "cin", "chi", "dal", "den", "det", "gnb", "htx", "jax", "clt", "kan", "sdg", "ram", "mia", "min", "nor", "nwe", "nyj", "nyg", "rai", "pit", "phi", "sea", "sfo", "tam", "oti", "was"]
+		rbbc_teams = ["crd", "atl", "rav", "buf", "car", "cin", "chi", "cle", "dal", "den", "det", "gnb", "htx", "jax", "clt", "kan", "sdg", "ram", "mia", "min", "nor", "nwe", "nyj", "nyg", "rai", "pit", "phi", "sea", "sfo", "tam", "oti", "was"]
 		if args.teams:
 			rbbc_teams = args.teams.split(",")
 		snap_trends = get_redzone_trends(rbbc_teams, curr_week, "RB")
@@ -537,6 +537,7 @@ if __name__ == '__main__':
 			if player["looks"] >= 0 and player["name"] == "julio jones":
 				print("{}|({}/{})|{}%|{}".format(player["name"].title(), player["looks"], player["total_team_looks"], player["looks_perc"], player["delta3"]))
 
+		#exit()
 		print("\n#Top 30 RB")
 		print("\nPlayer|(player looks / team looks)|Team RZ Look Share|3 Week Trend")
 		print(":--|:--|:--|:--")
