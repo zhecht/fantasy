@@ -9,6 +9,10 @@ function close_showing() {
 	}
 }
 
+var close_table = function() {
+	close_showing();
+}
+
 var change_scoring = function() {
 	document.getElementById("darkened_back").style = "display: block;";
 	document.getElementById("scoring").style = "display: flex;";
@@ -39,6 +43,19 @@ var mobile_show_stats = function(e) {
 	document.getElementById(this.id+"_stats").style = "display:"+css;
 	e.preventDefault();
 	return false;
+}
+
+var hide_pos = function() {
+
+	var pos = this.parentElement.id.split("_")[0];
+	var tds = document.getElementsByClassName(pos+"_td");
+	for (var i = 0; i < tds.length; ++i) {
+		if (this.checked) {
+			tds[i].style.display = "none";
+		} else {
+			tds[i].style.display = "table-cell";
+		}
+	}
 }
 
 function resetBtns(div_id) {
@@ -160,6 +177,16 @@ for (var i = 0; i < btns.length; ++i) {
 var btns = document.getElementsByClassName("mobile_show_stats");
 for (var i = 0; i < btns.length; ++i) {
 	btns[i].addEventListener("click", mobile_show_stats, false);
+}
+
+var btns = document.getElementsByClassName("close_table");
+for (var i = 0; i < btns.length; ++i) {
+	btns[i].addEventListener("click", close_table, false);
+}
+
+var btns = document.getElementById("hide_div").getElementsByTagName("input");
+for (var i = 0; i < btns.length; ++i) {
+	btns[i].addEventListener("click", hide_pos, false);
 }
 
 var btns = document.getElementById("change_scoring").addEventListener("click", change_scoring, false);

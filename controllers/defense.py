@@ -95,7 +95,7 @@ def get_ranks_html(settings, curr_week = 8):
     defense_ranks = {}
     html = "<table id='ppg_by_pos'>"
     html += "<tr><th colspan='12'>Points Allowed Per Game Per Position ({} PPR)</th></tr>".format(scoring)
-    html += "<tr><th>Team</th><th>QB</th><th>Team</th><th>RB</th><th>Team</th><th>WR</th><th>Team</th><th>TE</th><th>Team</th><th>K</th><th>Team</th><th>DEF</th></tr>"
+    html += "<tr><th class='QB_td'>Team</th><th class='QB_td'>QB</th><th class='RB_td'>Team</th><th class='RB_td'>RB</th><th class='WR_td'>Team</th><th class='WR_td'>WR</th><th class='TE_td'>Team</th><th class='TE_td'>TE</th><th class='K_td'>Team</th><th class='K_td'>K</th><th class='DEF_td'>Team</th><th class='DEF_td'>DEF</th></tr>"
     # sorted by pos
     for idx in range(32):
         html += "<tr>"
@@ -116,14 +116,14 @@ def get_ranks_html(settings, curr_week = 8):
             defense_ranks[display_team][pos] = arr["{}_ppg".format(pos)]
             defense_ranks[display_team]["{}_rank".format(pos)] = idx + 1
 
-            html += "<td class='clickable'>{}</td><td id='{}_{}' class='clickable' {}>{}</td>".format(display_team.upper(), display_team, pos, style, arr["{}_ppg".format(pos)])
+            html += "<td class='clickable {}_td'>{}</td><td id='{}_{}' class='clickable {}_td' {}>{}</td>".format(pos, display_team.upper(), display_team, pos, pos, style, arr["{}_ppg".format(pos)])
         html += "</tr>"
     html += "</table>"
     
     sorted_teams = sorted(defense_ranks.keys())
     html += "<table id='ppg_by_team'>"
     html += "<tr><th colspan='8'>Points Allowed Per Game ({} PPR)</th></tr>".format(scoring)
-    html += "<tr><th>Team</th><th>QB</th><th>RB</th><th>WR</th><th>TE</th><th>K</th><th>DEF</th><th> Opp</th></tr>".format(curr_week)
+    html += "<tr><th>Team</th><th class='QB_td'>QB</th><th class='RB_td'>RB</th><th class='WR_td'>WR</th><th class='TE_td'>TE</th><th class='K_td'>K</th><th class='DEF_td'>DEF</th><th> Opp</th></tr>".format(curr_week)
     for team in sorted_teams:
         opp_team = profootballreference.get_opponents(team)[curr_week]
         html += "<tr><td>{}</td>".format(team.upper())
@@ -131,7 +131,7 @@ def get_ranks_html(settings, curr_week = 8):
             r = defense_ranks[team]["{}_rank".format(pos)]
             style = get_ranks_style(r, extra="position:relative;z-index:-1;")
             span = "<span style='position:absolute;bottom:0;right:5px;font-size:10px;'>{}{}</span>".format(r, get_suffix(r))
-            html += "<td class='clickable' id='{}_{}' {}>{}{}</td>".format(team, pos, style, defense_ranks[team][pos], span)
+            html += "<td class='clickable {}_td' id='{}_{}' {}>{}{}</td>".format(pos, team, pos, style, defense_ranks[team][pos], span)
         opp_team = team_trans[opp_team] if opp_team in team_trans else opp_team
         html += "<td>{}</td></tr>".format(opp_team.upper())
     html += "</table>"
@@ -158,11 +158,11 @@ def get_html(team_arg, pos, opp):
     mobile_html = "<table class='click_tables' id='{}_{}_mobile_table'>".format(team_arg, pos)
 
     if pos == "DEF":
-        html += "<tr><th colspan='2'>DEF Vs. {} {}</th></tr>".format(team_arg.upper(), def_txt)
-        mobile_html += "<tr><th>DEF Vs. {} {}</th></tr>".format(team_arg.upper(), def_txt)
+        html += "<tr><th colspan='2' style='position:relative;'><span class='close_table'>X</span>DEF Vs. {} {}</th></tr>".format(team_arg.upper(), def_txt)
+        mobile_html += "<tr><th style='position:relative;'><span class='close_table'>X</span>DEF Vs. {} {}</th></tr>".format(team_arg.upper(), def_txt)
     else:
-        html += "<tr><th colspan='2'>{} {} Vs. {}</th></tr>".format(team_arg.upper(), def_txt, pos)
-        mobile_html += "<tr><th>{} {} Vs. {}</th></tr>".format(team_arg.upper(), def_txt, pos)
+        html += "<tr><th colspan='2' style='position:relative;'><span class='close_table'>X</span>{} {} Vs. {}</th></tr>".format(team_arg.upper(), def_txt, pos)
+        mobile_html += "<tr><th style='position:relative;'><span class='close_table'>X</span>{} {} Vs. {}</th></tr>".format(team_arg.upper(), def_txt, pos)
 
     for idx, arr in enumerate(opp):
         players_html = "<table class='players_table'>"
@@ -354,6 +354,13 @@ def get_scoring_html(settings):
     html += "</div>"
     return html
 
+def get_hide_html():
+    html = "<div id='hide_div'><span style='font-weight:bold;'>Hide</span>"
+    for pos in ["QB", "RB", "WR", "TE", "K", "DEF"]:
+        html += "<span id='{}_hide'>{}: <input type='checkbox' /></span>".format(pos, pos)
+    html += "</div>"
+    return html
+
 def decode_session(session_id):
     session_id.replace("%2C", ",")
     session_id.replace("%2F", "/")
@@ -392,17 +399,18 @@ def defense_route():
 
     ranks_html, teams = get_ranks_html(settings)
     scoring_html = get_scoring_html(settings)
+    hide_html = get_hide_html()
     settings_string = json.dumps(settings)
     color_html = ""
     click_html = ""
 
     with open("{}views/{}".format(prefix, filename)) as fh:
         click_html = fh.read()
-    #click_html = get_team_html(teams, settings)
+    click_html = get_team_html(teams, settings)
     with open("{}views/{}".format(prefix, filename), "w") as fh:
        fh.write(click_html)
     
-    return render_template("defense.html", table_html=ranks_html, color_html=color_html, click_html=click_html, scoring_html=scoring_html, settings_string=settings_string)
+    return render_template("defense.html", table_html=ranks_html, color_html=color_html, click_html=click_html, scoring_html=scoring_html, hide_html=hide_html, settings_string=settings_string)
 
 
 @defense_print.route('/defense', methods=["POST"])

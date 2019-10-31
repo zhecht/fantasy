@@ -19,7 +19,8 @@
       #main_scoring { display: flex; width: 100%; justify-content: center; }
       #main_scoring div { display: flex; flex-direction: column; flex: 1; text-align: center; }
       #main_scoring h3 { text-decoration: underline; }
-      
+      #hide_div { padding-top: 1.5%;width: 100%; text-align: center; }
+      #hide_div span { margin-left: 2%; }
       #scoring label { padding-right: 10px; }
       #scoring div {  }
       #scoring_result { display: none; padding: 5px; }
@@ -28,6 +29,7 @@
       #ppg_by_pos { display: none; }
       #color_table {  }
       #value_overview {  }
+      .close_table { position: absolute;left: 15px; cursor: pointer; }
       button { width: 250px;text-align: center; cursor: pointer; background: rgba(0,0,0,0);  padding: 7px; flex: 1; font-weight: bold; }
       #scoring button { width: 125px;  }
       #main_scoring button { width: 50px;padding:5px;margin-top:-5px; }
@@ -47,8 +49,10 @@
         #main_scoring { flex-direction: column; display: none; }
         #scoring button { width: 100px; }
         #ppr { margin-top: 10%; }
-        #save_div { position: relative; bottom: 0; }
+        #save_div { position: relative; bottom: 0; margin-top: 15%; }
         #main_scoring button { margin-top: 0; }
+        #hide_div span { margin-left: 0; }
+        #QB_hide { margin-left: 2%; }
       }
     </style>
   </head>
@@ -58,6 +62,7 @@
     <div id="main_div">
       <div id="sort_div" style="flex-direction: row;"><button class="active">Sorted By Team</button><button>Sorted By Pos</button></div>
       {{ scoring_html|safe }}
+      {{ hide_html|safe }}
       {{ click_html|safe }}
       {{ color_html|safe }}
       {{ table_html|safe }}
