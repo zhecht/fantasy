@@ -54,7 +54,14 @@ def read_snap_stats():
 	new_json = {}
 	for player in returned_json:
 		real_name = " ".join(player.split(" ")[:-1])
-		new_json[real_name] = {"perc": returned_json[player]["perc"], "counts": returned_json[player]["counts"]}
+		if real_name in new_json:
+			perc = returned_json[player]["perc"].split(",")
+			perc = [ str(int(val) + int(perc[idx])) for idx, val in enumerate(new_json[real_name]["perc"].split(",")) ]
+			counts = returned_json[player]["counts"].split(",")
+			counts = [ str(int(val) + int(counts[idx])) for idx, val in enumerate(new_json[real_name]["counts"].split(",")) ]
+			new_json[real_name] = {"perc": ','.join(perc), "counts": ','.join(counts)}
+		else:
+			new_json[real_name] = {"perc": returned_json[player]["perc"], "counts": returned_json[player]["counts"]}
 	new_j = {}
 	for player in new_json:
 		new_name = player.lower().replace("'", "").replace(".", "")
@@ -268,6 +275,8 @@ def get_target_aggregate_stats(curr_week=1):
 		total_targets = 0
 		target_shares = []
 		targets = []
+		if player not in snap_stats:
+			continue
 		player_targets_aggregate = get_player_target_aggregate(team_targets_aggregate[team][pos], snap_stats[player])
 		for week, target in enumerate(targets_arr):
 			total_targets += int(target)

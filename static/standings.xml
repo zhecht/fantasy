@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.468862/standings" time="181.21480941772ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
+<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.468862/standings" time="136.6069316864ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
  <league>
   <league_key>390.l.468862</league_key>
   <league_id>468862</league_id>
@@ -8,9 +8,9 @@
   <logo_url></logo_url>
   <draft_status>postdraft</draft_status>
   <num_teams>12</num_teams>
-  <edit_key>9</edit_key>
+  <edit_key>12</edit_key>
   <weekly_deadline/>
-  <league_update_timestamp>1572418086</league_update_timestamp>
+  <league_update_timestamp>1574236884</league_update_timestamp>
   <scoring_type>head</scoring_type>
   <league_type>private</league_type>
   <renew>380_1000110</renew>
@@ -19,7 +19,7 @@
   <allow_add_to_dl_extra_pos>0</allow_add_to_dl_extra_pos>
   <is_pro_league>0</is_pro_league>
   <is_cash_league>0</is_cash_league>
-  <current_week>9</current_week>
+  <current_week>12</current_week>
   <start_week>1</start_week>
   <start_date>2019-09-05</start_date>
   <end_week>16</end_week>
@@ -39,15 +39,16 @@
        <url>https://s.yimg.com/cv/apiv2/default/nfl/nfl_12.png</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>7</waiver_priority>
-     <faab_balance>57</faab_balance>
-     <number_of_moves>14</number_of_moves>
+     <waiver_priority>12</waiver_priority>
+     <faab_balance>55</faab_balance>
+     <number_of_moves>21</number_of_moves>
      <number_of_trades>0</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
-      <coverage_value>9</coverage_value>
-      <value>2</value>
+      <coverage_value>12</coverage_value>
+      <value>4</value>
      </roster_adds>
+     <clinched_playoffs>1</clinched_playoffs>
      <league_scoring_type>head</league_scoring_type>
      <has_draft_grade>1</has_draft_grade>
      <draft_grade>C+</draft_grade>
@@ -58,7 +59,7 @@
        <nickname>Adam</nickname>
        <guid>LOS4KE4OJIDVOM5CLCVP6KOS6I</guid>
        <email>adamseidenberg@gmail.com</email>
-       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
+       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
       </manager>
       <manager>
        <manager_id>18</manager_id>
@@ -72,86 +73,87 @@
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2019</season>
-      <total>1014.52</total>
+      <total>1364.54</total>
      </team_points>
      <team_standings>
       <rank>1</rank>
       <playoff_seed>1</playoff_seed>
       <outcome_totals>
-       <wins>6</wins>
+       <wins>9</wins>
        <losses>2</losses>
        <ties>0</ties>
-       <percentage>.750</percentage>
+       <percentage>.818</percentage>
       </outcome_totals>
       <streak>
        <type>win</type>
-       <value>1</value>
+       <value>4</value>
       </streak>
-      <points_for>1014.52</points_for>
-      <points_against>753.44</points_against>
+      <points_for>1364.54</points_for>
+      <points_against>984.26</points_against>
      </team_standings>
     </team>
     <team>
-     <team_key>390.l.468862.t.2</team_key>
-     <team_id>2</team_id>
-     <name>Twigs Late Night</name>
-     <url>https://football.fantasysports.yahoo.com/f1/468862/2</url>
+     <team_key>390.l.468862.t.11</team_key>
+     <team_id>11</team_id>
+     <name>The Cockpit</name>
+     <url>https://football.fantasysports.yahoo.com/f1/468862/11</url>
      <team_logos>
       <team_logo>
        <size>large</size>
-       <url>https://s.yimg.com/cv/apiv2/default/nfl/nfl_4.png</url>
+       <url>https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/44602967354_2ad123.jpg</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>12</waiver_priority>
-     <faab_balance>38</faab_balance>
-     <number_of_moves>13</number_of_moves>
-     <number_of_trades>0</number_of_trades>
+     <waiver_priority>2</waiver_priority>
+     <faab_balance>63</faab_balance>
+     <number_of_moves>12</number_of_moves>
+     <number_of_trades>1</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
-      <coverage_value>9</coverage_value>
-      <value>3</value>
+      <coverage_value>12</coverage_value>
+      <value>1</value>
      </roster_adds>
+     <clinched_playoffs>1</clinched_playoffs>
      <league_scoring_type>head</league_scoring_type>
      <has_draft_grade>1</has_draft_grade>
      <draft_grade>C</draft_grade>
-     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/468862/2/draftrecap</draft_recap_url>
+     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/468862/11/draftrecap</draft_recap_url>
      <managers>
       <manager>
-       <manager_id>2</manager_id>
-       <nickname>Matt</nickname>
-       <guid>JCBOKTD2WOTVLBQ7P5U6GEIU2Q</guid>
-       <email>mssilv@yahoo.com</email>
-       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
+       <manager_id>11</manager_id>
+       <nickname>jake</nickname>
+       <guid>5WMQVHWIDAWXPG2XX7AF5YVBA4</guid>
+       <email>jmoneyballas@yahoo.com</email>
+       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
       </manager>
       <manager>
-       <manager_id>14</manager_id>
-       <nickname>Jason</nickname>
-       <guid>2BIWWAIAGS52RL3IG2HZDSE5ZI</guid>
+       <manager_id>21</manager_id>
+       <nickname>david</nickname>
+       <guid>SKKXIFV6HZV6EDBPWF6LJUY2SE</guid>
        <is_comanager>1</is_comanager>
-       <email>jasonbass17@yahoo.com</email>
-       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
+       <email>tbaum26@yahoo.com</email>
+       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
       </manager>
      </managers>
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2019</season>
-      <total>907.76</total>
+      <total>1305.32</total>
      </team_points>
      <team_standings>
       <rank>2</rank>
       <playoff_seed>2</playoff_seed>
       <outcome_totals>
-       <wins>6</wins>
-       <losses>2</losses>
+       <wins>8</wins>
+       <losses>3</losses>
        <ties>0</ties>
-       <percentage>.750</percentage>
+       <percentage>.727</percentage>
       </outcome_totals>
       <streak>
        <type>win</type>
        <value>5</value>
       </streak>
-      <points_for>907.76</points_for>
-      <points_against>842.24</points_against>
+      <points_for>1305.32</points_for>
+      <points_against>1190.5</points_against>
      </team_standings>
     </team>
     <team>
@@ -162,18 +164,19 @@
      <team_logos>
       <team_logo>
        <size>large</size>
-       <url>https://ct.yimg.com/cy/1871/43725325441_250e10_192sq.jpg?ct=fantasy?ct=fantasy</url>
+       <url>https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/43725325441_250e10.jpg</url>
       </team_logo>
      </team_logos>
      <waiver_priority>1</waiver_priority>
-     <faab_balance>80</faab_balance>
-     <number_of_moves>14</number_of_moves>
+     <faab_balance>45</faab_balance>
+     <number_of_moves>21</number_of_moves>
      <number_of_trades>0</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
-      <coverage_value>9</coverage_value>
+      <coverage_value>12</coverage_value>
       <value>0</value>
      </roster_adds>
+     <clinched_playoffs>1</clinched_playoffs>
      <league_scoring_type>head</league_scoring_type>
      <has_draft_grade>1</has_draft_grade>
      <draft_grade>B+</draft_grade>
@@ -184,7 +187,7 @@
        <nickname>Tyler</nickname>
        <guid>J6HE657H4U7ECXFG4TIQGFDC2M</guid>
        <email>tyjama@umich.edu</email>
-       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
+       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
       </manager>
       <manager>
        <manager_id>20</manager_id>
@@ -198,86 +201,23 @@
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2019</season>
-      <total>879.06</total>
+      <total>1223.90</total>
      </team_points>
      <team_standings>
       <rank>3</rank>
       <playoff_seed>3</playoff_seed>
       <outcome_totals>
-       <wins>6</wins>
-       <losses>2</losses>
-       <ties>0</ties>
-       <percentage>.750</percentage>
-      </outcome_totals>
-      <streak>
-       <type>win</type>
-       <value>3</value>
-      </streak>
-      <points_for>879.06</points_for>
-      <points_against>801.4</points_against>
-     </team_standings>
-    </team>
-    <team>
-     <team_key>390.l.468862.t.11</team_key>
-     <team_id>11</team_id>
-     <name>The Cockpit</name>
-     <url>https://football.fantasysports.yahoo.com/f1/468862/11</url>
-     <team_logos>
-      <team_logo>
-       <size>large</size>
-       <url>https://ct.yimg.com/cy/1870/44602967354_2ad123_192sq.jpg?ct=fantasy</url>
-      </team_logo>
-     </team_logos>
-     <waiver_priority>2</waiver_priority>
-     <faab_balance>73</faab_balance>
-     <number_of_moves>10</number_of_moves>
-     <number_of_trades>1</number_of_trades>
-     <roster_adds>
-      <coverage_type>week</coverage_type>
-      <coverage_value>9</coverage_value>
-      <value>1</value>
-     </roster_adds>
-     <league_scoring_type>head</league_scoring_type>
-     <has_draft_grade>1</has_draft_grade>
-     <draft_grade>C</draft_grade>
-     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/468862/11/draftrecap</draft_recap_url>
-     <managers>
-      <manager>
-       <manager_id>11</manager_id>
-       <nickname>jake</nickname>
-       <guid>5WMQVHWIDAWXPG2XX7AF5YVBA4</guid>
-       <email>jmoneyballas@yahoo.com</email>
-       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
-      </manager>
-      <manager>
-       <manager_id>21</manager_id>
-       <nickname>david</nickname>
-       <guid>SKKXIFV6HZV6EDBPWF6LJUY2SE</guid>
-       <is_comanager>1</is_comanager>
-       <email>tbaum26@yahoo.com</email>
-       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
-      </manager>
-     </managers>
-     <team_points>
-      <coverage_type>season</coverage_type>
-      <season>2019</season>
-      <total>947.54</total>
-     </team_points>
-     <team_standings>
-      <rank>4</rank>
-      <playoff_seed>4</playoff_seed>
-      <outcome_totals>
-       <wins>5</wins>
+       <wins>8</wins>
        <losses>3</losses>
        <ties>0</ties>
-       <percentage>.625</percentage>
+       <percentage>.727</percentage>
       </outcome_totals>
       <streak>
        <type>win</type>
        <value>2</value>
       </streak>
-      <points_for>947.54</points_for>
-      <points_against>892.9</points_against>
+      <points_for>1223.90</points_for>
+      <points_against>1110.74</points_against>
      </team_standings>
     </team>
     <team>
@@ -292,13 +232,13 @@
       </team_logo>
      </team_logos>
      <waiver_priority>6</waiver_priority>
-     <faab_balance>80</faab_balance>
-     <number_of_moves>19</number_of_moves>
-     <number_of_trades>1</number_of_trades>
+     <faab_balance>5</faab_balance>
+     <number_of_moves>28</number_of_moves>
+     <number_of_trades>3</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
-      <coverage_value>9</coverage_value>
-      <value>3</value>
+      <coverage_value>12</coverage_value>
+      <value>1</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
      <has_draft_grade>1</has_draft_grade>
@@ -310,92 +250,92 @@
        <nickname>Adam R</nickname>
        <guid>Q5UKJNP4UELCBBFXL6BTEGPG6Q</guid>
        <email>ajribakove@yahoo.com</email>
-       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
+       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
       </manager>
      </managers>
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2019</season>
-      <total>874.36</total>
+      <total>1172.78</total>
+     </team_points>
+     <team_standings>
+      <rank>4</rank>
+      <playoff_seed>4</playoff_seed>
+      <outcome_totals>
+       <wins>7</wins>
+       <losses>4</losses>
+       <ties>0</ties>
+       <percentage>.636</percentage>
+      </outcome_totals>
+      <streak>
+       <type>win</type>
+       <value>1</value>
+      </streak>
+      <points_for>1172.78</points_for>
+      <points_against>1148.32</points_against>
+     </team_standings>
+    </team>
+    <team>
+     <team_key>390.l.468862.t.2</team_key>
+     <team_id>2</team_id>
+     <name>Twigs Late Night</name>
+     <url>https://football.fantasysports.yahoo.com/f1/468862/2</url>
+     <team_logos>
+      <team_logo>
+       <size>large</size>
+       <url>https://s.yimg.com/cv/apiv2/default/nfl/nfl_4.png</url>
+      </team_logo>
+     </team_logos>
+     <waiver_priority>11</waiver_priority>
+     <faab_balance>27</faab_balance>
+     <number_of_moves>20</number_of_moves>
+     <number_of_trades>0</number_of_trades>
+     <roster_adds>
+      <coverage_type>week</coverage_type>
+      <coverage_value>12</coverage_value>
+      <value>1</value>
+     </roster_adds>
+     <league_scoring_type>head</league_scoring_type>
+     <has_draft_grade>1</has_draft_grade>
+     <draft_grade>C</draft_grade>
+     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/468862/2/draftrecap</draft_recap_url>
+     <managers>
+      <manager>
+       <manager_id>2</manager_id>
+       <nickname>Matt</nickname>
+       <guid>JCBOKTD2WOTVLBQ7P5U6GEIU2Q</guid>
+       <email>mssilv@yahoo.com</email>
+       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
+      </manager>
+      <manager>
+       <manager_id>14</manager_id>
+       <nickname>Jason</nickname>
+       <guid>2BIWWAIAGS52RL3IG2HZDSE5ZI</guid>
+       <is_comanager>1</is_comanager>
+       <email>jasonbass17@yahoo.com</email>
+       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
+      </manager>
+     </managers>
+     <team_points>
+      <coverage_type>season</coverage_type>
+      <season>2019</season>
+      <total>1154.44</total>
      </team_points>
      <team_standings>
       <rank>5</rank>
       <playoff_seed>5</playoff_seed>
       <outcome_totals>
-       <wins>5</wins>
-       <losses>3</losses>
+       <wins>6</wins>
+       <losses>5</losses>
        <ties>0</ties>
-       <percentage>.625</percentage>
-      </outcome_totals>
-      <streak>
-       <type>win</type>
-       <value>2</value>
-      </streak>
-      <points_for>874.36</points_for>
-      <points_against>832.26</points_against>
-     </team_standings>
-    </team>
-    <team>
-     <team_key>390.l.468862.t.5</team_key>
-     <team_id>5</team_id>
-     <name>Khalil Sacks</name>
-     <url>https://football.fantasysports.yahoo.com/f1/468862/5</url>
-     <team_logos>
-      <team_logo>
-       <size>large</size>
-       <url>https://ct.yimg.com/cy/1778/29876765717_a8cf9c_192sq.jpg?ct=fantasy</url>
-      </team_logo>
-     </team_logos>
-     <waiver_priority>9</waiver_priority>
-     <faab_balance>21</faab_balance>
-     <number_of_moves>17</number_of_moves>
-     <number_of_trades>0</number_of_trades>
-     <roster_adds>
-      <coverage_type>week</coverage_type>
-      <coverage_value>9</coverage_value>
-      <value>1</value>
-     </roster_adds>
-     <league_scoring_type>head</league_scoring_type>
-     <has_draft_grade>1</has_draft_grade>
-     <draft_grade>B</draft_grade>
-     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/468862/5/draftrecap</draft_recap_url>
-     <managers>
-      <manager>
-       <manager_id>5</manager_id>
-       <nickname>Charlie</nickname>
-       <guid>GGIFVNDUASI7KWFZPEP2KBYVCQ</guid>
-       <email>charliesprayregen@gmail.com</email>
-       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
-      </manager>
-      <manager>
-       <manager_id>19</manager_id>
-       <nickname>Zack Karmin</nickname>
-       <guid>5BSPVWUAVXZQIZ3SHOJSIONTFQ</guid>
-       <is_comanager>1</is_comanager>
-       <email>zackkarmin@yahoo.com</email>
-       <image_url>https://s.yimg.com/ag/images/4578/38694432401_c1eee0_64sq.jpg</image_url>
-      </manager>
-     </managers>
-     <team_points>
-      <coverage_type>season</coverage_type>
-      <season>2019</season>
-      <total>878.92</total>
-     </team_points>
-     <team_standings>
-      <rank>6</rank>
-      <playoff_seed>6</playoff_seed>
-      <outcome_totals>
-       <wins>4</wins>
-       <losses>4</losses>
-       <ties>0</ties>
-       <percentage>.500</percentage>
+       <percentage>.545</percentage>
       </outcome_totals>
       <streak>
        <type>loss</type>
-       <value>1</value>
+       <value>3</value>
       </streak>
-      <points_for>878.92</points_for>
-      <points_against>900.2</points_against>
+      <points_for>1154.44</points_for>
+      <points_against>1196.12</points_against>
      </team_standings>
     </team>
     <team>
@@ -409,14 +349,14 @@
        <url>https://s.yimg.com/cv/apiv2/default/nfl/nfl_12.png</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>10</waiver_priority>
-     <faab_balance>55</faab_balance>
-     <number_of_moves>19</number_of_moves>
+     <waiver_priority>9</waiver_priority>
+     <faab_balance>23</faab_balance>
+     <number_of_moves>38</number_of_moves>
      <number_of_trades>3</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
-      <coverage_value>9</coverage_value>
-      <value>0</value>
+      <coverage_value>12</coverage_value>
+      <value>1</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
      <has_draft_grade>1</has_draft_grade>
@@ -428,7 +368,7 @@
        <nickname>Jordan</nickname>
        <guid>5SBLKECT2TGTOGZQUKQVLPB3FA</guid>
        <email>jmack923@aol.com</email>
-       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
+       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
       </manager>
       <manager>
        <manager_id>23</manager_id>
@@ -436,95 +376,29 @@
        <guid>RI2LR625VYW4PV35PDY5G77XQ4</guid>
        <is_comanager>1</is_comanager>
        <email>joshuagehrlich@yahoo.com</email>
-       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
+       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
       </manager>
      </managers>
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2019</season>
-      <total>896.72</total>
+      <total>1239.16</total>
      </team_points>
      <team_standings>
-      <rank>7</rank>
-      <playoff_seed>7</playoff_seed>
+      <rank>6</rank>
+      <playoff_seed>6</playoff_seed>
       <outcome_totals>
-       <wins>3</wins>
-       <losses>5</losses>
+       <wins>5</wins>
+       <losses>6</losses>
        <ties>0</ties>
-       <percentage>.375</percentage>
-      </outcome_totals>
-      <streak>
-       <type>win</type>
-       <value>1</value>
-      </streak>
-      <points_for>896.72</points_for>
-      <points_against>919.9</points_against>
-     </team_standings>
-    </team>
-    <team>
-     <team_key>390.l.468862.t.1</team_key>
-     <team_id>1</team_id>
-     <name>Jackson 5</name>
-     <is_owned_by_current_login>1</is_owned_by_current_login>
-     <url>https://football.fantasysports.yahoo.com/f1/468862/1</url>
-     <team_logos>
-      <team_logo>
-       <size>large</size>
-       <url>https://ct.yimg.com/cy/5853/56476530425_5d669e_192sq.jpg?ct=fantasy</url>
-      </team_logo>
-     </team_logos>
-     <waiver_priority>4</waiver_priority>
-     <faab_balance>63</faab_balance>
-     <number_of_moves>17</number_of_moves>
-     <number_of_trades>3</number_of_trades>
-     <roster_adds>
-      <coverage_type>week</coverage_type>
-      <coverage_value>9</coverage_value>
-      <value>2</value>
-     </roster_adds>
-     <league_scoring_type>head</league_scoring_type>
-     <has_draft_grade>1</has_draft_grade>
-     <draft_grade>C</draft_grade>
-     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/468862/1/draftrecap</draft_recap_url>
-     <managers>
-      <manager>
-       <manager_id>1</manager_id>
-       <nickname>Ryan</nickname>
-       <guid>WJHICNC2BSKUEX4M2SUG6I4XOU</guid>
-       <is_commissioner>1</is_commissioner>
-       <email>risaacs1212@yahoo.com</email>
-       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
-      </manager>
-      <manager>
-       <manager_id>13</manager_id>
-       <nickname>Zack</nickname>
-       <guid>PWBEGVB7QR7OJ7HVZ6DGJ2HEDM</guid>
-       <is_comanager>1</is_comanager>
-       <is_current_login>1</is_current_login>
-       <email>zhecht7@yahoo.com</email>
-       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
-      </manager>
-     </managers>
-     <team_points>
-      <coverage_type>season</coverage_type>
-      <season>2019</season>
-      <total>868.50</total>
-     </team_points>
-     <team_standings>
-      <rank>8</rank>
-      <playoff_seed>8</playoff_seed>
-      <outcome_totals>
-       <wins>3</wins>
-       <losses>5</losses>
-       <ties>0</ties>
-       <percentage>.375</percentage>
+       <percentage>.455</percentage>
       </outcome_totals>
       <streak>
        <type>loss</type>
        <value>1</value>
       </streak>
-      <points_for>868.50</points_for>
-      <points_against>986.12</points_against>
+      <points_for>1239.16</points_for>
+      <points_against>1201.66</points_against>
      </team_standings>
     </team>
     <team>
@@ -539,13 +413,13 @@
       </team_logo>
      </team_logos>
      <waiver_priority>5</waiver_priority>
-     <faab_balance>33</faab_balance>
-     <number_of_moves>9</number_of_moves>
+     <faab_balance>4</faab_balance>
+     <number_of_moves>15</number_of_moves>
      <number_of_trades>2</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
-      <coverage_value>9</coverage_value>
-      <value>0</value>
+      <coverage_value>12</coverage_value>
+      <value>2</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
      <has_draft_grade>1</has_draft_grade>
@@ -565,29 +439,158 @@
        <guid>KUZIDPP2VXHAQGO3BO2DRTKPL4</guid>
        <is_comanager>1</is_comanager>
        <email>drewcolang@gmail.com</email>
-       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
+       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
       </manager>
      </managers>
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2019</season>
-      <total>774.76</total>
+      <total>1103.64</total>
+     </team_points>
+     <team_standings>
+      <rank>7</rank>
+      <playoff_seed>7</playoff_seed>
+      <outcome_totals>
+       <wins>5</wins>
+       <losses>6</losses>
+       <ties>0</ties>
+       <percentage>.455</percentage>
+      </outcome_totals>
+      <streak>
+       <type>win</type>
+       <value>2</value>
+      </streak>
+      <points_for>1103.64</points_for>
+      <points_against>1193.04</points_against>
+     </team_standings>
+    </team>
+    <team>
+     <team_key>390.l.468862.t.1</team_key>
+     <team_id>1</team_id>
+     <name>Jackson 5</name>
+     <is_owned_by_current_login>1</is_owned_by_current_login>
+     <url>https://football.fantasysports.yahoo.com/f1/468862/1</url>
+     <team_logos>
+      <team_logo>
+       <size>large</size>
+       <url>https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/56476530425_5d669e.jpg</url>
+      </team_logo>
+     </team_logos>
+     <waiver_priority>4</waiver_priority>
+     <faab_balance>47</faab_balance>
+     <number_of_moves>20</number_of_moves>
+     <number_of_trades>3</number_of_trades>
+     <roster_adds>
+      <coverage_type>week</coverage_type>
+      <coverage_value>12</coverage_value>
+      <value>1</value>
+     </roster_adds>
+     <league_scoring_type>head</league_scoring_type>
+     <has_draft_grade>1</has_draft_grade>
+     <draft_grade>C</draft_grade>
+     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/468862/1/draftrecap</draft_recap_url>
+     <managers>
+      <manager>
+       <manager_id>1</manager_id>
+       <nickname>Ryan</nickname>
+       <guid>WJHICNC2BSKUEX4M2SUG6I4XOU</guid>
+       <is_commissioner>1</is_commissioner>
+       <email>risaacs1212@yahoo.com</email>
+       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
+      </manager>
+      <manager>
+       <manager_id>13</manager_id>
+       <nickname>Zack</nickname>
+       <guid>PWBEGVB7QR7OJ7HVZ6DGJ2HEDM</guid>
+       <is_comanager>1</is_comanager>
+       <is_current_login>1</is_current_login>
+       <email>zhecht7@yahoo.com</email>
+       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
+      </manager>
+     </managers>
+     <team_points>
+      <coverage_type>season</coverage_type>
+      <season>2019</season>
+      <total>1175.44</total>
+     </team_points>
+     <team_standings>
+      <rank>8</rank>
+      <playoff_seed>8</playoff_seed>
+      <outcome_totals>
+       <wins>4</wins>
+       <losses>7</losses>
+       <ties>0</ties>
+       <percentage>.364</percentage>
+      </outcome_totals>
+      <streak>
+       <type>loss</type>
+       <value>2</value>
+      </streak>
+      <points_for>1175.44</points_for>
+      <points_against>1305.38</points_against>
+     </team_standings>
+    </team>
+    <team>
+     <team_key>390.l.468862.t.5</team_key>
+     <team_id>5</team_id>
+     <name>Khalil Sacks</name>
+     <url>https://football.fantasysports.yahoo.com/f1/468862/5</url>
+     <team_logos>
+      <team_logo>
+       <size>large</size>
+       <url>https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/29876765717_a8cf9c.jpg</url>
+      </team_logo>
+     </team_logos>
+     <waiver_priority>8</waiver_priority>
+     <faab_balance>19</faab_balance>
+     <number_of_moves>24</number_of_moves>
+     <number_of_trades>0</number_of_trades>
+     <roster_adds>
+      <coverage_type>week</coverage_type>
+      <coverage_value>12</coverage_value>
+      <value>1</value>
+     </roster_adds>
+     <league_scoring_type>head</league_scoring_type>
+     <has_draft_grade>1</has_draft_grade>
+     <draft_grade>B</draft_grade>
+     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/468862/5/draftrecap</draft_recap_url>
+     <managers>
+      <manager>
+       <manager_id>5</manager_id>
+       <nickname>Charlie</nickname>
+       <guid>GGIFVNDUASI7KWFZPEP2KBYVCQ</guid>
+       <email>charliesprayregen@gmail.com</email>
+       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
+      </manager>
+      <manager>
+       <manager_id>19</manager_id>
+       <nickname>Zack Karmin</nickname>
+       <guid>5BSPVWUAVXZQIZ3SHOJSIONTFQ</guid>
+       <is_comanager>1</is_comanager>
+       <email>zackkarmin@yahoo.com</email>
+       <image_url>https://s.yimg.com/ag/images/4578/38694432401_c1eee0_64sq.jpg</image_url>
+      </manager>
+     </managers>
+     <team_points>
+      <coverage_type>season</coverage_type>
+      <season>2019</season>
+      <total>1112.76</total>
      </team_points>
      <team_standings>
       <rank>9</rank>
       <playoff_seed>9</playoff_seed>
       <outcome_totals>
-       <wins>3</wins>
-       <losses>5</losses>
+       <wins>4</wins>
+       <losses>7</losses>
        <ties>0</ties>
-       <percentage>.375</percentage>
+       <percentage>.364</percentage>
       </outcome_totals>
       <streak>
        <type>loss</type>
-       <value>3</value>
+       <value>4</value>
       </streak>
-      <points_for>774.76</points_for>
-      <points_against>899.8</points_against>
+      <points_for>1112.76</points_for>
+      <points_against>1217.88</points_against>
      </team_standings>
     </team>
     <team>
@@ -598,16 +601,16 @@
      <team_logos>
       <team_logo>
        <size>large</size>
-       <url>https://ct.yimg.com/cy/4433/36865050316_34f113_192sq.jpg?ct=fantasy</url>
+       <url>https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/36865050316_34f113.jpg</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>11</waiver_priority>
-     <faab_balance>43</faab_balance>
-     <number_of_moves>12</number_of_moves>
+     <waiver_priority>10</waiver_priority>
+     <faab_balance>20</faab_balance>
+     <number_of_moves>16</number_of_moves>
      <number_of_trades>0</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
-      <coverage_value>9</coverage_value>
+      <coverage_value>12</coverage_value>
       <value>0</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
@@ -628,29 +631,29 @@
        <guid>5SVXOU7WS53RPCAGBFPW2RFY64</guid>
        <is_comanager>1</is_comanager>
        <email>aibat31@yahoo.com</email>
-       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
+       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
       </manager>
      </managers>
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2019</season>
-      <total>764.60</total>
+      <total>1052.58</total>
      </team_points>
      <team_standings>
       <rank>10</rank>
       <playoff_seed>10</playoff_seed>
       <outcome_totals>
-       <wins>3</wins>
-       <losses>5</losses>
+       <wins>4</wins>
+       <losses>7</losses>
        <ties>0</ties>
-       <percentage>.375</percentage>
+       <percentage>.364</percentage>
       </outcome_totals>
       <streak>
        <type>loss</type>
-       <value>5</value>
+       <value>1</value>
       </streak>
-      <points_for>764.60</points_for>
-      <points_against>899.54</points_against>
+      <points_for>1052.58</points_for>
+      <points_against>1182.94</points_against>
      </team_standings>
     </team>
     <team>
@@ -661,17 +664,17 @@
      <team_logos>
       <team_logo>
        <size>large</size>
-       <url>https://ct.yimg.com/cy/1995/56505873273_71a954_192sq.jpg?ct=fantasy</url>
+       <url>https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/56505873273_71a954.jpg</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>8</waiver_priority>
-     <faab_balance>94</faab_balance>
-     <number_of_moves>14</number_of_moves>
+     <waiver_priority>7</waiver_priority>
+     <faab_balance>2</faab_balance>
+     <number_of_moves>22</number_of_moves>
      <number_of_trades>1</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
-      <coverage_value>9</coverage_value>
-      <value>1</value>
+      <coverage_value>12</coverage_value>
+      <value>3</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
      <has_draft_grade>1</has_draft_grade>
@@ -683,7 +686,7 @@
        <nickname>Evan</nickname>
        <guid>4S47CUP6D3SYNEJJPP6D5E2MYY</guid>
        <email>tabackevan@yahoo.com</email>
-       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
+       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
       </manager>
       <manager>
        <manager_id>16</manager_id>
@@ -691,29 +694,29 @@
        <guid>ZQKWBYLMDAQ6DVLPFWWRMRQMUQ</guid>
        <is_comanager>1</is_comanager>
        <email>jasontgold12@yahoo.com</email>
-       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
+       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
       </manager>
      </managers>
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2019</season>
-      <total>878.60</total>
+      <total>1207.86</total>
      </team_points>
      <team_standings>
       <rank>11</rank>
       <playoff_seed>11</playoff_seed>
       <outcome_totals>
-       <wins>2</wins>
-       <losses>6</losses>
+       <wins>3</wins>
+       <losses>8</losses>
        <ties>0</ties>
-       <percentage>.250</percentage>
+       <percentage>.273</percentage>
       </outcome_totals>
       <streak>
        <type>loss</type>
-       <value>3</value>
+       <value>2</value>
       </streak>
-      <points_for>878.60</points_for>
-      <points_against>859.14</points_against>
+      <points_for>1207.86</points_for>
+      <points_against>1223.22</points_against>
      </team_standings>
     </team>
     <team>
@@ -728,13 +731,13 @@
       </team_logo>
      </team_logos>
      <waiver_priority>3</waiver_priority>
-     <faab_balance>83</faab_balance>
-     <number_of_moves>8</number_of_moves>
-     <number_of_trades>3</number_of_trades>
+     <faab_balance>8</faab_balance>
+     <number_of_moves>15</number_of_moves>
+     <number_of_trades>5</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
-      <coverage_value>9</coverage_value>
-      <value>0</value>
+      <coverage_value>12</coverage_value>
+      <value>1</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
      <has_draft_grade>1</has_draft_grade>
@@ -746,7 +749,7 @@
        <nickname>Henry Goldman</nickname>
        <guid>LRCZ7GH6S2PAOOMEVKGUTAP5CU</guid>
        <email>henrygoldman1014@yahoo.com</email>
-       <image_url>https://ct.yimg.com/cy/1768/39361574426_98028a_64sq.jpg</image_url>
+       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
       </manager>
       <manager>
        <manager_id>22</manager_id>
@@ -760,27 +763,27 @@
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2019</season>
-      <total>746.18</total>
+      <total>1013.60</total>
      </team_points>
      <team_standings>
       <rank>12</rank>
       <playoff_seed>12</playoff_seed>
       <outcome_totals>
-       <wins>2</wins>
-       <losses>6</losses>
+       <wins>3</wins>
+       <losses>8</losses>
        <ties>0</ties>
-       <percentage>.250</percentage>
+       <percentage>.273</percentage>
       </outcome_totals>
       <streak>
-       <type>loss</type>
-       <value>2</value>
+       <type>win</type>
+       <value>1</value>
       </streak>
-      <points_for>746.18</points_for>
-      <points_against>844.58</points_against>
+      <points_for>1013.60</points_for>
+      <points_against>1171.96</points_against>
      </team_standings>
     </team>
    </teams>
   </standings>
  </league>
 </fantasy_content>
-<!-- fantasy-sports-api- -public-production-bf1-6796444d68-qqvpz Wed Oct 30 14:23:30 UTC 2019 -->
+<!-- fantasy-sports-api- -public-production-bf1-54964db857-29qpk Wed Nov 20 16:04:03 UTC 2019 -->

@@ -76,9 +76,17 @@ def fix_name(name):
 		return "d.j. moore"
 	return name
 
+def read_nfl_trades():
+	with open("static/nfl_trades.json") as fh:
+		returned_json = json.loads(fh.read())
+	return returned_json
+
 def write_redzone(curr_week=1):
 	redzone_json = {}
 	team_total_json = {}
+	nfl_trades = read_nfl_trades()
+
+	#SNAP_LINKS = ["teampage-crd-", "teampage-mia-"]
 
 	for link in SNAP_LINKS:
 		link = "{}3.php".format(link)
@@ -121,14 +129,23 @@ def write_redzone(curr_week=1):
 				else:
 					redzone_counts.append(perc)
 
-			if full_name:# and full_name not in redzone_json:
-				redzone_json[full_name] = {"looks": ','.join(str(x) for x in redzone_counts), "team": team, "looks_perc": ""}
+			if full_name:
+				team_ = team
+				if full_name in redzone_json and full_name in nfl_trades:
+					team_ = nfl_trades[full_name]["team"]
+					looks = redzone_json[full_name]["looks"].split(",")
+					redzone_counts = [ val + int(looks[idx]) for idx, val in enumerate(redzone_counts) ]
+				redzone_json[full_name] = {"looks": ','.join(str(x) for x in redzone_counts), "team": team_, "looks_perc": ""}
 	
 	for player in redzone_json:
-		
 		perc_arr = []
 		for week in range(1,17):
 			team = redzone_json[player]["team"]
+			if player in nfl_trades:
+				if week < nfl_trades[player]["week"]:
+					team = nfl_trades[player]["from"]
+				else:
+					team = nfl_trades[player]["team"]
 			looks = [int(x) for x in redzone_json[player]["looks"].split(",")]
 			team_total_rb = team_total_json[team]["RB"][week - 1]
 			team_total_wrte = team_total_json[team]["WR/TE"][week - 1]
@@ -207,6 +224,8 @@ def get_redzone_trends(rbbc_teams, curr_week=1, requested_pos="RB", is_ui=False)
 	trends = {}
 	for player in redzone_json:
 		#print(player)
+		if player not in snap_stats:
+			continue
 		if player not in players_on_teams or players_on_teams[player]["position"] == "QB":
 			continue
 		if not is_ui and (player.find("jr") >= 0 or player.find(".") >= 0 or player.find("ii") >= 0):
@@ -361,7 +380,8 @@ def get_player_looks_arr(curr_week=1):
 		if player.find("jr") >= 0 or player.find(".") >= 0 or player.find("ii") >= 0:
 			#print(player_check)
 			continue
-		
+		if player not in snap_stats:
+			continue
 		if 0:
 			try:
 				if players_on_teams[player_check]["position"] == "QB":
@@ -381,7 +401,7 @@ def get_player_looks_arr(curr_week=1):
 		last_total_wrte_looks = 0
 
 		for week in range(1, curr_week + 1):
-			if int(snap_stats[player]["counts"].split(",")[week - 1]) == 0:
+			if player not in snap_stats or int(snap_stats[player]["counts"].split(",")[week - 1]) == 0:
 				continue
 
 			looks = int(looks_arr[week - 1])

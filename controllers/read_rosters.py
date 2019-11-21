@@ -180,13 +180,17 @@ def read_FA_translations():
 	return players_on_FA, translations
 
 def update_players_on_teams(players_on_teams):
-	players_on_teams["duke johnson jr."] = players_on_teams["duke johnson"].copy()
+	players_on_teams['duke johnson jr.'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Hou'}
+	players_on_teams['duke johnson'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Hou'}
 	players_on_teams['kalen ballage'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Mia'}
+	players_on_teams['mark walton'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Mia'}
+	players_on_teams['rex burkhead'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'NE'}
 	players_on_teams['jeff wilson'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Sfo'}
 	players_on_teams['chris thompson'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Was'}
 	players_on_teams['chase edmonds'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Ari'}
 	players_on_teams['cj prosise'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Sea'}
 	players_on_teams['ronald jones'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'TB'}
+	players_on_teams['peyton barber'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'TB'}
 	players_on_teams['tj yeldon'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'TB'}
 	players_on_teams['wayne gallman'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'NYG'}
 	players_on_teams['adrian peterson'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Was'}

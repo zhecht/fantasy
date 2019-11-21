@@ -216,6 +216,7 @@ def get_opponents(team):
 
 # read rosters and return ARRAY of players on team playing POS 
 def get_players_by_pos_team(team, pos):
+    nfl_trades = read_nfl_trades()
     roster = {}
     with open("{}static/profootballreference/{}/roster.json".format(prefix, team)) as fh:
         roster = json.loads(fh.read())
@@ -223,6 +224,14 @@ def get_players_by_pos_team(team, pos):
     for player in roster:
         if roster[player].lower() == pos.lower():
             arr.append(player)
+    for player in nfl_trades:        
+        if nfl_trades[player]["from"] == team:
+            opp_roster = {}
+            with open("{}static/profootballreference/{}/roster.json".format(prefix, nfl_trades[player]["team"])) as fh:
+                opp_roster = json.loads(fh.read())
+            if opp_roster[player].lower() == pos.lower():
+                arr.append(player)
+
     if team == "pit" and pos == "QB":
         arr.append("ben roethlisberger")
     elif team == "nwe" and pos == "WR":
@@ -295,6 +304,11 @@ def read_schedule():
     with open("{}static/profootballreference/schedule.json".format(prefix)) as fh:
         j = json.loads(fh.read())
     return j
+
+def read_nfl_trades():
+    with open("{}static/nfl_trades.json".format(prefix)) as fh:
+        returned_json = json.loads(fh.read())
+    return returned_json
 
 def get_defense_tot(curr_week, point_totals_dict):
     defense_tot = []
@@ -525,15 +539,15 @@ def position_vs_opponent_stats(team, pos, ranks, settings=None):
     #)
     return opp_stats, tot_stats
 
-def get_total_ranks(curr_week):
-    ranks, defense_tot = get_ranks(curr_week)
+def get_total_ranks(curr_week, settings):
+    ranks, defense_tot = get_ranks(curr_week, settings)
 
     print("RANK|QB|RB|WR|TE|K|DEF")
-    print(":--|:--|:--|:--|:--")
+    print(":--|:--|:--|:--|:--|:--|:--")
     for idx in range(1, 33):
         s = "**{}**".format(idx)
         for pos in ["QB", "RB", "WR", "TE", "K", "DEF"]:
-            sorted_ranks = sorted(defense_tot, key=operator.itemgetter("{}_ppg".format(pos)), reverse=False)
+            sorted_ranks = sorted(defense_tot, key=operator.itemgetter("{}_ppg".format(pos)), reverse=True)
             display_team = sorted_ranks[idx - 1]["team"]
             if display_team in team_trans:
                 display_team = team_trans[display_team]
@@ -812,18 +826,18 @@ if __name__ == "__main__":
     parser.add_argument("-p", "--pos", help="Get Pos")
 
     args = parser.parse_args()
-    curr_week = 8
+    curr_week = 11
 
     if args.start:
         curr_week = args.start
-    
+    settings = {'0_points_allowed': 10, '7-13_points_allowed': 4, 'sack': 1, 'ppr': 0.5, 'touchdown': 6, 'pass_tds': 4, 'fumble_recovery': 2, '1-6_points_allowed': 7, 'xpm': 1, 'fumbles_lost': -2, 'rec_tds': 6, 'interception': 2, 'field_goal_0-19': 3, 'safety': 2, 'field_goal_50+': 5, 'pass_yds': 25, 'field_goal_20-29': 3, 'pass_int': -2, 'rush_yds': 10, 'rush_tds': 6, '21-27_points_allowed': 0, '28-34_points_allowed': -1, '14-20_points_allowed': 1, 'field_goal_30-39': 3, 'field_goal_40-49': 4, '35+_points_allowed': -4, 'rec_yds': 10}
+
     if args.schedule:
         schedule = read_schedule()
         print(schedule[str(curr_week)])
     elif args.ranks:
-        get_total_ranks(curr_week)
+        get_total_ranks(curr_week, settings)
     elif args.team and args.pos:
-        settings = {'0_points_allowed': 10, '7-13_points_allowed': 4, 'sack': 1, 'ppr': 0.5, 'touchdown': 6, 'pass_tds': 4, 'fumble_recovery': 2, '1-6_points_allowed': 7, 'xpm': 1, 'fumbles_lost': -2, 'rec_tds': 6, 'interception': 2, 'field_goal_0-19': 3, 'safety': 2, 'field_goal_50+': 5, 'pass_yds': 25, 'field_goal_20-29': 3, 'pass_int': -2, 'rush_yds': 10, 'rush_tds': 6, '21-27_points_allowed': 0, '28-34_points_allowed': -1, '14-20_points_allowed': 1, 'field_goal_30-39': 3, 'field_goal_40-49': 4, '35+_points_allowed': -4, 'rec_yds': 10}
         ranks = get_ranks(curr_week, settings)
         opp, tot = position_vs_opponent_stats(args.team, args.pos, ranks, settings)
         teamname = team_trans[args.team] if args.team in team_trans else args.team

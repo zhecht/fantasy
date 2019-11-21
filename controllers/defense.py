@@ -87,7 +87,7 @@ def get_ranks_style(rank, extra=None):
         return "style='background-color: rgb({});{}'".format(RANKS_COLORS[rank - 1], extra)
     return "style='background-color: rgb({});'".format(RANKS_COLORS[rank - 1])
 
-def get_ranks_html(settings, curr_week = 8):
+def get_ranks_html(settings, curr_week = 11):
     ranks, defense_tot = profootballreference.get_ranks(curr_week, settings)
     get_ranks_colors(32)
 
@@ -212,7 +212,7 @@ def get_html(team_arg, pos, opp):
     return html+mobile_html
 
 def get_team_html(teams, settings):
-    curr_week = 8
+    curr_week = 11
     ranks = profootballreference.get_ranks(curr_week, settings)
 
     html = ""
