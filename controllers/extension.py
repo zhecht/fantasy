@@ -5,6 +5,7 @@ from sys import platform
 
 import json
 import operator
+import os
 import re
 import urllib
 
@@ -17,9 +18,10 @@ except:
 extension_blueprint = Blueprint('extension', __name__, template_folder='views')
 
 prefix = ""
-if platform != "darwin":
-	# if on linux aka prod
+if os.path.exists("/home/zhecht/fantasy"):
 	prefix = "/home/zhecht/fantasy/"
+elif os.path.exists("/mnt/c/Users/Zack/Documents/fantasy"):
+	prefix = "/mnt/c/Users/Zack/Documents/fantasy/"
 
 def fix_name(name):
 	name = name.lower().replace("'", "")
@@ -71,17 +73,17 @@ def write_cron_trade_values():
 	tradevalues = {}
 	tier = 1
 	for scoring in ["standard", "half", "full"]:
-		lines = open("tradevalues_{}.csv".format(scoring)).readlines()
+		lines = open(f"{prefix}static/trade_value/tradevalues_{scoring}.csv").readlines()
 		for line in lines[3:]:
 			all_tds = line.split(",")
 
 			# If tier column exists
-			if len(all_tds[0]) > 0:
-				tier = int(all_tds[0])
-			# If points column exists
 			if len(all_tds[1]) > 0:
-				value = float(all_tds[1])
-				for td in all_tds[2:]:
+				tier = int(all_tds[1])
+			# If points column exists
+			if len(all_tds[2]) > 0:
+				value = float(all_tds[2])
+				for td in all_tds[3:]:
 					try:
 						name =  fix_name(td)
 						if not name:
@@ -91,8 +93,10 @@ def write_cron_trade_values():
 						tradevalues[name][scoring] = value
 					except:
 						pass
-	with open("{}static/trade_value/tradevalues.json".format(prefix), "w") as fh:
+	with open(f"{prefix}static/trade_value/tradevalues.json", "w") as fh:
 		json.dump(tradevalues, fh, indent=4)
+
+write_cron_trade_values()
 
 def read_trade_values():
 	with open("{}static/trade_value/tradevalues.json".format(prefix)) as fh:
