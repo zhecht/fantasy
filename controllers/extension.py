@@ -65,38 +65,105 @@ def fix_name(name):
 		return "mark ingram"
 	elif name == "darrell henderson":
 		return "darrell henderson jr."
-	elif name == "dj moore":
-		return "d.j. moore"
+	elif name == "aj. brown":
+		return "aj brown"
+	elif name == "ty. hilton":
+		return "t.y. hilton"
+	elif name == "tj. hockenson":
+		return "t.j. hockenson"
+	elif name == "aj. green":
+		return "a.j. green"
+	elif name == "dj. moore" or name == "d.j. moore":
+		return "dj moore"
+	elif name == "dj. chark" or name == "d.j. chark":
+		return "dj chark jr."
+	elif name == "d.k. metcalf":
+		return "dk metcalf"
+	elif name == "mark ingram":
+		return "mark ingram ii"
+	elif name == "chris herndon iv":
+		return "chris herndon"
+	elif name == "henry ruggs ill":
+		return "henry ruggs iii"
 	return name
 	
 def write_cron_trade_values():
 	tradevalues = {}
 	tier = 1
 	for scoring in ["standard", "half", "full"]:
+		#os.system(f"tesseract {prefix}static/trade_value/{scoring}.png {prefix}static/trade_value/{scoring}")
+		with open(f"{prefix}static/trade_value/{scoring}.txt") as fh:
+			lines = [line.strip() for line in fh.readlines() if line.strip()]
+		for idx, line in enumerate(lines):
+			m = re.search(r"(\d+\.\d) (.*)", line)
+			if m:
+				val = m.group(1)
+				line = m.group(2)
+				words = line.split(" ")
+				all_words = []
+				for word in words:
+					try:
+						int(word)
+					except:
+						if word.endswith(",") or word.endswith(".") or word.endswith(")"):
+							m = re.search(r"(^\d+)", word)
+							if not m:
+								all_words.append(word)
+						else:
+							all_words.append(word)
+				offset = 0
+				for i in range(0, len(all_words), 2):
+					start = i + offset
+					end = i + 2 + offset
+					#print(start, end, all_words[start:end])
+					if end >= len(all_words):
+						name = " ".join(all_words[start:end])
+					else:
+						if all_words[end].lower() in ["jr.", "iii", "ii", "iv", "ill"]:
+							offset += 1
+							end += 1
+						name = " ".join(all_words[start:end])
+					if name:
+						name =  fix_name(name)
+						if name not in tradevalues:
+							tradevalues[name] = {"standard": 0, "half": 0, "full": 0}
+						tradevalues[name][scoring] = float(val)
+	with open(f"{prefix}static/trade_value/tradevalues.json", "w") as fh:
+		json.dump(tradevalues, fh, indent=4)
+
+#write_cron_trade_values()
+
+def write_cron_trade_values2():
+	tradevalues = {}
+	tier = 1
+	for scoring in ["standard", "half", "full"]:
 		lines = open(f"{prefix}static/trade_value/tradevalues_{scoring}.csv").readlines()
-		for line in lines[3:]:
+		for line in lines[4:]:
 			all_tds = line.split(",")
 
 			# If tier column exists
-			if len(all_tds[1]) > 0:
-				tier = int(all_tds[1])
+			#if len(all_tds[1]) > 0:
+			#	tier = int(all_tds[1])
+			
 			# If points column exists
-			if len(all_tds[2]) > 0:
-				value = float(all_tds[2])
-				for td in all_tds[3:]:
+			if len(all_tds[1]) > 0:
+				value = float(all_tds[1])
+				for td in all_tds[2:]:
 					try:
 						name =  fix_name(td)
 						if not name:
 							continue
 						if name not in tradevalues:
-							tradevalues[name] = {"standard": 0, "half": 0, "full": 0, "tier": tier}
+							tradevalues[name] = {"standard": 0, "half": 0, "full": 0}
 						tradevalues[name][scoring] = value
 					except:
 						pass
+	if "mark ingram" in tradevalues:
+		tradevalues["mark ingram ii"] = tradevalues["mark ingram"].copy()
 	with open(f"{prefix}static/trade_value/tradevalues.json", "w") as fh:
 		json.dump(tradevalues, fh, indent=4)
 
-write_cron_trade_values()
+write_cron_trade_values2()
 
 def read_trade_values():
 	with open("{}static/trade_value/tradevalues.json".format(prefix)) as fh:

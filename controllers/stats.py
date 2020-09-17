@@ -1,6 +1,6 @@
 import sys
 import argparse
-from ghost import Ghost
+#from ghost import Ghost
 from bs4 import BeautifulSoup
 import json
 import glob
@@ -184,7 +184,7 @@ def write_cron_yahoo_stats(start_week, end_week):
 			for team in range(1,12,2):
 				team1 = team
 				team2 = team + 1
-				page, extra_resources = session.open("https://football.fantasysports.yahoo.com/f1/1000110/matchup?week={}&mid1={}&mid2={}".format(week, team1, team2))
+				page, extra_resources = session.open("https://football.fantasysports.yahoo.com/f1/629583/matchup?week={}&mid1={}&mid2={}".format(week, team1, team2))
 			
 				if page.http_status == 200:
 					if not logged_in:

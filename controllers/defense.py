@@ -17,10 +17,8 @@ import re
 
 try:
     import controllers.profootballreference as profootballreference
-    import controllers.compare as compare
 except:
     import profootballreference
-    import compare
 
 try:
     import urllib2 as urllib

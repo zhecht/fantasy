@@ -20,8 +20,15 @@ if platform != "darwin":
 	# if on linux aka prod
 	prefix = "/home/zhecht/fantasy/"
 
-players_prefix = "players"
-is_merrick = False
+
+prefix = ""
+if os.path.exists("/home/zhecht/fantasy"):
+  prefix = "/home/zhecht/fantasy/"
+elif os.path.exists("/mnt/c/Users/Zack/Documents/fantasy"):
+  prefix = "/mnt/c/Users/Zack/Documents/fantasy/"
+
+players_prefix = "merrick_players"
+is_merrick = True
 
 ns = {
 	'base': "http://fantasysports.yahooapis.com/fantasy/v2/base.rng"
@@ -49,44 +56,53 @@ def write_cron_FA():
 	import oauth
 	oauth = oauth.MyOAuth(is_merrick)
 
-	for i in range(0,1000,25):
-		html = oauth.getData("https://fantasysports.yahooapis.com/fantasy/v2/league/{}/players;start={};status=FA".format(oauth.league_key, i)).text
-		with open("{}static/{}/FA/FA_{}_{}.xml".format(prefix, players_prefix, i, i+25), "w") as fh:
-			fh.write(html)
-		time.sleep(3)
+	if not os.path.exists(f"{prefix}static/{players_prefix}/FA"):
+		os.mkdir(f"{prefix}static/{players_prefix}/FA")
+
+	for status in ["FA", "W"]:
+		for i in range(0,1000,25):
+			html = oauth.getData(f"https://fantasysports.yahooapis.com/fantasy/v2/league/{oauth.league_key}/players;start={i};status={status}").text
+			with open(f"{prefix}static/{players_prefix}/FA/{status}_{i}_{i+25}.xml", "w") as fh:
+				fh.write(html)
+			time.sleep(2)
 
 def write_cron_FA_json():	
 	for i in range(0,1000,25):
 		j = {}
-		tree = etree.parse("{}static/{}/FA/FA_{}_{}.xml".format(prefix, players_prefix , i, i+25).format(i,i+25))
-		players_xpath = tree.xpath('.//base:player', namespaces=ns)
-		for player in players_xpath:
-			
-			pid = player.find('.//base:player_id', namespaces=ns).text
-			first = player.find('.//base:first', namespaces=ns).text
-			last = player.find('.//base:last', namespaces=ns).text
-			full = player.find('.//base:full', namespaces=ns).text
-			pos = player.find('.//base:display_position', namespaces=ns).text
-			selected_pos = player.findall('.//base:position', namespaces=ns)[-1].text
-			nfl_team = player.find('.//base:editorial_team_abbr', namespaces=ns).text
+		for status in ["FA", "W"]:
+			tree = etree.parse(f"{prefix}static/{players_prefix}/FA/{status}_{i}_{i+25}.xml")
+			players_xpath = tree.xpath('.//base:player', namespaces=ns)
+			for player in players_xpath:
+				
+				pid = player.find('.//base:player_id', namespaces=ns).text
+				first = player.find('.//base:first', namespaces=ns).text
+				last = player.find('.//base:last', namespaces=ns).text
+				full = player.find('.//base:full', namespaces=ns).text
+				pos = player.find('.//base:display_position', namespaces=ns).text
+				selected_pos = player.findall('.//base:position', namespaces=ns)[-1].text
+				nfl_team = player.find('.//base:editorial_team_abbr', namespaces=ns).text
 
-			if pos == "WR,RB":
-				pos = "WR"
+				if pos == "WR,RB":
+					pos = "WR"
 
-			j[full.lower().replace("'", "")] = [nfl_team, pos, pid]
-		with open("{}static/{}/FA/FA_{}_{}.json".format(prefix, players_prefix , i, i+25), "w") as fh:
-			json.dump(j, fh, indent=4)
-		os.remove("{}static/{}/FA/FA_{}_{}.xml".format(prefix, players_prefix , i, i+25))
+				j[full.lower().replace("'", "")] = [nfl_team, pos, pid]
+			with open(f"{prefix}static/{players_prefix}/FA/{status}_{i}_{i+25}.json", "w") as fh:
+				json.dump(j, fh, indent=4)
+
+		os.remove(f"{prefix}static/{players_prefix}/FA/{status}_{i}_{i+25}.xml")
 
 def write_cron_rosters():
 	import oauth
 	oauth = oauth.MyOAuth(is_merrick)
 
+	if not os.path.exists(f"{prefix}static/{players_prefix}"):
+		os.mkdir(f"{prefix}static/{players_prefix}")
+
 	for i in range(1,13):
-		html = oauth.getData("https://fantasysports.yahooapis.com/fantasy/v2/team/{}.t.{}/roster".format(oauth.league_key, i)).text
-		if not os.path.exists("{}static/{}/{}".format(prefix, players_prefix, i)):
-			os.mkdir("{}static/{}/{}".format(prefix, players_prefix, i))
-		with open("{}static/{}/{}/roster.xml".format(prefix, players_prefix, i), "w") as fh:
+		html = oauth.getData(f"https://fantasysports.yahooapis.com/fantasy/v2/team/{oauth.league_key}.t.{i}/roster").text
+		if not os.path.exists(f"{prefix}static/{players_prefix}/{i}"):
+			os.mkdir(f"{prefix}static/{players_prefix}/{i}")
+		with open(f"{prefix}static/{players_prefix}/{i}/roster.xml", "w") as fh:
 			fh.write(html)
 
 # return total amt of players at RB/WR in league settings
@@ -138,7 +154,7 @@ def read_scoreboard(merrick):
 	scoreboard = j["fantasy_content"]["league"][1]["scoreboard"]
 
 def read_FA():
-	files = glob.glob("{}static/{}/FA/*".format(prefix, players_prefix))
+	files = glob.glob("{}static/{}/FA/*.json".format(prefix, players_prefix))
 	players_on_FA = {}
 
 	for fn in files:
@@ -204,15 +220,17 @@ def update_players_on_teams(players_on_teams):
 	players_on_teams['d.j. chark jr'] = {'team_id': 0, 'position': 'WR', 'pid': 0, 'nfl_team': 'Jax'}
 	players_on_teams['paul richardson jr'] = {'team_id': 0, 'position': 'WR', 'pid': 0, 'nfl_team': 'Was'}
 	players_on_teams['hunter renfrow'] = {'team_id': 0, 'position': 'WR', 'pid': 0, 'nfl_team': 'Rai'}
-	players_on_teams['d.j. moore'] = {'team_id': 0, 'position': 'WR', 'pid': 0, 'nfl_team': 'Sea'}
+	players_on_teams['d.j. moore'] = {'team_id': 0, 'position': 'WR', 'pid': 0, 'nfl_team': 'Car'}
 	players_on_teams['john ross'] = {'team_id': 0, 'position': 'WR', 'pid': 0, 'nfl_team': 'Cin'}
-	players_on_teams['mohamed sanu'] = {'team_id': 0, 'position': 'WR', 'pid': 0, 'nfl_team': 'Atl'}
+	players_on_teams['mohamed sanu'] = {'team_id': 0, 'position': 'WR', 'pid': 0, 'nfl_team': 'Ne'}
+
+	#2020
+	players_on_teams['cordarrelle patterson'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Chi'}
 	return
 
 def read_rosters(skip_remove_puncuation=False, players_prefix=players_prefix):
 	players_on_teams = {}
 	name_translations = {}
-	print(players_prefix)
 	for i in range(1,13):
 		tree = etree.parse("{}static/{}/{}/roster.xml".format(prefix, players_prefix, i))
 		players_xpath = tree.xpath('.//base:player', namespaces=ns)
@@ -237,7 +255,7 @@ def read_rosters(skip_remove_puncuation=False, players_prefix=players_prefix):
 				name_translations["{}. {} {}".format(first[0], last, nfl_team.upper())] = full.lower().replace("'", "")
 	if skip_remove_puncuation:
 		return players_on_teams, name_translations
-	name_translations["D. Johnson Hou"] = "duke johnson jr."
+	name_translations["D. Johnson Hou"] = "david johnson"
 	new_j = {}
 	for player in players_on_teams:
 		new_name = player.lower().replace("'", "").replace(".", "")
@@ -250,7 +268,6 @@ def read_rosters(skip_remove_puncuation=False, players_prefix=players_prefix):
 	players_on_teams = merge_two_dicts(new_j, players_on_teams)
 	#players_on_teams["mark ingram"] = players_on_teams["mark ingram ii"]
 	update_players_on_teams(players_on_teams)
-	name_translations["D. Williams KC"] = "damien williams"
 	return players_on_teams, name_translations
 
 def read_standings():

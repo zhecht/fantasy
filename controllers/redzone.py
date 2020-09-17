@@ -222,9 +222,8 @@ def get_redzone_trends(rbbc_teams, curr_week=1, requested_pos="RB", is_ui=False)
 	update_players_on_teams(players_on_teams)
 
 	trends = {}
-	for player in redzone_json:
-		#print(player)
-		if player not in snap_stats:
+	for player in snap_stats:
+		if player not in redzone_json:
 			continue
 		if player not in players_on_teams or players_on_teams[player]["position"] == "QB":
 			continue
@@ -237,7 +236,7 @@ def get_redzone_trends(rbbc_teams, curr_week=1, requested_pos="RB", is_ui=False)
 			if team not in trends:
 				trends[team] = {}
 			if player not in trends[team]:
-
+				print(player)
 				trends[team][player] = {
 					"snaps": snap_stats[player]["perc"],
 					"looks": redzone_json[player]["looks"],
@@ -301,7 +300,6 @@ def get_redzone_trends(rbbc_teams, curr_week=1, requested_pos="RB", is_ui=False)
 				trends[team][player]["looks_share_trend"] = "**+{}%**".format(looks_share_trend) if looks_share_trend > 0 else "{}%".format(looks_share_trend or '0')
 				trends[team][player]["target_trend"] = "**+{}**".format(target_trend) if target_trend > 0 else "{}".format(target_trend or '-')
 				trends[team][player]["target_share_trend"] = "**+{}%**".format(target_share_trend) if target_share_trend > 0 else "{}%".format(target_share_trend or '0')
-	
 	if not is_ui:
 		return trends
 	new_j = {}
@@ -367,30 +365,15 @@ def get_player_looks_arr(curr_week=1):
 	players_on_teams = {**players_on_teams, **players_on_FA}
 	top_redzone = []
 
-	for player in redzone_json:
-		#player_check = "mark ingram" if player == "mark ingram ii" else player
-		player_check = player
-		if player == "antonio brown":
-			continue
-		if player_check not in players_on_teams or players_on_teams[player_check]["position"] == "QB":
-			
-			#print(player)
+	for player in snap_stats:
+		if player not in players_on_teams or players_on_teams[player]["position"] == "QB":
 			continue
 
 		if player.find("jr") >= 0 or player.find(".") >= 0 or player.find("ii") >= 0:
-			#print(player_check)
 			continue
-		if player not in snap_stats:
-			continue
-		if 0:
-			try:
-				if players_on_teams[player_check]["position"] == "QB":
-					#pass
-					continue
-			except:
-				print(player)
-				continue
 
+		if player not in redzone_json:
+			continue
 		looks_arr = redzone_json[player]["looks"].split(",")
 		looks_perc_arr = redzone_json[player]["looks_perc"].split(",")
 		total_player_looks = 0
@@ -439,10 +422,9 @@ def get_player_looks_arr(curr_week=1):
 		if int(snap_stats[player]["counts"].split(",")[curr_week - 1]) == 0:
 			delta = 0
 
-		if total_team_looks != 0 and total_player_looks != 0:
-			top_redzone.append({"name": player_check, "looks": total_player_looks, "looks_perc": looks_perc, "total_team_looks": total_team_looks, "total_rb_looks": total_rb_looks, "total_wrte_looks": total_wrte_looks, "team": redzone_json[player]["team"], "delta": delta, "delta3": delta3})
-			if player_check.find("andrew") >= 0:
-				print(top_redzone[len(top_redzone) - 1])
+		#if total_team_looks != 0 and total_player_looks != 0:
+		if total_team_looks != 0:
+			top_redzone.append({"name": player, "looks": total_player_looks, "looks_perc": looks_perc, "total_team_looks": total_team_looks, "total_rb_looks": total_rb_looks, "total_wrte_looks": total_wrte_looks, "team": redzone_json[player]["team"], "delta": delta, "delta3": delta3})
 	return top_redzone
 
 SNAP_LINKS = [ "teampage-atl-", "teampage-buf-", "teampage-car-", "teampage-chi-", "teampage-cin-", "teampage-cle-", "teampage-clt-", "teampage-crd-", "teampage-dal-", "teampage-den-", "teampage-det-", "teampage-gnb-", "teampage-htx-", "teampage-jax-", "teampage-kan-", "teampage-mia-", "teampage-min-", "teampage-nor-", "teampage-nwe-", "teampage-nyg-", "teampage-nyj-", "teampage-oti-", "teampage-phi-", "teampage-pit-", "teampage-rai-", "teampage-ram-", "teampage-rav-", "teampage-sdg-", "teampage-sea-", "teampage-sfo-", "teampage-tam-", "teampage-was-" ]
@@ -452,7 +434,8 @@ if __name__ == '__main__':
 	parser.add_argument("-c", "--cron", help="Do Cron job", action="store_true")
 	parser.add_argument("-t", "--team", help="Group By Team", action="store_true")
 	parser.add_argument("-snaps", "--snaps", help="Snap Trends", action="store_true")
-	parser.add_argument("-p", "--pretty", help="Pretty Print", action="store_true")
+	parser.add_argument("--pretty", help="Pretty Print", action="store_true")
+	parser.add_argument("-p", "--pos", help="Filter by Position", default="RB")
 	parser.add_argument("-teams", "--teams", help="Filter teams")
 	parser.add_argument("-s", "--start", help="Start Week", type=int)
 	parser.add_argument("-e", "--end", help="End Week", type=int)
@@ -480,12 +463,13 @@ if __name__ == '__main__':
 		rbbc_teams = ["crd", "atl", "rav", "buf", "car", "cin", "chi", "cle", "dal", "den", "det", "gnb", "htx", "jax", "clt", "kan", "sdg", "ram", "mia", "min", "nor", "nwe", "nyj", "nyg", "rai", "pit", "phi", "sea", "sfo", "tam", "oti", "was"]
 		if args.teams:
 			rbbc_teams = args.teams.split(",")
-		snap_trends = get_redzone_trends(rbbc_teams, curr_week, "RB")
+		snap_trends = get_redzone_trends(rbbc_teams, curr_week, args.pos)
 
 		for team in rbbc_teams:
-			team_display = team_trans[team] if team in team_trans else team
+			#team_display = team_trans[team] if team in team_trans else team
+			team_display = full_team_names[team] if team in full_team_names else team
 			print("\n#{}".format(team_display))
-			print("Player|Snap %|RZ Looks|RZ Looks Share|TGTS|RB Target Share")
+			print("Player|Snap %|RZ Looks|RZ Looks Share|TGTS|{} Target Share".format(args.pos))
 			print(":--|:--|:--|:--|:--|:--")
 			extra = ""
 			for player in snap_trends[team]:
@@ -501,7 +485,8 @@ if __name__ == '__main__':
 					)
 				else:
 					if snap_trends[team][player]["total_looks"] == 0 and snap_trends[team][player]["total_targets"] == 0:
-						continue
+						pass
+						#continue
 					print("{}|{}% ({})|{} ({})|{}% ({})|{} ({})|{}% ({})".format(
 						player,
 						snap_trends[team][player]["snaps"], snap_trends[team][player]["snaps_trend"],
@@ -558,37 +543,37 @@ if __name__ == '__main__':
 				print("{}|({}/{})|{}%|{}".format(player["name"].title(), player["looks"], player["total_team_looks"], player["looks_perc"], player["delta3"]))
 
 		#exit()
-		print("\n#Top 30 RB")
+		print("\n#Top 40 RB")
+		print("\nPlayer|(player looks / team looks)|Team RZ Look Share|3 Week Trend")
+		print(":--|:--|:--|:--")
+		printed = 0
+		for player in sorted_looks:
+			#continue
+			if printed == 40:
+				break
+			if player["looks"] >= 0 and players_on_teams[player["name"]]["position"] == "RB":
+				printed += 1
+				print("{}|({}/{})|{}%|{}".format(player["name"].title(), player["looks"], player["total_team_looks"], player["looks_perc"], player["delta3"]))
+
+		print("\n#Top 50 WR")
+		print("\nPlayer|(player looks / team looks)|Team RZ Look Share|3 Week Trend")
+		print(":--|:--|:--|:--")
+		printed = 0
+		for player in sorted_looks:
+			#continue
+			if printed == 50:
+				break
+			if player["looks"] >= 0 and players_on_teams[player["name"]]["position"] == "WR":
+				printed += 1
+				print("{}|({}/{})|{}%|{}".format(player["name"].title(), player["looks"], player["total_team_looks"], player["looks_perc"], player["delta3"]))
+
+		print("\n#Top 30 TE")
 		print("\nPlayer|(player looks / team looks)|Team RZ Look Share|3 Week Trend")
 		print(":--|:--|:--|:--")
 		printed = 0
 		for player in sorted_looks:
 			#continue
 			if printed == 30:
-				break
-			if player["looks"] >= 0 and players_on_teams[player["name"]]["position"] == "RB":
-				printed += 1
-				print("{}|({}/{})|{}%|{}".format(player["name"].title(), player["looks"], player["total_team_looks"], player["looks_perc"], player["delta3"]))
-
-		print("\n#Top 45 WR")
-		print("\nPlayer|(player looks / team looks)|Team RZ Look Share|3 Week Trend")
-		print(":--|:--|:--|:--")
-		printed = 0
-		for player in sorted_looks:
-			#continue
-			if printed == 45:
-				break
-			if player["looks"] >= 0 and players_on_teams[player["name"]]["position"] == "WR":
-				printed += 1
-				print("{}|({}/{})|{}%|{}".format(player["name"].title(), player["looks"], player["total_team_looks"], player["looks_perc"], player["delta3"]))
-
-		print("\n#Top 20 TE")
-		print("\nPlayer|(player looks / team looks)|Team RZ Look Share|3 Week Trend")
-		print(":--|:--|:--|:--")
-		printed = 0
-		for player in sorted_looks:
-			#continue
-			if printed == 20:
 				break
 			if player["looks"] >= 0 and (player["name"].find("heuerman") >= 0 or players_on_teams[player["name"]]["position"] == "TE"):
 				printed += 1

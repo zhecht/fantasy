@@ -83,7 +83,6 @@ def get_fp_html(player1, player2):
 			html += str(tr)
 	html += "</table>"
 	return html
-	
 
 def get_airyards_html(airyards1, airyards2):
 	html = "<h4 style='margin-top: 1%;'><a href='http://airyards.com/tables.html' target='_blank'>Airyards.com</a></h4>"

@@ -1,5 +1,4 @@
 
-from controllers.compare import *
 from controllers.defense import *
 from controllers.main import *
 from controllers.extension import *
