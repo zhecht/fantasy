@@ -28,7 +28,7 @@ except:
 defense_print = Blueprint('defense', __name__, template_folder='views')
 
 prefix = ""
-if platform != "darwin":
+if os.path.exists("/home/zhecht/fantasy"):
     # if on linux aka prod
     prefix = "/home/zhecht/fantasy/"
 
@@ -85,7 +85,7 @@ def get_ranks_style(rank, extra=None):
         return "style='background-color: rgb({});{}'".format(RANKS_COLORS[rank - 1], extra)
     return "style='background-color: rgb({});'".format(RANKS_COLORS[rank - 1])
 
-def get_ranks_html(settings, curr_week = 11):
+def get_ranks_html(settings, curr_week = 2):
     ranks, defense_tot = profootballreference.get_ranks(curr_week, settings)
     get_ranks_colors(32)
 
@@ -168,6 +168,7 @@ def get_html(team_arg, pos, opp):
         team = ""
         total = 0
         sched = profootballreference.get_opponents(arr["team"])
+        wk = None
         for player_idx, p in enumerate(arr["players"]):
             m = re.match(r"wk(\d+) (.*): (.*) pts \((.*)\)", p)
             wk = int(m.group(1)) + 1
@@ -210,7 +211,7 @@ def get_html(team_arg, pos, opp):
     return html+mobile_html
 
 def get_team_html(teams, settings):
-    curr_week = 11
+    curr_week = 2
     ranks = profootballreference.get_ranks(curr_week, settings)
 
     html = ""

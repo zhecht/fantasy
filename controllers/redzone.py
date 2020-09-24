@@ -42,7 +42,7 @@ full_team_names = {
 	"oti": "Titans",
 	"dal": "Cowboys",
 	"min": "Vikings",
-	"was": "Redskins",
+	"was": "Washington",
 	"tam": "Buccaneers",
 	"cle": "Browns",
 	"sea": "Seahawks",
@@ -526,25 +526,25 @@ if __name__ == '__main__':
 		update_players_on_teams(players_on_teams)
 
 		print("\n#The FeelsBad Table")
-		print("\nPlayer|(player looks / team looks)|Team RZ Look Share|3 Week Trend")
+		print("\nPlayer|(player looks / team looks)|Team RZ Look Share|1 Week Trend")
 		print(":--|:--|:--|:--")
 		for player in sorted_looks:
 			continue
 			if player["looks"] >= 0 and player["name"] in feelsbad_players: #player["team"] == 'rav':
-				print("{}|({}/{})|{}%|{}".format(player["name"].title(), player["looks"], player["total_team_looks"], player["looks_perc"], player["delta3"]))
+				print("{}|({}/{})|{}%|{}".format(player["name"].title(), player["looks"], player["total_team_looks"], player["looks_perc"], player["delta"]))
 		#exit()
 
 		print("\n#The Julio Jones Table")
-		print("\nPlayer|(player looks / team looks)|Team RZ Look Share|3 Week Trend")
+		print("\nPlayer|(player looks / team looks)|Team RZ Look Share|1 Week Trend")
 		print(":--|:--|:--|:--")
 		for player in sorted_looks:
 			#continue
 			if player["looks"] >= 0 and player["name"] == "julio jones":
-				print("{}|({}/{})|{}%|{}".format(player["name"].title(), player["looks"], player["total_team_looks"], player["looks_perc"], player["delta3"]))
+				print("{}|({}/{})|{}%|{}".format(player["name"].title(), player["looks"], player["total_team_looks"], player["looks_perc"], player["delta"]))
 
 		#exit()
 		print("\n#Top 40 RB")
-		print("\nPlayer|(player looks / team looks)|Team RZ Look Share|3 Week Trend")
+		print("\nPlayer|(player looks / team looks)|Team RZ Look Share|1 Week Trend")
 		print(":--|:--|:--|:--")
 		printed = 0
 		for player in sorted_looks:
@@ -553,10 +553,10 @@ if __name__ == '__main__':
 				break
 			if player["looks"] >= 0 and players_on_teams[player["name"]]["position"] == "RB":
 				printed += 1
-				print("{}|({}/{})|{}%|{}".format(player["name"].title(), player["looks"], player["total_team_looks"], player["looks_perc"], player["delta3"]))
+				print("{}|({}/{})|{}%|{}".format(player["name"].title(), player["looks"], player["total_team_looks"], player["looks_perc"], player["delta"]))
 
 		print("\n#Top 50 WR")
-		print("\nPlayer|(player looks / team looks)|Team RZ Look Share|3 Week Trend")
+		print("\nPlayer|(player looks / team looks)|Team RZ Look Share|1 Week Trend")
 		print(":--|:--|:--|:--")
 		printed = 0
 		for player in sorted_looks:
@@ -565,10 +565,10 @@ if __name__ == '__main__':
 				break
 			if player["looks"] >= 0 and players_on_teams[player["name"]]["position"] == "WR":
 				printed += 1
-				print("{}|({}/{})|{}%|{}".format(player["name"].title(), player["looks"], player["total_team_looks"], player["looks_perc"], player["delta3"]))
+				print("{}|({}/{})|{}%|{}".format(player["name"].title(), player["looks"], player["total_team_looks"], player["looks_perc"], player["delta"]))
 
 		print("\n#Top 30 TE")
-		print("\nPlayer|(player looks / team looks)|Team RZ Look Share|3 Week Trend")
+		print("\nPlayer|(player looks / team looks)|Team RZ Look Share|1 Week Trend")
 		print(":--|:--|:--|:--")
 		printed = 0
 		for player in sorted_looks:
@@ -577,6 +577,6 @@ if __name__ == '__main__':
 				break
 			if player["looks"] >= 0 and (player["name"].find("heuerman") >= 0 or players_on_teams[player["name"]]["position"] == "TE"):
 				printed += 1
-				print("{}|({}/{})|{}%|{}".format(player["name"].title(), player["looks"], player["total_team_looks"], player["looks_perc"], player["delta3"]))
+				print("{}|({}/{})|{}%|{}".format(player["name"].title(), player["looks"], player["total_team_looks"], player["looks_perc"], player["delta"]))
 
 		

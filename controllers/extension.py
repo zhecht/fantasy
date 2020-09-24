@@ -131,7 +131,7 @@ def write_cron_trade_values():
 	with open(f"{prefix}static/trade_value/tradevalues.json", "w") as fh:
 		json.dump(tradevalues, fh, indent=4)
 
-#write_cron_trade_values()
+write_cron_trade_values()
 
 def write_cron_trade_values2():
 	tradevalues = {}

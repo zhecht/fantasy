@@ -17,7 +17,7 @@ def merge_two_dicts(x, y):
 
 @rankings_print.route('/rankings')
 def rankings_route():
-	real_week = 5
+	real_week = 3
 
 	try:
 		arg_week = int(request.args.get("week"))

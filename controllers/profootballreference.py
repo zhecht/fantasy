@@ -20,8 +20,7 @@ except:
   import urllib.request as urllib
 
 prefix = ""
-if platform != "darwin":
-    # if on linux aka prod
+if os.path.exists("/home/zhecht/fantasy"):
     prefix = "/home/zhecht/fantasy/"
 
 def merge_two_dicts(x, y):
@@ -42,7 +41,7 @@ def get_abbr(team):
         return "sdg"
     elif team == "lar":
         return "ram"
-    elif team == "oak":
+    elif team == "lvr":
         return "rai"
     elif team == "ten":
         return "oti"
@@ -234,8 +233,6 @@ def get_players_by_pos_team(team, pos):
 
     if team == "pit" and pos == "QB":
         arr.append("ben roethlisberger")
-    elif team == "nwe" and pos == "WR":
-        arr.append("antonio brown")
     return arr
 
 def get_tot_team_games(curr_week, schedule):
@@ -374,9 +371,10 @@ def get_ranks(curr_week, settings):
 def get_pretty_stats(stats, pos, settings):
     #s = "{} PTS - {}".format(stats["points"], player.title())
     s = ""
+    if not stats:
+        return s
     pos = pos.upper()
     if pos == "QB":
-        #print(stats)
         s += "{}/{} {} Pass Yds".format(stats["pass_cmp"], stats["pass_att"], stats["pass_yds"])
         if stats["pass_td"]:
             s += ", {} Pass TD".format(stats["pass_td"])
@@ -578,11 +576,11 @@ def write_boxscore_links():
         path = "{}static/profootballreference/{}".format(prefix, team.split("/")[-2])
         if not os.path.exists(path):
             call(["mkdir", "-p", path])
-        url = "https://www.pro-football-reference.com{}/2019/gamelog".format(team)
+        url = "https://www.pro-football-reference.com{}/2020/gamelog".format(team)
         soup = BS(urllib.urlopen(url).read(), "lxml")
         boxscore_links = {}
         for i in range(16):
-            row = soup.find("tr", id="gamelog2019.{}".format(i + 1))
+            row = soup.find("tr", id="gamelog2020.{}".format(i + 1))
             if row:
                 link = row.find("a")
                 if link.text == "preview":
@@ -592,22 +590,13 @@ def write_boxscore_links():
             json.dump(boxscore_links, fh, indent=4)
 
 def fix_roster(roster, team):
-    if team == "rai":
-        roster["darren waller"] = "TE"
-    elif team == "det":
-        roster["ty johnson"] = "RB"
-        roster["jd mckissic"] = "RB"
-    elif team == "nyg":
-        roster["rhett ellison"] = "TE"
-    elif team == "min":
-        roster["cj ham"] = "RB"
-    elif team == "sfo":
-        roster["kyle juszczyk"] = "RB"
+    if team == "was":
+        roster["antonio gibson"] = "RB"
+        roster["logan thomas"] = "TE"
     return
 
 def write_team_rosters(teamlinks={}):
     if not teamlinks:
-        teamlinks = {}
         with open("{}static/profootballreference/teams.json".format(prefix)) as fh:
             teamlinks = json.loads(fh.read())
 
@@ -617,19 +606,21 @@ def write_team_rosters(teamlinks={}):
 
         if not os.path.exists(path):
             os.mkdir(path)
-        url = "https://www.pro-football-reference.com{}/2019_roster.htm".format(team)
+        url = f"https://www.pro-football-reference.com{team}/2020_roster.htm"
         outfile = "{}/roster.html".format(path)
         call(["curl", "-k", url, "-o", outfile])
 
         # for some reason, the real HTML is commented out?
         soup = BS(open(outfile).read(), "lxml")
-        rows = soup.find("table", id="starters").find_all("tr")[1:]
-        for tr in rows:
-            tds = tr.find_all("td")
-            name = tds[0].text.lower().replace("'", "").replace(".", "")
-            pos = tr.find("th").text
-            if name.find("starters") == -1:
-                roster[name] = pos
+        starters = soup.find("table", id="starters")
+        if starters:
+            rows = starters.find_all("tr")[1:]
+            for tr in rows:
+                tds = tr.find_all("td")
+                name = tds[0].text.lower().replace("'", "").replace(".", "")
+                pos = tr.find("th").text
+                if name.find("starters") == -1:
+                    roster[name] = pos
 
         soup = BS(open(outfile).read(), "lxml")
         if soup.find("div", id="all_games_played_team") is None:
@@ -664,7 +655,7 @@ def get_indexes(header_row):
     return indexes
 
 def write_schedule():
-    url = "https://www.pro-football-reference.com/years/2019/games.htm"
+    url = "https://www.pro-football-reference.com/years/2020/games.htm"
     soup = BS(urllib.urlopen(url).read(), "lxml")
     rows = soup.find("table", id="games").find_all("tr")[1:] # skip header row
     schedule = {}
@@ -684,7 +675,7 @@ def write_schedule():
     with open("{}static/profootballreference/schedule.json".format(prefix), "w") as fh:
         json.dump(schedule, fh, indent=4)
 
-short_names = {"falcons": "atl", "bills": "buf", "panthers": "car", "bears": "chi", "bengals": "cin", "browns": "cle", "colts": "clt", "cardinals": "crd", "cowboys": "dal", "broncos": "den", "lions": "det", "packers": "gnb", "texans": "htx", "jaguars": "jax", "chiefs": "kan", "dolphins": "mia", "vikings": "min", "saints": "nor", "patriots": "nwe", "giants": "nyg", "jets": "nyj", "titans": "oti", "eagles": "phi", "steelers": "pit", "raiders": "rai", "rams": "ram", "ravens": "rav", "chargers": "sdg", "seahawks": "sea", "49ers": "sfo", "buccaneers": "tam", "redskins": "was"}
+short_names = {"falcons": "atl", "bills": "buf", "panthers": "car", "bears": "chi", "bengals": "cin", "browns": "cle", "colts": "clt", "cardinals": "crd", "cowboys": "dal", "broncos": "den", "lions": "det", "packers": "gnb", "texans": "htx", "jaguars": "jax", "chiefs": "kan", "dolphins": "mia", "vikings": "min", "saints": "nor", "patriots": "nwe", "giants": "nyg", "jets": "nyj", "titans": "oti", "eagles": "phi", "steelers": "pit", "raiders": "rai", "rams": "ram", "ravens": "rav", "chargers": "sdg", "seahawks": "sea", "49ers": "sfo", "buccaneers": "tam", "washington": "was"}
 
 def get_kicking_stats(outfile):
     soup = BS(open(outfile).read(), "lxml")
@@ -770,7 +761,6 @@ def add_stats(boxscorelinks, team, teampath, boxlink):
             name = tr.find("th").text.lower().replace("'", "").replace(".", "")
             data = tr.find_all("td")
             ck_team = get_abbr(data[0].text.lower()) # might have different abbr
-            
             if outer_ids[i] == "all_returns":
                 # add kick_ret , punt_ret for other team
                 if team != ck_team:
@@ -826,7 +816,7 @@ if __name__ == "__main__":
     parser.add_argument("-p", "--pos", help="Get Pos")
 
     args = parser.parse_args()
-    curr_week = 11
+    curr_week = 3
 
     if args.start:
         curr_week = args.start
@@ -852,9 +842,9 @@ if __name__ == "__main__":
     elif args.cron:
         pass
         # only needs to be run once in a while
+        write_team_links()
         write_schedule()
         write_team_rosters()
-        write_team_links()
         write_boxscore_links()
         write_boxscore_stats()
         calculate_aggregate_stats()

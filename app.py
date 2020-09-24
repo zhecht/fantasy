@@ -10,7 +10,7 @@ app.register_blueprint(controllers.team_blueprint)
 app.register_blueprint(controllers.graphs_blueprint)
 #app.register_blueprint(controllers.read_rosters)
 app.register_blueprint(controllers.rankings_print)
-app.register_blueprint(controllers.compare_print)
+#app.register_blueprint(controllers.compare_print)
 app.register_blueprint(controllers.defense_print)
 #app.register_blueprint(controllers.trades_print)
 

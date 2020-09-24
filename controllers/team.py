@@ -27,7 +27,7 @@ teams_not_played = ["NYJ", "DET", "LAR", "OAK"]
 
 @team_blueprint.route('/team/<teamnum>')
 def team_route(teamnum):
-	oauth = MyOAuth()
+	oauth = MyOAuth(is_merrick=True)
 	teamnum = int(teamnum)
 	curr_week = 1
 
