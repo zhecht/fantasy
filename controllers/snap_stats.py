@@ -19,6 +19,8 @@ def fix_name(name):
 		return "todd gurley ii"
 	elif name == "marvin jones jr":
 		return "marvin jones jr."
+	elif name == "anthony mcfarland jr":
+		return "anthony mcfarland"
 	elif name == "duke johnson jr":
 		return "duke johnson jr."
 	return name

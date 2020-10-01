@@ -18,6 +18,16 @@ $(document).ready(function(){
 	}
 });
 
+var links = document.getElementById("nav").getElementsByTagName("a");
+for (var i in links) {
+	links[i].addEventListener("click", function(event){
+		show_data(event);
+	});
+}
+
+function show_data(el) {
+	console.log(el);
+}
 
 function changeTeam(selected) {
 	window.location.href = "/team/"+(selected+1);

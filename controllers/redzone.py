@@ -236,7 +236,6 @@ def get_redzone_trends(rbbc_teams, curr_week=1, requested_pos="RB", is_ui=False)
 			if team not in trends:
 				trends[team] = {}
 			if player not in trends[team]:
-				print(player)
 				trends[team][player] = {
 					"snaps": snap_stats[player]["perc"],
 					"looks": redzone_json[player]["looks"],
@@ -464,7 +463,6 @@ if __name__ == '__main__':
 		if args.teams:
 			rbbc_teams = args.teams.split(",")
 		snap_trends = get_redzone_trends(rbbc_teams, curr_week, args.pos)
-
 		for team in rbbc_teams:
 			#team_display = team_trans[team] if team in team_trans else team
 			team_display = full_team_names[team] if team in full_team_names else team
@@ -529,10 +527,11 @@ if __name__ == '__main__':
 		print("\nPlayer|(player looks / team looks)|Team RZ Look Share|1 Week Trend")
 		print(":--|:--|:--|:--")
 		for player in sorted_looks:
-			continue
-			if player["looks"] >= 0 and player["name"] in feelsbad_players: #player["team"] == 'rav':
+			#continue
+			#if player["looks"] >= 0 and player["name"] in feelsbad_players: 
+			if player["team"] == 'chi':
 				print("{}|({}/{})|{}%|{}".format(player["name"].title(), player["looks"], player["total_team_looks"], player["looks_perc"], player["delta"]))
-		#exit()
+		exit()
 
 		print("\n#The Julio Jones Table")
 		print("\nPlayer|(player looks / team looks)|Team RZ Look Share|1 Week Trend")

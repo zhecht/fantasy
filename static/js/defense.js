@@ -21,13 +21,15 @@ var change_scoring = function() {
 var show_stats = function() {
 	close_showing();
 	var suffix = "_table";
-	var css = "flex;";
+	//var css = "flex;";
+	var css = "inline-table;";
 	if (window.innerWidth <= 420) {
 		suffix = "_mobile_table";
 		css = "inline-table;";		
 	}
-	document.getElementById(this.id+suffix).style = "display: "+css;
-	document.getElementById("showing").value = this.id+suffix;
+	var id = this.id.replace("lv_", "rai_");
+	document.getElementById(id+suffix).style = "display: "+css;
+	document.getElementById("showing").value = id+suffix;
 	window.scrollTo(0, 0);
 }
 
@@ -105,6 +107,14 @@ var select_setting = function() {
 		val = parseInt(this.options[this.selectedIndex].innerText);
 	}
 	settings[this.parentElement.id] = val;
+}
+
+var click_variance = function() {
+	document.getElementById("variance_explanation").style.display = "flex";
+};
+
+function close_variance() {
+	document.getElementById("variance_explanation").style.display = "none";
 }
 
 var click_scoring_save_btn = function() {
@@ -190,3 +200,4 @@ for (var i = 0; i < btns.length; ++i) {
 }
 
 var btns = document.getElementById("change_scoring").addEventListener("click", change_scoring, false);
+document.getElementById("variance_link").addEventListener("click", click_variance, false);

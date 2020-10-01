@@ -75,7 +75,7 @@ def fix_name(name):
 		return "a.j. green"
 	elif name == "dj. moore" or name == "d.j. moore":
 		return "dj moore"
-	elif name == "dj. chark" or name == "d.j. chark":
+	elif name == "dj. chark" or name == "d.j. chark" or name == "d.j. chark jr.":
 		return "dj chark jr."
 	elif name == "d.k. metcalf":
 		return "dk metcalf"

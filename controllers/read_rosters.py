@@ -226,6 +226,7 @@ def update_players_on_teams(players_on_teams):
 
 	#2020
 	players_on_teams['cordarrelle patterson'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Chi'}
+	players_on_teams['anthony mcfarland'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Pit'}
 	return
 
 def read_rosters(skip_remove_puncuation=False, players_prefix=players_prefix):
