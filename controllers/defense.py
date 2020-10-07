@@ -33,7 +33,7 @@ if os.path.exists("/home/zhecht/fantasy"):
     prefix = "/home/zhecht/fantasy/"
 
 # goes from green -> yellow -> orange -> red
-CURR_WEEK = 3
+CURR_WEEK = 4
 team_trans = {"rav": "bal", "htx": "hou", "oti": "ten", "sdg": "lac", "ram": "lar", "clt": "ind", "crd": "ari"}
 display_team_trans = {"rav": "bal", "htx": "hou", "oti": "ten", "sdg": "lac", "ram": "lar", "clt": "ind", "crd": "ari", "gnb": "gb", "kan": "kc", "nwe": "ne", "rai": "lv", "sfo": "sf", "tam": "tb", "nor": "no"}
 
@@ -97,7 +97,7 @@ def get_ranks_html(settings, over_expected, curr_week=CURR_WEEK):
     html = "<table id='ppg_by_pos'>"
     title = f"Points Allowed Per Game [Sorted by Pos] ({scoring} PPR)"
     if over_expected:
-        title = f"Points Allowed Per Game Against Expectation [Sorted by Pos] ({scoring} PPR)"
+        title = f"Points Allowed Per Game Vs. Projected [Sorted by Pos] ({scoring} PPR)"
     html += f"<tr><th colspan='12'>{title}</th></tr>"
     html += "<tr><th class='QB_td'>Team</th><th class='QB_td'>QB</th><th class='RB_td'>Team</th><th class='RB_td'>RB</th><th class='WR_td'>Team</th><th class='WR_td'>WR</th><th class='TE_td'>Team</th><th class='TE_td'>TE</th><th class='K_td'>Team</th><th class='K_td'>K</th><th class='DEF_td'>Team</th><th class='DEF_td'>DEF</th></tr>"
     # sorted by pos
@@ -123,7 +123,7 @@ def get_ranks_html(settings, over_expected, curr_week=CURR_WEEK):
             if over_expected:
                 val = str(val)+"%"
             team_dis = display_team_trans[arr["team"]] if arr["team"] in display_team_trans else display_team
-            html += "<td class='clickable {}_td'>{}</td><td id='{}_{}' class='clickable {}_td' {}>{}</td>".format(pos, display_team.upper(), team_dis, pos, pos, style, val)
+            html += "<td class='clickable {}_td'>{}</td><td id='{}_{}' class='clickable {}_td' {}>{}</td>".format(pos, team_dis.upper(), display_team, pos, pos, style, val)
         html += "</tr>"
     html += "</table>"
     
@@ -132,7 +132,7 @@ def get_ranks_html(settings, over_expected, curr_week=CURR_WEEK):
     html += "<table id='ppg_by_team'>"
     title = f"Points Allowed Per Game [Sorted by Team] ({scoring} PPR)"
     if over_expected:
-        title = f"Points Allowed Per Game Against Expectation [Sorted by Team] ({scoring} PPR)"
+        title = f"Points Allowed Per Game Vs. Projected [Sorted by Team] ({scoring} PPR)"
     html += f"<tr><th colspan='8'>{title}</th></tr>"
     html += "<tr><th>Team</th><th class='QB_td'>QB</th><th class='RB_td'>RB</th><th class='WR_td'>WR</th><th class='TE_td'>TE</th><th class='K_td'>K</th><th class='DEF_td'>DEF</th><th> Opp</th></tr>".format(curr_week)
     for team in sorted_teams:
@@ -186,7 +186,7 @@ def get_html(team_arg, pos, opp, over_expected):
 
     html += "<tr><th>Opp</th>"
     if over_expected:
-        html += "<th>Variance</th><th>Projected</th>"
+        html += "<th>Act v. Proj %</th><th>Projected</th>"
     html += "<th>Actual</th></tr>"
 
     for idx, arr in enumerate(opp):
@@ -208,8 +208,11 @@ def get_html(team_arg, pos, opp, over_expected):
             pts = round(float(name_pts.split(" ")[-1]), 2)
             name = ' '.join(name_pts.split(" ")[:-1])
             if over_expected:
-                if name in projections and f"wk{wk}" in projections[name]:
-                    proj_total += projections[name][f"wk{wk}"]
+                key = name
+                if pos == "DEF":
+                    key = team
+                if key in projections and f"wk{wk}" in projections[key]:
+                    proj_total += projections[key][f"wk{wk}"]
                     total += pts
             else:
                 total += pts
@@ -217,6 +220,7 @@ def get_html(team_arg, pos, opp, over_expected):
             #if team in team_trans:
             #    team = team_trans[team]
             if pos == "DEF":
+                var_html = f""
                 if over_expected:
                     proj = 0
                     var = 0
@@ -224,11 +228,13 @@ def get_html(team_arg, pos, opp, over_expected):
                         proj = projections[team][f"wk{wk}"]
                         if proj:
                             var = round(((pts / proj) - 1) * 100, 2)
+                            var_html = f"Proj {proj}\tAct {pts}"
                     players_proj_html += f"<tr><td>{proj}</td></tr>"
                     players_var_html += f"<tr><td>{var}%</td></tr>"
                 players_html += "<tr><td>{} pts</td><td>{}</td></tr>".format(pts, stats)
-                players_mobile_html += "<tr><td>{} pts</td><td><a class='mobile_show_stats' href='#' id='{}'>Show</a></td></tr><tr><td colspan='3' style='display: none;text-align: center;' id='{}_stats'>[ {} ]</td></tr>".format(pts, player_id, player_id, stats)
+                players_mobile_html += f"<tr><td><div class='mobile_show_wrapper'><a class='mobile_show_stats' href='#' id='{player_id}'>Show</a></div></td></tr><tr><td colspan='3' style='display: none;text-align: center;' id='{player_id}_stats'>{var_html}<br>[ {stats} ]</td></tr>"
             else:
+                var_html = f""
                 if over_expected:
                     proj = 0
                     var = 0
@@ -236,11 +242,11 @@ def get_html(team_arg, pos, opp, over_expected):
                         proj = projections[name][f"wk{wk}"]
                         if proj:
                             var = round(((pts / proj) - 1) * 100, 2)
+                            var_html = f"Proj {proj}\tAct {pts}"
                     players_proj_html += f"<tr><td>{proj}</td></tr>"
                     players_var_html += f"<tr><td>{var}%</td></tr>"
-
-                players_html += "<tr><td>{} pts</td><td>{}</td><td>{}</td></tr>".format(pts, name.title(), stats)
-                players_mobile_html += "<tr><td>{} pts</td><td>{}</td><td><a class='mobile_show_stats' href='#' id='{}'>Show</a></td></tr><tr><td colspan='3' style='display: none;text-align: center;' id='{}_stats'>[ {} ]</td></tr>".format(pts, name.title(), player_id, player_id, stats)
+                players_html += f"<tr><td>{pts} pts</td><td>{name.title()}</td><td>{stats}</td></tr>"
+                players_mobile_html += f"<tr><td><div class='mobile_show_wrapper'>{name.title()}<a class='mobile_show_stats' href='#' id='{player_id}'>Show</a></div></td></tr><tr><td colspan='3' style='display: none;text-align: center;' id='{player_id}_stats'>{var_html}<br>[ {stats} ]</td></tr>"
 
         players_html += "</table>"
         players_mobile_html += "</table>"
@@ -253,26 +259,33 @@ def get_html(team_arg, pos, opp, over_expected):
             mobile_tot = "{} pts".format(round(total, 2))
         if arr["players"] == "":
             if sched[idx] == "BYE":
-                html += "<tr><td>wk{} BYE</td><td></td></tr>".format(idx + 1)
+                colspan = 1
+                if over_expected:
+                    colspan = 3
+                html += f"<tr><td>wk{idx+1} BYE</td><td colspan='{colspan}'></td></tr>"
                 mobile_html += "<tr><td>wk{} BYE</td></tr>".format(idx + 1)
             else:
                 team_dis = display_team_trans[arr["opp_team"]] if arr["opp_team"] in display_team_trans else arr["opp_team"]
                 html += "<tr><td>wk{} {}</td><td>-</td></tr>".format(idx + 1, team_dis.upper())
                 mobile_html += "<tr><td>wk{} {}</td></tr><tr><td>-</td></tr>".format(idx + 1, team_dis.upper())
         elif over_expected:
+            var_html = ""
+            var = 0
+            if proj_total:
+                var = round(((total / proj_total) - 1) * 100, 2)
+                var = f"{var}%"
+                var_html = var
+                if not var_html.startswith("-"):
+                    var_html = f"+{var_html}"
             if pos in ["DEF"]:
                 var = players_var_html
-            else:
-                var = 0
-                if proj_total:
-                    var = round(((total / proj_total) - 1) * 100, 2)
-                    var = f"{var}%"
+
             team_dis = display_team_trans[team] if team in display_team_trans else team
             html += f"<tr><td>wk{wk} {team_dis.upper()}{tot}</td>"
             html += f"<td>{var}</td>"
             html += f"<td>{players_proj_html}</td>"
             html += f"<td>{players_html}</td></tr>"
-            mobile_html += "<tr><td style='width: 100%;'>wk{} {}: {}</td></tr><tr><td>{}</td></tr>".format(wk, team_dis.upper(), mobile_tot, players_mobile_html)
+            mobile_html += f"<tr><td style='width: 100%;'>wk{wk} {team_dis.upper()}: {var_html}</td></tr><tr><td>{players_mobile_html}</td></tr>"
         else:
             team_dis = display_team_trans[team] if team in display_team_trans else team
             html += "<tr><td>wk{} {}{}</td><td>{}</td></tr>".format(wk, team_dis.upper(), tot, players_html)
@@ -407,15 +420,18 @@ def get_scoring(which, settings):
     html += "</div>"
     return html
 
-def get_variance_html():
-    html = "<div id='variance_div'>"
-    html +=     "<div style='text-align: center;'><a id='variance_link' href='#'>Variance Explanation</a></div>"
+def get_variance_html(over_expected):
+    style = ""
+    if not over_expected:
+        style = "style='display: none;'"
+    html = f"<div {style} id='variance_div'>"
+    html +=     "<div style='text-align: center;'><a id='variance_link' href='#'>Actual Vs. Projected Percent Explanation</a></div>"
     html +=     "<div id='variance_explanation' style='display: none'>"
-    html +=         "<div>Variance gives us an insight on how well players perform against their projected fantasy points</div>"
+    html +=         "<div>Act vs. Proj % gives us an insight into how well players perform against their projected fantasy points in a given week. We can also analyze a defense's strengths and weaknesses against certain positions.</div>"
     html +=         "<div>Take for example ATL Defense Vs QB Week 1. They played Russell Wilson who was projected 21.9 points but scored 31.78 points.</div>"
-    html +=         "<div>Variance = ((actual / projected) - 1) * 100"
-    html +=         "<br>Variance = ((31.78 / 21.9) - 1) * 100 = 45.11%</div>"
-    html +=         "<div>This means that Russell scored 45% more fantasy points than was projected. We then add up all the projected and actual points across every week and calculate the variance as a whole for the defense.<br>The same can be calculated for WR/RB as a whole unit. That is, the projected and actual points are added up for everyone at that position and then Variance is calculated for that week.</div>"
+    html +=         "<div>var = ((actual / projected) - 1) * 100"
+    html +=         "<br>var = ((31.78 / 21.9) - 1) * 100 = 45.11%</div>"
+    html +=         "<div>This means that Russell scored 45% more fantasy points than was projected. We then add up all the projected and actual points across every week and calculate the percentage as a whole for the defense.<br>The same can be calculated for WR/RB as a whole unit. That is, the projected and actual points are added up for everyone at that position and then calculated for that week.</div>"
     html +=         "<div><button onclick='close_variance()'>Close</button></div>"
     html +=     "</div>"
     html += "</div>"
@@ -425,7 +441,7 @@ def get_scoring_html(settings, over_expected=False):
     style = ""
     if over_expected:
         style = "display:none;"
-    html = f"<div style='padding-top:1.5%;{style}'><a id='change_scoring' href='#'>Change Scoring</a></div>"
+    html = f"<div style='{style}'><a id='change_scoring' href='#'>Change Scoring</a></div>"
     html += "<div id='scoring'>"
     std_class = "class='active'" if settings["ppr"] == 0 else ""
     half_class = "class='active'" if settings["ppr"] == 0.5 else ""
@@ -441,9 +457,9 @@ def get_scoring_html(settings, over_expected=False):
     return html
 
 def get_hide_html():
-    html = "<div id='hide_div'><span style='font-weight:bold;'>Hide</span><div>"
+    html = "<div id='hide_div'><span style='font-weight:bold;'>Hide</span><div id='checkbox_wrapper'>"
     for pos in ["QB", "RB", "WR", "TE", "K", "DEF"]:
-        html += "<span id='{}_hide'>{}: <input type='checkbox' /></span>".format(pos, pos)
+        html += "<div id='{}_hide'><span>{}:</span><input type='checkbox' /></div>".format(pos, pos)
     html += "</div></div>"
     return html
 
@@ -469,10 +485,12 @@ def defense_route():
     over_expected = request.args.get("over_expected")
     scoring_settings = read_scoring_settings()
     filename = "click_html.html"
+    settings_arg = ""
     if session_id:
         session_id = decode_session(session_id)
     
     if session_id and session_id in scoring_settings:
+        settings_arg = f"session_id={session_id}"
         settings = init_settings(scoring_settings[session_id])
         filename = scoring_settings[session_id]
     else:
@@ -492,7 +510,10 @@ def defense_route():
     ranks_html, teams = get_ranks_html(settings, over_expected)
     scoring_html = get_scoring_html(settings, over_expected=over_expected)
     hide_html = get_hide_html()
-    variance_html = get_variance_html()
+    variance_html = get_variance_html(over_expected)
+    link_html = f"<div id='link_div'><a href='/defense?over_expected=true&{settings_arg}'>View PPG Vs. Projected % Table</a></div>"
+    if over_expected:
+        link_html = f"<div id='link_div'><a href='/defense?{settings_arg}'>View PPG Table</a></div>"
     settings_string = json.dumps(settings)
     color_html = ""
     click_html = ""
@@ -514,7 +535,7 @@ def defense_route():
             with open("{}views/{}".format(prefix, filename), "w") as fh:
                fh.write(click_html)
 
-    return render_template("defense.html", table_html=ranks_html, color_html=color_html, click_html=click_html, scoring_html=scoring_html, variance_html=variance_html, hide_html=hide_html, settings_string=settings_string)
+    return render_template("defense.html", table_html=ranks_html, color_html=color_html, click_html=click_html, scoring_html=scoring_html, variance_html=variance_html, link_html=link_html, hide_html=hide_html, settings_string=settings_string, over_expected=over_expected)
 
 
 @defense_print.route('/defense', methods=["POST"])

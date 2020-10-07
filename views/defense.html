@@ -26,8 +26,11 @@
       #main_scoring { display: flex; width: 100%; justify-content: center; }
       #main_scoring div { display: flex; flex-direction: column; flex: 1; text-align: center; }
       #main_scoring h3 { text-decoration: underline; }
-      #hide_div { display: none;padding-top: 1.5%;width: 100%; text-align: center; }
-      #hide_div span { margin-left: 2%; }
+      #link_div { text-align: center; }
+      #sort_div {padding-bottom: 10px;}
+      #hide_div { display: none;padding-top: 1.5%;width: 100%; text-align: center;flex-direction: column; }
+      #hide_div span {  }
+      #checkbox_wrapper { flex-direction: row; display: flex; justify-content: space-evenly; }
       #variance_div { display: flex; width: 100%; justify-content: center; flex-direction: column;}
       #variance_div a {text-align: center;}
       #variance_explanation { flex-direction: column; width: 50%; margin-left: 25%; text-align: center; margin-top: 15px; }
@@ -55,9 +58,10 @@
         table { width: 100%; }
         button { width: 150px; }
         .click_tables { width: 100%; }
-        .players_table td:nth-child(1) { text-align: center; width: 30%; }
-        .players_table td:nth-child(2) { text-align: center; width: 50%; }
-        .players_table td:last-child { width: 20%; }
+        .mobile_show_wrapper { display: flex; justify-content: space-between;padding:0 20px; }
+        .players_table td:nth-child(1) { width: unset;text-align: left; }
+        .players_table td:nth-child(2) { width: unset; }
+        .players_table td:last-child {  width: unset;}
         #scoring { width: 100%; justify-content: normal; overflow: scroll; }
         #ppg_by_team, #ppg_by_pos { overflow: scroll; }
         #main_scoring { flex-direction: column; display: none; }
@@ -65,8 +69,7 @@
         #ppr { margin-top: 10%; }
         #save_div { position: relative; bottom: 0; margin-top: 15%; }
         #main_scoring button { margin-top: 0; }
-        #hide_div span { display: flex; margin-left: 0; }
-        #QB_hide { margin-left: 2%; }
+        #hide_div { display: flex; margin-left: 0; }
         #variance_explanation { width: 100%; margin-left: 0; }
       }
     </style>
@@ -75,11 +78,11 @@
     <div id="darkened_back"></div>
     <div id="header">
       <div id="nav">
-        <a href="/defense" class="active">Defensive Ranks</a>
+        <a href="#" class="active">Defensive Ranks</a>
         /
-        <a href="">RBBC Trends</a>
+        <a href="#">RBBC Trends</a>
         /
-        <a href="">Redzone Look Trends</a>
+        <a href="#">Redzone Look Trends</a>
       </div>
     </div>
     <div id="main_div">
@@ -87,6 +90,7 @@
         <button class="active">Sorted By Team</button>
         <button>Sorted By Pos</button>
       </div>
+      {{ link_html|safe }}
       {{ scoring_html|safe }}
       {{ variance_html|safe }}
       {{ hide_html|safe }}

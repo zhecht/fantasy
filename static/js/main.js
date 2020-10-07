@@ -26,7 +26,19 @@ for (var i in links) {
 }
 
 function show_data(el) {
-	console.log(el);
+	var link;
+	var txt = el.target.innerText;
+	console.log(txt);
+	if (txt == "Defensive Ranks") {
+		link = "defense?over_expected=true";
+	} else if (txt == "RBBC Trends") {
+		link = "rbbc";
+	} else if (txt == "Redzone Look Trends") {
+		link = "redzone";
+	}
+	window.location.href = "/"+link;
+	el.preventDefault();
+	return false;
 }
 
 function changeTeam(selected) {

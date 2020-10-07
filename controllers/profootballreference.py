@@ -216,6 +216,8 @@ def get_opponents(team):
 def get_players_by_pos_team(team, pos):
 	nfl_trades = read_nfl_trades()
 	roster = {}
+	if team == "BYE":
+		return []
 	with open("{}static/profootballreference/{}/roster.json".format(prefix, team)) as fh:
 		roster = json.loads(fh.read())
 	arr = []
@@ -231,10 +233,13 @@ def get_players_by_pos_team(team, pos):
 				arr.append(player)
 	# IR is not listed on roster
 	ir_data = [
+		("nwe", "QB", "cam newton"),
+		("nwe", "RB", "sony michel"),
 		("nyj", "RB", "leveon bell"),
 		("nyg", "RB", "saquon barkley"),
 		("sfo", "RB", "tevin coleman"),
 		("car", "RB", "christian mccaffrey"),
+		("ram", "RB", "cam akers"),
 		("ind", "WR", "parris campbell"),
 		("den", "WR", "courtland sutton"),
 		("crd", "TE", "dan arnold"),
@@ -308,7 +313,7 @@ def get_point_totals(curr_week, settings, over_expected):
 						if over_expected:
 							if wk == "tot":
 								pass
-							else:
+							elif projections[team][team][wk]:
 								real_pts = (real_pts / projections[team][team][wk]) - 1
 								real_pts *= 100
 								pos_tot[pos][wk+"_proj"] += projections[team][team][wk]
@@ -322,8 +327,8 @@ def get_point_totals(curr_week, settings, over_expected):
 							real_pts *= 100
 							pos_tot[pos][wk+"_proj"] += projections[team][player][wk]
 							pos_tot[pos][wk+"_act"] += all_team_stats[team][player][wk]["half_points"]
-							#if team == "sfo":
-								#print(player, wk, all_team_stats[team][player][wk]["half_points"], projections[team][player][wk], real_pts)
+							#if team == "atl" and pos == "K":
+							#	print(player, wk, all_team_stats[team][player][wk]["half_points"], projections[team][player][wk], real_pts)
 					else:
 						real_pts = get_points_from_settings(all_team_stats[team][player][wk], settings)
 					pos_tot[pos][wk] += real_pts
@@ -336,6 +341,8 @@ def get_point_totals(curr_week, settings, over_expected):
 				if "wk{}".format(wk) not in pos_tot[pos]: # game hasn't played
 					j["{}_wk{}".format(pos, wk)] = 0
 				elif f"wk{wk}_proj" in pos_tot[pos] and pos_tot[pos][f"wk{wk}_proj"]:
+					j[f"{pos}_wk{wk}_proj"] = pos_tot[pos][f"wk{wk}_proj"]
+					j[f"{pos}_wk{wk}_act"] = pos_tot[pos][f"wk{wk}_act"]
 					j[f"{pos}_wk{wk}"] = round(((pos_tot[pos][f"wk{wk}_act"] / pos_tot[pos][f"wk{wk}_proj"]) - 1) * 100, 2)
 				else:
 					j["{}_wk{}".format(pos, wk)] = round(pos_tot[pos]["wk{}".format(wk)], 2)
@@ -355,7 +362,7 @@ def read_nfl_trades():
 		returned_json = json.loads(fh.read())
 	return returned_json
 
-def get_defense_tot(curr_week, point_totals_dict):
+def get_defense_tot(curr_week, point_totals_dict, over_expected):
 	defense_tot = []
 	schedule = read_schedule()
 	tot_team_games = get_tot_team_games(curr_week, schedule)
@@ -368,23 +375,33 @@ def get_defense_tot(curr_week, point_totals_dict):
 		opponents = get_opponents(team)[:curr_week]
 		for week, opp_team in enumerate(opponents):
 			for pos in ["QB", "RB", "WR", "TE", "K", "DEF"]:
-				key = "{}_wk{}".format(pos, week + 1)
-				tot_key = "{}_tot".format(pos)
-				if key not in j:
-					j[key] = 0
-				if tot_key not in j:
-					j[tot_key] = 0
+				key = f"{pos}_wk{week+1}"
+				tot_key = f"{pos}_tot"
+				act_key = f"{pos}_act"
+				proj_key = f"{pos}_proj"
+				for k in [key, tot_key, act_key, proj_key]:
+					if k not in j:
+						j[k] = 0
 				if opp_team != "BYE":
+					which_team = opp_team
 					if pos == "DEF":
+						which_team = team
+					if over_expected:
 						# we calculate the stats for other defenses. No need to iterate over opp_team
-						j[key] += point_totals_dict[team][key]
-						j[tot_key] += point_totals_dict[team][key]
+						j[act_key] += point_totals_dict[which_team][f"{pos}_wk{week+1}_act"]
+						j[proj_key] += point_totals_dict[opp_team][f"{pos}_wk{week+1}_proj"]
+						j[key] += point_totals_dict[which_team][key]
+						j[tot_key] += point_totals_dict[which_team][key]
 					else:
-						j[key] += point_totals_dict[opp_team][key]
-						j[tot_key] += point_totals_dict[opp_team][key]
+						j[key] += point_totals_dict[which_team][key]
+						j[tot_key] += point_totals_dict[which_team][key]
+						
 		for pos in ["QB", "RB", "WR", "TE", "K", "DEF"]:
 			games = tot_team_games[team]
-			j["{}_ppg".format(pos)] = round(j["{}_tot".format(pos)] / games, 2)
+			if over_expected and j[f"{pos}_proj"]:
+				j[f"{pos}_ppg"] = round(((j[f"{pos}_act"] / j[f"{pos}_proj"]) - 1) * 100, 2)
+			else:
+				j[f"{pos}_ppg"] = round(j[f"{pos}_tot"] / games, 2)
 		defense_tot.append(j)
 	return defense_tot
 
@@ -406,7 +423,7 @@ def get_ranks(curr_week, settings, over_expected):
 	point_totals_dict = {}
 	for arr in point_totals:
 		point_totals_dict[arr["team"]] = arr.copy()
-	defense_tot = get_defense_tot(curr_week, point_totals_dict)
+	defense_tot = get_defense_tot(curr_week, point_totals_dict, over_expected)
 
 	for pos in ["QB", "RB", "WR", "TE", "K", "DEF"]:
 		sorted_ranks = sorted(defense_tot, key=operator.itemgetter("{}_tot".format(pos)), reverse=True)
@@ -642,6 +659,11 @@ def fix_roster(roster, team):
 		roster["jd mckissic"] = "RB"
 		roster["antonio gibson"] = "RB"
 		roster["logan thomas"] = "TE"
+	elif team == "pit":
+		roster["benny snell jr"] = "RB"
+	elif team == "jax":
+		roster["aldrick rosas"] = "K"
+		roster["josh lambo"] = "K"
 	return
 
 def write_team_rosters(teamlinks={}):
@@ -736,7 +758,7 @@ def get_kicking_stats(outfile):
 		detail = tds[2]
 		m = re.search(r"(\d+) yard field goal", detail.text)
 		if m:
-			name = detail.find("a").text.lower().replace(".", "").replace("'", "")
+			name = detail.find("a").text.strip().lower().replace(".", "").replace("'", "")
 			if name not in stats:
 				stats[name] = []
 			distance = m.group(1)
@@ -780,8 +802,12 @@ def add_defense_stats(stats, tds):
 		stats["OFF"][key] += val
 	return
 
-def add_stats(boxscorelinks, team, teampath, boxlink):
+def add_stats(boxscorelinks, team, teampath, boxlink, week_arg):
 	url = "https://www.pro-football-reference.com{}#all_team_stats".format(boxlink)
+
+	if week_arg and boxscorelinks[boxlink] != week_arg:
+		return
+
 	outfile = "{}/wk{}.html".format(teampath, boxscorelinks[boxlink])
 	if os.path.exists(outfile):
 		from datetime import datetime
@@ -844,7 +870,7 @@ def add_stats(boxscorelinks, team, teampath, boxlink):
 	
 	os.remove(outfile)
 
-def write_boxscore_stats():
+def write_boxscore_stats(week_arg):
 	teamlinks = {}
 	with open("{}static/profootballreference/teams.json".format(prefix)) as fh:
 		teamlinks = json.loads(fh.read())
@@ -856,7 +882,7 @@ def write_boxscore_stats():
 		with open("{}/boxscores.json".format(teampath)) as fh:
 			boxscorelinks = json.loads(fh.read())
 		for boxlink in boxscorelinks:
-			add_stats(boxscorelinks, team, teampath, boxlink)
+			add_stats(boxscorelinks, team, teampath, boxlink, week_arg)
 
 
 if __name__ == "__main__":
@@ -868,6 +894,7 @@ if __name__ == "__main__":
 	parser.add_argument("-e", "--end", help="End Week", type=int)
 	parser.add_argument("-t", "--team", help="Get Team")
 	parser.add_argument("-p", "--pos", help="Get Pos")
+	parser.add_argument("-w", "--week", help="Week")
 
 	args = parser.parse_args()
 	curr_week = 3
@@ -900,11 +927,10 @@ if __name__ == "__main__":
 		#write_team_links()
 		#write_schedule()
 		
-		write_team_rosters()
+		#write_team_rosters()
 		#write_boxscore_links()
-		
-		#write_boxscore_stats()
-		#calculate_aggregate_stats()
+		write_boxscore_stats(args.week)
+		calculate_aggregate_stats()
 
 	#write_team_rosters()
 	#write_boxscore_stats()

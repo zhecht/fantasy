@@ -23,7 +23,7 @@ var show_stats = function() {
 	var suffix = "_table";
 	//var css = "flex;";
 	var css = "inline-table;";
-	if (window.innerWidth <= 420) {
+	if (window.innerWidth <= 450) {
 		suffix = "_mobile_table";
 		css = "inline-table;";		
 	}
@@ -110,11 +110,17 @@ var select_setting = function() {
 }
 
 var click_variance = function() {
-	document.getElementById("variance_explanation").style.display = "flex";
+	var el = document.getElementById("variance_explanation");
+	if (el.style.display == "none") {
+		el.style.display = "flex";
+	} else { // hide if already opened
+		el.style.display = "none";
+	}
 };
 
 function close_variance() {
-	document.getElementById("variance_explanation").style.display = "none";
+	var el = document.getElementById("variance_explanation");
+	el.style.display = "none";
 }
 
 var click_scoring_save_btn = function() {
@@ -199,5 +205,33 @@ for (var i = 0; i < btns.length; ++i) {
 	btns[i].addEventListener("click", hide_pos, false);
 }
 
+var links = document.getElementById("nav").getElementsByTagName("a");
+for (var i in links) {
+	links[i].addEventListener("click", function(event){
+		show_data(event);
+	});
+}
+
+function show_data(el) {
+	var link;
+	var txt = el.target.innerText;
+	if (txt == "Defensive Ranks") {
+		link = "defense?over_expected=true";
+	} else if (txt == "RBBC Trends") {
+		link = "rbbc";
+	} else if (txt == "Redzone Look Trends") {
+		link = "redzone";
+	}
+	window.location.href = "/"+link;
+	el.preventDefault();
+	return false;
+}
+
 var btns = document.getElementById("change_scoring").addEventListener("click", change_scoring, false);
 document.getElementById("variance_link").addEventListener("click", click_variance, false);
+
+if (window.innerWidth <= 450) {
+	document.getElementById("TE_hide").getElementsByTagName("input")[0].click();
+	document.getElementById("K_hide").getElementsByTagName("input")[0].click();
+	document.getElementById("DEF_hide").getElementsByTagName("input")[0].click();
+}

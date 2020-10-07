@@ -106,6 +106,10 @@ def fix_name(name, team, stats):
 		return "olabisi johnson"
 	elif name == "ronald jones":
 		return "ronald jones ii"
+	elif name == "gardner minshew":
+		return "gardner minshew ii"
+	elif name == "mike badgley":
+		return "michael badgley"
 	elif team == "off":
 		return get_team_abbr(name)
 	elif name+" jr" in stats[team]:
@@ -158,6 +162,8 @@ def write_projections(week, stats, force=False):
 				team = sp[1].lower()
 				team = fix_team(team)
 				name = fix_name(name, team, stats)
+				if name == "aldrick rosas":
+					print(team)
 				if team != "off" and name not in stats[team]:
 					#print(team, name)
 					pass
@@ -174,6 +180,8 @@ def write_projections(week, stats, force=False):
 def get_points(projections):
 	if "pat_made" in projections:
 		return (projections["pat_made"] * 1) + (projections["fg made_0-19"] * 3) + (projections["fg made_20-29"] * 3) + (projections["fg made_30-39"] * 3) + (projections["fg made_40-49"] * 4) + (projections["fg made_50+"] * 5)
+	if "passing_yds" not in projections:
+		return 0
 	passing_pts = (projections["passing_yds"] / 25.0) + (projections["passing_td"] * 4) + (projections["passing_int"] * -2)
 	rushing_pts = (projections["rushing_yds"] / 10.0) + (projections["rushing_td"] * 6)
 	receiving_pts = (projections["receiving_rec"] * 0.5) + (projections["receiving_yds"] / 10.0) + (projections["receiving_td"] * 6)
@@ -182,10 +190,9 @@ def get_points(projections):
 
 def fix_projections(all_projections):
 	all_projections["justin herbert"]["wk2"] = 14.92 #tyrod
-	#all_projections["jeff driskel"]["wk2"] = 14.51 #drew lock
-	#del all_projections["drew lock"]["wk2"]
-	# wk3
-	#all_projections["nick foles"]["wk3"] = 18.81 # mitch
+	if "aldrick rosas" not in all_projections:
+		all_projections["aldrick rosas"] = {}
+	all_projections["aldrick rosas"]["wk4"] = 1.99 + 0.04*3 + 0.47*3 + 0.69*3 + 0.48*4
 
 def parse_projections():
 	all_projections = {}

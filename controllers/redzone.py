@@ -60,6 +60,8 @@ def merge_two_dicts(x, y):
 def fix_name(name):
 	if name == "ted ginn jr":
 		return "ted ginn jr."
+	elif name == "robert tonyan jr":
+		return "robert tonyan"
 	elif name == "odell beckham jr":
 		return "odell beckham jr."
 	elif name == "ben watson":
@@ -458,15 +460,16 @@ if __name__ == '__main__':
 	top_redzone = get_player_looks_arr(curr_week)
 
 	if args.snaps:
-		team_trans = {"rav": "bal", "htx": "hou", "oti": "ten", "sdg": "lac", "ram": "lar", "rai": "oak", "clt": "ind", "crd": "ari"}
-		rbbc_teams = ["crd", "atl", "rav", "buf", "car", "cin", "chi", "cle", "dal", "den", "det", "gnb", "htx", "jax", "clt", "kan", "sdg", "ram", "mia", "min", "nor", "nwe", "nyj", "nyg", "rai", "pit", "phi", "sea", "sfo", "tam", "oti", "was"]
+		team_trans = {"rav": "bal", "htx": "hou", "oti": "ten", "sdg": "lac", "ram": "lar", "clt": "ind", "crd": "ari", "gnb": "gb", "kan": "kc", "nwe": "ne", "rai": "lv", "sfo": "sf", "tam": "tb", "nor": "no"}
+		rbbc_teams = ['crd', 'atl', 'rav', 'buf', 'car', 'chi', 'cin', 'cle', 'dal', 'den', 'det', 'gnb', 'htx', 'clt', 'jax', 'kan', 'sdg', 'ram', 'rai', 'mia', 'min', 'nor', 'nwe', 'nyg', 'nyj', 'phi', 'pit', 'sea', 'sfo', 'tam', 'oti', 'was']
+
 		if args.teams:
 			rbbc_teams = args.teams.split(",")
 		snap_trends = get_redzone_trends(rbbc_teams, curr_week, args.pos)
 		for team in rbbc_teams:
-			#team_display = team_trans[team] if team in team_trans else team
-			team_display = full_team_names[team] if team in full_team_names else team
-			print("\n#{}".format(team_display))
+			team_display = team_trans[team] if team in team_trans else team
+			#team_display = full_team_names[team] if team in full_team_names else team
+			print(f"\n#{team_display.upper()}")
 			print("Player|Snap %|RZ Looks|RZ Looks Share|TGTS|{} Target Share".format(args.pos))
 			print(":--|:--|:--|:--|:--|:--")
 			extra = ""
@@ -527,11 +530,11 @@ if __name__ == '__main__':
 		print("\nPlayer|(player looks / team looks)|Team RZ Look Share|1 Week Trend")
 		print(":--|:--|:--|:--")
 		for player in sorted_looks:
-			#continue
+			continue
 			#if player["looks"] >= 0 and player["name"] in feelsbad_players: 
-			if player["team"] == 'chi':
+			if player["team"] == 'gnb':
 				print("{}|({}/{})|{}%|{}".format(player["name"].title(), player["looks"], player["total_team_looks"], player["looks_perc"], player["delta"]))
-		exit()
+		#exit()
 
 		print("\n#The Julio Jones Table")
 		print("\nPlayer|(player looks / team looks)|Team RZ Look Share|1 Week Trend")

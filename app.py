@@ -6,6 +6,8 @@ app = Flask(__name__, template_folder='views')
 
 app.register_blueprint(controllers.main_blueprint)
 app.register_blueprint(controllers.extension_blueprint)
+app.register_blueprint(controllers.redzone_ui_print)
+app.register_blueprint(controllers.rbbc_print)
 app.register_blueprint(controllers.team_blueprint)
 app.register_blueprint(controllers.graphs_blueprint)
 #app.register_blueprint(controllers.read_rosters)
