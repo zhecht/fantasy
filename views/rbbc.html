@@ -3,26 +3,32 @@
 	<head>
 		<title>RBBC Trends</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-		<link rel="stylesheet" href="/static/css/main.css" type="text/css">
 	</head>
 	<style>
 		#table_wrapper {
 			display: flex;
 			flex-direction: column;	
 		}
-		table {
-			width: 70%;
-			margin-left: 15%;
-			text-align: center;
-		}
+		#team_click_div { width:70%; margin-left: 15%;}
+		.team_click { text-decoration: none; }
+		table { width: 70%;margin-left: 15%;margin-top: 20px;text-align: center;border:1px solid;border-collapse: collapse;}
+		table tr { border-bottom: 1px solid; }
+		table tr:nth-child(even) { background-color: #f1f1f1; }
+		table td { border-left: 1px solid; border-right: 1px solid; }
+		#header { width: 100%; text-align: center; }
+		#nav { padding: 10px; }
+		#nav a { text-decoration: none; }
+		#nav a.active { text-decoration: underline; }
 	</style>
-	<body style="font-size:14px;">
-		<div id="nav">
-			<a href="#">Defensive Ranks</a>
-			/
-			<a href="#" class="active">RBBC Trends</a>
-			/
-			<a href="#">Redzone Look Trends</a>
+	<body style="font-size:18px;">
+		<div id="header">
+			<div id="nav">
+				<a href="#">Defensive Ranks</a>
+				/
+				<a href="#" class="active">RBBC Trends</a>
+				/
+				<a href="#">Redzone Look Trends</a>
+			</div>
 		</div>
 		<div id="table_wrapper">
 			{{table|safe}}

@@ -217,7 +217,7 @@ def get_redzone_trends(rbbc_teams, curr_week=1, requested_pos="RB", is_ui=False)
 	team_total_json = read_team_total()
 	players_on_teams,translations = read_rosters()
 	players_on_FA = read_FA()
-	snap_stats = read_snap_stats()
+	snap_stats = read_snap_stats(curr_week)
 	target_stats = read_target_stats()
 	#players_on_teams = {**players_on_teams, **players_on_FA}
 	players_on_teams = merge_two_dicts(players_on_teams, players_on_FA)
@@ -229,8 +229,9 @@ def get_redzone_trends(rbbc_teams, curr_week=1, requested_pos="RB", is_ui=False)
 			continue
 		if player not in players_on_teams or players_on_teams[player]["position"] == "QB":
 			continue
-		if not is_ui and (player.find("jr") >= 0 or player.find(".") >= 0 or player.find("ii") >= 0):
-			continue
+		#if not is_ui and (player.find("jr") >= 0 or player.find(".") >= 0 or player.find("ii") >= 0):
+		if (player.find("jr") >= 0 or player.find(".") >= 0 or player.find("ii") >= 0):
+			pass
 		pos = players_on_teams[player]["position"]
 		team = redzone_json[player]["team"]
 
@@ -290,19 +291,21 @@ def get_redzone_trends(rbbc_teams, curr_week=1, requested_pos="RB", is_ui=False)
 			trends[team][player]["snaps"] = snaps
 			trends[team][player]["target_share"] = target_share
 			if is_ui:
-				trends[team][player]["snaps_trend"] = "<b>+{}%</b>".format(snaps_trend) if snaps_trend > 0 else "{}%".format(snaps_trend or '-')
-				trends[team][player]["looks_trend"] = "<b>+{}</b>".format(looks_trend) if looks_trend > 0 else "{}".format(looks_trend or '-')
-				trends[team][player]["looks_share_trend"] = "<b>+{}%</b>".format(looks_share_trend) if looks_share_trend > 0 else "{}%".format(looks_share_trend or '-')
+				trends[team][player]["snaps_trend"] = f"<b>+{snaps_trend}%</b>" if snaps_trend > 0 else "{}%".format(snaps_trend or '-')
+				trends[team][player]["looks_trend"] = f"<b>+{looks_trend}</b>" if looks_trend > 0 else "{}".format(looks_trend or '-')
+				trends[team][player]["looks_share_trend"] = f"<b>+{looks_share_trend}%</b>" if looks_share_trend > 0 else "{}%".format(looks_share_trend or '-')
 				trends[team][player]["target_trend"] = "<b>+{}</b>".format(target_trend or '-') if target_trend > 0 else "{}".format(target_trend or '-')
-				trends[team][player]["target_share_trend"] = "<b>+{}%</b>".format(target_share_trend) if target_share_trend > 0 else "{}%".format(target_share_trend or '-')
+				trends[team][player]["target_share_trend"] = f"<b>+{target_share_trend}%</b>" if target_share_trend > 0 else "{}%".format(target_share_trend or '-')
 			else:
 				trends[team][player]["snaps_trend"] = "**+{}%**".format(snaps_trend) if snaps_trend > 0 else "{}%".format(snaps_trend or '0')
 				trends[team][player]["looks_trend"] = "**+{}**".format(looks_trend) if looks_trend > 0 else "{}".format(looks_trend or '-')
 				trends[team][player]["looks_share_trend"] = "**+{}%**".format(looks_share_trend) if looks_share_trend > 0 else "{}%".format(looks_share_trend or '0')
 				trends[team][player]["target_trend"] = "**+{}**".format(target_trend) if target_trend > 0 else "{}".format(target_trend or '-')
 				trends[team][player]["target_share_trend"] = "**+{}%**".format(target_share_trend) if target_share_trend > 0 else "{}%".format(target_share_trend or '0')
-	if not is_ui:
-		return trends
+	return trends
+	#if not is_ui:
+	#	return trends
+	
 	new_j = {}
 	for team in trends:
 		players = trends[team]
@@ -361,7 +364,7 @@ def get_player_looks_arr(curr_week=1):
 	team_total_json = read_team_total()
 	players_on_teams,translations = read_rosters()
 	players_on_FA = read_FA()
-	snap_stats = read_snap_stats()
+	snap_stats = read_snap_stats(curr_week)
 
 	players_on_teams = {**players_on_teams, **players_on_FA}
 	top_redzone = []
@@ -371,7 +374,8 @@ def get_player_looks_arr(curr_week=1):
 			continue
 
 		if player.find("jr") >= 0 or player.find(".") >= 0 or player.find("ii") >= 0:
-			continue
+			if " ".join(player.split(" ")[:-1]) in snap_stats:
+				continue
 
 		if player not in redzone_json:
 			continue
@@ -463,6 +467,14 @@ if __name__ == '__main__':
 		team_trans = {"rav": "bal", "htx": "hou", "oti": "ten", "sdg": "lac", "ram": "lar", "clt": "ind", "crd": "ari", "gnb": "gb", "kan": "kc", "nwe": "ne", "rai": "lv", "sfo": "sf", "tam": "tb", "nor": "no"}
 		rbbc_teams = ['crd', 'atl', 'rav', 'buf', 'car', 'chi', 'cin', 'cle', 'dal', 'den', 'det', 'gnb', 'htx', 'clt', 'jax', 'kan', 'sdg', 'ram', 'rai', 'mia', 'min', 'nor', 'nwe', 'nyg', 'nyj', 'phi', 'pit', 'sea', 'sfo', 'tam', 'oti', 'was']
 
+		
+		print("Weekly, I'll be posting these types of posts alongside my [Redzone Trends]() post")
+		print("\nNotes:")
+		print("\n- Purpose: Find out what every backfield is looking like and if they're trending up/down from past week")
+		print("\n- Target Share and RZ Share are only relative to FBs/RBs on the team. Data is adjusted for injuries")
+		print("\n- Source: https://subscribers.footballguys.com/teams/teampage-den-3.php")
+		print("\n- #Reply with a team name if you want to just see their breakdown of W/R/T")
+
 		if args.teams:
 			rbbc_teams = args.teams.split(",")
 		snap_trends = get_redzone_trends(rbbc_teams, curr_week, args.pos)
@@ -526,13 +538,20 @@ if __name__ == '__main__':
 		players_on_teams = {**players_on_teams, **players_on_FA}
 		update_players_on_teams(players_on_teams)
 
+		print("Weekly, I'll be posting these types of posts alongside my [RBBC Trends]() post")
+		print("\nNotes:")
+		print("\n- Purpose: Find out who's getting rushes/targets inside the 20 and is more likely to score")
+		print("\n- A Redzone look is a target or rushing attempt within the opponents 20 yard line.")
+		print("\n- Source: https://subscribers.footballguys.com/teams/teampage-den-6.php")
+		print("\n- #Reply with a team name if you want to just see their breakdown of W/R/T")
+
 		print("\n#The FeelsBad Table")
 		print("\nPlayer|(player looks / team looks)|Team RZ Look Share|1 Week Trend")
 		print(":--|:--|:--|:--")
 		for player in sorted_looks:
 			continue
 			#if player["looks"] >= 0 and player["name"] in feelsbad_players: 
-			if player["team"] == 'gnb':
+			if player["team"] == 'tam':
 				print("{}|({}/{})|{}%|{}".format(player["name"].title(), player["looks"], player["total_team_looks"], player["looks_perc"], player["delta"]))
 		#exit()
 

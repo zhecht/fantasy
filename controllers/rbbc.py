@@ -26,9 +26,17 @@ curr_week = 4
 @rbbc_print.route('/rbbc')
 def rbbc_route():
     team_trans = {"rav": "bal", "htx": "hou", "oti": "ten", "sdg": "lac", "ram": "lar", "clt": "ind", "crd": "ari", "gnb": "gb", "kan": "kc", "nwe": "ne", "rai": "lv", "sfo": "sf", "tam": "tb", "nor": "no"}
+    afc_teams = ['rav', 'buf', 'cin', 'cle', 'den', 'htx', 'clt', 'jax', 'kan', 'sdg', 'rai', 'mia', 'nwe', 'nyj', 'pit', 'ten']
+    nfc_teams = ['crd', 'atl', 'car', 'chi', 'dal', 'det', 'gnb', 'ram', 'min', 'nor', 'nyg', 'phi', 'sea', 'sfo', 'tam', 'was']
     rbbc_teams = ['crd', 'atl', 'rav', 'buf', 'car', 'chi', 'cin', 'cle', 'dal', 'den', 'det', 'gnb', 'htx', 'clt', 'jax', 'kan', 'sdg', 'ram', 'rai', 'mia', 'min', 'nor', 'nwe', 'nyg', 'nyj', 'phi', 'pit', 'sea', 'sfo', 'tam', 'oti', 'was']
-    snap_trends = get_redzone_trends(rbbc_teams, curr_week, "RB")
+    snap_trends = get_redzone_trends(rbbc_teams, curr_week, "RB", is_ui=True)
     table = ""
+
+    #table += "<div id='team_click_div'><a class='team_click' href='#'>All</a>"
+    #for team in rbbc_teams:
+    #    team_display = team_trans[team] if team in team_trans else team
+    #    table += f"<a class='team_click' href='#'>{team_display}</a>"
+    #table += "</div>"
     for team in rbbc_teams:
         team_display = team_trans[team] if team in team_trans else team
         table += f"<table id='{team}_table'>"

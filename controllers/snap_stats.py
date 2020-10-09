@@ -52,7 +52,32 @@ def read_reception_stats():
 	new_json = merge_two_dicts(new_j, new_json)
 	return new_json
 
-def read_snap_stats():
+def read_snap_stats(curr_week):
+	teams = ['crd', 'atl', 'rav', 'buf', 'car', 'chi', 'cin', 'cle', 'dal', 'den', 'det', 'gnb', 'htx', 'clt', 'jax', 'kan', 'sdg', 'ram', 'rai', 'mia', 'min', 'nor', 'nwe', 'nyg', 'nyj', 'phi', 'pit', 'sea', 'sfo', 'tam', 'oti', 'was']
+	res = {}
+	for team in teams:
+		with open(f"static/profootballreference/{team}/stats.json") as fh:
+			stats = json.load(fh)
+		for name in stats:
+			if name == "OFF":
+				continue
+			perc = []
+			counts = []
+			#print(team,name)
+			for week in range(curr_week):
+				p = 0
+				c = 0
+				try:
+					p = stats[name][f"wk{week+1}"]["snap_perc"]
+					c = stats[name][f"wk{week+1}"]["snap_counts"]
+				except:
+					pass
+				perc.append(str(p))
+				counts.append(str(c))
+			res[name] = {"perc": ",".join(perc), "counts": ",".join(counts)}
+	return res
+
+def read_snap_stats2():
 	with open("static/snap_counts.json") as fh:
 		returned_json = json.loads(fh.read())
 	new_json = {}
@@ -256,14 +281,14 @@ def get_player_target_aggregate(aggregates, snaps):
 	curr = 0
 	targets = map(int, aggregates.split(","))
 	for week, target in enumerate(targets):
-		if int(snaps["counts"].split(",")[week]) != 0:
+		if week < len(snaps["counts"].split(",")) and int(snaps["counts"].split(",")[week]) != 0:
 			curr += diff[week]
 		j.append(curr)
 	return j
 
 def get_target_aggregate_stats(curr_week=1):
 	# these take the weekly target stats and adds up target share throughout season
-	snap_stats = read_snap_stats()
+	snap_stats = read_snap_stats(curr_week)
 	team_targets = read_team_target_stats()
 	team_targets_aggregate = get_team_targets_to_week(snap_stats, team_targets)
 

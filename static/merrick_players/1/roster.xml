@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/team/nfl.l.629583.t.1/roster" time="40.741205215454ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
+<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/team/nfl.l.629583.t.1/roster" time="45.079946517944ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
  <team>
   <team_key>399.l.629583.t.1</team_key>
   <team_id>1</team_id>
@@ -13,12 +13,12 @@
   </team_logos>
   <waiver_priority>9</waiver_priority>
   <faab_balance>38</faab_balance>
-  <number_of_moves>6</number_of_moves>
+  <number_of_moves>7</number_of_moves>
   <number_of_trades>0</number_of_trades>
   <roster_adds>
    <coverage_type>week</coverage_type>
    <coverage_value>5</coverage_value>
-   <value>0</value>
+   <value>1</value>
   </roster_adds>
   <league_scoring_type>head</league_scoring_type>
   <has_draft_grade>1</has_draft_grade>
@@ -691,29 +691,29 @@
      </selected_position>
     </player>
     <player>
-     <player_key>399.p.100020</player_key>
-     <player_id>100020</player_id>
+     <player_key>399.p.100018</player_key>
+     <player_id>100018</player_id>
      <name>
-      <full>New York</full>
-      <first>New York</first>
+      <full>New Orleans</full>
+      <first>New Orleans</first>
       <last/>
-      <ascii_first>New York</ascii_first>
+      <ascii_first>New Orleans</ascii_first>
       <ascii_last/>
      </name>
-     <editorial_player_key>nfl.p.100020</editorial_player_key>
-     <editorial_team_key>nfl.t.20</editorial_team_key>
-     <editorial_team_full_name>New York Jets</editorial_team_full_name>
-     <editorial_team_abbr>NYJ</editorial_team_abbr>
+     <editorial_player_key>nfl.p.100018</editorial_player_key>
+     <editorial_team_key>nfl.t.18</editorial_team_key>
+     <editorial_team_full_name>New Orleans Saints</editorial_team_full_name>
+     <editorial_team_abbr>NO</editorial_team_abbr>
      <bye_weeks>
-      <week>11</week>
+      <week>6</week>
      </bye_weeks>
      <uniform_number></uniform_number>
      <display_position>DEF</display_position>
      <headshot>
-      <url>https://s.yimg.com/lq/i/us/sp/v/nfl/teams/1/50x50w/nyj.gif</url>
+      <url>https://s.yimg.com/lq/i/us/sp/v/nfl/teams/1/50x50w/nor.gif</url>
       <size>small</size>
      </headshot>
-     <image_url>https://s.yimg.com/lq/i/us/sp/v/nfl/teams/1/50x50w/nyj.gif</image_url>
+     <image_url>https://s.yimg.com/lq/i/us/sp/v/nfl/teams/1/50x50w/nor.gif</image_url>
      <is_undroppable>0</is_undroppable>
      <position_type>DT</position_type>
      <primary_position>DEF</primary_position>
@@ -773,4 +773,4 @@
   </roster>
  </team>
 </fantasy_content>
-<!-- fantasy-sports-api- -public-production-bf1-8677cb98cf-t6bgw Wed Oct  7 04:31:59 UTC 2020 -->
+<!-- fantasy-sports-api- -public-production-bf1-8677cb98cf-qv24g Wed Oct  7 14:24:22 UTC 2020 -->

@@ -209,7 +209,7 @@ var links = document.getElementById("nav").getElementsByTagName("a");
 for (var i in links) {
 	links[i].addEventListener("click", function(event){
 		show_data(event);
-	});
+	}, false);
 }
 
 function show_data(el) {

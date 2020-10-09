@@ -242,6 +242,8 @@ def get_players_by_pos_team(team, pos):
 		("ram", "RB", "cam akers"),
 		("ind", "WR", "parris campbell"),
 		("den", "WR", "courtland sutton"),
+		("gnb", "WR", "allen lazard"),
+		("phi", "WR", "jalen reagor"),
 		("crd", "TE", "dan arnold"),
 		("phi", "TE", "dallas goedert"),
 		("dal", "TE", "blake jarwin"),
@@ -805,6 +807,10 @@ def add_defense_stats(stats, tds):
 def add_stats(boxscorelinks, team, teampath, boxlink, week_arg):
 	url = "https://www.pro-football-reference.com{}#all_team_stats".format(boxlink)
 
+	home_team = re.match(r".*\d+(.*).htm", boxlink).group(1)
+	away_team = None
+	if home_team != team:
+		away_team = team
 	if week_arg and boxscorelinks[boxlink] != week_arg:
 		return
 
@@ -819,8 +825,9 @@ def add_stats(boxscorelinks, team, teampath, boxlink, week_arg):
 	kicking_stats = get_kicking_stats(outfile)
 	def_stats = get_defense_stats_from_scoring(outfile, team)
 	stats = {"OFF": def_stats}
-	outer_ids = ["all_player_offense", "all_kicking", "all_returns"]
-	inner_ids = ["player_offense", "kicking", "returns"]
+	outer_ids = ["all_player_offense", "all_kicking", "all_returns", "all_home_snap_counts", "all_vis_snap_counts"]
+	inner_ids = ["player_offense", "kicking", "returns", "home_snap_counts", "vis_snap_counts"]
+	player_teams = {}
 
 	for i in range(len(outer_ids)):
 		soup = BS(open(outfile, 'rb').read(), "lxml")
@@ -840,8 +847,26 @@ def add_stats(boxscorelinks, team, teampath, boxlink, week_arg):
 				continue
 			name = tr.find("th").text.strip().lower().replace("'", "").replace(".", "")
 			data = tr.find_all("td")
-			ck_team = get_abbr(data[0].text.lower()) # might have different abbr
-			if outer_ids[i] == "all_returns":
+			if "snap" not in inner_ids[i]:
+				ck_team = get_abbr(data[0].text.lower()) # might have different abbr
+				if away_team is None and ck_team != home_team:
+					away_team = ck_team
+			
+			if "snap" in inner_ids[i]:
+				# if player got 0 points but had snaps
+				if data[0].text not in ["QB", "RB", "WR", "TE", "K"]:
+					continue
+				if name not in stats:
+					if inner_ids[i].startswith("home") and home_team == team:
+						stats[name] = {}
+					elif inner_ids[i].startswith("vis") and away_team == team:
+						stats[name] = {}
+				try:
+					stats[name]["snap_counts"] = int(data[1].text)
+					stats[name]["snap_perc"] = int(data[2].text.replace("%", ""))
+				except:
+					pass
+			elif outer_ids[i] == "all_returns":
 				# add kick_ret , punt_ret for other team
 				if team != ck_team:
 					add_defense_stats(stats, data[1:])
@@ -867,7 +892,6 @@ def add_stats(boxscorelinks, team, teampath, boxlink, week_arg):
 			stats["OFF"][s] = 0
 	with open("{}/wk{}.json".format(teampath, boxscorelinks[boxlink]), "w") as fh:
 		json.dump(stats, fh, indent=4)
-	
 	os.remove(outfile)
 
 def write_boxscore_stats(week_arg):
@@ -894,7 +918,7 @@ if __name__ == "__main__":
 	parser.add_argument("-e", "--end", help="End Week", type=int)
 	parser.add_argument("-t", "--team", help="Get Team")
 	parser.add_argument("-p", "--pos", help="Get Pos")
-	parser.add_argument("-w", "--week", help="Week")
+	parser.add_argument("-w", "--week", help="Week", type=int)
 
 	args = parser.parse_args()
 	curr_week = 3
@@ -929,7 +953,7 @@ if __name__ == "__main__":
 		
 		#write_team_rosters()
 		#write_boxscore_links()
-		write_boxscore_stats(args.week)
+		#write_boxscore_stats(args.week)
 		calculate_aggregate_stats()
 
 	#write_team_rosters()
