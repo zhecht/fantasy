@@ -1,10 +1,17 @@
 from bs4 import BeautifulSoup
 import argparse
+import os
 import json
+
 try:
 	import urllib2 as urllib
 except:
 	import urllib.request as urllib
+
+prefix = ""
+if os.path.exists("/home/zhecht/fantasy"):
+    # if on linux aka prod
+    prefix = "/home/zhecht/fantasy/"
 
 def fix_name(name):
 	if name == "ted ginn jr":
@@ -33,7 +40,7 @@ def merge_two_dicts(x, y):
 	return z
 
 def read_reception_stats():
-	with open("static/reception_counts.json") as fh:
+	with open(f"{prefix}static/reception_counts.json") as fh:
 		returned_json = json.loads(fh.read())
 	new_json = {}
 	for player in returned_json:
@@ -56,7 +63,7 @@ def read_snap_stats(curr_week):
 	teams = ['crd', 'atl', 'rav', 'buf', 'car', 'chi', 'cin', 'cle', 'dal', 'den', 'det', 'gnb', 'htx', 'clt', 'jax', 'kan', 'sdg', 'ram', 'rai', 'mia', 'min', 'nor', 'nwe', 'nyg', 'nyj', 'phi', 'pit', 'sea', 'sfo', 'tam', 'oti', 'was']
 	res = {}
 	for team in teams:
-		with open(f"static/profootballreference/{team}/stats.json") as fh:
+		with open(f"{prefix}static/profootballreference/{team}/stats.json") as fh:
 			stats = json.load(fh)
 		for name in stats:
 			if name == "OFF":
@@ -104,7 +111,7 @@ def read_snap_stats2():
 	return new_json
 
 def read_target_stats():
-	with open("static/target_counts.json") as fh:
+	with open(f"{prefix}static/target_counts.json") as fh:
 		returned_json = json.loads(fh.read())
 	new_json = {}
 	for player in returned_json:
@@ -113,7 +120,7 @@ def read_target_stats():
 	return new_json
 
 def read_team_target_stats():
-	with open("static/team_target_total.json") as fh:
+	with open(f"{prefix}static/team_target_total.json") as fh:
 		returned_json = json.loads(fh.read())
 	return returned_json
 
@@ -149,7 +156,7 @@ def write_reception_stats():
 
 			j[full_name+" "+team] = int(tds[3].text)
 
-	with open("static/reception_counts.json", "w") as outfile:
+	with open(f"{prefix}static/reception_counts.json", "w") as outfile:
 		json.dump(j, outfile, indent=4)
 
 def write_team_target_stats():
@@ -188,7 +195,7 @@ def write_team_target_stats():
 		j[team]["WR/TE"] = ','.join(str(x) for x in WR_totals)
 		del j[team]["WR"]
 		del j[team]["TE"]
-	with open("static/team_target_total.json", "w") as outfile:
+	with open(f"{prefix}static/team_target_total.json", "w") as outfile:
 		json.dump(j, outfile, indent=4)
 
 
@@ -293,7 +300,7 @@ def get_target_aggregate_stats(curr_week=1):
 	team_targets_aggregate = get_team_targets_to_week(snap_stats, team_targets)
 
 	target_stats = {}
-	with open("static/target_counts.json") as fh:
+	with open(f"{prefix}static/target_counts.json") as fh:
 		target_stats = json.loads(fh.read())
 	j = {}
 	for name_team in target_stats:
@@ -368,7 +375,7 @@ def write_snap_stats():
 
 				j[full_name+" "+team] = {"perc": snap_counts_perc, "counts": snap_counts}
 
-	with open("static/snap_counts.json", "w") as outfile:
+	with open(f"{prefix}static/snap_counts.json", "w") as outfile:
 		json.dump(j, outfile, indent=4)
 
 

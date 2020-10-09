@@ -95,9 +95,9 @@ def get_ranks_html(settings, over_expected, curr_week=CURR_WEEK):
     scoring = settings["ppr"]
     defense_ranks = {}
     html = "<table id='ppg_by_pos'>"
-    title = f"Points Allowed Per Game [Sorted by Pos] ({scoring} PPR)"
+    title = f"Fantasy Points Allowed Per Game [Sorted by Pos] ({scoring} PPR)"
     if over_expected:
-        title = f"Points Allowed Per Game Vs. Projected [Sorted by Pos] ({scoring} PPR)"
+        title = f"Fantasy Points Allowed Per Game Vs. Projected [Sorted by Pos] ({scoring} PPR)"
     html += f"<tr><th colspan='12'>{title}</th></tr>"
     html += "<tr><th class='QB_td'>Team</th><th class='QB_td'>QB</th><th class='RB_td'>Team</th><th class='RB_td'>RB</th><th class='WR_td'>Team</th><th class='WR_td'>WR</th><th class='TE_td'>Team</th><th class='TE_td'>TE</th><th class='K_td'>Team</th><th class='K_td'>K</th><th class='DEF_td'>Team</th><th class='DEF_td'>DEF</th></tr>"
     # sorted by pos
@@ -130,9 +130,9 @@ def get_ranks_html(settings, over_expected, curr_week=CURR_WEEK):
     #sorted_teams = sorted(defense_ranks.keys())
     sorted_teams = SORTED_TEAMS
     html += "<table id='ppg_by_team'>"
-    title = f"Points Allowed Per Game [Sorted by Team] ({scoring} PPR)"
+    title = f"Fantasy Points Allowed Per Game [Sorted by Team] ({scoring} PPR)"
     if over_expected:
-        title = f"Points Allowed Per Game Vs. Projected [Sorted by Team] ({scoring} PPR)"
+        title = f"Fantasy Points Allowed Per Game Vs. Projected [Sorted by Team] ({scoring} PPR)"
     html += f"<tr><th colspan='8'>{title}</th></tr>"
     html += "<tr><th>Team</th><th class='QB_td'>QB</th><th class='RB_td'>RB</th><th class='WR_td'>WR</th><th class='TE_td'>TE</th><th class='K_td'>K</th><th class='DEF_td'>DEF</th><th> Opp</th></tr>".format(curr_week)
     for team in sorted_teams:
@@ -525,7 +525,7 @@ def defense_route():
 
     with open("{}views/{}".format(prefix, filename)) as fh:
         click_html = fh.read()
-    if filename != "click_html.html" and filename != "click_html_OE.html":
+    if filename != "click_html_OE.html":
         from datetime import datetime
         last_modified = os.stat("{}views/{}".format(prefix, filename)).st_mtime
         dt = datetime.fromtimestamp(last_modified)

@@ -1,11 +1,12 @@
 {
     "OFF": {
         "tot": {
-            "standard_points": 33,
-            "half_points": 33,
-            "full_points": 33,
+            "standard_points": 45,
+            "half_points": 45,
+            "full_points": 45,
             "2pt_conversions": 0,
             "safety": 1,
+            "def_tds": 2,
             "pass_td": 3,
             "pass_int": 4,
             "pass_sacked": 12,
@@ -19,6 +20,7 @@
         "wk1": {
             "2pt_conversions": 0,
             "safety": 0,
+            "def_tds": 0,
             "pass_td": 1,
             "pass_int": 1,
             "pass_sacked": 3,
@@ -35,6 +37,7 @@
         "wk2": {
             "2pt_conversions": 0,
             "safety": 0,
+            "def_tds": 0,
             "pass_td": 1,
             "pass_int": 0,
             "pass_sacked": 1,
@@ -51,6 +54,7 @@
         "wk3": {
             "2pt_conversions": 0,
             "safety": 1,
+            "def_tds": 2,
             "pass_td": 1,
             "pass_int": 3,
             "pass_sacked": 2,
@@ -60,13 +64,14 @@
             "fgm": 0,
             "kick_ret_td": 0,
             "punt_ret_td": 0,
-            "standard_points": 14,
-            "half_points": 14,
-            "full_points": 14
+            "standard_points": 26,
+            "half_points": 26,
+            "full_points": 26
         },
         "wk4": {
             "2pt_conversions": 0,
             "safety": 0,
+            "def_tds": 0,
             "pass_td": 0,
             "pass_int": 0,
             "pass_sacked": 6,

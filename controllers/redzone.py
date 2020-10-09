@@ -1,8 +1,8 @@
 from bs4 import BeautifulSoup
 from pprint import pprint
 import argparse
+import os
 import json
-
 
 try:
 	from controllers.read_rosters import *
@@ -16,6 +16,11 @@ try:
 	import urllib2 as urllib
 except:
 	import urllib.request as urllib
+
+prefix = ""
+if os.path.exists("/home/zhecht/fantasy"):
+    # if on linux aka prod
+    prefix = "/home/zhecht/fantasy/"
 
 full_team_names = {
 	"ram": "Rams",
@@ -79,7 +84,7 @@ def fix_name(name):
 	return name
 
 def read_nfl_trades():
-	with open("static/nfl_trades.json") as fh:
+	with open(f"{prefix}static/nfl_trades.json") as fh:
 		returned_json = json.loads(fh.read())
 	return returned_json
 
@@ -167,19 +172,19 @@ def write_redzone(curr_week=1):
 
 	redzone_json = merge_two_dicts(new_j, redzone_json)
 
-	with open("static/looks/redzone.json", "w") as outfile:
+	with open(f"{prefix}static/looks/redzone.json", "w") as outfile:
 		json.dump(redzone_json, outfile, indent=4)
-	with open("static/looks/team_total.json", "w") as outfile:
+	with open(f"{prefix}static/looks/team_total.json", "w") as outfile:
 		json.dump(team_total_json, outfile, indent=4)
 
 
 def read_redzone():
-	with open("static/looks/redzone.json") as fh:
+	with open(f"{prefix}static/looks/redzone.json") as fh:
 		returned_json = json.loads(fh.read())
 	return returned_json
 
 def read_team_total():
-	with open("static/looks/team_total.json") as fh:
+	with open(f"{prefix}static/looks/team_total.json") as fh:
 		returned_json = json.loads(fh.read())
 	return returned_json
 
@@ -359,7 +364,7 @@ def get_player_looks_json(curr_week=1):
 			top_redzone[player] = total_player_looks
 	return top_redzone
 
-def get_player_looks_arr(curr_week=1):
+def get_player_looks_arr(curr_week=1, is_ui=False):
 	redzone_json = read_redzone()
 	team_total_json = read_team_total()
 	players_on_teams,translations = read_rosters()
@@ -420,9 +425,13 @@ def get_player_looks_arr(curr_week=1):
 			continue
 
 		delta = round(looks_perc - last_looks_perc, 2)
-		delta = "**+{}%**".format(delta) if delta > 0 else "{}%".format(delta)
 		delta3 = round(looks_perc - last_3_looks_perc, 2)
-		delta3 = "**+{}%**".format(delta3) if delta3 > 0 else "{}%".format(delta3)
+		if is_ui:
+			delta = f"<strong>+{delta}%</strong>" if delta > 0 else f"{delta}%"
+			delta3 = f"<strong>+{delta3}%</strong>" if delta3 > 0 else f"{delta3}%"
+		else:
+			delta = f"**+{delta}%**" if delta > 0 else f"{delta}%"
+			delta3 = f"**+{delta3}%**" if delta3 > 0 else f"{delta3}%"
 
 		if int(snap_stats[player]["counts"].split(",")[curr_week - 1]) == 0:
 			delta = 0

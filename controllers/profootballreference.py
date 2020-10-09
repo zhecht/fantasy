@@ -130,6 +130,9 @@ def calculate_defense_points(stats, settings):
 	multiply = settings["safety"] if "safety" in settings else 2
 	points += (stats["safety"] * multiply)
 
+	multiply = settings["touchdown"] if "touchdown" in settings else 6
+	points += (stats["def_tds"] * multiply)
+
 	multiply = settings["sack"] if "sack" in settings else 1
 	points += (stats["pass_sacked"] * multiply)
 	return points
@@ -309,6 +312,11 @@ def get_point_totals(curr_week, settings, over_expected):
 						pos_tot[pos][wk] = 0
 						pos_tot[pos][wk+"_proj"] = 0
 						pos_tot[pos][wk+"_act"] = 0
+					
+					# don't add if this player had 0 snaps
+					if pos not in ["K", "DEF"] and ("snap_counts" not in all_team_stats[team][player][wk] or not all_team_stats[team][player][wk]["snap_counts"]):
+						continue
+					
 					real_pts = 0
 					if player == "OFF":
 						real_pts = calculate_defense_points(all_team_stats[team][player][wk], settings)
@@ -441,16 +449,23 @@ def get_pretty_stats(stats, pos, settings):
 	if not stats:
 		return s
 	pos = pos.upper()
-	if pos == "QB":
-		s += "{}/{} {} Pass Yds".format(stats["pass_cmp"], stats["pass_att"], stats["pass_yds"])
-		if stats["pass_td"]:
-			s += ", {} Pass TD".format(stats["pass_td"])
-		if stats["pass_int"]:
-			s += ", {} Int".format(stats["pass_int"])
+	if pos != "K" and "snap_counts" in stats and not stats["snap_counts"]:
+		s += "-"
+	elif pos == "QB":
+		s = "-"
+		if "pass_att" in stats:
+			s = "{}/{} {} Pass Yds".format(stats["pass_cmp"], stats["pass_att"], stats["pass_yds"])
+			if stats["pass_td"]:
+				s += ", {} Pass TD".format(stats["pass_td"])
+			if stats["pass_int"]:
+				s += ", {} Int".format(stats["pass_int"])
 	elif pos in ["WR", "TE"]:
-		s = "{}/{} {} Rec Yds".format(stats["rec"], stats["targets"], stats["rec_yds"])
-		if stats["rec_td"]:
-			s += " {} Rec TD".format(stats["rec_td"])
+		if "targets" in stats and stats["targets"]:
+			s = "{}/{} {} Rec Yds".format(stats["rec"], stats["targets"], stats["rec_yds"])
+			if stats["rec_td"]:
+				s += " {} Rec TD".format(stats["rec_td"])
+		else:
+			s = "0 Targets"
 	elif pos == "K":
 		if "fg_made" not in stats:
 			s = "{} XP / {} FG made".format(stats["xpm"], stats["fgm"])
@@ -469,14 +484,18 @@ def get_pretty_stats(stats, pos, settings):
 			s += " / {} Fumble{}".format(stats["fumbles_lost"], plural)
 		if stats["safety"]:
 			s += " / {} Safety".format(stats["safety"])
+		if stats["def_tds"]:
+			s += " / {} Def TDs".format(stats["def_tds"])
 	else: # RB
-		s += "{} Rush Yds".format(stats["rush_yds"])
-		if stats["rush_td"]:
-			s += ", {} Rush TD".format(stats["rush_td"])
-		if stats["rec"]:
-			s += ", {} Rec, {} Rec Yds".format(stats["rec"], stats["rec_yds"])
-		if stats["rec_td"]:
-			s += ", {} Rec TD".format(stats["rec_td"])
+		s = "0 Rush Yds"
+		if "rush_yds" in stats and "rec_yds" in stats:
+			s = "{} Rush Yds".format(stats["rush_yds"])
+			if stats["rush_td"]:
+				s += ", {} Rush TD".format(stats["rush_td"])
+			if stats["rec"]:
+				s += ", {} Rec, {} Rec Yds".format(stats["rec"], stats["rec_yds"])
+			if stats["rec_td"]:
+				s += ", {} Rec TD".format(stats["rec_td"])
 	return s
 
 team_trans = {"rav": "bal", "htx": "hou", "oti": "ten", "sdg": "lac", "ram": "lar", "rai": "oak", "clt": "ind", "crd": "ari"}
@@ -552,6 +571,10 @@ def position_vs_opponent_stats(team, pos, ranks, settings=None):
 		for player in players_arr:
 			if player not in team_stats or "wk{}".format(week) not in team_stats[player]:
 				continue
+			elif pos not in ["K", "DEF"] and ("snap_counts" not in team_stats[player]["wk{}".format(week)] or not team_stats[player]["wk{}".format(week)]["snap_counts"]):
+				# don't add if player got 0 snaps / messes up percs
+				continue
+
 			week_stats = team_stats[player]["wk{}".format(week)]
 			
 			for s in week_stats:
@@ -567,7 +590,6 @@ def position_vs_opponent_stats(team, pos, ranks, settings=None):
 				real_pts = calculate_defense_points(week_stats, settings)
 			else:
 				real_pts = get_points_from_settings(week_stats, settings)
-
 			player_txt.append("wk{} {}: {} {} pts ({})".format(idx, opp_team, player, real_pts, get_pretty_stats(week_stats, pos, settings)))
 			if "points" not in total_stats:
 				total_stats["points"] = 0
@@ -594,7 +616,6 @@ def position_vs_opponent_stats(team, pos, ranks, settings=None):
 			pass
 
 		opp_stats.append(j)
-	#print(pos, tot_stats)
 	tot_stats["text"] = get_pretty_stats(tot_stats["stats"], pos, settings)
 	tot_stats["rank"] = "{} points allowed <span>{}{} highest</span>".format(
 		round(tot_stats["points"], 2),
@@ -774,6 +795,7 @@ def get_defense_stats_from_scoring(outfile, team):
 	home_score = 0
 	conversions = 0
 	safety = 0
+	def_tds = 0
 	for row in rows[1:]:
 		tds = row.find_all("td")
 		ck_team = short_names[tds[1].text.lower()]        
@@ -785,9 +807,11 @@ def get_defense_stats_from_scoring(outfile, team):
 		else:
 			if tds[2].text.find("Safety") >= 0:
 				safety += 1
+			elif tds[2].text.find("interception return") >= 0 or tds[2].text.find("fumble return") >= 0:
+				def_tds += 1
 		vis_score = int(tds[-2].text)
 		home_score = int(tds[-1].text)
-	return {"2pt_conversions": conversions, "safety": safety}
+	return {"2pt_conversions": conversions, "safety": safety, "def_tds": def_tds}
 
 def add_defense_stats(stats, tds):
 	for td in tds:
