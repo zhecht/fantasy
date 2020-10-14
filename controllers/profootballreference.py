@@ -241,6 +241,7 @@ def get_players_by_pos_team(team, pos):
 		("nyj", "RB", "leveon bell"),
 		("nyg", "RB", "saquon barkley"),
 		("sfo", "RB", "tevin coleman"),
+		("sdg", "RB", "austin ekeler"),
 		("car", "RB", "christian mccaffrey"),
 		("ram", "RB", "cam akers"),
 		("ind", "WR", "parris campbell"),
@@ -398,6 +399,7 @@ def get_defense_tot(curr_week, point_totals_dict, over_expected):
 						which_team = team
 					if over_expected:
 						# we calculate the stats for other defenses. No need to iterate over opp_team
+						#print(which_team, pos, week)
 						j[act_key] += point_totals_dict[which_team][f"{pos}_wk{week+1}_act"]
 						j[proj_key] += point_totals_dict[opp_team][f"{pos}_wk{week+1}_proj"]
 						j[key] += point_totals_dict[which_team][key]
@@ -678,15 +680,18 @@ def write_boxscore_links():
 			json.dump(boxscore_links, fh, indent=4)
 
 def fix_roster(roster, team):
-	if team == "was":
-		roster["jd mckissic"] = "RB"
-		roster["antonio gibson"] = "RB"
-		roster["logan thomas"] = "TE"
-	elif team == "pit":
-		roster["benny snell jr"] = "RB"
+	if team == "atl":
+		rosters["elliott fry"] = "K"
 	elif team == "jax":
 		roster["aldrick rosas"] = "K"
 		roster["josh lambo"] = "K"
+		roster["stephen hauschka"] = "K"
+	elif team == "pit":
+		roster["benny snell jr"] = "RB"
+	elif team == "was":
+		roster["jd mckissic"] = "RB"
+		roster["antonio gibson"] = "RB"
+		roster["logan thomas"] = "TE"
 	return
 
 def write_team_rosters(teamlinks={}):
@@ -930,6 +935,7 @@ def write_boxscore_stats(week_arg):
 		with open("{}/boxscores.json".format(teampath)) as fh:
 			boxscorelinks = json.loads(fh.read())
 		for boxlink in boxscorelinks:
+			print(team, boxlink)
 			add_stats(boxscorelinks, team, teampath, boxlink, week_arg)
 
 

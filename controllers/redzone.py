@@ -81,6 +81,10 @@ def fix_name(name):
 		return "duke johnson jr."
 	elif name == "dj moore":
 		return "d.j. moore"
+	elif name == "benny snell":
+		return "benny snell jr"
+	elif name == "anthony mcfarland":
+		return "anthony mcfarland jr"
 	return name
 
 def read_nfl_trades():
@@ -409,14 +413,13 @@ def get_player_looks_arr(curr_week=1, is_ui=False):
 		last_total_team_looks = total_team_looks - team_total_json[redzone_json[player]["team"]]["RB"][curr_week - 1] - team_total_json[redzone_json[player]["team"]]["WR/TE"][curr_week - 1]
 		
 		last_3_total_team_looks = last_total_team_looks - team_total_json[redzone_json[player]["team"]]["RB"][curr_week - 2] - team_total_json[redzone_json[player]["team"]]["WR/TE"][curr_week - 2] - team_total_json[redzone_json[player]["team"]]["RB"][curr_week - 3] - team_total_json[redzone_json[player]["team"]]["WR/TE"][curr_week - 3]
-		
 		try:
 			looks_perc = round((float(total_player_looks) / total_team_looks) * 100, 2)
 			if curr_week >= 2:
 				last_looks_perc = round((float(total_player_looks - int(looks_arr[curr_week - 1])) / last_total_team_looks) * 100, 2)
 			else:
 				last_looks_perc = looks_perc if curr_week == 1 else 0
-			if curr_week >= 4:
+			if 0 and curr_week >= 4:
 				last_3_looks_perc = round((float(total_player_looks - int(looks_arr[curr_week - 3]) - int(looks_arr[curr_week - 2]) - int(looks_arr[curr_week - 1])) / last_3_total_team_looks) * 100, 2)
 			else:
 				last_3_looks_perc = looks_perc if curr_week == 1 else 0
@@ -560,7 +563,7 @@ if __name__ == '__main__':
 		for player in sorted_looks:
 			continue
 			#if player["looks"] >= 0 and player["name"] in feelsbad_players: 
-			if player["team"] == 'tam':
+			if player["team"] == 'det':
 				print("{}|({}/{})|{}%|{}".format(player["name"].title(), player["looks"], player["total_team_looks"], player["looks_perc"], player["delta"]))
 		#exit()
 

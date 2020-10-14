@@ -21,7 +21,7 @@ if os.path.exists("/home/zhecht/fantasy"):
 	# if on linux aka prod
 	prefix = "/home/zhecht/fantasy/"
 
-curr_week = 4
+curr_week = 5
 
 @redzone_ui_print.route('/redzone')
 def redzone_ui_route():

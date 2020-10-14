@@ -11,6 +11,7 @@ function close_showing() {
 
 var close_table = function() {
 	close_showing();
+	document.getElementById("darkened_back").style.display = "none";
 }
 
 var change_scoring = function() {
@@ -20,6 +21,7 @@ var change_scoring = function() {
 
 var show_stats = function() {
 	close_showing();
+	document.getElementById("darkened_back").style.display = "flex";
 	var suffix = "_table";
 	//var css = "flex;";
 	var css = "inline-table;";
@@ -237,3 +239,5 @@ if (window.innerWidth <= 450) {
 	document.getElementById("K_hide").getElementsByTagName("input")[0].click();
 	document.getElementById("DEF_hide").getElementsByTagName("input")[0].click();
 }
+
+document.getElementById("darkened_back").addEventListener("click", close_table, false);
