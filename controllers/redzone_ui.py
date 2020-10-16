@@ -29,7 +29,8 @@ def redzone_ui_route():
 	rbbc_teams = ['crd', 'atl', 'rav', 'buf', 'car', 'chi', 'cin', 'cle', 'dal', 'den', 'det', 'gnb', 'htx', 'clt', 'jax', 'kan', 'sdg', 'ram', 'rai', 'mia', 'min', 'nor', 'nwe', 'nyg', 'nyj', 'phi', 'pit', 'sea', 'sfo', 'tam', 'oti', 'was']
 	
 	top_redzone = get_player_looks_arr(curr_week, is_ui=True)
-	sorted_looks = sorted(top_redzone, key=operator.itemgetter("looks", "looks_perc"), reverse=True)
+	#sorted_looks = sorted(top_redzone, key=operator.itemgetter("looks", "looks_perc"), reverse=True)
+	sorted_looks = sorted(top_redzone, key=operator.itemgetter("looks_per_game"), reverse=True)
 	sorted_looks_perc = sorted(top_redzone, key=operator.itemgetter("looks_perc"), reverse=True)
 
 	#feelsbad_players = ["amari cooper", "sammy watkins", "stefon diggs", "adam thielen", "calvin ridley", "michael thomas", "odell beckham", "robert woods", "oj howard", "brandin cooks", "robby anderson"]
@@ -40,18 +41,18 @@ def redzone_ui_route():
 	update_players_on_teams(players_on_teams)
 
 	table = ""
-	header = "<tr><th>Player</th><th>looks/team looks</th><th>Team RZ Look Share</th><th>1 Week Trend</th></tr>"
+	header = "<tr><th>Player</th><th>RZ Looks Per Game</th><th>Team Share</th><th>1 Week Trend</th><th>3 Week Trend</th></tr>"
 
-	table += "<table><tr><th colspan='4'>The Julio Jones Table</th></tr>"
+	table += "<table><tr><th colspan='5'>The Julio Jones Table</th></tr>"
 	table += header
 	for player in sorted_looks:
 		if player["name"] == "julio jones":
-			table += f"<tr><td>{player['name'].title()}</td><td>{player['looks']}/{player['total_team_looks']}</td><td>{player['looks_perc']}%</td><td>{player['delta']}</td></tr>"
+			table += f"<tr><td class='{player['team']}'>{player['name'].title()}</td><td>{player['looks_per_game']}</td><td>{player['looks_perc']}%</td><td>{player['delta']}</td><td>{player['delta3']}</td></tr>"
 	table += "</table>"
 
 	pos_data = [("RB", 40), ("WR", 50), ("TE", 30)]
 	for pos, cutoff in pos_data:
-		table += f"<table><tr><th colspan='4'>Top {cutoff} {pos}</th></tr>"
+		table += f"<table><tr><th colspan='5'>Top {cutoff} {pos}</th></tr>"
 		table += header
 		printed = 0
 		for player in sorted_looks:
@@ -59,7 +60,9 @@ def redzone_ui_route():
 				break
 			if player["looks"] >= 0 and players_on_teams[player["name"]]["position"] == pos:
 				printed += 1
-				table += f"<tr><td>{player['name'].title()}</td><td>{player['looks']}/{player['total_team_looks']}</td><td>{player['looks_perc']}%</td><td>{player['delta']}</td></tr>"
+				table += f"<tr><td class='{player['team']}'>{player['name'].title()}</td>"
+				table += f"<td>{player['looks_per_game']}</td><td>{player['looks_perc']}%</td><td>{player['delta']}</td><td>{player['delta3']}</td></tr>"
+				#table += f"<td>{player['looks']}/{player['total_team_looks']}</td><td>{player['looks_perc']}%</td><td>{player['delta']}</td></tr>"
 		table += "</table>"
 
 	return render_template("redzone_ui.html", table=table)

@@ -40,36 +40,28 @@ def rbbc_route():
     for team in rbbc_teams:
         team_display = team_trans[team] if team in team_trans else team
         table += f"<table id='{team}_table'>"
-        table += f"<thead><tr><th colspan='6'>{team_display.upper()}</th></tr><tr>"
-        for header in ["Player", "Snap%", "RZ Looks", "RZ Looks Share", "TGTS", "RB TGT Share"]:
-            table += f"<th>{header}</th>"
+        table += f"<thead><tr><th class='{team}' colspan='6'>{team_display.upper()}</th></tr><tr>"
+        for header in ["Player", "Avg Snap %", "RZ Looks Per Game", "RZ Looks Share", "Targets Per Game", "RB TGT Share"]:
+            table += f"<th class='{team}'>{header}</th>"
         table += "</tr></thead><tbody>"
         extra = ""
-        for player in snap_trends[team]:
+        players_ordered = []
+        players = snap_trends[team].keys()
+        for player in players:
+            players_ordered.append({"player": player, "avg_snaps": snap_trends[team][player]["avg_snaps"]})
+        for player in sorted(players_ordered, key=operator.itemgetter("avg_snaps"), reverse=True):
+            player = player["player"]
             if snap_trends[team][player]["snaps"] == 0:
-                if snap_trends[team][player]["total_looks"] == 0 :
+                if snap_trends[team][player]["total_looks"] == 0:
                     continue
-                extra += "<tr><td>{}</td><td>DNP</td><td>{}</td><td>{}%</td><td>{}</td><td>{}%</td></tr>".format(
-                    player,
-                    snap_trends[team][player]["total_looks"],
-                    snap_trends[team][player]["looks_share"],
-                    snap_trends[team][player]["total_targets"],
-                    snap_trends[team][player]["target_share"]
-                )
+                extra += f"<tr><td class='{team}'>{player.title()}</td><td class='{team}'>{snap_trends[team][player]['avg_snaps']}% (DNP)</td><td class='{team}'>{snap_trends[team][player]['looks_per_game']}</td><td class='{team}'>{snap_trends[team][player]['looks_share']}%</td><td class='{team}'>{snap_trends[team][player]['targets_per_game']}</td><td class='{team}'>{snap_trends[team][player]['target_share']}%</td></tr>"
             else:
                 if snap_trends[team][player]["total_looks"] == 0 and snap_trends[team][player]["total_targets"] == 0:
                     pass
                     #continue
-                table += "<tr><td>{}</td><td>{}% ({})</td><td>{} ({})</td><td>{}% ({})</td><td>{} ({})</td><td>{}% ({})</td></tr>".format(
-                    player,
-                    snap_trends[team][player]["snaps"], snap_trends[team][player]["snaps_trend"],
-                    snap_trends[team][player]["total_looks"], snap_trends[team][player]["looks_trend"],
-                    snap_trends[team][player]["looks_share"], snap_trends[team][player]["looks_share_trend"],
-                    snap_trends[team][player]["total_targets"], snap_trends[team][player]["target_trend"],
-                    snap_trends[team][player]["target_share"], snap_trends[team][player]["target_share_trend"]
-                )
+                table += f"<tr><td class='{team}'>{player.title()}</td><td class='{team}'>{snap_trends[team][player]['avg_snaps']}% ({snap_trends[team][player]['snaps_per_game_trend']}%)</td><td class='{team}'>{snap_trends[team][player]['looks_per_game']} ({snap_trends[team][player]['looks_per_game_trend']})</td><td class='{team}'>{snap_trends[team][player]['looks_share']}% ({snap_trends[team][player]['looks_share_trend']})</td><td class='{team}'>{snap_trends[team][player]['targets_per_game']} ({snap_trends[team][player]['targets_per_game_trend']})</td><td class='{team}'>{snap_trends[team][player]['target_share']}% ({snap_trends[team][player]['target_share_trend']})</td></tr>"
         # print DNP on bottotm
         table += extra
         table += "</tbody></table>"
         # ranks
-    return render_template("rbbc.html", table=table)
+    return render_template("rbbc.html", table=table, curr_week=curr_week)

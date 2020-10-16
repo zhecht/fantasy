@@ -3,9 +3,12 @@
 	<head>
 		<title>Redzone Look Trends</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="/static/css/teams.css" type="text/css">
 	</head>
 	<style>
 		body { font-size: 18px; }
+		.positive { color: green; }
+		.negative { color: red;}
 		#table_wrapper {
 			display: flex;
 			flex-direction: column;	
@@ -15,7 +18,7 @@
 		table { width: 50%;margin-left: 25%;margin-top: 20px;text-align: center;border:1px solid;border-collapse: collapse;}
 		table tr { border-bottom: 1px solid; }
 		table tr:nth-child(even) { background-color: #f1f1f1; }
-		table td { border-left: 1px solid; border-right: 1px solid; }
+		table td, table th { border: 1px solid; }
 		#header { width: 100%; text-align: center; }
 		#nav { padding: 10px; }
 		#nav a { text-decoration: none; }

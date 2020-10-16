@@ -259,15 +259,22 @@ def get_redzone_trends(rbbc_teams, curr_week=1, requested_pos="RB", is_ui=False)
 	redzone_totals = get_redzone_totals(curr_week, trends, snap_stats, team_total_json, requested_pos)
 	target_aggregates = get_target_aggregate_stats(curr_week)
 
-	#print(redzone_totals)
+	#print(redzone_totals["oti"])
 	for team in trends:
 		total_looks = team_total_json[team][requested_pos][curr_week - 1]
 
 		for player in trends[team]:
+			looks_arr = trends[team][player]["looks"].split(",")
+			targets_arr = trends[team][player]["targets"].split(",")
+			looks_per_game, last_looks_per_game, last_3_looks_per_game = get_looks_per_game(player, curr_week, looks_arr, snap_stats)
+			targets_per_game, last_targets_per_game, last_3_targets_per_game = get_targets_per_game(player, curr_week, targets_arr, snap_stats)
+			snaps_per_game, last_snaps_per_game, last_3_snaps_per_game = get_snaps_per_game(player, curr_week, snap_stats)
 
 			rz = int(trends[team][player]["looks"].split(",")[curr_week - 1])
 			last_rz = int(trends[team][player]["looks"].split(",")[curr_week - 1])
-			snaps = float(trends[team][player]["snaps"].split(",")[curr_week - 1])
+			last_snaps = float(trends[team][player]["snaps"].split(",")[curr_week - 1])
+			#if player == "david montgomery":
+			#	print(snaps)
 			target_share = round(float(target_aggregates[player]["perc"].split(",")[curr_week - 1]) * 100, 1)
 			try:
 				denom = redzone_totals[team]["total"] - subtract_missed_rz(curr_week, snap_stats[player]["counts"].split(","), team_total_json[team][requested_pos])
@@ -275,12 +282,21 @@ def get_redzone_trends(rbbc_teams, curr_week=1, requested_pos="RB", is_ui=False)
 			except:
 				looks_perc = 0
 			if curr_week == 1:
-				last_snaps = snaps
+				avg_snaps = last_snaps
 				last_looks_perc = looks_perc
 				last_target_share = target_share
-			else:				
-				last_snaps = float(trends[team][player]["snaps"].split(",")[curr_week - 2])
-				#print(team, redzone_totals[team])
+			else:
+				# last snaps get average
+				avg_snaps = 0
+				tot_games = 0
+				for week in range(curr_week-1):
+					snaps = int(trends[team][player]["snaps"].split(",")[week])
+					avg_snaps += snaps
+					if snaps:
+						tot_games += 1
+				if tot_games:
+					avg_snaps = avg_snaps / tot_games
+				
 				try:			
 					last_looks_perc = round(float(redzone_totals[player]["last_total"] / redzone_totals[team]["last_total"]) * 100, 1)
 				except:
@@ -290,24 +306,36 @@ def get_redzone_trends(rbbc_teams, curr_week=1, requested_pos="RB", is_ui=False)
 				except:
 					last_target_share = 0
 
-			snaps_trend = round(snaps - last_snaps, 1)
+			snaps_trend = round(last_snaps - avg_snaps, 1)
 			looks_trend = int(trends[team][player]["looks"].split(",")[curr_week - 1])
 			target_trend = int(trends[team][player]["targets"].split(",")[curr_week - 1])
 			looks_share_trend = round(looks_perc - last_looks_perc, 1)
 			target_share_trend = round(target_share - last_target_share, 1)
+			looks_per_game_trend = round(looks_per_game - last_looks_per_game, 2)
+			targets_per_game_trend = round(targets_per_game - last_targets_per_game, 2)
+			snaps_per_game_trend = round(snaps_per_game - last_snaps_per_game, 2)
 
+			trends[team][player]["looks_per_game"] = looks_per_game
+			trends[team][player]["targets_per_game"] = targets_per_game
 			trends[team][player]["looks_share"] = looks_perc
-			trends[team][player]["snaps"] = snaps
+			trends[team][player]["snaps"] = last_snaps
+			trends[team][player]["avg_snaps"] = snaps_per_game
 			trends[team][player]["target_share"] = target_share
 			if is_ui:
 				trends[team][player]["snaps_trend"] = f"<b>+{snaps_trend}%</b>" if snaps_trend > 0 else "{}%".format(snaps_trend or '-')
 				trends[team][player]["looks_trend"] = f"<b>+{looks_trend}</b>" if looks_trend > 0 else "{}".format(looks_trend or '-')
+				trends[team][player]["snaps_per_game_trend"] = f"<b>+{snaps_per_game_trend}</b>" if snaps_per_game_trend > 0 else "{}".format(snaps_per_game_trend or '-')
+				trends[team][player]["targets_per_game_trend"] = f"<b>+{targets_per_game_trend}</b>" if targets_per_game_trend > 0 else "{}".format(targets_per_game_trend or '-')
+				trends[team][player]["looks_per_game_trend"] = f"<b>+{looks_per_game_trend}</b>" if looks_per_game_trend > 0 else "{}".format(looks_per_game_trend or '-')
 				trends[team][player]["looks_share_trend"] = f"<b>+{looks_share_trend}%</b>" if looks_share_trend > 0 else "{}%".format(looks_share_trend or '-')
 				trends[team][player]["target_trend"] = "<b>+{}</b>".format(target_trend or '-') if target_trend > 0 else "{}".format(target_trend or '-')
 				trends[team][player]["target_share_trend"] = f"<b>+{target_share_trend}%</b>" if target_share_trend > 0 else "{}%".format(target_share_trend or '-')
 			else:
 				trends[team][player]["snaps_trend"] = "**+{}%**".format(snaps_trend) if snaps_trend > 0 else "{}%".format(snaps_trend or '0')
 				trends[team][player]["looks_trend"] = "**+{}**".format(looks_trend) if looks_trend > 0 else "{}".format(looks_trend or '-')
+				trends[team][player]["snaps_per_game_trend"] = f"**+{snaps_per_game_trend}**" if snaps_per_game_trend > 0 else "{}".format(snaps_per_game_trend or '-')
+				trends[team][player]["looks_per_game_trend"] = f"**+{looks_per_game_trend}**" if looks_per_game_trend > 0 else "{}".format(looks_per_game_trend or '-')
+				trends[team][player]["targets_per_game_trend"] = f"**+{targets_per_game_trend}**" if targets_per_game_trend > 0 else "{}".format(targets_per_game_trend or '-')
 				trends[team][player]["looks_share_trend"] = "**+{}%**".format(looks_share_trend) if looks_share_trend > 0 else "{}%".format(looks_share_trend or '0')
 				trends[team][player]["target_trend"] = "**+{}**".format(target_trend) if target_trend > 0 else "{}".format(target_trend or '-')
 				trends[team][player]["target_share_trend"] = "**+{}%**".format(target_share_trend) if target_share_trend > 0 else "{}%".format(target_share_trend or '0')
@@ -368,6 +396,76 @@ def get_player_looks_json(curr_week=1):
 			top_redzone[player] = total_player_looks
 	return top_redzone
 
+def get_looks_per_game(player, curr_week, looks_arr, snap_stats):
+	tot_games = 0
+	tot_looks = 0
+	looks_per_game = 0
+	last_looks_per_game = 0
+	last_3_looks_per_game = 0
+	for week in range(1, curr_week+1):
+		if player not in snap_stats or int(snap_stats[player]["counts"].split(",")[week-1]) == 0:
+			if week == curr_week - 3:
+				last_3_looks_per_game = 0 if not tot_games else round(float(tot_looks) / tot_games, 2)
+			elif week == curr_week - 1:
+				last_looks_per_game = 0 if not tot_games else round(float(tot_looks) / tot_games, 2)
+			continue
+		tot_games += 1
+		tot_looks += int(looks_arr[week-1])
+		if week == curr_week - 3:
+			last_3_looks_per_game = 0 if not tot_games else round(float(tot_looks) / tot_games, 2)
+		elif week == curr_week - 1:
+			last_looks_per_game = 0 if not tot_games else round(float(tot_looks) / tot_games, 2)
+	if tot_games:
+		looks_per_game = round(float(tot_looks) / tot_games, 2)
+	return looks_per_game, last_looks_per_game, last_3_looks_per_game
+
+def get_targets_per_game(player, curr_week, targets_arr, snap_stats):
+	tot_games = 0
+	tot_looks = 0
+	looks_per_game = 0
+	last_looks_per_game = 0
+	last_3_looks_per_game = 0
+	for week in range(1, curr_week+1):
+		if player not in snap_stats or int(snap_stats[player]["counts"].split(",")[week-1]) == 0:
+			if week == curr_week - 3:
+				last_3_looks_per_game = 0 if not tot_games else round(float(tot_looks) / tot_games, 2)
+			elif week == curr_week - 1:
+				last_looks_per_game = 0 if not tot_games else round(float(tot_looks) / tot_games, 2)
+			continue
+		tot_games += 1
+		tot_looks += int(targets_arr[week-1])
+		if week == curr_week - 3:
+			last_3_looks_per_game = 0 if not tot_games else round(float(tot_looks) / tot_games, 2)
+		elif week == curr_week - 1:
+			last_looks_per_game = 0 if not tot_games else round(float(tot_looks) / tot_games, 2)
+	if tot_games:
+		looks_per_game = round(float(tot_looks) / tot_games, 2)
+	return looks_per_game, last_looks_per_game, last_3_looks_per_game
+
+def get_snaps_per_game(player, curr_week, snap_stats):
+	tot_games = 0
+	tot_looks = 0
+	looks_per_game = 0
+	last_looks_per_game = 0
+	last_3_looks_per_game = 0
+	for week in range(1, curr_week+1):
+		if player not in snap_stats or int(snap_stats[player]["counts"].split(",")[week-1]) == 0:
+			if week == curr_week - 3:
+				last_3_looks_per_game = 0 if not tot_games else round(float(tot_looks) / tot_games, 2)
+			elif week == curr_week - 1:
+				last_looks_per_game = 0 if not tot_games else round(float(tot_looks) / tot_games, 2)
+			continue
+		tot_games += 1
+		tot_looks += int(snap_stats[player]["perc"].split(",")[week-1])
+		if week == curr_week - 3:
+			last_3_looks_per_game = 0 if not tot_games else round(float(tot_looks) / tot_games, 2)
+		elif week == curr_week - 1:
+			last_looks_per_game = 0 if not tot_games else round(float(tot_looks) / tot_games, 2)
+	if tot_games:
+		looks_per_game = round(float(tot_looks) / tot_games, 2)
+	return looks_per_game, last_looks_per_game, last_3_looks_per_game
+
+
 def get_player_looks_arr(curr_week=1, is_ui=False):
 	redzone_json = read_redzone()
 	team_total_json = read_team_total()
@@ -407,8 +505,11 @@ def get_player_looks_arr(curr_week=1, is_ui=False):
 			total_wrte_looks += team_total_json[redzone_json[player]["team"]]["WR/TE"][week - 1]
 			total_player_looks += looks
 
-		
+		looks_per_game, last_looks_per_game, last_3_looks_per_game = get_looks_per_game(player, curr_week, looks_arr, snap_stats)
+
 		total_team_looks = total_rb_looks + total_wrte_looks
+		#if redzone_json[player]["team"] == "sea":
+		#	print(player, week, total_team_looks)
 
 		last_total_team_looks = total_team_looks - team_total_json[redzone_json[player]["team"]]["RB"][curr_week - 1] - team_total_json[redzone_json[player]["team"]]["WR/TE"][curr_week - 1]
 		
@@ -427,21 +528,35 @@ def get_player_looks_arr(curr_week=1, is_ui=False):
 			#print(player, total_team_looks, last_total_team_looks, last_3_total_team_looks)
 			continue
 
-		delta = round(looks_perc - last_looks_perc, 2)
-		delta3 = round(looks_perc - last_3_looks_perc, 2)
+		delta = round(looks_per_game - last_looks_per_game, 2)
+		delta3 = round(looks_per_game - last_3_looks_per_game, 2)
+		if 0 and player == "kenny golladay":
+			print(looks_per_game, last_looks_per_game, last_3_looks_per_game)
 		if is_ui:
-			delta = f"<strong>+{delta}%</strong>" if delta > 0 else f"{delta}%"
-			delta3 = f"<strong>+{delta3}%</strong>" if delta3 > 0 else f"{delta3}%"
+			if delta == 0:
+				delta = "-"
+			else:
+				delta = f"<strong class='positive'>+{delta}</strong>" if delta > 0 else f"<span class='negative'>{delta}</span>"
+			if delta3:
+				delta3 = f"<strong class='positive'>+{delta3}</strong>" if delta3 > 0 else f"<span class='negative'>{delta3}</span>"
+			else:
+				delta3 = "-"
 		else:
-			delta = f"**+{delta}%**" if delta > 0 else f"{delta}%"
-			delta3 = f"**+{delta3}%**" if delta3 > 0 else f"{delta3}%"
+			if delta == 0:
+				delta = "-"
+			else:
+				delta = f"**+{delta}**" if delta > 0 else f"{delta}"
+			if delta3:
+				delta3 = f"**+{delta3}**" if delta3 > 0 else f"{delta3}"
+			else:
+				delta3 = "-"
 
-		if int(snap_stats[player]["counts"].split(",")[curr_week - 1]) == 0:
-			delta = 0
+		#if int(snap_stats[player]["counts"].split(",")[curr_week - 1]) == 0:
+		#	delta = 0
 
 		#if total_team_looks != 0 and total_player_looks != 0:
 		if total_team_looks != 0:
-			top_redzone.append({"name": player, "looks": total_player_looks, "looks_perc": looks_perc, "total_team_looks": total_team_looks, "total_rb_looks": total_rb_looks, "total_wrte_looks": total_wrte_looks, "team": redzone_json[player]["team"], "delta": delta, "delta3": delta3})
+			top_redzone.append({"name": player, "looks_per_game": looks_per_game, "looks": total_player_looks, "looks_perc": looks_perc, "total_team_looks": total_team_looks, "total_rb_looks": total_rb_looks, "total_wrte_looks": total_wrte_looks, "team": redzone_json[player]["team"], "delta": delta, "delta3": delta3})
 	return top_redzone
 
 SNAP_LINKS = [ "teampage-atl-", "teampage-buf-", "teampage-car-", "teampage-chi-", "teampage-cin-", "teampage-cle-", "teampage-clt-", "teampage-crd-", "teampage-dal-", "teampage-den-", "teampage-det-", "teampage-gnb-", "teampage-htx-", "teampage-jax-", "teampage-kan-", "teampage-mia-", "teampage-min-", "teampage-nor-", "teampage-nwe-", "teampage-nyg-", "teampage-nyj-", "teampage-oti-", "teampage-phi-", "teampage-pit-", "teampage-rai-", "teampage-ram-", "teampage-rav-", "teampage-sdg-", "teampage-sea-", "teampage-sfo-", "teampage-tam-", "teampage-was-" ]
@@ -530,17 +645,26 @@ if __name__ == '__main__':
 		# Team
 		team_totals = {}
 		for arr in top_redzone:
-			if arr["team"] not in team_totals:
+			if arr["team"] not in team_totals or arr["total_team_looks"] > team_totals[arr["team"]]:
 				team_totals[arr["team"]] = arr["total_team_looks"]
+		import profootballreference
+		for team in team_totals:
+			team_schedule = profootballreference.get_opponents(team)
+			tot_games = 0
+			for week in range(curr_week):
+				if team_schedule[week] != "BYE":
+					tot_games += 1
+			#print(team, team_totals[team], tot_games)
+			team_totals[team] = round(team_totals[team] / float(tot_games), 2)
 		team_totals = sorted(team_totals.items(), key=lambda x: x[1], reverse=True)
 
-		print("\nTeam|Total Redzone Looks")
+		print("\nTeam|RZ Looks Per Game")
 		print(":--|:--")
 		for team, tot in team_totals:
 			print("{}|{}".format(full_team_names[team], tot))
 		# player | redzone looks RB share | snap count
 	else:
-		sorted_looks = sorted(top_redzone, key=operator.itemgetter("looks", "looks_perc"), reverse=True)
+		sorted_looks = sorted(top_redzone, key=operator.itemgetter("looks_per_game"), reverse=True)
 		sorted_looks_perc = sorted(top_redzone, key=operator.itemgetter("looks_perc"), reverse=True)
 
 		#feelsbad_players = ["amari cooper", "sammy watkins", "stefon diggs", "adam thielen", "calvin ridley", "michael thomas", "odell beckham", "robert woods", "oj howard", "brandin cooks", "robby anderson"]
@@ -558,27 +682,27 @@ if __name__ == '__main__':
 		print("\n- #Reply with a team name if you want to just see their breakdown of W/R/T")
 
 		print("\n#The FeelsBad Table")
-		print("\nPlayer|(player looks / team looks)|Team RZ Look Share|1 Week Trend")
-		print(":--|:--|:--|:--")
+		print("\nPlayer|RZ Looks Per Game|Team Share|1 Week Trend|3 Week Trend")
+		print(":--|:--|:--|:--|:--")
 		for player in sorted_looks:
-			continue
+			#continue
 			#if player["looks"] >= 0 and player["name"] in feelsbad_players: 
-			if player["team"] == 'det':
-				print("{}|({}/{})|{}%|{}".format(player["name"].title(), player["looks"], player["total_team_looks"], player["looks_perc"], player["delta"]))
-		#exit()
+			if player["team"] == 'sea':
+				print(f"{player['name'].title()}|{player['looks_per_game']}|{player['looks_perc']}%|{player['delta']}|{player['delta3']}")
+		exit()
 
 		print("\n#The Julio Jones Table")
-		print("\nPlayer|(player looks / team looks)|Team RZ Look Share|1 Week Trend")
-		print(":--|:--|:--|:--")
+		print("\nPlayer|RZ Looks Per Game|Team Share|1 Week Trend|3 Week Trend")
+		print(":--|:--|:--|:--|:--")
 		for player in sorted_looks:
 			#continue
 			if player["looks"] >= 0 and player["name"] == "julio jones":
-				print("{}|({}/{})|{}%|{}".format(player["name"].title(), player["looks"], player["total_team_looks"], player["looks_perc"], player["delta"]))
+				print(f"{player['name'].title()}|{player['looks_per_game']}|{player['looks_perc']}%|{player['delta']}|{player['delta3']}")
 
 		#exit()
 		print("\n#Top 40 RB")
-		print("\nPlayer|(player looks / team looks)|Team RZ Look Share|1 Week Trend")
-		print(":--|:--|:--|:--")
+		print("\nPlayer|RZ Looks Per Game|Team Share|1 Week Trend|3 Week Trend")
+		print(":--|:--|:--|:--|:--")
 		printed = 0
 		for player in sorted_looks:
 			#continue
@@ -586,11 +710,11 @@ if __name__ == '__main__':
 				break
 			if player["looks"] >= 0 and players_on_teams[player["name"]]["position"] == "RB":
 				printed += 1
-				print("{}|({}/{})|{}%|{}".format(player["name"].title(), player["looks"], player["total_team_looks"], player["looks_perc"], player["delta"]))
+				print(f"{player['name'].title()}|{player['looks_per_game']}|{player['looks_perc']}%|{player['delta']}|{player['delta3']}")
 
 		print("\n#Top 50 WR")
-		print("\nPlayer|(player looks / team looks)|Team RZ Look Share|1 Week Trend")
-		print(":--|:--|:--|:--")
+		print("\nPlayer|RZ Looks Per Game|Team Share|1 Week Trend|3 Week Trend")
+		print(":--|:--|:--|:--|:--")
 		printed = 0
 		for player in sorted_looks:
 			#continue
@@ -598,11 +722,11 @@ if __name__ == '__main__':
 				break
 			if player["looks"] >= 0 and players_on_teams[player["name"]]["position"] == "WR":
 				printed += 1
-				print("{}|({}/{})|{}%|{}".format(player["name"].title(), player["looks"], player["total_team_looks"], player["looks_perc"], player["delta"]))
+				print(f"{player['name'].title()}|{player['looks_per_game']}|{player['looks_perc']}%|{player['delta']}|{player['delta3']}")
 
 		print("\n#Top 30 TE")
-		print("\nPlayer|(player looks / team looks)|Team RZ Look Share|1 Week Trend")
-		print(":--|:--|:--|:--")
+		print("\nPlayer|RZ Looks Per Game|Team Share|1 Week Trend|3 Week Trend")
+		print(":--|:--|:--|:--|:--")
 		printed = 0
 		for player in sorted_looks:
 			#continue
@@ -610,6 +734,6 @@ if __name__ == '__main__':
 				break
 			if player["looks"] >= 0 and (player["name"].find("heuerman") >= 0 or players_on_teams[player["name"]]["position"] == "TE"):
 				printed += 1
-				print("{}|({}/{})|{}%|{}".format(player["name"].title(), player["looks"], player["total_team_looks"], player["looks_perc"], player["delta"]))
+				print(f"{player['name'].title()}|{player['looks_per_game']}|{player['looks_perc']}%|{player['delta']}|{player['delta3']}")
 
 		

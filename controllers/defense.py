@@ -178,19 +178,11 @@ def get_html(team_arg, pos, opp, over_expected):
         colspan = 4
     team_dis = display_team_trans[team_arg] if team_arg in display_team_trans else team_arg
     if pos == "DEF":
-        html += "<tr><th colspan='{}' style='position:relative;'><span class='close_table'>X</span>DEF Vs. {} {}</th></tr>".format(colspan, team_dis.upper(), def_txt)
-        mobile_html += "<tr><th style='position:relative;'><span class='close_table'>X</span>DEF Vs. {} {}</th></tr>".format(team_dis.upper(), def_txt)
+        html += f"<tr><th class='{team_arg}' colspan='{colspan}' style='position:relative;'><span class='close_table'>X</span>DEF Vs. {team_dis.upper()} {def_txt}</th></tr>"
+        mobile_html += f"<tr><th class='{team_arg}' style='position:relative;'><span class='close_table'>X</span>DEF Vs. {team_dis.upper()} {def_txt}</th></tr>"
     else:
-        html += "<tr><th colspan='{}' style='position:relative;'><span class='close_table'>X</span>{} {} Vs. {}</th></tr>".format(colspan, team_dis.upper(), def_txt, pos)
-        mobile_html += "<tr><th style='position:relative;'><span class='close_table'>X</span>{} {} Vs. {}</th></tr>".format(team_dis.upper(), def_txt, pos)
-
-    #html += "<tr>"
-    #html += "<th>Opp</th>"
-    #if over_expected:
-        #html += "<th>Act v. Proj %</th><th>Stats</th>"
-    #else:
-    #    html += "<th>Actual</th>"
-    #html += "</tr>"
+        html += f"<tr><th class='{team_arg}' colspan='{colspan}' style='position:relative;'><span class='close_table'>X</span>{team_dis.upper()} {def_txt} Vs. {pos}</th></tr>"
+        mobile_html += f"<tr><th class='{team_arg}' style='position:relative;'><span class='close_table'>X</span>{team_dis.upper()} {def_txt} Vs. {pos}</th></tr>"
 
     for idx, arr in enumerate(opp):
         players_html = "<table class='players_table'>"
@@ -234,7 +226,7 @@ def get_html(team_arg, pos, opp, over_expected):
                             var_html = f"Proj {proj}\tAct {pts}"
                     players_proj_html += f"<tr><td>{proj}</td></tr>"
                     players_var_html += f"<tr><td>{var}%</td></tr>"
-                players_html += "<tr><td>{} pts</td><td>{}</td></tr>".format(pts, stats)
+                players_html += f"<tr><td style='width:50%;' class='{team}'>{pts} pts</td><td class='{team}'>{stats}</td></tr>"
                 players_mobile_html += f"<tr><td><div class='mobile_show_wrapper'><a class='mobile_show_stats' href='#' id='{player_id}'>Show</a></div></td></tr><tr><td colspan='3' style='display: none;text-align: center;' id='{player_id}_stats'>{var_html}<br>[ {stats} ]</td></tr>"
             else:
                 var_html = f""
@@ -251,7 +243,7 @@ def get_html(team_arg, pos, opp, over_expected):
                     players_proj_html += f"<tr><td>{proj}</td></tr>"
                     proj_html = f" ({proj} proj)"
                     players_var_html += f"<tr><td>{var}%</td></tr>"
-                players_html += f"<td>{name.title()}</td><td>{pts} pts{proj_html}</td><td>{stats}</td></tr>"
+                players_html += f"<td class='{team}'>{name.title()}</td><td class='{team}'>{pts} pts{proj_html}</td><td class='{team}'>{stats}</td></tr>"
                 players_mobile_html += f"<tr><td><div class='mobile_show_wrapper'>{name.title()}<a class='mobile_show_stats' href='#' id='{player_id}'>Show</a></div></td></tr><tr><td colspan='3' style='display: none;text-align: center;' id='{player_id}_stats'>{var_html}<br>[ {stats} ]</td></tr>"
 
         players_html += "</table>"
@@ -266,7 +258,7 @@ def get_html(team_arg, pos, opp, over_expected):
         if arr["players"] == "":
             if sched[idx] == "BYE":
                 colspan = 2
-                html += f"<tr><td colspan='{colspan}'>wk{idx+1} BYE</td></tr>"
+                html += f"<tr><td class='{team_arg}' colspan='{colspan}'>wk{idx+1} BYE</td></tr>"
                 mobile_html += "<tr><td>wk{} BYE</td></tr>".format(idx + 1)
             else:
                 team_dis = display_team_trans[arr["opp_team"]] if arr["opp_team"] in display_team_trans else arr["opp_team"]
@@ -287,8 +279,8 @@ def get_html(team_arg, pos, opp, over_expected):
                 var = players_var_html
 
             team_dis = display_team_trans[team] if team in display_team_trans else team
-            html += f"<tr><td>wk{wk} {team_dis.upper()}: {tot}, {proj_total} Projected, {var_html}</td>"
-            html += f"<tr><td>{players_html}</td></tr>"
+            html += f"<tr style='border:1px solid;'><td class='{team}' style='border:0px;'>wk{wk} {team_dis.upper()}: {tot}, {proj_total} Projected, {var_html}</td>"
+            html += f"<tr><td style='padding:0;'>{players_html}</td></tr>"
             #html += f"<tr><td>{var}</td><td>{players_html}</td></tr>"
             #html += f"<td>{players_proj_html}</td>"
             mobile_html += f"<tr><td style='width: 100%;'>wk{wk} {team_dis.upper()}: {var_html}</td></tr><tr><td>{players_mobile_html}</td></tr>"
@@ -296,9 +288,9 @@ def get_html(team_arg, pos, opp, over_expected):
             team_dis = display_team_trans[team] if team in display_team_trans else team
             html += "<tr><td>wk{} {}{}</td><td>{}</td></tr>".format(wk, team_dis.upper(), tot, players_html)
             mobile_html += "<tr><td style='width: 100%;'>wk{} {}: {}</td></tr><tr><td>{}</td></tr>".format(wk, team_dis.upper(), mobile_tot, players_mobile_html)
-    mobile_html += "<tr><td><button onclick='close_table();'>Close</button></td></tr>"
+    mobile_html += f"<tr><td class='{team_arg}'><button class='{team_arg}' onclick='close_table();'>Close</button></td></tr>"
     mobile_html += "</table>"
-    html += "<tr><td colspan='2'><button onclick='close_table();'>Close</button></td></tr>"
+    html += f"<tr><td class='{team_arg}' colspan='2'><button class='{team_arg}' onclick='close_table();'>Close</button></td></tr>"
     html += "</table>"
     return html+mobile_html
 
