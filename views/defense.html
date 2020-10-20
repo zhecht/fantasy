@@ -14,6 +14,7 @@
       #nav a { text-decoration: none; }
       #nav a.active { text-decoration: underline; }
       table { width: 70%; border-collapse: collapse; justify-content: center;margin-top: 1.5%; }
+      #click_me { font-size: 16px; font-style: italic; padding-top: 15px; text-align: center;}
       .click_tables { width: 70%; display: none; z-index: 2; background-color: #f1f1f1; position: absolute;}
       .click_tables th { font-size: 24px; }
       .clickable { cursor: pointer; }
@@ -97,6 +98,7 @@
       {{ link_html|safe }}
       {{ scoring_html|safe }}
       {{ variance_html|safe }}
+      <div id="click_me">Click any box to show the data used to calculate the number on a weekly basis</div>
       {{ hide_html|safe }}
       {{ click_html|safe }}
       {{ color_html|safe }}

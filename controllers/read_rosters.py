@@ -222,11 +222,10 @@ def update_players_on_teams(players_on_teams):
 	players_on_teams['hunter renfrow'] = {'team_id': 0, 'position': 'WR', 'pid': 0, 'nfl_team': 'Rai'}
 	players_on_teams['d.j. moore'] = {'team_id': 0, 'position': 'WR', 'pid': 0, 'nfl_team': 'Car'}
 	players_on_teams['john ross'] = {'team_id': 0, 'position': 'WR', 'pid': 0, 'nfl_team': 'Cin'}
-	players_on_teams['mohamed sanu'] = {'team_id': 0, 'position': 'WR', 'pid': 0, 'nfl_team': 'Ne'}
 
 	#2020
 	players_on_teams['cordarrelle patterson'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Chi'}
-	players_on_teams['anthony mcfarland'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Pit'}
+	players_on_teams['anthony mcfarland jr'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Pit'}
 	return
 
 def read_rosters(skip_remove_puncuation=False, players_prefix=players_prefix):

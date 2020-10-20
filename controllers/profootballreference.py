@@ -227,7 +227,7 @@ def get_players_by_pos_team(team, pos):
 	for player in roster:
 		if roster[player].lower() == pos.lower():
 			arr.append(player)
-	for player in nfl_trades:        
+	for player in nfl_trades:
 		if nfl_trades[player]["from"] == team:
 			opp_roster = {}
 			with open("{}static/profootballreference/{}/roster.json".format(prefix, nfl_trades[player]["team"])) as fh:
@@ -237,6 +237,7 @@ def get_players_by_pos_team(team, pos):
 	# IR is not listed on roster
 	ir_data = [
 		("nwe", "QB", "cam newton"),
+		("dal", "QB", "dak prescott"),
 		("nwe", "RB", "sony michel"),
 		("nyj", "RB", "leveon bell"),
 		("nyg", "RB", "saquon barkley"),
@@ -681,11 +682,16 @@ def write_boxscore_links():
 
 def fix_roster(roster, team):
 	if team == "atl":
-		rosters["elliott fry"] = "K"
+		roster["elliott fry"] = "K"
+	elif team == "gnb":
+		roster["mason crosby"] = "K"
 	elif team == "jax":
 		roster["aldrick rosas"] = "K"
 		roster["josh lambo"] = "K"
 		roster["stephen hauschka"] = "K"
+		roster["jonathan brown"] = "K"
+	elif team == "phi":
+		roster["jake elliott"] = "K"
 	elif team == "pit":
 		roster["benny snell jr"] = "RB"
 	elif team == "was":
@@ -833,14 +839,17 @@ def add_defense_stats(stats, tds):
 		stats["OFF"][key] += val
 	return
 
-def add_stats(boxscorelinks, team, teampath, boxlink, week_arg):
+def add_stats(boxscorelinks, team, teampath, boxlink, week_arg, team_arg):
 	url = "https://www.pro-football-reference.com{}#all_team_stats".format(boxlink)
 
 	home_team = re.match(r".*\d+(.*).htm", boxlink).group(1)
 	away_team = None
 	if home_team != team:
 		away_team = team
+
 	if week_arg and boxscorelinks[boxlink] != week_arg:
+		return
+	elif team_arg and team != team_arg:
 		return
 
 	outfile = "{}/wk{}.html".format(teampath, boxscorelinks[boxlink])
@@ -923,7 +932,7 @@ def add_stats(boxscorelinks, team, teampath, boxlink, week_arg):
 		json.dump(stats, fh, indent=4)
 	os.remove(outfile)
 
-def write_boxscore_stats(week_arg):
+def write_boxscore_stats(week_arg, team_arg):
 	teamlinks = {}
 	with open("{}static/profootballreference/teams.json".format(prefix)) as fh:
 		teamlinks = json.loads(fh.read())
@@ -935,8 +944,8 @@ def write_boxscore_stats(week_arg):
 		with open("{}/boxscores.json".format(teampath)) as fh:
 			boxscorelinks = json.loads(fh.read())
 		for boxlink in boxscorelinks:
-			print(team, boxlink)
-			add_stats(boxscorelinks, team, teampath, boxlink, week_arg)
+			#print(team, boxlink)
+			add_stats(boxscorelinks, team, teampath, boxlink, week_arg, team_arg)
 
 
 if __name__ == "__main__":
@@ -983,7 +992,7 @@ if __name__ == "__main__":
 		
 		#write_team_rosters()
 		#write_boxscore_links()
-		#write_boxscore_stats(args.week)
+		#write_boxscore_stats(args.week, args.team)
 		calculate_aggregate_stats()
 
 	#write_team_rosters()

@@ -33,7 +33,7 @@ if os.path.exists("/home/zhecht/fantasy"):
     prefix = "/home/zhecht/fantasy/"
 
 # goes from green -> yellow -> orange -> red
-CURR_WEEK = 5
+CURR_WEEK = 6
 team_trans = {"rav": "bal", "htx": "hou", "oti": "ten", "sdg": "lac", "ram": "lar", "clt": "ind", "crd": "ari"}
 display_team_trans = {"rav": "bal", "htx": "hou", "oti": "ten", "sdg": "lac", "ram": "lar", "clt": "ind", "crd": "ari", "gnb": "gb", "kan": "kc", "nwe": "ne", "rai": "lv", "sfo": "sf", "tam": "tb", "nor": "no"}
 
@@ -226,7 +226,7 @@ def get_html(team_arg, pos, opp, over_expected):
                             var_html = f"Proj {proj}\tAct {pts}"
                     players_proj_html += f"<tr><td>{proj}</td></tr>"
                     players_var_html += f"<tr><td>{var}%</td></tr>"
-                players_html += f"<tr><td style='width:50%;' class='{team}'>{pts} pts</td><td class='{team}'>{stats}</td></tr>"
+                players_html += f"<tr><td style='width:25%;' class='{team}'>{pts} pts</td><td class='{team}'>{stats}</td></tr>"
                 players_mobile_html += f"<tr><td><div class='mobile_show_wrapper'><a class='mobile_show_stats' href='#' id='{player_id}'>Show</a></div></td></tr><tr><td colspan='3' style='display: none;text-align: center;' id='{player_id}_stats'>{var_html}<br>[ {stats} ]</td></tr>"
             else:
                 var_html = f""

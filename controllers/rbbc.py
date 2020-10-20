@@ -21,7 +21,7 @@ if os.path.exists("/home/zhecht/fantasy"):
     # if on linux aka prod
     prefix = "/home/zhecht/fantasy/"
 
-curr_week = 5
+curr_week = 6
 
 @rbbc_print.route('/rbbc')
 def rbbc_route():
@@ -51,8 +51,10 @@ def rbbc_route():
             players_ordered.append({"player": player, "avg_snaps": snap_trends[team][player]["avg_snaps"]})
         for player in sorted(players_ordered, key=operator.itemgetter("avg_snaps"), reverse=True):
             player = player["player"]
+            if "jackson" in player:
+                print(player)
             if snap_trends[team][player]["snaps"] == 0:
-                if snap_trends[team][player]["total_looks"] == 0:
+                if snap_trends[team][player]["looks_per_game"] == 0 and snap_trends[team][player]["targets_per_game"] == 0:
                     continue
                 extra += f"<tr><td class='{team}'>{player.title()}</td><td class='{team}'>{snap_trends[team][player]['avg_snaps']}% (DNP)</td><td class='{team}'>{snap_trends[team][player]['looks_per_game']}</td><td class='{team}'>{snap_trends[team][player]['looks_share']}%</td><td class='{team}'>{snap_trends[team][player]['targets_per_game']}</td><td class='{team}'>{snap_trends[team][player]['target_share']}%</td></tr>"
             else:

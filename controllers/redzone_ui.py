@@ -21,7 +21,7 @@ if os.path.exists("/home/zhecht/fantasy"):
 	# if on linux aka prod
 	prefix = "/home/zhecht/fantasy/"
 
-curr_week = 5
+curr_week = 6
 
 @redzone_ui_print.route('/redzone')
 def redzone_ui_route():
@@ -41,13 +41,13 @@ def redzone_ui_route():
 	update_players_on_teams(players_on_teams)
 
 	table = ""
-	header = "<tr><th>Player</th><th>RZ Looks Per Game</th><th>Team Share</th><th>1 Week Trend</th><th>3 Week Trend</th></tr>"
+	header = "<tr><th>Player</th><th>RZ Looks Per Game</th><th>1 Week Trend</th><th>3 Week Trend</th><th>RZ Team Share</th></tr>"
 
 	table += "<table><tr><th colspan='5'>The Julio Jones Table</th></tr>"
 	table += header
 	for player in sorted_looks:
 		if player["name"] == "julio jones":
-			table += f"<tr><td class='{player['team']}'>{player['name'].title()}</td><td>{player['looks_per_game']}</td><td>{player['looks_perc']}%</td><td>{player['delta']}</td><td>{player['delta3']}</td></tr>"
+			table += f"<tr><td class='{player['team']}'>{player['name'].title()}</td><td>{player['looks_per_game']}</td><td>{player['delta']}</td><td>{player['delta3']}</td><td>{player['looks_perc']}%</td></tr>"
 	table += "</table>"
 
 	pos_data = [("RB", 40), ("WR", 50), ("TE", 30)]
@@ -61,7 +61,7 @@ def redzone_ui_route():
 			if player["looks"] >= 0 and players_on_teams[player["name"]]["position"] == pos:
 				printed += 1
 				table += f"<tr><td class='{player['team']}'>{player['name'].title()}</td>"
-				table += f"<td>{player['looks_per_game']}</td><td>{player['looks_perc']}%</td><td>{player['delta']}</td><td>{player['delta3']}</td></tr>"
+				table += f"<td>{player['looks_per_game']}</td><td>{player['delta']}</td><td>{player['delta3']}</td><td>{player['looks_perc']}%</td></tr>"
 				#table += f"<td>{player['looks']}/{player['total_team_looks']}</td><td>{player['looks_perc']}%</td><td>{player['delta']}</td></tr>"
 		table += "</table>"
 

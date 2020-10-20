@@ -110,6 +110,8 @@ def fix_name(name, team, stats):
 		return "gardner minshew ii"
 	elif name == "mike badgley":
 		return "michael badgley"
+	elif name == "jon brown":
+		return "jonathan brown"
 	elif team == "off":
 		return get_team_abbr(name)
 	elif name+" jr" in stats[team]:
