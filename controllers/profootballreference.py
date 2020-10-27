@@ -249,6 +249,10 @@ def get_players_by_pos_team(team, pos):
 		("den", "WR", "courtland sutton"),
 		("gnb", "WR", "allen lazard"),
 		("phi", "WR", "jalen reagor"),
+		("nyg", "WR", "sterling shepard"),
+		("nyg", "WR", "golden tate"),
+		("nyg", "WR", "kaden smith"),
+		("nyg", "WR", "cj board"),
 		("crd", "TE", "dan arnold"),
 		("phi", "TE", "dallas goedert"),
 		("dal", "TE", "blake jarwin"),
@@ -690,6 +694,9 @@ def fix_roster(roster, team):
 		roster["josh lambo"] = "K"
 		roster["stephen hauschka"] = "K"
 		roster["jonathan brown"] = "K"
+	elif team == "nyj":
+		roster["chris hogan"] = "WR"
+		roster["sergio castillo"] = "K"
 	elif team == "phi":
 		roster["jake elliott"] = "K"
 	elif team == "pit":

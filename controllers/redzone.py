@@ -594,8 +594,8 @@ if __name__ == '__main__':
 		team_trans = {"rav": "bal", "htx": "hou", "oti": "ten", "sdg": "lac", "ram": "lar", "clt": "ind", "crd": "ari", "gnb": "gb", "kan": "kc", "nwe": "ne", "rai": "lv", "sfo": "sf", "tam": "tb", "nor": "no"}
 		rbbc_teams = ['crd', 'atl', 'rav', 'buf', 'car', 'chi', 'cin', 'cle', 'dal', 'den', 'det', 'gnb', 'htx', 'clt', 'jax', 'kan', 'sdg', 'ram', 'rai', 'mia', 'min', 'nor', 'nwe', 'nyg', 'nyj', 'phi', 'pit', 'sea', 'sfo', 'tam', 'oti', 'was']
 
-		
-		print("Weekly, I'll be posting these types of posts alongside my [Redzone Trends]() post")
+		print("View on [Site](https://zhecht.pythonanywhere.com/rbbc)")
+		print("\nWeekly, I'll be posting these types of posts alongside my [Redzone Look Trends]() post")
 		print("\nNotes:")
 		print("\n- Purpose: Find out what every backfield is looking like and if they're trending up/down from past week")
 		print("\n- Target Share and RZ Share are only relative to FBs/RBs on the team. Data is adjusted for injuries")
@@ -609,30 +609,30 @@ if __name__ == '__main__':
 			team_display = team_trans[team] if team in team_trans else team
 			#team_display = full_team_names[team] if team in full_team_names else team
 			print(f"\n#{team_display.upper()}")
-			print("Player|Snap %|RZ Looks|RZ Looks Share|TGTS|{} Target Share".format(args.pos))
+			print("Player|AVG Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|{} Target Share".format(args.pos))
 			print(":--|:--|:--|:--|:--|:--")
 			extra = ""
 			for player in snap_trends[team]:
 				if snap_trends[team][player]["snaps"] == 0:
-					if snap_trends[team][player]["total_looks"] == 0 :
+					if snap_trends[team][player]["looks_per_game"] == 0 and snap_trends[team][player]["targets_per_game"] == 0:
 						continue
 					extra += "{}|DNP|{}|{}%|{}|{}%\n".format(
 						player,
-						snap_trends[team][player]["total_looks"],
+						snap_trends[team][player]["looks_per_game"],
 						snap_trends[team][player]["looks_share"],
-						snap_trends[team][player]["total_targets"],
+						snap_trends[team][player]["targets_per_game"],
 						snap_trends[team][player]["target_share"]
 					)
 				else:
 					if snap_trends[team][player]["total_looks"] == 0 and snap_trends[team][player]["total_targets"] == 0:
 						pass
 						#continue
-					print("{}|{}% ({})|{} ({})|{}% ({})|{} ({})|{}% ({})".format(
+					print("{}|{}% ({}%)|{} ({})|{}% ({})|{} ({})|{}% ({})".format(
 						player,
-						snap_trends[team][player]["snaps"], snap_trends[team][player]["snaps_trend"],
-						snap_trends[team][player]["total_looks"], snap_trends[team][player]["looks_trend"],
+						snap_trends[team][player]["avg_snaps"], snap_trends[team][player]["snaps_per_game_trend"],
+						snap_trends[team][player]["looks_per_game"], snap_trends[team][player]["looks_per_game_trend"],
 						snap_trends[team][player]["looks_share"], snap_trends[team][player]["looks_share_trend"],
-						snap_trends[team][player]["total_targets"], snap_trends[team][player]["target_trend"],
+						snap_trends[team][player]["targets_per_game"], snap_trends[team][player]["targets_per_game_trend"],
 						snap_trends[team][player]["target_share"], snap_trends[team][player]["target_share_trend"]
 						)
 					)
@@ -674,7 +674,9 @@ if __name__ == '__main__':
 		players_on_teams = {**players_on_teams, **players_on_FA}
 		update_players_on_teams(players_on_teams)
 
-		print("Weekly, I'll be posting these types of posts alongside my [RBBC Trends]() post")
+		print("View on [Site](https://zhecht.pythonanywhere.com/redzone)")
+		print("\nView as [Image]()")
+		print("\nWeekly, I'll be posting these types of posts alongside my [RBBC Trends]() post")
 		print("\nNotes:")
 		print("\n- Purpose: Find out who's getting rushes/targets inside the 20 and is more likely to score")
 		print("\n- A Redzone look is a target or rushing attempt within the opponents 20 yard line.")
@@ -682,26 +684,26 @@ if __name__ == '__main__':
 		print("\n- #Reply with a team name if you want to just see their breakdown of W/R/T")
 
 		print("\n#The FeelsBad Table")
-		print("\nPlayer|RZ Looks Per Game|Team Share|1 Week Trend|3 Week Trend")
+		print("\nPlayer|RZ Looks Per Game|1 Week Trend|3 Week Trend|RZ Team Share")
 		print(":--|:--|:--|:--|:--")
 		for player in sorted_looks:
 			continue
 			#if player["looks"] >= 0 and player["name"] in feelsbad_players: 
 			if player["team"] == 'pit':
-				print(f"{player['name'].title()}|{player['looks_per_game']}|{player['looks_perc']}%|{player['delta']}|{player['delta3']}")
+				print(f"{player['name'].title()}|{player['looks_per_game']}|{player['delta']}|{player['delta3']}|{player['looks_perc']}%")
 		#exit()
 
 		print("\n#The Julio Jones Table")
-		print("\nPlayer|RZ Looks Per Game|Team Share|1 Week Trend|3 Week Trend")
+		print("\nPlayer|RZ Looks Per Game|1 Week Trend|3 Week Trend|RZ Team Share")
 		print(":--|:--|:--|:--|:--")
 		for player in sorted_looks:
 			#continue
 			if player["looks"] >= 0 and player["name"] == "julio jones":
-				print(f"{player['name'].title()}|{player['looks_per_game']}|{player['looks_perc']}%|{player['delta']}|{player['delta3']}")
+				print(f"{player['name'].title()}|{player['looks_per_game']}|{player['delta']}|{player['delta3']}|{player['looks_perc']}%")
 
 		#exit()
 		print("\n#Top 40 RB")
-		print("\nPlayer|RZ Looks Per Game|Team Share|1 Week Trend|3 Week Trend")
+		print("\nPlayer|RZ Looks Per Game|1 Week Trend|3 Week Trend|RZ Team Share")
 		print(":--|:--|:--|:--|:--")
 		printed = 0
 		for player in sorted_looks:
@@ -710,10 +712,10 @@ if __name__ == '__main__':
 				break
 			if player["looks"] >= 0 and players_on_teams[player["name"]]["position"] == "RB":
 				printed += 1
-				print(f"{player['name'].title()}|{player['looks_per_game']}|{player['looks_perc']}%|{player['delta']}|{player['delta3']}")
+				print(f"{player['name'].title()}|{player['looks_per_game']}|{player['delta']}|{player['delta3']}|{player['looks_perc']}%")
 
 		print("\n#Top 50 WR")
-		print("\nPlayer|RZ Looks Per Game|Team Share|1 Week Trend|3 Week Trend")
+		print("\nPlayer|RZ Looks Per Game|1 Week Trend|3 Week Trend|RZ Team Share")
 		print(":--|:--|:--|:--|:--")
 		printed = 0
 		for player in sorted_looks:
@@ -722,10 +724,10 @@ if __name__ == '__main__':
 				break
 			if player["looks"] >= 0 and players_on_teams[player["name"]]["position"] == "WR":
 				printed += 1
-				print(f"{player['name'].title()}|{player['looks_per_game']}|{player['looks_perc']}%|{player['delta']}|{player['delta3']}")
+				print(f"{player['name'].title()}|{player['looks_per_game']}|{player['delta']}|{player['delta3']}|{player['looks_perc']}%")
 
 		print("\n#Top 30 TE")
-		print("\nPlayer|RZ Looks Per Game|Team Share|1 Week Trend|3 Week Trend")
+		print("\nPlayer|RZ Looks Per Game|1 Week Trend|3 Week Trend|RZ Team Share")
 		print(":--|:--|:--|:--|:--")
 		printed = 0
 		for player in sorted_looks:
@@ -734,6 +736,6 @@ if __name__ == '__main__':
 				break
 			if player["looks"] >= 0 and (player["name"].find("heuerman") >= 0 or players_on_teams[player["name"]]["position"] == "TE"):
 				printed += 1
-				print(f"{player['name'].title()}|{player['looks_per_game']}|{player['looks_perc']}%|{player['delta']}|{player['delta3']}")
+				print(f"{player['name'].title()}|{player['looks_per_game']}|{player['delta']}|{player['delta3']}|{player['looks_perc']}%")
 
 		

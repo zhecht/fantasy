@@ -191,10 +191,17 @@ def get_points(projections):
 	return passing_pts + rushing_pts + receiving_pts + misc_pts
 
 def fix_projections(all_projections):
+	for name in ["justin herbert", "aldrick rosas", "stephen hauschka", "sergio castillo", "jonathan brown"]:
+		if name not in all_projections:
+			all_projections[name] = {}
+
 	all_projections["justin herbert"]["wk2"] = 14.92 #tyrod
-	if "aldrick rosas" not in all_projections:
-		all_projections["aldrick rosas"] = {}
+	
 	all_projections["aldrick rosas"]["wk4"] = 1.99 + 0.04*3 + 0.47*3 + 0.69*3 + 0.48*4
+	all_projections["stephen hauschka"]["wk5"] = 2.28 + 0.06*3 + 0.47*3 + 0.53*3 + 0.49*4
+	all_projections["jonathan brown"]["wk6"] = 2.07 + 0.03*3 + 0.48*3 + 0.44*3 + 0.42*4
+
+	all_projections["sergio castillo"] = {"wk7": 5.71} # ficken NYJ replacement. use NYG?
 
 def parse_projections():
 	all_projections = {}

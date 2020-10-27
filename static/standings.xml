@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.629583/standings" time="66.303014755249ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
+<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.629583/standings" time="169.61002349854ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
  <league>
   <league_key>399.l.629583</league_key>
   <league_id>629583</league_id>
@@ -8,9 +8,9 @@
   <logo_url></logo_url>
   <draft_status>postdraft</draft_status>
   <num_teams>12</num_teams>
-  <edit_key>7</edit_key>
+  <edit_key>8</edit_key>
   <weekly_deadline/>
-  <league_update_timestamp>1603178641</league_update_timestamp>
+  <league_update_timestamp>1603784695</league_update_timestamp>
   <scoring_type>head</scoring_type>
   <league_type>private</league_type>
   <renew>390_276544</renew>
@@ -19,7 +19,7 @@
   <allow_add_to_dl_extra_pos>1</allow_add_to_dl_extra_pos>
   <is_pro_league>0</is_pro_league>
   <is_cash_league>0</is_cash_league>
-  <current_week>7</current_week>
+  <current_week>8</current_week>
   <start_week>1</start_week>
   <start_date>2020-09-10</start_date>
   <end_week>16</end_week>
@@ -39,13 +39,13 @@
        <url>https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/43442153915_4e4d97.jpg</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>6</waiver_priority>
-     <faab_balance>85</faab_balance>
-     <number_of_moves>11</number_of_moves>
-     <number_of_trades>1</number_of_trades>
+     <waiver_priority>4</waiver_priority>
+     <faab_balance>80</faab_balance>
+     <number_of_moves>15</number_of_moves>
+     <number_of_trades>2</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
-      <coverage_value>7</coverage_value>
+      <coverage_value>8</coverage_value>
       <value>0</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
@@ -63,84 +63,23 @@
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2020</season>
-      <total>882.02</total>
+      <total>1008.04</total>
      </team_points>
      <team_standings>
       <rank>1</rank>
       <playoff_seed>1</playoff_seed>
       <outcome_totals>
-       <wins>4</wins>
+       <wins>5</wins>
        <losses>2</losses>
        <ties>0</ties>
-       <percentage>.667</percentage>
-      </outcome_totals>
-      <streak>
-       <type>win</type>
-       <value>2</value>
-      </streak>
-      <points_for>882.02</points_for>
-      <points_against>726.24</points_against>
-     </team_standings>
-    </team>
-    <team>
-     <team_key>399.l.629583.t.9</team_key>
-     <team_id>9</team_id>
-     <name>Mr UNLIMITED</name>
-     <url>https://football.fantasysports.yahoo.com/f1/629583/9</url>
-     <team_logos>
-      <team_logo>
-       <size>large</size>
-       <url>https://s.yimg.com/cv/apiv2/default/nfl/nfl_7.png</url>
-      </team_logo>
-     </team_logos>
-     <waiver_priority>11</waiver_priority>
-     <faab_balance>34</faab_balance>
-     <number_of_moves>17</number_of_moves>
-     <number_of_trades>2</number_of_trades>
-     <roster_adds>
-      <coverage_type>week</coverage_type>
-      <coverage_value>7</coverage_value>
-      <value>0</value>
-     </roster_adds>
-     <league_scoring_type>head</league_scoring_type>
-     <has_draft_grade>1</has_draft_grade>
-     <draft_grade>C</draft_grade>
-     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/629583/9/draftrecap</draft_recap_url>
-     <managers>
-      <manager>
-       <manager_id>9</manager_id>
-       <nickname>joe</nickname>
-       <guid>44PEDFYWWQAULS7WQBS23RASQ4</guid>
-       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
-      </manager>
-      <manager>
-       <manager_id>16</manager_id>
-       <nickname>Ethan</nickname>
-       <guid>AMYQARVLUPIGZJDEDSUB2WP32Y</guid>
-       <is_comanager>1</is_comanager>
-       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
-      </manager>
-     </managers>
-     <team_points>
-      <coverage_type>season</coverage_type>
-      <season>2020</season>
-      <total>804.34</total>
-     </team_points>
-     <team_standings>
-      <rank>2</rank>
-      <playoff_seed>2</playoff_seed>
-      <outcome_totals>
-       <wins>4</wins>
-       <losses>2</losses>
-       <ties>0</ties>
-       <percentage>.667</percentage>
+       <percentage>.714</percentage>
       </outcome_totals>
       <streak>
        <type>win</type>
        <value>3</value>
       </streak>
-      <points_for>804.34</points_for>
-      <points_against>731.62</points_against>
+      <points_for>1008.04</points_for>
+      <points_against>831.74</points_against>
      </team_standings>
     </team>
     <team>
@@ -154,13 +93,13 @@
        <url>https://s.yimg.com/cv/apiv2/default/nfl/nfl_6.png</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>5</waiver_priority>
+     <waiver_priority>3</waiver_priority>
      <faab_balance>66</faab_balance>
      <number_of_moves>6</number_of_moves>
      <number_of_trades>0</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
-      <coverage_value>7</coverage_value>
+      <coverage_value>8</coverage_value>
       <value>0</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
@@ -185,23 +124,23 @@
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2020</season>
-      <total>771.72</total>
+      <total>906.14</total>
      </team_points>
      <team_standings>
-      <rank>3</rank>
-      <playoff_seed>3</playoff_seed>
+      <rank>2</rank>
+      <playoff_seed>2</playoff_seed>
       <outcome_totals>
-       <wins>4</wins>
+       <wins>5</wins>
        <losses>2</losses>
        <ties>0</ties>
-       <percentage>.667</percentage>
+       <percentage>.714</percentage>
       </outcome_totals>
       <streak>
-       <type>loss</type>
+       <type>win</type>
        <value>1</value>
       </streak>
-      <points_for>771.72</points_for>
-      <points_against>779.74</points_against>
+      <points_for>906.14</points_for>
+      <points_against>892.46</points_against>
      </team_standings>
     </team>
     <team>
@@ -215,13 +154,13 @@
        <url>https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/56510420143_424045.jpg</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>2</waiver_priority>
+     <waiver_priority>12</waiver_priority>
      <faab_balance>5</faab_balance>
-     <number_of_moves>10</number_of_moves>
+     <number_of_moves>14</number_of_moves>
      <number_of_trades>0</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
-      <coverage_value>7</coverage_value>
+      <coverage_value>8</coverage_value>
       <value>0</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
@@ -239,23 +178,193 @@
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2020</season>
-      <total>826.88</total>
+      <total>1042.82</total>
+     </team_points>
+     <team_standings>
+      <rank>3</rank>
+      <playoff_seed>3</playoff_seed>
+      <outcome_totals>
+       <wins>4</wins>
+       <losses>3</losses>
+       <ties>0</ties>
+       <percentage>.571</percentage>
+      </outcome_totals>
+      <streak>
+       <type>win</type>
+       <value>2</value>
+      </streak>
+      <points_for>1042.82</points_for>
+      <points_against>864.56</points_against>
+     </team_standings>
+    </team>
+    <team>
+     <team_key>399.l.629583.t.9</team_key>
+     <team_id>9</team_id>
+     <name>Mr UNLIMITED</name>
+     <url>https://football.fantasysports.yahoo.com/f1/629583/9</url>
+     <team_logos>
+      <team_logo>
+       <size>large</size>
+       <url>https://s.yimg.com/cv/apiv2/default/nfl/nfl_7.png</url>
+      </team_logo>
+     </team_logos>
+     <waiver_priority>9</waiver_priority>
+     <faab_balance>33</faab_balance>
+     <number_of_moves>21</number_of_moves>
+     <number_of_trades>3</number_of_trades>
+     <roster_adds>
+      <coverage_type>week</coverage_type>
+      <coverage_value>8</coverage_value>
+      <value>0</value>
+     </roster_adds>
+     <league_scoring_type>head</league_scoring_type>
+     <has_draft_grade>1</has_draft_grade>
+     <draft_grade>C</draft_grade>
+     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/629583/9/draftrecap</draft_recap_url>
+     <managers>
+      <manager>
+       <manager_id>9</manager_id>
+       <nickname>joe</nickname>
+       <guid>44PEDFYWWQAULS7WQBS23RASQ4</guid>
+       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
+      </manager>
+      <manager>
+       <manager_id>16</manager_id>
+       <nickname>Ethan</nickname>
+       <guid>AMYQARVLUPIGZJDEDSUB2WP32Y</guid>
+       <is_comanager>1</is_comanager>
+       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
+      </manager>
+     </managers>
+     <team_points>
+      <coverage_type>season</coverage_type>
+      <season>2020</season>
+      <total>917.06</total>
      </team_points>
      <team_standings>
       <rank>4</rank>
       <playoff_seed>4</playoff_seed>
       <outcome_totals>
-       <wins>3</wins>
+       <wins>4</wins>
        <losses>3</losses>
        <ties>0</ties>
-       <percentage>.500</percentage>
+       <percentage>.571</percentage>
+      </outcome_totals>
+      <streak>
+       <type>loss</type>
+       <value>1</value>
+      </streak>
+      <points_for>917.06</points_for>
+      <points_against>866.04</points_against>
+     </team_standings>
+    </team>
+    <team>
+     <team_key>399.l.629583.t.10</team_key>
+     <team_id>10</team_id>
+     <name>Charked Money</name>
+     <url>https://football.fantasysports.yahoo.com/f1/629583/10</url>
+     <team_logos>
+      <team_logo>
+       <size>large</size>
+       <url>https://s.yimg.com/cv/apiv2/default/nfl/nfl_11.png</url>
+      </team_logo>
+     </team_logos>
+     <waiver_priority>7</waiver_priority>
+     <faab_balance>66</faab_balance>
+     <number_of_moves>20</number_of_moves>
+     <number_of_trades>1</number_of_trades>
+     <roster_adds>
+      <coverage_type>week</coverage_type>
+      <coverage_value>8</coverage_value>
+      <value>0</value>
+     </roster_adds>
+     <league_scoring_type>head</league_scoring_type>
+     <has_draft_grade>1</has_draft_grade>
+     <draft_grade>B+</draft_grade>
+     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/629583/10/draftrecap</draft_recap_url>
+     <managers>
+      <manager>
+       <manager_id>10</manager_id>
+       <nickname>Sammy</nickname>
+       <guid>QPKF2MZ7TXDACTHTWJGMPMVXJY</guid>
+       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
+      </manager>
+     </managers>
+     <team_points>
+      <coverage_type>season</coverage_type>
+      <season>2020</season>
+      <total>909.10</total>
+     </team_points>
+     <team_standings>
+      <rank>5</rank>
+      <playoff_seed>5</playoff_seed>
+      <outcome_totals>
+       <wins>4</wins>
+       <losses>3</losses>
+       <ties>0</ties>
+       <percentage>.571</percentage>
       </outcome_totals>
       <streak>
        <type>win</type>
        <value>1</value>
       </streak>
-      <points_for>826.88</points_for>
-      <points_against>758.6</points_against>
+      <points_for>909.10</points_for>
+      <points_against>928.16</points_against>
+     </team_standings>
+    </team>
+    <team>
+     <team_key>399.l.629583.t.6</team_key>
+     <team_id>6</team_id>
+     <name>The Loser</name>
+     <url>https://football.fantasysports.yahoo.com/f1/629583/6</url>
+     <team_logos>
+      <team_logo>
+       <size>large</size>
+       <url>https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/931aee6263e4a14a8ff0417335c1290a5b895e4babbeeb05cdcb31880c2ba87c.png</url>
+      </team_logo>
+     </team_logos>
+     <waiver_priority>10</waiver_priority>
+     <faab_balance>4</faab_balance>
+     <number_of_moves>39</number_of_moves>
+     <number_of_trades>0</number_of_trades>
+     <roster_adds>
+      <coverage_type>week</coverage_type>
+      <coverage_value>8</coverage_value>
+      <value>0</value>
+     </roster_adds>
+     <league_scoring_type>head</league_scoring_type>
+     <has_draft_grade>1</has_draft_grade>
+     <draft_grade>B</draft_grade>
+     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/629583/6/draftrecap</draft_recap_url>
+     <managers>
+      <manager>
+       <manager_id>6</manager_id>
+       <nickname>adam</nickname>
+       <guid>IHE7EUATJSBNEUAZ36MGZA76PU</guid>
+       <is_commissioner>1</is_commissioner>
+       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
+      </manager>
+     </managers>
+     <team_points>
+      <coverage_type>season</coverage_type>
+      <season>2020</season>
+      <total>932.74</total>
+     </team_points>
+     <team_standings>
+      <rank>6</rank>
+      <playoff_seed>6</playoff_seed>
+      <outcome_totals>
+       <wins>3</wins>
+       <losses>4</losses>
+       <ties>0</ties>
+       <percentage>.429</percentage>
+      </outcome_totals>
+      <streak>
+       <type>win</type>
+       <value>1</value>
+      </streak>
+      <points_for>932.74</points_for>
+      <points_against>935.74</points_against>
      </team_standings>
     </team>
     <team>
@@ -269,13 +378,13 @@
        <url>https://s.yimg.com/cv/apiv2/default/nfl/nfl_7.png</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>7</waiver_priority>
+     <waiver_priority>5</waiver_priority>
      <faab_balance>38</faab_balance>
-     <number_of_moves>12</number_of_moves>
+     <number_of_moves>13</number_of_moves>
      <number_of_trades>0</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
-      <coverage_value>7</coverage_value>
+      <coverage_value>8</coverage_value>
       <value>0</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
@@ -293,23 +402,23 @@
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2020</season>
-      <total>789.34</total>
+      <total>895.30</total>
      </team_points>
      <team_standings>
-      <rank>5</rank>
-      <playoff_seed>5</playoff_seed>
+      <rank>7</rank>
+      <playoff_seed>7</playoff_seed>
       <outcome_totals>
        <wins>3</wins>
-       <losses>3</losses>
+       <losses>4</losses>
        <ties>0</ties>
-       <percentage>.500</percentage>
+       <percentage>.429</percentage>
       </outcome_totals>
       <streak>
-       <type>win</type>
-       <value>2</value>
+       <type>loss</type>
+       <value>1</value>
       </streak>
-      <points_for>789.34</points_for>
-      <points_against>769.06</points_against>
+      <points_for>895.30</points_for>
+      <points_against>985</points_against>
      </team_standings>
     </team>
     <team>
@@ -324,12 +433,12 @@
       </team_logo>
      </team_logos>
      <waiver_priority>1</waiver_priority>
-     <faab_balance>60</faab_balance>
-     <number_of_moves>23</number_of_moves>
-     <number_of_trades>0</number_of_trades>
+     <faab_balance>59</faab_balance>
+     <number_of_moves>28</number_of_moves>
+     <number_of_trades>1</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
-      <coverage_value>7</coverage_value>
+      <coverage_value>8</coverage_value>
       <value>0</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
@@ -354,23 +463,23 @@
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2020</season>
-      <total>780.48</total>
+      <total>886.96</total>
      </team_points>
      <team_standings>
-      <rank>6</rank>
-      <playoff_seed>6</playoff_seed>
+      <rank>8</rank>
+      <playoff_seed>8</playoff_seed>
       <outcome_totals>
        <wins>3</wins>
-       <losses>3</losses>
+       <losses>4</losses>
        <ties>0</ties>
-       <percentage>.500</percentage>
+       <percentage>.429</percentage>
       </outcome_totals>
       <streak>
        <type>loss</type>
-       <value>1</value>
+       <value>2</value>
       </streak>
-      <points_for>780.48</points_for>
-      <points_against>834.6</points_against>
+      <points_for>886.96</points_for>
+      <points_against>945.68</points_against>
      </team_standings>
     </team>
     <team>
@@ -384,13 +493,13 @@
        <url>https://s.yimg.com/cv/apiv2/default/nfl/nfl_3.png</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>3</waiver_priority>
+     <waiver_priority>2</waiver_priority>
      <faab_balance>95</faab_balance>
-     <number_of_moves>3</number_of_moves>
-     <number_of_trades>0</number_of_trades>
+     <number_of_moves>5</number_of_moves>
+     <number_of_trades>1</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
-      <coverage_value>7</coverage_value>
+      <coverage_value>8</coverage_value>
       <value>0</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
@@ -415,77 +524,23 @@
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2020</season>
-      <total>769.36</total>
+      <total>874.86</total>
      </team_points>
      <team_standings>
-      <rank>7</rank>
-      <playoff_seed>7</playoff_seed>
+      <rank>9</rank>
+      <playoff_seed>9</playoff_seed>
       <outcome_totals>
        <wins>3</wins>
-       <losses>3</losses>
+       <losses>4</losses>
        <ties>0</ties>
-       <percentage>.500</percentage>
+       <percentage>.429</percentage>
       </outcome_totals>
       <streak>
        <type>loss</type>
-       <value>2</value>
+       <value>3</value>
       </streak>
-      <points_for>769.36</points_for>
-      <points_against>802.74</points_against>
-     </team_standings>
-    </team>
-    <team>
-     <team_key>399.l.629583.t.10</team_key>
-     <team_id>10</team_id>
-     <name>Charked Money</name>
-     <url>https://football.fantasysports.yahoo.com/f1/629583/10</url>
-     <team_logos>
-      <team_logo>
-       <size>large</size>
-       <url>https://s.yimg.com/cv/apiv2/default/nfl/nfl_11.png</url>
-      </team_logo>
-     </team_logos>
-     <waiver_priority>9</waiver_priority>
-     <faab_balance>66</faab_balance>
-     <number_of_moves>18</number_of_moves>
-     <number_of_trades>1</number_of_trades>
-     <roster_adds>
-      <coverage_type>week</coverage_type>
-      <coverage_value>7</coverage_value>
-      <value>0</value>
-     </roster_adds>
-     <league_scoring_type>head</league_scoring_type>
-     <has_draft_grade>1</has_draft_grade>
-     <draft_grade>B+</draft_grade>
-     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/629583/10/draftrecap</draft_recap_url>
-     <managers>
-      <manager>
-       <manager_id>10</manager_id>
-       <nickname>Sammy</nickname>
-       <guid>QPKF2MZ7TXDACTHTWJGMPMVXJY</guid>
-       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
-      </manager>
-     </managers>
-     <team_points>
-      <coverage_type>season</coverage_type>
-      <season>2020</season>
-      <total>755.84</total>
-     </team_points>
-     <team_standings>
-      <rank>8</rank>
-      <playoff_seed>8</playoff_seed>
-      <outcome_totals>
-       <wins>3</wins>
-       <losses>3</losses>
-       <ties>0</ties>
-       <percentage>.500</percentage>
-      </outcome_totals>
-      <streak>
-       <type>loss</type>
-       <value>1</value>
-      </streak>
-      <points_for>755.84</points_for>
-      <points_against>786.66</points_against>
+      <points_for>874.86</points_for>
+      <points_against>928.76</points_against>
      </team_standings>
     </team>
     <team>
@@ -500,13 +555,13 @@
        <url>https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/62274a896ef3dd0003c22a659850d42b3d67285242c46b60124d90b25619c099.png</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>4</waiver_priority>
-     <faab_balance>57</faab_balance>
-     <number_of_moves>28</number_of_moves>
+     <waiver_priority>11</waiver_priority>
+     <faab_balance>49</faab_balance>
+     <number_of_moves>31</number_of_moves>
      <number_of_trades>0</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
-      <coverage_value>7</coverage_value>
+      <coverage_value>8</coverage_value>
       <value>0</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
@@ -525,84 +580,90 @@
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2020</season>
-      <total>712.60</total>
+      <total>818.32</total>
      </team_points>
      <team_standings>
-      <rank>9</rank>
-      <playoff_seed>9</playoff_seed>
+      <rank>10</rank>
+      <playoff_seed>10</playoff_seed>
       <outcome_totals>
        <wins>3</wins>
-       <losses>3</losses>
+       <losses>4</losses>
        <ties>0</ties>
-       <percentage>.500</percentage>
+       <percentage>.429</percentage>
       </outcome_totals>
       <streak>
-       <type>win</type>
+       <type>loss</type>
        <value>1</value>
       </streak>
-      <points_for>712.60</points_for>
-      <points_against>717.04</points_against>
+      <points_for>818.32</points_for>
+      <points_against>833.56</points_against>
      </team_standings>
     </team>
     <team>
-     <team_key>399.l.629583.t.6</team_key>
-     <team_id>6</team_id>
-     <name>The Loser</name>
-     <url>https://football.fantasysports.yahoo.com/f1/629583/6</url>
+     <team_key>399.l.629583.t.4</team_key>
+     <team_id>4</team_id>
+     <name>ABCTEFG</name>
+     <url>https://football.fantasysports.yahoo.com/f1/629583/4</url>
      <team_logos>
       <team_logo>
        <size>large</size>
-       <url>https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/931aee6263e4a14a8ff0417335c1290a5b895e4babbeeb05cdcb31880c2ba87c.png</url>
+       <url>https://s.yimg.com/cv/apiv2/default/nfl/nfl_1_a.png</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>12</waiver_priority>
-     <faab_balance>5</faab_balance>
-     <number_of_moves>33</number_of_moves>
-     <number_of_trades>0</number_of_trades>
+     <waiver_priority>6</waiver_priority>
+     <faab_balance>49</faab_balance>
+     <number_of_moves>34</number_of_moves>
+     <number_of_trades>3</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
-      <coverage_value>7</coverage_value>
+      <coverage_value>8</coverage_value>
       <value>0</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
      <has_draft_grade>1</has_draft_grade>
-     <draft_grade>B</draft_grade>
-     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/629583/6/draftrecap</draft_recap_url>
+     <draft_grade>A-</draft_grade>
+     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/629583/4/draftrecap</draft_recap_url>
      <managers>
       <manager>
-       <manager_id>6</manager_id>
+       <manager_id>4</manager_id>
        <nickname>adam</nickname>
-       <guid>IHE7EUATJSBNEUAZ36MGZA76PU</guid>
-       <is_commissioner>1</is_commissioner>
+       <guid>F5N456HBPORAPHDJ5IA5CSFZVM</guid>
+       <image_url>https://s.yimg.com/ag/images/4553/38914508822_1a7a75_64sq.jpg</image_url>
+      </manager>
+      <manager>
+       <manager_id>17</manager_id>
+       <nickname>Carly</nickname>
+       <guid>NN54ESEFFUUORHHXVJ4XKIVCPU</guid>
+       <is_comanager>1</is_comanager>
        <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
       </manager>
      </managers>
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2020</season>
-      <total>821.66</total>
+      <total>799.66</total>
      </team_points>
      <team_standings>
-      <rank>10</rank>
-      <playoff_seed>10</playoff_seed>
+      <rank>11</rank>
+      <playoff_seed>11</playoff_seed>
       <outcome_totals>
-       <wins>2</wins>
+       <wins>3</wins>
        <losses>4</losses>
        <ties>0</ties>
-       <percentage>.333</percentage>
+       <percentage>.429</percentage>
       </outcome_totals>
       <streak>
-       <type>loss</type>
-       <value>2</value>
+       <type>win</type>
+       <value>1</value>
       </streak>
-      <points_for>821.66</points_for>
-      <points_against>829.26</points_against>
+      <points_for>799.66</points_for>
+      <points_against>865.44</points_against>
      </team_standings>
     </team>
     <team>
      <team_key>399.l.629583.t.12</team_key>
      <team_id>12</team_id>
-     <name>Cum On Stein's Chest</name>
+     <name>Joe’s wedding 2021</name>
      <url>https://football.fantasysports.yahoo.com/f1/629583/12</url>
      <team_logos>
       <team_logo>
@@ -610,13 +671,13 @@
        <url>https://s.yimg.com/cv/apiv2/default/nfl/nfl_2_j.png</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>10</waiver_priority>
+     <waiver_priority>8</waiver_priority>
      <faab_balance>45</faab_balance>
-     <number_of_moves>31</number_of_moves>
-     <number_of_trades>4</number_of_trades>
+     <number_of_moves>36</number_of_moves>
+     <number_of_trades>5</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
-      <coverage_value>7</coverage_value>
+      <coverage_value>8</coverage_value>
       <value>0</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
@@ -634,81 +695,27 @@
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2020</season>
-      <total>699.98</total>
-     </team_points>
-     <team_standings>
-      <rank>11</rank>
-      <playoff_seed>11</playoff_seed>
-      <outcome_totals>
-       <wins>2</wins>
-       <losses>4</losses>
-       <ties>0</ties>
-       <percentage>.333</percentage>
-      </outcome_totals>
-      <streak>
-       <type>win</type>
-       <value>1</value>
-      </streak>
-      <points_for>699.98</points_for>
-      <points_against>802.08</points_against>
-     </team_standings>
-    </team>
-    <team>
-     <team_key>399.l.629583.t.4</team_key>
-     <team_id>4</team_id>
-     <name>No this is Patrick</name>
-     <url>https://football.fantasysports.yahoo.com/f1/629583/4</url>
-     <team_logos>
-      <team_logo>
-       <size>large</size>
-       <url>https://s.yimg.com/cv/apiv2/default/nfl/nfl_1_a.png</url>
-      </team_logo>
-     </team_logos>
-     <waiver_priority>8</waiver_priority>
-     <faab_balance>73</faab_balance>
-     <number_of_moves>23</number_of_moves>
-     <number_of_trades>2</number_of_trades>
-     <roster_adds>
-      <coverage_type>week</coverage_type>
-      <coverage_value>7</coverage_value>
-      <value>0</value>
-     </roster_adds>
-     <league_scoring_type>head</league_scoring_type>
-     <has_draft_grade>1</has_draft_grade>
-     <draft_grade>A-</draft_grade>
-     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/629583/4/draftrecap</draft_recap_url>
-     <managers>
-      <manager>
-       <manager_id>4</manager_id>
-       <nickname>adam</nickname>
-       <guid>F5N456HBPORAPHDJ5IA5CSFZVM</guid>
-       <image_url>https://s.yimg.com/ag/images/4553/38914508822_1a7a75_64sq.jpg</image_url>
-      </manager>
-     </managers>
-     <team_points>
-      <coverage_type>season</coverage_type>
-      <season>2020</season>
-      <total>683.14</total>
+      <total>841.48</total>
      </team_points>
      <team_standings>
       <rank>12</rank>
       <playoff_seed>12</playoff_seed>
       <outcome_totals>
        <wins>2</wins>
-       <losses>4</losses>
+       <losses>5</losses>
        <ties>0</ties>
-       <percentage>.333</percentage>
+       <percentage>.286</percentage>
       </outcome_totals>
       <streak>
        <type>loss</type>
-       <value>2</value>
+       <value>1</value>
       </streak>
-      <points_for>683.14</points_for>
-      <points_against>759.72</points_against>
+      <points_for>841.48</points_for>
+      <points_against>955.34</points_against>
      </team_standings>
     </team>
    </teams>
   </standings>
  </league>
 </fantasy_content>
-<!-- fantasy-sports-api- -public-production-bf1-7b7c749fb8-z46x4 Tue Oct 20 16:45:38 UTC 2020 -->
+<!-- fantasy-sports-api- -public-production-bf1-b69969d76-lsgkz Tue Oct 27 15:35:32 UTC 2020 -->
