@@ -239,12 +239,12 @@ def get_players_by_pos_team(team, pos):
 		("nwe", "QB", "cam newton"),
 		("dal", "QB", "dak prescott"),
 		("nwe", "RB", "sony michel"),
-		("nyj", "RB", "leveon bell"),
 		("nyg", "RB", "saquon barkley"),
 		("sfo", "RB", "tevin coleman"),
 		("sdg", "RB", "austin ekeler"),
 		("car", "RB", "christian mccaffrey"),
 		("ram", "RB", "cam akers"),
+		("cle", "RB", "nick chubb"),
 		("ind", "WR", "parris campbell"),
 		("den", "WR", "courtland sutton"),
 		("gnb", "WR", "allen lazard"),
@@ -701,6 +701,8 @@ def fix_roster(roster, team):
 		roster["jake elliott"] = "K"
 	elif team == "pit":
 		roster["benny snell jr"] = "RB"
+	elif team == "ram":
+		roster["sam sloman"] = "K"
 	elif team == "was":
 		roster["jd mckissic"] = "RB"
 		roster["antonio gibson"] = "RB"
@@ -1000,7 +1002,7 @@ if __name__ == "__main__":
 		#write_team_rosters()
 		#write_boxscore_links()
 		#write_boxscore_stats(args.week, args.team)
-		calculate_aggregate_stats()
+		#calculate_aggregate_stats()
 
 	#write_team_rosters()
 	#write_boxscore_stats()

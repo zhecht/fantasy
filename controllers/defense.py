@@ -33,7 +33,7 @@ if os.path.exists("/home/zhecht/fantasy"):
     prefix = "/home/zhecht/fantasy/"
 
 # goes from green -> yellow -> orange -> red
-CURR_WEEK = 7
+CURR_WEEK = 8
 team_trans = {"rav": "bal", "htx": "hou", "oti": "ten", "sdg": "lac", "ram": "lar", "clt": "ind", "crd": "ari"}
 display_team_trans = {"rav": "bal", "htx": "hou", "oti": "ten", "sdg": "lac", "ram": "lar", "clt": "ind", "crd": "ari", "gnb": "gb", "kan": "kc", "nwe": "ne", "rai": "lv", "sfo": "sf", "tam": "tb", "nor": "no"}
 

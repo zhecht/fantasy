@@ -59,8 +59,14 @@ def read_reception_stats():
 	new_json = merge_two_dicts(new_j, new_json)
 	return new_json
 
+def read_nfl_trades():
+	with open("{}static/nfl_trades.json".format(prefix)) as fh:
+		returned_json = json.loads(fh.read())
+	return returned_json
+
 def read_snap_stats(curr_week):
 	teams = ['crd', 'atl', 'rav', 'buf', 'car', 'chi', 'cin', 'cle', 'dal', 'den', 'det', 'gnb', 'htx', 'clt', 'jax', 'kan', 'sdg', 'ram', 'rai', 'mia', 'min', 'nor', 'nwe', 'nyg', 'nyj', 'phi', 'pit', 'sea', 'sfo', 'tam', 'oti', 'was']
+	trades = read_nfl_trades()
 	res = {}
 	for team in teams:
 		with open(f"{prefix}static/profootballreference/{team}/stats.json") as fh:
@@ -81,7 +87,11 @@ def read_snap_stats(curr_week):
 					pass
 				perc.append(str(p))
 				counts.append(str(c))
-			res[name] = {"perc": ",".join(perc), "counts": ",".join(counts)}
+			if name in trades:
+				if trades[name]["team"] == team:
+					res[name] = {"perc": ",".join(perc), "counts": ",".join(counts)}
+			else:
+				res[name] = {"perc": ",".join(perc), "counts": ",".join(counts)}
 	return res
 
 def read_snap_stats2():
@@ -113,10 +123,17 @@ def read_snap_stats2():
 def read_target_stats():
 	with open(f"{prefix}static/target_counts.json") as fh:
 		returned_json = json.loads(fh.read())
+
+	trades = read_nfl_trades()
 	new_json = {}
 	for player in returned_json:
+		team = player.split(" ")[-1]
 		real_name = " ".join(player.split(" ")[:-1])
-		new_json[real_name] = {"perc": returned_json[player]["perc"], "counts": returned_json[player]["counts"], "pos": returned_json[player]["pos"]}
+		if real_name in trades:
+			if trades[real_name]["team"] == team:
+				new_json[real_name] = {"perc": returned_json[player]["perc"], "counts": returned_json[player]["counts"], "pos": returned_json[player]["pos"]}	
+		else:
+			new_json[real_name] = {"perc": returned_json[player]["perc"], "counts": returned_json[player]["counts"], "pos": returned_json[player]["pos"]}
 	return new_json
 
 def read_team_target_stats():
@@ -329,10 +346,16 @@ def get_target_aggregate_stats(curr_week=1):
 			"pos": target_stats[name_team]["pos"]
 		}
 
+	trades = read_nfl_trades()
 	new_json = {}
 	for player in j:
+		team = player.split(" ")[-1]
 		real_name = " ".join(player.split(" ")[:-1])
-		new_json[real_name] = {"perc": j[player]["perc"], "counts": j[player]["counts"], "pos": j[player]["pos"]}
+		if real_name in trades:
+			if trades[real_name]["team"] == team:
+				new_json[real_name] = {"perc": j[player]["perc"], "counts": j[player]["counts"], "pos": j[player]["pos"]}
+		else:
+			new_json[real_name] = {"perc": j[player]["perc"], "counts": j[player]["counts"], "pos": j[player]["pos"]}
 	return new_json
 
 

@@ -13,7 +13,9 @@ def loop(curr_week, cut, which):
 	print(f"#Week {curr_week+1}: Top {cut} players against Defenses that allow the most Fantasy Points vs. Projections")
 	for pos in ["QB", "RB", "WR", "TE", "K", "DEF"]:
 		print(f"\n#{pos}")
-		print(f"Defense|Actual vs. Projected %|Week {curr_week+1} Players")
+		def_str = "Offense" if pos == "DEF" else "Defense"
+		player_str = "Defense" if pos == "DEF" else "Players"
+		print(f"{def_str}|Actual vs. Projected %|Week {curr_week+1} {player_str}")
 		print(":--|:--|:--")
 		reverse = True
 		if which == "bottom":
@@ -112,7 +114,7 @@ def loop_weeks(curr_week, cut, week_range, which):
 			print(f"{team_dis.upper()}|{row['opp'].upper()}|{val}%|{players}")
 
 if __name__ == "__main__":
-	curr_week = 7
+	curr_week = 8
 	schedule = read_schedule()
 	snap_stats = read_snap_stats(curr_week)
 	over_expected = True
@@ -121,5 +123,7 @@ if __name__ == "__main__":
 	#loop(curr_week, cut, which="top")
 	loop(curr_week, cut, which="bottom")
 	#loop_weeks(curr_week, cut, range(curr_week, curr_week + 5), which="top") # next 5
-	#loop_weeks(curr_week, cut, range(13, 16), which="top") # playoffs
+	#loop_weeks(curr_week, cut, range(13, 16), which="bottom") # playoffs
 	
+	# DJ: 3 games: 17.47 ppg / 7 targets / 4.33 rec / 93 yards / 1 td
+	# Ty: 2 games: 25.95 ppg / 12.5 targets / 9.5 rec / 122 yards / 1.5 td

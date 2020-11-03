@@ -142,11 +142,15 @@ def write_redzone(curr_week=1):
 
 			if full_name:
 				team_ = team
-				if full_name in redzone_json and full_name in nfl_trades:
-					team_ = nfl_trades[full_name]["team"]
-					looks = redzone_json[full_name]["looks"].split(",")
-					redzone_counts = [ val + int(looks[idx]) for idx, val in enumerate(redzone_counts) ]
-				redzone_json[full_name] = {"looks": ','.join(str(x) for x in redzone_counts), "team": team_, "looks_perc": ""}
+				#if full_name in redzone_json and full_name in nfl_trades:
+				#	team_ = nfl_trades[full_name]["team"]
+				#	looks = redzone_json[full_name]["looks"].split(",")
+				#	redzone_counts = [ val + int(looks[idx]) for idx, val in enumerate(redzone_counts) ]
+				if full_name in nfl_trades:
+					if nfl_trades[full_name]["team"] == team:
+						redzone_json[full_name] = {"looks": ','.join(str(x) for x in redzone_counts), "team": team_, "looks_perc": ""}
+				else:
+					redzone_json[full_name] = {"looks": ','.join(str(x) for x in redzone_counts), "team": team_, "looks_perc": ""}
 	
 	for player in redzone_json:
 		perc_arr = []
@@ -238,6 +242,8 @@ def get_redzone_trends(rbbc_teams, curr_week=1, requested_pos="RB", is_ui=False)
 			continue
 		if player not in players_on_teams or players_on_teams[player]["position"] == "QB":
 			continue
+		#if "vaughn" in player:
+		#	print(player, snap_stats[player], target_stats[player])
 		#if not is_ui and (player.find("jr") >= 0 or player.find(".") >= 0 or player.find("ii") >= 0):
 		if (player.find("jr") >= 0 or player.find(".") >= 0 or player.find("ii") >= 0):
 			pass
@@ -273,8 +279,8 @@ def get_redzone_trends(rbbc_teams, curr_week=1, requested_pos="RB", is_ui=False)
 			rz = int(trends[team][player]["looks"].split(",")[curr_week - 1])
 			last_rz = int(trends[team][player]["looks"].split(",")[curr_week - 1])
 			last_snaps = float(trends[team][player]["snaps"].split(",")[curr_week - 1])
-			#if player == "david montgomery":
-			#	print(snaps)
+			#if player == "leveon bell":
+			#	print(target_aggregates[player])
 			target_share = round(float(target_aggregates[player]["perc"].split(",")[curr_week - 1]) * 100, 1)
 			try:
 				denom = redzone_totals[team]["total"] - subtract_missed_rz(curr_week, snap_stats[player]["counts"].split(","), team_total_json[team][requested_pos])
@@ -687,11 +693,11 @@ if __name__ == '__main__':
 		print("\nPlayer|RZ Looks Per Game|1 Week Trend|3 Week Trend|RZ Team Share")
 		print(":--|:--|:--|:--|:--")
 		for player in sorted_looks:
-			continue
+			#continue
 			#if player["looks"] >= 0 and player["name"] in feelsbad_players: 
-			if player["team"] == 'pit':
+			if player["team"] == 'cin':
 				print(f"{player['name'].title()}|{player['looks_per_game']}|{player['delta']}|{player['delta3']}|{player['looks_perc']}%")
-		#exit()
+		exit()
 
 		print("\n#The Julio Jones Table")
 		print("\nPlayer|RZ Looks Per Game|1 Week Trend|3 Week Trend|RZ Team Share")
