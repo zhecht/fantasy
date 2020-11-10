@@ -201,7 +201,7 @@ def fix_projections(all_projections):
 	all_projections["stephen hauschka"]["wk5"] = 2.28 + 0.06*3 + 0.47*3 + 0.53*3 + 0.49*4
 	all_projections["jonathan brown"]["wk6"] = 2.07 + 0.03*3 + 0.48*3 + 0.44*3 + 0.42*4
 
-	all_projections["sergio castillo"] = {"wk7": 5.71, "wk8": 5.71} # ficken NYJ replacement. use lowest projected for week
+	all_projections["sergio castillo"] = {"wk7": 5.71, "wk8": 5.71, "wk9": 5.54} # ficken NYJ replacement. use lowest projected for week
 
 def parse_projections():
 	all_projections = {}

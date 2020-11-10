@@ -693,11 +693,11 @@ if __name__ == '__main__':
 		print("\nPlayer|RZ Looks Per Game|1 Week Trend|3 Week Trend|RZ Team Share")
 		print(":--|:--|:--|:--|:--")
 		for player in sorted_looks:
-			#continue
+			continue
 			#if player["looks"] >= 0 and player["name"] in feelsbad_players: 
 			if player["team"] == 'cin':
 				print(f"{player['name'].title()}|{player['looks_per_game']}|{player['delta']}|{player['delta3']}|{player['looks_perc']}%")
-		exit()
+		#exit()
 
 		print("\n#The Julio Jones Table")
 		print("\nPlayer|RZ Looks Per Game|1 Week Trend|3 Week Trend|RZ Team Share")

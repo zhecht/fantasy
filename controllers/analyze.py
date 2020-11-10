@@ -114,7 +114,7 @@ def loop_weeks(curr_week, cut, week_range, which):
 			print(f"{team_dis.upper()}|{row['opp'].upper()}|{val}%|{players}")
 
 if __name__ == "__main__":
-	curr_week = 8
+	curr_week = 9
 	schedule = read_schedule()
 	snap_stats = read_snap_stats(curr_week)
 	over_expected = True

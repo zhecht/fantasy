@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.629583/players;start=900;status=FA" time="189.80097770691ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
+<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.629583/players;start=900;status=FA" time="106.07981681824ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
  <league>
   <league_key>399.l.629583</league_key>
   <league_id>629583</league_id>
@@ -26,7 +26,39 @@
   <end_date>2020-12-28</end_date>
   <game_code>nfl</game_code>
   <season>2020</season>
-  <players/>
+  <players count="1">
+   <player>
+    <player_key>399.p.100030</player_key>
+    <player_id>100030</player_id>
+    <name>
+     <full>Jacksonville</full>
+     <first>Jacksonville</first>
+     <last/>
+     <ascii_first>Jacksonville</ascii_first>
+     <ascii_last/>
+    </name>
+    <editorial_player_key>nfl.p.100030</editorial_player_key>
+    <editorial_team_key>nfl.t.30</editorial_team_key>
+    <editorial_team_full_name>Jacksonville Jaguars</editorial_team_full_name>
+    <editorial_team_abbr>Jax</editorial_team_abbr>
+    <bye_weeks>
+     <week>8</week>
+    </bye_weeks>
+    <uniform_number></uniform_number>
+    <display_position>DEF</display_position>
+    <headshot>
+     <url>https://s.yimg.com/xe/ipt/50x50w.3.gif</url>
+     <size>small</size>
+    </headshot>
+    <image_url>https://s.yimg.com/xe/ipt/50x50w.3.gif</image_url>
+    <is_undroppable>0</is_undroppable>
+    <position_type>DT</position_type>
+    <primary_position>DEF</primary_position>
+    <eligible_positions>
+     <position>DEF</position>
+    </eligible_positions>
+   </player>
+  </players>
  </league>
 </fantasy_content>
-<!-- fantasy-sports-api- -public-production-bf1-784c9c7dcf-kbsh4 Tue Nov  3 13:27:16 UTC 2020 -->
+<!-- fantasy-sports-api- -public-production-bf1-784c9c7dcf-ckgcr Wed Nov  4 14:02:07 UTC 2020 -->

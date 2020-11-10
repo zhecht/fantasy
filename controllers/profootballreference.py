@@ -236,8 +236,9 @@ def get_players_by_pos_team(team, pos):
 				arr.append(player)
 	# IR is not listed on roster
 	ir_data = [
-		("nwe", "QB", "cam newton"),
+		("cle", "QB", "baker mayfield"),
 		("dal", "QB", "dak prescott"),
+		("sfo", "QB", "jimmy garoppolo"),
 		("nwe", "RB", "sony michel"),
 		("nyg", "RB", "saquon barkley"),
 		("sfo", "RB", "tevin coleman"),
@@ -258,8 +259,6 @@ def get_players_by_pos_team(team, pos):
 		("dal", "TE", "blake jarwin"),
 		("cle", "TE", "david njoku"),
 		("cin", "TE", "cj uzomah"),
-		("jax", "K", "brandon wright"),
-		("jax", "K", "josh lambo"),
 		("cle", "K", "austin seibert")
 	]
 	for data in ir_data:
@@ -694,6 +693,7 @@ def fix_roster(roster, team):
 		roster["josh lambo"] = "K"
 		roster["stephen hauschka"] = "K"
 		roster["jonathan brown"] = "K"
+		roster["brandon wright"] = "K"
 	elif team == "nyj":
 		roster["chris hogan"] = "WR"
 		roster["sergio castillo"] = "K"
