@@ -120,8 +120,8 @@ if __name__ == "__main__":
 	over_expected = True
 	
 	cut = 15
-	#loop(curr_week, cut, which="top")
-	loop(curr_week, cut, which="bottom")
+	loop(curr_week, cut, which="top")
+	#loop(curr_week, cut, which="bottom")
 	#loop_weeks(curr_week, cut, range(curr_week, curr_week + 5), which="top") # next 5
 	#loop_weeks(curr_week, cut, range(13, 16), which="bottom") # playoffs
 	

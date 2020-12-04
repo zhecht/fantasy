@@ -157,6 +157,8 @@ def calculate_aggregate_stats(settings=None):
 				team_stats = json.loads(fh.read())
 
 			for player in team_stats:
+				if player == "phillip walker":
+					player = "pj walker"
 				if player not in stats:
 					stats[player] = {"tot": {"standard_points": 0, "half_points": 0, "full_points": 0}}
 				if "wk{}".format(week) not in stats[player]:
@@ -239,13 +241,22 @@ def get_players_by_pos_team(team, pos):
 		("cle", "QB", "baker mayfield"),
 		("dal", "QB", "dak prescott"),
 		("sfo", "QB", "jimmy garoppolo"),
+		("cin", "QB", "joe burrow"),
 		("nwe", "RB", "sony michel"),
+		("nyj", "RB", "lamical perine"),
 		("nyg", "RB", "saquon barkley"),
 		("sfo", "RB", "tevin coleman"),
+		("sfo", "RB", "jeff wilson jr"),
+		("sfo", "RB", "raheem mostert"),
 		("sdg", "RB", "austin ekeler"),
 		("car", "RB", "christian mccaffrey"),
 		("ram", "RB", "cam akers"),
+		("nwe", "RB", "rex burkhead"),
+		("mia", "RB", "myles gaskin"),
+		("cin", "RB", "joe mixon"),
 		("cle", "RB", "nick chubb"),
+		("hou", "RB", "david johnson"),
+		("cle", "WR", "odell beckham jr"),
 		("ind", "WR", "parris campbell"),
 		("den", "WR", "courtland sutton"),
 		("gnb", "WR", "allen lazard"),
@@ -253,12 +264,15 @@ def get_players_by_pos_team(team, pos):
 		("nyg", "WR", "sterling shepard"),
 		("nyg", "WR", "golden tate"),
 		("nyg", "WR", "kaden smith"),
+		("mia", "WR", "preston williams"),
 		("nyg", "WR", "cj board"),
 		("crd", "TE", "dan arnold"),
 		("phi", "TE", "dallas goedert"),
 		("dal", "TE", "blake jarwin"),
 		("cle", "TE", "david njoku"),
 		("cin", "TE", "cj uzomah"),
+		("sfo", "TE", "george kittle"),
+		("rav", "TE", "mark andrews"),
 		("cle", "K", "austin seibert")
 	]
 	for data in ir_data:
@@ -686,6 +700,10 @@ def write_boxscore_links():
 def fix_roster(roster, team):
 	if team == "atl":
 		roster["elliott fry"] = "K"
+	elif team == "car":
+		roster["pj walker"] = "QB"
+	elif team == "den":
+		roster["kendall hinton"] = "QB"
 	elif team == "gnb":
 		roster["mason crosby"] = "K"
 	elif team == "jax":
@@ -694,16 +712,24 @@ def fix_roster(roster, team):
 		roster["stephen hauschka"] = "K"
 		roster["jonathan brown"] = "K"
 		roster["brandon wright"] = "K"
+		roster["chase mclaughlin"] = "K"
+	elif team == "nor":
+		roster["drew brees"] = "QB"
 	elif team == "nyj":
 		roster["chris hogan"] = "WR"
 		roster["sergio castillo"] = "K"
+		roster["sam ficken"] = "K"
+	elif team == "nyg":
+		roster["graham gano"] = "K"
 	elif team == "phi":
 		roster["jake elliott"] = "K"
 	elif team == "pit":
 		roster["benny snell jr"] = "RB"
 	elif team == "ram":
 		roster["sam sloman"] = "K"
+		roster["kai forbath"] = "K"
 	elif team == "was":
+		roster["kyle allen"] = "QB"
 		roster["jd mckissic"] = "RB"
 		roster["antonio gibson"] = "RB"
 		roster["logan thomas"] = "TE"
@@ -752,8 +778,8 @@ def write_team_rosters(teamlinks={}):
 			tds = tr.find_all("td")
 			name = tds[0].text.strip().lower().replace("'", "").replace(".", "")
 			pos = tds[2].text
-			if name in roster and roster[name] != pos:
-				print(name, roster[name], pos)
+			#if name in roster and roster[name] != pos:
+			#	print(name, roster[name], pos)
 			roster[name] = pos
 		fix_roster(roster, team.split("/")[-2])
 		with open("{}/roster.json".format(path), "w") as fh:
@@ -893,6 +919,8 @@ def add_stats(boxscorelinks, team, teampath, boxlink, week_arg, team_arg):
 			if classes and "thead" in classes:
 				continue
 			name = tr.find("th").text.strip().lower().replace("'", "").replace(".", "")
+			if name == "phillip walker":
+				name = "pj walker"
 			data = tr.find_all("td")
 			if "snap" not in inner_ids[i]:
 				ck_team = get_abbr(data[0].text.lower()) # might have different abbr
@@ -998,11 +1026,11 @@ if __name__ == "__main__":
 		
 		#write_team_links()
 		#write_schedule()
-		
 		#write_team_rosters()
 		#write_boxscore_links()
-		#write_boxscore_stats(args.week, args.team)
-		#calculate_aggregate_stats()
+		
+		write_boxscore_stats(args.week, args.team)
+		calculate_aggregate_stats()
 
 	#write_team_rosters()
 	#write_boxscore_stats()

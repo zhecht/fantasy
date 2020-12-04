@@ -21,7 +21,7 @@ if os.path.exists("/home/zhecht/fantasy"):
     # if on linux aka prod
     prefix = "/home/zhecht/fantasy/"
 
-curr_week = 9
+curr_week = 12
 
 @rbbc_print.route('/rbbc')
 def rbbc_route():
