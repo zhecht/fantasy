@@ -356,7 +356,7 @@ def get_point_totals(curr_week, settings, over_expected):
 							real_pts *= 100
 							pos_tot[pos][wk+"_proj"] += projections[team][player][wk]
 							pos_tot[pos][wk+"_act"] += all_team_stats[team][player][wk]["half_points"]
-							#if team == "atl" and pos == "K":
+							#if team == "jax" and pos == "K":
 							#	print(player, wk, all_team_stats[team][player][wk]["half_points"], projections[team][player][wk], real_pts)
 					else:
 						real_pts = get_points_from_settings(all_team_stats[team][player][wk], settings)
@@ -702,8 +702,11 @@ def fix_roster(roster, team):
 		roster["elliott fry"] = "K"
 	elif team == "car":
 		roster["pj walker"] = "QB"
+	elif team == "crd":
+		roster["mike nugent"] = "K"
 	elif team == "den":
 		roster["kendall hinton"] = "QB"
+		roster["brandon mcmanus"] = "K"
 	elif team == "gnb":
 		roster["mason crosby"] = "K"
 	elif team == "jax":
@@ -725,6 +728,7 @@ def fix_roster(roster, team):
 		roster["jake elliott"] = "K"
 	elif team == "pit":
 		roster["benny snell jr"] = "RB"
+		roster["matthew wright"] = "K"
 	elif team == "ram":
 		roster["sam sloman"] = "K"
 		roster["kai forbath"] = "K"
