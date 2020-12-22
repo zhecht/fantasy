@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/team/nfl.l.629583.t.6/roster" time="91.531038284302ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
+<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/team/nfl.l.629583.t.6/roster" time="65.930128097534ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
  <team>
   <team_key>399.l.629583.t.6</team_key>
   <team_id>6</team_id>
@@ -17,7 +17,7 @@
   <number_of_trades>0</number_of_trades>
   <roster_adds>
    <coverage_type>week</coverage_type>
-   <coverage_value>14</coverage_value>
+   <coverage_value>16</coverage_value>
    <value>0</value>
   </roster_adds>
   <league_scoring_type>head</league_scoring_type>
@@ -35,7 +35,7 @@
   </managers>
   <roster>
    <coverage_type>week</coverage_type>
-   <week>14</week>
+   <week>16</week>
    <is_editable>0</is_editable>
    <players count="16">
     <player>
@@ -69,10 +69,10 @@
       <position>QB</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1607401067</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1608425712</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>14</week>
+      <week>16</week>
       <position>QB</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -109,10 +109,11 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1607391546</player_notes_last_timestamp>
+     <has_recent_player_notes>1</has_recent_player_notes>
+     <player_notes_last_timestamp>1608612365</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>14</week>
+      <week>16</week>
       <position>WR</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -149,10 +150,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1607293988</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1608499576</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>14</week>
+      <week>16</week>
       <position>WR</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -188,11 +189,9 @@
       <position>WR</position>
       <position>W/R/T</position>
      </eligible_positions>
-     <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1607662059</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>14</week>
+      <week>16</week>
       <position>WR</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -229,10 +228,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1607630509</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1608513836</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>14</week>
+      <week>16</week>
       <position>RB</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -269,10 +268,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1607296903</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1608506977</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>14</week>
+      <week>16</week>
       <position>RB</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -287,6 +286,9 @@
       <ascii_first>Mike</ascii_first>
       <ascii_last>Gesicki</ascii_last>
      </name>
+     <status>Q</status>
+     <status_full>Questionable</status_full>
+     <injury_note>Shoulder</injury_note>
      <editorial_player_key>nfl.p.31012</editorial_player_key>
      <editorial_team_key>nfl.t.15</editorial_team_key>
      <editorial_team_full_name>Miami Dolphins</editorial_team_full_name>
@@ -309,10 +311,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1607291639</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1608481860</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>14</week>
+      <week>16</week>
       <position>TE</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -327,9 +329,6 @@
       <ascii_first>Kenyan</ascii_first>
       <ascii_last>Drake</ascii_last>
      </name>
-     <status>Q</status>
-     <status_full>Questionable</status_full>
-     <injury_note>Hip</injury_note>
      <editorial_player_key>nfl.p.29307</editorial_player_key>
      <editorial_team_key>nfl.t.22</editorial_team_key>
      <editorial_team_full_name>Arizona Cardinals</editorial_team_full_name>
@@ -352,11 +351,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
-     <player_notes_last_timestamp>1607864622</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1608521371</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>14</week>
+      <week>16</week>
       <position>W/R/T</position>
       <is_flex>1</is_flex>
      </selected_position>
@@ -393,10 +391,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1607662208</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1608512337</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>14</week>
+      <week>16</week>
       <position>W/R/T</position>
       <is_flex>1</is_flex>
      </selected_position>
@@ -433,10 +431,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1607662493</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1608512436</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>14</week>
+      <week>16</week>
       <position>BN</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -451,6 +449,9 @@
       <ascii_first>Duke</ascii_first>
       <ascii_last>Johnson</ascii_last>
      </name>
+     <status>Q</status>
+     <status_full>Questionable</status_full>
+     <injury_note>Neck</injury_note>
      <editorial_player_key>nfl.p.28465</editorial_player_key>
      <editorial_team_key>nfl.t.34</editorial_team_key>
      <editorial_team_full_name>Houston Texans</editorial_team_full_name>
@@ -473,10 +474,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1607298472</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1608482087</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>14</week>
+      <week>16</week>
       <position>BN</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -512,9 +513,11 @@
       <position>RB</position>
       <position>W/R/T</position>
      </eligible_positions>
+     <has_player_notes>1</has_player_notes>
+     <player_notes_last_timestamp>1608442103</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>14</week>
+      <week>16</week>
       <position>BN</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -550,9 +553,11 @@
       <position>RB</position>
       <position>W/R/T</position>
      </eligible_positions>
+     <has_player_notes>1</has_player_notes>
+     <player_notes_last_timestamp>1608520621</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>14</week>
+      <week>16</week>
       <position>BN</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -567,9 +572,6 @@
       <ascii_first>Dez</ascii_first>
       <ascii_last>Bryant</ascii_last>
      </name>
-     <status>COVID-19</status>
-     <status_full>Reserve: COVID-19</status_full>
-     <injury_note>COVID-19</injury_note>
      <editorial_player_key>nfl.p.23999</editorial_player_key>
      <editorial_team_key>nfl.t.33</editorial_team_key>
      <editorial_team_full_name>Baltimore Ravens</editorial_team_full_name>
@@ -590,13 +592,12 @@
      <eligible_positions>
       <position>WR</position>
       <position>W/R/T</position>
-      <position>IR</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1607634176</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1608506338</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>14</week>
+      <week>16</week>
       <position>BN</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -633,7 +634,7 @@
      </eligible_positions>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>14</week>
+      <week>16</week>
       <position>K</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -670,7 +671,7 @@
      </eligible_positions>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>14</week>
+      <week>16</week>
       <position>DEF</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -679,4 +680,4 @@
   </roster>
  </team>
 </fantasy_content>
-<!-- fantasy-sports-api- -public-production-bf1-68466b5c4f-fqw8p Sun Dec 13 16:08:28 UTC 2020 -->
+<!-- fantasy-sports-api- -public-production-bf1-5984fbf5f6-88z49 Tue Dec 22 18:39:41 UTC 2020 -->

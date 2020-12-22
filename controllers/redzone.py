@@ -238,12 +238,12 @@ def get_redzone_trends(rbbc_teams, curr_week=1, requested_pos="RB", is_ui=False)
 
 	trends = {}
 	for player in snap_stats:
+		#if "salvon" in player:
+		#	print(player, snap_stats[player], target_stats[player])
 		if player not in redzone_json:
 			continue
 		if player not in players_on_teams or players_on_teams[player]["position"] == "QB":
 			continue
-		#if "vaughn" in player:
-		#	print(player, snap_stats[player], target_stats[player])
 		#if not is_ui and (player.find("jr") >= 0 or player.find(".") >= 0 or player.find("ii") >= 0):
 		if (player.find("jr") >= 0 or player.find(".") >= 0 or player.find("ii") >= 0):
 			pass
@@ -693,11 +693,11 @@ if __name__ == '__main__':
 		print("\nPlayer|RZ Looks Per Game|1 Week Trend|3 Week Trend|RZ Team Share")
 		print(":--|:--|:--|:--|:--")
 		for player in sorted_looks:
-			#continue
+			continue
 			#if player["looks"] >= 0 and player["name"] in feelsbad_players: 
 			if player["team"] == 'clt':
 				print(f"{player['name'].title()}|{player['looks_per_game']}|{player['delta']}|{player['delta3']}|{player['looks_perc']}%")
-		exit()
+		#exit()
 
 		print("\n#The Julio Jones Table")
 		print("\nPlayer|RZ Looks Per Game|1 Week Trend|3 Week Trend|RZ Team Share")

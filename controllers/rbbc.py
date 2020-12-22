@@ -51,8 +51,6 @@ def rbbc_route():
             players_ordered.append({"player": player, "avg_snaps": snap_trends[team][player]["avg_snaps"]})
         for player in sorted(players_ordered, key=operator.itemgetter("avg_snaps"), reverse=True):
             player = player["player"]
-            if "jackson" in player:
-                print(player)
             if snap_trends[team][player]["snaps"] == 0:
                 if snap_trends[team][player]["looks_per_game"] == 0 and snap_trends[team][player]["targets_per_game"] == 0:
                     continue
