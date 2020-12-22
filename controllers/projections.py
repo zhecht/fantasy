@@ -191,7 +191,7 @@ def get_points(projections):
 	return passing_pts + rushing_pts + receiving_pts + misc_pts
 
 def fix_projections(all_projections):
-	for name in ["justin herbert", "matthew wright", "aldrick rosas", "stephen hauschka", "sergio castillo", "jonathan brown"]:
+	for name in ["justin herbert", "matthew wright", "aldrick rosas", "stephen hauschka", "sergio castillo", "jonathan brown", "taylor russolino"]:
 		if name not in all_projections:
 			all_projections[name] = {}
 
@@ -204,11 +204,13 @@ def fix_projections(all_projections):
 	all_projections["aldrick rosas"]["wk12"] = 6.64
 	all_projections["chase mclaughlin"]["wk13"] = 6.07
 	all_projections["austin seibert"]["wk14"] = 4.93
+	all_projections["mike nugent"]["wk15"] = 7.61
 
 	all_projections["sergio castillo"] = {"wk7": 5.71, "wk8": 5.71, "wk9": 5.54, "wk12": 5.07, "wk13": 5.5, "wk14": 4.93} # ficken NYJ replacement. use lowest projected for week
 
 	all_projections["kendall hinton"] = {"wk12": 0.01}
 	all_projections["matthew wright"] = {"wk13": 5.82}
+	all_projections["taylor russolino"] = {"wk15": 5.09}
 
 def parse_projections():
 	all_projections = {}

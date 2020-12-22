@@ -273,7 +273,8 @@ def get_players_by_pos_team(team, pos):
 		("cin", "TE", "cj uzomah"),
 		("sfo", "TE", "george kittle"),
 		("rav", "TE", "mark andrews"),
-		("cle", "K", "austin seibert")
+		("cle", "K", "austin seibert"),
+		("crd", "K", "zane gonzalez")
 	]
 	for data in ir_data:
 		if team == data[0] and pos == data[1] and data[2] not in arr:
@@ -707,6 +708,7 @@ def fix_roster(roster, team):
 	elif team == "den":
 		roster["kendall hinton"] = "QB"
 		roster["brandon mcmanus"] = "K"
+		roster["taylor russolino"] = "K"
 	elif team == "gnb":
 		roster["mason crosby"] = "K"
 	elif team == "jax":
@@ -732,6 +734,9 @@ def fix_roster(roster, team):
 	elif team == "ram":
 		roster["sam sloman"] = "K"
 		roster["kai forbath"] = "K"
+	elif team == "rav":
+		roster["luke willson"] = "TE"
+		roster["trace mcsorley"] = "QB"
 	elif team == "was":
 		roster["kyle allen"] = "QB"
 		roster["jd mckissic"] = "RB"
