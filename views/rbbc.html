@@ -4,16 +4,22 @@
 		<title>RBBC Trends</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 		<link rel="stylesheet" href="/static/css/teams.css" type="text/css">
+		<script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.9.3/dist/js/tabulator.min.js"></script>
+		<link href="https://unpkg.com/tabulator-tables@4.9.3/dist/css/tabulator.min.css" rel="stylesheet">
 	</head>
 	<style>
 		body { font-size: 18px; }
-		#table_wrapper {
+		#rbbcTable {
+			width: max-content;
+		}
+		#tableDiv {
 			display: flex;
-			flex-direction: column;	
+			justify-content: center;
 		}
 		#team_click_div { width:70%; margin-left: 15%;}
 		.team_click { text-decoration: none; }
-		table { width: 80%;margin-left: 10%;margin-top: 20px;text-align: center;border:1px solid;border-collapse: collapse;}
+		table { width: 90%;margin-left: 5%;margin-top: 20px;text-align: center;border:1px solid;border-collapse: collapse;}
+		table tr td:nth-child(1), table tr td:nth-child(3), table tr td:nth-child(4), table tr td:nth-child(5), table tr td:nth-child(6) { text-align: left; padding-left: 15px; }
 		table tr { border-bottom: 1px solid; }
 		table tr:nth-child(even) { background-color: #f1f1f1; }
 		table td, table th { border: 1px solid; }
@@ -39,9 +45,57 @@
 		<div style="text-align: center;">
 			<h4>Numbers in parenthesis are trends from week {{curr_week}}</h4>
 		</div>
-		<div id="table_wrapper">
-			{{table|safe}}
+		<div id="tableDiv">
+			<div id="rbbcTable">
+				<!-- {{table|safe}} -->
+			</div>
 		</div>
+		<script>
+			let TABLE;
+
+			const percentFormatter = function(cell, params, rendered) {
+				return cell.getValue().toFixed(1)+"%";
+			}
+
+			const decimalFormatter = function(cell, params, rendered) {
+				return cell.getValue().toFixed(1);
+			}
+
+			const teamFormatter = function(cell, params, rendered) {
+				const div = document.createElement("div");
+				div.className = cell.getValue().toLowerCase();
+				div.innerText = cell.getValue();
+				return div;
+			}
+
+			function renderTable() {
+				TABLE = new Tabulator("#rbbcTable", {
+					tooltipsHeader: true,
+					ajaxURL: "/getRBBC",
+					groupBy: "team",
+					groupHeader: function(value, count, data, group){
+						const playerTxt = count == 1 ? "Player" : "Players"
+						return value + "<span style='color:black; margin-left:10px;'>(" + count + " "+playerTxt+")</span>";
+					},
+					initialSort: [
+						{column: "avgSnapPer", dir: "desc"},
+						{column: "team", dir: "asc"}
+					],
+					columns: [
+						{title: "Player", field: "player", headerFilter: "input"},
+						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterParams:{values:true}},
+						{title: "Avg Snap %", field: "avgSnapPer", formatter: percentFormatter, width: "150", hozAlign: "center"},
+						{title: "RZ Looks Per Game", field: "looksPerGame", formatter: decimalFormatter, width: "150", hozAlign: "center"},
+						{title: "RZ Looks Share", field: "looksSharePer", formatter: percentFormatter, width: "150", hozAlign: "center"},
+						{title: "Targets Per Game", field: "targetsPerGame", formatter: decimalFormatter, width: "150", hozAlign: "center"},
+						{title: "RB Target Share", field: "targetShare", formatter: percentFormatter, width: "150", hozAlign: "center"},
+
+					]
+				})
+			}
+
+			renderTable();
+		</script>
 		<script>
 			var links = document.getElementById("nav").getElementsByTagName("a");
 			for (var i in links) {

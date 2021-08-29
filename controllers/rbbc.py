@@ -12,6 +12,7 @@ import os
 import subprocess
 import re
 
+from controllers.functions import *
 import controllers.redzone
 
 rbbc_print = Blueprint('rbbc', __name__, template_folder='views')
@@ -21,29 +22,42 @@ if os.path.exists("/home/zhecht/fantasy"):
     # if on linux aka prod
     prefix = "/home/zhecht/fantasy/"
 
-curr_week = 15
+@rbbc_print.route("/getRBBC")
+def getRBBC():
+    rbbcResult = []
+    snap_trends = controllers.redzone.get_redzone_trends(RBBC_TEAMS, curr_week, "RB")
+    for team in RBBC_TEAMS:
+        team_display = TEAM_TRANS[team] if team in TEAM_TRANS else team
+        playerList = []
+        players = snap_trends[team].keys()
+        for player in players:
+            playerData = snap_trends[team][player]
+            rbbcResult.append({
+                "player": player.title(),
+                "team": team_display.upper(),
+                "avgSnapPer": playerData["avg_snaps"],
+                "looksPerGame": playerData["looks_per_game"],
+                "looksPerGameTrend": playerData["looks_per_game_trend"],
+                "looksSharePer": playerData["looks_share"],
+                "looksShareTrend": playerData["looks_share_trend"],
+                "targetsPerGame": playerData["targets_per_game"],
+                "targetsPerGameTrend": playerData["targets_per_game_trend"],
+                "targetShare": playerData["target_share"],
+                "targetShareTrend": playerData["target_share_trend"],
+            })
+    return jsonify(rbbcResult)
 
 @rbbc_print.route('/rbbc')
 def rbbc_route():
-    team_trans = {"rav": "bal", "htx": "hou", "oti": "ten", "sdg": "lac", "ram": "lar", "clt": "ind", "crd": "ari", "gnb": "gb", "kan": "kc", "nwe": "ne", "rai": "lv", "sfo": "sf", "tam": "tb", "nor": "no"}
-    afc_teams = ['rav', 'buf', 'cin', 'cle', 'den', 'htx', 'clt', 'jax', 'kan', 'sdg', 'rai', 'mia', 'nwe', 'nyj', 'pit', 'ten']
-    nfc_teams = ['crd', 'atl', 'car', 'chi', 'dal', 'det', 'gnb', 'ram', 'min', 'nor', 'nyg', 'phi', 'sea', 'sfo', 'tam', 'was']
-    rbbc_teams = ['crd', 'atl', 'rav', 'buf', 'car', 'chi', 'cin', 'cle', 'dal', 'den', 'det', 'gnb', 'htx', 'clt', 'jax', 'kan', 'sdg', 'ram', 'rai', 'mia', 'min', 'nor', 'nwe', 'nyg', 'nyj', 'phi', 'pit', 'sea', 'sfo', 'tam', 'oti', 'was']
-    snap_trends = controllers.redzone.get_redzone_trends(rbbc_teams, curr_week, "RB", is_ui=True)
-    table = ""
+    snap_trends = controllers.redzone.get_redzone_trends(RBBC_TEAMS, curr_week, "RB", is_ui=True)
 
-    #table += "<div id='team_click_div'><a class='team_click' href='#'>All</a>"
-    #for team in rbbc_teams:
-    #    team_display = team_trans[team] if team in team_trans else team
-    #    table += f"<a class='team_click' href='#'>{team_display}</a>"
-    #table += "</div>"
-    for team in rbbc_teams:
-        team_display = team_trans[team] if team in team_trans else team
-        table += f"<table id='{team}_table'>"
-        table += f"<thead><tr><th class='{team}' colspan='6'>{team_display.upper()}</th></tr><tr>"
-        for header in ["Player", "Avg Snap %", "RZ Looks Per Game", "RZ Looks Share", "Targets Per Game", "RB TGT Share"]:
-            table += f"<th class='{team}'>{header}</th>"
-        table += "</tr></thead><tbody>"
+    table = f"<table id='rbbc_table'>"
+    table += f"<thead><tr><th colspan='7'>Running Back Breakdowns</th></tr><tr>"
+    for header in ["Player", "Team", "Avg Snap %", "RZ Looks Per Game", "RZ Looks Share", "Targets Per Game", "RB TGT Share"]:
+        table += f"<th>{header}</th>"
+    table += "</tr></thead><tbody>"
+    for team in RBBC_TEAMS:
+        team_display = TEAM_TRANS[team] if team in TEAM_TRANS else team
         extra = ""
         players_ordered = []
         players = snap_trends[team].keys()
@@ -54,14 +68,13 @@ def rbbc_route():
             if snap_trends[team][player]["snaps"] == 0:
                 if snap_trends[team][player]["looks_per_game"] == 0 and snap_trends[team][player]["targets_per_game"] == 0:
                     continue
-                extra += f"<tr><td class='{team}'>{player.title()}</td><td class='{team}'>{snap_trends[team][player]['avg_snaps']}% (DNP)</td><td class='{team}'>{snap_trends[team][player]['looks_per_game']}</td><td class='{team}'>{snap_trends[team][player]['looks_share']}%</td><td class='{team}'>{snap_trends[team][player]['targets_per_game']}</td><td class='{team}'>{snap_trends[team][player]['target_share']}%</td></tr>"
+                extra += f"<tr><td class='{team}'>{player.title()}</td><td class='{team}'>{team_display.upper()}</td><td>{snap_trends[team][player]['avg_snaps']}% (DNP)</td><td>{snap_trends[team][player]['looks_per_game']}</td><td>{snap_trends[team][player]['looks_share']}%</td><td>{snap_trends[team][player]['targets_per_game']}</td><td>{snap_trends[team][player]['target_share']}%</td></tr>"
             else:
                 if snap_trends[team][player]["total_looks"] == 0 and snap_trends[team][player]["total_targets"] == 0:
                     pass
                     #continue
-                table += f"<tr><td class='{team}'>{player.title()}</td><td class='{team}'>{snap_trends[team][player]['avg_snaps']}% ({snap_trends[team][player]['snaps_per_game_trend']}%)</td><td class='{team}'>{snap_trends[team][player]['looks_per_game']} ({snap_trends[team][player]['looks_per_game_trend']})</td><td class='{team}'>{snap_trends[team][player]['looks_share']}% ({snap_trends[team][player]['looks_share_trend']})</td><td class='{team}'>{snap_trends[team][player]['targets_per_game']} ({snap_trends[team][player]['targets_per_game_trend']})</td><td class='{team}'>{snap_trends[team][player]['target_share']}% ({snap_trends[team][player]['target_share_trend']})</td></tr>"
+                table += f"<tr><td class='{team}'>{player.title()}</td><td class='{team}'>{team_display.upper()}</td><td>{snap_trends[team][player]['avg_snaps']}% ({snap_trends[team][player]['snaps_per_game_trend']}%)</td><td>{snap_trends[team][player]['looks_per_game']} ({snap_trends[team][player]['looks_per_game_trend']})</td><td>{snap_trends[team][player]['looks_share']}% ({snap_trends[team][player]['looks_share_trend']})</td><td>{snap_trends[team][player]['targets_per_game']} ({snap_trends[team][player]['targets_per_game_trend']})</td><td>{snap_trends[team][player]['target_share']}% ({snap_trends[team][player]['target_share_trend']})</td></tr>"
         # print DNP on bottotm
         table += extra
-        table += "</tbody></table>"
-        # ranks
+    table += "</tbody></table>"
     return render_template("rbbc.html", table=table, curr_week=curr_week)

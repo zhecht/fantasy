@@ -116,14 +116,14 @@ def get_ranks_html(settings, over_expected, curr_week=CURR_WEEK):
                 defense_ranks[display_team] = {}
             if pos not in defense_ranks[display_team]:
                 defense_ranks[display_team][pos] = 0
-                defense_ranks[display_team]["{}_rank".format(pos)] = 0
-            defense_ranks[display_team][pos] = arr["{}_ppg".format(pos)]
-            defense_ranks[display_team]["{}_rank".format(pos)] = idx + 1
+                defense_ranks[display_team][f"{pos}_rank"] = 0
+            defense_ranks[display_team][pos] = arr[f"{pos}_ppg"]
+            defense_ranks[display_team][f"{pos}_rank"] = idx + 1
             val = arr[f"{pos}_ppg"]
             if over_expected:
-                val = str(val)+"%"
+                val = f"+{val}%" if val >= 0 else f"{val}%"
             team_dis = display_team_trans[arr["team"]] if arr["team"] in display_team_trans else display_team
-            html += "<td class='clickable {}_td'>{}</td><td id='{}_{}' class='clickable {}_td' {}>{}</td>".format(pos, team_dis.upper(), display_team, pos, pos, style, val)
+            html += f"<td class='clickable {pos}_td'>{team_dis.upper()}</td><td id='{display_team}_{pos}' class='clickable {pos}_td' {style}>{val}</td>"
         html += "</tr>"
     html += "</table>"
     
@@ -140,15 +140,15 @@ def get_ranks_html(settings, over_expected, curr_week=CURR_WEEK):
         dis_team = display_team_trans[team] if team in display_team_trans else team
         html += "<tr><td>{}</td>".format(dis_team.upper())
         for pos in ["QB", "RB", "WR", "TE", "K", "DEF"]:
-            r = defense_ranks[team]["{}_rank".format(pos)]
+            r = defense_ranks[team][f"{pos}_rank"]
             style = get_ranks_style(r, extra="position:relative;z-index:-1;")
-            span = "<span style='position:absolute;bottom:0;right:5px;font-size:10px;'>{}{}</span>".format(r, get_suffix(r))
+            span = f"<span style='position:absolute;bottom:0;right:5px;font-size:10px;'>{r}{get_suffix(r)}</span>"
             val = defense_ranks[team][pos]
             if over_expected:
-                val = str(val)+"%"
-            html += "<td class='clickable {}_td' id='{}_{}' {}>{}{}</td>".format(pos, team, pos, style, val, span)
+                val = f"+{val}%" if val >= 0 else f"{val}%"
+            html += f"<td class='clickable {pos}_td' id='{team}_{pos}' {style}>{val}{span}</td>"
         opp_team = display_team_trans[opp_team] if opp_team in display_team_trans else opp_team
-        html += "<td>{}</td></tr>".format(opp_team.upper())
+        html += f"<td>{opp_team.upper()}</td></tr>"
     html += "</table>"
     return html, sorted_teams
 

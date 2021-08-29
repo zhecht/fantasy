@@ -85,6 +85,8 @@ def fix_name(name):
 		return "chris herndon"
 	elif name == "henry ruggs ill":
 		return "henry ruggs iii"
+	elif name == "patrick mahomes ii":
+		return "patrick mahomes"
 	return name
 	
 def write_cron_trade_values():
