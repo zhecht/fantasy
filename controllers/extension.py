@@ -227,7 +227,7 @@ def extension_route():
 			except:
 				vals = ["0","0","0"]
 
-			results_arr.append({"team": team_idx, "full": full_name.title(), "full_val": float(vals[-1]),"vals": vals, "clicked": clicked})
+			results_arr.append({"team": team_idx, "full": fixName(full_name).title(), "full_val": float(vals[-1]),"vals": vals, "clicked": clicked})
 	
 	results_arr = sorted(results_arr, key=operator.itemgetter("full_val"), reverse=True)
 	results = {}
