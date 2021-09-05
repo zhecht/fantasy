@@ -228,6 +228,10 @@ def update_players_on_teams(players_on_teams):
 	players_on_teams['anthony mcfarland jr'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Pit'}
 	return
 
+def fixName(name):
+	name = name.lower().replace("'", "")
+	return re.sub(r" (v|iv|iii|ii|i|jr|sr)(\.?)", " ", name).replace(".", "")
+
 def read_rosters(skip_remove_puncuation=False, players_prefix=players_prefix):
 	players_on_teams = {}
 	name_translations = {}
@@ -247,7 +251,7 @@ def read_rosters(skip_remove_puncuation=False, players_prefix=players_prefix):
 
 			if pos == "WR,RB":
 				pos = "WR"
-			players_on_teams[full.lower().replace("'", "")] = {"team_id": i, "position": pos, "pid": pid, "nfl_team": nfl_team, "fantasy_position": position_priority[selected_pos]}
+			players_on_teams[fixName(full)] = {"team_id": i, "position": pos, "pid": pid, "nfl_team": nfl_team, "fantasy_position": position_priority[selected_pos]}
 			if pos == "DEF":				
 				name_translations[full] = full
 			else:
@@ -255,18 +259,7 @@ def read_rosters(skip_remove_puncuation=False, players_prefix=players_prefix):
 				name_translations["{}. {} {}".format(first[0], last, nfl_team.upper())] = full.lower().replace("'", "")
 	if skip_remove_puncuation:
 		return players_on_teams, name_translations
-	name_translations["D. Johnson Hou"] = "david johnson"
-	new_j = {}
-	for player in players_on_teams:
-		new_name = player.lower().replace("'", "").replace(".", "")
-		new_j[new_name] = players_on_teams[player].copy()
 
-		if new_name.split(" ")[-1] in ["jr", "iii", "ii", "sr", "v"]:
-			new_name = " ".join(new_name.split(" ")[:-1])
-			new_j[new_name] = players_on_teams[player].copy()
-
-	players_on_teams = merge_two_dicts(new_j, players_on_teams)
-	#players_on_teams["mark ingram"] = players_on_teams["mark ingram ii"]
 	update_players_on_teams(players_on_teams)
 	return players_on_teams, name_translations
 
