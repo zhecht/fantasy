@@ -211,7 +211,7 @@ def extension_route():
 						# if shortened name
 						full_name = translations[name+" "+team]
 					else:
-						full_name = fix_name(full_name.replace("'", "").replace("/", ""))
+						full_name = fixName(full_name.replace("'", "").replace("/", ""))
 				except:
 					continue
 			elif not is_cbs and not is_nfl and not is_espn and pos != "DEF" and request.args.get("evaluate") == "false":
@@ -220,8 +220,9 @@ def extension_route():
 				except:
 					continue
 			elif is_cbs or is_espn or is_nfl or is_yahoo:
-				full_name = fix_name(full_name.replace("'", "").replace("/", ""))
+				full_name = fixName(full_name.replace("'", "").replace("/", ""))
 
+			print(full_name)
 			try:
 				vals = [ str(trade_values[full_name][s]) for s in ["standard", "half", "full"] ]
 			except:
