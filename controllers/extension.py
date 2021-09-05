@@ -89,83 +89,37 @@ def fix_name(name):
 		return "patrick mahomes"
 	return name
 	
+
+def fixName(name):
+	name = name.lower().replace("'", "")
+	return re.sub(r" (i|ii|iii|iv|v|jr|sr)(\.?)", " ", name).replace(".", "")
+
 def write_cron_trade_values():
-	tradevalues = {}
-	tier = 1
-	for scoring in ["standard", "half", "full"]:
-		#os.system(f"tesseract {prefix}static/trade_value/{scoring}.png {prefix}static/trade_value/{scoring}")
-		with open(f"{prefix}static/trade_value/{scoring}.txt") as fh:
-			lines = [line.strip() for line in fh.readlines() if line.strip()]
-		for idx, line in enumerate(lines):
-			m = re.search(r"(\d+\.\d) (.*)", line)
-			if m:
-				val = m.group(1)
-				line = m.group(2)
-				words = line.split(" ")
-				all_words = []
-				for word in words:
-					try:
-						int(word)
-					except:
-						if word.endswith(",") or word.endswith(".") or word.endswith(")"):
-							m = re.search(r"(^\d+)", word)
-							if not m:
-								all_words.append(word)
-						else:
-							all_words.append(word)
-				offset = 0
-				for i in range(0, len(all_words), 2):
-					start = i + offset
-					end = i + 2 + offset
-					#print(start, end, all_words[start:end])
-					if end >= len(all_words):
-						name = " ".join(all_words[start:end])
-					else:
-						if all_words[end].lower() in ["jr.", "iii", "ii", "iv", "ill"]:
-							offset += 1
-							end += 1
-						name = " ".join(all_words[start:end])
-					if name:
-						name =  fix_name(name)
-						if name not in tradevalues:
-							tradevalues[name] = {"standard": 0, "half": 0, "full": 0}
-						tradevalues[name][scoring] = float(val)
-	with open(f"{prefix}static/trade_value/tradevalues.json", "w") as fh:
-		json.dump(tradevalues, fh, indent=4)
-
-write_cron_trade_values()
-
-def write_cron_trade_values2():
 	tradevalues = {}
 	tier = 1
 	for scoring in ["standard", "half", "full"]:
 		lines = open(f"{prefix}static/trade_value/tradevalues_{scoring}.csv").readlines()
 		for line in lines[4:]:
-			all_tds = line.split(",")
+			allTds = line.split(",")
 
-			# If tier column exists
-			#if len(all_tds[1]) > 0:
-			#	tier = int(all_tds[1])
-			
 			# If points column exists
-			if len(all_tds[1]) > 0:
-				value = float(all_tds[1])
-				for td in all_tds[2:]:
+			if len(allTds[1]) > 0:
+				value = float(allTds[1])
+				for td in allTds[2:]:
 					try:
-						name =  fix_name(td)
-						if not name:
+						name = fixName(td.strip())
+						if not name or name == "home":
 							continue
 						if name not in tradevalues:
 							tradevalues[name] = {"standard": 0, "half": 0, "full": 0}
 						tradevalues[name][scoring] = value
 					except:
 						pass
-	if "mark ingram" in tradevalues:
-		tradevalues["mark ingram ii"] = tradevalues["mark ingram"].copy()
+
 	with open(f"{prefix}static/trade_value/tradevalues.json", "w") as fh:
 		json.dump(tradevalues, fh, indent=4)
 
-write_cron_trade_values2()
+write_cron_trade_values()
 
 def read_trade_values():
 	with open("{}static/trade_value/tradevalues.json".format(prefix)) as fh:
@@ -241,16 +195,17 @@ def extension_route():
 	results_arr = []
 
 	for team_idx in range(total_teams):
-		player_len = int(request.args.get("team_{}_len".format(team_idx)))
+		player_len = int(request.args.get(f"team_{team_idx}_len"))
 
 		for player_idx in range(player_len):
-			player = request.args.get("team_{}_player_{}".format(team_idx, player_idx))			
+			player = request.args.get(f"team_{team_idx}_player_{player_idx}")
 			try:
 				name,team,pos,clicked = player.split(",")
 			except:
 				continue
-			full_name = name.lower()
+			full_name = fixName(name)
 			
+			"""
 			if is_sleeper:
 				try:
 					if len(name.split(" ")[0]) == 2 and name.split(" ")[0][-1] == '.':
@@ -267,9 +222,10 @@ def extension_route():
 					continue
 			elif is_cbs or is_espn or is_nfl or is_yahoo:
 				full_name = fix_name(full_name.replace("'", "").replace("/", ""))
+			"""
 
 			try:
-				vals = [ str(trade_values[full_name.lower()][s]) for s in ["standard", "half", "full"] ]
+				vals = [ str(trade_values[full_name][s]) for s in ["standard", "half", "full"] ]
 			except:
 				vals = ["0","0","0"]
 
@@ -278,11 +234,13 @@ def extension_route():
 	results_arr = sorted(results_arr, key=operator.itemgetter("full_val"), reverse=True)
 	results = {}
 	for i in range(total_teams):
-		results["team{}".format(i)] = []
+		results[f"team{i}"] = []
 
 	for res in results_arr:
-		results["team{}".format(res["team"])].append("{},{},{}".format(res["full"], "_".join(res["vals"]), res["clicked"]))
+		team = res["team"]
+		values = f"{res['full']},{'_'.join(res['vals'])},{res['clicked']}"
+		results[f"team{team}"].append(values)
 
-	updated = open("{}static/trade_value/updated".format(prefix)).read()
+	updated = open(f"{prefix}static/trade_value/updated").read()
 	return jsonify(teams=results, team0=results["team0"], team1=results["team1"], updated=updated, total_teams=total_teams)
 
