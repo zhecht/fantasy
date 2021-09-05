@@ -253,10 +253,10 @@ def read_rosters(skip_remove_puncuation=False, players_prefix=players_prefix):
 				pos = "WR"
 			players_on_teams[fixName(full)] = {"team_id": i, "position": pos, "pid": pid, "nfl_team": nfl_team, "fantasy_position": position_priority[selected_pos]}
 			if pos == "DEF":				
-				name_translations[full] = full
+				name_translations[full] = fixName(full)
 			else:
-				name_translations["{}. {} {}".format(first[0], last, nfl_team)] = full.lower().replace("'", "")
-				name_translations["{}. {} {}".format(first[0], last, nfl_team.upper())] = full.lower().replace("'", "")
+				name_translations["{}. {} {}".format(first[0], last, nfl_team)] = fixName(full)
+				name_translations["{}. {} {}".format(first[0], last, nfl_team.upper())] = fixName(full)
 	if skip_remove_puncuation:
 		return players_on_teams, name_translations
 
