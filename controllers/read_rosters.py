@@ -228,6 +228,7 @@ def update_players_on_teams(players_on_teams):
 	players_on_teams['anthony mcfarland jr'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Pit'}
 	return
 
+import re
 def fixName(name):
 	name = name.lower().replace("'", "")
 	return re.sub(r" (v|iv|iii|ii|i|jr|sr)(\.?)", " ", name).replace(".", "")
