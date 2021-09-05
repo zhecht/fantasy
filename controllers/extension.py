@@ -222,9 +222,8 @@ def extension_route():
 			elif is_cbs or is_espn or is_nfl or is_yahoo:
 				full_name = fixName(full_name.replace("'", "").replace("/", ""))
 
-			print(full_name)
 			try:
-				vals = [ str(trade_values[full_name][s]) for s in ["standard", "half", "full"] ]
+				vals = [ str(trade_values[fixName(full_name)][s]) for s in ["standard", "half", "full"] ]
 			except:
 				vals = ["0","0","0"]
 
