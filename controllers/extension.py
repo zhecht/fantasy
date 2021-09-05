@@ -92,7 +92,7 @@ def fix_name(name):
 
 def fixName(name):
 	name = name.lower().replace("'", "")
-	return re.sub(r" (i|ii|iii|iv|v|jr|sr)(\.?)", " ", name).replace(".", "")
+	return re.sub(r" (v|iv|iii|ii|i|jr|sr)(\.?)", " ", name).replace(".", "")
 
 def write_cron_trade_values():
 	tradevalues = {}
@@ -107,7 +107,7 @@ def write_cron_trade_values():
 				value = float(allTds[1])
 				for td in allTds[2:]:
 					try:
-						name = fixName(td.strip())
+						name = fixName(td.strip()).strip()
 						if not name or name == "home":
 							continue
 						if name not in tradevalues:
