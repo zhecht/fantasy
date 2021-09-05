@@ -205,7 +205,6 @@ def extension_route():
 				continue
 			full_name = fixName(name)
 			
-			"""
 			if is_sleeper:
 				try:
 					if len(name.split(" ")[0]) == 2 and name.split(" ")[0][-1] == '.':
@@ -222,7 +221,6 @@ def extension_route():
 					continue
 			elif is_cbs or is_espn or is_nfl or is_yahoo:
 				full_name = fix_name(full_name.replace("'", "").replace("/", ""))
-			"""
 
 			try:
 				vals = [ str(trade_values[full_name][s]) for s in ["standard", "half", "full"] ]
