@@ -231,7 +231,7 @@ def update_players_on_teams(players_on_teams):
 import re
 def fixName(name):
 	name = name.lower().replace("'", "")
-	return re.sub(r" (v|iv|iii|ii|i|jr|sr)(\.?)", " ", name).replace(".", "")
+	return re.sub(r" (v|iv|iii|ii|i|jr|sr)(\.?)", " ", name).replace(".", "").strip()
 
 def read_rosters(skip_remove_puncuation=False, players_prefix=players_prefix):
 	players_on_teams = {}
@@ -253,7 +253,7 @@ def read_rosters(skip_remove_puncuation=False, players_prefix=players_prefix):
 			if pos == "WR,RB":
 				pos = "WR"
 			players_on_teams[fixName(full)] = {"team_id": i, "position": pos, "pid": pid, "nfl_team": nfl_team, "fantasy_position": position_priority[selected_pos]}
-			if pos == "DEF":				
+			if pos == "DEF":
 				name_translations[full] = fixName(full)
 			else:
 				name_translations["{}. {} {}".format(first[0], last, nfl_team)] = fixName(full)

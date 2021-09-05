@@ -92,7 +92,7 @@ def fix_name(name):
 
 def fixName(name):
 	name = name.lower().replace("'", "")
-	return re.sub(r" (v|iv|iii|ii|i|jr|sr)(\.?)", " ", name).replace(".", "")
+	return re.sub(r" (v|iv|iii|ii|i|jr|sr)(\.?)", " ", name).replace(".", "").strip()
 
 def write_cron_trade_values():
 	tradevalues = {}
