@@ -11,7 +11,7 @@ elif os.path.exists("/mnt/c/Users/Zack/Documents/fantasy"):
 
 class MyOAuth:
   oauth = None
-  league_key = "nfl.l.468862"
+  league_key = "nfl.l.497791"
   from_file = f"{prefix}controllers/oauth2.json"
   def __init__(self, is_merrick=False):
     if is_merrick:

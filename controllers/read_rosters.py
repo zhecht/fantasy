@@ -27,8 +27,8 @@ if os.path.exists("/home/zhecht/fantasy"):
 elif os.path.exists("/mnt/c/Users/Zack/Documents/fantasy"):
   prefix = "/mnt/c/Users/Zack/Documents/fantasy/"
 
-players_prefix = "merrick_players"
-is_merrick = True
+players_prefix = "players"
+is_merrick = False
 
 ns = {
 	'base': "http://fantasysports.yahooapis.com/fantasy/v2/base.rng"
@@ -196,36 +196,6 @@ def read_FA_translations():
 	return players_on_FA, translations
 
 def update_players_on_teams(players_on_teams):
-	players_on_teams['duke johnson jr.'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Hou'}
-	players_on_teams['duke johnson'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Hou'}
-	players_on_teams['kalen ballage'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Mia'}
-	players_on_teams['mark walton'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Mia'}
-	players_on_teams['rex burkhead'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'NE'}
-	players_on_teams['jeff wilson'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Sfo'}
-	players_on_teams['chris thompson'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Was'}
-	players_on_teams['chase edmonds'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Ari'}
-	players_on_teams['cj prosise'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Sea'}
-	players_on_teams['ronald jones'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'TB'}
-	players_on_teams['peyton barber'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'TB'}
-	players_on_teams['tj yeldon'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'TB'}
-	players_on_teams['wayne gallman'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'NYG'}
-	players_on_teams['adrian peterson'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Was'}
-	players_on_teams['jaylen samuels'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Pit'}
-	players_on_teams['nyheim hines'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Ind'}
-	players_on_teams['jd mckissic'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Det'}
-	players_on_teams['tra carson'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Det'}
-	players_on_teams['darrell henderson'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Lar'}
-
-	players_on_teams['dk metcalf'] = {'team_id': 0, 'position': 'WR', 'pid': 0, 'nfl_team': 'Sea'}
-	players_on_teams['d.j. chark jr'] = {'team_id': 0, 'position': 'WR', 'pid': 0, 'nfl_team': 'Jax'}
-	players_on_teams['paul richardson jr'] = {'team_id': 0, 'position': 'WR', 'pid': 0, 'nfl_team': 'Was'}
-	players_on_teams['hunter renfrow'] = {'team_id': 0, 'position': 'WR', 'pid': 0, 'nfl_team': 'Rai'}
-	players_on_teams['d.j. moore'] = {'team_id': 0, 'position': 'WR', 'pid': 0, 'nfl_team': 'Car'}
-	players_on_teams['john ross'] = {'team_id': 0, 'position': 'WR', 'pid': 0, 'nfl_team': 'Cin'}
-
-	#2020
-	players_on_teams['cordarrelle patterson'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Chi'}
-	players_on_teams['anthony mcfarland jr'] = {'team_id': 0, 'position': 'RB', 'pid': 0, 'nfl_team': 'Pit'}
 	return
 
 import re

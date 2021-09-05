@@ -23,73 +23,6 @@ if os.path.exists("/home/zhecht/fantasy"):
 elif os.path.exists("/mnt/c/Users/Zack/Documents/fantasy"):
 	prefix = "/mnt/c/Users/Zack/Documents/fantasy/"
 
-def fix_name(name):
-	name = name.lower().replace("'", "")
-	# Skip Cols
-	if name in ["", "\n"] or name[0] == '-':
-		return ""
-	try:
-		# If number, return empty
-		name = float(name)
-		return ""
-	except:
-		pass
-		
-	if name.find("(") != -1:
-		name = name.split(" ")[0]
-	elif name == "todd gurley":
-		return "todd gurley ii"
-	elif name == "melvin gordon":
-		return "melvin gordon iii"
-	elif name == "mitch trubisky":
-		return "mitchell trubisky"
-	elif name == "willie snead":
-		return "willie snead iv"
-	elif name == "allen robinson":
-		return "allen robinson ii"
-	elif name == "ted ginn":
-		return "ted ginn jr."
-	elif name == "marvin jones":
-		return "marvin jones jr."
-	elif name == "will fuller":
-		return "will fuller v"
-	elif name == "paul richardson":
-		return "paul richardson jr."
-	elif name == "duke johnson":
-		return "duke johnson jr."
-	elif name == "odell beckham":
-		return "odell beckham jr."
-	elif name == "odell beckham jr":
-		return "odell beckham jr."
-	elif name == "mark ingram ii":
-		return "mark ingram"
-	elif name == "darrell henderson":
-		return "darrell henderson jr."
-	elif name == "aj. brown":
-		return "aj brown"
-	elif name == "ty. hilton":
-		return "t.y. hilton"
-	elif name == "tj. hockenson":
-		return "t.j. hockenson"
-	elif name == "aj. green":
-		return "a.j. green"
-	elif name == "dj. moore" or name == "d.j. moore":
-		return "dj moore"
-	elif name == "dj. chark" or name == "d.j. chark" or name == "d.j. chark jr.":
-		return "dj chark jr."
-	elif name == "d.k. metcalf":
-		return "dk metcalf"
-	elif name == "mark ingram":
-		return "mark ingram ii"
-	elif name == "chris herndon iv":
-		return "chris herndon"
-	elif name == "henry ruggs ill":
-		return "henry ruggs iii"
-	elif name == "patrick mahomes ii":
-		return "patrick mahomes"
-	return name
-	
-
 def fixName(name):
 	name = name.lower().replace("'", "")
 	return re.sub(r" (v|iv|iii|ii|i|jr|sr)(\.?)", " ", name).replace(".", "").strip()
@@ -152,7 +85,7 @@ def write_borischen_extension():
 			for name in players:
 				try:
 					if pos.find("defense") == -1:
-						stats[player_ids[fix_name(name.lower().replace("'", ""))]] = tier
+						stats[player_ids[fixName(name.lower().replace("'", ""))]] = tier
 					else:
 						stats[player_ids[' '.join(name.lower().split())[:-1]]] = tier
 				except:
