@@ -4,14 +4,23 @@
 		<title>Redzone Look Trends</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 		<link rel="stylesheet" href="/static/css/teams.css" type="text/css">
+		<script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.9.3/dist/js/tabulator.min.js"></script>
+		<link href="https://unpkg.com/tabulator-tables@4.9.3/dist/css/tabulator.min.css" rel="stylesheet">
 	</head>
 	<style>
-		body { font-size: 18px; }
+		body {
+			font-size: 18px;
+			height: 100vh;
+		}
 		.positive { color: green; }
 		.negative { color: red;}
-		#table_wrapper {
+		#redzoneTable {
+			width: max-content;
+		}
+		#tableDiv {
 			display: flex;
-			flex-direction: column;	
+			justify-content: center;
+			height: 90%;
 		}
 		#team_click_div { width:50%; margin-left: 25%;}
 		.team_click { text-decoration: none; }
@@ -38,9 +47,54 @@
 				<a href="#" class="active">Redzone Look Trends</a>
 			</div>
 		</div>
-		<div id="table_wrapper">
-			{{table|safe}}
+		<div id="tableDiv">
+			<div id="redzoneTable"></div>
 		</div>
+		<script>
+			const percentFormatter = function(cell, params, rendered) {
+				return cell.getValue().toFixed(1)+"%";
+			}
+
+			const trendFormatter = function(cell, params, rendered) {
+				return cell.getValue();
+			}
+
+			const decimalFormatter = function(cell, params, rendered) {
+				return cell.getValue().toFixed(1);
+			}
+
+			const teamFormatter = function(cell, params, rendered) {
+				const div = document.createElement("div");
+				div.className = cell.getValue().toLowerCase();
+				div.innerText = cell.getValue();
+				return div;
+			}
+			function renderTable() {
+				TABLE = new Tabulator("#redzoneTable", {
+					tooltipsHeader: true,
+					ajaxURL: "/getRedzone",
+					groupBy: "position",
+					groupHeader: function(value, count, data, group){
+						const playerTxt = count == 1 ? "Player" : "Players"
+						return value + "<span style='color:black; margin-left:10px;'>(" + count + " "+playerTxt+")</span>";
+					},
+					initialSort: [
+						{column: "looksPerGame", dir: "desc"},
+					],
+					columns: [
+						{title: "Player", field: "player", headerFilter: "input"},
+						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterParams:{values:true}},
+						{title: "RZ Looks Per Game", field: "looksPerGame", width: "175", hozAlign: "center"},
+						{title: "1 Week Trend", field: "delta", width: "175", formatter: trendFormatter, hozAlign: "center"},
+						{title: "3 Week Trend", field: "delta3", width: "175", formatter: trendFormatter, hozAlign: "center"},
+						{title: "Team RZ Share", field: "looksPerc", formatter: percentFormatter, width: "175", hozAlign: "center"},
+
+					]
+				})
+			}
+
+			renderTable();
+		</script>
 		<script>
 			var links = document.getElementById("nav").getElementsByTagName("a");
 			for (var i in links) {

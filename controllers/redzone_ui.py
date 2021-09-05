@@ -23,11 +23,37 @@ if os.path.exists("/home/zhecht/fantasy"):
 
 curr_week = 15
 
+team_trans = {"rav": "bal", "htx": "hou", "oti": "ten", "sdg": "lac", "ram": "lar", "clt": "ind", "crd": "ari", "gnb": "gb", "kan": "kc", "nwe": "ne", "rai": "lv", "sfo": "sf", "tam": "tb", "nor": "no"}
+rbbc_teams = ['crd', 'atl', 'rav', 'buf', 'car', 'chi', 'cin', 'cle', 'dal', 'den', 'det', 'gnb', 'htx', 'clt', 'jax', 'kan', 'sdg', 'ram', 'rai', 'mia', 'min', 'nor', 'nwe', 'nyg', 'nyj', 'phi', 'pit', 'sea', 'sfo', 'tam', 'oti', 'was']
+
+@redzone_ui_print.route("/getRedzone")
+def getRedzone():
+	redzoneResult = []
+	top_redzone = get_player_looks_arr(curr_week, is_ui=True)
+	sorted_looks = sorted(top_redzone, key=operator.itemgetter("looks_per_game"), reverse=True)
+	sorted_looks_perc = sorted(top_redzone, key=operator.itemgetter("looks_perc"), reverse=True)
+	players_on_teams,translations = read_rosters()
+	players_on_FA = read_FA()
+	players_on_teams = {**players_on_teams, **players_on_FA}
+	update_players_on_teams(players_on_teams)
+	for playerData in sorted_looks:
+		player = playerData["name"]
+		team = playerData["team"]
+		team_display = team_trans[team] if team in team_trans else team
+		redzoneResult.append({
+			"position": players_on_teams[player]["position"],
+			"player": player.title(),
+			"team": team_display.upper(),
+			"looksPerc": playerData["looks_perc"],
+			"looksPerGame": playerData["looks_per_game"],
+			"delta": playerData["delta"],
+			"delta3": playerData["delta3"],
+		})
+
+	return jsonify(redzoneResult)
+
 @redzone_ui_print.route('/redzone')
 def redzone_ui_route():
-	team_trans = {"rav": "bal", "htx": "hou", "oti": "ten", "sdg": "lac", "ram": "lar", "clt": "ind", "crd": "ari", "gnb": "gb", "kan": "kc", "nwe": "ne", "rai": "lv", "sfo": "sf", "tam": "tb", "nor": "no"}
-	rbbc_teams = ['crd', 'atl', 'rav', 'buf', 'car', 'chi', 'cin', 'cle', 'dal', 'den', 'det', 'gnb', 'htx', 'clt', 'jax', 'kan', 'sdg', 'ram', 'rai', 'mia', 'min', 'nor', 'nwe', 'nyg', 'nyj', 'phi', 'pit', 'sea', 'sfo', 'tam', 'oti', 'was']
-	
 	top_redzone = get_player_looks_arr(curr_week, is_ui=True)
 	#sorted_looks = sorted(top_redzone, key=operator.itemgetter("looks", "looks_perc"), reverse=True)
 	sorted_looks = sorted(top_redzone, key=operator.itemgetter("looks_per_game"), reverse=True)
