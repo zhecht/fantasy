@@ -1,16 +1,9 @@
 
 // GLOBALS
+let TABLE;
 var settings = {};
 
-function close_showing() {
-	var showing = document.getElementById("showing").value;
-	if (showing) {
-		document.getElementById(showing).style = "display: none;";
-	}
-}
-
 var close_table = function() {
-	close_showing();
 	document.getElementById("darkened_back").style.display = "none";
 }
 
@@ -19,20 +12,60 @@ var change_scoring = function() {
 	document.getElementById("scoring").style = "display: flex;";
 }
 
-var show_stats = function() {
-	close_showing();
+const showBreakdown = function() {
 	document.getElementById("darkened_back").style.display = "flex";
-	var suffix = "_table";
-	//var css = "flex;";
-	var css = "inline-table;";
+	let suffix = "_table";
 	if (window.innerWidth <= 450) {
 		suffix = "_mobile_table";
-		css = "inline-table;";		
 	}
-	var id = this.id.replace("lv_", "rai_");
-	document.getElementById(id+suffix).style = "display: "+css;
-	document.getElementById("showing").value = id+suffix;
+
+	const team = this.id.split("_")[0];
+	const pos = this.id.split("_")[1];
+	const win = document.getElementById("breakdownWrapper");
+	win.querySelector("h1").innerText = team.toUpperCase()+" DEF vs. "+pos;
+	win.style.display = "flex";
+	renderTable(team, pos);
 	window.scrollTo(0, 0);
+}
+
+const trendFormatter = function(cell, params, rendered) {
+	return cell.getValue();
+}
+
+function renderTable(team, pos) {
+	const over_expected = window.location.search.indexOf("over_expected=true") >= 0;
+	TABLE = new Tabulator("#breakdownTable", {
+		tooltipsHeader: true,
+		layout:"fitColumns",
+		ajaxURL: "/getBreakdown/"+team+"/"+pos,
+		ajaxParams: {over_expected: over_expected},
+		groupBy: "week",
+		groupHeader: function(value, count, data, group){
+			let proj = 0, actual = 0;
+			for (player of data) {
+				proj += player.projected;
+				actual += player.actual;
+			}
+			const delta = (((actual / proj) - 1) * 100).toFixed(2);
+			const color = delta < 0 ? "red" : "green";
+			const deltaStr = delta < 0 ? delta : "+"+delta;
+			let span = "<span style='margin-left:10px;color:"+color+"'>"+deltaStr+"%</span> vs. projected"
+			return "Week "+value+":"+span;
+		},
+		/*
+		initialSort: [
+			{column: "avgSnapPer", dir: "desc"},
+			{column: "team", dir: "asc"}
+		],
+		*/
+		columns: [
+			{title: "Player", field: "player", headerFilter: "input", width: "200"},
+			{title: "Stats", field: "stats"},
+			{title: "Projected", field: "projected", width: "120", hozAlign: "center"},
+			{title: "Actual", field: "actual", width: "120", hozAlign: "center"},
+			{title: "% vs. Projected", field: "delta", width: "120", formatter: trendFormatter, hozAlign: "center"},
+		]
+	})
 }
 
 var mobile_show_stats = function(e) {
@@ -79,7 +112,6 @@ function resetBtnsWithEl(div) {
 var click_btn = function() {
 	var by_team = "none;";
 	var by_pos = "none;";
-	close_showing();
 	resetBtns("sort_div");
 	this.className = "active";
 	if (this.innerText.indexOf("Team") >= 0) {
@@ -161,9 +193,8 @@ if (window.innerWidth <= 420) {
 	document.getElementById("ppg_by_team").style = "display: inline-table;";
 }
 
-var tds = document.getElementsByClassName("clickable");
-for (var i = 0; i < tds.length; ++i) {
-	tds[i].addEventListener("click", show_stats, false);
+for (td of document.getElementsByClassName("clickable")) {
+	td.addEventListener("click", showBreakdown, false);
 }
 
 

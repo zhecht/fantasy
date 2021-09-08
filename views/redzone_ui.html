@@ -9,6 +9,7 @@
 	</head>
 	<style>
 		body {
+			margin: 0;
 			font-size: 18px;
 			height: 100vh;
 		}
@@ -69,6 +70,15 @@
 				div.innerText = cell.getValue();
 				return div;
 			}
+
+			function teamFilter(headerValue, rowValue, rowData, filterParams){
+				if (headerValue == "All") {
+					return true;
+				}
+				return rowValue == headerValue;
+			}
+
+			const teamNames = ["All", "ARI", "ATL", "BAL", "BUF", "CAR", "CHI", "CIN", "CLE", "DAL", "DEN", "DET", "GB", "HOU", "IND", "JAX", "KC", "LAC", "LAR", "LV", "MIA", "MIN", "NO", "NE", "NYG", "NYJ", "PHI", "PIT", "SEA", "SF", "TB", "TEN", "WAS"];
 			function renderTable() {
 				TABLE = new Tabulator("#redzoneTable", {
 					tooltipsHeader: true,
@@ -76,14 +86,14 @@
 					groupBy: "position",
 					groupHeader: function(value, count, data, group){
 						const playerTxt = count == 1 ? "Player" : "Players"
-						return value + "<span style='color:black; margin-left:10px;'>(" + count + " "+playerTxt+")</span>";
+						return value + "<span style=' margin-left:10px;'>(" + count + " "+playerTxt+")</span>";
 					},
 					initialSort: [
 						{column: "looksPerGame", dir: "desc"},
 					],
 					columns: [
-						{title: "Player", field: "player", headerFilter: "input"},
-						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterParams:{values:true}},
+						{title: "Player", field: "player", headerFilterPlaceholder:"Filter Name", headerFilter: "input"},
+						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
 						{title: "RZ Looks Per Game", field: "looksPerGame", width: "175", hozAlign: "center"},
 						{title: "1 Week Trend", field: "delta", width: "175", formatter: trendFormatter, hozAlign: "center"},
 						{title: "3 Week Trend", field: "delta3", width: "175", formatter: trendFormatter, hozAlign: "center"},

@@ -15,6 +15,11 @@ from subprocess import call
 from glob import glob
 
 try:
+	from controllers.functions import *
+except:
+	from functions import *
+
+try:
   import urllib2 as urllib
 except:
   import urllib.request as urllib
@@ -234,47 +239,11 @@ def get_players_by_pos_team(team, pos):
 			opp_roster = {}
 			with open("{}static/profootballreference/{}/roster.json".format(prefix, nfl_trades[player]["team"])) as fh:
 				opp_roster = json.loads(fh.read())
-			if opp_roster[player].lower() == pos.lower():
+			if player in opp_roster and opp_roster[player].lower() == pos.lower():
 				arr.append(player)
 	# IR is not listed on roster
 	ir_data = [
-		("cle", "QB", "baker mayfield"),
-		("dal", "QB", "dak prescott"),
-		("sfo", "QB", "jimmy garoppolo"),
-		("cin", "QB", "joe burrow"),
-		("nwe", "RB", "sony michel"),
-		("nyj", "RB", "lamical perine"),
-		("nyg", "RB", "saquon barkley"),
-		("sfo", "RB", "tevin coleman"),
-		("sfo", "RB", "jeff wilson jr"),
-		("sfo", "RB", "raheem mostert"),
-		("sdg", "RB", "austin ekeler"),
-		("car", "RB", "christian mccaffrey"),
-		("ram", "RB", "cam akers"),
-		("nwe", "RB", "rex burkhead"),
-		("mia", "RB", "myles gaskin"),
-		("cin", "RB", "joe mixon"),
-		("cle", "RB", "nick chubb"),
-		("hou", "RB", "david johnson"),
-		("cle", "WR", "odell beckham jr"),
-		("ind", "WR", "parris campbell"),
-		("den", "WR", "courtland sutton"),
-		("gnb", "WR", "allen lazard"),
-		("phi", "WR", "jalen reagor"),
-		("nyg", "WR", "sterling shepard"),
-		("nyg", "WR", "golden tate"),
-		("nyg", "WR", "kaden smith"),
-		("mia", "WR", "preston williams"),
-		("nyg", "WR", "cj board"),
-		("crd", "TE", "dan arnold"),
-		("phi", "TE", "dallas goedert"),
-		("dal", "TE", "blake jarwin"),
-		("cle", "TE", "david njoku"),
-		("cin", "TE", "cj uzomah"),
-		("sfo", "TE", "george kittle"),
-		("rav", "TE", "mark andrews"),
-		("cle", "K", "austin seibert"),
-		("crd", "K", "zane gonzalez")
+		#("cle", "QB", "baker mayfield"),
 	]
 	for data in ir_data:
 		if team == data[0] and pos == data[1] and data[2] not in arr:
@@ -417,8 +386,7 @@ def get_defense_tot(curr_week, point_totals_dict, over_expected):
 					if pos == "DEF":
 						which_team = team
 					if over_expected:
-						# we calculate the stats for other defenses. No need to iterate over opp_team
-						#print(which_team, pos, week)
+						print(which_team)
 						j[act_key] += point_totals_dict[which_team][f"{pos}_wk{week+1}_act"]
 						j[proj_key] += point_totals_dict[opp_team][f"{pos}_wk{week+1}_proj"]
 						j[key] += point_totals_dict[which_team][key]
@@ -544,7 +512,7 @@ def get_points_from_settings(stats, settings):
 def position_vs_opponent_stats(team, pos, ranks, settings=None):
 
 	opp_stats = []
-	tot_stats = {"points": 0, "stats": {}, "title": "TOTAL vs. {}".format(pos.upper())}
+	tot_stats = {"points": 0, "stats": {}, "title": f"TOTAL vs. {pos.upper()}"}
 	team = get_abbr(team)
 	team_schedule = get_opponents(team)
 	scoring_key = "half"
@@ -685,11 +653,11 @@ def write_boxscore_links():
 		path = "{}static/profootballreference/{}".format(prefix, team.split("/")[-2])
 		if not os.path.exists(path):
 			call(["mkdir", "-p", path])
-		url = "https://www.pro-football-reference.com{}/2020/gamelog".format(team)
+		url = f"https://www.pro-football-reference.com{team}/{YEAR}/gamelog"
 		soup = BS(urllib.urlopen(url).read(), "lxml")
 		boxscore_links = {}
 		for i in range(16):
-			row = soup.find("tr", id="gamelog2020.{}".format(i + 1))
+			row = soup.find("tr", id=f"gamelog{YEAR}.{i+1}")
 			if row:
 				link = row.find("a")
 				if link.text == "preview":
@@ -701,47 +669,6 @@ def write_boxscore_links():
 def fix_roster(roster, team):
 	if team == "atl":
 		roster["elliott fry"] = "K"
-	elif team == "car":
-		roster["pj walker"] = "QB"
-	elif team == "crd":
-		roster["mike nugent"] = "K"
-	elif team == "den":
-		roster["kendall hinton"] = "QB"
-		roster["brandon mcmanus"] = "K"
-		roster["taylor russolino"] = "K"
-	elif team == "gnb":
-		roster["mason crosby"] = "K"
-	elif team == "jax":
-		roster["aldrick rosas"] = "K"
-		roster["josh lambo"] = "K"
-		roster["stephen hauschka"] = "K"
-		roster["jonathan brown"] = "K"
-		roster["brandon wright"] = "K"
-		roster["chase mclaughlin"] = "K"
-	elif team == "nor":
-		roster["drew brees"] = "QB"
-	elif team == "nyj":
-		roster["chris hogan"] = "WR"
-		roster["sergio castillo"] = "K"
-		roster["sam ficken"] = "K"
-	elif team == "nyg":
-		roster["graham gano"] = "K"
-	elif team == "phi":
-		roster["jake elliott"] = "K"
-	elif team == "pit":
-		roster["benny snell jr"] = "RB"
-		roster["matthew wright"] = "K"
-	elif team == "ram":
-		roster["sam sloman"] = "K"
-		roster["kai forbath"] = "K"
-	elif team == "rav":
-		roster["luke willson"] = "TE"
-		roster["trace mcsorley"] = "QB"
-	elif team == "was":
-		roster["kyle allen"] = "QB"
-		roster["jd mckissic"] = "RB"
-		roster["antonio gibson"] = "RB"
-		roster["logan thomas"] = "TE"
 	return
 
 def write_team_rosters(teamlinks={}):
@@ -755,7 +682,7 @@ def write_team_rosters(teamlinks={}):
 
 		if not os.path.exists(path):
 			os.mkdir(path)
-		url = f"https://www.pro-football-reference.com{team}/2020_roster.htm"
+		url = f"https://www.pro-football-reference.com{team}/{YEAR}_roster.htm"
 		outfile = "{}/roster.html".format(path)
 		call(["curl", "-k", url, "-o", outfile])
 
@@ -804,17 +731,19 @@ def get_indexes(header_row):
 	return indexes
 
 def write_schedule():
-	url = "https://www.pro-football-reference.com/years/2020/games.htm"
+	url = f"https://www.pro-football-reference.com/years/{YEAR}/games.htm"
 	soup = BS(urllib.urlopen(url).read(), "lxml")
 	rows = soup.find("table", id="games").find_all("tr")[1:] # skip header row
 	schedule = {}
 	for tr in rows:
 		if tr.get("class") and "thead" in tr.get("class"):
 			continue
+		if tr.find("th").text.lower().startswith("pre"):
+			continue
 		week = int(tr.find("th").text)
 		if week not in schedule:
 			schedule[week] = []
-		winner = tr.find_all("td")[3].find("a").get("href").split("/")[-2]
+		winner = tr.find_all("td")[2].find("a").get("href").split("/")[-2]
 		location = tr.find_all("td")[4].text
 		loser = tr.find_all("td")[5].find("a").get("href").split("/")[-2]
 		s = "{} @ {}".format(loser, winner)
@@ -1033,10 +962,10 @@ if __name__ == "__main__":
 		pass
 		# only needs to be run once in a while
 		
-		#write_team_links()
-		#write_schedule()
-		#write_team_rosters()
-		#write_boxscore_links()
+		write_team_links()
+		write_schedule()
+		write_team_rosters()
+		write_boxscore_links()
 		
 		write_boxscore_stats(args.week, args.team)
 		calculate_aggregate_stats()

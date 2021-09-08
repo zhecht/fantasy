@@ -11,6 +11,11 @@ from sys import platform
 from lxml import etree
 
 try:
+	from controllers.functions import *
+except:
+	from functions import *
+
+try:
   import urllib2 as urllib
 except:
   import urllib.request as urllib

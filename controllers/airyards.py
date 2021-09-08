@@ -4,6 +4,8 @@ import json
 from pprint import *
 from sys import platform
 
+from controllers.functions import *
+
 prefix = ""
 if platform != "darwin":
 	# if on linux aka prod
@@ -151,7 +153,6 @@ if __name__ == '__main__':
 		print_sorted()
 		exit()
 
-	curr_week = 3
 	if args.start:
 		curr_week = args.start
 

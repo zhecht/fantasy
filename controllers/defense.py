@@ -16,8 +16,10 @@ import subprocess
 import re
 
 try:
+    from controllers.functions import *
     import controllers.profootballreference as profootballreference
 except:
+    from functions import *
     import profootballreference
 
 try:
@@ -31,13 +33,6 @@ prefix = ""
 if os.path.exists("/home/zhecht/fantasy"):
     # if on linux aka prod
     prefix = "/home/zhecht/fantasy/"
-
-# goes from green -> yellow -> orange -> red
-CURR_WEEK = 15
-team_trans = {"rav": "bal", "htx": "hou", "oti": "ten", "sdg": "lac", "ram": "lar", "clt": "ind", "crd": "ari"}
-display_team_trans = {"rav": "bal", "htx": "hou", "oti": "ten", "sdg": "lac", "ram": "lar", "clt": "ind", "crd": "ari", "gnb": "gb", "kan": "kc", "nwe": "ne", "rai": "lv", "sfo": "sf", "tam": "tb", "nor": "no"}
-
-SORTED_TEAMS = ['ari', 'atl', 'bal', 'buf', 'car', 'chi', 'cin', 'cle', 'dal', 'den', 'det', 'gnb', 'hou', 'ind', 'jax', 'kan', 'lac', 'lar', 'rai', 'mia', 'min', 'nor', 'nwe', 'nyg', 'nyj', 'phi', 'pit', 'sea', 'sfo', 'tam', 'ten', 'was']
 
 def merge_two_dicts(x, y):
     z = x.copy()
@@ -109,8 +104,8 @@ def get_ranks_html(settings, over_expected, curr_week=CURR_WEEK):
 
             arr = sorted_ranks[idx]
             display_team = arr["team"]
-            if display_team in team_trans:
-                display_team = team_trans[display_team]
+            if display_team in TEAM_TRANS:
+                display_team = TEAM_TRANS[display_team]
 
             if display_team not in defense_ranks:
                 defense_ranks[display_team] = {}
@@ -122,7 +117,7 @@ def get_ranks_html(settings, over_expected, curr_week=CURR_WEEK):
             val = arr[f"{pos}_ppg"]
             if over_expected:
                 val = f"+{val}%" if val >= 0 else f"{val}%"
-            team_dis = display_team_trans[arr["team"]] if arr["team"] in display_team_trans else display_team
+            team_dis = TEAM_TRANS[arr["team"]] if arr["team"] in TEAM_TRANS else display_team
             html += f"<td class='clickable {pos}_td'>{team_dis.upper()}</td><td id='{display_team}_{pos}' class='clickable {pos}_td' {style}>{val}</td>"
         html += "</tr>"
     html += "</table>"
@@ -137,7 +132,7 @@ def get_ranks_html(settings, over_expected, curr_week=CURR_WEEK):
     html += "<tr><th>Team</th><th class='QB_td'>QB</th><th class='RB_td'>RB</th><th class='WR_td'>WR</th><th class='TE_td'>TE</th><th class='K_td'>K</th><th class='DEF_td'>DEF</th><th> Opp</th></tr>".format(curr_week)
     for team in sorted_teams:
         opp_team = profootballreference.get_opponents(team)[curr_week]
-        dis_team = display_team_trans[team] if team in display_team_trans else team
+        dis_team = TEAM_TRANS[team] if team in TEAM_TRANS else team
         html += "<tr><td>{}</td>".format(dis_team.upper())
         for pos in ["QB", "RB", "WR", "TE", "K", "DEF"]:
             r = defense_ranks[team][f"{pos}_rank"]
@@ -147,7 +142,7 @@ def get_ranks_html(settings, over_expected, curr_week=CURR_WEEK):
             if over_expected:
                 val = f"+{val}%" if val >= 0 else f"{val}%"
             html += f"<td class='clickable {pos}_td' id='{team}_{pos}' {style}>{val}{span}</td>"
-        opp_team = display_team_trans[opp_team] if opp_team in display_team_trans else opp_team
+        opp_team = TEAM_TRANS[opp_team] if opp_team in TEAM_TRANS else opp_team
         html += f"<td>{opp_team.upper()}</td></tr>"
     html += "</table>"
     return html, sorted_teams
@@ -169,14 +164,16 @@ def get_color_html():
 # get html for each clickable overview
 def get_html(team_arg, pos, opp, over_expected):
     def_txt = "OFF" if pos == "DEF" else "DEF"
-    html = "<table class='click_tables' id='{}_{}_table'>".format(team_arg, pos)
-    mobile_html = "<table class='click_tables' id='{}_{}_mobile_table'>".format(team_arg, pos)
+    html = f"<div class='tableDiv'><div id='{team_arg}_{pos}_table'></div></div>"
+    html += f"<table class='click_tables' id='{team_arg}_{pos}_table'>"
+    mobile_html = f"<table class='click_tables' id='{team_arg}_{pos}_mobile_table'>"
     with open(f"{prefix}static/projections/projections.json") as fh:
         projections = json.load(fh)
+
     colspan = 2
     if over_expected:
         colspan = 4
-    team_dis = display_team_trans[team_arg] if team_arg in display_team_trans else team_arg
+    team_dis = TEAM_TRANS[team_arg] if team_arg in TEAM_TRANS else team_arg
     if pos == "DEF":
         html += f"<tr><th class='{team_arg}' colspan='{colspan}' style='position:relative;'><span class='close_table'>X</span>DEF Vs. {team_dis.upper()} {def_txt}</th></tr>"
         mobile_html += f"<tr><th class='{team_arg}' style='position:relative;'><span class='close_table'>X</span>DEF Vs. {team_dis.upper()} {def_txt}</th></tr>"
@@ -212,8 +209,8 @@ def get_html(team_arg, pos, opp, over_expected):
             else:
                 total += pts
             player_id = "{}_vs_{}_{}_{}".format(team_arg, team, pos, player_idx)
-            #if team in team_trans:
-            #    team = team_trans[team]
+            #if team in TEAM_TRANS:
+            #    team = TEAM_TRANS[team]
             if pos == "DEF":
                 var_html = f""
                 if over_expected:
@@ -261,7 +258,7 @@ def get_html(team_arg, pos, opp, over_expected):
                 html += f"<tr><td class='{team_arg}' colspan='{colspan}'>wk{idx+1} BYE</td></tr>"
                 mobile_html += "<tr><td>wk{} BYE</td></tr>".format(idx + 1)
             else:
-                team_dis = display_team_trans[arr["opp_team"]] if arr["opp_team"] in display_team_trans else arr["opp_team"]
+                team_dis = TEAM_TRANS[arr["opp_team"]] if arr["opp_team"] in TEAM_TRANS else arr["opp_team"]
                 html += "<tr><td>wk{} {}</td><td>-</td></tr>".format(idx + 1, team_dis.upper())
                 mobile_html += "<tr><td>wk{} {}</td></tr><tr><td>-</td></tr>".format(idx + 1, team_dis.upper())
         elif over_expected:
@@ -278,14 +275,14 @@ def get_html(team_arg, pos, opp, over_expected):
             if pos in ["DEF"]:
                 var = players_var_html
 
-            team_dis = display_team_trans[team] if team in display_team_trans else team
+            team_dis = TEAM_TRANS[team] if team in TEAM_TRANS else team
             html += f"<tr style='border:1px solid;'><td class='{team}' style='border:0px;'>wk{wk} {team_dis.upper()}: {tot}, {proj_total} Projected, {var_html}</td>"
             html += f"<tr><td style='padding:0;'>{players_html}</td></tr>"
             #html += f"<tr><td>{var}</td><td>{players_html}</td></tr>"
             #html += f"<td>{players_proj_html}</td>"
             mobile_html += f"<tr><td style='width: 100%;'>wk{wk} {team_dis.upper()}: {var_html}</td></tr><tr><td>{players_mobile_html}</td></tr>"
         else:
-            team_dis = display_team_trans[team] if team in display_team_trans else team
+            team_dis = TEAM_TRANS[team] if team in TEAM_TRANS else team
             html += "<tr><td>wk{} {}{}</td><td>{}</td></tr>".format(wk, team_dis.upper(), tot, players_html)
             mobile_html += "<tr><td style='width: 100%;'>wk{} {}: {}</td></tr><tr><td>{}</td></tr>".format(wk, team_dis.upper(), mobile_tot, players_mobile_html)
     mobile_html += f"<tr><td class='{team_arg}'><button class='{team_arg}' onclick='close_table();'>Close</button></td></tr>"
@@ -302,7 +299,7 @@ def get_team_html(teams, settings, over_expected):
     for team in teams:
         for pos in ["QB", "RB", "WR", "TE", "K", "DEF"]:
             opp, tot = profootballreference.position_vs_opponent_stats(team, pos, ranks, settings)
-            html += get_html(team, pos, opp[:curr_week], over_expected)
+            #html += get_html(team, pos, opp[:curr_week], over_expected)
     return html
 
 def get_scoring_data(which):
@@ -431,7 +428,7 @@ def get_variance_html(over_expected):
     html +=         "<div>Take for example ATL Defense Vs QB Week 1. They played Russell Wilson who was projected 21.9 points but scored 31.78 points.</div>"
     html +=         "<div>var = ((actual / projected) - 1) * 100"
     html +=         "<br>var = ((31.78 / 21.9) - 1) * 100 = 45.11%</div>"
-    html +=         "<div>This means that Russell scored 45% more fantasy points than was projected. We then add up all the projected and actual points across every week and calculate the percentage as a whole for the defense.<br>The same can be calculated for WR/RB as a whole unit. That is, the projected and actual points are added up for everyone at that position and then calculated for that week.</div>"
+    html +=         "<div>This means that Russell scored 45% more fantasy points than was projected. We then add up all the projected and actual points across every week and calculate the percentage as a whole for the defense.<br>The same can be calculated for WR/RB as a whole unit.</div>"
     html +=         "<div><button onclick='close_variance()'>Close</button></div>"
     html +=     "</div>"
     html += "</div>"
@@ -478,6 +475,66 @@ def decode_session(session_id):
 
 def unix_time_sec(dt):
     return (dt - epoch).total_seconds()
+
+@defense_print.route('/getBreakdown/<team>/<pos>')
+def getBreakdown(team, pos):
+    session_id = request.args.get("session_id")
+    over_expected = request.args.get("over_expected")
+    settings_arg = ""
+    if session_id:
+        session_id = decode_session(session_id)
+    
+    if session_id and session_id in scoring_settings:
+        settings_arg = f"session_id={session_id}"
+        settings = init_settings(scoring_settings[session_id])
+        filename = scoring_settings[session_id]
+    else:
+        settings = default_settings()
+
+    ranks = profootballreference.get_ranks(CURR_WEEK, settings, over_expected)
+    opp, tot = profootballreference.position_vs_opponent_stats(team, pos, ranks, settings)
+    with open(f"{prefix}static/projections/projections.json") as fh:
+        projections = json.load(fh)
+    team_dis = TEAM_TRANS[team] if team in TEAM_TRANS else team
+
+    res = []
+    html = ""
+    for idx, arr in enumerate(opp):
+        sched = profootballreference.get_opponents(arr["team"])
+        wk = None
+        for player_idx, p in enumerate(arr["players"]):
+            m = re.match(r"wk(\d+) (.*): (.*) pts \((.*)\)", p)
+            wk = int(m.group(1)) + 1
+            team = m.group(2)
+            name_pts = m.group(3)
+            stats = m.group(4)
+            pts = round(float(name_pts.split(" ")[-1]), 2)
+            name = ' '.join(name_pts.split(" ")[:-1])
+            proj = 0
+
+            if over_expected:
+                key = name
+                if pos == "DEF":
+                    key = team
+                if key in projections and f"wk{wk}" in projections[key]:
+                    proj = projections[key][f"wk{wk}"]
+
+            if proj == 0:
+                var = 0
+            else:
+                var = round(((pts / proj) - 1) * 100, 2)
+            var = f"{var}%"
+            var_html = f"<span class='negative'>{var}</span>"
+            if not var.startswith("-"):
+                var_html = f"<span class='positive'>+{var}</span>"
+            res.append({
+                "player": name.title(), "actual": pts,
+                "projected": proj, "delta": var_html,
+                "stats": stats, "week": wk
+            })
+
+    return jsonify(res)
+    
 
 @defense_print.route('/defense')
 def defense_route():

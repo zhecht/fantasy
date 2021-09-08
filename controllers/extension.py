@@ -52,8 +52,6 @@ def write_cron_trade_values():
 	with open(f"{prefix}static/trade_value/tradevalues.json", "w") as fh:
 		json.dump(tradevalues, fh, indent=4)
 
-write_cron_trade_values()
-
 def read_trade_values():
 	with open("{}static/trade_value/tradevalues.json".format(prefix)) as fh:
 		returned_json = json.loads(fh.read())
@@ -175,3 +173,5 @@ def extension_route():
 	updated = open(f"{prefix}static/trade_value/updated").read()
 	return jsonify(teams=results, team0=results["team0"], team1=results["team1"], updated=updated, total_teams=total_teams)
 
+if __name__ == '__main__':
+	write_cron_trade_values()

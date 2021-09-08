@@ -3,6 +3,7 @@ import argparse
 import os
 import json
 
+from controllers.functions import *
 try:
 	import urllib2 as urllib
 except:
@@ -12,27 +13,6 @@ prefix = ""
 if os.path.exists("/home/zhecht/fantasy"):
     # if on linux aka prod
     prefix = "/home/zhecht/fantasy/"
-
-def fix_name(name):
-	if name == "ted ginn jr":
-		return "ted ginn jr."
-	elif name == "robert tonyan jr":
-		return "robert tonyan"
-	elif name == "odell beckham jr":
-		return "odell beckham jr."
-	elif name == "ben watson":
-		return "benjamin watson"
-	elif name == "allen robinson":
-		return "allen robinson ii"
-	elif name == "todd gurley":
-		return "todd gurley ii"
-	elif name == "marvin jones jr":
-		return "marvin jones jr."
-	elif name == "duke johnson jr":
-		return "duke johnson jr."
-	elif name == "benny snell":
-		return "benny snell jr"
-	return name
 
 def merge_two_dicts(x, y):
 	z = x.copy()
@@ -158,7 +138,7 @@ def write_reception_stats():
 			for row in rows[1:]:
 				tds = row.find_all('td')
 				full = tds[0].find('a').text
-				full_name = fix_name(full.lower().replace("'", ""))
+				full_name = fixName(full.lower().replace("'", ""))
 
 				try:
 					j[full_name+" "+team] = int(tds[2].text) + int(tds[7].text)
@@ -169,7 +149,7 @@ def write_reception_stats():
 		for row in rows[1:]:
 			tds = row.find_all('td')
 			full = tds[0].find('a').text
-			full_name = fix_name(full.lower().replace("'", ""))
+			full_name = fixName(full.lower().replace("'", ""))
 
 			j[full_name+" "+team] = int(tds[3].text)
 
@@ -237,7 +217,7 @@ def write_target_stats():
 				tds = row.find_all('td')
 
 				full = tds[0].find('a').text
-				full_name = fix_name(full.lower().replace("'", ""))
+				full_name = fixName(full.lower().replace("'", ""))
 
 				target_counts = []
 				target_counts_perc = []
@@ -374,7 +354,7 @@ def write_snap_stats():
 				tds = row.find_all('td')
 
 				full = tds[0].find('a').text
-				full_name = fix_name(full.lower().replace("'", ""))
+				full_name = fixName(full.lower().replace("'", ""))
 
 				snap_counts = []
 				snap_counts_perc = []

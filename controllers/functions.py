@@ -1,6 +1,8 @@
 
 
-curr_week = 15
+YEAR = 2021
+CURR_WEEK = 6
+curr_week = CURR_WEEK
 
 TEAM_TRANS = {
 	"rav": "bal",
@@ -18,6 +20,8 @@ TEAM_TRANS = {
 	"tam": "tb",
 	"nor": "no"
 }
+
+SORTED_TEAMS = ['ari', 'atl', 'bal', 'buf', 'car', 'chi', 'cin', 'cle', 'dal', 'den', 'det', 'gnb', 'hou', 'ind', 'jax', 'kan', 'lac', 'lar', 'rai', 'mia', 'min', 'nor', 'nwe', 'nyg', 'nyj', 'phi', 'pit', 'sea', 'sfo', 'tam', 'ten', 'was']
 
 afc_teams = ['rav', 'buf', 'cin', 'cle', 'den', 'htx', 'clt', 'jax', 'kan', 'sdg', 'rai', 'mia', 'nwe', 'nyj', 'pit', 'ten']
 nfc_teams = ['crd', 'atl', 'car', 'chi', 'dal', 'det', 'gnb', 'ram', 'min', 'nor', 'nyg', 'phi', 'sea', 'sfo', 'tam', 'was']
