@@ -3,7 +3,11 @@ import argparse
 import os
 import json
 
-from controllers.functions import *
+try:
+	from controllers.functions import *
+except:
+	from functions import *
+
 try:
 	import urllib2 as urllib
 except:
@@ -56,7 +60,6 @@ def read_snap_stats(curr_week):
 				continue
 			perc = []
 			counts = []
-			#print(team,name)
 			for week in range(curr_week):
 				p = 0
 				c = 0
@@ -65,8 +68,10 @@ def read_snap_stats(curr_week):
 					c = stats[name][f"wk{week+1}"]["snap_counts"]
 				except:
 					pass
+
 				perc.append(str(p))
 				counts.append(str(c))
+
 			if name in trades:
 				if trades[name]["team"] == team:
 					res[name] = {"perc": ",".join(perc), "counts": ",".join(counts)}
@@ -392,7 +397,6 @@ if __name__ == '__main__':
 	parser.add_argument("-e", "--end", help="End Week", type=int)
 
 	args = parser.parse_args()
-	curr_week = 1
 	end_week = 2
 
 	if args.start:

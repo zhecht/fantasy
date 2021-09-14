@@ -11,8 +11,10 @@ import urllib
 
 try:
   import controllers.read_rosters as read_rosters
+  from controllers.functions import *
 except:
   import read_rosters
+  from functions import *
 
 
 extension_blueprint = Blueprint('extension', __name__, template_folder='views')
@@ -22,10 +24,6 @@ if os.path.exists("/home/zhecht/fantasy"):
 	prefix = "/home/zhecht/fantasy/"
 elif os.path.exists("/mnt/c/Users/Zack/Documents/fantasy"):
 	prefix = "/mnt/c/Users/Zack/Documents/fantasy/"
-
-def fixName(name):
-	name = name.lower().replace("'", "")
-	return re.sub(r" (v|iv|iii|ii|i|jr|sr)(\.?)", " ", name).replace(".", "").strip()
 
 def write_cron_trade_values():
 	tradevalues = {}

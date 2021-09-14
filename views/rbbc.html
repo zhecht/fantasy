@@ -19,7 +19,7 @@
 		#tableDiv {
 			display: flex;
 			justify-content: center;
-			height: 80%;
+			height: 85%;
 		}
 		#team_click_div { width:70%; margin-left: 15%;}
 		.team_click { text-decoration: none; }
@@ -29,9 +29,10 @@
 		table tr:nth-child(even) { background-color: #f1f1f1; }
 		table td, table th { border: 1px solid; }
 		#header { width: 100%; text-align: center; }
-		#nav { padding: 10px; }
+		#nav { padding-top: 10px; }
 		#nav a { text-decoration: none; }
 		#nav a.active { text-decoration: underline; }
+		h4 { margin: 15px 0; }
 		@media (max-width: 450px) {
 			table {width:100%; margin-left:0;}
 			body { font-size: 14px; }
@@ -89,11 +90,11 @@
 					columns: [
 						{title: "Player", field: "player", headerFilter: "input"},
 						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterParams:{values:true}},
-						{title: "Avg Snap %", field: "avgSnapPer", formatter: percentFormatter, width: "150", hozAlign: "center"},
-						{title: "RZ Looks Per Game", field: "looksPerGame", formatter: decimalFormatter, width: "150", hozAlign: "center"},
-						{title: "RZ Looks Share", field: "looksSharePer", formatter: percentFormatter, width: "150", hozAlign: "center"},
-						{title: "Targets Per Game", field: "targetsPerGame", formatter: decimalFormatter, width: "150", hozAlign: "center"},
-						{title: "RB Target Share", field: "targetShare", formatter: percentFormatter, width: "150", hozAlign: "center"},
+						{title: "Avg Snap %", field: "avgSnapPer", formatter: percentFormatter, width: "175", hozAlign: "center"},
+						{title: "RZ Looks Per Game", field: "looksPerGame", formatter: decimalFormatter, width: "175", hozAlign: "center"},
+						{title: "RZ Looks Share", field: "looksSharePer", formatter: percentFormatter, width: "175", hozAlign: "center"},
+						{title: "Targets Per Game", field: "targetsPerGame", formatter: decimalFormatter, width: "175", hozAlign: "center"},
+						{title: "RB Target Share", field: "targetShare", formatter: percentFormatter, width: "175", hozAlign: "center"},
 
 					]
 				})

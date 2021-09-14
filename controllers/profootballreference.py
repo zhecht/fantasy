@@ -105,41 +105,41 @@ def get_points(key, val, settings):
 	return 0
 
 def get_points_from_PA(pts_allowed, settings):
-	points = settings["0_points_allowed"] if "0_points_allowed" in settings else 10
+	points = settings.get("0_points_allowed", 10)
 	if pts_allowed >= 1 and pts_allowed <= 6:
-		points = settings["1-6_points_allowed"] if "1-6_points_allowed" in settings else 7
+		points = settings.get("1-6_points_allowed", 7)
 	elif pts_allowed >= 7 and pts_allowed <= 13:
-		points = settings["7-13_points_allowed"] if "7-13_points_allowed" in settings else 4
+		points = settings.get("7-13_points_allowed", 4)
 	elif pts_allowed >= 14 and pts_allowed <= 20:
-		points = settings["14-20_points_allowed"] if "14-20_points_allowed" in settings else 1
+		points = settings.get("14-20_points_allowed", 1)
 	elif pts_allowed >= 21 and pts_allowed <= 27:
-		points = settings["21-27_points_allowed"] if "21-27_points_allowed" in settings else 0
+		points = settings.get("21-27_points_allowed", 0)
 	elif pts_allowed >= 28 and pts_allowed <= 34:
-		points = settings["28-34_points_allowed"] if "28-34_points_allowed" in settings else -1
+		points = settings.get("28-34_points_allowed", -1)
 	elif pts_allowed >= 35:
-		points = settings["35+_points_allowed"] if "35+_points_allowed" in settings else -4
+		points = settings.get("35+_points_allowed", -4)
 	return points
 
 def calculate_defense_points(stats, settings):
-	pts_allowed = stats["rush_td"]*6 + stats["pass_td"]*6 + stats["xpm"] + stats["fgm"]*3 + stats["2pt_conversions"]*2
+	pts_allowed = stats.get("rush_td", 0)*6 + stats.get("pass_td", 0)*6 + stats.get("xpm", 0) + stats.get("fgm", 0)*3 + stats.get("2pt_conversions", 0)*2
 	points = get_points_from_PA(pts_allowed, settings)
-	points += (stats["kick_ret_td"] * 6)
-	points += (stats["punt_ret_td"] * 6)
+	points += (stats.get("kick_ret_td",0) * 6)
+	points += (stats.get("punt_ret_td",0) * 6)
 	
-	multiply = settings["interception"] if "interception" in settings else 2
-	points += (stats["pass_int"] * multiply)
+	multiply = settings.get("interception", 2)
+	points += (stats.get("pass_int",0) * multiply)
 	
-	multiply = settings["fumble_recovery"] if "fumble_recovery" in settings else 2
-	points += (stats["fumbles_lost"] * multiply)
+	multiply = settings.get("fumble_recovery",2)
+	points += (stats.get("fumbles_lost",0) * multiply)
 
-	multiply = settings["safety"] if "safety" in settings else 2
-	points += (stats["safety"] * multiply)
+	multiply = settings.get("safety",2)
+	points += (stats.get("safety",0) * multiply)
 
-	multiply = settings["touchdown"] if "touchdown" in settings else 6
-	points += (stats["def_tds"] * multiply)
+	multiply = settings.get("touchdown",6)
+	points += (stats.get("def_tds",0) * multiply)
 
-	multiply = settings["sack"] if "sack" in settings else 1
-	points += (stats["pass_sacked"] * multiply)
+	multiply = settings.get("sack", 1)
+	points += (stats.get("pass_sacked",0) * multiply)
 	return points
 
 def calculate_aggregate_stats(settings=None):
@@ -162,8 +162,7 @@ def calculate_aggregate_stats(settings=None):
 				team_stats = json.loads(fh.read())
 
 			for player in team_stats:
-				if player == "phillip walker":
-					player = "pj walker"
+				player = fixName(player)
 				if player not in stats:
 					stats[player] = {"tot": {"standard_points": 0, "half_points": 0, "full_points": 0}}
 				if "wk{}".format(week) not in stats[player]:
@@ -293,7 +292,7 @@ def get_point_totals(curr_week, settings, over_expected):
 					continue
 				for wk in all_team_stats[team][player]: # tot, wk1, wk2
 					try:
-						if int(wk.split("wk")[-1]) > curr_week:
+						if int(wk.replace("wk","")) > curr_week:
 							continue
 					except:
 						pass
@@ -301,7 +300,7 @@ def get_point_totals(curr_week, settings, over_expected):
 						pos_tot[pos][wk] = 0
 						pos_tot[pos][wk+"_proj"] = 0
 						pos_tot[pos][wk+"_act"] = 0
-					
+
 					# don't add if this player had 0 snaps
 					if pos not in ["K", "DEF"] and ("snap_counts" not in all_team_stats[team][player][wk] or not all_team_stats[team][player][wk]["snap_counts"]):
 						continue
@@ -668,7 +667,10 @@ def write_boxscore_links():
 
 def fix_roster(roster, team):
 	if team == "atl":
-		roster["elliott fry"] = "K"
+		roster["cordarrelle patterson"] = "RB"
+		roster["keith smith"] = "FB"
+	elif team == "car":
+		roster["ryan santoso"] = "K"
 	return
 
 def write_team_rosters(teamlinks={}):
@@ -716,7 +718,7 @@ def write_team_rosters(teamlinks={}):
 			pos = tds[2].text
 			#if name in roster and roster[name] != pos:
 			#	print(name, roster[name], pos)
-			roster[name] = pos
+			roster[fixName(name)] = pos
 		fix_roster(roster, team.split("/")[-2])
 		with open("{}/roster.json".format(path), "w") as fh:
 			json.dump(roster, fh, indent=4)
@@ -743,7 +745,7 @@ def write_schedule():
 		week = int(tr.find("th").text)
 		if week not in schedule:
 			schedule[week] = []
-		winner = tr.find_all("td")[2].find("a").get("href").split("/")[-2]
+		winner = tr.find_all("td")[3].find("a").get("href").split("/")[-2]
 		location = tr.find_all("td")[4].text
 		loser = tr.find_all("td")[5].find("a").get("href").split("/")[-2]
 		s = "{} @ {}".format(loser, winner)
@@ -753,12 +755,17 @@ def write_schedule():
 	with open("{}static/profootballreference/schedule.json".format(prefix), "w") as fh:
 		json.dump(schedule, fh, indent=4)
 
-short_names = {"falcons": "atl", "bills": "buf", "panthers": "car", "bears": "chi", "bengals": "cin", "browns": "cle", "colts": "clt", "cardinals": "crd", "cowboys": "dal", "broncos": "den", "lions": "det", "packers": "gnb", "texans": "htx", "jaguars": "jax", "chiefs": "kan", "dolphins": "mia", "vikings": "min", "saints": "nor", "patriots": "nwe", "giants": "nyg", "jets": "nyj", "titans": "oti", "eagles": "phi", "steelers": "pit", "raiders": "rai", "rams": "ram", "ravens": "rav", "chargers": "sdg", "seahawks": "sea", "49ers": "sfo", "buccaneers": "tam", "washington": "was"}
+short_names = {"falcons": "atl", "bills": "buf", "panthers": "car", "bears": "chi", "bengals": "cin", "browns": "cle", "colts": "clt", "cardinals": "crd", "cowboys": "dal", "broncos": "den", "lions": "det", "packers": "gnb", "texans": "htx", "jaguars": "jax", "chiefs": "kan", "dolphins": "mia", "vikings": "min", "saints": "nor", "patriots": "nwe", "giants": "nyg", "jets": "nyj", "titans": "oti", "eagles": "phi", "steelers": "pit", "raiders": "rai", "rams": "ram", "ravens": "rav", "chargers": "sdg", "seahawks": "sea", "49ers": "sfo", "buccaneers": "tam", "washington": "was", "football team": "was"}
 
 def get_kicking_stats(outfile):
 	soup = BS(open(outfile, 'rb').read(), "lxml")
-	rows = soup.find("table", id="scoring").find_all("tr")
+	scoring = soup.find("table", id="scoring")
+
+	if not scoring:
+		return {}
+
 	stats = {}
+	rows = scoring.find_all("tr")
 	for row in rows[1:]:
 		tds = row.find_all("td")
 		team = short_names[tds[1].text.lower()]
@@ -774,7 +781,12 @@ def get_kicking_stats(outfile):
 
 def get_defense_stats_from_scoring(outfile, team):
 	soup = BS(open(outfile, 'rb').read(), "lxml")
-	rows = soup.find("table", id="scoring").find_all("tr")
+	scoring = soup.find("table", id="scoring")
+	
+	if not scoring:
+		return {"2pt_conversions": 0, "safety": 0, "def_tds": 0}
+
+	rows = scoring.find_all("tr")
 	vis_score = 0
 	home_score = 0
 	conversions = 0
@@ -832,7 +844,7 @@ def add_stats(boxscorelinks, team, teampath, boxlink, week_arg, team_arg):
 		dt = datetime.fromtimestamp(last_modified)
 
 	call(["curl", "-k", url, "-o", outfile])
-	
+
 	kicking_stats = get_kicking_stats(outfile)
 	def_stats = get_defense_stats_from_scoring(outfile, team)
 	stats = {"OFF": def_stats}
@@ -842,7 +854,12 @@ def add_stats(boxscorelinks, team, teampath, boxlink, week_arg, team_arg):
 
 	for i in range(len(outer_ids)):
 		soup = BS(open(outfile, 'rb').read(), "lxml")
-		children = soup.find("div", id=outer_ids[i]).children
+		childrenEl = soup.find("div", id=outer_ids[i])
+
+		if not childrenEl:
+			continue
+
+		children = childrenEl.children
 		if soup.find("table", id=inner_ids[i]) is None:
 			html = None
 			for c in children:
@@ -857,8 +874,7 @@ def add_stats(boxscorelinks, team, teampath, boxlink, week_arg, team_arg):
 			if classes and "thead" in classes:
 				continue
 			name = tr.find("th").text.strip().lower().replace("'", "").replace(".", "")
-			if name == "phillip walker":
-				name = "pj walker"
+			name = fixName(name)
 			data = tr.find_all("td")
 			if "snap" not in inner_ids[i]:
 				ck_team = get_abbr(data[0].text.lower()) # might have different abbr
@@ -867,7 +883,7 @@ def add_stats(boxscorelinks, team, teampath, boxlink, week_arg, team_arg):
 			
 			if "snap" in inner_ids[i]:
 				# if player got 0 points but had snaps
-				if data[0].text not in ["QB", "RB", "WR", "TE", "K"]:
+				if data[0].text not in ["QB", "FB", "RB", "WR", "TE", "K"]:
 					continue
 				if name not in stats:
 					if inner_ids[i].startswith("home") and home_team == team:
@@ -935,7 +951,6 @@ if __name__ == "__main__":
 	parser.add_argument("-w", "--week", help="Week", type=int)
 
 	args = parser.parse_args()
-	curr_week = 3
 
 	if args.start:
 		curr_week = args.start
@@ -962,10 +977,10 @@ if __name__ == "__main__":
 		pass
 		# only needs to be run once in a while
 		
-		write_team_links()
-		write_schedule()
-		write_team_rosters()
-		write_boxscore_links()
+		#write_team_links()
+		#write_schedule()
+		#write_team_rosters()
+		#write_boxscore_links()
 		
 		write_boxscore_stats(args.week, args.team)
 		calculate_aggregate_stats()

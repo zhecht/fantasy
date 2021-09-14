@@ -5,10 +5,12 @@ import os
 import json
 
 try:
+	from controllers.functions import *
 	from controllers.read_rosters import *
 	from controllers.reddit import *
 	from controllers.snap_stats import *
 except:
+	from functions import *
 	from read_rosters import *
 	from snap_stats import *
 	from reddit import *
@@ -62,31 +64,6 @@ def merge_two_dicts(x, y):
 	z.update(y)
 	return z
 
-def fix_name(name):
-	if name == "ted ginn jr":
-		return "ted ginn jr."
-	elif name == "robert tonyan jr":
-		return "robert tonyan"
-	elif name == "odell beckham jr":
-		return "odell beckham jr."
-	elif name == "ben watson":
-		return "benjamin watson"
-	elif name == "allen robinson":
-		return "allen robinson ii"
-	elif name == "todd gurley":
-		return "todd gurley ii"
-	elif name == "marvin jones jr":
-		return "marvin jones jr."
-	elif name == "duke johnson jr":
-		return "duke johnson jr."
-	elif name == "dj moore":
-		return "d.j. moore"
-	elif name == "benny snell":
-		return "benny snell jr"
-	elif name == "anthony mcfarland":
-		return "anthony mcfarland jr"
-	return name
-
 def read_nfl_trades():
 	with open(f"{prefix}static/nfl_trades.json") as fh:
 		returned_json = json.loads(fh.read())
@@ -123,7 +100,7 @@ def write_redzone(curr_week=1):
 				which_total = tds[0].find("b").text
 			else:
 				full = tds[0].find('a').text
-				full_name = fix_name(full.lower().replace("'", ""))
+				full_name = fixName(full.lower().replace("'", ""))
 
 			for week in range(1,17):
 				try:
@@ -235,18 +212,13 @@ def get_redzone_trends(rbbc_teams, curr_week=1, requested_pos="RB", is_ui=False)
 	#players_on_teams = {**players_on_teams, **players_on_FA}
 	players_on_teams = merge_two_dicts(players_on_teams, players_on_FA)
 	update_players_on_teams(players_on_teams)
-
 	trends = {}
 	for player in snap_stats:
-		#if "salvon" in player:
-		#	print(player, snap_stats[player], target_stats[player])
 		if player not in redzone_json:
 			continue
 		if player not in players_on_teams or players_on_teams[player]["position"] == "QB":
 			continue
-		#if not is_ui and (player.find("jr") >= 0 or player.find(".") >= 0 or player.find("ii") >= 0):
-		if (player.find("jr") >= 0 or player.find(".") >= 0 or player.find("ii") >= 0):
-			pass
+
 		pos = players_on_teams[player]["position"]
 		team = redzone_json[player]["team"]
 
@@ -486,10 +458,6 @@ def get_player_looks_arr(curr_week=1, is_ui=False):
 		if player not in players_on_teams or players_on_teams[player]["position"] == "QB":
 			continue
 
-		if player.find("jr") >= 0 or player.find(".") >= 0 or player.find("ii") >= 0:
-			if " ".join(player.split(" ")[:-1]) in snap_stats:
-				continue
-
 		if player not in redzone_json:
 			continue
 		looks_arr = redzone_json[player]["looks"].split(",")
@@ -579,8 +547,6 @@ if __name__ == '__main__':
 	parser.add_argument("-e", "--end", help="End Week", type=int)
 
 	args = parser.parse_args()
-
-	curr_week = 1
 	end_week = 2
 
 	if args.start:
@@ -601,9 +567,9 @@ if __name__ == '__main__':
 		rbbc_teams = ['crd', 'atl', 'rav', 'buf', 'car', 'chi', 'cin', 'cle', 'dal', 'den', 'det', 'gnb', 'htx', 'clt', 'jax', 'kan', 'sdg', 'ram', 'rai', 'mia', 'min', 'nor', 'nwe', 'nyg', 'nyj', 'phi', 'pit', 'sea', 'sfo', 'tam', 'oti', 'was']
 
 		print("View on [Site](https://zhecht.pythonanywhere.com/rbbc)")
-		print("\nWeekly, I'll be posting these types of posts alongside my [Redzone Look Trends]() post")
+		print("\nWeekly, I'll be posting this RBBC analysis alongside my [Redzone Look Trends]() post")
 		print("\nNotes:")
-		print("\n- Purpose: Find out what every backfield is looking like and if they're trending up/down from past week")
+		print("\n- Purpose: Examine backfield trends from the previous weeks")
 		print("\n- Target Share and RZ Share are only relative to FBs/RBs on the team. Data is adjusted for injuries")
 		print("\n- Source: https://subscribers.footballguys.com/teams/teampage-den-3.php")
 		print("\n- #Reply with a team name if you want to just see their breakdown of W/R/T")
@@ -619,6 +585,7 @@ if __name__ == '__main__':
 			print(":--|:--|:--|:--|:--|:--")
 			extra = ""
 			for player in snap_trends[team]:
+				#print(player, snap_trends[team][player])
 				if snap_trends[team][player]["snaps"] == 0:
 					if snap_trends[team][player]["looks_per_game"] == 0 and snap_trends[team][player]["targets_per_game"] == 0:
 						continue
@@ -683,9 +650,9 @@ if __name__ == '__main__':
 		print("View on [Site](https://zhecht.pythonanywhere.com/redzone)")
 		print("\nView as [Image]()")
 		print("\nWeekly, I'll be posting these types of posts alongside my [RBBC Trends]() post")
+		print("\nWeekly, I'll be posting this Redzone Look Trends alongside my [RBBC Trends]() post")
 		print("\nNotes:")
-		print("\n- Purpose: Find out who's getting rushes/targets inside the 20 and is more likely to score")
-		print("\n- A Redzone look is a target or rushing attempt within the opponents 20 yard line.")
+		print("\n- Purpose: Track players getting targets or rushes inside the 20 yard line")
 		print("\n- Source: https://subscribers.footballguys.com/teams/teampage-den-6.php")
 		print("\n- #Reply with a team name if you want to just see their breakdown of W/R/T")
 

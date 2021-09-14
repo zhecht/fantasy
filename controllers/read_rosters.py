@@ -174,7 +174,7 @@ def read_FA():
 			if player in players_on_FA:
 				continue
 
-			players_on_FA[player] = {"team_id": 0, "position": position, "pid": 0, "nfl_team": team}
+			players_on_FA[fixName(player)] = {"team_id": 0, "position": position, "pid": 0, "nfl_team": team}
 
 	return players_on_FA
 
@@ -197,16 +197,12 @@ def read_FA_translations():
 				translations[full] = full
 			else:
 				translations["{}. {}".format(first[0], last, nfl_team)] = full.lower().replace("'", "")
-	translations["D. Johnson Hou"] = "duke johnson jr."
 	return players_on_FA, translations
 
 def update_players_on_teams(players_on_teams):
+	if "cordarrelle patterson" in players_on_teams:
+		players_on_teams["cordarrelle patterson"]["position"] = "RB"
 	return
-
-import re
-def fixName(name):
-	name = name.lower().replace("'", "")
-	return re.sub(r" (v|iv|iii|ii|i|jr|sr)(\.?)", " ", name).replace(".", "").strip()
 
 def read_rosters(skip_remove_puncuation=False, players_prefix=players_prefix):
 	players_on_teams = {}
@@ -227,6 +223,7 @@ def read_rosters(skip_remove_puncuation=False, players_prefix=players_prefix):
 
 			if pos == "WR,RB":
 				pos = "WR"
+
 			players_on_teams[fixName(full)] = {"team_id": i, "position": pos, "pid": pid, "nfl_team": nfl_team, "fantasy_position": position_priority[selected_pos]}
 			if pos == "DEF":
 				name_translations[full] = fixName(full)

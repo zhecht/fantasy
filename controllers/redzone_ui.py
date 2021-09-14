@@ -36,12 +36,21 @@ def getRedzone():
 	players_on_FA = read_FA()
 	players_on_teams = {**players_on_teams, **players_on_FA}
 	update_players_on_teams(players_on_teams)
+	counts = {}
 	for playerData in sorted_looks:
 		player = playerData["name"]
 		team = playerData["team"]
 		team_display = team_trans[team] if team in team_trans else team
+
+		pos = players_on_teams[player]["position"]
+		if pos not in counts:
+			counts[pos] = 0
+		elif counts[pos] >= 50:
+			continue
+		counts[pos] += 1
+		
 		redzoneResult.append({
-			"position": players_on_teams[player]["position"],
+			"position": pos,
 			"player": player.title(),
 			"team": team_display.upper(),
 			"looksPerc": playerData["looks_perc"],

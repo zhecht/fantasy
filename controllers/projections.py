@@ -4,6 +4,11 @@ import argparse
 import json
 import os
 
+try:
+	from controllers.functions import *
+except:
+	from functions import *
+
 def fix_team(team):
 	if team == "ari":
 		return "crd"
@@ -101,29 +106,12 @@ def get_team_abbr(name):
 	elif "washington" in name:
 		return "was"
 
-def fix_name(name, team, stats):
-	if name == "bisi johnson":
-		return "olabisi johnson"
-	elif name == "ronald jones":
-		return "ronald jones ii"
-	elif name == "gardner minshew":
-		return "gardner minshew ii"
-	elif name == "mike badgley":
-		return "michael badgley"
-	elif name == "jon brown":
-		return "jonathan brown"
-	elif team == "off":
-		return get_team_abbr(name)
-	elif name+" jr" in stats[team]:
-		name += " jr"
-	return name
-
 prefix = ""
 if os.path.exists("/home/zhecht/fantasy"):
 	prefix = "/home/zhecht/fantasy/"
 
 def write_projections(week, stats, force=False):
-	url = f"https://fantasy.nfl.com/research/projections?position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2020&statType=weekProjectedStats&statWeek={week}&offset=0"
+	url = f"https://fantasy.nfl.com/research/projections?position=O&sort=projectedPts&statCategory=projectedStats&statSeason={YEAR}&statType=weekProjectedStats&statWeek={week}&offset=0"
 	projections = {}
 	offsets = {"O": 1026, "7": 54, "8": 32}
 	for pos in ["O", "7", "8"]: # offense / kicker / dst
@@ -141,7 +129,11 @@ def write_projections(week, stats, force=False):
 				soup = BS(fh.read(), "lxml")
 			offset += 25
 			headers = []
-			for idx, row in enumerate(soup.find("thead").find_all("tr")):
+			thead = soup.find("thead")
+			if not thead:
+				continue
+
+			for idx, row in enumerate(thead.find_all("tr")):
 				for header_idx, th in enumerate(row.find_all("th")):
 					val = th.text.strip().lower()
 					if idx == 0:
@@ -163,9 +155,7 @@ def write_projections(week, stats, force=False):
 					continue
 				team = sp[1].lower()
 				team = fix_team(team)
-				name = fix_name(name, team, stats)
-				if name == "aldrick rosas":
-					print(team)
+				name = fixName(name)
 				if team != "off" and name not in stats[team]:
 					#print(team, name)
 					pass
@@ -191,26 +181,7 @@ def get_points(projections):
 	return passing_pts + rushing_pts + receiving_pts + misc_pts
 
 def fix_projections(all_projections):
-	for name in ["justin herbert", "matthew wright", "aldrick rosas", "stephen hauschka", "sergio castillo", "jonathan brown", "taylor russolino"]:
-		if name not in all_projections:
-			all_projections[name] = {}
-
-	all_projections["lamar jackson"]["wk13"] = 20.83
-	all_projections["justin herbert"]["wk2"] = 14.92 #tyrod
-	
-	all_projections["aldrick rosas"]["wk4"] = 1.99 + 0.04*3 + 0.47*3 + 0.69*3 + 0.48*4
-	all_projections["stephen hauschka"]["wk5"] = 2.28 + 0.06*3 + 0.47*3 + 0.53*3 + 0.49*4
-	all_projections["jonathan brown"]["wk6"] = 2.07 + 0.03*3 + 0.48*3 + 0.44*3 + 0.42*4
-	all_projections["aldrick rosas"]["wk12"] = 6.64
-	all_projections["chase mclaughlin"]["wk13"] = 6.07
-	all_projections["austin seibert"]["wk14"] = 4.93
-	all_projections["mike nugent"]["wk15"] = 7.61
-
-	all_projections["sergio castillo"] = {"wk7": 5.71, "wk8": 5.71, "wk9": 5.54, "wk12": 5.07, "wk13": 5.5, "wk14": 4.93} # ficken NYJ replacement. use lowest projected for week
-
-	all_projections["kendall hinton"] = {"wk12": 0.01}
-	all_projections["matthew wright"] = {"wk13": 5.82}
-	all_projections["taylor russolino"] = {"wk15": 5.09}
+	all_projections["matt ammendola"]["wk1"] = 5.4
 
 def parse_projections():
 	all_projections = {}
