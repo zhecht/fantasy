@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/team/nfl.l.497791.t.7/roster" time="87.579965591431ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
+<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/team/nfl.l.497791.t.7/roster" time="41.385889053345ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
  <team>
   <team_key>406.l.497791.t.7</team_key>
   <team_id>7</team_id>
@@ -11,14 +11,14 @@
     <url>https://s.yimg.com/cv/apiv2/default/nfl/nfl_12.png</url>
    </team_logo>
   </team_logos>
-  <waiver_priority>5</waiver_priority>
+  <waiver_priority>4</waiver_priority>
   <faab_balance>100</faab_balance>
   <number_of_moves>4</number_of_moves>
   <number_of_trades>0</number_of_trades>
   <roster_adds>
    <coverage_type>week</coverage_type>
-   <coverage_value>1</coverage_value>
-   <value>2</value>
+   <coverage_value>2</coverage_value>
+   <value>0</value>
   </roster_adds>
   <league_scoring_type>head</league_scoring_type>
   <has_draft_grade>1</has_draft_grade>
@@ -30,7 +30,7 @@
     <nickname>Jordan</nickname>
     <guid>5SBLKECT2TGTOGZQUKQVLPB3FA</guid>
     <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
-    <felo_score>652</felo_score>
+    <felo_score>675</felo_score>
     <felo_tier>silver</felo_tier>
    </manager>
    <manager>
@@ -39,13 +39,13 @@
     <guid>RI2LR625VYW4PV35PDY5G77XQ4</guid>
     <is_comanager>1</is_comanager>
     <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
-    <felo_score>584</felo_score>
+    <felo_score>589</felo_score>
     <felo_tier>bronze</felo_tier>
    </manager>
   </managers>
   <roster>
    <coverage_type>week</coverage_type>
-   <week>1</week>
+   <week>2</week>
    <is_editable>0</is_editable>
    <players count="17">
     <player>
@@ -79,11 +79,10 @@
       <position>QB</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
      <player_notes_last_timestamp>1631484368</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
       <position>QB</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -120,11 +119,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
      <player_notes_last_timestamp>1631478408</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
       <position>WR</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -161,11 +159,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
      <player_notes_last_timestamp>1631507005</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
       <position>WR</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -202,11 +199,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
      <player_notes_last_timestamp>1631480169</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
       <position>RB</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -243,11 +239,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
      <player_notes_last_timestamp>1631485781</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
       <position>RB</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -284,11 +279,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
      <player_notes_last_timestamp>1631498530</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
       <position>TE</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -325,11 +319,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
      <player_notes_last_timestamp>1631487169</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
       <position>W/R/T</position>
       <is_flex>1</is_flex>
      </selected_position>
@@ -366,11 +359,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
      <player_notes_last_timestamp>1631489844</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
       <position>BN</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -407,11 +399,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
      <player_notes_last_timestamp>1631479966</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
       <position>BN</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -448,11 +439,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
      <player_notes_last_timestamp>1631482966</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
       <position>BN</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -488,11 +478,10 @@
       <position>QB</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
      <player_notes_last_timestamp>1631505386</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
       <position>BN</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -532,7 +521,7 @@
      <player_notes_last_timestamp>1631249771</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
       <position>BN</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -569,10 +558,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1631303128</player_notes_last_timestamp>
+     <player_notes_last_timestamp>1631593325</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
       <position>BN</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -609,7 +598,7 @@
      </eligible_positions>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
       <position>K</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -646,7 +635,7 @@
      </eligible_positions>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
       <position>DEF</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -688,7 +677,7 @@
      </eligible_positions>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
       <position>IR</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -730,7 +719,7 @@
      </eligible_positions>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
       <position>IR</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -739,4 +728,4 @@
   </roster>
  </team>
 </fantasy_content>
-<!-- fantasy-sports-api- -public-production-bf1-665547d576-kxcpk Mon Sep 13 19:47:47 UTC 2021 -->
+<!-- fantasy-sports-api- -public-production-bf1-665547d576-svmzb Wed Sep 15 13:43:25 UTC 2021 -->

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.497791/players;start=925;status=FA" time="261.20591163635ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
+<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.497791/players;start=925;status=FA" time="191.14685058594ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
  <league>
   <league_key>406.l.497791</league_key>
   <league_id>497791</league_id>
@@ -8,9 +8,9 @@
   <logo_url></logo_url>
   <draft_status>postdraft</draft_status>
   <num_teams>12</num_teams>
-  <edit_key>1</edit_key>
+  <edit_key>2</edit_key>
   <weekly_deadline/>
-  <league_update_timestamp>1631512124</league_update_timestamp>
+  <league_update_timestamp>1631686912</league_update_timestamp>
   <scoring_type>head</scoring_type>
   <league_type>private</league_type>
   <renew>399_665951</renew>
@@ -19,14 +19,294 @@
   <allow_add_to_dl_extra_pos>0</allow_add_to_dl_extra_pos>
   <is_pro_league>0</is_pro_league>
   <is_cash_league>0</is_cash_league>
-  <current_week>1</current_week>
+  <current_week>2</current_week>
   <start_week>1</start_week>
   <start_date>2021-09-09</start_date>
   <end_week>17</end_week>
   <end_date>2022-01-03</end_date>
   <game_code>nfl</game_code>
   <season>2021</season>
-  <players/>
+  <players count="9">
+   <player>
+    <player_key>406.p.100013</player_key>
+    <player_id>100013</player_id>
+    <name>
+     <full>Las Vegas</full>
+     <first>Las Vegas</first>
+     <last/>
+     <ascii_first>Las Vegas</ascii_first>
+     <ascii_last/>
+    </name>
+    <editorial_player_key>nfl.p.100013</editorial_player_key>
+    <editorial_team_key>nfl.t.13</editorial_team_key>
+    <editorial_team_full_name>Las Vegas Raiders</editorial_team_full_name>
+    <editorial_team_abbr>LV</editorial_team_abbr>
+    <bye_weeks>
+     <week>8</week>
+    </bye_weeks>
+    <uniform_number></uniform_number>
+    <display_position>DEF</display_position>
+    <headshot>
+     <url>https://s.yimg.com/lq/i/us/sp/v/nfl/teams/1/50x50w/oak.gif</url>
+     <size>small</size>
+    </headshot>
+    <image_url>https://s.yimg.com/lq/i/us/sp/v/nfl/teams/1/50x50w/oak.gif</image_url>
+    <is_undroppable>0</is_undroppable>
+    <position_type>DT</position_type>
+    <primary_position>DEF</primary_position>
+    <eligible_positions>
+     <position>DEF</position>
+    </eligible_positions>
+   </player>
+   <player>
+    <player_key>406.p.100015</player_key>
+    <player_id>100015</player_id>
+    <name>
+     <full>Miami</full>
+     <first>Miami</first>
+     <last/>
+     <ascii_first>Miami</ascii_first>
+     <ascii_last/>
+    </name>
+    <editorial_player_key>nfl.p.100015</editorial_player_key>
+    <editorial_team_key>nfl.t.15</editorial_team_key>
+    <editorial_team_full_name>Miami Dolphins</editorial_team_full_name>
+    <editorial_team_abbr>Mia</editorial_team_abbr>
+    <bye_weeks>
+     <week>14</week>
+    </bye_weeks>
+    <uniform_number></uniform_number>
+    <display_position>DEF</display_position>
+    <headshot>
+     <url>https://s.yimg.com/xe/ipt/50x50w.5.gif</url>
+     <size>small</size>
+    </headshot>
+    <image_url>https://s.yimg.com/xe/ipt/50x50w.5.gif</image_url>
+    <is_undroppable>0</is_undroppable>
+    <position_type>DT</position_type>
+    <primary_position>DEF</primary_position>
+    <eligible_positions>
+     <position>DEF</position>
+    </eligible_positions>
+   </player>
+   <player>
+    <player_key>406.p.100019</player_key>
+    <player_id>100019</player_id>
+    <name>
+     <full>New York</full>
+     <first>New York</first>
+     <last/>
+     <ascii_first>New York</ascii_first>
+     <ascii_last/>
+    </name>
+    <editorial_player_key>nfl.p.100019</editorial_player_key>
+    <editorial_team_key>nfl.t.19</editorial_team_key>
+    <editorial_team_full_name>New York Giants</editorial_team_full_name>
+    <editorial_team_abbr>NYG</editorial_team_abbr>
+    <bye_weeks>
+     <week>10</week>
+    </bye_weeks>
+    <uniform_number></uniform_number>
+    <display_position>DEF</display_position>
+    <headshot>
+     <url>https://s.yimg.com/lq/i/us/sp/v/nfl/teams/1/50x50w/nyg_2.gif</url>
+     <size>small</size>
+    </headshot>
+    <image_url>https://s.yimg.com/lq/i/us/sp/v/nfl/teams/1/50x50w/nyg_2.gif</image_url>
+    <is_undroppable>0</is_undroppable>
+    <position_type>DT</position_type>
+    <primary_position>DEF</primary_position>
+    <eligible_positions>
+     <position>DEF</position>
+    </eligible_positions>
+   </player>
+   <player>
+    <player_key>406.p.100020</player_key>
+    <player_id>100020</player_id>
+    <name>
+     <full>New York</full>
+     <first>New York</first>
+     <last/>
+     <ascii_first>New York</ascii_first>
+     <ascii_last/>
+    </name>
+    <editorial_player_key>nfl.p.100020</editorial_player_key>
+    <editorial_team_key>nfl.t.20</editorial_team_key>
+    <editorial_team_full_name>New York Jets</editorial_team_full_name>
+    <editorial_team_abbr>NYJ</editorial_team_abbr>
+    <bye_weeks>
+     <week>6</week>
+    </bye_weeks>
+    <uniform_number></uniform_number>
+    <display_position>DEF</display_position>
+    <headshot>
+     <url>https://s.yimg.com/lq/i/us/sp/v/nfl/teams/1/50x50w/nyj.gif</url>
+     <size>small</size>
+    </headshot>
+    <image_url>https://s.yimg.com/lq/i/us/sp/v/nfl/teams/1/50x50w/nyj.gif</image_url>
+    <is_undroppable>0</is_undroppable>
+    <position_type>DT</position_type>
+    <primary_position>DEF</primary_position>
+    <eligible_positions>
+     <position>DEF</position>
+    </eligible_positions>
+   </player>
+   <player>
+    <player_key>406.p.100021</player_key>
+    <player_id>100021</player_id>
+    <name>
+     <full>Philadelphia</full>
+     <first>Philadelphia</first>
+     <last/>
+     <ascii_first>Philadelphia</ascii_first>
+     <ascii_last/>
+    </name>
+    <editorial_player_key>nfl.p.100021</editorial_player_key>
+    <editorial_team_key>nfl.t.21</editorial_team_key>
+    <editorial_team_full_name>Philadelphia Eagles</editorial_team_full_name>
+    <editorial_team_abbr>Phi</editorial_team_abbr>
+    <bye_weeks>
+     <week>14</week>
+    </bye_weeks>
+    <uniform_number></uniform_number>
+    <display_position>DEF</display_position>
+    <headshot>
+     <url>https://s.yimg.com/lq/i/us/sp/v/nfl/teams/1/50x50w/phi.gif</url>
+     <size>small</size>
+    </headshot>
+    <image_url>https://s.yimg.com/lq/i/us/sp/v/nfl/teams/1/50x50w/phi.gif</image_url>
+    <is_undroppable>0</is_undroppable>
+    <position_type>DT</position_type>
+    <primary_position>DEF</primary_position>
+    <eligible_positions>
+     <position>DEF</position>
+    </eligible_positions>
+   </player>
+   <player>
+    <player_key>406.p.100022</player_key>
+    <player_id>100022</player_id>
+    <name>
+     <full>Arizona</full>
+     <first>Arizona</first>
+     <last/>
+     <ascii_first>Arizona</ascii_first>
+     <ascii_last/>
+    </name>
+    <editorial_player_key>nfl.p.100022</editorial_player_key>
+    <editorial_team_key>nfl.t.22</editorial_team_key>
+    <editorial_team_full_name>Arizona Cardinals</editorial_team_full_name>
+    <editorial_team_abbr>Ari</editorial_team_abbr>
+    <bye_weeks>
+     <week>12</week>
+    </bye_weeks>
+    <uniform_number></uniform_number>
+    <display_position>DEF</display_position>
+    <headshot>
+     <url>https://s.yimg.com/lq/i/us/sp/v/nfl/teams/1/50x50w/ari_3.jpg</url>
+     <size>small</size>
+    </headshot>
+    <image_url>https://s.yimg.com/lq/i/us/sp/v/nfl/teams/1/50x50w/ari_3.jpg</image_url>
+    <is_undroppable>0</is_undroppable>
+    <position_type>DT</position_type>
+    <primary_position>DEF</primary_position>
+    <eligible_positions>
+     <position>DEF</position>
+    </eligible_positions>
+   </player>
+   <player>
+    <player_key>406.p.100026</player_key>
+    <player_id>100026</player_id>
+    <name>
+     <full>Seattle</full>
+     <first>Seattle</first>
+     <last/>
+     <ascii_first>Seattle</ascii_first>
+     <ascii_last/>
+    </name>
+    <editorial_player_key>nfl.p.100026</editorial_player_key>
+    <editorial_team_key>nfl.t.26</editorial_team_key>
+    <editorial_team_full_name>Seattle Seahawks</editorial_team_full_name>
+    <editorial_team_abbr>Sea</editorial_team_abbr>
+    <bye_weeks>
+     <week>9</week>
+    </bye_weeks>
+    <uniform_number></uniform_number>
+    <display_position>DEF</display_position>
+    <headshot>
+     <url>https://s.yimg.com/lq/i/us/sp/v/nfl/teams/1/50x50w/sea.gif</url>
+     <size>small</size>
+    </headshot>
+    <image_url>https://s.yimg.com/lq/i/us/sp/v/nfl/teams/1/50x50w/sea.gif</image_url>
+    <is_undroppable>0</is_undroppable>
+    <position_type>DT</position_type>
+    <primary_position>DEF</primary_position>
+    <eligible_positions>
+     <position>DEF</position>
+    </eligible_positions>
+   </player>
+   <player>
+    <player_key>406.p.100030</player_key>
+    <player_id>100030</player_id>
+    <name>
+     <full>Jacksonville</full>
+     <first>Jacksonville</first>
+     <last/>
+     <ascii_first>Jacksonville</ascii_first>
+     <ascii_last/>
+    </name>
+    <editorial_player_key>nfl.p.100030</editorial_player_key>
+    <editorial_team_key>nfl.t.30</editorial_team_key>
+    <editorial_team_full_name>Jacksonville Jaguars</editorial_team_full_name>
+    <editorial_team_abbr>Jax</editorial_team_abbr>
+    <bye_weeks>
+     <week>7</week>
+    </bye_weeks>
+    <uniform_number></uniform_number>
+    <display_position>DEF</display_position>
+    <headshot>
+     <url>https://s.yimg.com/xe/ipt/50x50w.3.gif</url>
+     <size>small</size>
+    </headshot>
+    <image_url>https://s.yimg.com/xe/ipt/50x50w.3.gif</image_url>
+    <is_undroppable>0</is_undroppable>
+    <position_type>DT</position_type>
+    <primary_position>DEF</primary_position>
+    <eligible_positions>
+     <position>DEF</position>
+    </eligible_positions>
+   </player>
+   <player>
+    <player_key>406.p.100034</player_key>
+    <player_id>100034</player_id>
+    <name>
+     <full>Houston</full>
+     <first>Houston</first>
+     <last/>
+     <ascii_first>Houston</ascii_first>
+     <ascii_last/>
+    </name>
+    <editorial_player_key>nfl.p.100034</editorial_player_key>
+    <editorial_team_key>nfl.t.34</editorial_team_key>
+    <editorial_team_full_name>Houston Texans</editorial_team_full_name>
+    <editorial_team_abbr>Hou</editorial_team_abbr>
+    <bye_weeks>
+     <week>10</week>
+    </bye_weeks>
+    <uniform_number></uniform_number>
+    <display_position>DEF</display_position>
+    <headshot>
+     <url>https://s.yimg.com/lq/i/us/sp/v/nfl/teams/1/50x50w/hou.gif</url>
+     <size>small</size>
+    </headshot>
+    <image_url>https://s.yimg.com/lq/i/us/sp/v/nfl/teams/1/50x50w/hou.gif</image_url>
+    <is_undroppable>0</is_undroppable>
+    <position_type>DT</position_type>
+    <primary_position>DEF</primary_position>
+    <eligible_positions>
+     <position>DEF</position>
+    </eligible_positions>
+   </player>
+  </players>
  </league>
 </fantasy_content>
-<!-- fantasy-sports-api- -public-production-bf1-665547d576-dx96j Mon Sep 13 19:49:14 UTC 2021 -->
+<!-- fantasy-sports-api- -public-production-bf1-665547d576-cjctx Wed Sep 15 13:44:47 UTC 2021 -->

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/team/nfl.l.497791.t.3/roster" time="81.51388168335ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
+<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/team/nfl.l.497791.t.3/roster" time="43.348073959351ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
  <team>
   <team_key>406.l.497791.t.3</team_key>
   <team_id>3</team_id>
@@ -11,14 +11,14 @@
     <url>https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/f51cff8fad8b526f86f0daeee624cfc282b92140d1d186ec7dedfca2cbb6882c.jpg</url>
    </team_logo>
   </team_logos>
-  <waiver_priority>9</waiver_priority>
-  <faab_balance>99</faab_balance>
-  <number_of_moves>1</number_of_moves>
+  <waiver_priority>8</waiver_priority>
+  <faab_balance>96</faab_balance>
+  <number_of_moves>2</number_of_moves>
   <number_of_trades>0</number_of_trades>
   <roster_adds>
    <coverage_type>week</coverage_type>
-   <coverage_value>1</coverage_value>
-   <value>0</value>
+   <coverage_value>2</coverage_value>
+   <value>1</value>
   </roster_adds>
   <league_scoring_type>head</league_scoring_type>
   <has_draft_grade>1</has_draft_grade>
@@ -30,7 +30,7 @@
     <nickname>Evan</nickname>
     <guid>4S47CUP6D3SYNEJJPP6D5E2MYY</guid>
     <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
-    <felo_score>560</felo_score>
+    <felo_score>553</felo_score>
     <felo_tier>bronze</felo_tier>
    </manager>
    <manager>
@@ -39,13 +39,13 @@
     <guid>ZQKWBYLMDAQ6DVLPFWWRMRQMUQ</guid>
     <is_comanager>1</is_comanager>
     <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
-    <felo_score>573</felo_score>
+    <felo_score>569</felo_score>
     <felo_tier>bronze</felo_tier>
    </manager>
   </managers>
   <roster>
    <coverage_type>week</coverage_type>
-   <week>1</week>
+   <week>2</week>
    <is_editable>0</is_editable>
    <players count="16">
     <player>
@@ -79,11 +79,10 @@
       <position>QB</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
      <player_notes_last_timestamp>1631478259</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
       <position>QB</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -120,11 +119,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
      <player_notes_last_timestamp>1631480013</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
       <position>WR</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -161,11 +159,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
      <player_notes_last_timestamp>1631492232</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
       <position>WR</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -202,11 +199,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
      <player_notes_last_timestamp>1631479953</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
       <position>RB</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -243,11 +239,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
      <player_notes_last_timestamp>1631482750</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
       <position>RB</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -284,11 +279,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
      <player_notes_last_timestamp>1631481548</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
       <position>TE</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -325,11 +319,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
      <player_notes_last_timestamp>1631507200</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
       <position>W/R/T</position>
       <is_flex>1</is_flex>
      </selected_position>
@@ -344,8 +337,8 @@
       <ascii_first>Odell</ascii_first>
       <ascii_last>Beckham Jr.</ascii_last>
      </name>
-     <status>O</status>
-     <status_full>Out</status_full>
+     <status>Q</status>
+     <status_full>Questionable</status_full>
      <injury_note>Knee</injury_note>
      <editorial_player_key>nfl.p.27540</editorial_player_key>
      <editorial_team_key>nfl.t.5</editorial_team_key>
@@ -367,13 +360,12 @@
      <eligible_positions>
       <position>WR</position>
       <position>W/R/T</position>
-      <position>IR</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
      <player_notes_last_timestamp>1631473206</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
       <position>BN</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -410,11 +402,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
      <player_notes_last_timestamp>1631483422</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
       <position>BN</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -450,9 +441,11 @@
       <position>WR</position>
       <position>W/R/T</position>
      </eligible_positions>
+     <has_player_notes>1</has_player_notes>
+     <player_notes_last_timestamp>1631593956</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
       <position>BN</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -489,11 +482,10 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
      <player_notes_last_timestamp>1631491741</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
       <position>BN</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -530,11 +522,50 @@
       <position>W/R/T</position>
      </eligible_positions>
      <has_player_notes>1</has_player_notes>
-     <has_recent_player_notes>1</has_recent_player_notes>
      <player_notes_last_timestamp>1631483544</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
+      <position>BN</position>
+      <is_flex>0</is_flex>
+     </selected_position>
+    </player>
+    <player>
+     <player_key>406.p.28402</player_key>
+     <player_id>28402</player_id>
+     <name>
+      <full>DeVante Parker</full>
+      <first>DeVante</first>
+      <last>Parker</last>
+      <ascii_first>DeVante</ascii_first>
+      <ascii_last>Parker</ascii_last>
+     </name>
+     <editorial_player_key>nfl.p.28402</editorial_player_key>
+     <editorial_team_key>nfl.t.15</editorial_team_key>
+     <editorial_team_full_name>Miami Dolphins</editorial_team_full_name>
+     <editorial_team_abbr>Mia</editorial_team_abbr>
+     <bye_weeks>
+      <week>14</week>
+     </bye_weeks>
+     <uniform_number>11</uniform_number>
+     <display_position>WR</display_position>
+     <headshot>
+      <url>https://s.yimg.com/iu/api/res/1.2/7kuL5CX8XGxUR.5N.Gcsmg--~C/YXBwaWQ9eXNwb3J0cztjaD0yMzM2O2NyPTE7Y3c9MTc5MDtkeD04NTc7ZHk9MDtmaT11bGNyb3A7aD02MDtxPTEwMDt3PTQ2/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08242021/28402.png</url>
+      <size>small</size>
+     </headshot>
+     <image_url>https://s.yimg.com/iu/api/res/1.2/7kuL5CX8XGxUR.5N.Gcsmg--~C/YXBwaWQ9eXNwb3J0cztjaD0yMzM2O2NyPTE7Y3c9MTc5MDtkeD04NTc7ZHk9MDtmaT11bGNyb3A7aD02MDtxPTEwMDt3PTQ2/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08242021/28402.png</image_url>
+     <is_undroppable>0</is_undroppable>
+     <position_type>O</position_type>
+     <primary_position>WR</primary_position>
+     <eligible_positions>
+      <position>WR</position>
+      <position>W/R/T</position>
+     </eligible_positions>
+     <has_player_notes>1</has_player_notes>
+     <player_notes_last_timestamp>1631493324</player_notes_last_timestamp>
+     <selected_position>
+      <coverage_type>week</coverage_type>
+      <week>2</week>
       <position>BN</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -571,45 +602,8 @@
      </eligible_positions>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
       <position>K</position>
-      <is_flex>0</is_flex>
-     </selected_position>
-    </player>
-    <player>
-     <player_key>406.p.100029</player_key>
-     <player_id>100029</player_id>
-     <name>
-      <full>Carolina</full>
-      <first>Carolina</first>
-      <last/>
-      <ascii_first>Carolina</ascii_first>
-      <ascii_last/>
-     </name>
-     <editorial_player_key>nfl.p.100029</editorial_player_key>
-     <editorial_team_key>nfl.t.29</editorial_team_key>
-     <editorial_team_full_name>Carolina Panthers</editorial_team_full_name>
-     <editorial_team_abbr>Car</editorial_team_abbr>
-     <bye_weeks>
-      <week>13</week>
-     </bye_weeks>
-     <uniform_number></uniform_number>
-     <display_position>DEF</display_position>
-     <headshot>
-      <url>https://s.yimg.com/cv/ip/ap/default/120210/50x50w_car_1.gif</url>
-      <size>small</size>
-     </headshot>
-     <image_url>https://s.yimg.com/cv/ip/ap/default/120210/50x50w_car_1.gif</image_url>
-     <is_undroppable>0</is_undroppable>
-     <position_type>DT</position_type>
-     <primary_position>DEF</primary_position>
-     <eligible_positions>
-      <position>DEF</position>
-     </eligible_positions>
-     <selected_position>
-      <coverage_type>week</coverage_type>
-      <week>1</week>
-      <position>DEF</position>
       <is_flex>0</is_flex>
      </selected_position>
     </player>
@@ -645,8 +639,8 @@
      </eligible_positions>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
-      <position>BN</position>
+      <week>2</week>
+      <position>DEF</position>
       <is_flex>0</is_flex>
      </selected_position>
     </player>
@@ -684,11 +678,9 @@
       <position>W/R/T</position>
       <position>IR</position>
      </eligible_positions>
-     <has_player_notes>1</has_player_notes>
-     <player_notes_last_timestamp>1630788283</player_notes_last_timestamp>
      <selected_position>
       <coverage_type>week</coverage_type>
-      <week>1</week>
+      <week>2</week>
       <position>IR</position>
       <is_flex>0</is_flex>
      </selected_position>
@@ -697,4 +689,4 @@
   </roster>
  </team>
 </fantasy_content>
-<!-- fantasy-sports-api- -public-production-bf1-665547d576-qbwrc Mon Sep 13 19:47:47 UTC 2021 -->
+<!-- fantasy-sports-api- -public-production-bf1-665547d576-qxknr Wed Sep 15 13:43:25 UTC 2021 -->
