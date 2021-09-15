@@ -104,6 +104,7 @@ def get_ranks_html(settings, over_expected, curr_week=CURR_WEEK):
 
             arr = sorted_ranks[idx]
             display_team = arr["team"]
+
             if display_team in TEAM_TRANS:
                 display_team = TEAM_TRANS[display_team]
 
@@ -135,10 +136,10 @@ def get_ranks_html(settings, over_expected, curr_week=CURR_WEEK):
         dis_team = TEAM_TRANS[team] if team in TEAM_TRANS else team
         html += "<tr><td>{}</td>".format(dis_team.upper())
         for pos in ["QB", "RB", "WR", "TE", "K", "DEF"]:
-            r = defense_ranks[team][f"{pos}_rank"]
+            r = defense_ranks[dis_team][f"{pos}_rank"]
             style = get_ranks_style(r, extra="position:relative;z-index:-1;")
             span = f"<span style='position:absolute;bottom:0;right:5px;font-size:10px;'>{r}{get_suffix(r)}</span>"
-            val = defense_ranks[team][pos]
+            val = defense_ranks[dis_team][pos]
             if over_expected:
                 val = f"+{val}%" if val >= 0 else f"{val}%"
             html += f"<td class='clickable {pos}_td' id='{team}_{pos}' {style}>{val}{span}</td>"

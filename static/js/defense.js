@@ -272,3 +272,10 @@ if (window.innerWidth <= 450) {
 }
 
 document.getElementById("darkened_back").addEventListener("click", close_table, false);
+
+const closeBreakdown = function() {
+	document.getElementById("darkened_back").style.display="none";
+	document.getElementById("breakdownWrapper").style.display="none";
+}
+
+document.getElementById("breakdownWrapper").addEventListener("click", closeBreakdown, false);
