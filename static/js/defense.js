@@ -42,7 +42,9 @@ function renderTable(team, pos) {
 		groupBy: "week",
 		groupHeader: function(value, count, data, group){
 			let proj = 0, actual = 0;
+			let oppTeam = "";
 			for (player of data) {
+				oppTeam = player.team;
 				proj += player.projected;
 				actual += player.actual;
 			}
@@ -50,7 +52,7 @@ function renderTable(team, pos) {
 			const color = delta < 0 ? "red" : "green";
 			const deltaStr = delta < 0 ? delta : "+"+delta;
 			let span = "<span style='margin-left:10px;color:"+color+"'>"+deltaStr+"%</span> vs. projected"
-			return "Week "+value+":"+span;
+			return "Week "+value+" vs. " + oppTeam.toUpperCase() + ":"+span;
 		},
 		/*
 		initialSort: [

@@ -181,7 +181,12 @@ def get_points(projections):
 	return passing_pts + rushing_pts + receiving_pts + misc_pts
 
 def fix_projections(all_projections):
+	# kickers always messes up
 	all_projections["matt ammendola"]["wk1"] = 5.4
+	all_projections["michael badgley"]["wk1"] = 7.61
+	all_projections["nick folk"]["wk1"] = 6.09
+	all_projections["joey slye"]["wk1"] = 6.09
+	all_projections["ryan santoso"]["wk1"] = 5.56
 
 def parse_projections():
 	all_projections = {}

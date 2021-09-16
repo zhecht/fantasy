@@ -529,9 +529,13 @@ def getBreakdown(team, pos):
             if not var.startswith("-"):
                 var_html = f"<span class='positive'>+{var}</span>"
             res.append({
-                "player": name.title(), "actual": pts,
-                "projected": proj, "delta": var_html,
-                "stats": stats, "week": wk
+                "player": name.title(),
+                "actual": pts,
+                "projected": proj,
+                "delta": var_html,
+                "stats": stats,
+                "week": wk,
+                "team": TEAM_TRANS.get(sched[wk-1], sched[wk-1])
             })
 
     return jsonify(res)

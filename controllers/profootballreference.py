@@ -268,6 +268,8 @@ def get_point_totals(curr_week, settings, over_expected):
 	scoring_key = "half"
 	all_team_stats = {}
 	projections = {}
+	with open(f"{prefix}static/projections/projections.json") as fh:
+		projections = json.load(fh).copy()
 	# read all team stats into { team -> player -> [tot, wk1, wk2]}
 	for team in teams:
 		if team.find("json") >= 0:
@@ -275,9 +277,9 @@ def get_point_totals(curr_week, settings, over_expected):
 		stats = {}
 		with open(f"{prefix}static/profootballreference/{team}/stats.json") as fh:
 			all_team_stats[team] = json.load(fh).copy()
-		if over_expected:
-			with open(f"{prefix}static/projections/projections.json") as fh:
-				projections[team] = json.load(fh).copy()
+		#if over_expected:
+			#with open(f"{prefix}static/projections/projections.json") as fh:
+			#	projections[team] = json.load(fh).copy()
 	ranks = []
 	for team in all_team_stats:
 		pos_tot = {}
@@ -296,6 +298,7 @@ def get_point_totals(curr_week, settings, over_expected):
 							continue
 					except:
 						pass
+
 					if wk not in pos_tot[pos]:
 						pos_tot[pos][wk] = 0
 						pos_tot[pos][wk+"_proj"] = 0
@@ -304,37 +307,33 @@ def get_point_totals(curr_week, settings, over_expected):
 					# don't add if this player had 0 snaps
 					if pos not in ["K", "DEF"] and ("snap_counts" not in all_team_stats[team][player][wk] or not all_team_stats[team][player][wk]["snap_counts"]):
 						continue
-					
+
 					real_pts = 0
 					if player == "OFF":
 						real_pts = calculate_defense_points(all_team_stats[team][player][wk], settings)
 						if over_expected:
 							if wk == "tot":
 								pass
-							elif projections[team][team][wk]:
-								real_pts = (real_pts / projections[team][team][wk]) - 1
+							elif projections[team][wk]:
+								real_pts = (real_pts / projections[team][wk]) - 1
 								real_pts *= 100
-								pos_tot[pos][wk+"_proj"] += projections[team][team][wk]
+								pos_tot[pos][wk+"_proj"] += projections[team][wk]
 								pos_tot[pos][wk+"_act"] += all_team_stats[team][player][wk]["half_points"]
 					elif over_expected:
-						if wk == "tot" or player not in projections[team] or wk not in projections[team][player] or not projections[team][player][wk]:
+						if wk == "tot" or player not in projections or wk not in projections[player] or not projections[player][wk]:
 							pass
 							#real_pts = all_team_stats[team][player][wk]
 						else:
-							real_pts = (all_team_stats[team][player][wk]["half_points"] / projections[team][player][wk]) - 1
+							real_pts = (all_team_stats[team][player][wk]["half_points"] / projections[player][wk]) - 1
 							real_pts *= 100
-							pos_tot[pos][wk+"_proj"] += projections[team][player][wk]
+							pos_tot[pos][wk+"_proj"] += projections[player][wk]
 							pos_tot[pos][wk+"_act"] += all_team_stats[team][player][wk]["half_points"]
-							#if team == "jax" and pos == "K":
-							#	print(player, wk, all_team_stats[team][player][wk]["half_points"], projections[team][player][wk], real_pts)
 					else:
 						real_pts = get_points_from_settings(all_team_stats[team][player][wk], settings)
 					pos_tot[pos][wk] += real_pts
 					#pos_tot[pos][wk] += all_team_stats[team][player][wk]["half_points"]
 		j = { "team": team }
 		for pos in pos_tot:
-			#if "{}_tot".format(pos) not in j:
-				#j["{}_tot".format(pos)] = 0
 			for wk in range(1, curr_week + 1):
 				if "wk{}".format(wk) not in pos_tot[pos]: # game hasn't played
 					j["{}_wk{}".format(pos, wk)] = 0
@@ -385,7 +384,7 @@ def get_defense_tot(curr_week, point_totals_dict, over_expected):
 					if pos == "DEF":
 						which_team = team
 					if over_expected:
-						#print(which_team)
+						#print(which_team, point_totals_dict[which_team])
 						j[act_key] += point_totals_dict[which_team][f"{pos}_wk{week+1}_act"]
 						j[proj_key] += point_totals_dict[opp_team][f"{pos}_wk{week+1}_proj"]
 						j[key] += point_totals_dict[which_team][key]
@@ -891,8 +890,11 @@ def add_stats(boxscorelinks, team, teampath, boxlink, week_arg, team_arg):
 					elif inner_ids[i].startswith("vis") and away_team == team:
 						stats[name] = {}
 				try:
-					stats[name]["snap_counts"] = int(data[1].text)
-					stats[name]["snap_perc"] = int(data[2].text.replace("%", ""))
+					snapCntIdx = 1
+					if data[0].text == "K":
+						snapCntIdx = 5
+					stats[name]["snap_counts"] = int(data[snapCntIdx].text)
+					stats[name]["snap_perc"] = int(data[snapCntIdx + 1].text.replace("%", ""))
 				except:
 					pass
 			elif outer_ids[i] == "all_returns":
