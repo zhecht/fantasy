@@ -20,7 +20,10 @@ const showBreakdown = function() {
 	}
 
 	const team = this.id.split("_")[0];
-	const pos = this.id.split("_")[1];
+	let pos = this.id.split("_")[1];
+	if (pos == "DEF") {
+		pos = "OFF";
+	}
 	const win = document.getElementById("breakdownWrapper");
 	win.querySelector("h1").innerText = team.toUpperCase()+" DEF vs. "+pos;
 	win.style.display = "flex";
@@ -51,7 +54,7 @@ function renderTable(team, pos) {
 			const delta = (((actual / proj) - 1) * 100).toFixed(2);
 			const color = delta < 0 ? "red" : "green";
 			const deltaStr = delta < 0 ? delta : "+"+delta;
-			let span = "<span style='margin-left:10px;color:"+color+"'>"+deltaStr+"%</span> vs. projected"
+			let span = "<span style='margin-left:10px;color:"+color+"'>"+deltaStr+"%</span> vs. projected";
 			return "Week "+value+" vs. " + oppTeam.toUpperCase() + ":"+span;
 		},
 		/*
