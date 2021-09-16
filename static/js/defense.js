@@ -20,12 +20,13 @@ const showBreakdown = function() {
 	}
 
 	const team = this.id.split("_")[0];
-	let pos = this.id.split("_")[1];
-	if (pos == "DEF") {
-		pos = "OFF";
+	const pos = this.id.split("_")[1];
+	let dispPos = pos;
+	if (dispPos == "DEF") {
+		dispPos = "OFF";
 	}
 	const win = document.getElementById("breakdownWrapper");
-	win.querySelector("h1").innerText = team.toUpperCase()+" DEF vs. "+pos;
+	win.querySelector("h1").innerText = team.toUpperCase()+" DEF vs. "+dispPos;
 	win.style.display = "flex";
 	renderTable(team, pos);
 	window.scrollTo(0, 0);
