@@ -25,7 +25,7 @@ if os.path.exists("/home/zhecht/fantasy"):
 @rbbc_print.route("/getRBBC")
 def getRBBC():
     rbbcResult = []
-    snap_trends = controllers.redzone.get_redzone_trends(RBBC_TEAMS, curr_week, "RB")
+    snap_trends = controllers.redzone.get_redzone_trends(RBBC_TEAMS, curr_week, "RB", is_ui=True)
     for team in RBBC_TEAMS:
         team_display = TEAM_TRANS[team] if team in TEAM_TRANS else team
         playerList = []
@@ -36,9 +36,10 @@ def getRBBC():
                 "player": player.title(),
                 "team": team_display.upper(),
                 "avgSnapPer": playerData["avg_snaps"],
+                "avgSnapPerTrend": playerData["snaps_trend"],
                 "looksPerGame": playerData["looks_per_game"],
                 "looksPerGameTrend": playerData["looks_per_game_trend"],
-                "looksSharePer": playerData["looks_share"],
+                "looksShare": playerData["looks_share"],
                 "looksShareTrend": playerData["looks_share_trend"],
                 "targetsPerGame": playerData["targets_per_game"],
                 "targetsPerGameTrend": playerData["targets_per_game_trend"],

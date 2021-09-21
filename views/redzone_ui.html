@@ -53,15 +53,25 @@
 		</div>
 		<script>
 			const percentFormatter = function(cell, params, rendered) {
-				return cell.getValue().toFixed(1)+"%";
+				const val = cell.getValue().toFixed(1)+"%";
+				return val;
 			}
 
 			const trendFormatter = function(cell, params, rendered) {
-				return cell.getValue();
+				const div = document.createElement("div");
+				const val = cell.getValue();
+				if (val.indexOf("-") == 0) {
+					div.classList.add("negative");
+				} else {
+					div.classList.add("positive");
+				}
+				div.innerText = val;
+				return div;
 			}
 
 			const decimalFormatter = function(cell, params, rendered) {
-				return cell.getValue().toFixed(1);
+				const val = cell.getValue().toFixed(1);
+				return val;
 			}
 
 			const teamFormatter = function(cell, params, rendered) {
@@ -95,13 +105,13 @@
 					columns: [
 						{title: "Player", field: "player", headerFilterPlaceholder:"Filter Name", headerFilter: "input"},
 						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
-						{title: "RZ Looks Per Game", field: "looksPerGame", width: "175", hozAlign: "center"},
-						{title: "1 Week Trend", field: "delta", width: "175", formatter: trendFormatter, hozAlign: "center"},
-						{title: "3 Week Trend", field: "delta3", width: "175", formatter: trendFormatter, hozAlign: "center"},
-						{title: "Team RZ Share", field: "looksPerc", formatter: percentFormatter, width: "175", hozAlign: "center"},
+						{title: "RZ Looks Per Game", field: "looksPerGame", hozAlign: "center"},
+						{title: "1 Week Trend", field: "delta", formatter: trendFormatter, hozAlign: "center"},
+						//{title: "3 Week Trend", field: "delta3", formatter: trendFormatter, hozAlign: "center"},
+						{title: "Team RZ Share", field: "looksPerc", formatter: percentFormatter, hozAlign: "center"},
 
 					]
-				})
+				});
 			}
 
 			renderTable();

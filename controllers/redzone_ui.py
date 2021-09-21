@@ -13,6 +13,7 @@ import subprocess
 import re
 
 from controllers.redzone import *
+from controllers.functions import *
 
 redzone_ui_print = Blueprint('redzone_ui', __name__, template_folder='views')
 
@@ -20,8 +21,6 @@ prefix = ""
 if os.path.exists("/home/zhecht/fantasy"):
 	# if on linux aka prod
 	prefix = "/home/zhecht/fantasy/"
-
-curr_week = 15
 
 team_trans = {"rav": "bal", "htx": "hou", "oti": "ten", "sdg": "lac", "ram": "lar", "clt": "ind", "crd": "ari", "gnb": "gb", "kan": "kc", "nwe": "ne", "rai": "lv", "sfo": "sf", "tam": "tb", "nor": "no"}
 rbbc_teams = ['crd', 'atl', 'rav', 'buf', 'car', 'chi', 'cin', 'cle', 'dal', 'den', 'det', 'gnb', 'htx', 'clt', 'jax', 'kan', 'sdg', 'ram', 'rai', 'mia', 'min', 'nor', 'nwe', 'nyg', 'nyj', 'phi', 'pit', 'sea', 'sfo', 'tam', 'oti', 'was']
@@ -45,6 +44,8 @@ def getRedzone():
 		pos = players_on_teams[player]["position"]
 		if pos not in counts:
 			counts[pos] = 0
+		elif pos == "TE" and counts[pos] >= 40:
+			continue
 		elif counts[pos] >= 50:
 			continue
 		counts[pos] += 1

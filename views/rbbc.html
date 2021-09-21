@@ -14,12 +14,17 @@
 			height: 100vh;
 		}
 		#rbbcTable {
-			width: max-content;
+			width: 90%;
 		}
 		#tableDiv {
 			display: flex;
 			justify-content: center;
 			height: 85%;
+		}
+		.trendCell {
+			display: flex;
+			justify-content: space-evenly;
+			padding: 0 10px;
 		}
 		#team_click_div { width:70%; margin-left: 15%;}
 		.team_click { text-decoration: none; }
@@ -37,6 +42,8 @@
 			table {width:100%; margin-left:0;}
 			body { font-size: 14px; }
 		}
+		.negative { color: red; }
+		.positive { color: green; }
 	</style>
 	<body>
 		<div id="header">
@@ -49,7 +56,7 @@
 			</div>
 		</div>
 		<div style="text-align: center;">
-			<h4>Numbers in parenthesis are trends from week {{curr_week}}</h4>
+			<h4>Numbers in parenthesis are trends from week {{curr_week - 1}}</h4>
 		</div>
 		<div id="tableDiv">
 			<div id="rbbcTable">
@@ -58,13 +65,52 @@
 		</div>
 		<script>
 			let TABLE;
+			const teamNames = ["All", "ARI", "ATL", "BAL", "BUF", "CAR", "CHI", "CIN", "CLE", "DAL", "DEN", "DET", "GB", "HOU", "IND", "JAX", "KC", "LAC", "LAR", "LV", "MIA", "MIN", "NO", "NE", "NYG", "NYJ", "PHI", "PIT", "SEA", "SF", "TB", "TEN", "WAS"];
+
+			function getTrend(field, data, percent=false) {
+				const div = document.createElement("div");
+				div.innerText = "("+data[field+"Trend"]+")";
+				if (data[field+"Trend"].indexOf("-") == 0) {
+					div.classList.add("negative");
+				} else {
+					div.classList.add("positive");
+				}
+				return div;
+			}
+
+			function teamFilter(headerValue, rowValue, rowData, filterParams){
+				if (headerValue == "All") {
+					return true;
+				}
+				return rowValue == headerValue;
+			}
 
 			const percentFormatter = function(cell, params, rendered) {
-				return cell.getValue().toFixed(1)+"%";
+				const div = document.createElement("div");
+				div.className = "trendCell";
+				const val = cell.getValue().toFixed(1)+"%";
+				const trend = getTrend(cell.getField(), cell.getRow().getData(),percent=true);
+
+				const valDiv = document.createElement("div");
+				valDiv.style["font-weight"] = "bold";
+				valDiv.innerText = val;
+				div.appendChild(valDiv);
+				div.appendChild(trend);
+				return div;
 			}
 
 			const decimalFormatter = function(cell, params, rendered) {
-				return cell.getValue().toFixed(1);
+				const div = document.createElement("div");
+				div.className = "trendCell";
+				const val = cell.getValue().toFixed(1);
+				const trend = getTrend(cell.getField(), cell.getRow().getData(),percent=true);
+
+				const valDiv = document.createElement("div");
+				valDiv.style["font-weight"] = "bold";
+				valDiv.innerText = val;
+				div.appendChild(valDiv);
+				div.appendChild(trend);
+				return div;
 			}
 
 			const teamFormatter = function(cell, params, rendered) {
@@ -78,6 +124,7 @@
 				TABLE = new Tabulator("#rbbcTable", {
 					tooltipsHeader: true,
 					ajaxURL: "/getRBBC",
+					layout: window.innerWidth <= 450 ? "fitData" : "fitColumns",
 					groupBy: "team",
 					groupHeader: function(value, count, data, group){
 						const playerTxt = count == 1 ? "Player" : "Players"
@@ -89,12 +136,12 @@
 					],
 					columns: [
 						{title: "Player", field: "player", headerFilter: "input"},
-						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterParams:{values:true}},
-						{title: "Avg Snap %", field: "avgSnapPer", formatter: percentFormatter, width: "175", hozAlign: "center"},
-						{title: "RZ Looks Per Game", field: "looksPerGame", formatter: decimalFormatter, width: "175", hozAlign: "center"},
-						{title: "RZ Looks Share", field: "looksSharePer", formatter: percentFormatter, width: "175", hozAlign: "center"},
-						{title: "Targets Per Game", field: "targetsPerGame", formatter: decimalFormatter, width: "175", hozAlign: "center"},
-						{title: "RB Target Share", field: "targetShare", formatter: percentFormatter, width: "175", hozAlign: "center"},
+						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
+						{title: "Avg Snap %", field: "avgSnapPer", formatter: percentFormatter, hozAlign: "center"},
+						{title: "RZ Looks Per Game", field: "looksPerGame", formatter: decimalFormatter, hozAlign: "center"},
+						{title: "RZ Looks Share (RBs)", field: "looksShare", formatter: percentFormatter, hozAlign: "center"},
+						{title: "Targets Per Game", field: "targetsPerGame", formatter: decimalFormatter, hozAlign: "center"},
+						{title: "Target Share (RBs)", field: "targetShare", formatter: percentFormatter, hozAlign: "center"},
 
 					]
 				})
