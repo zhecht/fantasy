@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.497791/players;start=425;status=FA" time="81.530094146729ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
+<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.497791/players;start=425;status=FA" time="215.64292907715ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
  <league>
   <league_key>406.l.497791</league_key>
   <league_id>497791</league_id>
@@ -8,9 +8,9 @@
   <logo_url></logo_url>
   <draft_status>postdraft</draft_status>
   <num_teams>12</num_teams>
-  <edit_key>2</edit_key>
+  <edit_key>3</edit_key>
   <weekly_deadline/>
-  <league_update_timestamp>1631686912</league_update_timestamp>
+  <league_update_timestamp>1632290892</league_update_timestamp>
   <scoring_type>head</scoring_type>
   <league_type>private</league_type>
   <renew>399_665951</renew>
@@ -19,7 +19,7 @@
   <allow_add_to_dl_extra_pos>0</allow_add_to_dl_extra_pos>
   <is_pro_league>0</is_pro_league>
   <is_cash_league>0</is_cash_league>
-  <current_week>2</current_week>
+  <current_week>3</current_week>
   <start_week>1</start_week>
   <start_date>2021-09-09</start_date>
   <end_week>17</end_week>
@@ -69,9 +69,6 @@
      <ascii_first>JJ</ascii_first>
      <ascii_last>Arcega-Whiteside</ascii_last>
     </name>
-    <status>Q</status>
-    <status_full>Questionable</status_full>
-    <injury_note>Ankle</injury_note>
     <editorial_player_key>nfl.p.31889</editorial_player_key>
     <editorial_team_key>nfl.t.21</editorial_team_key>
     <editorial_team_full_name>Philadelphia Eagles</editorial_team_full_name>
@@ -94,7 +91,7 @@
      <position>W/R/T</position>
     </eligible_positions>
     <has_player_notes>1</has_player_notes>
-    <player_notes_last_timestamp>1631559867</player_notes_last_timestamp>
+    <player_notes_last_timestamp>1631905012</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.31891</player_key>
@@ -106,6 +103,9 @@
      <ascii_first>Parris</ascii_first>
      <ascii_last>Campbell</ascii_last>
     </name>
+    <status>Q</status>
+    <status_full>Questionable</status_full>
+    <injury_note>Achilles</injury_note>
     <editorial_player_key>nfl.p.31891</editorial_player_key>
     <editorial_team_key>nfl.t.11</editorial_team_key>
     <editorial_team_full_name>Indianapolis Colts</editorial_team_full_name>
@@ -128,7 +128,7 @@
      <position>W/R/T</position>
     </eligible_positions>
     <has_player_notes>1</has_player_notes>
-    <player_notes_last_timestamp>1631503549</player_notes_last_timestamp>
+    <player_notes_last_timestamp>1632065845</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.31894</player_key>
@@ -197,8 +197,6 @@
      <position>W/R/T</position>
      <position>IR</position>
     </eligible_positions>
-    <has_player_notes>1</has_player_notes>
-    <player_notes_last_timestamp>1631395111</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.31901</player_key>
@@ -242,9 +240,8 @@
      <ascii_first>Jace</ascii_first>
      <ascii_last>Sternberger</ascii_last>
     </name>
-    <status>SUSP</status>
-    <status_full>Suspended</status_full>
-    <injury_note>Suspension</injury_note>
+    <status>NA</status>
+    <status_full>Inactive: Coach's Decision or Not on Roster</status_full>
     <editorial_player_key>nfl.p.31907</editorial_player_key>
     <editorial_team_key>nfl.t.9</editorial_team_key>
     <editorial_team_full_name>Green Bay Packers</editorial_team_full_name>
@@ -266,6 +263,9 @@
      <position>TE</position>
      <position>W/R/T</position>
     </eligible_positions>
+    <has_player_notes>1</has_player_notes>
+    <has_recent_player_notes>1</has_recent_player_notes>
+    <player_notes_last_timestamp>1632245019</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.31918</player_key>
@@ -369,7 +369,7 @@
      <position>W/R/T</position>
     </eligible_positions>
     <has_player_notes>1</has_player_notes>
-    <player_notes_last_timestamp>1631483916</player_notes_last_timestamp>
+    <player_notes_last_timestamp>1632089409</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.31932</player_key>
@@ -401,6 +401,8 @@
     <eligible_positions>
      <position>QB</position>
     </eligible_positions>
+    <has_player_notes>1</has_player_notes>
+    <player_notes_last_timestamp>1632078322</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.31935</player_key>
@@ -538,8 +540,6 @@
      <position>W/R/T</position>
      <position>IR</position>
     </eligible_positions>
-    <has_player_notes>1</has_player_notes>
-    <player_notes_last_timestamp>1631136083</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.31952</player_key>
@@ -739,6 +739,8 @@
      <position>TE</position>
      <position>W/R/T</position>
     </eligible_positions>
+    <has_player_notes>1</has_player_notes>
+    <player_notes_last_timestamp>1632088018</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.31972</player_key>
@@ -838,7 +840,7 @@
      <position>W/R/T</position>
     </eligible_positions>
     <has_player_notes>1</has_player_notes>
-    <player_notes_last_timestamp>1631594329</player_notes_last_timestamp>
+    <player_notes_last_timestamp>1632087209</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.31984</player_key>
@@ -877,4 +879,4 @@
   </players>
  </league>
 </fantasy_content>
-<!-- fantasy-sports-api- -public-production-bf1-665547d576-7vhb4 Wed Sep 15 13:44:03 UTC 2021 -->
+<!-- fantasy-sports-api- -public-production-bf1-7978478b56-74qrc Wed Sep 22 13:55:42 UTC 2021 -->

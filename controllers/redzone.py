@@ -610,7 +610,7 @@ if __name__ == '__main__':
 					tgtShareTrend = snap_trends[team][player]["target_share_trend"]
 					# simple print
 					#print(f"{player}|{avgSnaps}%|{lpg}|{lookShare}%|{tpg}|{tgtShare}%")
-					print(f"{player}|{avgSnaps}% ({snapsTrend}%)|{lpg} ({lpgTrend})|{lookShare}% ({lookShareTrend})|{tpg} ({tpgTrend})|{tgtShare}% ({tgtShareTrend})")
+					print(f"{player}|{avgSnaps}% ({snapsTrend})|{lpg} ({lpgTrend})|{lookShare}% ({lookShareTrend})|{tpg} ({tpgTrend})|{tgtShare}% ({tgtShareTrend})")
 			# print DNP on bottotm
 			print(extra)
 			# ranks
@@ -633,10 +633,12 @@ if __name__ == '__main__':
 			team_totals[team] = round(team_totals[team] / float(tot_games), 2)
 		team_totals = sorted(team_totals.items(), key=lambda x: x[1], reverse=True)
 
-		print("\nTeam|RZ Looks Per Game")
-		print(":--|:--")
+		print("\nRank|Team|RZ Looks Per Game")
+		print(":--|:--|:--")
+		idx = 1
 		for team, tot in team_totals:
-			print("{}|{}".format(full_team_names[team], tot))
+			print(f"{idx}|{full_team_names[team]}|{tot}")
+			idx += 1
 		# player | redzone looks RB share | snap count
 	else:
 		sorted_looks = sorted(top_redzone, key=operator.itemgetter("looks_per_game", "looks_perc"), reverse=True)
@@ -652,8 +654,7 @@ if __name__ == '__main__':
 
 		print("View on [Site](https://zhecht.pythonanywhere.com/redzone)")
 		print("\nView as [Image]()")
-		print("\nWeekly, I'll be posting these types of posts alongside my [RBBC Trends]() post")
-		print("\nWeekly, I'll be posting this Redzone Look Trends alongside my [RBBC Trends]() post")
+		print("\nWeekly, I'll be posting this Redzone Look Trends alongside my [Backfield Trends]() post")
 		print("\nNotes:")
 		print("\n- Purpose: Track players getting targets or rushes inside the 20 yard line")
 		print("\n- Source: https://subscribers.footballguys.com/teams/teampage-den-6.php")
@@ -666,11 +667,11 @@ if __name__ == '__main__':
 		print("\nPlayer|RZ Looks Per Game|1 Week Trend|RZ Team Share")
 		print(":--|:--|:--|:--")
 		for player in sorted_looks:
-			continue
+			#continue
 			#if player["looks"] >= 0 and player["name"] in feelsbad_players: 
-			if player["team"] == 'clt':
-				print(f"{player['name'].title()}|{player['looks_per_game']}|{player['delta']}|{player['delta3']}|{player['looks_perc']}%")
-		#exit()
+			if player["team"] == 'sfo':
+				print(f"{player['name'].title()}|{player['looks_per_game']}|{player['delta']}|{player['looks_perc']}%")
+		exit()
 
 		print("\n#The Julio Jones Table")
 		#print("\nPlayer|RZ Looks Per Game|1 Week Trend|3 Week Trend|RZ Team Share")

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.497791/standings" time="61.508893966675ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
+<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.497791/standings" time="117.07711219788ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
  <league>
   <league_key>406.l.497791</league_key>
   <league_id>497791</league_id>
@@ -8,9 +8,9 @@
   <logo_url></logo_url>
   <draft_status>postdraft</draft_status>
   <num_teams>12</num_teams>
-  <edit_key>2</edit_key>
+  <edit_key>3</edit_key>
   <weekly_deadline/>
-  <league_update_timestamp>1631686912</league_update_timestamp>
+  <league_update_timestamp>1632290892</league_update_timestamp>
   <scoring_type>head</scoring_type>
   <league_type>private</league_type>
   <renew>399_665951</renew>
@@ -19,7 +19,7 @@
   <allow_add_to_dl_extra_pos>0</allow_add_to_dl_extra_pos>
   <is_pro_league>0</is_pro_league>
   <is_cash_league>0</is_cash_league>
-  <current_week>2</current_week>
+  <current_week>3</current_week>
   <start_week>1</start_week>
   <start_date>2021-09-09</start_date>
   <end_week>17</end_week>
@@ -39,13 +39,13 @@
        <url>https://s.yimg.com/cv/apiv2/default/nfl/nfl_12.png</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>4</waiver_priority>
+     <waiver_priority>3</waiver_priority>
      <faab_balance>100</faab_balance>
-     <number_of_moves>4</number_of_moves>
+     <number_of_moves>5</number_of_moves>
      <number_of_trades>0</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
-      <coverage_value>2</coverage_value>
+      <coverage_value>3</coverage_value>
       <value>0</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
@@ -58,8 +58,8 @@
        <nickname>Jordan</nickname>
        <guid>5SBLKECT2TGTOGZQUKQVLPB3FA</guid>
        <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
-       <felo_score>675</felo_score>
-       <felo_tier>silver</felo_tier>
+       <felo_score>700</felo_score>
+       <felo_tier>gold</felo_tier>
       </manager>
       <manager>
        <manager_id>20</manager_id>
@@ -67,293 +67,30 @@
        <guid>RI2LR625VYW4PV35PDY5G77XQ4</guid>
        <is_comanager>1</is_comanager>
        <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
-       <felo_score>589</felo_score>
+       <felo_score>584</felo_score>
        <felo_tier>bronze</felo_tier>
       </manager>
      </managers>
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2021</season>
-      <total>140.86</total>
+      <total>256.36</total>
      </team_points>
      <team_standings>
       <rank>1</rank>
       <playoff_seed>1</playoff_seed>
       <outcome_totals>
-       <wins>1</wins>
+       <wins>2</wins>
        <losses>0</losses>
        <ties>0</ties>
        <percentage>1.000</percentage>
       </outcome_totals>
       <streak>
        <type>win</type>
-       <value>1</value>
+       <value>2</value>
       </streak>
-      <points_for>140.86</points_for>
-      <points_against>110.6</points_against>
-     </team_standings>
-    </team>
-    <team>
-     <team_key>406.l.497791.t.1</team_key>
-     <team_id>1</team_id>
-     <name>Cookin’ Chicken Henders</name>
-     <is_owned_by_current_login>1</is_owned_by_current_login>
-     <url>https://football.fantasysports.yahoo.com/f1/497791/1</url>
-     <team_logos>
-      <team_logo>
-       <size>large</size>
-       <url>https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/01b98380a1297a12b18f9871046b424eecd5a93f6841300d37d0e52592a04ecd.jpg</url>
-      </team_logo>
-     </team_logos>
-     <waiver_priority>1</waiver_priority>
-     <faab_balance>100</faab_balance>
-     <number_of_moves>2</number_of_moves>
-     <number_of_trades>0</number_of_trades>
-     <roster_adds>
-      <coverage_type>week</coverage_type>
-      <coverage_value>2</coverage_value>
-      <value>1</value>
-     </roster_adds>
-     <league_scoring_type>head</league_scoring_type>
-     <has_draft_grade>1</has_draft_grade>
-     <draft_grade>B+</draft_grade>
-     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/497791/1/draftrecap</draft_recap_url>
-     <managers>
-      <manager>
-       <manager_id>1</manager_id>
-       <nickname>Ryan</nickname>
-       <guid>WJHICNC2BSKUEX4M2SUG6I4XOU</guid>
-       <is_commissioner>1</is_commissioner>
-       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
-       <felo_score>678</felo_score>
-       <felo_tier>silver</felo_tier>
-      </manager>
-      <manager>
-       <manager_id>13</manager_id>
-       <nickname>Zack</nickname>
-       <guid>PWBEGVB7QR7OJ7HVZ6DGJ2HEDM</guid>
-       <is_comanager>1</is_comanager>
-       <is_current_login>1</is_current_login>
-       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
-       <felo_score>550</felo_score>
-       <felo_tier>bronze</felo_tier>
-      </manager>
-     </managers>
-     <team_points>
-      <coverage_type>season</coverage_type>
-      <season>2021</season>
-      <total>128.18</total>
-     </team_points>
-     <team_standings>
-      <rank>2</rank>
-      <playoff_seed>2</playoff_seed>
-      <outcome_totals>
-       <wins>1</wins>
-       <losses>0</losses>
-       <ties>0</ties>
-       <percentage>1.000</percentage>
-      </outcome_totals>
-      <streak>
-       <type>win</type>
-       <value>1</value>
-      </streak>
-      <points_for>128.18</points_for>
-      <points_against>120.72</points_against>
-     </team_standings>
-    </team>
-    <team>
-     <team_key>406.l.497791.t.8</team_key>
-     <team_id>8</team_id>
-     <name>Slam Poets Society</name>
-     <url>https://football.fantasysports.yahoo.com/f1/497791/8</url>
-     <team_logos>
-      <team_logo>
-       <size>large</size>
-       <url>https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/46f0355a4b63f2cc1d9b1581b99200b56003f063e8a54a0448243aade7a9745b.png</url>
-      </team_logo>
-     </team_logos>
-     <waiver_priority>3</waiver_priority>
-     <faab_balance>93</faab_balance>
-     <number_of_moves>2</number_of_moves>
-     <number_of_trades>0</number_of_trades>
-     <roster_adds>
-      <coverage_type>week</coverage_type>
-      <coverage_value>2</coverage_value>
-      <value>1</value>
-     </roster_adds>
-     <league_scoring_type>head</league_scoring_type>
-     <has_draft_grade>1</has_draft_grade>
-     <draft_grade>B</draft_grade>
-     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/497791/8/draftrecap</draft_recap_url>
-     <managers>
-      <manager>
-       <manager_id>8</manager_id>
-       <nickname>Henry Goldman</nickname>
-       <guid>LRCZ7GH6S2PAOOMEVKGUTAP5CU</guid>
-       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
-       <felo_score>568</felo_score>
-       <felo_tier>bronze</felo_tier>
-      </manager>
-      <manager>
-       <manager_id>14</manager_id>
-       <nickname>Hippopotamus</nickname>
-       <guid>V3VVCED2XND44ZAD3GWQZBETCQ</guid>
-       <is_comanager>1</is_comanager>
-       <image_url>https://s.yimg.com/ag/images/4520/27081192959_7ea20a_64sq.jpg</image_url>
-       <felo_score>503</felo_score>
-       <felo_tier>bronze</felo_tier>
-      </manager>
-     </managers>
-     <team_points>
-      <coverage_type>season</coverage_type>
-      <season>2021</season>
-      <total>124.66</total>
-     </team_points>
-     <team_standings>
-      <rank>3</rank>
-      <playoff_seed>3</playoff_seed>
-      <outcome_totals>
-       <wins>1</wins>
-       <losses>0</losses>
-       <ties>0</ties>
-       <percentage>1.000</percentage>
-      </outcome_totals>
-      <streak>
-       <type>win</type>
-       <value>1</value>
-      </streak>
-      <points_for>124.66</points_for>
-      <points_against>101.72</points_against>
-     </team_standings>
-    </team>
-    <team>
-     <team_key>406.l.497791.t.4</team_key>
-     <team_id>4</team_id>
-     <name>Fezville Vikings</name>
-     <url>https://football.fantasysports.yahoo.com/f1/497791/4</url>
-     <team_logos>
-      <team_logo>
-       <size>large</size>
-       <url>https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/36865050316_34f113.jpg</url>
-      </team_logo>
-     </team_logos>
-     <waiver_priority>7</waiver_priority>
-     <faab_balance>100</faab_balance>
-     <number_of_moves>0</number_of_moves>
-     <number_of_trades>0</number_of_trades>
-     <roster_adds>
-      <coverage_type>week</coverage_type>
-      <coverage_value>2</coverage_value>
-      <value>0</value>
-     </roster_adds>
-     <league_scoring_type>head</league_scoring_type>
-     <has_draft_grade>1</has_draft_grade>
-     <draft_grade>B</draft_grade>
-     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/497791/4/draftrecap</draft_recap_url>
-     <managers>
-      <manager>
-       <manager_id>4</manager_id>
-       <nickname>JT Funk</nickname>
-       <guid>6TRJ7QVVNK6A2R7GDZCYBU6QOQ</guid>
-       <image_url>https://s.yimg.com/ag/images/4472/37994067404_7a1739_64sq.jpg</image_url>
-       <felo_score>776</felo_score>
-       <felo_tier>gold</felo_tier>
-      </manager>
-      <manager>
-       <manager_id>21</manager_id>
-       <nickname>Alex I</nickname>
-       <guid>5SVXOU7WS53RPCAGBFPW2RFY64</guid>
-       <is_comanager>1</is_comanager>
-       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
-       <felo_score>597</felo_score>
-       <felo_tier>bronze</felo_tier>
-      </manager>
-     </managers>
-     <team_points>
-      <coverage_type>season</coverage_type>
-      <season>2021</season>
-      <total>113.58</total>
-     </team_points>
-     <team_standings>
-      <rank>4</rank>
-      <playoff_seed>4</playoff_seed>
-      <outcome_totals>
-       <wins>1</wins>
-       <losses>0</losses>
-       <ties>0</ties>
-       <percentage>1.000</percentage>
-      </outcome_totals>
-      <streak>
-       <type>win</type>
-       <value>1</value>
-      </streak>
-      <points_for>113.58</points_for>
-      <points_against>90.28</points_against>
-     </team_standings>
-    </team>
-    <team>
-     <team_key>406.l.497791.t.5</team_key>
-     <team_id>5</team_id>
-     <name>Llama Jackson</name>
-     <url>https://football.fantasysports.yahoo.com/f1/497791/5</url>
-     <team_logos>
-      <team_logo>
-       <size>large</size>
-       <url>https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/118d62107641386c2580de55575f25b7c2fbaf5d328a21be9c146d532b3a1aa9.jpg</url>
-      </team_logo>
-     </team_logos>
-     <waiver_priority>9</waiver_priority>
-     <faab_balance>100</faab_balance>
-     <number_of_moves>5</number_of_moves>
-     <number_of_trades>0</number_of_trades>
-     <roster_adds>
-      <coverage_type>week</coverage_type>
-      <coverage_value>2</coverage_value>
-      <value>1</value>
-     </roster_adds>
-     <league_scoring_type>head</league_scoring_type>
-     <has_draft_grade>1</has_draft_grade>
-     <draft_grade>B</draft_grade>
-     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/497791/5/draftrecap</draft_recap_url>
-     <managers>
-      <manager>
-       <manager_id>5</manager_id>
-       <nickname>Charlie</nickname>
-       <guid>GGIFVNDUASI7KWFZPEP2KBYVCQ</guid>
-       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
-       <felo_score>718</felo_score>
-       <felo_tier>gold</felo_tier>
-      </manager>
-      <manager>
-       <manager_id>15</manager_id>
-       <nickname>Zack Karmin</nickname>
-       <guid>5BSPVWUAVXZQIZ3SHOJSIONTFQ</guid>
-       <is_comanager>1</is_comanager>
-       <image_url>https://s.yimg.com/ag/images/4578/38694432401_c1eee0_64sq.jpg</image_url>
-       <felo_score>564</felo_score>
-       <felo_tier>bronze</felo_tier>
-      </manager>
-     </managers>
-     <team_points>
-      <coverage_type>season</coverage_type>
-      <season>2021</season>
-      <total>107.54</total>
-     </team_points>
-     <team_standings>
-      <rank>5</rank>
-      <playoff_seed>5</playoff_seed>
-      <outcome_totals>
-       <wins>1</wins>
-       <losses>0</losses>
-       <ties>0</ties>
-       <percentage>1.000</percentage>
-      </outcome_totals>
-      <streak>
-       <type>win</type>
-       <value>1</value>
-      </streak>
-      <points_for>107.54</points_for>
-      <points_against>99.76</points_against>
+      <points_for>256.36</points_for>
+      <points_against>215.54</points_against>
      </team_standings>
     </team>
     <team>
@@ -367,14 +104,14 @@
        <url>https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/44602967354_2ad123.jpg</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>10</waiver_priority>
+     <waiver_priority>9</waiver_priority>
      <faab_balance>100</faab_balance>
      <number_of_moves>4</number_of_moves>
      <number_of_trades>0</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
-      <coverage_value>2</coverage_value>
-      <value>1</value>
+      <coverage_value>3</coverage_value>
+      <value>0</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
      <has_draft_grade>1</has_draft_grade>
@@ -386,7 +123,7 @@
        <nickname>jake</nickname>
        <guid>5WMQVHWIDAWXPG2XX7AF5YVBA4</guid>
        <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
-       <felo_score>579</felo_score>
+       <felo_score>587</felo_score>
        <felo_tier>bronze</felo_tier>
       </manager>
       <manager>
@@ -402,153 +139,153 @@
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2021</season>
-      <total>106.04</total>
+      <total>211.66</total>
      </team_points>
      <team_standings>
-      <rank>6</rank>
-      <playoff_seed>6</playoff_seed>
+      <rank>2</rank>
+      <playoff_seed>2</playoff_seed>
       <outcome_totals>
-       <wins>1</wins>
+       <wins>2</wins>
        <losses>0</losses>
        <ties>0</ties>
        <percentage>1.000</percentage>
       </outcome_totals>
       <streak>
        <type>win</type>
-       <value>1</value>
+       <value>2</value>
       </streak>
-      <points_for>106.04</points_for>
-      <points_against>98.36</points_against>
+      <points_for>211.66</points_for>
+      <points_against>202.78</points_against>
      </team_standings>
     </team>
     <team>
-     <team_key>406.l.497791.t.2</team_key>
-     <team_id>2</team_id>
-     <name>Twigs Late Night</name>
-     <url>https://football.fantasysports.yahoo.com/f1/497791/2</url>
+     <team_key>406.l.497791.t.3</team_key>
+     <team_id>3</team_id>
+     <name>Putzville Sailors</name>
+     <url>https://football.fantasysports.yahoo.com/f1/497791/3</url>
      <team_logos>
       <team_logo>
        <size>large</size>
-       <url>https://s.yimg.com/cv/apiv2/default/nfl/nfl_4.png</url>
+       <url>https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/f51cff8fad8b526f86f0daeee624cfc282b92140d1d186ec7dedfca2cbb6882c.jpg</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>11</waiver_priority>
-     <faab_balance>100</faab_balance>
-     <number_of_moves>0</number_of_moves>
+     <waiver_priority>7</waiver_priority>
+     <faab_balance>83</faab_balance>
+     <number_of_moves>3</number_of_moves>
      <number_of_trades>0</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
-      <coverage_value>2</coverage_value>
-      <value>0</value>
+      <coverage_value>3</coverage_value>
+      <value>1</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
      <has_draft_grade>1</has_draft_grade>
-     <draft_grade>A-</draft_grade>
-     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/497791/2/draftrecap</draft_recap_url>
+     <draft_grade>C</draft_grade>
+     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/497791/3/draftrecap</draft_recap_url>
      <managers>
       <manager>
-       <manager_id>2</manager_id>
-       <nickname>Matt</nickname>
-       <guid>JCBOKTD2WOTVLBQ7P5U6GEIU2Q</guid>
+       <manager_id>3</manager_id>
+       <nickname>Evan</nickname>
+       <guid>4S47CUP6D3SYNEJJPP6D5E2MYY</guid>
        <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
-       <felo_score>561</felo_score>
+       <felo_score>556</felo_score>
        <felo_tier>bronze</felo_tier>
       </manager>
       <manager>
-       <manager_id>18</manager_id>
+       <manager_id>22</manager_id>
        <nickname>Jason</nickname>
-       <guid>2BIWWAIAGS52RL3IG2HZDSE5ZI</guid>
+       <guid>ZQKWBYLMDAQ6DVLPFWWRMRQMUQ</guid>
        <is_comanager>1</is_comanager>
        <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
-       <felo_score>602</felo_score>
-       <felo_tier>silver</felo_tier>
+       <felo_score>574</felo_score>
+       <felo_tier>bronze</felo_tier>
       </manager>
      </managers>
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2021</season>
-      <total>120.72</total>
+      <total>239.46</total>
      </team_points>
      <team_standings>
-      <rank>7</rank>
-      <playoff_seed>7</playoff_seed>
+      <rank>3</rank>
+      <playoff_seed>3</playoff_seed>
       <outcome_totals>
-       <wins>0</wins>
+       <wins>1</wins>
        <losses>1</losses>
        <ties>0</ties>
-       <percentage>.000</percentage>
+       <percentage>.500</percentage>
       </outcome_totals>
       <streak>
-       <type>loss</type>
+       <type>win</type>
        <value>1</value>
       </streak>
-      <points_for>120.72</points_for>
-      <points_against>128.18</points_against>
+      <points_for>239.46</points_for>
+      <points_against>196.26</points_against>
      </team_standings>
     </team>
     <team>
-     <team_key>406.l.497791.t.12</team_key>
-     <team_id>12</team_id>
-     <name>Full Chubb</name>
-     <url>https://football.fantasysports.yahoo.com/f1/497791/12</url>
+     <team_key>406.l.497791.t.8</team_key>
+     <team_id>8</team_id>
+     <name>Slam Poets Society</name>
+     <url>https://football.fantasysports.yahoo.com/f1/497791/8</url>
      <team_logos>
       <team_logo>
        <size>large</size>
-       <url>https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/43725325441_250e10.jpg</url>
+       <url>https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/46f0355a4b63f2cc1d9b1581b99200b56003f063e8a54a0448243aade7a9745b.png</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>6</waiver_priority>
-     <faab_balance>89</faab_balance>
-     <number_of_moves>5</number_of_moves>
+     <waiver_priority>2</waiver_priority>
+     <faab_balance>88</faab_balance>
+     <number_of_moves>3</number_of_moves>
      <number_of_trades>0</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
-      <coverage_value>2</coverage_value>
+      <coverage_value>3</coverage_value>
       <value>1</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
      <has_draft_grade>1</has_draft_grade>
      <draft_grade>B</draft_grade>
-     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/497791/12/draftrecap</draft_recap_url>
+     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/497791/8/draftrecap</draft_recap_url>
      <managers>
       <manager>
-       <manager_id>12</manager_id>
-       <nickname>Tyler</nickname>
-       <guid>J6HE657H4U7ECXFG4TIQGFDC2M</guid>
+       <manager_id>8</manager_id>
+       <nickname>Henry Goldman</nickname>
+       <guid>LRCZ7GH6S2PAOOMEVKGUTAP5CU</guid>
        <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
-       <felo_score>719</felo_score>
-       <felo_tier>gold</felo_tier>
+       <felo_score>567</felo_score>
+       <felo_tier>bronze</felo_tier>
       </manager>
       <manager>
-       <manager_id>16</manager_id>
-       <nickname>SM95</nickname>
-       <guid>5IXSGKJ74JXEKYKCSOCEKMWMNQ</guid>
+       <manager_id>14</manager_id>
+       <nickname>Hippopotamus</nickname>
+       <guid>V3VVCED2XND44ZAD3GWQZBETCQ</guid>
        <is_comanager>1</is_comanager>
-       <image_url>https://s.yimg.com/ag/images/4692/38134671550_f09cd4_64sq.jpg</image_url>
-       <felo_score>581</felo_score>
+       <image_url>https://s.yimg.com/ag/images/4520/27081192959_7ea20a_64sq.jpg</image_url>
+       <felo_score>497</felo_score>
        <felo_tier>bronze</felo_tier>
       </manager>
      </managers>
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2021</season>
-      <total>110.60</total>
+      <total>229.60</total>
      </team_points>
      <team_standings>
-      <rank>8</rank>
-      <playoff_seed>8</playoff_seed>
+      <rank>4</rank>
+      <playoff_seed>4</playoff_seed>
       <outcome_totals>
-       <wins>0</wins>
+       <wins>1</wins>
        <losses>1</losses>
        <ties>0</ties>
-       <percentage>.000</percentage>
+       <percentage>.500</percentage>
       </outcome_totals>
       <streak>
        <type>loss</type>
        <value>1</value>
       </streak>
-      <points_for>110.60</points_for>
-      <points_against>140.86</points_against>
+      <points_for>229.60</points_for>
+      <points_against>217.22</points_against>
      </team_standings>
     </team>
     <team>
@@ -562,13 +299,13 @@
        <url>https://s.yimg.com/cv/apiv2/default/nfl/nfl_9.png</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>5</waiver_priority>
+     <waiver_priority>4</waiver_priority>
      <faab_balance>100</faab_balance>
-     <number_of_moves>3</number_of_moves>
+     <number_of_moves>7</number_of_moves>
      <number_of_trades>0</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
-      <coverage_value>2</coverage_value>
+      <coverage_value>3</coverage_value>
       <value>2</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
@@ -581,30 +318,423 @@
        <nickname>Adam R</nickname>
        <guid>Q5UKJNP4UELCBBFXL6BTEGPG6Q</guid>
        <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
-       <felo_score>608</felo_score>
+       <felo_score>632</felo_score>
        <felo_tier>silver</felo_tier>
       </manager>
      </managers>
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2021</season>
-      <total>101.72</total>
+      <total>229.02</total>
      </team_points>
      <team_standings>
-      <rank>9</rank>
-      <playoff_seed>9</playoff_seed>
+      <rank>5</rank>
+      <playoff_seed>5</playoff_seed>
       <outcome_totals>
-       <wins>0</wins>
+       <wins>1</wins>
        <losses>1</losses>
        <ties>0</ties>
-       <percentage>.000</percentage>
+       <percentage>.500</percentage>
+      </outcome_totals>
+      <streak>
+       <type>win</type>
+       <value>1</value>
+      </streak>
+      <points_for>229.02</points_for>
+      <points_against>240.28</points_against>
+     </team_standings>
+    </team>
+    <team>
+     <team_key>406.l.497791.t.12</team_key>
+     <team_id>12</team_id>
+     <name>Full Chubb</name>
+     <url>https://football.fantasysports.yahoo.com/f1/497791/12</url>
+     <team_logos>
+      <team_logo>
+       <size>large</size>
+       <url>https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/43725325441_250e10.jpg</url>
+      </team_logo>
+     </team_logos>
+     <waiver_priority>5</waiver_priority>
+     <faab_balance>76</faab_balance>
+     <number_of_moves>9</number_of_moves>
+     <number_of_trades>0</number_of_trades>
+     <roster_adds>
+      <coverage_type>week</coverage_type>
+      <coverage_value>3</coverage_value>
+      <value>1</value>
+     </roster_adds>
+     <league_scoring_type>head</league_scoring_type>
+     <has_draft_grade>1</has_draft_grade>
+     <draft_grade>B</draft_grade>
+     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/497791/12/draftrecap</draft_recap_url>
+     <managers>
+      <manager>
+       <manager_id>12</manager_id>
+       <nickname>Tyler</nickname>
+       <guid>J6HE657H4U7ECXFG4TIQGFDC2M</guid>
+       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
+       <felo_score>731</felo_score>
+       <felo_tier>gold</felo_tier>
+      </manager>
+      <manager>
+       <manager_id>16</manager_id>
+       <nickname>SM95</nickname>
+       <guid>5IXSGKJ74JXEKYKCSOCEKMWMNQ</guid>
+       <is_comanager>1</is_comanager>
+       <image_url>https://s.yimg.com/ag/images/4692/38134671550_f09cd4_64sq.jpg</image_url>
+       <felo_score>578</felo_score>
+       <felo_tier>bronze</felo_tier>
+      </manager>
+     </managers>
+     <team_points>
+      <coverage_type>season</coverage_type>
+      <season>2021</season>
+      <total>228.56</total>
+     </team_points>
+     <team_standings>
+      <rank>6</rank>
+      <playoff_seed>6</playoff_seed>
+      <outcome_totals>
+       <wins>1</wins>
+       <losses>1</losses>
+       <ties>0</ties>
+       <percentage>.500</percentage>
+      </outcome_totals>
+      <streak>
+       <type>win</type>
+       <value>1</value>
+      </streak>
+      <points_for>228.56</points_for>
+      <points_against>251.44</points_against>
+     </team_standings>
+    </team>
+    <team>
+     <team_key>406.l.497791.t.1</team_key>
+     <team_id>1</team_id>
+     <name>Chicken Henders</name>
+     <is_owned_by_current_login>1</is_owned_by_current_login>
+     <url>https://football.fantasysports.yahoo.com/f1/497791/1</url>
+     <team_logos>
+      <team_logo>
+       <size>large</size>
+       <url>https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/01b98380a1297a12b18f9871046b424eecd5a93f6841300d37d0e52592a04ecd.jpg</url>
+      </team_logo>
+     </team_logos>
+     <waiver_priority>1</waiver_priority>
+     <faab_balance>98</faab_balance>
+     <number_of_moves>4</number_of_moves>
+     <number_of_trades>0</number_of_trades>
+     <roster_adds>
+      <coverage_type>week</coverage_type>
+      <coverage_value>3</coverage_value>
+      <value>1</value>
+     </roster_adds>
+     <league_scoring_type>head</league_scoring_type>
+     <has_draft_grade>1</has_draft_grade>
+     <draft_grade>B+</draft_grade>
+     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/497791/1/draftrecap</draft_recap_url>
+     <managers>
+      <manager>
+       <manager_id>1</manager_id>
+       <nickname>Ryan</nickname>
+       <guid>WJHICNC2BSKUEX4M2SUG6I4XOU</guid>
+       <is_commissioner>1</is_commissioner>
+       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
+       <felo_score>667</felo_score>
+       <felo_tier>silver</felo_tier>
+      </manager>
+      <manager>
+       <manager_id>13</manager_id>
+       <nickname>Zack</nickname>
+       <guid>PWBEGVB7QR7OJ7HVZ6DGJ2HEDM</guid>
+       <is_comanager>1</is_comanager>
+       <is_current_login>1</is_current_login>
+       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
+       <felo_score>547</felo_score>
+       <felo_tier>bronze</felo_tier>
+      </manager>
+     </managers>
+     <team_points>
+      <coverage_type>season</coverage_type>
+      <season>2021</season>
+      <total>218.40</total>
+     </team_points>
+     <team_standings>
+      <rank>7</rank>
+      <playoff_seed>7</playoff_seed>
+      <outcome_totals>
+       <wins>1</wins>
+       <losses>1</losses>
+       <ties>0</ties>
+       <percentage>.500</percentage>
       </outcome_totals>
       <streak>
        <type>loss</type>
        <value>1</value>
       </streak>
-      <points_for>101.72</points_for>
-      <points_against>124.66</points_against>
+      <points_for>218.40</points_for>
+      <points_against>261.82</points_against>
+     </team_standings>
+    </team>
+    <team>
+     <team_key>406.l.497791.t.4</team_key>
+     <team_id>4</team_id>
+     <name>Fezville Vikings</name>
+     <url>https://football.fantasysports.yahoo.com/f1/497791/4</url>
+     <team_logos>
+      <team_logo>
+       <size>large</size>
+       <url>https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/36865050316_34f113.jpg</url>
+      </team_logo>
+     </team_logos>
+     <waiver_priority>6</waiver_priority>
+     <faab_balance>100</faab_balance>
+     <number_of_moves>0</number_of_moves>
+     <number_of_trades>0</number_of_trades>
+     <roster_adds>
+      <coverage_type>week</coverage_type>
+      <coverage_value>3</coverage_value>
+      <value>0</value>
+     </roster_adds>
+     <league_scoring_type>head</league_scoring_type>
+     <has_draft_grade>1</has_draft_grade>
+     <draft_grade>B</draft_grade>
+     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/497791/4/draftrecap</draft_recap_url>
+     <managers>
+      <manager>
+       <manager_id>4</manager_id>
+       <nickname>JT Funk</nickname>
+       <guid>6TRJ7QVVNK6A2R7GDZCYBU6QOQ</guid>
+       <image_url>https://s.yimg.com/ag/images/4472/37994067404_7a1739_64sq.jpg</image_url>
+       <felo_score>777</felo_score>
+       <felo_tier>gold</felo_tier>
+      </manager>
+      <manager>
+       <manager_id>21</manager_id>
+       <nickname>Alex I</nickname>
+       <guid>5SVXOU7WS53RPCAGBFPW2RFY64</guid>
+       <is_comanager>1</is_comanager>
+       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
+       <felo_score>606</felo_score>
+       <felo_tier>silver</felo_tier>
+      </manager>
+     </managers>
+     <team_points>
+      <coverage_type>season</coverage_type>
+      <season>2021</season>
+      <total>218.00</total>
+     </team_points>
+     <team_standings>
+      <rank>8</rank>
+      <playoff_seed>8</playoff_seed>
+      <outcome_totals>
+       <wins>1</wins>
+       <losses>1</losses>
+       <ties>0</ties>
+       <percentage>.500</percentage>
+      </outcome_totals>
+      <streak>
+       <type>loss</type>
+       <value>1</value>
+      </streak>
+      <points_for>218.00</points_for>
+      <points_against>195.9</points_against>
+     </team_standings>
+    </team>
+    <team>
+     <team_key>406.l.497791.t.5</team_key>
+     <team_id>5</team_id>
+     <name>Llama Jackson</name>
+     <url>https://football.fantasysports.yahoo.com/f1/497791/5</url>
+     <team_logos>
+      <team_logo>
+       <size>large</size>
+       <url>https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/118d62107641386c2580de55575f25b7c2fbaf5d328a21be9c146d532b3a1aa9.jpg</url>
+      </team_logo>
+     </team_logos>
+     <waiver_priority>8</waiver_priority>
+     <faab_balance>98</faab_balance>
+     <number_of_moves>8</number_of_moves>
+     <number_of_trades>0</number_of_trades>
+     <roster_adds>
+      <coverage_type>week</coverage_type>
+      <coverage_value>3</coverage_value>
+      <value>1</value>
+     </roster_adds>
+     <league_scoring_type>head</league_scoring_type>
+     <has_draft_grade>1</has_draft_grade>
+     <draft_grade>B</draft_grade>
+     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/497791/5/draftrecap</draft_recap_url>
+     <managers>
+      <manager>
+       <manager_id>5</manager_id>
+       <nickname>Charlie</nickname>
+       <guid>GGIFVNDUASI7KWFZPEP2KBYVCQ</guid>
+       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
+       <felo_score>715</felo_score>
+       <felo_tier>gold</felo_tier>
+      </manager>
+      <manager>
+       <manager_id>15</manager_id>
+       <nickname>Zack Karmin</nickname>
+       <guid>5BSPVWUAVXZQIZ3SHOJSIONTFQ</guid>
+       <is_comanager>1</is_comanager>
+       <image_url>https://s.yimg.com/ag/images/4578/38694432401_c1eee0_64sq.jpg</image_url>
+       <felo_score>575</felo_score>
+       <felo_tier>bronze</felo_tier>
+      </manager>
+     </managers>
+     <team_points>
+      <coverage_type>season</coverage_type>
+      <season>2021</season>
+      <total>201.20</total>
+     </team_points>
+     <team_standings>
+      <rank>9</rank>
+      <playoff_seed>9</playoff_seed>
+      <outcome_totals>
+       <wins>1</wins>
+       <losses>1</losses>
+       <ties>0</ties>
+       <percentage>.500</percentage>
+      </outcome_totals>
+      <streak>
+       <type>loss</type>
+       <value>1</value>
+      </streak>
+      <points_for>201.20</points_for>
+      <points_against>202.94</points_against>
+     </team_standings>
+    </team>
+    <team>
+     <team_key>406.l.497791.t.10</team_key>
+     <team_id>10</team_id>
+     <name>Champagne Poetry</name>
+     <url>https://football.fantasysports.yahoo.com/f1/497791/10</url>
+     <team_logos>
+      <team_logo>
+       <size>large</size>
+       <url>https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/fb72e79d412fb8a7e21b4ca866d6bdc9d060ae3dd38e159a4ac294868ff882f1.jpg</url>
+      </team_logo>
+     </team_logos>
+     <waiver_priority>11</waiver_priority>
+     <faab_balance>45</faab_balance>
+     <number_of_moves>7</number_of_moves>
+     <number_of_trades>0</number_of_trades>
+     <roster_adds>
+      <coverage_type>week</coverage_type>
+      <coverage_value>3</coverage_value>
+      <value>1</value>
+     </roster_adds>
+     <league_scoring_type>head</league_scoring_type>
+     <has_draft_grade>1</has_draft_grade>
+     <draft_grade>C</draft_grade>
+     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/497791/10/draftrecap</draft_recap_url>
+     <managers>
+      <manager>
+       <manager_id>10</manager_id>
+       <nickname>Andrew</nickname>
+       <guid>KUZIDPP2VXHAQGO3BO2DRTKPL4</guid>
+       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
+       <felo_score>730</felo_score>
+       <felo_tier>gold</felo_tier>
+      </manager>
+      <manager>
+       <manager_id>17</manager_id>
+       <nickname>spencer</nickname>
+       <guid>PE2L5AWDOVJT3YPGYAENEQJIWE</guid>
+       <is_comanager>1</is_comanager>
+       <image_url>https://s.yimg.com/ag/images/4557/23772282247_9d6371_64sq.jpg</image_url>
+       <felo_score>813</felo_score>
+       <felo_tier>platinum</felo_tier>
+      </manager>
+     </managers>
+     <team_points>
+      <coverage_type>season</coverage_type>
+      <season>2021</season>
+      <total>193.46</total>
+     </team_points>
+     <team_standings>
+      <rank>10</rank>
+      <playoff_seed>10</playoff_seed>
+      <outcome_totals>
+       <wins>1</wins>
+       <losses>1</losses>
+       <ties>0</ties>
+       <percentage>.500</percentage>
+      </outcome_totals>
+      <streak>
+       <type>win</type>
+       <value>1</value>
+      </streak>
+      <points_for>193.46</points_for>
+      <points_against>207.24</points_against>
+     </team_standings>
+    </team>
+    <team>
+     <team_key>406.l.497791.t.2</team_key>
+     <team_id>2</team_id>
+     <name>Twigs Late Night</name>
+     <url>https://football.fantasysports.yahoo.com/f1/497791/2</url>
+     <team_logos>
+      <team_logo>
+       <size>large</size>
+       <url>https://s.yimg.com/cv/apiv2/default/nfl/nfl_4.png</url>
+      </team_logo>
+     </team_logos>
+     <waiver_priority>10</waiver_priority>
+     <faab_balance>100</faab_balance>
+     <number_of_moves>0</number_of_moves>
+     <number_of_trades>0</number_of_trades>
+     <roster_adds>
+      <coverage_type>week</coverage_type>
+      <coverage_value>3</coverage_value>
+      <value>0</value>
+     </roster_adds>
+     <league_scoring_type>head</league_scoring_type>
+     <has_draft_grade>1</has_draft_grade>
+     <draft_grade>A-</draft_grade>
+     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/497791/2/draftrecap</draft_recap_url>
+     <managers>
+      <manager>
+       <manager_id>2</manager_id>
+       <nickname>Matt</nickname>
+       <guid>JCBOKTD2WOTVLBQ7P5U6GEIU2Q</guid>
+       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
+       <felo_score>570</felo_score>
+       <felo_tier>bronze</felo_tier>
+      </manager>
+      <manager>
+       <manager_id>18</manager_id>
+       <nickname>Jason</nickname>
+       <guid>2BIWWAIAGS52RL3IG2HZDSE5ZI</guid>
+       <is_comanager>1</is_comanager>
+       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
+       <felo_score>624</felo_score>
+       <felo_tier>silver</felo_tier>
+      </manager>
+     </managers>
+     <team_points>
+      <coverage_type>season</coverage_type>
+      <season>2021</season>
+      <total>231.30</total>
+     </team_points>
+     <team_standings>
+      <rank>11</rank>
+      <playoff_seed>11</playoff_seed>
+      <outcome_totals>
+       <wins>0</wins>
+       <losses>2</losses>
+       <ties>0</ties>
+       <percentage>.000</percentage>
+      </outcome_totals>
+      <streak>
+       <type>loss</type>
+       <value>2</value>
+      </streak>
+      <points_for>231.30</points_for>
+      <points_against>246.14</points_against>
      </team_standings>
     </team>
     <team>
@@ -618,14 +748,14 @@
        <url>https://s.yimg.com/cv/apiv2/default/nfl/nfl_12.png</url>
       </team_logo>
      </team_logos>
-     <waiver_priority>2</waiver_priority>
+     <waiver_priority>12</waiver_priority>
      <faab_balance>95</faab_balance>
-     <number_of_moves>2</number_of_moves>
+     <number_of_moves>5</number_of_moves>
      <number_of_trades>0</number_of_trades>
      <roster_adds>
       <coverage_type>week</coverage_type>
-      <coverage_value>2</coverage_value>
-      <value>1</value>
+      <coverage_value>3</coverage_value>
+      <value>3</value>
      </roster_adds>
      <league_scoring_type>head</league_scoring_type>
      <has_draft_grade>1</has_draft_grade>
@@ -637,7 +767,7 @@
        <nickname>Adam</nickname>
        <guid>LOS4KE4OJIDVOM5CLCVP6KOS6I</guid>
        <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
-       <felo_score>599</felo_score>
+       <felo_score>591</felo_score>
        <felo_tier>bronze</felo_tier>
       </manager>
       <manager>
@@ -653,157 +783,27 @@
      <team_points>
       <coverage_type>season</coverage_type>
       <season>2021</season>
-      <total>99.76</total>
-     </team_points>
-     <team_standings>
-      <rank>10</rank>
-      <playoff_seed>10</playoff_seed>
-      <outcome_totals>
-       <wins>0</wins>
-       <losses>1</losses>
-       <ties>0</ties>
-       <percentage>.000</percentage>
-      </outcome_totals>
-      <streak>
-       <type>loss</type>
-       <value>1</value>
-      </streak>
-      <points_for>99.76</points_for>
-      <points_against>107.54</points_against>
-     </team_standings>
-    </team>
-    <team>
-     <team_key>406.l.497791.t.3</team_key>
-     <team_id>3</team_id>
-     <name>Putzville Sailors</name>
-     <url>https://football.fantasysports.yahoo.com/f1/497791/3</url>
-     <team_logos>
-      <team_logo>
-       <size>large</size>
-       <url>https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/f51cff8fad8b526f86f0daeee624cfc282b92140d1d186ec7dedfca2cbb6882c.jpg</url>
-      </team_logo>
-     </team_logos>
-     <waiver_priority>8</waiver_priority>
-     <faab_balance>96</faab_balance>
-     <number_of_moves>2</number_of_moves>
-     <number_of_trades>0</number_of_trades>
-     <roster_adds>
-      <coverage_type>week</coverage_type>
-      <coverage_value>2</coverage_value>
-      <value>1</value>
-     </roster_adds>
-     <league_scoring_type>head</league_scoring_type>
-     <has_draft_grade>1</has_draft_grade>
-     <draft_grade>C</draft_grade>
-     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/497791/3/draftrecap</draft_recap_url>
-     <managers>
-      <manager>
-       <manager_id>3</manager_id>
-       <nickname>Evan</nickname>
-       <guid>4S47CUP6D3SYNEJJPP6D5E2MYY</guid>
-       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
-       <felo_score>553</felo_score>
-       <felo_tier>bronze</felo_tier>
-      </manager>
-      <manager>
-       <manager_id>22</manager_id>
-       <nickname>Jason</nickname>
-       <guid>ZQKWBYLMDAQ6DVLPFWWRMRQMUQ</guid>
-       <is_comanager>1</is_comanager>
-       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
-       <felo_score>569</felo_score>
-       <felo_tier>bronze</felo_tier>
-      </manager>
-     </managers>
-     <team_points>
-      <coverage_type>season</coverage_type>
-      <season>2021</season>
-      <total>98.36</total>
-     </team_points>
-     <team_standings>
-      <rank>11</rank>
-      <playoff_seed>11</playoff_seed>
-      <outcome_totals>
-       <wins>0</wins>
-       <losses>1</losses>
-       <ties>0</ties>
-       <percentage>.000</percentage>
-      </outcome_totals>
-      <streak>
-       <type>loss</type>
-       <value>1</value>
-      </streak>
-      <points_for>98.36</points_for>
-      <points_against>106.04</points_against>
-     </team_standings>
-    </team>
-    <team>
-     <team_key>406.l.497791.t.10</team_key>
-     <team_id>10</team_id>
-     <name>Champagne Poetry</name>
-     <url>https://football.fantasysports.yahoo.com/f1/497791/10</url>
-     <team_logos>
-      <team_logo>
-       <size>large</size>
-       <url>https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/fb72e79d412fb8a7e21b4ca866d6bdc9d060ae3dd38e159a4ac294868ff882f1.jpg</url>
-      </team_logo>
-     </team_logos>
-     <waiver_priority>12</waiver_priority>
-     <faab_balance>47</faab_balance>
-     <number_of_moves>4</number_of_moves>
-     <number_of_trades>0</number_of_trades>
-     <roster_adds>
-      <coverage_type>week</coverage_type>
-      <coverage_value>2</coverage_value>
-      <value>3</value>
-     </roster_adds>
-     <league_scoring_type>head</league_scoring_type>
-     <has_draft_grade>1</has_draft_grade>
-     <draft_grade>C</draft_grade>
-     <draft_recap_url>https://football.fantasysports.yahoo.com/f1/497791/10/draftrecap</draft_recap_url>
-     <managers>
-      <manager>
-       <manager_id>10</manager_id>
-       <nickname>Andrew</nickname>
-       <guid>KUZIDPP2VXHAQGO3BO2DRTKPL4</guid>
-       <image_url>https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg</image_url>
-       <felo_score>723</felo_score>
-       <felo_tier>gold</felo_tier>
-      </manager>
-      <manager>
-       <manager_id>17</manager_id>
-       <nickname>spencer</nickname>
-       <guid>PE2L5AWDOVJT3YPGYAENEQJIWE</guid>
-       <is_comanager>1</is_comanager>
-       <image_url>https://s.yimg.com/ag/images/4557/23772282247_9d6371_64sq.jpg</image_url>
-       <felo_score>799</felo_score>
-       <felo_tier>gold</felo_tier>
-      </manager>
-     </managers>
-     <team_points>
-      <coverage_type>season</coverage_type>
-      <season>2021</season>
-      <total>90.28</total>
+      <total>215.38</total>
      </team_points>
      <team_standings>
       <rank>12</rank>
       <playoff_seed>12</playoff_seed>
       <outcome_totals>
        <wins>0</wins>
-       <losses>1</losses>
+       <losses>2</losses>
        <ties>0</ties>
        <percentage>.000</percentage>
       </outcome_totals>
       <streak>
        <type>loss</type>
-       <value>1</value>
+       <value>2</value>
       </streak>
-      <points_for>90.28</points_for>
-      <points_against>113.58</points_against>
+      <points_for>215.38</points_for>
+      <points_against>234.84</points_against>
      </team_standings>
     </team>
    </teams>
   </standings>
  </league>
 </fantasy_content>
-<!-- fantasy-sports-api- -public-production-bf1-665547d576-f6d4s Wed Sep 15 13:43:25 UTC 2021 -->
+<!-- fantasy-sports-api- -public-production-bf1-7978478b56-d2rc2 Wed Sep 22 13:55:03 UTC 2021 -->

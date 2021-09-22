@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.497791/players;start=900;status=FA" time="190.29593467712ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
+<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.497791/players;start=900;status=FA" time="279.461145401ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
  <league>
   <league_key>406.l.497791</league_key>
   <league_id>497791</league_id>
@@ -8,9 +8,9 @@
   <logo_url></logo_url>
   <draft_status>postdraft</draft_status>
   <num_teams>12</num_teams>
-  <edit_key>2</edit_key>
+  <edit_key>3</edit_key>
   <weekly_deadline/>
-  <league_update_timestamp>1631686912</league_update_timestamp>
+  <league_update_timestamp>1632290892</league_update_timestamp>
   <scoring_type>head</scoring_type>
   <league_type>private</league_type>
   <renew>399_665951</renew>
@@ -19,7 +19,7 @@
   <allow_add_to_dl_extra_pos>0</allow_add_to_dl_extra_pos>
   <is_pro_league>0</is_pro_league>
   <is_cash_league>0</is_cash_league>
-  <current_week>2</current_week>
+  <current_week>3</current_week>
   <start_week>1</start_week>
   <start_date>2021-09-09</start_date>
   <end_week>17</end_week>
@@ -758,6 +758,37 @@
     </eligible_positions>
    </player>
    <player>
+    <player_key>406.p.100009</player_key>
+    <player_id>100009</player_id>
+    <name>
+     <full>Green Bay</full>
+     <first>Green Bay</first>
+     <last/>
+     <ascii_first>Green Bay</ascii_first>
+     <ascii_last/>
+    </name>
+    <editorial_player_key>nfl.p.100009</editorial_player_key>
+    <editorial_team_key>nfl.t.9</editorial_team_key>
+    <editorial_team_full_name>Green Bay Packers</editorial_team_full_name>
+    <editorial_team_abbr>GB</editorial_team_abbr>
+    <bye_weeks>
+     <week>13</week>
+    </bye_weeks>
+    <uniform_number></uniform_number>
+    <display_position>DEF</display_position>
+    <headshot>
+     <url>https://s.yimg.com/lq/i/us/sp/v/nfl/teams/1/50x50w/gnb.gif</url>
+     <size>small</size>
+    </headshot>
+    <image_url>https://s.yimg.com/lq/i/us/sp/v/nfl/teams/1/50x50w/gnb.gif</image_url>
+    <is_undroppable>0</is_undroppable>
+    <position_type>DT</position_type>
+    <primary_position>DEF</primary_position>
+    <eligible_positions>
+     <position>DEF</position>
+    </eligible_positions>
+   </player>
+   <player>
     <player_key>406.p.100010</player_key>
     <player_id>100010</player_id>
     <name>
@@ -781,37 +812,6 @@
      <size>small</size>
     </headshot>
     <image_url>https://s.yimg.com/lq/i/us/sp/v/nfl/teams/1/50x50w/ten.gif</image_url>
-    <is_undroppable>0</is_undroppable>
-    <position_type>DT</position_type>
-    <primary_position>DEF</primary_position>
-    <eligible_positions>
-     <position>DEF</position>
-    </eligible_positions>
-   </player>
-   <player>
-    <player_key>406.p.100011</player_key>
-    <player_id>100011</player_id>
-    <name>
-     <full>Indianapolis</full>
-     <first>Indianapolis</first>
-     <last/>
-     <ascii_first>Indianapolis</ascii_first>
-     <ascii_last/>
-    </name>
-    <editorial_player_key>nfl.p.100011</editorial_player_key>
-    <editorial_team_key>nfl.t.11</editorial_team_key>
-    <editorial_team_full_name>Indianapolis Colts</editorial_team_full_name>
-    <editorial_team_abbr>Ind</editorial_team_abbr>
-    <bye_weeks>
-     <week>14</week>
-    </bye_weeks>
-    <uniform_number></uniform_number>
-    <display_position>DEF</display_position>
-    <headshot>
-     <url>https://s.yimg.com/lq/i/us/sp/v/nfl/teams/1/50x50w/ind.gif</url>
-     <size>small</size>
-    </headshot>
-    <image_url>https://s.yimg.com/lq/i/us/sp/v/nfl/teams/1/50x50w/ind.gif</image_url>
     <is_undroppable>0</is_undroppable>
     <position_type>DT</position_type>
     <primary_position>DEF</primary_position>
@@ -853,4 +853,4 @@
   </players>
  </league>
 </fantasy_content>
-<!-- fantasy-sports-api- -public-production-bf1-665547d576-9tvhr Wed Sep 15 13:44:45 UTC 2021 -->
+<!-- fantasy-sports-api- -public-production-bf1-7978478b56-l2s48 Wed Sep 22 13:56:25 UTC 2021 -->

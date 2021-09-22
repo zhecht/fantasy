@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.497791/players;start=175;status=FA" time="50.813913345337ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
+<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.497791/players;start=175;status=FA" time="62.273979187012ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
  <league>
   <league_key>406.l.497791</league_key>
   <league_id>497791</league_id>
@@ -8,9 +8,9 @@
   <logo_url></logo_url>
   <draft_status>postdraft</draft_status>
   <num_teams>12</num_teams>
-  <edit_key>2</edit_key>
+  <edit_key>3</edit_key>
   <weekly_deadline/>
-  <league_update_timestamp>1631686912</league_update_timestamp>
+  <league_update_timestamp>1632290892</league_update_timestamp>
   <scoring_type>head</scoring_type>
   <league_type>private</league_type>
   <renew>399_665951</renew>
@@ -19,7 +19,7 @@
   <allow_add_to_dl_extra_pos>0</allow_add_to_dl_extra_pos>
   <is_pro_league>0</is_pro_league>
   <is_cash_league>0</is_cash_league>
-  <current_week>2</current_week>
+  <current_week>3</current_week>
   <start_week>1</start_week>
   <start_date>2021-09-09</start_date>
   <end_week>17</end_week>
@@ -27,38 +27,6 @@
   <game_code>nfl</game_code>
   <season>2021</season>
   <players count="25">
-   <player>
-    <player_key>406.p.29470</player_key>
-    <player_id>29470</player_id>
-    <name>
-     <full>Dwayne Washington</full>
-     <first>Dwayne</first>
-     <last>Washington</last>
-     <ascii_first>Dwayne</ascii_first>
-     <ascii_last>Washington</ascii_last>
-    </name>
-    <editorial_player_key>nfl.p.29470</editorial_player_key>
-    <editorial_team_key>nfl.t.18</editorial_team_key>
-    <editorial_team_full_name>New Orleans Saints</editorial_team_full_name>
-    <editorial_team_abbr>NO</editorial_team_abbr>
-    <bye_weeks>
-     <week>6</week>
-    </bye_weeks>
-    <uniform_number>24</uniform_number>
-    <display_position>RB</display_position>
-    <headshot>
-     <url>https://s.yimg.com/iu/api/res/1.2/2yaLQYE0w6XFAuYPTEgKsg--~C/YXBwaWQ9eXNwb3J0cztjaD0yMzM2O2NyPTE7Y3c9MTc5MDtkeD04NTc7ZHk9MDtmaT11bGNyb3A7aD02MDtxPTEwMDt3PTQ2/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08262021/29470.png</url>
-     <size>small</size>
-    </headshot>
-    <image_url>https://s.yimg.com/iu/api/res/1.2/2yaLQYE0w6XFAuYPTEgKsg--~C/YXBwaWQ9eXNwb3J0cztjaD0yMzM2O2NyPTE7Y3c9MTc5MDtkeD04NTc7ZHk9MDtmaT11bGNyb3A7aD02MDtxPTEwMDt3PTQ2/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08262021/29470.png</image_url>
-    <is_undroppable>0</is_undroppable>
-    <position_type>O</position_type>
-    <primary_position>RB</primary_position>
-    <eligible_positions>
-     <position>RB</position>
-     <position>W/R/T</position>
-    </eligible_positions>
-   </player>
    <player>
     <player_key>406.p.29540</player_key>
     <player_id>29540</player_id>
@@ -72,13 +40,13 @@
     <status>NA</status>
     <status_full>Inactive: Coach's Decision or Not on Roster</status_full>
     <editorial_player_key>nfl.p.29540</editorial_player_key>
-    <editorial_team_key>nfl.t.21</editorial_team_key>
-    <editorial_team_full_name>Philadelphia Eagles</editorial_team_full_name>
-    <editorial_team_abbr>Phi</editorial_team_abbr>
+    <editorial_team_key>nfl.t.28</editorial_team_key>
+    <editorial_team_full_name>Washington Football Team</editorial_team_full_name>
+    <editorial_team_abbr>Was</editorial_team_abbr>
     <bye_weeks>
-     <week>14</week>
+     <week>9</week>
     </bye_weeks>
-    <uniform_number>17</uniform_number>
+    <uniform_number>19</uniform_number>
     <display_position>WR</display_position>
     <headshot>
      <url>https://s.yimg.com/iu/api/res/1.2/SaGrzhzx_.kxC.ZKzn0VzQ--~C/YXBwaWQ9eXNwb3J0cztjaD0yMzM2O2NyPTE7Y3c9MTc5MDtkeD04NTc7ZHk9MDtmaT11bGNyb3A7aD02MDtxPTEwMDt3PTQ2/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08182021/29540.png</url>
@@ -124,6 +92,8 @@
      <position>RB</position>
      <position>W/R/T</position>
     </eligible_positions>
+    <has_player_notes>1</has_player_notes>
+    <player_notes_last_timestamp>1632085469</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.29609</player_key>
@@ -188,6 +158,8 @@
      <position>WR</position>
      <position>W/R/T</position>
     </eligible_positions>
+    <has_player_notes>1</has_player_notes>
+    <player_notes_last_timestamp>1632199608</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.29654</player_key>
@@ -341,7 +313,7 @@
     <bye_weeks>
      <week>9</week>
     </bye_weeks>
-    <uniform_number>18</uniform_number>
+    <uniform_number>13</uniform_number>
     <display_position>WR</display_position>
     <headshot>
      <url>https://s.yimg.com/iu/api/res/1.2/izIKHb2CzcXJ4r5xm81.SQ--~C/YXBwaWQ9eXNwb3J0cztjaD0yMzM2O2NyPTE7Y3c9MTc5MDtkeD04NTc7ZHk9MDtmaT11bGNyb3A7aD02MDtxPTEwMDt3PTQ2/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08092021/29719.png</url>
@@ -355,8 +327,6 @@
      <position>WR</position>
      <position>W/R/T</position>
     </eligible_positions>
-    <has_player_notes>1</has_player_notes>
-    <player_notes_last_timestamp>1631367395</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.29754</player_key>
@@ -392,8 +362,6 @@
      <position>K</position>
      <position>IR</position>
     </eligible_positions>
-    <has_player_notes>1</has_player_notes>
-    <player_notes_last_timestamp>1630964633</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.29789</player_key>
@@ -460,8 +428,6 @@
      <position>K</position>
      <position>IR</position>
     </eligible_positions>
-    <has_player_notes>1</has_player_notes>
-    <player_notes_last_timestamp>1631131927</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.29795</player_key>
@@ -738,6 +704,8 @@
      <ascii_first>Jaydon</ascii_first>
      <ascii_last>Mickens</ascii_last>
     </name>
+    <status>Q</status>
+    <status_full>Questionable</status_full>
     <editorial_player_key>nfl.p.29978</editorial_player_key>
     <editorial_team_key>nfl.t.27</editorial_team_key>
     <editorial_team_full_name>Tampa Bay Buccaneers</editorial_team_full_name>
@@ -862,7 +830,41 @@
      <position>W/R/T</position>
     </eligible_positions>
    </player>
+   <player>
+    <player_key>406.p.30023</player_key>
+    <player_id>30023</player_id>
+    <name>
+     <full>Marvin Hall</full>
+     <first>Marvin</first>
+     <last>Hall</last>
+     <ascii_first>Marvin</ascii_first>
+     <ascii_last>Hall</ascii_last>
+    </name>
+    <status>NA</status>
+    <status_full>Inactive: Coach's Decision or Not on Roster</status_full>
+    <editorial_player_key>nfl.p.30023</editorial_player_key>
+    <editorial_team_key>nfl.t.17</editorial_team_key>
+    <editorial_team_full_name>New England Patriots</editorial_team_full_name>
+    <editorial_team_abbr>NE</editorial_team_abbr>
+    <bye_weeks>
+     <week>14</week>
+    </bye_weeks>
+    <uniform_number>14</uniform_number>
+    <display_position>WR</display_position>
+    <headshot>
+     <url>https://s.yimg.com/iu/api/res/1.2/J7DCgNaksYl5XlvyW1iINw--~C/YXBwaWQ9eXNwb3J0cztjaD0yMzM2O2NyPTE7Y3c9MTc5MDtkeD04NTc7ZHk9MDtmaT11bGNyb3A7aD02MDtxPTEwMDt3PTQ2/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08112021/30023.png</url>
+     <size>small</size>
+    </headshot>
+    <image_url>https://s.yimg.com/iu/api/res/1.2/J7DCgNaksYl5XlvyW1iINw--~C/YXBwaWQ9eXNwb3J0cztjaD0yMzM2O2NyPTE7Y3c9MTc5MDtkeD04NTc7ZHk9MDtmaT11bGNyb3A7aD02MDtxPTEwMDt3PTQ2/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08112021/30023.png</image_url>
+    <is_undroppable>0</is_undroppable>
+    <position_type>O</position_type>
+    <primary_position>WR</primary_position>
+    <eligible_positions>
+     <position>WR</position>
+     <position>W/R/T</position>
+    </eligible_positions>
+   </player>
   </players>
  </league>
 </fantasy_content>
-<!-- fantasy-sports-api- -public-production-bf1-665547d576-7jffc Wed Sep 15 13:43:41 UTC 2021 -->
+<!-- fantasy-sports-api- -public-production-bf1-7978478b56-x7shw Wed Sep 22 13:55:20 UTC 2021 -->

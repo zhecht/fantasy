@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.497791/players;start=450;status=FA" time="77.890157699585ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
+<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.497791/players;start=450;status=FA" time="181.66899681091ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
  <league>
   <league_key>406.l.497791</league_key>
   <league_id>497791</league_id>
@@ -8,9 +8,9 @@
   <logo_url></logo_url>
   <draft_status>postdraft</draft_status>
   <num_teams>12</num_teams>
-  <edit_key>2</edit_key>
+  <edit_key>3</edit_key>
   <weekly_deadline/>
-  <league_update_timestamp>1631686912</league_update_timestamp>
+  <league_update_timestamp>1632290892</league_update_timestamp>
   <scoring_type>head</scoring_type>
   <league_type>private</league_type>
   <renew>399_665951</renew>
@@ -19,7 +19,7 @@
   <allow_add_to_dl_extra_pos>0</allow_add_to_dl_extra_pos>
   <is_pro_league>0</is_pro_league>
   <is_cash_league>0</is_cash_league>
-  <current_week>2</current_week>
+  <current_week>3</current_week>
   <start_week>1</start_week>
   <start_date>2021-09-09</start_date>
   <end_week>17</end_week>
@@ -188,7 +188,7 @@
      <position>W/R/T</position>
     </eligible_positions>
     <has_player_notes>1</has_player_notes>
-    <player_notes_last_timestamp>1631491445</player_notes_last_timestamp>
+    <player_notes_last_timestamp>1631853532</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.32006</player_key>
@@ -287,7 +287,7 @@
      <position>QB</position>
     </eligible_positions>
     <has_player_notes>1</has_player_notes>
-    <player_notes_last_timestamp>1631460828</player_notes_last_timestamp>
+    <player_notes_last_timestamp>1632065597</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.32014</player_key>
@@ -388,6 +388,8 @@
      <position>RB</position>
      <position>W/R/T</position>
     </eligible_positions>
+    <has_player_notes>1</has_player_notes>
+    <player_notes_last_timestamp>1632086449</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.32019</player_key>
@@ -587,8 +589,6 @@
      <position>WR</position>
      <position>W/R/T</position>
     </eligible_positions>
-    <has_player_notes>1</has_player_notes>
-    <player_notes_last_timestamp>1631249960</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.32046</player_key>
@@ -836,7 +836,7 @@
     </name>
     <status>IR</status>
     <status_full>Injured Reserve</status_full>
-    <injury_note>Knee</injury_note>
+    <injury_note>Knee - ACL</injury_note>
     <editorial_player_key>nfl.p.32068</editorial_player_key>
     <editorial_team_key>nfl.t.26</editorial_team_key>
     <editorial_team_full_name>Seattle Seahawks</editorial_team_full_name>
@@ -863,4 +863,4 @@
   </players>
  </league>
 </fantasy_content>
-<!-- fantasy-sports-api- -public-production-bf1-665547d576-g7bzg Wed Sep 15 13:44:05 UTC 2021 -->
+<!-- fantasy-sports-api- -public-production-bf1-7978478b56-cmcnq Wed Sep 22 13:55:44 UTC 2021 -->

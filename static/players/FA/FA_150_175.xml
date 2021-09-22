@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.497791/players;start=150;status=FA" time="54.527044296265ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
+<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.497791/players;start=150;status=FA" time="56.413173675537ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
  <league>
   <league_key>406.l.497791</league_key>
   <league_id>497791</league_id>
@@ -8,9 +8,9 @@
   <logo_url></logo_url>
   <draft_status>postdraft</draft_status>
   <num_teams>12</num_teams>
-  <edit_key>2</edit_key>
+  <edit_key>3</edit_key>
   <weekly_deadline/>
-  <league_update_timestamp>1631686912</league_update_timestamp>
+  <league_update_timestamp>1632290892</league_update_timestamp>
   <scoring_type>head</scoring_type>
   <league_type>private</league_type>
   <renew>399_665951</renew>
@@ -19,7 +19,7 @@
   <allow_add_to_dl_extra_pos>0</allow_add_to_dl_extra_pos>
   <is_pro_league>0</is_pro_league>
   <is_cash_league>0</is_cash_league>
-  <current_week>2</current_week>
+  <current_week>3</current_week>
   <start_week>1</start_week>
   <start_date>2021-09-09</start_date>
   <end_week>17</end_week>
@@ -27,40 +27,6 @@
   <game_code>nfl</game_code>
   <season>2021</season>
   <players count="25">
-   <player>
-    <player_key>406.p.29315</player_key>
-    <player_id>29315</player_id>
-    <name>
-     <full>Austin Hooper</full>
-     <first>Austin</first>
-     <last>Hooper</last>
-     <ascii_first>Austin</ascii_first>
-     <ascii_last>Hooper</ascii_last>
-    </name>
-    <editorial_player_key>nfl.p.29315</editorial_player_key>
-    <editorial_team_key>nfl.t.5</editorial_team_key>
-    <editorial_team_full_name>Cleveland Browns</editorial_team_full_name>
-    <editorial_team_abbr>Cle</editorial_team_abbr>
-    <bye_weeks>
-     <week>13</week>
-    </bye_weeks>
-    <uniform_number>81</uniform_number>
-    <display_position>TE</display_position>
-    <headshot>
-     <url>https://s.yimg.com/iu/api/res/1.2/rGCy68QJPBukP4ghCtfXCQ--~C/YXBwaWQ9eXNwb3J0cztjaD0yMzM2O2NyPTE7Y3c9MTc5MDtkeD04NTc7ZHk9MDtmaT11bGNyb3A7aD02MDtxPTEwMDt3PTQ2/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/10012020/29315.png</url>
-     <size>small</size>
-    </headshot>
-    <image_url>https://s.yimg.com/iu/api/res/1.2/rGCy68QJPBukP4ghCtfXCQ--~C/YXBwaWQ9eXNwb3J0cztjaD0yMzM2O2NyPTE7Y3c9MTc5MDtkeD04NTc7ZHk9MDtmaT11bGNyb3A7aD02MDtxPTEwMDt3PTQ2/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/10012020/29315.png</image_url>
-    <is_undroppable>0</is_undroppable>
-    <position_type>O</position_type>
-    <primary_position>TE</primary_position>
-    <eligible_positions>
-     <position>TE</position>
-     <position>W/R/T</position>
-    </eligible_positions>
-    <has_player_notes>1</has_player_notes>
-    <player_notes_last_timestamp>1631505889</player_notes_last_timestamp>
-   </player>
    <player>
     <player_key>406.p.29324</player_key>
     <player_id>29324</player_id>
@@ -125,6 +91,8 @@
     <eligible_positions>
      <position>QB</position>
     </eligible_positions>
+    <has_player_notes>1</has_player_notes>
+    <player_notes_last_timestamp>1632083809</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.29328</player_key>
@@ -262,7 +230,7 @@
      <position>W/R/T</position>
     </eligible_positions>
     <has_player_notes>1</has_player_notes>
-    <player_notes_last_timestamp>1631544734</player_notes_last_timestamp>
+    <player_notes_last_timestamp>1632109915</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.29374</player_key>
@@ -608,6 +576,8 @@
      <ascii_first>Jakeem</ascii_first>
      <ascii_last>Grant</ascii_last>
     </name>
+    <status>Q</status>
+    <status_full>Questionable</status_full>
     <editorial_player_key>nfl.p.29420</editorial_player_key>
     <editorial_team_key>nfl.t.15</editorial_team_key>
     <editorial_team_full_name>Miami Dolphins</editorial_team_full_name>
@@ -859,7 +829,39 @@
      <position>W/R/T</position>
     </eligible_positions>
    </player>
+   <player>
+    <player_key>406.p.29470</player_key>
+    <player_id>29470</player_id>
+    <name>
+     <full>Dwayne Washington</full>
+     <first>Dwayne</first>
+     <last>Washington</last>
+     <ascii_first>Dwayne</ascii_first>
+     <ascii_last>Washington</ascii_last>
+    </name>
+    <editorial_player_key>nfl.p.29470</editorial_player_key>
+    <editorial_team_key>nfl.t.18</editorial_team_key>
+    <editorial_team_full_name>New Orleans Saints</editorial_team_full_name>
+    <editorial_team_abbr>NO</editorial_team_abbr>
+    <bye_weeks>
+     <week>6</week>
+    </bye_weeks>
+    <uniform_number>24</uniform_number>
+    <display_position>RB</display_position>
+    <headshot>
+     <url>https://s.yimg.com/iu/api/res/1.2/2yaLQYE0w6XFAuYPTEgKsg--~C/YXBwaWQ9eXNwb3J0cztjaD0yMzM2O2NyPTE7Y3c9MTc5MDtkeD04NTc7ZHk9MDtmaT11bGNyb3A7aD02MDtxPTEwMDt3PTQ2/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08262021/29470.png</url>
+     <size>small</size>
+    </headshot>
+    <image_url>https://s.yimg.com/iu/api/res/1.2/2yaLQYE0w6XFAuYPTEgKsg--~C/YXBwaWQ9eXNwb3J0cztjaD0yMzM2O2NyPTE7Y3c9MTc5MDtkeD04NTc7ZHk9MDtmaT11bGNyb3A7aD02MDtxPTEwMDt3PTQ2/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/08262021/29470.png</image_url>
+    <is_undroppable>0</is_undroppable>
+    <position_type>O</position_type>
+    <primary_position>RB</primary_position>
+    <eligible_positions>
+     <position>RB</position>
+     <position>W/R/T</position>
+    </eligible_positions>
+   </player>
   </players>
  </league>
 </fantasy_content>
-<!-- fantasy-sports-api- -public-production-bf1-665547d576-w4zp6 Wed Sep 15 13:43:39 UTC 2021 -->
+<!-- fantasy-sports-api- -public-production-bf1-7978478b56-zqgvf Wed Sep 22 13:55:18 UTC 2021 -->

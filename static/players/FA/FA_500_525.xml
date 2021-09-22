@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.497791/players;start=500;status=FA" time="122.26796150208ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
+<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.497791/players;start=500;status=FA" time="118.63589286804ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
  <league>
   <league_key>406.l.497791</league_key>
   <league_id>497791</league_id>
@@ -8,9 +8,9 @@
   <logo_url></logo_url>
   <draft_status>postdraft</draft_status>
   <num_teams>12</num_teams>
-  <edit_key>2</edit_key>
+  <edit_key>3</edit_key>
   <weekly_deadline/>
-  <league_update_timestamp>1631686912</league_update_timestamp>
+  <league_update_timestamp>1632290892</league_update_timestamp>
   <scoring_type>head</scoring_type>
   <league_type>private</league_type>
   <renew>399_665951</renew>
@@ -19,7 +19,7 @@
   <allow_add_to_dl_extra_pos>0</allow_add_to_dl_extra_pos>
   <is_pro_league>0</is_pro_league>
   <is_cash_league>0</is_cash_league>
-  <current_week>2</current_week>
+  <current_week>3</current_week>
   <start_week>1</start_week>
   <start_date>2021-09-09</start_date>
   <end_week>17</end_week>
@@ -269,8 +269,6 @@
      <ascii_first>Penny</ascii_first>
      <ascii_last>Hart</ascii_last>
     </name>
-    <status>Q</status>
-    <status_full>Questionable</status_full>
     <editorial_player_key>nfl.p.32293</editorial_player_key>
     <editorial_team_key>nfl.t.26</editorial_team_key>
     <editorial_team_full_name>Seattle Seahawks</editorial_team_full_name>
@@ -303,8 +301,8 @@
      <ascii_first>Antoine</ascii_first>
      <ascii_last>Wesley</ascii_last>
     </name>
-    <status>COVID-19</status>
-    <status_full>Reserve: COVID-19</status_full>
+    <status>NA</status>
+    <status_full>Inactive: Coach's Decision or Not on Roster</status_full>
     <editorial_player_key>nfl.p.32317</editorial_player_key>
     <editorial_team_key>nfl.t.22</editorial_team_key>
     <editorial_team_full_name>Arizona Cardinals</editorial_team_full_name>
@@ -325,10 +323,10 @@
     <eligible_positions>
      <position>WR</position>
      <position>W/R/T</position>
-     <position>IR</position>
     </eligible_positions>
     <has_player_notes>1</has_player_notes>
-    <player_notes_last_timestamp>1631307712</player_notes_last_timestamp>
+    <has_recent_player_notes>1</has_recent_player_notes>
+    <player_notes_last_timestamp>1632263840</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.32342</player_key>
@@ -543,6 +541,8 @@
      <ascii_first>Joey</ascii_first>
      <ascii_last>Slye</ascii_last>
     </name>
+    <status>NA</status>
+    <status_full>Inactive: Coach's Decision or Not on Roster</status_full>
     <editorial_player_key>nfl.p.32384</editorial_player_key>
     <editorial_team_key>nfl.t.34</editorial_team_key>
     <editorial_team_full_name>Houston Texans</editorial_team_full_name>
@@ -564,7 +564,7 @@
      <position>K</position>
     </eligible_positions>
     <has_player_notes>1</has_player_notes>
-    <player_notes_last_timestamp>1631395338</player_notes_last_timestamp>
+    <player_notes_last_timestamp>1631982390</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.32390</player_key>
@@ -632,7 +632,7 @@
      <position>W/R/T</position>
     </eligible_positions>
     <has_player_notes>1</has_player_notes>
-    <player_notes_last_timestamp>1631491560</player_notes_last_timestamp>
+    <player_notes_last_timestamp>1632088899</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.32409</player_key>
@@ -733,8 +733,6 @@
     <eligible_positions>
      <position>K</position>
     </eligible_positions>
-    <has_player_notes>1</has_player_notes>
-    <player_notes_last_timestamp>1631301706</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.32418</player_key>
@@ -814,8 +812,6 @@
      <ascii_first>Trenton</ascii_first>
      <ascii_last>Irwin</ascii_last>
     </name>
-    <status>NA</status>
-    <status_full>Inactive: Coach's Decision or Not on Roster</status_full>
     <editorial_player_key>nfl.p.32438</editorial_player_key>
     <editorial_team_key>nfl.t.4</editorial_team_key>
     <editorial_team_full_name>Cincinnati Bengals</editorial_team_full_name>
@@ -875,4 +871,4 @@
   </players>
  </league>
 </fantasy_content>
-<!-- fantasy-sports-api- -public-production-bf1-665547d576-5qk4p Wed Sep 15 13:44:09 UTC 2021 -->
+<!-- fantasy-sports-api- -public-production-bf1-7978478b56-p6gcg Wed Sep 22 13:55:49 UTC 2021 -->
