@@ -385,6 +385,7 @@ def get_defense_tot(curr_week, point_totals_dict, over_expected):
 						which_team = team
 					if over_expected:
 						#print(which_team, point_totals_dict[which_team])
+						#print(which_team)
 						j[act_key] += point_totals_dict[which_team][f"{pos}_wk{week+1}_act"]
 						j[proj_key] += point_totals_dict[opp_team][f"{pos}_wk{week+1}_proj"]
 						j[key] += point_totals_dict[which_team][key]
@@ -670,6 +671,9 @@ def fix_roster(roster, team):
 		roster["keith smith"] = "FB"
 	elif team == "car":
 		roster["ryan santoso"] = "K"
+		roster["zane gonzalez"] = "K"
+	elif team == "oti":
+		roster["randy bullock"] = "K"
 	return
 
 def write_team_rosters(teamlinks={}):
@@ -866,7 +870,6 @@ def add_stats(boxscorelinks, team, teampath, boxlink, week_arg, team_arg):
 					soup = BS(c, "lxml")
 					break
 
-		#print(i, html is None, outfile)
 		rows = soup.find("table", id=inner_ids[i]).find_all("tr")
 		for tr in rows[2:]:
 			classes = tr.get("class")
@@ -937,7 +940,6 @@ def write_boxscore_stats(week_arg, team_arg):
 		with open("{}/boxscores.json".format(teampath)) as fh:
 			boxscorelinks = json.loads(fh.read())
 		for boxlink in boxscorelinks:
-			#print(team, boxlink)
 			add_stats(boxscorelinks, team, teampath, boxlink, week_arg, team_arg)
 
 
@@ -974,18 +976,17 @@ if __name__ == "__main__":
 			print("\n#Wk{} vs. {} {} - {} pts".format(data["week"], data["opp"], args.pos, data["points"]))
 			arr = [ d.split(": ")[1] for d in data["players"] ]
 			print("\n".join(arr))
-		#print(opp1)
 	elif args.cron:
 		pass
 		# only needs to be run once in a while
 		
 		#write_team_links()
 		#write_schedule()
-		#write_team_rosters()
+		write_team_rosters()
 		#write_boxscore_links()
 		
-		write_boxscore_stats(args.week, args.team)
-		calculate_aggregate_stats()
+		#write_boxscore_stats(args.week, args.team)
+		#calculate_aggregate_stats()
 
 	#write_team_rosters()
 	#write_boxscore_stats()

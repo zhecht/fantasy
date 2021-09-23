@@ -21,18 +21,24 @@ const showBreakdown = function() {
 
 	const team = this.id.split("_")[0];
 	const pos = this.id.split("_")[1];
-	let dispPos = pos;
-	if (dispPos == "DEF") {
-		dispPos = "OFF";
-	}
 	const win = document.getElementById("breakdownWrapper");
-	win.querySelector("h1").innerText = team.toUpperCase()+" DEF vs. "+dispPos;
+	if (pos == "DEF") {
+		win.querySelector("h1").innerText = "Defenses vs. "+team.toUpperCase()+" OFF";
+	} else {
+		win.querySelector("h1").innerText = team.toUpperCase()+" DEF vs. "+pos;
+	}
 	win.style.display = "flex";
 	renderTable(team, pos);
-	window.scrollTo(0, 0);
 }
 
 const trendFormatter = function(cell, params, rendered) {
+	return cell.getValue();
+}
+
+const playerFormatter = function(cell, params, rendered) {
+	if (cell.getValue() == "Off") {
+		return cell.getRow().getData()["team"].toUpperCase()+" DEF";
+	}
 	return cell.getValue();
 }
 
@@ -65,7 +71,7 @@ function renderTable(team, pos) {
 		],
 		*/
 		columns: [
-			{title: "Player", field: "player", headerFilter: "input", width: "200"},
+			{title: "Player", field: "player", headerFilter: "input", formatter: playerFormatter, width: "200"},
 			{title: "Stats", field: "stats"},
 			{title: "Projected", field: "projected", width: "120", hozAlign: "center"},
 			{title: "Actual", field: "actual", width: "120", hozAlign: "center"},
