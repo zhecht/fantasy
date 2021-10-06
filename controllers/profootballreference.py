@@ -149,7 +149,7 @@ def calculate_aggregate_stats(settings=None):
 	teamlinks = {}
 	with open("{}static/profootballreference/teams.json".format(prefix)) as fh:
 		teamlinks = json.loads(fh.read())
-	
+
 	for team in teamlinks:
 		stats = {}
 		path = "{}static/profootballreference/{}".format(prefix, team.split("/")[-2])
@@ -199,8 +199,13 @@ def calculate_aggregate_stats(settings=None):
 					stats[player]["wk{}".format(week)]["{}_points".format(s)] = pts
 					stats[player]["tot"]["{}_points".format(s)] += pts
 			
+		fixStats(team.split("/")[-2], stats)
 		with open("{}/stats.json".format(path), "w") as fh:
 			json.dump(stats, fh, indent=4)
+
+def fixStats(team, stats):
+	if team == "htx":
+		stats["kaimi fairbairn"]["wk4"] = {"standard_points": 0, "half_points": 0, "full_points": 0}
 
 # return (in order) list of opponents
 def get_opponents(team):
@@ -385,7 +390,7 @@ def get_defense_tot(curr_week, point_totals_dict, over_expected):
 						which_team = team
 					if over_expected:
 						#print(which_team, point_totals_dict[which_team])
-						#print(which_team)
+						print(which_team, week, pos)
 						j[act_key] += point_totals_dict[which_team][f"{pos}_wk{week+1}_act"]
 						j[proj_key] += point_totals_dict[opp_team][f"{pos}_wk{week+1}_proj"]
 						j[key] += point_totals_dict[which_team][key]
@@ -672,6 +677,13 @@ def fix_roster(roster, team):
 	elif team == "car":
 		roster["ryan santoso"] = "K"
 		roster["zane gonzalez"] = "K"
+	elif team == "det":
+		roster["ryan santoso"] = "K"
+	elif team == "htx":
+		roster["davis mills"] = "QB"
+		roster["kaimi fairbairn"] = "K"
+	elif team == "jax":
+		roster["matthew wright"] = "K"
 	elif team == "oti":
 		roster["randy bullock"] = "K"
 	return
@@ -797,19 +809,21 @@ def get_defense_stats_from_scoring(outfile, team):
 	def_tds = 0
 	for row in rows[1:]:
 		tds = row.find_all("td")
-		ck_team = short_names[tds[1].text.lower()]        
+		ck_team = short_names[tds[1].text.lower()]
+		vis = 0 if tds[-2].text.strip() == "" else int(tds[-2].text)
+		home = 0 if tds[-1].text.strip() == "" else int(tds[-1].text)
 		if ck_team == team:
-			if int(tds[-2].text) - vis_score == 8:
+			if vis - vis_score == 8:
 				conversions += 1
-			elif int(tds[-1].text) - home_score == 8:
+			elif home - home_score == 8:
 				conversions += 1
 		else:
 			if tds[2].text.find("Safety") >= 0:
 				safety += 1
 			elif tds[2].text.find("interception return") >= 0 or tds[2].text.find("fumble return") >= 0:
 				def_tds += 1
-		vis_score = int(tds[-2].text)
-		home_score = int(tds[-1].text)
+		vis_score = vis
+		home_score = home
 	return {"2pt_conversions": conversions, "safety": safety, "def_tds": def_tds}
 
 def add_defense_stats(stats, tds):
@@ -982,11 +996,11 @@ if __name__ == "__main__":
 		
 		#write_team_links()
 		#write_schedule()
-		write_team_rosters()
+		#write_team_rosters()
 		#write_boxscore_links()
 		
 		#write_boxscore_stats(args.week, args.team)
-		#calculate_aggregate_stats()
+		calculate_aggregate_stats()
 
 	#write_team_rosters()
 	#write_boxscore_stats()

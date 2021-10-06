@@ -189,10 +189,13 @@ def fix_projections(all_projections):
 	# kickers always messes up
 	all_projections["matt ammendola"]["wk1"] = 5.4
 	all_projections["matt ammendola"]["wk2"] = 5.52
+	all_projections["matthew wright"]["wk3"] = 6.22
 	all_projections["michael badgley"]["wk1"] = 7.61
 	all_projections["nick folk"]["wk1"] = 6.09
 	all_projections["joey slye"]["wk1"] = 6.09
+	all_projections["joey slye"]["wk3"] = 6.22
 	all_projections["ryan santoso"]["wk1"] = 5.56
+	all_projections["ryan santoso"]["wk4"] = 6.22
 
 def parse_projections():
 	all_projections = {}
