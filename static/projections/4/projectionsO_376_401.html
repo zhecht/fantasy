@@ -1,0 +1,684 @@
+<!doctype html>
+<!--[if lt IE 7]>  <html class="ie ie6 lte9 lte8 lte7 skinId-1"  lang="en" id="template" > <![endif]-->
+<!--[if IE 7]>     <html class="ie ie7 lte9 lte8 lte7 gt6 skinId-1" lang="en" id="template"> <![endif]-->
+<!--[if IE 8]>     <html class="ie ie8 lte9 lte8 gt6 gt7 skinId-1" lang="en" id="template"> <![endif]-->
+<!--[if IE 9]>     <html class="ie ie9 lte9 gt6 gt7 gt8 skinId-1" lang="en" id="template"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html itemscope itemtype="http://schema.org/Organization" lang="en" class="not-ie skinId-1" id="template">
+<!--<![endif]-->
+<head>
+    
+<!-- app dynamics random number = 10 -->
+
+    <script src="/static/js/1632947080/bW9kZXJuaXpyLmpz.js" charset="utf-8"></script>
+    <script src="/min/index1?a=230443d8-649d-11e6-8b77-86f30ca893d3&g=ff-base"></script>
+    <link id="nfl-assets" /><script type="text/javascript">
+    var googletag = googletag || {};
+    googletag.cmd = googletag.cmd || [];
+    googletag.cmd.push(function() {
+        
+        googletag.pubads().enableSingleRequest();
+
+        // Disable initial load, we will use refresh() to fetch ads.
+        // Calling this function means that display() calls just
+        // register the slot as ready, but do not fetch ads for it.
+        googletag.pubads().disableInitialLoad();
+        googletag.pubads().collapseEmptyDivs();
+        // Enable services
+        googletag.enableServices();
+    });
+    (function() {
+        var gads = document.createElement("script");
+        gads.async = true;
+        gads.type = "text/javascript";
+        var useSSL = "https:" == document.location.protocol;
+        gads.src = (useSSL ? "https:" : "http:") + "//www.googletagservices.com/tag/js/gpt.js";
+        var node =document.getElementsByTagName("script")[0];
+        node.parentNode.insertBefore(gads, node);
+    })();
+</script>
+<script>
+    /* Adobe recommends adding this snippet to handle the flicker while they change content 
+        https://docs.adobe.com/content/help/en/launch/using/extensions-ref/adobe-extension/target-extension/overview.html#adobe-target-extension-with-an-asynchronous-deployment
+    */
+    ;(function(win, doc, style, timeout) {
+        var STYLE_ID = 'at-body-style';
+        function getParent() {
+            return doc.getElementsByTagName('head')[0];
+        }
+
+        function addStyle(parent, id, def) {
+            if (!parent) {
+            return;
+            }
+
+            var style = doc.createElement('style');
+            style.id = id;
+            style.innerHTML = def;
+            parent.appendChild(style);
+        }
+
+        function removeStyle(parent, id) {
+            if (!parent) {
+            return;
+            }
+
+            var style = doc.getElementById(id);
+
+            if (!style) {
+            return;
+            }
+
+            parent.removeChild(style);
+        }
+        addStyle(getParent(), STYLE_ID, style);
+        window.setTimeout(function() {
+            removeStyle(getParent(), STYLE_ID);
+        }, timeout);
+    }(window, document, "body {opacity: 0 !important}", 4000));
+</script>
+<script src="//assets.adobedtm.com/a5ea4e8f4344/9ef398705f83/launch-767faae3c07e.min.js" async></script>
+<script type="text/javascript">
+window.analyticsData = {
+    "user": {
+        "userID": null,
+        "leagueID": null,
+        "teamID": null,
+        "leagueManager": "non-commissioner",
+        "playerType": "anonymous",
+        "leagueType": null,
+        "QBplayerID": "",
+        "RBplayerID": "",
+        "WRplayerID": "",
+        "TEplayerID": "",
+        "KDEFplayerID": ""
+    },
+    "page": {
+        "siteName": "nfl fantasy",
+        "siteSection": "research",
+        "siteSubsection": "research projections",
+        "globalDomain": "fantasy.nfl.com",
+        "contentType": "landing",
+        "pageDetail": "landing",
+        "siteLanguage": "english",
+        "optimizedFor": "desktop",
+        "pageName": "nfl fantasy:research:research projections:landing"
+    }
+};
+
+</script>
+<!-- Quantcast Choice. Consent Manager Tag v2.0 (for TCF 2.0) -->
+<script type="text/javascript" async=true>
+(function () {
+    var host = window.location.hostname;
+    var element = document.createElement("script");
+    var firstScript = document.getElementsByTagName("script")[0];
+    var milliseconds = new Date().getTime();
+    var url = "https://quantcast.mgr.consensu.org".concat(
+        "/choice/",
+        "gGpYeVwuEvd4w",
+        "/",
+        host,
+        "/choice.js"
+    );
+    var uspTries = 0;
+    var uspTriesLimit = 3;
+    element.async = true;
+    element.type = "text/javascript";
+    element.src = url;
+    firstScript.parentNode.insertBefore(element, firstScript);
+    function makeStub() {
+        var TCF_LOCATOR_NAME = "__tcfapiLocator";
+        var queue = [];
+        var win = window;
+        var cmpFrame;
+        function addFrame() {
+            var doc = win.document;
+            var otherCMP = !!win.frames[TCF_LOCATOR_NAME];
+            if (!otherCMP) {
+                if (doc.body) {
+                    var iframe = doc.createElement("iframe");
+                    iframe.style.cssText = "display:none";
+                    iframe.name = TCF_LOCATOR_NAME;
+                    doc.body.appendChild(iframe);
+                } else {
+                    setTimeout(addFrame, 5);
+                }
+            }
+            return !otherCMP;
+        }
+        function tcfAPIHandler() {
+            var gdprApplies;
+            var args = arguments;
+            if (!args.length) {
+                return queue;
+            } else if (args[0] === "setGdprApplies") {
+                if (
+                    args.length > 3 &&
+                    args[2] === 2 &&
+                    typeof args[3] === "boolean"
+                ) {
+                    gdprApplies = args[3];
+                    if (typeof args[2] === "function") {
+                        args[2]("set", true);
+                    }
+                }
+            } else if (args[0] === "ping") {
+                var retr = {
+                    gdprApplies: gdprApplies,
+                    cmpLoaded: false,
+                    cmpStatus: "stub",
+                };
+                if (typeof args[2] === "function") {
+                    args[2](retr);
+                }
+            } else {
+                queue.push(args);
+            }
+        }
+        function postMessageEventHandler(event) {
+            var msgIsString = typeof event.data === "string";
+            var json = {};
+            try {
+                if (msgIsString) {
+                    json = JSON.parse(event.data);
+                } else {
+                    json = event.data;
+                }
+            } catch (ignore) {}
+            var payload = json.__tcfapiCall;
+            if (payload) {
+                window.__tcfapi(
+                    payload.command,
+                    payload.version,
+                    function (retValue, success) {
+                        var returnMsg = {
+                            __tcfapiReturn: {
+                                returnValue: retValue,
+                                success: success,
+                                callId: payload.callId,
+                            },
+                        };
+                        if (msgIsString) {
+                            returnMsg = JSON.stringify(returnMsg);
+                        }
+                        event.source.postMessage(returnMsg, "*");
+                    },
+                    payload.parameter
+                );
+            }
+        }
+        while (win) {
+            try {
+                if (win.frames[TCF_LOCATOR_NAME]) {
+                    cmpFrame = win;
+                    break;
+                }
+            } catch (ignore) {}
+            if (win === window.top) {
+                break;
+            }
+            win = win.parent;
+        }
+        if (!cmpFrame) {
+            addFrame();
+            win.__tcfapi = tcfAPIHandler;
+            win.addEventListener("message", postMessageEventHandler, false);
+        }
+    }
+    if (typeof module !== "undefined") {
+        module.exports = makeStub;
+    } else {
+        makeStub();
+    }
+    var uspStubFunction = function () {
+        var arg = arguments;
+        if (typeof window.__uspapi !== uspStubFunction) {
+            setTimeout(function () {
+                if (typeof window.__uspapi !== "undefined") {
+                    window.__uspapi.apply(window.__uspapi, arg);
+                }
+            }, 500);
+        }
+    };
+    var checkIfUspIsReady = function () {
+        uspTries++;
+        if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+            console.warn("USP is not accessible");
+        } else {
+            clearInterval(uspInterval);
+        }
+    };
+    if (typeof window.__uspapi === "undefined") {
+        window.__uspapi = uspStubFunction;
+        var uspInterval = setInterval(checkIfUspIsReady, 6000);
+    }
+})();
+var showAds = function () {
+    if (googletag) {
+        googletag.cmd.push(function () {
+            googletag.pubads().refresh();
+        });
+    }
+};
+var showNonTargetedAds = function () {
+    if (googletag) {
+        googletag.cmd.push(function () {
+            googletag.pubads().setRequestNonPersonalizedAds(1);
+            googletag.pubads().refresh();
+        });
+    }
+};
+window.__tcfapi("addEventListener", 2, function (tcData, success) {
+    if (success) {
+        if (!tcData.gdprApplies) {
+            showAds();
+        } else {
+            if (tcData.eventStatus === "tcloaded") {
+              showAds();
+            } else if (tcData.eventStatus === "useractioncomplete") {
+              showAds();
+            } else if (tcData.eventStatus !== "cmpuishown") {
+              showNonTargetedAds();
+            }
+        }
+    }
+});
+</script>
+<!-- End Quantcast Choice. Consent Manager Tag v2.0 (for TCF 2.0) -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "url": "https://fantasy.nfl.com/",
+    "logo": "https://fantasy.nfl.com/jslib/nav/images/fantasy-logo.svg"
+   }
+</script>
+<script type="text/javascript" src="https://cdns.gigya.com/js/gigya.js?apikey=3_6IbUU6Yac5wZNWTzWekDOBYozftBjwp89IyWep5HuC6pkL9u2y59TTC6rbcUHI6k"></script>
+<meta name="description" content="Explore fantasy football projections with latest player news, trends, injuries and other information and can be sorted statistically for your picks.">
+    <script>
+    (function (w) {
+
+        var FF = w.FF = w.FF || {};
+        FF.constants = {
+            AD_ORD:         1633440335,
+            ENV:            "production",
+            RENDER_START:   new Date(),
+            TIME:           1633443935000,
+            PLAYER_CARD_FEATURE: ""
+        };
+
+    }(window));
+    </script>
+    <!-- Loads the NFL constants -->
+    <script src="/static/js/1632947080/bmZsLWNvbnN0YW50cy5qcw...js"></script>
+    <script>
+      // Overwrite nfl constants with system defaults.
+      window.nfl.constants.ID_MANAGER = '/account/sign-in';
+    </script>
+    <title>Fantasy Football Projections | NFL Fantasy</title>
+    <meta name="msvalidate.01" content="EDD46A4B9FD14F0A47471FDE9821BA49"/>    <!-- print css -->
+        <!-- shared css -->
+        <link rel="stylesheet" type="text/css" href="/static/css/1632947080/cHVyZS1taW4uY3NzO3lyZXNldC5jc3M7Zm9udHMuY3NzO3NpdGUuY3NzO2ZvbnRmYWNlLmNzcztvdmVybGF5LmNzczt0YWJsZS5jc3M7cGFnaW5hdGlvbi5jc3M7Y2x1YkltYWdlcy5jc3M7bmZsTmF2LmNzcztmb3Jtc05vTGVzcy5jc3M7cGxheWVyQ2FyZC5jc3M7ZHluYW1pY0Vycm9yLmNzcztlcnJvcnMuY3NzO3ZpZGVvLmNzczttaXNjUHRzLmNzcztuYXZCYXIuY3NzO3Bvc2l0aW9uLW5hdi5jc3M7bmF2LWJhci5jc3M7dGFiQmFyLmNzczt0YWItYmFyLmNzcztsZWFybk1vcmUuY3NzO3BhcnRuZXJzLWxvZ2luLmNzcztwb3B1cC5jc3M7bW9kYWwtbG9naW4uY3NzO2ZhbnRhc3ktaGVhZGVyLmNzcztmZi1zYXAtbW9kYWwuY3NzO3l1aTItc2tpbi1zYW0tY2FsZW5kYXItbWluLmNzczt1cHNlbGwuY3Nz.css" />
+        <!-- page css  -->
+        <!-- main css file -->
+    <link rel="stylesheet" type="text/css" href="/static/css/1632947080/d2Vla05hdi5jc3M7cGxheWVycy1maWx0ZXIuY3NzO3BsYXllcnNIb21lLmNzcztsZWFybk1vcmUuY3Nz.css" />
+    
+
+    </head>
+
+<body id="researchProjectionsPage" class="noJs yui-skin-sam yui3-skin-sam g-a">
+
+
+<div id="doc">
+        <div id="hd-wrap">
+        <div id="hd">
+            <link type="text/css" rel="stylesheet" href="//fantasy.nfl.com/jslib/nav/index.css" />
+<script src="//fantasy.nfl.com/jslib/nav/index.js"></script>
+<div id="nfl-fantasy-nav"></div>
+<script type="text/javascript">
+    (function() {
+        var nav = window.NFL_FANTASY_NAV('#nfl-fantasy-nav', '');
+    }());
+</script>
+<noscript>
+    <div id="noJsMessage">
+        <p>Free Fantasy Football | 2015 Fantasy Football - NFL.com relies heavily on Javascript.</p>
+        <p class="last">For the ultimate experience please enable Javascript in your browser.</p>
+    </div>
+</noscript>
+        </div>
+    </div>
+            <div id="subHd">
+        <div id="googleadtag-BANNER459049056" class="ad ad-BANNER" style="width: 728px; height: 90px;" >
+    <script >
+    if (window.googletag) {
+        googletag.cmd.push(function() {
+            var path = "/4595/nfl.freefantasy/research/researchprojections",
+                size = [728, 90],
+                id = "googleadtag-BANNER459049056",
+                pubService = googletag.pubads();
+            googletag.defineSlot(path, size, id).
+                addService(pubService).
+                setTargeting('s1', 'research').setTargeting('s2', 'researchprojections').
+                setTargeting("slot", "top").
+                setTargeting("test", "").
+                setTargeting('leagueSpon', 'default').setTargeting('class', 'subHeaderBANNER').
+                setTargeting("url", "research_researchprojections");
+
+        });
+    }
+    </script>
+</div><style>
+    .g-a #bd, .g-b #bd, .g-c #bd { padding-top: 20px; }
+    #bd h1.title { display: none; }
+</style>
+<div class="subHeaderTOPPERcontainer">
+    <h1>Fantasy Football Player Projections</h1>
+    <span class="halfBg"></span>
+    <div id="googleadtag-TOPPER65809417" class="ad ad-TOPPER" style="width: 500px; height: 70px;" >
+    <script >
+    if (window.googletag) {
+        googletag.cmd.push(function() {
+            var path = "/4595/nfl.freefantasy/research/researchprojections",
+                size = [500, 70],
+                id = "googleadtag-TOPPER65809417",
+                pubService = googletag.pubads();
+            googletag.defineSlot(path, size, id).
+                addService(pubService).
+                setTargeting('s1', 'research').setTargeting('s2', 'researchprojections').
+                setTargeting("slot", "spon").
+                setTargeting("test", "").
+                setTargeting('leagueSpon', 'default').setTargeting('class', 'subHeaderTOPPER').
+                setTargeting("url", "research_researchprojections");
+
+        });
+    }
+    </script>
+</div>
+</div>    </div>
+            <div id="bd-wrap">
+    <div id="bd">
+
+        
+        
+        <h1 class='title'>Fantasy Football Player Projections</h1>
+
+        
+                            <div id="primary"><div id="primaryContent">
+                <div id="researchProjections" class="mod dynamicModule history-researchProjections cache-* moduleName-researchProjections">
+    <div class="content">
+        <div class="hd">
+            <div class="summary">View and sort statistical and fantasy football player projections based on the latest player news, injury updates and trends. <a href="/registration/learnMore#lm-playerProjections" class="learnMore" onclick="return false;">Learn More &gt;</a>            </div>
+            <div id="players-filter" class="mod">
+                <div class="content">
+                    <div class="hd">
+                        <div class="wrap"> 
+                        
+                            <form method="get" class="searchForm" action="/research/search">
+                            <ul><li class="textbox first"><span class="error"></span><label for="searchQuery">Search Player By Name</label> <input class="xautocomplete text" id="searchQuery" name="searchQuery" type="text" value="Search Player By Name"/><b class="submit"></b></li><li class="submit last"><strong class="submit"><input class="submit" name="jSubmit" type="submit" value="Submit"/></strong></li></ul><input class="hidden" name="statCategory" type="hidden" value="projectedStats"/><input class="hidden" name="statType" type="hidden" value="weekProjectedStats"/><input class="hidden" name="statSeason" type="hidden" value="2021"/><input class="hidden" name="statWeek" type="hidden" value="4"/><input class="hidden" name="sort" type="hidden" value="projectedPts"/><input class="hidden" name="position" type="hidden" value="O"/>                            </form>
+                        
+                            <div class="position-nav nav-bar">
+                                <ul><li class="posLabel first"><span>Position:</span></li><li id="posO" class="selected"><a href="/research/projections?position=O&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4"  class="dynamic"><span>All Offense</span></a></li><li id="pos1"><a href="/research/projections?position=1&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4"  class="dynamic"><span>QB</span></a></li><li id="pos2"><a href="/research/projections?position=2&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4"  class="dynamic"><span>RB</span></a></li><li id="pos3"><a href="/research/projections?position=3&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4"  class="dynamic"><span>WR</span></a></li><li id="pos4"><a href="/research/projections?position=4&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4"  class="dynamic"><span>TE</span></a></li><li id="pos7"><a href="/research/projections?position=7&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4"  class="dynamic"><span>K</span></a></li><li id="pos8" class="last"><a href="/research/projections?position=8&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4"  class="dynamic"><span>DEF</span></a></li></ul>                            </div>
+                        </div>
+                    </div>
+                    <div class="bd">
+                        <div class='stat-type-nav'><ul class="weekNav weekNav-full nav-bar"><li class="wl label first"><span><span class="effect"></span><span class="text">Weeks:</span></span></li><li class="ww ww-1"><a href="/research/projections?position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=1"  class="dynamic w-1"><span>1</span></a></li><li class="ww ww-2"><a href="/research/projections?position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=2"  class="dynamic w-2"><span>2</span></a></li><li class="ww ww-3"><a href="/research/projections?position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=3"  class="dynamic w-3"><span>3</span></a></li><li class="ww ww-4 selected"><a href="/research/projections?position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4"  class="dynamic w-4"><span>4</span></a></li><li class="ww ww-5"><a href="/research/projections?position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=5"  class="dynamic w-5"><span>5</span></a></li><li class="ww ww-6"><a href="/research/projections?position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=6"  class="dynamic w-6"><span>6</span></a></li><li class="ww ww-7"><a href="/research/projections?position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=7"  class="dynamic w-7"><span>7</span></a></li><li class="ww ww-8"><a href="/research/projections?position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=8"  class="dynamic w-8"><span>8</span></a></li><li class="ww ww-9"><a href="/research/projections?position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=9"  class="dynamic w-9"><span>9</span></a></li><li class="ww ww-10"><a href="/research/projections?position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=10"  class="dynamic w-10"><span>10</span></a></li><li class="ww ww-11"><a href="/research/projections?position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=11"  class="dynamic w-11"><span>11</span></a></li><li class="ww ww-12"><a href="/research/projections?position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=12"  class="dynamic w-12"><span>12</span></a></li><li class="ww ww-13"><a href="/research/projections?position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=13"  class="dynamic w-13"><span>13</span></a></li><li class="ww ww-14"><a href="/research/projections?position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=14"  class="dynamic w-14"><span>14</span></a></li><li class="ww ww-15"><a href="/research/projections?position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=15"  class="dynamic w-15"><span>15</span></a></li><li class="ww ww-16"><a href="/research/projections?position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=16"  class="dynamic w-16"><span>16</span></a></li><li class="ww ww-17"><a href="/research/projections?position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=17"  class="dynamic w-17"><span>17</span></a></li><li class="ww ww-18"><a href="/research/projections?position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=18"  class="dynamic w-18"><span>18</span></a></li><li id="st2021" class="last"><a href="/research/projections?position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=seasonProjectedStats"  class="dynamic"><span><span class="effect"></span><span class="text">2021 Season</span></span></a></li></ul></div>
+                        <div class="paginationWrap">
+                            <div class="pagination search"><span class="paginationTitle"> 376 - 400 of 934 </span><ul><li class="prev first"><a href="?offset=351&position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4"  class="dynamic"><</a></li><li class="pageNav-pageNav-11"><a href="?offset=276&position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4"  class="dynamic">12</a></li><li class="pageNav-pageNav-12"><a href="?offset=301&position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4"  class="dynamic">13</a></li><li class="pageNav-pageNav-13"><a href="?offset=326&position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4"  class="dynamic">14</a></li><li class="pageNav-pageNav-14"><a href="?offset=351&position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4"  class="dynamic">15</a></li><li class="pageNav-pageNav-15"><span class="dynamic">16</span></li><li class="pageNav-pageNav-16"><a href="?offset=401&position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4"  class="dynamic">17</a></li><li class="pageNav-pageNav-17"><a href="?offset=426&position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4"  class="dynamic">18</a></li><li class="pageNav-pageNav-18"><a href="?offset=451&position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4"  class="dynamic">19</a></li><li class="pageNav-pageNav-19"><a href="?offset=476&position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4"  class="dynamic">20</a></li><li class="next last"><a href="?offset=401&position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4"  class="dynamic">></a></li></ul></div>                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="bd">
+            <div class="tableWrap"><table cellpadding="0" cellspacing="0" class="tableType-player hasGroups"><thead><tr class="first"><th class="playerNameAndInfo first">&nbsp;</th><th class="playerOpponent">&nbsp;</th><th class="group passing firstgroup-passing" colspan="3" scope="colgroup"><em><b></b><span>Passing</span></em></th><th class="group rushing firstgroup-rushing" colspan="2" scope="colgroup"><em><b></b><span>Rushing</span></em></th><th class="group receiving firstgroup-receiving" colspan="3" scope="colgroup"><em><b></b><span>Receiving</span></em></th><th class="group return firstgroup-return" scope="colgroup"><em><b></b><span>Ret</span></em></th><th class="group misc firstgroup-misc" colspan="2" scope="colgroup"><em><b></b><span>Misc</span></em></th><th class="group fumble firstgroup-fumble" scope="colgroup"><em><b></b><span>Fum</span></em></th><th class="group points firstgroup-points last" scope="colgroup"><em><b></b><span>Fantasy</span></em></th></tr><tr class="last"><th class="playerNameAndInfo first" scope="col"><a href="/research/projections?position=O&sort=name&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4" class="dynamic">Player</a></th><th class="playerOpponent" scope="col"><span>Opp</span></th><th class="stat stat_5 numeric" scope="col"><a href="/research/projections?position=O&sort=5&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4" class="dynamic">Yds</a></th><th class="stat stat_6 numeric" scope="col"><a href="/research/projections?position=O&sort=6&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4" class="dynamic">TD</a></th><th class="stat stat_7 numeric" scope="col"><a href="/research/projections?position=O&sort=7&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4" class="dynamic">Int</a></th><th class="stat stat_14 numeric" scope="col"><a href="/research/projections?position=O&sort=14&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4" class="dynamic">Yds</a></th><th class="stat stat_15 numeric" scope="col"><a href="/research/projections?position=O&sort=15&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4" class="dynamic">TD</a></th><th class="stat stat_20 numeric" scope="col"><a href="/research/projections?position=O&sort=20&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4" class="dynamic">Rec</a></th><th class="stat stat_21 numeric" scope="col"><a href="/research/projections?position=O&sort=21&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4" class="dynamic">Yds</a></th><th class="stat stat_22 numeric" scope="col"><a href="/research/projections?position=O&sort=22&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4" class="dynamic">TD</a></th><th class="stat stat_28 numeric" scope="col"><a href="/research/projections?position=O&sort=28&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4" class="dynamic">TD</a></th><th class="stat stat_29 numeric" scope="col"><a href="/research/projections?position=O&sort=29&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4" class="dynamic">FumTD</a></th><th class="stat stat_32 numeric" scope="col"><a href="/research/projections?position=O&sort=32&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4" class="dynamic">2PT</a></th><th class="stat stat_30 numeric" scope="col"><a href="/research/projections?position=O&sort=30&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4" class="dynamic">Lost</a></th><th class="stat projected numeric sorted last" scope="col"><a href="/research/projections?position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4" class="dynamic">Points</a></th></tr></thead><tbody><tr class="player-2552622 odd first"><td class="playerNameAndInfo first"><div class="c c-jax"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2552622" class="playerCard playerName playerNameFull playerNameId-2552622 what-playerCard">Chris Manhertz</a> <em>TE - JAX</em>    </div></td><td class="playerOpponent">@CIN</td><td class="stat stat_5 numeric"><span class="playerStat statId-5 playerId-2552622">-</span></td><td class="stat stat_6 numeric"><span class="playerStat statId-6 playerId-2552622">-</span></td><td class="stat stat_7 numeric"><span class="playerStat statId-7 playerId-2552622">-</span></td><td class="stat stat_14 numeric"><span class="playerStat statId-14 playerId-2552622">0.07</span></td><td class="stat stat_15 numeric"><span class="playerStat statId-15 playerId-2552622">-</span></td><td class="stat stat_20 numeric"><span class="playerStat statId-20 playerId-2552622">0.36</span></td><td class="stat stat_21 numeric"><span class="playerStat statId-21 playerId-2552622">3.47</span></td><td class="stat stat_22 numeric"><span class="playerStat statId-22 playerId-2552622">0.03</span></td><td class="stat stat_28 numeric"><span class="playerStat statId-28 playerId-2552622">-</span></td><td class="stat stat_29 numeric"><span class="playerStat statId-29 playerId-2552622">-</span></td><td class="stat stat_32 numeric"><span class="playerStat statId-32 playerId-2552622">-</span></td><td class="stat stat_30 numeric"><span class="playerStat statId-30 playerId-2552622">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2552622">0.89</span></td></tr><tr class="player-2566160 even"><td class="playerNameAndInfo first"><div class="c c-jax"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2566160" class="playerCard playerName playerNameFull playerNameId-2566160 what-playerCard">Luke Farrell</a> <em>TE - JAX</em>    </div></td><td class="playerOpponent">@CIN</td><td class="stat stat_5 numeric"><span class="playerStat statId-5 playerId-2566160">-</span></td><td class="stat stat_6 numeric"><span class="playerStat statId-6 playerId-2566160">-</span></td><td class="stat stat_7 numeric"><span class="playerStat statId-7 playerId-2566160">-</span></td><td class="stat stat_14 numeric"><span class="playerStat statId-14 playerId-2566160">0.06</span></td><td class="stat stat_15 numeric"><span class="playerStat statId-15 playerId-2566160">-</span></td><td class="stat stat_20 numeric"><span class="playerStat statId-20 playerId-2566160">0.33</span></td><td class="stat stat_21 numeric"><span class="playerStat statId-21 playerId-2566160">3.64</span></td><td class="stat stat_22 numeric"><span class="playerStat statId-22 playerId-2566160">0.03</span></td><td class="stat stat_28 numeric"><span class="playerStat statId-28 playerId-2566160">-</span></td><td class="stat stat_29 numeric"><span class="playerStat statId-29 playerId-2566160">-</span></td><td class="stat stat_32 numeric"><span class="playerStat statId-32 playerId-2566160">-</span></td><td class="stat stat_30 numeric"><span class="playerStat statId-30 playerId-2566160">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2566160">0.88</span></td></tr><tr class="player-2553900 odd"><td class="playerNameAndInfo first"><div class="c c-nyj"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2553900" class="playerCard playerName playerNameFull playerNameId-2553900 what-playerCard">Daniel Brown</a> <em>TE - NYJ</em>    </div></td><td class="playerOpponent">TEN</td><td class="stat stat_5 numeric"><span class="playerStat statId-5 playerId-2553900">-</span></td><td class="stat stat_6 numeric"><span class="playerStat statId-6 playerId-2553900">-</span></td><td class="stat stat_7 numeric"><span class="playerStat statId-7 playerId-2553900">-</span></td><td class="stat stat_14 numeric"><span class="playerStat statId-14 playerId-2553900">0.05</span></td><td class="stat stat_15 numeric"><span class="playerStat statId-15 playerId-2553900">-</span></td><td class="stat stat_20 numeric"><span class="playerStat statId-20 playerId-2553900">0.24</span></td><td class="stat stat_21 numeric"><span class="playerStat statId-21 playerId-2553900">3.85</span></td><td class="stat stat_22 numeric"><span class="playerStat statId-22 playerId-2553900">0.04</span></td><td class="stat stat_28 numeric"><span class="playerStat statId-28 playerId-2553900">-</span></td><td class="stat stat_29 numeric"><span class="playerStat statId-29 playerId-2553900">-</span></td><td class="stat stat_32 numeric"><span class="playerStat statId-32 playerId-2553900">-</span></td><td class="stat stat_30 numeric"><span class="playerStat statId-30 playerId-2553900">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2553900">0.87</span></td></tr><tr class="player-2552636 even"><td class="playerNameAndInfo first"><div class="c c-kc"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2552636" class="playerCard playerName playerNameFull playerNameId-2552636 what-playerCard">Michael Burton</a> <em>RB - KC</em>    </div></td><td class="playerOpponent">@PHI</td><td class="stat stat_5 numeric"><span class="playerStat statId-5 playerId-2552636">-</span></td><td class="stat stat_6 numeric"><span class="playerStat statId-6 playerId-2552636">-</span></td><td class="stat stat_7 numeric"><span class="playerStat statId-7 playerId-2552636">-</span></td><td class="stat stat_14 numeric"><span class="playerStat statId-14 playerId-2552636">0.54</span></td><td class="stat stat_15 numeric"><span class="playerStat statId-15 playerId-2552636">-</span></td><td class="stat stat_20 numeric"><span class="playerStat statId-20 playerId-2552636">0.45</span></td><td class="stat stat_21 numeric"><span class="playerStat statId-21 playerId-2552636">2.42</span></td><td class="stat stat_22 numeric"><span class="playerStat statId-22 playerId-2552636">0.02</span></td><td class="stat stat_28 numeric"><span class="playerStat statId-28 playerId-2552636">-</span></td><td class="stat stat_29 numeric"><span class="playerStat statId-29 playerId-2552636">-</span></td><td class="stat stat_32 numeric"><span class="playerStat statId-32 playerId-2552636">-</span></td><td class="stat stat_30 numeric"><span class="playerStat statId-30 playerId-2552636">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2552636">0.87</span></td></tr><tr class="player-2556861 odd"><td class="playerNameAndInfo first"><div class="c c-tb"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2556861" class="playerCard playerName playerNameFull playerNameId-2556861 what-playerCard">Jaydon Mickens</a> <em>WR - TB</em>    </div></td><td class="playerOpponent">@NE</td><td class="stat stat_5 numeric"><span class="playerStat statId-5 playerId-2556861">-</span></td><td class="stat stat_6 numeric"><span class="playerStat statId-6 playerId-2556861">-</span></td><td class="stat stat_7 numeric"><span class="playerStat statId-7 playerId-2556861">-</span></td><td class="stat stat_14 numeric"><span class="playerStat statId-14 playerId-2556861">0.35</span></td><td class="stat stat_15 numeric"><span class="playerStat statId-15 playerId-2556861">-</span></td><td class="stat stat_20 numeric"><span class="playerStat statId-20 playerId-2556861">0.3</span></td><td class="stat stat_21 numeric"><span class="playerStat statId-21 playerId-2556861">3.46</span></td><td class="stat stat_22 numeric"><span class="playerStat statId-22 playerId-2556861">0.02</span></td><td class="stat stat_28 numeric"><span class="playerStat statId-28 playerId-2556861">0.01</span></td><td class="stat stat_29 numeric"><span class="playerStat statId-29 playerId-2556861">-</span></td><td class="stat stat_32 numeric"><span class="playerStat statId-32 playerId-2556861">-</span></td><td class="stat stat_30 numeric"><span class="playerStat statId-30 playerId-2556861">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2556861">0.86</span></td></tr><tr class="player-2555365 even"><td class="playerNameAndInfo first"><div class="c c-cin"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2555365" class="playerCard playerName playerNameFull playerNameId-2555365 what-playerCard">Brandon Allen</a> <em>QB - CIN</em>    </div></td><td class="playerOpponent">JAX</td><td class="stat stat_5 numeric"><span class="playerStat statId-5 playerId-2555365">18.8</span></td><td class="stat stat_6 numeric"><span class="playerStat statId-6 playerId-2555365">0.05</span></td><td class="stat stat_7 numeric"><span class="playerStat statId-7 playerId-2555365">0.12</span></td><td class="stat stat_14 numeric"><span class="playerStat statId-14 playerId-2555365">-</span></td><td class="stat stat_15 numeric"><span class="playerStat statId-15 playerId-2555365">0.01</span></td><td class="stat stat_20 numeric"><span class="playerStat statId-20 playerId-2555365">-</span></td><td class="stat stat_21 numeric"><span class="playerStat statId-21 playerId-2555365">-</span></td><td class="stat stat_22 numeric"><span class="playerStat statId-22 playerId-2555365">-</span></td><td class="stat stat_28 numeric"><span class="playerStat statId-28 playerId-2555365">-</span></td><td class="stat stat_29 numeric"><span class="playerStat statId-29 playerId-2555365">-</span></td><td class="stat stat_32 numeric"><span class="playerStat statId-32 playerId-2555365">0.04</span></td><td class="stat stat_30 numeric"><span class="playerStat statId-30 playerId-2555365">0.01</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2555365">0.83</span></td></tr><tr class="player-2557033 odd"><td class="playerNameAndInfo first"><div class="c c-no"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2557033" class="playerCard playerName playerNameFull playerNameId-2557033 what-playerCard">Garrett Griffin</a> <em>TE - NO</em>    </div></td><td class="playerOpponent">NYG</td><td class="stat stat_5 numeric"><span class="playerStat statId-5 playerId-2557033">-</span></td><td class="stat stat_6 numeric"><span class="playerStat statId-6 playerId-2557033">-</span></td><td class="stat stat_7 numeric"><span class="playerStat statId-7 playerId-2557033">-</span></td><td class="stat stat_14 numeric"><span class="playerStat statId-14 playerId-2557033">0.14</span></td><td class="stat stat_15 numeric"><span class="playerStat statId-15 playerId-2557033">-</span></td><td class="stat stat_20 numeric"><span class="playerStat statId-20 playerId-2557033">0.36</span></td><td class="stat stat_21 numeric"><span class="playerStat statId-21 playerId-2557033">3.29</span></td><td class="stat stat_22 numeric"><span class="playerStat statId-22 playerId-2557033">0.02</span></td><td class="stat stat_28 numeric"><span class="playerStat statId-28 playerId-2557033">-</span></td><td class="stat stat_29 numeric"><span class="playerStat statId-29 playerId-2557033">-</span></td><td class="stat stat_32 numeric"><span class="playerStat statId-32 playerId-2557033">-</span></td><td class="stat stat_30 numeric"><span class="playerStat statId-30 playerId-2557033">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2557033">0.82</span></td></tr><tr class="player-2563327 even"><td class="playerNameAndInfo first"><div class="c c-cle"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2563327" class="playerCard playerName playerNameFull playerNameId-2563327 what-playerCard">D'Ernest Johnson</a> <em>RB - CLE</em>    </div></td><td class="playerOpponent">@MIN</td><td class="stat stat_5 numeric"><span class="playerStat statId-5 playerId-2563327">-</span></td><td class="stat stat_6 numeric"><span class="playerStat statId-6 playerId-2563327">-</span></td><td class="stat stat_7 numeric"><span class="playerStat statId-7 playerId-2563327">-</span></td><td class="stat stat_14 numeric"><span class="playerStat statId-14 playerId-2563327">1.05</span></td><td class="stat stat_15 numeric"><span class="playerStat statId-15 playerId-2563327">-</span></td><td class="stat stat_20 numeric"><span class="playerStat statId-20 playerId-2563327">0.31</span></td><td class="stat stat_21 numeric"><span class="playerStat statId-21 playerId-2563327">2.88</span></td><td class="stat stat_22 numeric"><span class="playerStat statId-22 playerId-2563327">0.02</span></td><td class="stat stat_28 numeric"><span class="playerStat statId-28 playerId-2563327">-</span></td><td class="stat stat_29 numeric"><span class="playerStat statId-29 playerId-2563327">-</span></td><td class="stat stat_32 numeric"><span class="playerStat statId-32 playerId-2563327">-</span></td><td class="stat stat_30 numeric"><span class="playerStat statId-30 playerId-2563327">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2563327">0.82</span></td></tr><tr class="player-2566580 odd"><td class="playerNameAndInfo first"><div class="c c-was"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2566580" class="playerCard playerName playerNameFull playerNameId-2566580 what-playerCard">John Bates</a> <em>TE - WAS</em>    </div></td><td class="playerOpponent">@ATL</td><td class="stat stat_5 numeric"><span class="playerStat statId-5 playerId-2566580">-</span></td><td class="stat stat_6 numeric"><span class="playerStat statId-6 playerId-2566580">-</span></td><td class="stat stat_7 numeric"><span class="playerStat statId-7 playerId-2566580">-</span></td><td class="stat stat_14 numeric"><span class="playerStat statId-14 playerId-2566580">0.06</span></td><td class="stat stat_15 numeric"><span class="playerStat statId-15 playerId-2566580">-</span></td><td class="stat stat_20 numeric"><span class="playerStat statId-20 playerId-2566580">0.34</span></td><td class="stat stat_21 numeric"><span class="playerStat statId-21 playerId-2566580">3.33</span></td><td class="stat stat_22 numeric"><span class="playerStat statId-22 playerId-2566580">0.02</span></td><td class="stat stat_28 numeric"><span class="playerStat statId-28 playerId-2566580">-</span></td><td class="stat stat_29 numeric"><span class="playerStat statId-29 playerId-2566580">-</span></td><td class="stat stat_32 numeric"><span class="playerStat statId-32 playerId-2566580">-</span></td><td class="stat stat_30 numeric"><span class="playerStat statId-30 playerId-2566580">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2566580">0.80</span></td></tr><tr class="player-2562804 even"><td class="playerNameAndInfo first"><div class="c c-sea"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2562804" class="playerCard playerName playerNameFull playerNameId-2562804 what-playerCard">Penny Hart</a> <em>WR - SEA</em> <strong class="status status-q" title="Questionable">Q</strong> <a class="playerNote playerCard what-playerCard playerNote-breaking" title="View Breaking Player News" onclick="return false" href="/players/card?leagueId=0&playerId=2562804">View News</a>  </div></td><td class="playerOpponent">@SF</td><td class="stat stat_5 numeric"><span class="playerStat statId-5 playerId-2562804">-</span></td><td class="stat stat_6 numeric"><span class="playerStat statId-6 playerId-2562804">-</span></td><td class="stat stat_7 numeric"><span class="playerStat statId-7 playerId-2562804">-</span></td><td class="stat stat_14 numeric"><span class="playerStat statId-14 playerId-2562804">0.43</span></td><td class="stat stat_15 numeric"><span class="playerStat statId-15 playerId-2562804">-</span></td><td class="stat stat_20 numeric"><span class="playerStat statId-20 playerId-2562804">0.26</span></td><td class="stat stat_21 numeric"><span class="playerStat statId-21 playerId-2562804">3.62</span></td><td class="stat stat_22 numeric"><span class="playerStat statId-22 playerId-2562804">0.02</span></td><td class="stat stat_28 numeric"><span class="playerStat statId-28 playerId-2562804">-</span></td><td class="stat stat_29 numeric"><span class="playerStat statId-29 playerId-2562804">-</span></td><td class="stat stat_32 numeric"><span class="playerStat statId-32 playerId-2562804">-</span></td><td class="stat stat_30 numeric"><span class="playerStat statId-30 playerId-2562804">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2562804">0.79</span></td></tr><tr class="player-2565048 odd"><td class="playerNameAndInfo first"><div class="c c-lac"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2565048" class="playerCard playerName playerNameFull playerNameId-2565048 what-playerCard">K.J. Hill</a> <em>WR - LAC</em>    </div></td><td class="playerOpponent">LV</td><td class="stat stat_5 numeric"><span class="playerStat statId-5 playerId-2565048">-</span></td><td class="stat stat_6 numeric"><span class="playerStat statId-6 playerId-2565048">-</span></td><td class="stat stat_7 numeric"><span class="playerStat statId-7 playerId-2565048">-</span></td><td class="stat stat_14 numeric"><span class="playerStat statId-14 playerId-2565048">0.12</span></td><td class="stat stat_15 numeric"><span class="playerStat statId-15 playerId-2565048">-</span></td><td class="stat stat_20 numeric"><span class="playerStat statId-20 playerId-2565048">0.24</span></td><td class="stat stat_21 numeric"><span class="playerStat statId-21 playerId-2565048">4.19</span></td><td class="stat stat_22 numeric"><span class="playerStat statId-22 playerId-2565048">0.02</span></td><td class="stat stat_28 numeric"><span class="playerStat statId-28 playerId-2565048">-</span></td><td class="stat stat_29 numeric"><span class="playerStat statId-29 playerId-2565048">-</span></td><td class="stat stat_32 numeric"><span class="playerStat statId-32 playerId-2565048">-</span></td><td class="stat stat_30 numeric"><span class="playerStat statId-30 playerId-2565048">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2565048">0.79</span></td></tr><tr class="player-2565066 even"><td class="playerNameAndInfo first"><div class="c c-lac"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2565066" class="playerCard playerName playerNameFull playerNameId-2565066 what-playerCard">Gabe Nabers</a> <em>RB - LAC</em>    </div></td><td class="playerOpponent">LV</td><td class="stat stat_5 numeric"><span class="playerStat statId-5 playerId-2565066">-</span></td><td class="stat stat_6 numeric"><span class="playerStat statId-6 playerId-2565066">-</span></td><td class="stat stat_7 numeric"><span class="playerStat statId-7 playerId-2565066">-</span></td><td class="stat stat_14 numeric"><span class="playerStat statId-14 playerId-2565066">0.3</span></td><td class="stat stat_15 numeric"><span class="playerStat statId-15 playerId-2565066">0.01</span></td><td class="stat stat_20 numeric"><span class="playerStat statId-20 playerId-2565066">0.3</span></td><td class="stat stat_21 numeric"><span class="playerStat statId-21 playerId-2565066">2.68</span></td><td class="stat stat_22 numeric"><span class="playerStat statId-22 playerId-2565066">0.02</span></td><td class="stat stat_28 numeric"><span class="playerStat statId-28 playerId-2565066">-</span></td><td class="stat stat_29 numeric"><span class="playerStat statId-29 playerId-2565066">-</span></td><td class="stat stat_32 numeric"><span class="playerStat statId-32 playerId-2565066">-</span></td><td class="stat stat_30 numeric"><span class="playerStat statId-30 playerId-2565066">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2565066">0.78</span></td></tr><tr class="player-2559242 odd"><td class="playerNameAndInfo first"><div class="c c-dal"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2559242" class="playerCard playerName playerNameFull playerNameId-2559242 what-playerCard">Cooper Rush</a> <em>QB - DAL</em>    </div></td><td class="playerOpponent">CAR</td><td class="stat stat_5 numeric"><span class="playerStat statId-5 playerId-2559242">15.07</span></td><td class="stat stat_6 numeric"><span class="playerStat statId-6 playerId-2559242">0.05</span></td><td class="stat stat_7 numeric"><span class="playerStat statId-7 playerId-2559242">0.06</span></td><td class="stat stat_14 numeric"><span class="playerStat statId-14 playerId-2559242">0.01</span></td><td class="stat stat_15 numeric"><span class="playerStat statId-15 playerId-2559242">0.01</span></td><td class="stat stat_20 numeric"><span class="playerStat statId-20 playerId-2559242">-</span></td><td class="stat stat_21 numeric"><span class="playerStat statId-21 playerId-2559242">-</span></td><td class="stat stat_22 numeric"><span class="playerStat statId-22 playerId-2559242">-</span></td><td class="stat stat_28 numeric"><span class="playerStat statId-28 playerId-2559242">-</span></td><td class="stat stat_29 numeric"><span class="playerStat statId-29 playerId-2559242">-</span></td><td class="stat stat_32 numeric"><span class="playerStat statId-32 playerId-2559242">0.03</span></td><td class="stat stat_30 numeric"><span class="playerStat statId-30 playerId-2559242">0.01</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2559242">0.78</span></td></tr><tr class="player-2561718 even"><td class="playerNameAndInfo first"><div class="c c-la"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2561718" class="playerCard playerName playerNameFull playerNameId-2561718 what-playerCard">John Wolford</a> <em>QB - LA</em>    </div></td><td class="playerOpponent">ARI</td><td class="stat stat_5 numeric"><span class="playerStat statId-5 playerId-2561718">12.39</span></td><td class="stat stat_6 numeric"><span class="playerStat statId-6 playerId-2561718">0.04</span></td><td class="stat stat_7 numeric"><span class="playerStat statId-7 playerId-2561718">0.07</span></td><td class="stat stat_14 numeric"><span class="playerStat statId-14 playerId-2561718">1.1</span></td><td class="stat stat_15 numeric"><span class="playerStat statId-15 playerId-2561718">0.01</span></td><td class="stat stat_20 numeric"><span class="playerStat statId-20 playerId-2561718">-</span></td><td class="stat stat_21 numeric"><span class="playerStat statId-21 playerId-2561718">-</span></td><td class="stat stat_22 numeric"><span class="playerStat statId-22 playerId-2561718">-</span></td><td class="stat stat_28 numeric"><span class="playerStat statId-28 playerId-2561718">-</span></td><td class="stat stat_29 numeric"><span class="playerStat statId-29 playerId-2561718">-</span></td><td class="stat stat_32 numeric"><span class="playerStat statId-32 playerId-2561718">0.04</span></td><td class="stat stat_30 numeric"><span class="playerStat statId-30 playerId-2561718">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2561718">0.77</span></td></tr><tr class="player-2564178 odd"><td class="playerNameAndInfo first"><div class="c c-gb"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2564178" class="playerCard playerName playerNameFull playerNameId-2564178 what-playerCard">Tyler Davis</a> <em>TE - GB</em>    </div></td><td class="playerOpponent">PIT</td><td class="stat stat_5 numeric"><span class="playerStat statId-5 playerId-2564178">-</span></td><td class="stat stat_6 numeric"><span class="playerStat statId-6 playerId-2564178">-</span></td><td class="stat stat_7 numeric"><span class="playerStat statId-7 playerId-2564178">-</span></td><td class="stat stat_14 numeric"><span class="playerStat statId-14 playerId-2564178">0.04</span></td><td class="stat stat_15 numeric"><span class="playerStat statId-15 playerId-2564178">-</span></td><td class="stat stat_20 numeric"><span class="playerStat statId-20 playerId-2564178">0.23</span></td><td class="stat stat_21 numeric"><span class="playerStat statId-21 playerId-2564178">3.43</span></td><td class="stat stat_22 numeric"><span class="playerStat statId-22 playerId-2564178">0.03</span></td><td class="stat stat_28 numeric"><span class="playerStat statId-28 playerId-2564178">-</span></td><td class="stat stat_29 numeric"><span class="playerStat statId-29 playerId-2564178">-</span></td><td class="stat stat_32 numeric"><span class="playerStat statId-32 playerId-2564178">-</span></td><td class="stat stat_30 numeric"><span class="playerStat statId-30 playerId-2564178">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2564178">0.76</span></td></tr><tr class="player-2558954 even"><td class="playerNameAndInfo first"><div class="c c-no"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2558954" class="playerCard playerName playerNameFull playerNameId-2558954 what-playerCard">Taysom Hill</a> <em>QB - NO</em>    </div></td><td class="playerOpponent">NYG</td><td class="stat stat_5 numeric"><span class="playerStat statId-5 playerId-2558954">-</span></td><td class="stat stat_6 numeric"><span class="playerStat statId-6 playerId-2558954">-</span></td><td class="stat stat_7 numeric"><span class="playerStat statId-7 playerId-2558954">-</span></td><td class="stat stat_14 numeric"><span class="playerStat statId-14 playerId-2558954">3.94</span></td><td class="stat stat_15 numeric"><span class="playerStat statId-15 playerId-2558954">0.01</span></td><td class="stat stat_20 numeric"><span class="playerStat statId-20 playerId-2558954">-</span></td><td class="stat stat_21 numeric"><span class="playerStat statId-21 playerId-2558954">2.08</span></td><td class="stat stat_22 numeric"><span class="playerStat statId-22 playerId-2558954">0.02</span></td><td class="stat stat_28 numeric"><span class="playerStat statId-28 playerId-2558954">-</span></td><td class="stat stat_29 numeric"><span class="playerStat statId-29 playerId-2558954">-</span></td><td class="stat stat_32 numeric"><span class="playerStat statId-32 playerId-2558954">-</span></td><td class="stat stat_30 numeric"><span class="playerStat statId-30 playerId-2558954">0.01</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2558954">0.76</span></td></tr><tr class="player-2562740 odd"><td class="playerNameAndInfo first"><div class="c c-nyg"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2562740" class="playerCard playerName playerNameFull playerNameId-2562740 what-playerCard">Kaden Smith</a> <em>TE - NYG</em>    </div></td><td class="playerOpponent">@NO</td><td class="stat stat_5 numeric"><span class="playerStat statId-5 playerId-2562740">-</span></td><td class="stat stat_6 numeric"><span class="playerStat statId-6 playerId-2562740">-</span></td><td class="stat stat_7 numeric"><span class="playerStat statId-7 playerId-2562740">-</span></td><td class="stat stat_14 numeric"><span class="playerStat statId-14 playerId-2562740">0.03</span></td><td class="stat stat_15 numeric"><span class="playerStat statId-15 playerId-2562740">-</span></td><td class="stat stat_20 numeric"><span class="playerStat statId-20 playerId-2562740">0.28</span></td><td class="stat stat_21 numeric"><span class="playerStat statId-21 playerId-2562740">3.01</span></td><td class="stat stat_22 numeric"><span class="playerStat statId-22 playerId-2562740">0.03</span></td><td class="stat stat_28 numeric"><span class="playerStat statId-28 playerId-2562740">-</span></td><td class="stat stat_29 numeric"><span class="playerStat statId-29 playerId-2562740">-</span></td><td class="stat stat_32 numeric"><span class="playerStat statId-32 playerId-2562740">-</span></td><td class="stat stat_30 numeric"><span class="playerStat statId-30 playerId-2562740">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2562740">0.76</span></td></tr><tr class="player-2556762 even"><td class="playerNameAndInfo first"><div class="c c-nyg"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2556762" class="playerCard playerName playerNameFull playerNameId-2556762 what-playerCard">Elijhaa Penny</a> <em>RB - NYG</em>    </div></td><td class="playerOpponent">@NO</td><td class="stat stat_5 numeric"><span class="playerStat statId-5 playerId-2556762">-</span></td><td class="stat stat_6 numeric"><span class="playerStat statId-6 playerId-2556762">-</span></td><td class="stat stat_7 numeric"><span class="playerStat statId-7 playerId-2556762">-</span></td><td class="stat stat_14 numeric"><span class="playerStat statId-14 playerId-2556762">2.89</span></td><td class="stat stat_15 numeric"><span class="playerStat statId-15 playerId-2556762">0.02</span></td><td class="stat stat_20 numeric"><span class="playerStat statId-20 playerId-2556762">0.19</span></td><td class="stat stat_21 numeric"><span class="playerStat statId-21 playerId-2556762">0.95</span></td><td class="stat stat_22 numeric"><span class="playerStat statId-22 playerId-2556762">0.01</span></td><td class="stat stat_28 numeric"><span class="playerStat statId-28 playerId-2556762">-</span></td><td class="stat stat_29 numeric"><span class="playerStat statId-29 playerId-2556762">-</span></td><td class="stat stat_32 numeric"><span class="playerStat statId-32 playerId-2556762">-</span></td><td class="stat stat_30 numeric"><span class="playerStat statId-30 playerId-2556762">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2556762">0.75</span></td></tr><tr class="player-382 odd"><td class="playerNameAndInfo first"><div class="c c-phi"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=382" class="playerCard playerName playerNameFull playerNameId-382 what-playerCard">Joe Flacco</a> <em>QB - PHI</em>    </div></td><td class="playerOpponent">KC</td><td class="stat stat_5 numeric"><span class="playerStat statId-5 playerId-382">11.15</span></td><td class="stat stat_6 numeric"><span class="playerStat statId-6 playerId-382">0.07</span></td><td class="stat stat_7 numeric"><span class="playerStat statId-7 playerId-382">0.07</span></td><td class="stat stat_14 numeric"><span class="playerStat statId-14 playerId-382">0.05</span></td><td class="stat stat_15 numeric"><span class="playerStat statId-15 playerId-382">0.01</span></td><td class="stat stat_20 numeric"><span class="playerStat statId-20 playerId-382">-</span></td><td class="stat stat_21 numeric"><span class="playerStat statId-21 playerId-382">-</span></td><td class="stat stat_22 numeric"><span class="playerStat statId-22 playerId-382">-</span></td><td class="stat stat_28 numeric"><span class="playerStat statId-28 playerId-382">-</span></td><td class="stat stat_29 numeric"><span class="playerStat statId-29 playerId-382">-</span></td><td class="stat stat_32 numeric"><span class="playerStat statId-32 playerId-382">0.03</span></td><td class="stat stat_30 numeric"><span class="playerStat statId-30 playerId-382">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-382">0.71</span></td></tr><tr class="player-2563316 even"><td class="playerNameAndInfo first"><div class="c c-chi"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2563316" class="playerCard playerName playerNameFull playerNameId-2563316 what-playerCard">Nsimba Webster</a> <em>WR - CHI</em>    </div></td><td class="playerOpponent">DET</td><td class="stat stat_5 numeric"><span class="playerStat statId-5 playerId-2563316">-</span></td><td class="stat stat_6 numeric"><span class="playerStat statId-6 playerId-2563316">-</span></td><td class="stat stat_7 numeric"><span class="playerStat statId-7 playerId-2563316">-</span></td><td class="stat stat_14 numeric"><span class="playerStat statId-14 playerId-2563316">0.14</span></td><td class="stat stat_15 numeric"><span class="playerStat statId-15 playerId-2563316">-</span></td><td class="stat stat_20 numeric"><span class="playerStat statId-20 playerId-2563316">0.16</span></td><td class="stat stat_21 numeric"><span class="playerStat statId-21 playerId-2563316">4.76</span></td><td class="stat stat_22 numeric"><span class="playerStat statId-22 playerId-2563316">0.01</span></td><td class="stat stat_28 numeric"><span class="playerStat statId-28 playerId-2563316">-</span></td><td class="stat stat_29 numeric"><span class="playerStat statId-29 playerId-2563316">-</span></td><td class="stat stat_32 numeric"><span class="playerStat statId-32 playerId-2563316">-</span></td><td class="stat stat_30 numeric"><span class="playerStat statId-30 playerId-2563316">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2563316">0.71</span></td></tr><tr class="player-2567061 odd"><td class="playerNameAndInfo first"><div class="c c-phi"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2567061" class="playerCard playerName playerNameFull playerNameId-2567061 what-playerCard">Jack Stoll</a> <em>TE - PHI</em>    </div></td><td class="playerOpponent">KC</td><td class="stat stat_5 numeric"><span class="playerStat statId-5 playerId-2567061">-</span></td><td class="stat stat_6 numeric"><span class="playerStat statId-6 playerId-2567061">-</span></td><td class="stat stat_7 numeric"><span class="playerStat statId-7 playerId-2567061">-</span></td><td class="stat stat_14 numeric"><span class="playerStat statId-14 playerId-2567061">0.07</span></td><td class="stat stat_15 numeric"><span class="playerStat statId-15 playerId-2567061">-</span></td><td class="stat stat_20 numeric"><span class="playerStat statId-20 playerId-2567061">0.21</span></td><td class="stat stat_21 numeric"><span class="playerStat statId-21 playerId-2567061">2.86</span></td><td class="stat stat_22 numeric"><span class="playerStat statId-22 playerId-2567061">0.03</span></td><td class="stat stat_28 numeric"><span class="playerStat statId-28 playerId-2567061">-</span></td><td class="stat stat_29 numeric"><span class="playerStat statId-29 playerId-2567061">-</span></td><td class="stat stat_32 numeric"><span class="playerStat statId-32 playerId-2567061">-</span></td><td class="stat stat_30 numeric"><span class="playerStat statId-30 playerId-2567061">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2567061">0.68</span></td></tr><tr class="player-2563329 even"><td class="playerNameAndInfo first"><div class="c c-ne"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2563329" class="playerCard playerName playerNameFull playerNameId-2563329 what-playerCard">Gunner Olszewski</a> <em>WR - NE</em>    </div></td><td class="playerOpponent">TB</td><td class="stat stat_5 numeric"><span class="playerStat statId-5 playerId-2563329">-</span></td><td class="stat stat_6 numeric"><span class="playerStat statId-6 playerId-2563329">-</span></td><td class="stat stat_7 numeric"><span class="playerStat statId-7 playerId-2563329">-</span></td><td class="stat stat_14 numeric"><span class="playerStat statId-14 playerId-2563329">0.48</span></td><td class="stat stat_15 numeric"><span class="playerStat statId-15 playerId-2563329">-</span></td><td class="stat stat_20 numeric"><span class="playerStat statId-20 playerId-2563329">0.11</span></td><td class="stat stat_21 numeric"><span class="playerStat statId-21 playerId-2563329">3.96</span></td><td class="stat stat_22 numeric"><span class="playerStat statId-22 playerId-2563329">0.02</span></td><td class="stat stat_28 numeric"><span class="playerStat statId-28 playerId-2563329">-</span></td><td class="stat stat_29 numeric"><span class="playerStat statId-29 playerId-2563329">-</span></td><td class="stat stat_32 numeric"><span class="playerStat statId-32 playerId-2563329">-</span></td><td class="stat stat_30 numeric"><span class="playerStat statId-30 playerId-2563329">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2563329">0.67</span></td></tr><tr class="player-2534241 odd"><td class="playerNameAndInfo first"><div class="c c-lv"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2534241" class="playerCard playerName playerNameFull playerNameId-2534241 what-playerCard">Derek Carrier</a> <em>TE - LV</em> <strong class="status status-q" title="Questionable">Q</strong> <a class="playerNote playerCard what-playerCard playerNote-breaking" title="View Breaking Player News" onclick="return false" href="/players/card?leagueId=0&playerId=2534241">View News</a>  </div></td><td class="playerOpponent">@LAC</td><td class="stat stat_5 numeric"><span class="playerStat statId-5 playerId-2534241">-</span></td><td class="stat stat_6 numeric"><span class="playerStat statId-6 playerId-2534241">-</span></td><td class="stat stat_7 numeric"><span class="playerStat statId-7 playerId-2534241">-</span></td><td class="stat stat_14 numeric"><span class="playerStat statId-14 playerId-2534241">0.05</span></td><td class="stat stat_15 numeric"><span class="playerStat statId-15 playerId-2534241">-</span></td><td class="stat stat_20 numeric"><span class="playerStat statId-20 playerId-2534241">0.19</span></td><td class="stat stat_21 numeric"><span class="playerStat statId-21 playerId-2534241">3.47</span></td><td class="stat stat_22 numeric"><span class="playerStat statId-22 playerId-2534241">0.02</span></td><td class="stat stat_28 numeric"><span class="playerStat statId-28 playerId-2534241">-</span></td><td class="stat stat_29 numeric"><span class="playerStat statId-29 playerId-2534241">-</span></td><td class="stat stat_32 numeric"><span class="playerStat statId-32 playerId-2534241">-</span></td><td class="stat stat_30 numeric"><span class="playerStat statId-30 playerId-2534241">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2534241">0.66</span></td></tr><tr class="player-2558008 even"><td class="playerNameAndInfo first"><div class="c c-buf"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2558008" class="playerCard playerName playerNameFull playerNameId-2558008 what-playerCard">Mitchell Trubisky</a> <em>QB - BUF</em>    </div></td><td class="playerOpponent">HOU</td><td class="stat stat_5 numeric"><span class="playerStat statId-5 playerId-2558008">11.35</span></td><td class="stat stat_6 numeric"><span class="playerStat statId-6 playerId-2558008">0.04</span></td><td class="stat stat_7 numeric"><span class="playerStat statId-7 playerId-2558008">0.05</span></td><td class="stat stat_14 numeric"><span class="playerStat statId-14 playerId-2558008">0.05</span></td><td class="stat stat_15 numeric"><span class="playerStat statId-15 playerId-2558008">0.01</span></td><td class="stat stat_20 numeric"><span class="playerStat statId-20 playerId-2558008">-</span></td><td class="stat stat_21 numeric"><span class="playerStat statId-21 playerId-2558008">-</span></td><td class="stat stat_22 numeric"><span class="playerStat statId-22 playerId-2558008">-</span></td><td class="stat stat_28 numeric"><span class="playerStat statId-28 playerId-2558008">-</span></td><td class="stat stat_29 numeric"><span class="playerStat statId-29 playerId-2558008">-</span></td><td class="stat stat_32 numeric"><span class="playerStat statId-32 playerId-2558008">0.04</span></td><td class="stat stat_30 numeric"><span class="playerStat statId-30 playerId-2558008">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2558008">0.66</span></td></tr><tr class="player-2539335 odd last"><td class="playerNameAndInfo first"><div class="c c-sea"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2539335" class="playerCard playerName playerNameFull playerNameId-2539335 what-playerCard">Geno Smith</a> <em>QB - SEA</em>    </div></td><td class="playerOpponent">@SF</td><td class="stat stat_5 numeric"><span class="playerStat statId-5 playerId-2539335">13.14</span></td><td class="stat stat_6 numeric"><span class="playerStat statId-6 playerId-2539335">0.03</span></td><td class="stat stat_7 numeric"><span class="playerStat statId-7 playerId-2539335">0.05</span></td><td class="stat stat_14 numeric"><span class="playerStat statId-14 playerId-2539335">0.04</span></td><td class="stat stat_15 numeric"><span class="playerStat statId-15 playerId-2539335">0.01</span></td><td class="stat stat_20 numeric"><span class="playerStat statId-20 playerId-2539335">-</span></td><td class="stat stat_21 numeric"><span class="playerStat statId-21 playerId-2539335">-</span></td><td class="stat stat_22 numeric"><span class="playerStat statId-22 playerId-2539335">-</span></td><td class="stat stat_28 numeric"><span class="playerStat statId-28 playerId-2539335">-</span></td><td class="stat stat_29 numeric"><span class="playerStat statId-29 playerId-2539335">-</span></td><td class="stat stat_32 numeric"><span class="playerStat statId-32 playerId-2539335">0.03</span></td><td class="stat stat_30 numeric"><span class="playerStat statId-30 playerId-2539335">0.01</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2539335">0.65</span></td></tr></tbody></table></div>        </div>
+        <div class="ft paginationWrap">
+            <div class="paginationWrap">
+                <div class="pagination search"><span class="paginationTitle"> 376 - 400 of 934 </span><ul><li class="prev first"><a href="?offset=351&position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4"  class="dynamic"><</a></li><li class="pageNav-pageNav-11"><a href="?offset=276&position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4"  class="dynamic">12</a></li><li class="pageNav-pageNav-12"><a href="?offset=301&position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4"  class="dynamic">13</a></li><li class="pageNav-pageNav-13"><a href="?offset=326&position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4"  class="dynamic">14</a></li><li class="pageNav-pageNav-14"><a href="?offset=351&position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4"  class="dynamic">15</a></li><li class="pageNav-pageNav-15"><span class="dynamic">16</span></li><li class="pageNav-pageNav-16"><a href="?offset=401&position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4"  class="dynamic">17</a></li><li class="pageNav-pageNav-17"><a href="?offset=426&position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4"  class="dynamic">18</a></li><li class="pageNav-pageNav-18"><a href="?offset=451&position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4"  class="dynamic">19</a></li><li class="pageNav-pageNav-19"><a href="?offset=476&position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4"  class="dynamic">20</a></li><li class="next last"><a href="?offset=401&position=O&sort=projectedPts&statCategory=projectedStats&statSeason=2021&statType=weekProjectedStats&statWeek=4"  class="dynamic">></a></li></ul></div>            </div>
+                    </div>
+    </div>
+</div>
+            </div></div>            
+                        <div class="sh s"></div>
+        <div class="sh t"></div>
+        </div>
+
+    </div>
+            <div id="ft-wrap">
+        <div id="ft">
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script> 
+$(window).on("load", function () {
+    var MutationObserver =
+        window.MutationObserver ||
+        window.WebKitMutationObserver ||
+        window.MozMutationObserver;
+    var reactInited = false;
+    $.ajax({
+        url: "https://www.nfl.com/_libraries/fragments/assets",
+        type: "get",
+        dataType: "html",
+        success: function (data) {
+            var appendTo = $(document.createDocumentFragment());
+            appendTo.append(data);
+            appendTo.find(`link[rel="icon"]`).remove();
+            $("#nfl-assets").replaceWith(appendTo);
+            $.ajax({
+                url: "https://www.nfl.com/_libraries/fragments/footer-fragment",
+                type: "get",
+                dataType: "html",
+                success: function (data) {
+                    $("#nfl-footer").replaceWith(data);
+                },
+            });
+        },
+    });
+    if (MutationObserver) {
+        // check for the require lib
+        var body = document.querySelector("body");
+        var observer = new MutationObserver(function (mutations) {
+            if (
+                window.requirejs &&
+                window.requirejs.config &&
+                window.Y &&
+                window.Y.React &&
+                !reactInited
+            ) {
+                window.Y.React.init();
+                reactInited = true;
+            }
+        });
+        observer.observe(body, { subtree: true, childList: true });
+    } else {
+        // if no browser support, use set timeout to wait for require
+        window.setTimeout(function () {
+            if (window.Y && window.Y.React && !reactInited) {
+                window.Y.React.init();
+                reactInited = true;
+            }
+        }, 2000);
+    }
+});
+</script>
+
+<div id="nfl-footer"></div>
+        </div>
+    </div>
+    </div>
+<script type="text/javascript">
+FF.constants.RENDER_END = new Date();
+YEXT = null;
+var SYSTEMENVIRONMENT = "production";
+var ADPATH = "nfl.freefantasy";
+var VIDEOPLAYERFILENAME = "https://static.nfl.com/static/site/" + nfl.constants.ASSET_VERSION + "/flash/video/inline-video-player.swf";
+var LEAGUEID = '0';
+var TEAMID = '';
+var VIDEOPLAYERHTML = true;
+var FANTASY_COOKIE_NAME = 'ff';
+var FANTASY_JS_HOST = 'fantasy.nfl.com';
+</script>
+<script>
+(function(){
+    // allow groups in scripts to propagate
+    var yConfigGroups = ( window.YUI_config ) ? window.YUI_config.groups : {};
+
+    window.YUI_config = {
+        comboBase : "/min/index1?a=230443d8-649d-11e6-8b77-86f30ca893d3&b=static/js/yui/3.15.0/build&f=",        combine : true,
+        comboSep : ",",
+        root : "",
+        timeout: 10000,
+        modules:  {
+
+            siteSpecific: {
+               fullpath: "/static/js/1632947080/aGFzaFRhZy5qcztzbHlub2RlLmpzO2RhdGFzY2hlbWFDb250ZW50LmpzO2R5bmFtaWNNb2R1bGUuanM7YXV0b2NvbXBsZXRlLmpzO3V0aWwuanM7cGFnZVRyYWNraW5nLmpzO3N3Zk9iamVjdC5qczt2aWRlby5qcztyZWFjdC5qczt2aWRlb1JlYWN0LmpzO3BsYXllci5qcztwbGF5ZXJDYXJkLmpzO2Fkcy5qcztzY29yZXMuanM7aW1hZ2VzLmpzO3RlYW1NYW5hZ2VyQXNzaXN0LmpzO2ZmLWFqYXgtZm9ybS5qcztmZi1wYXJ0bmVycy1sb2dpbi5qcztmZi1jaGFydHMtcGxheWVyLWNhcmQuanM..js",
+               requires: ["plugin"]
+            }
+    ,            pageSpecific: {
+               fullpath: "/static/js/1632947080/cGxheWVyc0hvbWUuanM..js",
+               requires: ["plugin"]
+            }
+,            teamManagerAssistCss : {
+                fullpath:'/static/css/1632947080/dGVhbU1hbmFnZXJBc3Npc3QuY3Nz.css',
+                type:'css'
+            }
+        }
+    };
+    window.YUI_config.groups = yConfigGroups;
+
+if (window.nfl) {
+    NFL_config = window.NFL_config || {},
+    YUI_config = window.YUI_config || {};
+
+    // YUI_config.comboBase = 'http://yui.yahooapis.com/combo?';
+    YUI_config.comboBase = "/min/index1?a=230443d8-649d-11e6-8b77-86f30ca893d3&b=static/js/yui/3.15.0/build&f="
+    YUI_config.combine = true;
+    YUI_config.comboSep = ",";
+    YUI_config.root = "";
+    YUI_config.modules = YUI_config.modules || {};
+    window.isDev = false;//set this to true to run gamecenter against prod endpoints
+    var Constants = nfl.constants;
+    YUI_config.groups.nfl = {
+        base: Constants.SCRIPT_PATH + '/scripts/modules/',
+        combine: true,
+        comboBase: [
+            Constants.NFL_COMBO_URL,
+            "?",
+            encodeURIComponent(Constants.ASSET_VERSION + Constants.ASSET_BUILD),
+            "&b=",
+            encodeURIComponent("yui3/static/" + Constants.ASSET_VERSION + "/scripts/modules"),
+            "&ss=anyraw&f="
+        ].join(""),
+        comboSep: ",",
+        root: "",
+        filter: {
+            searchExp: '([^\\/]+)\\/\\1-min\\.(js|css)',
+            replaceStr: "$1.$2"
+        },
+        modules: {
+            'nfl-carousel': { requires: ['plugin', 'base-build', 'nfl-lang', 'array-extras'], optional: 'anim' },
+            'nfl-centerpiece': { requires: ['node', 'anim', 'widget', 'base-build', 'nfl-lang', 'nfl-carousel', 'nfl-subnav' ], optional: ['nfl-video'] },
+            'nfl-lang': { requires: ['querystring'] },
+            'nfl-pagination': { requires: ['plugin', 'base-build', 'nfl-lang'] },
+            'nfl-subnav': { requires: [ 'node', 'plugin', 'base-build', 'classnamemanager', 'array-extras' ], optional: ['nfl-history-manager'] },
+            'widget-node-builder': { requires: [ 'node-base' ] },
+            'modal-mask': { requires: [ 'base-build', 'base', 'widget', 'widget-stack', 'node' ] },
+            'modal-login': { requires: ['base-build', 'base', 'widget', 'widget-position', 'widget-position-align', 'widget-stack', 'modal-mask', 'widget-node-builder', 'event-touch', 'json-parse', 'transition' ], skinnable : true },
+        }
+    }
+}
+})();
+YUI( YUI_config ).use("pageSpecific",
+"siteSpecific",
+"ads",
+"anim",
+"async-queue",
+"autocomplete",
+"base",
+"cache",
+"dataschema",
+"datasource",
+"dump",
+"dynamic-modules",
+"event",
+"event-custom",
+"event-valuechange",
+"history",
+"io",
+"json-parse",
+"loader",
+"node",
+"node-event-simulate",
+"overlay",
+"overlay-modal",
+"page-tracking",
+"player",
+"playerCard",
+"players-home",
+"plugin",
+"react-video",
+"slynode",
+"util",
+"video",
+"widget",
+"widget-position",
+"widget-position-align",
+'ac-plugin',
+'ac-widget',
+'ads',
+'dataschema-jsoncontent',
+'datasource-jsoncontentschema',
+'dynamic-modules',
+'ff-ajax-form',
+'ff-charts-player-card',
+'ff-partners-login',
+'images',
+'page-tracking',
+'player',
+'playerCard',
+'players-home',
+'react',
+'react-video',
+'scores',
+'slynode',
+'swfobject',
+'team-manager-assist',
+'util',
+'video', function (Y) {
+    FF.constants.YUI_START = new Date();
+    Y.one('#researchProjectionsPage').removeClass('noJs');
+
+        (function () {
+        try { Y.Util.init(document.body) }
+        catch (err) { Y.log('initErrorCatch:' + err.message); return false; }
+    }());
+    (function () {
+        try { Y.PageTracking.init() }
+        catch (err) { Y.log('initErrorCatch:' + err.message); return false; }
+    }());
+    (function () {
+        try { Y.PlayersHome.init() }
+        catch (err) { Y.log('initErrorCatch:' + err.message); return false; }
+    }());
+    (function () {
+        try { Y.Player.init(); }
+        catch (err) { Y.log('initErrorCatch:' + err.message); return false; }
+    }());
+
+    window.Y = Y;
+
+    // debug info used in full.php
+    FF.constants.YUI_END = new Date();
+    Y.on('domready', function () {
+        // console.log('YUI domready event fired');
+        FF.constants.DOM_READY = new Date();
+    });
+    Y.on('contentready', function () { FF.constants.CONTENT_READY = new Date(); });
+    Y.on('available', function () { FF.constants.AVAILABLE = new Date(); });
+
+});
+</script>
+
+</body>
+</html>
+<!-- lv1prdfantweb23 -->
