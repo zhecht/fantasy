@@ -674,6 +674,8 @@ def fix_roster(roster, team):
 	if team == "atl":
 		roster["cordarrelle patterson"] = "RB"
 		roster["keith smith"] = "FB"
+	elif team == "buf":
+		roster["zack moss"] = "RB"
 	elif team == "car":
 		roster["ryan santoso"] = "K"
 		roster["zane gonzalez"] = "K"
