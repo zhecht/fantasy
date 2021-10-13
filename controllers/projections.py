@@ -187,15 +187,26 @@ def fix_projections(all_projections):
 		if player not in all_projections:
 			all_projections[player] = {}
 	# kickers always messes up
-	all_projections["matt ammendola"]["wk1"] = 5.4
-	all_projections["matt ammendola"]["wk2"] = 5.52
+	all_projections["aldrick rosas"]["wk5"] = 7.07
+	all_projections["cody parkey"]["wk5"] = 7.07
+	all_projections["matt ammendola"] = {
+		"wk1": 5.4, "wk2": 5.52, "wk3": 5.08,
+		"wk4": 4.83, "wk5": 5.33
+	}
+
 	all_projections["matthew wright"]["wk3"] = 6.22
+	all_projections["matthew wright"]["wk4"] = 4.83
+	all_projections["matthew wright"]["wk5"] = 5.33
+
 	all_projections["michael badgley"]["wk1"] = 7.61
 	all_projections["nick folk"]["wk1"] = 6.09
 	all_projections["joey slye"]["wk1"] = 6.09
 	all_projections["joey slye"]["wk3"] = 6.22
-	all_projections["ryan santoso"]["wk1"] = 5.56
-	all_projections["ryan santoso"]["wk4"] = 6.22
+
+	all_projections["ryan santoso"] = {
+		"wk1": 5.56, "wk3": 6.63, "wk4": 6.22
+	}
+	all_projections["mitch wishnowsky"]["wk4"] = 7.54
 
 def parse_projections():
 	all_projections = {}

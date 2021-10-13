@@ -390,7 +390,7 @@ def get_defense_tot(curr_week, point_totals_dict, over_expected):
 						which_team = team
 					if over_expected:
 						#print(which_team, point_totals_dict[which_team])
-						print(which_team, week, pos)
+						#print(which_team, week, pos)
 						j[act_key] += point_totals_dict[which_team][f"{pos}_wk{week+1}_act"]
 						j[proj_key] += point_totals_dict[opp_team][f"{pos}_wk{week+1}_proj"]
 						j[key] += point_totals_dict[which_team][key]
@@ -686,6 +686,10 @@ def fix_roster(roster, team):
 		roster["kaimi fairbairn"] = "K"
 	elif team == "jax":
 		roster["matthew wright"] = "K"
+	elif team == "sfo":
+		roster["joey slye"] = "K"
+		roster["mitch wishnowsky"] = "K"
+		roster["trey sermon"] = "RB"
 	elif team == "oti":
 		roster["randy bullock"] = "K"
 	return
@@ -996,12 +1000,12 @@ if __name__ == "__main__":
 		pass
 		# only needs to be run once in a while
 		
-		#write_team_links()
-		#write_schedule()
-		#write_team_rosters()
-		#write_boxscore_links()
+		write_team_links()
+		write_schedule()
+		write_team_rosters()
+		write_boxscore_links()
 		
-		#write_boxscore_stats(args.week, args.team)
+		write_boxscore_stats(args.week, args.team)
 		calculate_aggregate_stats()
 
 	#write_team_rosters()
