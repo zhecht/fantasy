@@ -209,7 +209,6 @@ def fixStats(team, stats):
 
 # return (in order) list of opponents
 def get_opponents(team):
-	team = get_abbr(team)
 	schedule = {}
 	with open("{}static/profootballreference/schedule.json".format(prefix)) as fh:
 		schedule = json.loads(fh.read())
@@ -218,9 +217,9 @@ def get_opponents(team):
 		opp_team = "BYE"
 		for games in schedule[str(i)]:
 			away, home = games.split(" @ ")
-			if away == team:
+			if away == team or team_trans.get(away, away) == team_trans.get(team, team):
 				opp_team = home
-			elif home == team:
+			elif home == team or team_trans.get(home, home) == team_trans.get(team, team):
 				opp_team = away
 		opps.append(opp_team)
 	return opps

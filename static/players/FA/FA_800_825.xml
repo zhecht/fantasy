@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.497791/players;start=800;status=FA" time="226.0639667511ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
+<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.497791/players;start=800;status=FA" time="217.87405014038ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
  <league>
   <league_key>406.l.497791</league_key>
   <league_id>497791</league_id>
@@ -8,9 +8,9 @@
   <logo_url></logo_url>
   <draft_status>postdraft</draft_status>
   <num_teams>12</num_teams>
-  <edit_key>7</edit_key>
+  <edit_key>8</edit_key>
   <weekly_deadline/>
-  <league_update_timestamp>1634624698</league_update_timestamp>
+  <league_update_timestamp>1635229014</league_update_timestamp>
   <scoring_type>head</scoring_type>
   <league_type>private</league_type>
   <renew>399_665951</renew>
@@ -19,7 +19,7 @@
   <allow_add_to_dl_extra_pos>0</allow_add_to_dl_extra_pos>
   <is_pro_league>0</is_pro_league>
   <is_cash_league>0</is_cash_league>
-  <current_week>7</current_week>
+  <current_week>8</current_week>
   <start_week>1</start_week>
   <start_date>2021-09-09</start_date>
   <end_week>17</end_week>
@@ -549,6 +549,7 @@
     </name>
     <status>NFI-R</status>
     <status_full>Non-Football Injury (Reserve)</status_full>
+    <injury_note>Undisclosed</injury_note>
     <editorial_player_key>nfl.p.33709</editorial_player_key>
     <editorial_team_key>nfl.t.6</editorial_team_key>
     <editorial_team_full_name>Dallas Cowboys</editorial_team_full_name>
@@ -874,8 +875,10 @@
     <eligible_positions>
      <position>QB</position>
     </eligible_positions>
+    <has_player_notes>1</has_player_notes>
+    <player_notes_last_timestamp>1635089663</player_notes_last_timestamp>
    </player>
   </players>
  </league>
 </fantasy_content>
-<!-- fantasy-sports-api- -public-production-bf1-78f65bb794-dxr77 Wed Oct 20 14:26:27 UTC 2021 -->
+<!-- fantasy-sports-api- -public-production-bf1-7678b8fccd-67fks Wed Oct 27 15:43:01 UTC 2021 -->

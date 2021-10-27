@@ -127,68 +127,59 @@ def read_team_target_stats():
 	return returned_json
 
 def write_reception_stats():
-	base_url = "http://subscribers.footballguys.com/teams/"
 	j = {}
-	for link in SNAP_LINKS:
-		link = "{}1.php".format(link)
-		team = link.split('-')[1]
+	for team in SNAP_LINKS:
+		link = f"http://www.footballguys.com/stats/targets/teams?team={team}&year={YEAR}"
 		
-		html = urllib.urlopen(base_url+link)
+		html = urllib.urlopen(link)
 		soup = BeautifulSoup(html.read(), "lxml")
-		all_tables = soup.find_all('table', class_='data')
+		tbodys = soup.find("div", id="stats_targets_data").findAll("tbody")
 
 		# RB / WR
-		for table in all_tables[1:3]:
+		positions = ["RB", "WR", "TE"]
+		for table in tbodys:
 			rows = table.find_all("tr")
-			for row in rows[1:]:
+			for row in rows:
 				tds = row.find_all('td')
 				full = tds[0].find('a').text
 				full_name = fixName(full.lower().replace("'", ""))
 
 				try:
-					j[full_name+" "+team] = int(tds[2].text) + int(tds[7].text)
+					targets = int(tds[-1].txt)
 				except:
-					print(tds[2], tds[7])
-		# TE
-		rows = all_tables[3].find_all("tr")
-		for row in rows[1:]:
-			tds = row.find_all('td')
-			full = tds[0].find('a').text
-			full_name = fixName(full.lower().replace("'", ""))
-
-			j[full_name+" "+team] = int(tds[3].text)
+					targets = 0
+				j[f"{full_name} {team}"] = targets
 
 	with open(f"{prefix}static/reception_counts.json", "w") as outfile:
 		json.dump(j, outfile, indent=4)
 
 def write_team_target_stats():
-	base_url = "http://subscribers.footballguys.com/teams/"
+	import profootballreference
 	j = {}
-	for link in SNAP_LINKS:
-		link = "{}2.php".format(link)
-		team = link.split('-')[1]
+	for team in SNAP_LINKS:
+		link = f"http://www.footballguys.com/stats/targets/teams?team={team.upper()}&year={YEAR}"
 
-		j[team] = {}
-		
-		html = urllib.urlopen(base_url+link)
+		opps = profootballreference.get_opponents(team)
+		html = urllib.urlopen(link)
 		soup = BeautifulSoup(html.read(), "lxml")
-		rows = soup.find('table', class_='datasmall').find_all('tr')
+		rows = soup.find("div", id="stats_targets_data").findAll("tr")[1:]
 
-		for row in rows[1:]:
-			if row.get("bgcolor") is not None:
-				# Totals row
-				curr_pos = row.find("b").text.split(" ")[0]
-				tds = row.find_all('td')
-				target_counts = []
-				for week in range(1,17):
-					try:
-						targets = int(tds[week].text)
-					except:
-						targets = 0
+		j[team] = {"RB": [], "WR/TE": []}
+		for idx, row in enumerate(rows):
+			tds = row.find_all('td')
+			if not tds[0].text.strip().lower().endswith("totals"):
+				continue
 
-					target_counts.append(targets)
+			total_targets = [0]*curr_week
+			pos = tds[0].text.strip().split(" ")[0]
+			for week in range(curr_week):
+				try:
+					if opps[week] != "BYE":
+						total_targets[week] = int(tds[week+1].text.strip())
+				except:
+					pass
 
-				j[team][curr_pos] = ','.join(str(x) for x in target_counts)
+			j[team][pos] = ",".join(str(x) for x in total_targets)
 		# aggregate WR/TE
 		TE_totals = j[team]["TE"].split(",")
 		WR_totals = j[team]["WR"].split(",")
@@ -202,60 +193,53 @@ def write_team_target_stats():
 
 
 def write_target_stats():
+	import profootballreference
 	base_url = "http://subscribers.footballguys.com/teams/"
 	j = {}
 	team_targets = read_team_target_stats()
 
-	for link in SNAP_LINKS:
-		link = "{}2.php".format(link)
-		team = link.split('-')[1]
-		
-		html = urllib.urlopen(base_url+link)
+	for team in SNAP_LINKS:
+		link = f"http://www.footballguys.com/stats/targets/teams?team={team.upper()}&year={YEAR}"
+		opps = profootballreference.get_opponents(team)
+		html = urllib.urlopen(link)
 		soup = BeautifulSoup(html.read(), "lxml")
-		rows = soup.find('table', class_='datasmall').find_all('tr')
+		rows = soup.find("div", id="stats_targets_data").findAll("tr")[1:]
 		totals = {}
-		curr_pos = "WR TOTAL"
-		new_pos = "WR TOTAL"
 
-		for row in rows[1:]:
-			if row.get("bgcolor") is None:
-				tds = row.find_all('td')
+		currPos = 0
+		positions = ["RB", "WR", "TE"]
+		for idx, row in enumerate(rows):
+			tds = row.find_all('td')
 
-				full = tds[0].find('a').text
-				full_name = fixName(full.lower().replace("'", ""))
+			if tds[0].text.strip().lower().endswith("totals"):
+				currPos += 1
+				continue
 
-				target_counts = []
-				target_counts_perc = []
-				for week in range(1,17):
-					try:
-						targets = int(tds[week].find("a").text)
-					except:
-						targets = 0
-					target_counts.append(targets)
+			full = tds[0].find('a').text
+			full_name = fixName(full.lower().replace("'", ""))
 
-					p = "RB" if new_pos.find("RB") >= 0 else "WR/TE"
-					total_targets = float(team_targets[team][p].split(",")[week - 1])
-					if total_targets == 0:
-						target_counts_perc.append(0)
-					else:
-						target_counts_perc.append(round(targets / total_targets, 3))
+			targets = []
+			target_counts_perc = []
+			for week in range(curr_week):
+				t = 0
+				try:
+					if opps[week] != "BYE":
+						t = int(tds[week+1].text.strip())
+				except:
+					pass
 
-				team = link.split('-')[1]
-				target_counts = ','.join(str(x) for x in target_counts)
-				target_counts_perc = ','.join(str(x) for x in target_counts_perc)
+				targets.append(t)
 
-				j[full_name+" "+team] = {"perc": target_counts_perc, "counts": target_counts, "pos": new_pos}
-				j[full_name.replace(".", "")+" "+team] = {"perc": target_counts_perc, "counts": target_counts, "pos": new_pos}
-				if full_name.replace(".", "").split(" ")[-1] in ["jr", "iii", "ii", "sr", "v"]:
-					new_name = " ".join(full_name.replace(".", "").split(" ")[:-1])
-					j[new_name+" "+team] = {"perc": target_counts_perc, "counts": target_counts, "pos": new_pos}
-			else:
-				# Total row
-				curr_pos = row.find("b").text
-				if curr_pos == "WR TOTAL":
-					new_pos = "TE TOTAL"
-				elif curr_pos == "TE TOTAL":
-					new_pos = "RB TOTAL"
+				pos = "RB" if positions[currPos] == 0 else "WR/TE"
+				total_targets = float(team_targets[team][pos].split(",")[week])
+				if total_targets == 0:
+					target_counts_perc.append(0)
+				else:
+					target_counts_perc.append(round(t / total_targets, 3))
+
+			target_counts = ','.join(str(x) for x in targets)
+			target_counts_perc = ','.join(str(x) for x in target_counts_perc)
+			j[f"{full_name} {team}"] = {"perc": target_counts_perc, "counts": target_counts, "pos": positions[currPos]}
 
 	with open("static/target_counts.json", "w") as outfile:
 		json.dump(j, outfile, indent=4)
@@ -267,7 +251,7 @@ def get_team_targets_to_week(snap_stats, team_targets):
 		j[team] = {"RB": [], "WR/TE": []}
 		rb_total = 0
 		wr_total = 0
-		for week in range(16):
+		for week in range(curr_week):
 			rb_total += int(team_targets[team]["RB"].split(",")[week])
 			wr_total += int(team_targets[team]["WR/TE"].split(",")[week])
 			j[team]["RB"].append(str(rb_total))
@@ -386,9 +370,6 @@ def write_snap_stats():
 	with open(f"{prefix}static/snap_counts.json", "w") as outfile:
 		json.dump(j, outfile, indent=4)
 
-
-SNAP_LINKS = [ "teampage-atl-", "teampage-buf-", "teampage-car-", "teampage-chi-", "teampage-cin-", "teampage-cle-", "teampage-clt-", "teampage-crd-", "teampage-dal-", "teampage-den-", "teampage-det-", "teampage-gnb-", "teampage-htx-", "teampage-jax-", "teampage-kan-", "teampage-mia-", "teampage-min-", "teampage-nor-", "teampage-nwe-", "teampage-nyg-", "teampage-nyj-", "teampage-oti-", "teampage-phi-", "teampage-pit-", "teampage-rai-", "teampage-ram-", "teampage-rav-", "teampage-sdg-", "teampage-sea-", "teampage-sfo-", "teampage-tam-", "teampage-was-" ]
-
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-c", "--cron", help="Do Cron job", action="store_true")
@@ -406,7 +387,7 @@ if __name__ == '__main__':
 			end_week = args.end
 	if args.cron:
 		print("WRITING SNAPS")
-		write_snap_stats()
+		#write_snap_stats()
 		write_team_target_stats()
 		write_target_stats()
 		exit()

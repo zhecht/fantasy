@@ -23,13 +23,13 @@ TEAM_TRANS = {
 
 SORTED_TEAMS = ['ari', 'atl', 'bal', 'buf', 'car', 'chi', 'cin', 'cle', 'dal', 'den', 'det', 'gnb', 'hou', 'ind', 'jax', 'kan', 'lac', 'lar', 'rai', 'mia', 'min', 'nor', 'nwe', 'nyg', 'nyj', 'phi', 'pit', 'sea', 'sfo', 'tam', 'ten', 'was']
 
+SNAP_LINKS = ["ari", "atl", "bal", "buf", "car", "chi", "cin", "cle", "dal", "den", "det", "gb", "hou", "ind", "jax", "kc", "lac", "lar", "lv", "mia", "min", "no", "ne", "nyg", "nyj", "phi", "pit", "sea", "sf", "tb", "ten", "was"]
+
 afc_teams = ['rav', 'buf', 'cin', 'cle', 'den', 'htx', 'clt', 'jax', 'kan', 'sdg', 'rai', 'mia', 'nwe', 'nyj', 'pit', 'ten']
 nfc_teams = ['crd', 'atl', 'car', 'chi', 'dal', 'det', 'gnb', 'ram', 'min', 'nor', 'nyg', 'phi', 'sea', 'sfo', 'tam', 'was']
 
-RBBC_TEAMS = ['crd', 'atl', 'rav', 'buf', 'car', 'chi', 'cin', 'cle', 'dal', 'den', 'det', 'gnb', 'htx', 'clt', 'jax', 'kan', 'sdg', 'ram', 'rai', 'mia', 'min', 'nor', 'nwe', 'nyg', 'nyj', 'phi', 'pit', 'sea', 'sfo', 'tam', 'oti', 'was']
-
 def fixName(name):
-	name = name.lower().replace("'", "")
+	name = name.lower().replace("'", "").strip()
 	name = re.sub(r" (v|iv|iii|ii|jr|sr)(\.?)$", " ", name).replace(".", "").strip()
 	if name == "elijah mitchell":
 		return "eli mitchell"

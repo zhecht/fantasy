@@ -25,16 +25,15 @@ if os.path.exists("/home/zhecht/fantasy"):
 @rbbc_print.route("/getRBBC")
 def getRBBC():
     rbbcResult = []
-    snap_trends = controllers.redzone.get_redzone_trends(RBBC_TEAMS, curr_week, "RB", is_ui=True)
-    for team in RBBC_TEAMS:
-        team_display = TEAM_TRANS[team] if team in TEAM_TRANS else team
+    snap_trends = controllers.redzone.get_redzone_trends(SNAP_LINKS, curr_week, "RB", is_ui=True)
+    for team in SNAP_LINKS:
         playerList = []
         players = snap_trends[team].keys()
         for player in players:
             playerData = snap_trends[team][player]
             rbbcResult.append({
                 "player": player.title(),
-                "team": team_display.upper(),
+                "team": team,
                 "avgSnapPer": playerData["avg_snaps"],
                 "avgSnapPerTrend": playerData["snaps_trend"],
                 "looksPerGame": playerData["looks_per_game"],
@@ -50,5 +49,5 @@ def getRBBC():
 
 @rbbc_print.route('/rbbc')
 def rbbc_route():
-    snap_trends = controllers.redzone.get_redzone_trends(RBBC_TEAMS, curr_week, "RB", is_ui=True)
+    snap_trends = controllers.redzone.get_redzone_trends(SNAP_LINKS, curr_week, "RB", is_ui=True)
     return render_template("rbbc.html", curr_week=curr_week)
