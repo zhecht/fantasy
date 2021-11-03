@@ -217,9 +217,9 @@ def get_opponents(team):
 		opp_team = "BYE"
 		for games in schedule[str(i)]:
 			away, home = games.split(" @ ")
-			if away == team or team_trans.get(away, away) == team_trans.get(team, team):
+			if away == team or TEAM_TRANS.get(away, away) == TEAM_TRANS.get(team, team):
 				opp_team = home
-			elif home == team or team_trans.get(home, home) == team_trans.get(team, team):
+			elif home == team or TEAM_TRANS.get(home, home) == TEAM_TRANS.get(team, team):
 				opp_team = away
 		opps.append(opp_team)
 	return opps
@@ -490,8 +490,6 @@ def get_pretty_stats(stats, pos, settings):
 				s += ", {} Rec TD".format(stats["rec_td"])
 	return s
 
-team_trans = {"rav": "bal", "htx": "hou", "oti": "ten", "sdg": "lac", "ram": "lar", "rai": "oak", "clt": "ind", "crd": "ari"}
-
 def get_suffix(num):
 	if num >= 11 and num <= 13:
 		return "th"
@@ -541,8 +539,8 @@ def position_vs_opponent_stats(team, pos, ranks, settings=None):
 			players_arr = ["OFF"]
 		else:
 			players_arr = get_players_by_pos_team(opp_team, pos)
-		display_team = team_trans[team] if team in team_trans else team
-		display_opp_team = team_trans[opp_team] if opp_team in team_trans else opp_team
+		display_team = TEAM_TRANS[team] if team in TEAM_TRANS else team
+		display_opp_team = TEAM_TRANS[opp_team] if opp_team in TEAM_TRANS else opp_team
 		
 		j = {
 			"title": "<i style='text-decoration:underline;'>{} vs. {} {}</i>".format(
@@ -627,8 +625,8 @@ def get_total_ranks(curr_week, settings):
 		for pos in ["QB", "RB", "WR", "TE", "K", "DEF"]:
 			sorted_ranks = sorted(defense_tot, key=operator.itemgetter("{}_ppg".format(pos)), reverse=True)
 			display_team = sorted_ranks[idx - 1]["team"]
-			if display_team in team_trans:
-				display_team = team_trans[display_team]
+			if display_team in TEAM_TRANS:
+				display_team = TEAM_TRANS[display_team]
 			tot = round(sorted_ranks[idx - 1]["{}_tot".format(pos)], 2)
 			s += "|{} {}".format(display_team, sorted_ranks[idx - 1]["{}_ppg".format(pos)])
 		print(s)
@@ -987,7 +985,7 @@ if __name__ == "__main__":
 	elif args.team and args.pos:
 		ranks = get_ranks(curr_week, settings)
 		opp, tot = position_vs_opponent_stats(args.team, args.pos, ranks, settings)
-		teamname = team_trans[args.team] if args.team in team_trans else args.team
+		teamname = TEAM_TRANS[args.team] if args.team in TEAM_TRANS else args.team
 		print("**{} vs. {}**".format(teamname.upper(), args.pos))
 		for idx, data in enumerate(opp):
 			if idx + 1 > curr_week:

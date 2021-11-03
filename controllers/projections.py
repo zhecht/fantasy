@@ -206,7 +206,9 @@ def fix_projections(all_projections):
 	all_projections["ryan santoso"] = {
 		"wk1": 5.56, "wk3": 6.63, "wk4": 6.22
 	}
-	all_projections["mitch wishnowsky"]["wk4"] = 7.54
+	all_projections["mitch wishnowsky"] = {
+		"wk4": 7.54
+	}
 
 def parse_projections():
 	all_projections = {}

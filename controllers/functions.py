@@ -1,7 +1,7 @@
 import re
 
 YEAR = 2021
-CURR_WEEK = 9
+CURR_WEEK = 8
 curr_week = CURR_WEEK
 
 TEAM_TRANS = {

@@ -78,8 +78,7 @@ def write_redzone(curr_week=1):
 
 	for team in SNAP_LINKS:
 		link = f"http://www.footballguys.com/stats/redzone/teams?team={team.upper()}&year={YEAR}"
-
-		opps = get_opponents(team)
+		opps = get_opponents(TEAM_TRANS.get(team, team))
 		html = urllib.urlopen(link)
 		soup = BeautifulSoup(html.read(), "lxml")
 
@@ -190,7 +189,7 @@ def get_redzone_trends(rbbc_teams, curr_week=1, requested_pos="RB", is_ui=False)
 	players_on_FA = read_FA()
 	snap_stats = read_snap_stats(curr_week)
 	target_stats = read_target_stats()
-	#players_on_teams = {**players_on_teams, **players_on_FA}
+
 	players_on_teams = merge_two_dicts(players_on_teams, players_on_FA)
 	update_players_on_teams(players_on_teams)
 	trends = {}
@@ -239,6 +238,7 @@ def get_redzone_trends(rbbc_teams, curr_week=1, requested_pos="RB", is_ui=False)
 				looks_perc = round(float(redzone_totals[player]["total"] / denom) * 100, 1)
 			except:
 				looks_perc = 0
+
 			if curr_week == 1:
 				avg_snaps = last_snaps
 				last_looks_perc = looks_perc
@@ -254,11 +254,13 @@ def get_redzone_trends(rbbc_teams, curr_week=1, requested_pos="RB", is_ui=False)
 						tot_games += 1
 				if tot_games:
 					avg_snaps = avg_snaps / tot_games
-				
-				try:			
+
+				last_looks_perc = 0
+				try:
 					last_looks_perc = round(float(redzone_totals[player]["last_total"] / redzone_totals[team]["last_total"]) * 100, 1)
 				except:
-					last_looks_perc = 0
+					pass
+
 				try:
 					last_target_share = round(float(target_aggregates[player]["perc"].split(",")[curr_week - 2]) * 100, 1)
 				except:
@@ -278,6 +280,8 @@ def get_redzone_trends(rbbc_teams, curr_week=1, requested_pos="RB", is_ui=False)
 				looks_trend = int(trends[team][player]["looks"].split(",")[curr_week - 1])
 				target_trend = int(trends[team][player]["targets"].split(",")[curr_week - 1])
 				looks_share_trend = round(looks_perc - last_looks_perc, 1)
+				if last_snaps == 0:
+					looks_share_trend = 0
 				target_share_trend = round(target_share - last_target_share, 1)
 				looks_per_game_trend = round(looks_per_game - last_looks_per_game, 2)
 				targets_per_game_trend = round(targets_per_game - last_targets_per_game, 2)
@@ -440,7 +444,6 @@ def get_snaps_per_game(player, curr_week, snap_stats):
 
 
 def get_player_looks_arr(curr_week=1, is_ui=False):
-	import profootballreference
 	redzone_json = read_redzone()
 	team_total_json = read_team_total()
 	players_on_teams,translations = read_rosters()
@@ -470,12 +473,13 @@ def get_player_looks_arr(curr_week=1, is_ui=False):
 				continue
 
 			looks = int(looks_arr[week - 1])
+
 			looks_perc = float(looks_perc_arr[week - 1])
 			total_rb_looks += team_total_json[redzone_json[player]["team"]]["RB"][week - 1]
 			total_wrte_looks += team_total_json[redzone_json[player]["team"]]["WR/TE"][week - 1]
 			total_player_looks += looks
 
-		looks_per_game, last_looks_per_game, last_3_looks_per_game = get_looks_per_game(player, team, curr_week, looks_arr, snap_stats)
+		looks_per_game, last_looks_per_game, last_3_looks_per_game = get_looks_per_game(player, redzone_json[player]["team"], curr_week, looks_arr, snap_stats)
 
 		total_team_looks = total_rb_looks + total_wrte_looks
 		#if redzone_json[player]["team"] == "sea":
@@ -559,22 +563,21 @@ if __name__ == '__main__':
 	top_redzone = get_player_looks_arr(curr_week)
 
 	if args.snaps:
-		team_trans = {"rav": "bal", "htx": "hou", "oti": "ten", "sdg": "lac", "ram": "lar", "clt": "ind", "crd": "ari", "gnb": "gb", "kan": "kc", "nwe": "ne", "rai": "lv", "sfo": "sf", "tam": "tb", "nor": "no"}
 		rbbc_teams = ['crd', 'atl', 'rav', 'buf', 'car', 'chi', 'cin', 'cle', 'dal', 'den', 'det', 'gnb', 'htx', 'clt', 'jax', 'kan', 'sdg', 'ram', 'rai', 'mia', 'min', 'nor', 'nwe', 'nyg', 'nyj', 'phi', 'pit', 'sea', 'sfo', 'tam', 'oti', 'was']
 
 		print("View on [Site](https://zhecht.pythonanywhere.com/rbbc)")
-		print("\nWeekly, I'll be posting this RBBC analysis alongside my [Redzone Look Trends]() post")
+		print("\nWeekly, I'll be posting this backfield analysis alongside my [Redzone Look Trends]() post")
 		print("\nNotes:")
 		print("\n- Purpose: Examine backfield trends from the previous weeks")
 		print("\n- Target Share and RZ Share are only relative to FBs/RBs on the team. Data is adjusted for injuries")
-		print("\n- Source: https://subscribers.footballguys.com/teams/teampage-den-3.php")
+		print("\n- Source: https://www.footballguys.com/stats/redzone/teams?team=NYG&year=2021")
 		print("\n- #Reply with a team name if you want to just see their breakdown of W/R/T")
 
 		if args.teams:
 			rbbc_teams = args.teams.split(",")
-		snap_trends = get_redzone_trends(rbbc_teams, curr_week, args.pos)
-		for team in rbbc_teams:
-			team_display = team_trans[team] if team in team_trans else team
+		snap_trends = get_redzone_trends(SNAP_LINKS, curr_week, args.pos)
+		for team in SNAP_LINKS:
+			team_display = TEAM_TRANS[team] if team in TEAM_TRANS else team
 			#team_display = full_team_names[team] if team in full_team_names else team
 			print(f"\n#{team_display.upper()}")
 			print("Player|AVG Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|{} Target Share".format(args.pos))
@@ -615,9 +618,8 @@ if __name__ == '__main__':
 		for arr in top_redzone:
 			if arr["team"] not in team_totals or arr["total_team_looks"] > team_totals[arr["team"]]:
 				team_totals[arr["team"]] = arr["total_team_looks"]
-		import profootballreference
 		for team in team_totals:
-			team_schedule = profootballreference.get_opponents(team)
+			team_schedule = get_opponents(team)
 			tot_games = 0
 			for week in range(curr_week):
 				if team_schedule[week] != "BYE":
@@ -646,23 +648,24 @@ if __name__ == '__main__':
 		update_players_on_teams(players_on_teams)
 
 		print("View on [Site](https://zhecht.pythonanywhere.com/redzone)")
-		print("\nView as [Image]()")
+		#print("\nView as [Image]()")
 		print("\nWeekly, I'll be posting this Redzone Look Trends alongside my [Backfield Trends]() post")
 		print("\nNotes:")
 		print("\n- Purpose: Track players getting targets or rushes inside the 20 yard line")
-		print("\n- Source: https://subscribers.footballguys.com/teams/teampage-den-6.php")
+		print("\n- Source: https://www.footballguys.com/stats/redzone/teams?team=NYG&year=2021")
 		print("\n- #Reply with a team name if you want to just see their breakdown of W/R/T")
 
-		print("\n#The FeelsBad Table")
-		print("\nPlayer|RZ Looks Per Game|1 Week Trend|3 Week Trend|RZ Team Share")
-		print(":--|:--|:--|:--|:--")
-		for player in sorted_looks:
-			#continue
+		if 0:
+			print("\n#The FeelsBad Table")
+			print("\nPlayer|RZ Looks Per Game|1 Week Trend|3 Week Trend|RZ Team Share")
+			print(":--|:--|:--|:--|:--")
+			for player in sorted_looks:
+				#continue
 
-			#if player["looks"] >= 0 and player["name"] in feelsbad_players: 
-			if player["team"] == 'mia':
-				print(f"{player['name'].title()}|{player['looks_per_game']}|{player['delta']}|{player['delta3']}|{player['looks_perc']}%")
-		exit()
+				#if player["looks"] >= 0 and player["name"] in feelsbad_players: 
+				if player["team"] == 'mia':
+					print(f"{player['name'].title()}|{player['looks_per_game']}|{player['delta']}|{player['delta3']}|{player['looks_perc']}%")
+			exit()
 
 		print("\n#The Julio Jones Table")
 		print("\nPlayer|RZ Looks Per Game|1 Week Trend|3 Week Trend|RZ Team Share")
