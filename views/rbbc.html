@@ -88,14 +88,22 @@
 			const percentFormatter = function(cell, params, rendered) {
 				const div = document.createElement("div");
 				div.className = "trendCell";
-				const val = cell.getValue().toFixed(1)+"%";
-				const trend = getTrend(cell.getField(), cell.getRow().getData(),percent=true);
+
+				let val = "DNP";
+				if (parseInt(cell.getValue()) != 0) {
+					val = cell.getValue().toFixed(1)+"%";
+				}
 
 				const valDiv = document.createElement("div");
 				valDiv.style["font-weight"] = "bold";
 				valDiv.innerText = val;
 				div.appendChild(valDiv);
-				div.appendChild(trend);
+
+				if (val != "DNP") {
+					const trend = getTrend(cell.getField(), cell.getRow().getData(),percent=true);
+					div.appendChild(trend);
+				}
+				
 				return div;
 			}
 
@@ -131,13 +139,13 @@
 						return value + "<span style='color:black; margin-left:10px;'>(" + count + " "+playerTxt+")</span>";
 					},
 					initialSort: [
-						{column: "avgSnapPer", dir: "desc"},
+						{column: "snaps", dir: "desc"},
 						{column: "team", dir: "asc"}
 					],
 					columns: [
 						{title: "Player", field: "player", headerFilter: "input"},
 						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
-						{title: "Avg Snap %", field: "avgSnapPer", formatter: percentFormatter, hozAlign: "center"},
+						{title: "Snap %", field: "snaps", formatter: percentFormatter, hozAlign: "center"},
 						{title: "RZ Looks Per Game", field: "looksPerGame", formatter: decimalFormatter, hozAlign: "center"},
 						{title: "RZ Looks Share (RBs)", field: "looksShare", formatter: percentFormatter, hozAlign: "center"},
 						{title: "Targets Per Game", field: "targetsPerGame", formatter: decimalFormatter, hozAlign: "center"},

@@ -27,36 +27,36 @@ if os.path.exists("/home/zhecht/fantasy"):
     prefix = "/home/zhecht/fantasy/"
 
 full_team_names = {
-	"ram": "Rams",
-	"nor": "Saints",
+	"lar": "Rams",
+	"no": "Saints",
 	"phi": "Eagles",
-	"rai": "Raiders",
-	"clt": "Colts",
-	"rav": "Ravens",
-	"nwe": "Patriots",
-	"htx": "Texans",
-	"sfo": "49ers",
-	"sdg": "Chargers",
+	"lv": "Raiders",
+	"ind": "Colts",
+	"bal": "Ravens",
+	"ne": "Patriots",
+	"hou": "Texans",
+	"sf": "49ers",
+	"lac": "Chargers",
 	"cin": "Bengals",
-	"kan": "Chiefs",
+	"kc": "Chiefs",
 	"atl": "Falcons",
 	"pit": "Steelers",
 	"den": "Broncos",
 	"jax": "Jaguars",
 	"det": "Lions",
 	"chi": "Bears",
-	"gnb": "Packers",
+	"gb": "Packers",
 	"nyj": "Jets",
 	"nyg": "Giants",
-	"oti": "Titans",
+	"ten": "Titans",
 	"dal": "Cowboys",
 	"min": "Vikings",
 	"was": "Washington",
-	"tam": "Buccaneers",
+	"tb": "Buccaneers",
 	"cle": "Browns",
 	"sea": "Seahawks",
 	"car": "Panthers",
-	"crd": "Cardinals",
+	"ari": "Cardinals",
 	"mia": "Dolphins",
 	"buf": "Bills"
 }
@@ -230,6 +230,7 @@ def get_redzone_trends(rbbc_teams, curr_week=1, requested_pos="RB", is_ui=False)
 			rz = int(trends[team][player]["looks"].split(",")[curr_week - 1])
 			last_rz = int(trends[team][player]["looks"].split(",")[curr_week - 1])
 			last_snaps = float(trends[team][player]["snaps"].split(",")[curr_week - 1])
+			last_2_snaps = float(trends[team][player]["snaps"].split(",")[curr_week - 2])
 			#if player == "leveon bell":
 			#	print(target_aggregates[player])
 			target_share = round(float(target_aggregates[player]["perc"].split(",")[curr_week - 1]) * 100, 1)
@@ -275,7 +276,6 @@ def get_redzone_trends(rbbc_teams, curr_week=1, requested_pos="RB", is_ui=False)
 			targets_per_game_trend = 0
 
 			if get_opponents(team)[curr_week-1] != "BYE":
-				snaps_per_game_trend = round(snaps_per_game - last_snaps_per_game, 2)
 				snaps_trend = round(snaps_per_game - avg_snaps, 1)
 				looks_trend = int(trends[team][player]["looks"].split(",")[curr_week - 1])
 				target_trend = int(trends[team][player]["targets"].split(",")[curr_week - 1])
@@ -292,6 +292,9 @@ def get_redzone_trends(rbbc_teams, curr_week=1, requested_pos="RB", is_ui=False)
 			trends[team][player]["targets_per_game"] = targets_per_game
 			trends[team][player]["looks_share"] = looks_perc
 			trends[team][player]["snaps"] = last_snaps
+			trends[team][player]["snapsTrend"] = str(last_snaps - last_2_snaps)+"%"
+			if not trends[team][player]["snapsTrend"].startswith("-"):
+				trends[team][player]["snapsTrend"] = "+"+trends[team][player]["snapsTrend"]
 			trends[team][player]["avg_snaps"] = snaps_per_game
 			trends[team][player]["target_share"] = target_share
 
@@ -467,11 +470,13 @@ def get_player_looks_arr(curr_week=1, is_ui=False):
 		last_total_player_looks = 0
 		last_total_rb_looks = 0
 		last_total_wrte_looks = 0
+		gamesPlayed = 0
 
 		for week in range(1, curr_week):
 			if player not in snap_stats or int(snap_stats[player]["counts"].split(",")[week - 1]) == 0:
 				continue
 
+			gamesPlayed += 1
 			looks = int(looks_arr[week - 1])
 
 			looks_perc = float(looks_perc_arr[week - 1])
@@ -532,7 +537,7 @@ def get_player_looks_arr(curr_week=1, is_ui=False):
 
 		#if total_team_looks != 0 and total_player_looks != 0:
 		if total_team_looks != 0:
-			top_redzone.append({"name": player, "looks_per_game": looks_per_game, "looks": total_player_looks, "looks_perc": looks_perc, "total_team_looks": total_team_looks, "total_rb_looks": total_rb_looks, "total_wrte_looks": total_wrte_looks, "team": redzone_json[player]["team"], "delta": delta, "delta3": delta3})
+			top_redzone.append({"name": player, "gamesPlayed": gamesPlayed, "looks_per_game": looks_per_game, "looks": total_player_looks, "looks_perc": looks_perc, "total_team_looks": total_team_looks, "total_rb_looks": total_rb_looks, "total_wrte_looks": total_wrte_looks, "team": redzone_json[player]["team"], "delta": delta, "delta3": delta3})
 	return top_redzone
 
 if __name__ == '__main__':

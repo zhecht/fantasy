@@ -47,8 +47,11 @@ def getRedzone():
 			continue
 		elif counts[pos] >= 50:
 			continue
+
+		if playerData["gamesPlayed"] < 3:
+			continue
 		counts[pos] += 1
-		
+
 		redzoneResult.append({
 			"position": pos,
 			"player": player.title(),

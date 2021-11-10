@@ -389,7 +389,7 @@ def get_defense_tot(curr_week, point_totals_dict, over_expected):
 						which_team = team
 					if over_expected:
 						#print(which_team, point_totals_dict[which_team])
-						#print(which_team, week, pos)
+						print(which_team, week, pos)
 						j[act_key] += point_totals_dict[which_team][f"{pos}_wk{week+1}_act"]
 						j[proj_key] += point_totals_dict[opp_team][f"{pos}_wk{week+1}_proj"]
 						j[key] += point_totals_dict[which_team][key]
@@ -676,6 +676,14 @@ def fix_roster(roster, team):
 	elif team == "car":
 		roster["ryan santoso"] = "K"
 		roster["zane gonzalez"] = "K"
+	elif team == "cle":
+		roster["case keenum"] = "QB"
+	elif team == "clt":
+		roster["michael badgley"] = "K"
+	elif team == "crd":
+		roster["colt mccoy"] = "QB"
+	elif team == "dal":
+		roster["cooper rush"] = "QB"
 	elif team == "det":
 		roster["ryan santoso"] = "K"
 	elif team == "htx":
@@ -683,12 +691,21 @@ def fix_roster(roster, team):
 		roster["kaimi fairbairn"] = "K"
 	elif team == "jax":
 		roster["matthew wright"] = "K"
+	elif team == "nor":
+		roster["brian johnson"] = "K"
+	elif team == "nyj":
+		roster["mike white"] = "QB"
+		roster["josh johnson"] = "QB"
+	elif team == "sdg":
+		roster["dustin hopkins"] = "K"
 	elif team == "sfo":
 		roster["joey slye"] = "K"
 		roster["mitch wishnowsky"] = "K"
 		roster["trey sermon"] = "RB"
 	elif team == "oti":
 		roster["randy bullock"] = "K"
+	elif team == "was":
+		roster["chris blewitt"] = "K"
 	return
 
 def write_team_rosters(teamlinks={}):

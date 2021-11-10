@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.497791/players;start=50;status=FA" time="50.427913665771ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
+<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.497791/players;start=50;status=FA" time="48.642158508301ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
  <league>
   <league_key>406.l.497791</league_key>
   <league_id>497791</league_id>
@@ -8,9 +8,9 @@
   <logo_url></logo_url>
   <draft_status>postdraft</draft_status>
   <num_teams>12</num_teams>
-  <edit_key>9</edit_key>
+  <edit_key>10</edit_key>
   <weekly_deadline/>
-  <league_update_timestamp>1635919844</league_update_timestamp>
+  <league_update_timestamp>1636444015</league_update_timestamp>
   <scoring_type>head</scoring_type>
   <league_type>private</league_type>
   <renew>399_665951</renew>
@@ -19,7 +19,7 @@
   <allow_add_to_dl_extra_pos>0</allow_add_to_dl_extra_pos>
   <is_pro_league>0</is_pro_league>
   <is_cash_league>0</is_cash_league>
-  <current_week>9</current_week>
+  <current_week>10</current_week>
   <start_week>1</start_week>
   <start_date>2021-09-09</start_date>
   <end_week>17</end_week>
@@ -27,40 +27,6 @@
   <game_code>nfl</game_code>
   <season>2021</season>
   <players count="25">
-   <player>
-    <player_key>406.p.26644</player_key>
-    <player_id>26644</player_id>
-    <name>
-     <full>Tyler Eifert</full>
-     <first>Tyler</first>
-     <last>Eifert</last>
-     <ascii_first>Tyler</ascii_first>
-     <ascii_last>Eifert</ascii_last>
-    </name>
-    <status>NA</status>
-    <status_full>Inactive: Coach's Decision or Not on Roster</status_full>
-    <editorial_player_key>nfl.p.26644</editorial_player_key>
-    <editorial_team_key>nfl.t.30</editorial_team_key>
-    <editorial_team_full_name>Jacksonville Jaguars</editorial_team_full_name>
-    <editorial_team_abbr>Jax</editorial_team_abbr>
-    <bye_weeks>
-     <week>7</week>
-    </bye_weeks>
-    <uniform_number>88</uniform_number>
-    <display_position>TE</display_position>
-    <headshot>
-     <url>https://s.yimg.com/iu/api/res/1.2/RPhzXJCe54DH9iARDG3U9A--~C/YXBwaWQ9eXNwb3J0cztjaD0yMzM2O2NyPTE7Y3c9MTc5MDtkeD04NTc7ZHk9MDtmaT11bGNyb3A7aD02MDtxPTEwMDt3PTQ2/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/10012020/26644.png</url>
-     <size>small</size>
-    </headshot>
-    <image_url>https://s.yimg.com/iu/api/res/1.2/RPhzXJCe54DH9iARDG3U9A--~C/YXBwaWQ9eXNwb3J0cztjaD0yMzM2O2NyPTE7Y3c9MTc5MDtkeD04NTc7ZHk9MDtmaT11bGNyb3A7aD02MDtxPTEwMDt3PTQ2/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/10012020/26644.png</image_url>
-    <is_undroppable>0</is_undroppable>
-    <position_type>O</position_type>
-    <primary_position>TE</primary_position>
-    <eligible_positions>
-     <position>TE</position>
-     <position>W/R/T</position>
-    </eligible_positions>
-   </player>
    <player>
     <player_key>406.p.26660</player_key>
     <player_id>26660</player_id>
@@ -160,7 +126,7 @@
      <position>W/R/T</position>
     </eligible_positions>
     <has_player_notes>1</has_player_notes>
-    <player_notes_last_timestamp>1635112835</player_notes_last_timestamp>
+    <player_notes_last_timestamp>1636323992</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.26696</player_key>
@@ -357,6 +323,8 @@
      <position>WR</position>
      <position>W/R/T</position>
     </eligible_positions>
+    <has_player_notes>1</has_player_notes>
+    <player_notes_last_timestamp>1636334542</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.26777</player_key>
@@ -427,6 +395,37 @@
     </eligible_positions>
    </player>
    <player>
+    <player_key>406.p.26800</player_key>
+    <player_id>26800</player_id>
+    <name>
+     <full>Dustin Hopkins</full>
+     <first>Dustin</first>
+     <last>Hopkins</last>
+     <ascii_first>Dustin</ascii_first>
+     <ascii_last>Hopkins</ascii_last>
+    </name>
+    <editorial_player_key>nfl.p.26800</editorial_player_key>
+    <editorial_team_key>nfl.t.24</editorial_team_key>
+    <editorial_team_full_name>Los Angeles Chargers</editorial_team_full_name>
+    <editorial_team_abbr>LAC</editorial_team_abbr>
+    <bye_weeks>
+     <week>7</week>
+    </bye_weeks>
+    <uniform_number>3</uniform_number>
+    <display_position>K</display_position>
+    <headshot>
+     <url>https://s.yimg.com/iu/api/res/1.2/_Z8yuo4lvsrSRrhFFAMBRQ--~C/YXBwaWQ9eXNwb3J0cztjaD0yMzM2O2NyPTE7Y3c9MTc5MDtkeD04NTc7ZHk9MDtmaT11bGNyb3A7aD02MDtxPTEwMDt3PTQ2/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/09222021/26800.png</url>
+     <size>small</size>
+    </headshot>
+    <image_url>https://s.yimg.com/iu/api/res/1.2/_Z8yuo4lvsrSRrhFFAMBRQ--~C/YXBwaWQ9eXNwb3J0cztjaD0yMzM2O2NyPTE7Y3c9MTc5MDtkeD04NTc7ZHk9MDtmaT11bGNyb3A7aD02MDtxPTEwMDt3PTQ2/https://s.yimg.com/xe/i/us/sp/v/nfl_cutout/players_l/09222021/26800.png</image_url>
+    <is_undroppable>0</is_undroppable>
+    <position_type>K</position_type>
+    <primary_position>K</primary_position>
+    <eligible_positions>
+     <position>K</position>
+    </eligible_positions>
+   </player>
+   <player>
     <player_key>406.p.26813</player_key>
     <player_id>26813</player_id>
     <name>
@@ -458,7 +457,7 @@
      <position>W/R/T</position>
     </eligible_positions>
     <has_player_notes>1</has_player_notes>
-    <player_notes_last_timestamp>1635720210</player_notes_last_timestamp>
+    <player_notes_last_timestamp>1636325885</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.26822</player_key>
@@ -525,6 +524,8 @@
      <position>TE</position>
      <position>W/R/T</position>
     </eligible_positions>
+    <has_player_notes>1</has_player_notes>
+    <player_notes_last_timestamp>1636087319</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.26949</player_key>
@@ -603,6 +604,9 @@
      <ascii_first>Demetrius</ascii_first>
      <ascii_last>Harris</ascii_last>
     </name>
+    <status>COVID-19</status>
+    <status_full>Reserve: COVID-19</status_full>
+    <injury_note>COVID-19</injury_note>
     <editorial_player_key>nfl.p.27174</editorial_player_key>
     <editorial_team_key>nfl.t.22</editorial_team_key>
     <editorial_team_full_name>Arizona Cardinals</editorial_team_full_name>
@@ -623,6 +627,7 @@
     <eligible_positions>
      <position>TE</position>
      <position>W/R/T</position>
+     <position>IR</position>
     </eligible_positions>
    </player>
    <player>
@@ -657,7 +662,7 @@
      <position>W/R/T</position>
     </eligible_positions>
     <has_player_notes>1</has_player_notes>
-    <player_notes_last_timestamp>1635718823</player_notes_last_timestamp>
+    <player_notes_last_timestamp>1636087090</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.27369</player_key>
@@ -691,6 +696,9 @@
     <eligible_positions>
      <position>K</position>
     </eligible_positions>
+    <has_player_notes>1</has_player_notes>
+    <has_recent_player_notes>1</has_recent_player_notes>
+    <player_notes_last_timestamp>1636499546</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.27494</player_key>
@@ -756,6 +764,8 @@
     <eligible_positions>
      <position>QB</position>
     </eligible_positions>
+    <has_player_notes>1</has_player_notes>
+    <player_notes_last_timestamp>1635960724</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.27532</player_key>
@@ -769,7 +779,7 @@
     </name>
     <status>Q</status>
     <status_full>Questionable</status_full>
-    <injury_note>Hamstring</injury_note>
+    <injury_note>Thigh</injury_note>
     <editorial_player_key>nfl.p.27532</editorial_player_key>
     <editorial_team_key>nfl.t.33</editorial_team_key>
     <editorial_team_full_name>Baltimore Ravens</editorial_team_full_name>
@@ -791,6 +801,9 @@
      <position>WR</position>
      <position>W/R/T</position>
     </eligible_positions>
+    <has_player_notes>1</has_player_notes>
+    <has_recent_player_notes>1</has_recent_player_notes>
+    <player_notes_last_timestamp>1636484375</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.27538</player_key>
@@ -827,7 +840,7 @@
      <position>W/R/T</position>
     </eligible_positions>
     <has_player_notes>1</has_player_notes>
-    <player_notes_last_timestamp>1635694738</player_notes_last_timestamp>
+    <player_notes_last_timestamp>1636417427</player_notes_last_timestamp>
    </player>
    <player>
     <player_key>406.p.27556</player_key>
@@ -866,4 +879,4 @@
   </players>
  </league>
 </fantasy_content>
-<!-- fantasy-sports-api- -public-production-bf1-8d97556f4-8kf4f Wed Nov  3 14:56:24 UTC 2021 -->
+<!-- fantasy-sports-api- -public-production-bf1-674cd4cd75-szxjv Wed Nov 10 15:48:18 UTC 2021 -->

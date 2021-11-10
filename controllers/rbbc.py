@@ -34,6 +34,8 @@ def getRBBC():
             rbbcResult.append({
                 "player": player.title(),
                 "team": team,
+                "snaps": playerData["snaps"],
+                "snapsTrend": str(playerData["snapsTrend"]),
                 "avgSnapPer": playerData["avg_snaps"],
                 "avgSnapPerTrend": playerData["snaps_trend"],
                 "looksPerGame": playerData["looks_per_game"],
