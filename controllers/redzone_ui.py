@@ -48,8 +48,7 @@ def getRedzone():
 		elif counts[pos] >= 50:
 			continue
 
-		if playerData["gamesPlayed"] < 3:
-			continue
+		delta3 = "-" if playerData["gamesPlayed"] < 3 else playerData["delta3"]
 		counts[pos] += 1
 
 		redzoneResult.append({
@@ -59,7 +58,7 @@ def getRedzone():
 			"looksPerc": playerData["looks_perc"],
 			"looksPerGame": playerData["looks_per_game"],
 			"delta": playerData["delta"],
-			"delta3": playerData["delta3"],
+			"delta3": delta3,
 		})
 
 	return jsonify(redzoneResult)

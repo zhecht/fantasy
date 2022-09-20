@@ -21,12 +21,6 @@ except:
   import urllib.request as urllib
 
 prefix = ""
-if platform != "darwin":
-	# if on linux aka prod
-	prefix = "/home/zhecht/fantasy/"
-
-
-prefix = ""
 if os.path.exists("/home/zhecht/fantasy"):
   prefix = "/home/zhecht/fantasy/"
 elif os.path.exists("/mnt/c/Users/Zack/Documents/fantasy"):
@@ -64,7 +58,7 @@ def write_cron_FA():
 	if not os.path.exists(f"{prefix}static/{players_prefix}/FA"):
 		os.mkdir(f"{prefix}static/{players_prefix}/FA")
 
-	for status in ["FA", "W"]:
+	for status in ["W", "FA"]:
 		for i in range(0,1000,25):
 			html = oauth.getData(f"https://fantasysports.yahooapis.com/fantasy/v2/league/{oauth.league_key}/players;start={i};status={status}").text
 			with open(f"{prefix}static/{players_prefix}/FA/{status}_{i}_{i+25}.xml", "w") as fh:

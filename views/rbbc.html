@@ -89,7 +89,7 @@
 				const div = document.createElement("div");
 				div.className = "trendCell";
 
-				let val = "DNP";
+				let val = "-";
 				if (parseInt(cell.getValue()) != 0) {
 					val = cell.getValue().toFixed(1)+"%";
 				}
@@ -99,7 +99,7 @@
 				valDiv.innerText = val;
 				div.appendChild(valDiv);
 
-				if (val != "DNP") {
+				if (val != "-") {
 					const trend = getTrend(cell.getField(), cell.getRow().getData(),percent=true);
 					div.appendChild(trend);
 				}
@@ -145,7 +145,7 @@
 					columns: [
 						{title: "Player", field: "player", headerFilter: "input"},
 						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
-						{title: "Snap %", field: "snaps", formatter: percentFormatter, hozAlign: "center"},
+						{title: "Avg Snap %", field: "snaps", formatter: percentFormatter, hozAlign: "center"},
 						{title: "RZ Looks Per Game", field: "looksPerGame", formatter: decimalFormatter, hozAlign: "center"},
 						{title: "RZ Looks Share (RBs)", field: "looksShare", formatter: percentFormatter, hozAlign: "center"},
 						{title: "Targets Per Game", field: "targetsPerGame", formatter: decimalFormatter, hozAlign: "center"},

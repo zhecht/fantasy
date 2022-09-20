@@ -389,7 +389,7 @@ def get_defense_tot(curr_week, point_totals_dict, over_expected):
 						which_team = team
 					if over_expected:
 						#print(which_team, point_totals_dict[which_team])
-						print(which_team, week, pos)
+						#print(which_team, week, pos)
 						j[act_key] += point_totals_dict[which_team][f"{pos}_wk{week+1}_act"]
 						j[proj_key] += point_totals_dict[opp_team][f"{pos}_wk{week+1}_proj"]
 						j[key] += point_totals_dict[which_team][key]
@@ -459,10 +459,11 @@ def get_pretty_stats(stats, pos, settings):
 		else:
 			s = "0 Targets"
 	elif pos == "K":
-		if "fg_made" not in stats:
-			s = "{} XP / {} FG made".format(stats["xpm"], stats["fgm"])
-		elif "xpm" in stats:
-			s = "{} XP / {} FG made {}".format(stats["xpm"], stats["fgm"], stats["fg_made"])
+		if "xpm" in stats and "fgm" in stats:
+			if "fg_made" not in stats:
+				s = "{} XP / {} FG made".format(stats["xpm"], stats["fgm"])
+			elif "xpm" in stats:
+				s = "{} XP / {} FG made {}".format(stats["xpm"], stats["fgm"], stats["fg_made"])
 	elif pos == "DEF":
 		pts_allowed = stats["rush_td"]*6 + stats["pass_td"]*6 + stats["xpm"] + stats["fgm"]*3 + stats["2pt_conversions"]*2
 		s += "{} pts allowed".format(pts_allowed)
@@ -670,42 +671,13 @@ def write_boxscore_links():
 def fix_roster(roster, team):
 	if team == "atl":
 		roster["cordarrelle patterson"] = "RB"
-		roster["keith smith"] = "FB"
-	elif team == "buf":
-		roster["zack moss"] = "RB"
-	elif team == "car":
-		roster["ryan santoso"] = "K"
-		roster["zane gonzalez"] = "K"
-	elif team == "cle":
-		roster["case keenum"] = "QB"
+		roster["avery williams"] = "RB"
 	elif team == "clt":
-		roster["michael badgley"] = "K"
-	elif team == "crd":
-		roster["colt mccoy"] = "QB"
-	elif team == "dal":
-		roster["cooper rush"] = "QB"
-	elif team == "det":
-		roster["ryan santoso"] = "K"
-	elif team == "htx":
-		roster["davis mills"] = "QB"
-		roster["kaimi fairbairn"] = "K"
+		roster["rodrigo blankenship"] = "K"
 	elif team == "jax":
-		roster["matthew wright"] = "K"
+		roster["riley patterson"] = "K"
 	elif team == "nor":
-		roster["brian johnson"] = "K"
-	elif team == "nyj":
-		roster["mike white"] = "QB"
-		roster["josh johnson"] = "QB"
-	elif team == "sdg":
-		roster["dustin hopkins"] = "K"
-	elif team == "sfo":
-		roster["joey slye"] = "K"
-		roster["mitch wishnowsky"] = "K"
-		roster["trey sermon"] = "RB"
-	elif team == "oti":
-		roster["randy bullock"] = "K"
-	elif team == "was":
-		roster["chris blewitt"] = "K"
+		roster["taysom hill"] = "TE"
 	return
 
 def write_team_rosters(teamlinks={}):
@@ -725,20 +697,9 @@ def write_team_rosters(teamlinks={}):
 
 		# for some reason, the real HTML is commented out?
 		soup = BS(open(outfile, 'rb').read(), "lxml")
-		starters = soup.find("table", id="starters")
-		if starters:
-			rows = starters.find_all("tr")[1:]
-			for tr in rows:
-				tds = tr.find_all("td")
-				name = tds[0].text.lower().replace("'", "").replace(".", "")
-				pos = tr.find("th").text
-				if name.find("starters") == -1:
-					roster[name] = pos
-
-		soup = BS(open(outfile, 'rb').read(), "lxml")
-		if soup.find("div", id="all_games_played_team") is None:
+		if soup.find("div", id="all_roster") is None:
 			continue
-		children = soup.find("div", id="all_games_played_team").children
+		children = soup.find("div", id="all_roster").children
 		html = None
 		for c in children:
 			if isinstance(c, Comment):
@@ -746,10 +707,10 @@ def write_team_rosters(teamlinks={}):
 		os.remove(outfile)
 
 		soup = BS(html, "lxml")
-		rows = soup.find("table", id="games_played_team").find_all("tr")[1:]
+		rows = soup.find("table", id="roster").find_all("tr")[1:]
 		for tr in rows:
 			tds = tr.find_all("td")
-			name = tds[0].text.strip().lower().replace("'", "").replace(".", "")
+			name = tds[0].text.strip().lower().replace("'", "").replace(".", "").replace(" (ir)", "")
 			pos = tds[2].text
 			#if name in roster and roster[name] != pos:
 			#	print(name, roster[name], pos)
@@ -790,7 +751,7 @@ def write_schedule():
 	with open("{}static/profootballreference/schedule.json".format(prefix), "w") as fh:
 		json.dump(schedule, fh, indent=4)
 
-short_names = {"falcons": "atl", "bills": "buf", "panthers": "car", "bears": "chi", "bengals": "cin", "browns": "cle", "colts": "clt", "cardinals": "crd", "cowboys": "dal", "broncos": "den", "lions": "det", "packers": "gnb", "texans": "htx", "jaguars": "jax", "chiefs": "kan", "dolphins": "mia", "vikings": "min", "saints": "nor", "patriots": "nwe", "giants": "nyg", "jets": "nyj", "titans": "oti", "eagles": "phi", "steelers": "pit", "raiders": "rai", "rams": "ram", "ravens": "rav", "chargers": "sdg", "seahawks": "sea", "49ers": "sfo", "buccaneers": "tam", "washington": "was", "football team": "was"}
+short_names = {"falcons": "atl", "bills": "buf", "panthers": "car", "bears": "chi", "bengals": "cin", "browns": "cle", "colts": "clt", "cardinals": "crd", "cowboys": "dal", "broncos": "den", "lions": "det", "packers": "gnb", "texans": "htx", "jaguars": "jax", "chiefs": "kan", "dolphins": "mia", "vikings": "min", "saints": "nor", "patriots": "nwe", "giants": "nyg", "jets": "nyj", "titans": "oti", "eagles": "phi", "steelers": "pit", "raiders": "rai", "rams": "ram", "ravens": "rav", "chargers": "sdg", "seahawks": "sea", "49ers": "sfo", "buccaneers": "tam", "washington": "was", "commanders": "was"}
 
 def get_kicking_stats(outfile):
 	soup = BS(open(outfile, 'rb').read(), "lxml")
@@ -1023,6 +984,6 @@ if __name__ == "__main__":
 		calculate_aggregate_stats()
 
 	#write_team_rosters()
-	#write_boxscore_stats()
+	#write_boxscore_stats(args.week, args.team)
 	#calculate_aggregate_stats()
 	#get_opponents("ari")

@@ -34,9 +34,9 @@ def write_cron_trade_values():
 			allTds = line.split(",")
 
 			# If points column exists
-			if len(allTds[1]) > 0:
-				value = float(allTds[1])
-				for td in allTds[2:]:
+			if len(allTds[2]) > 0:
+				value = float(allTds[2])
+				for td in allTds[3:]:
 					try:
 						name = fixName(td.strip()).strip()
 						if not name or name == "home":

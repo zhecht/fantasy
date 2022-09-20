@@ -1,7 +1,7 @@
 import re
 
-YEAR = 2021
-CURR_WEEK = 9
+YEAR = 2022
+CURR_WEEK = 2
 curr_week = CURR_WEEK
 
 TEAM_TRANS = {
@@ -73,7 +73,7 @@ def fixName(name):
 		return "kan"
 	elif name == "los angeles rams":
 		return "ram"
-	elif name == "washington football team":
+	elif name == "washington commanders":
 		return "was"
 	elif name == "new york giants":
 		return "nyg"
