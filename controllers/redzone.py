@@ -91,7 +91,7 @@ def write_redzone(curr_week=1):
 		positions = ["QB", "RB", "WR", "TE"]
 		rows = soup.find("div", id="stats_redzone_team_data").findAll("tr")[1:]
 		for idx, row in enumerate(rows):
-			tds = row.find_all('td')
+			tds = row.find_all('td')[:-1]
 			redzone_counts = []
 
 			if tds[0].text.strip().lower().endswith("totals"):
@@ -689,8 +689,8 @@ if __name__ == '__main__':
 		print("\n- Source: https://www.footballguys.com/stats/redzone/teams?team=NYG&year=2022")
 		print("\n- #Reply with a team name if you want to just see their breakdown of W/R/T")
 
-		# uptrend: Jamaal
-		# Downtrend: 
+		# uptrend: Dameon Pierce, JRob, Singletary, Herbert, Akers, Etienne, Dobbins, Zeke, Zay Jones, DK, Mack Hollins, Kelce, MAndrews, Njoku, Dissly
+		# Downtrend: Jeff Wilson, CMC, Javonte, Henderson, Ekeler, Sanders, Pittman, MT, Waller, 
 		if 0:
 			print("\n#The FeelsBad Table")
 			print("\nPlayer|Team|RZ Looks Per Game|1 Week Trend|3 Week Trend|RZ Team Share")
