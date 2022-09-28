@@ -182,15 +182,14 @@ def get_points(projections):
 
 def fix_projections(all_projections):
 
-	arr = []
+	arr = ["rodrigo blankenship", "matt ammendola"]
 	for player in arr:
 		if player not in all_projections:
 			all_projections[player] = {}
 	# kickers always messes up
-	all_projections["rodrigo blankenship"] = 6
-	all_projections["matt ammendola"] = 5.39
-	#all_projections["aldrick rosas"]["wk5"] = 7.07
-	#all_projections["cody parkey"]["wk5"] = 7.07
+	all_projections["rodrigo blankenship"]["wk1"] = 6
+	all_projections["matt ammendola"]["wk2"] = 5.39
+	all_projections["matt ammendola"]["wk3"] = 4.71
 
 def parse_projections():
 	all_projections = {}

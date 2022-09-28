@@ -1,19 +1,19 @@
 {
     "OFF": {
         "tot": {
-            "standard_points": 4,
-            "half_points": 4,
-            "full_points": 4,
-            "2pt_conversions": 0,
+            "standard_points": 0,
+            "half_points": 0,
+            "full_points": 0,
+            "2pt_conversions": 1,
             "safety": 0,
             "def_tds": 0,
-            "pass_td": 3,
+            "pass_td": 6,
             "pass_int": 1,
             "pass_sacked": 2,
-            "rush_td": 2,
+            "rush_td": 3,
             "fumbles_lost": 0,
-            "xpm": 4,
-            "fgm": 4,
+            "xpm": 7,
+            "fgm": 7,
             "kick_ret_td": 0,
             "punt_ret_td": 0
         },
@@ -50,26 +50,43 @@
             "standard_points": 0,
             "half_points": 0,
             "full_points": 0
+        },
+        "wk3": {
+            "2pt_conversions": 1,
+            "safety": 0,
+            "def_tds": 0,
+            "pass_td": 3,
+            "pass_int": 0,
+            "pass_sacked": 0,
+            "rush_td": 1,
+            "fumbles_lost": 0,
+            "xpm": 3,
+            "fgm": 3,
+            "kick_ret_td": 0,
+            "punt_ret_td": 0,
+            "standard_points": -4,
+            "half_points": -4,
+            "full_points": -4
         }
     },
     "trevor lawrence": {
         "tot": {
-            "standard_points": 31.9,
-            "half_points": 31.9,
-            "full_points": 31.9,
-            "pass_cmp": 49,
-            "pass_att": 72,
-            "pass_yds": 510,
-            "pass_td": 3,
+            "standard_points": 55.08,
+            "half_points": 55.08,
+            "full_points": 55.08,
+            "pass_cmp": 77,
+            "pass_att": 111,
+            "pass_yds": 772,
+            "pass_td": 6,
             "pass_int": 1,
             "pass_sacked": 2,
             "pass_sacked_yds": 15,
-            "pass_long": 75,
-            "pass_rating": 196.5,
-            "rush_att": 5,
-            "rush_yds": 15,
+            "pass_long": 110,
+            "pass_rating": 312.0,
+            "rush_att": 8,
+            "rush_yds": 22,
             "rush_td": 0,
-            "rush_long": 14,
+            "rush_long": 20,
             "targets": 0,
             "rec": 0,
             "rec_yds": 0,
@@ -77,8 +94,8 @@
             "rec_long": 0,
             "fumbles": 0,
             "fumbles_lost": 0,
-            "snap_counts": 141,
-            "snap_perc": 200
+            "snap_counts": 216,
+            "snap_perc": 299
         },
         "wk1": {
             "pass_cmp": 24,
@@ -133,13 +150,40 @@
             "standard_points": 18.5,
             "half_points": 18.5,
             "full_points": 18.5
+        },
+        "wk3": {
+            "pass_cmp": 28,
+            "pass_att": 39,
+            "pass_yds": 262,
+            "pass_td": 3,
+            "pass_int": 0,
+            "pass_sacked": 0,
+            "pass_sacked_yds": 0,
+            "pass_long": 35,
+            "pass_rating": 115.5,
+            "rush_att": 3,
+            "rush_yds": 7,
+            "rush_td": 0,
+            "rush_long": 6,
+            "targets": 0,
+            "rec": 0,
+            "rec_yds": 0,
+            "rec_td": 0,
+            "rec_long": 0,
+            "fumbles": 0,
+            "fumbles_lost": 0,
+            "snap_counts": 75,
+            "snap_perc": 99,
+            "standard_points": 23.18,
+            "half_points": 23.18,
+            "full_points": 23.18
         }
     },
     "james robinson": {
         "tot": {
-            "standard_points": 32.7,
-            "half_points": 34.2,
-            "full_points": 35.7,
+            "standard_points": 50.300000000000004,
+            "half_points": 53.300000000000004,
+            "full_points": 56.300000000000004,
             "pass_cmp": 0,
             "pass_att": 0,
             "pass_yds": 0,
@@ -149,19 +193,19 @@
             "pass_sacked_yds": 0,
             "pass_long": 0,
             "pass_rating": 0,
-            "rush_att": 34,
-            "rush_yds": 130,
-            "rush_td": 2,
-            "rush_long": 59,
-            "targets": 4,
-            "rec": 3,
-            "rec_yds": 17,
+            "rush_att": 51,
+            "rush_yds": 230,
+            "rush_td": 3,
+            "rush_long": 109,
+            "targets": 7,
+            "rec": 6,
+            "rec_yds": 33,
             "rec_td": 1,
-            "rec_long": 13,
+            "rec_long": 20,
             "fumbles": 0,
             "fumbles_lost": 0,
-            "snap_counts": 79,
-            "snap_perc": 112
+            "snap_counts": 123,
+            "snap_perc": 170
         },
         "wk1": {
             "pass_cmp": 0,
@@ -216,13 +260,8 @@
             "standard_points": 13.8,
             "half_points": 14.8,
             "full_points": 15.8
-        }
-    },
-    "travis etienne": {
-        "tot": {
-            "standard_points": 11.8,
-            "half_points": 14.3,
-            "full_points": 16.8,
+        },
+        "wk3": {
             "pass_cmp": 0,
             "pass_att": 0,
             "pass_yds": 0,
@@ -232,19 +271,51 @@
             "pass_sacked_yds": 0,
             "pass_long": 0,
             "pass_rating": 0,
-            "rush_att": 13,
-            "rush_yds": 67,
-            "rush_td": 0,
-            "rush_long": 33,
-            "targets": 7,
-            "rec": 5,
-            "rec_yds": 51,
+            "rush_att": 17,
+            "rush_yds": 100,
+            "rush_td": 1,
+            "rush_long": 50,
+            "targets": 3,
+            "rec": 3,
+            "rec_yds": 16,
             "rec_td": 0,
-            "rec_long": 37,
+            "rec_long": 7,
+            "fumbles": 0,
+            "fumbles_lost": 0,
+            "snap_counts": 44,
+            "snap_perc": 58,
+            "standard_points": 17.6,
+            "half_points": 19.1,
+            "full_points": 20.6
+        }
+    },
+    "travis etienne": {
+        "tot": {
+            "standard_points": 19.3,
+            "half_points": 23.3,
+            "full_points": 27.3,
+            "pass_cmp": 0,
+            "pass_att": 0,
+            "pass_yds": 0,
+            "pass_td": 0,
+            "pass_int": 0,
+            "pass_sacked": 0,
+            "pass_sacked_yds": 0,
+            "pass_long": 0,
+            "pass_rating": 0,
+            "rush_att": 26,
+            "rush_yds": 112,
+            "rush_td": 0,
+            "rush_long": 42,
+            "targets": 10,
+            "rec": 8,
+            "rec_yds": 81,
+            "rec_td": 0,
+            "rec_long": 53,
             "fumbles": 1,
             "fumbles_lost": 0,
-            "snap_counts": 62,
-            "snap_perc": 88
+            "snap_counts": 95,
+            "snap_perc": 131
         },
         "wk1": {
             "pass_cmp": 0,
@@ -299,13 +370,40 @@
             "standard_points": 5.3,
             "half_points": 6.8,
             "full_points": 8.3
+        },
+        "wk3": {
+            "pass_cmp": 0,
+            "pass_att": 0,
+            "pass_yds": 0,
+            "pass_td": 0,
+            "pass_int": 0,
+            "pass_sacked": 0,
+            "pass_sacked_yds": 0,
+            "pass_long": 0,
+            "pass_rating": 0,
+            "rush_att": 13,
+            "rush_yds": 45,
+            "rush_td": 0,
+            "rush_long": 9,
+            "targets": 3,
+            "rec": 3,
+            "rec_yds": 30,
+            "rec_td": 0,
+            "rec_long": 16,
+            "fumbles": 0,
+            "fumbles_lost": 0,
+            "snap_counts": 33,
+            "snap_perc": 43,
+            "standard_points": 7.5,
+            "half_points": 9.0,
+            "full_points": 10.5
         }
     },
     "jamal agnew": {
         "tot": {
-            "standard_points": 1.3,
-            "half_points": 1.8,
-            "full_points": 2.3000000000000003,
+            "standard_points": 3.0,
+            "half_points": 4.0,
+            "full_points": 5.0,
             "pass_cmp": 0,
             "pass_att": 0,
             "pass_yds": 0,
@@ -319,15 +417,15 @@
             "rush_yds": 7,
             "rush_td": 0,
             "rush_long": 8,
-            "targets": 2,
-            "rec": 1,
-            "rec_yds": 6,
+            "targets": 3,
+            "rec": 2,
+            "rec_yds": 23,
             "rec_td": 0,
-            "rec_long": 6,
+            "rec_long": 23,
             "fumbles": 0,
             "fumbles_lost": 0,
-            "snap_counts": 14,
-            "snap_perc": 20
+            "snap_counts": 26,
+            "snap_perc": 36
         },
         "wk1": {
             "pass_cmp": 0,
@@ -382,13 +480,8 @@
             "standard_points": 0.1,
             "half_points": 0.1,
             "full_points": 0.1
-        }
-    },
-    "christian kirk": {
-        "tot": {
-            "standard_points": 31.5,
-            "half_points": 37.5,
-            "full_points": 43.5,
+        },
+        "wk3": {
             "pass_cmp": 0,
             "pass_att": 0,
             "pass_yds": 0,
@@ -402,15 +495,47 @@
             "rush_yds": 0,
             "rush_td": 0,
             "rush_long": 0,
-            "targets": 18,
-            "rec": 12,
-            "rec_yds": 195,
-            "rec_td": 2,
-            "rec_long": 75,
+            "targets": 1,
+            "rec": 1,
+            "rec_yds": 17,
+            "rec_td": 0,
+            "rec_long": 17,
             "fumbles": 0,
             "fumbles_lost": 0,
-            "snap_counts": 128,
-            "snap_perc": 181
+            "snap_counts": 12,
+            "snap_perc": 16,
+            "standard_points": 1.7,
+            "half_points": 2.2,
+            "full_points": 2.7
+        }
+    },
+    "christian kirk": {
+        "tot": {
+            "standard_points": 44.7,
+            "half_points": 53.7,
+            "full_points": 62.7,
+            "pass_cmp": 0,
+            "pass_att": 0,
+            "pass_yds": 0,
+            "pass_td": 0,
+            "pass_int": 0,
+            "pass_sacked": 0,
+            "pass_sacked_yds": 0,
+            "pass_long": 0,
+            "pass_rating": 0,
+            "rush_att": 0,
+            "rush_yds": 0,
+            "rush_td": 0,
+            "rush_long": 0,
+            "targets": 27,
+            "rec": 18,
+            "rec_yds": 267,
+            "rec_td": 3,
+            "rec_long": 110,
+            "fumbles": 0,
+            "fumbles_lost": 0,
+            "snap_counts": 198,
+            "snap_perc": 273
         },
         "wk1": {
             "pass_cmp": 0,
@@ -465,13 +590,8 @@
             "standard_points": 19.8,
             "half_points": 22.8,
             "full_points": 25.8
-        }
-    },
-    "zay jones": {
-        "tot": {
-            "standard_points": 8.8,
-            "half_points": 13.3,
-            "full_points": 17.8,
+        },
+        "wk3": {
             "pass_cmp": 0,
             "pass_att": 0,
             "pass_yds": 0,
@@ -485,15 +605,47 @@
             "rush_yds": 0,
             "rush_td": 0,
             "rush_long": 0,
-            "targets": 13,
-            "rec": 9,
-            "rec_yds": 88,
-            "rec_td": 0,
-            "rec_long": 28,
+            "targets": 9,
+            "rec": 6,
+            "rec_yds": 72,
+            "rec_td": 1,
+            "rec_long": 35,
             "fumbles": 0,
             "fumbles_lost": 0,
-            "snap_counts": 106,
-            "snap_perc": 151
+            "snap_counts": 70,
+            "snap_perc": 92,
+            "standard_points": 13.2,
+            "half_points": 16.2,
+            "full_points": 19.2
+        }
+    },
+    "zay jones": {
+        "tot": {
+            "standard_points": 23.3,
+            "half_points": 32.8,
+            "full_points": 42.3,
+            "pass_cmp": 0,
+            "pass_att": 0,
+            "pass_yds": 0,
+            "pass_td": 0,
+            "pass_int": 0,
+            "pass_sacked": 0,
+            "pass_sacked_yds": 0,
+            "pass_long": 0,
+            "pass_rating": 0,
+            "rush_att": 1,
+            "rush_yds": 0,
+            "rush_td": 0,
+            "rush_long": 0,
+            "targets": 24,
+            "rec": 19,
+            "rec_yds": 173,
+            "rec_td": 1,
+            "rec_long": 44,
+            "fumbles": 0,
+            "fumbles_lost": 0,
+            "snap_counts": 164,
+            "snap_perc": 227
         },
         "wk1": {
             "pass_cmp": 0,
@@ -548,13 +700,40 @@
             "standard_points": 2.3,
             "half_points": 3.8,
             "full_points": 5.3
+        },
+        "wk3": {
+            "pass_cmp": 0,
+            "pass_att": 0,
+            "pass_yds": 0,
+            "pass_td": 0,
+            "pass_int": 0,
+            "pass_sacked": 0,
+            "pass_sacked_yds": 0,
+            "pass_long": 0,
+            "pass_rating": 0,
+            "rush_att": 1,
+            "rush_yds": 0,
+            "rush_td": 0,
+            "rush_long": 0,
+            "targets": 11,
+            "rec": 10,
+            "rec_yds": 85,
+            "rec_td": 1,
+            "rec_long": 16,
+            "fumbles": 0,
+            "fumbles_lost": 0,
+            "snap_counts": 58,
+            "snap_perc": 76,
+            "standard_points": 14.5,
+            "half_points": 19.5,
+            "full_points": 24.5
         }
     },
     "marvin jones": {
         "tot": {
-            "standard_points": 7.1,
-            "half_points": 10.6,
-            "full_points": 14.1,
+            "standard_points": 16.4,
+            "half_points": 21.9,
+            "full_points": 27.4,
             "pass_cmp": 0,
             "pass_att": 0,
             "pass_yds": 0,
@@ -568,15 +747,15 @@
             "rush_yds": 0,
             "rush_td": 0,
             "rush_long": 0,
-            "targets": 11,
-            "rec": 7,
-            "rec_yds": 71,
-            "rec_td": 0,
-            "rec_long": 25,
+            "targets": 18,
+            "rec": 11,
+            "rec_yds": 104,
+            "rec_td": 1,
+            "rec_long": 36,
             "fumbles": 0,
             "fumbles_lost": 0,
-            "snap_counts": 121,
-            "snap_perc": 171
+            "snap_counts": 173,
+            "snap_perc": 239
         },
         "wk1": {
             "pass_cmp": 0,
@@ -631,13 +810,8 @@
             "standard_points": 3.3,
             "half_points": 4.8,
             "full_points": 6.3
-        }
-    },
-    "evan engram": {
-        "tot": {
-            "standard_points": 7.3999999999999995,
-            "half_points": 12.899999999999999,
-            "full_points": 18.4,
+        },
+        "wk3": {
             "pass_cmp": 0,
             "pass_att": 0,
             "pass_yds": 0,
@@ -651,15 +825,47 @@
             "rush_yds": 0,
             "rush_td": 0,
             "rush_long": 0,
-            "targets": 12,
-            "rec": 11,
-            "rec_yds": 74,
-            "rec_td": 0,
-            "rec_long": 23,
+            "targets": 7,
+            "rec": 4,
+            "rec_yds": 33,
+            "rec_td": 1,
+            "rec_long": 11,
             "fumbles": 0,
             "fumbles_lost": 0,
-            "snap_counts": 99,
-            "snap_perc": 140
+            "snap_counts": 52,
+            "snap_perc": 68,
+            "standard_points": 9.3,
+            "half_points": 11.3,
+            "full_points": 13.3
+        }
+    },
+    "evan engram": {
+        "tot": {
+            "standard_points": 8.299999999999999,
+            "half_points": 14.299999999999999,
+            "full_points": 20.299999999999997,
+            "pass_cmp": 0,
+            "pass_att": 0,
+            "pass_yds": 0,
+            "pass_td": 0,
+            "pass_int": 0,
+            "pass_sacked": 0,
+            "pass_sacked_yds": 0,
+            "pass_long": 0,
+            "pass_rating": 0,
+            "rush_att": 1,
+            "rush_yds": 0,
+            "rush_td": 0,
+            "rush_long": 0,
+            "targets": 15,
+            "rec": 12,
+            "rec_yds": 83,
+            "rec_td": 0,
+            "rec_long": 32,
+            "fumbles": 0,
+            "fumbles_lost": 0,
+            "snap_counts": 157,
+            "snap_perc": 216
         },
         "wk1": {
             "pass_cmp": 0,
@@ -714,29 +920,59 @@
             "standard_points": 4.6,
             "half_points": 8.1,
             "full_points": 11.6
+        },
+        "wk3": {
+            "pass_cmp": 0,
+            "pass_att": 0,
+            "pass_yds": 0,
+            "pass_td": 0,
+            "pass_int": 0,
+            "pass_sacked": 0,
+            "pass_sacked_yds": 0,
+            "pass_long": 0,
+            "pass_rating": 0,
+            "rush_att": 1,
+            "rush_yds": 0,
+            "rush_td": 0,
+            "rush_long": 0,
+            "targets": 3,
+            "rec": 1,
+            "rec_yds": 9,
+            "rec_td": 0,
+            "rec_long": 9,
+            "fumbles": 0,
+            "fumbles_lost": 0,
+            "snap_counts": 58,
+            "snap_perc": 76,
+            "standard_points": 0.9,
+            "half_points": 1.4,
+            "full_points": 1.9
         }
     },
     "riley patterson": {
         "tot": {
-            "standard_points": 20,
-            "half_points": 20,
-            "full_points": 20,
+            "standard_points": 32,
+            "half_points": 32,
+            "full_points": 32,
             "fg_made": [
                 "33",
                 "43",
                 "45",
-                "52"
+                "52",
+                "22",
+                "23",
+                "23"
             ],
-            "xpm": 4,
-            "xpa": 4,
-            "fgm": 4,
-            "fga": 5,
+            "xpm": 7,
+            "xpa": 7,
+            "fgm": 7,
+            "fga": 8,
             "punt": 0,
             "punt_yds": 0,
             "punt_yds_per_punt": 0,
             "punt_long": 0,
-            "snap_counts": 20,
-            "snap_perc": 91
+            "snap_counts": 34,
+            "snap_perc": 149
         },
         "wk1": {
             "fg_made": [
@@ -775,6 +1011,26 @@
             "standard_points": 8,
             "half_points": 8,
             "full_points": 8
+        },
+        "wk3": {
+            "fg_made": [
+                "22",
+                "23",
+                "23"
+            ],
+            "xpm": 3,
+            "xpa": 3,
+            "fgm": 3,
+            "fga": 3,
+            "punt": 0,
+            "punt_yds": 0,
+            "punt_yds_per_punt": 0,
+            "punt_long": 0,
+            "snap_counts": 14,
+            "snap_perc": 58,
+            "standard_points": 12,
+            "half_points": 12,
+            "full_points": 12
         }
     },
     "logan cooke": {
@@ -786,10 +1042,10 @@
             "xpa": 0,
             "fgm": 0,
             "fga": 0,
-            "punt": 8,
-            "punt_yds": 378,
+            "punt": 9,
+            "punt_yds": 434,
             "punt_yds_per_punt": 0,
-            "punt_long": 116
+            "punt_long": 172
         },
         "wk1": {
             "xpm": 0,
@@ -816,6 +1072,19 @@
             "standard_points": 0,
             "half_points": 0,
             "full_points": 0
+        },
+        "wk3": {
+            "xpm": 0,
+            "xpa": 0,
+            "fgm": 0,
+            "fga": 0,
+            "punt": 1,
+            "punt_yds": 56,
+            "punt_yds_per_punt": 0,
+            "punt_long": 56,
+            "standard_points": 0,
+            "half_points": 0,
+            "full_points": 0
         }
     },
     "chris manhertz": {
@@ -823,8 +1092,8 @@
             "standard_points": 0,
             "half_points": 0,
             "full_points": 0,
-            "snap_counts": 58,
-            "snap_perc": 82
+            "snap_counts": 94,
+            "snap_perc": 129
         },
         "wk1": {
             "snap_counts": 25,
@@ -839,6 +1108,13 @@
             "standard_points": 0,
             "half_points": 0,
             "full_points": 0
+        },
+        "wk3": {
+            "snap_counts": 36,
+            "snap_perc": 47,
+            "standard_points": 0,
+            "half_points": 0,
+            "full_points": 0
         }
     },
     "dan arnold": {
@@ -846,8 +1122,8 @@
             "standard_points": 0.8,
             "half_points": 1.3,
             "full_points": 1.8,
-            "snap_counts": 27,
-            "snap_perc": 39,
+            "snap_counts": 35,
+            "snap_perc": 50,
             "pass_cmp": 0,
             "pass_att": 0,
             "pass_yds": 0,
@@ -902,15 +1178,42 @@
             "standard_points": 0.8,
             "half_points": 1.3,
             "full_points": 1.8
+        },
+        "wk3": {
+            "snap_counts": 8,
+            "snap_perc": 11,
+            "standard_points": 0,
+            "half_points": 0,
+            "full_points": 0
         }
     },
     "jamycal hasty": {
         "tot": {
-            "standard_points": 0,
-            "half_points": 0,
-            "full_points": 0,
-            "snap_counts": 3,
-            "snap_perc": 4
+            "standard_points": 0.0,
+            "half_points": 0.0,
+            "full_points": 0.0,
+            "snap_counts": 6,
+            "snap_perc": 8,
+            "pass_cmp": 0,
+            "pass_att": 0,
+            "pass_yds": 0,
+            "pass_td": 0,
+            "pass_int": 0,
+            "pass_sacked": 0,
+            "pass_sacked_yds": 0,
+            "pass_long": 0,
+            "pass_rating": 0,
+            "rush_att": 0,
+            "rush_yds": 0,
+            "rush_td": 0,
+            "rush_long": 0,
+            "targets": 1,
+            "rec": 0,
+            "rec_yds": 0,
+            "rec_td": 0,
+            "rec_long": 0,
+            "fumbles": 0,
+            "fumbles_lost": 0
         },
         "wk1": {
             "snap_counts": 3,
@@ -925,6 +1228,33 @@
             "standard_points": 0,
             "half_points": 0,
             "full_points": 0
+        },
+        "wk3": {
+            "pass_cmp": 0,
+            "pass_att": 0,
+            "pass_yds": 0,
+            "pass_td": 0,
+            "pass_int": 0,
+            "pass_sacked": 0,
+            "pass_sacked_yds": 0,
+            "pass_long": 0,
+            "pass_rating": 0,
+            "rush_att": 0,
+            "rush_yds": 0,
+            "rush_td": 0,
+            "rush_long": 0,
+            "targets": 1,
+            "rec": 0,
+            "rec_yds": 0,
+            "rec_td": 0,
+            "rec_long": 0,
+            "fumbles": 0,
+            "fumbles_lost": 0,
+            "snap_counts": 3,
+            "snap_perc": 4,
+            "standard_points": 0.0,
+            "half_points": 0.0,
+            "full_points": 0.0
         }
     },
     "tim jones": {
@@ -932,8 +1262,8 @@
             "standard_points": 0,
             "half_points": 0,
             "full_points": 0,
-            "snap_counts": 2,
-            "snap_perc": 3
+            "snap_counts": 6,
+            "snap_perc": 8
         },
         "wk1": {
             "snap_counts": 2,
@@ -945,6 +1275,13 @@
         "wk2": {
             "snap_counts": 0,
             "snap_perc": 0,
+            "standard_points": 0,
+            "half_points": 0,
+            "full_points": 0
+        },
+        "wk3": {
+            "snap_counts": 4,
+            "snap_perc": 5,
             "standard_points": 0,
             "half_points": 0,
             "full_points": 0
@@ -955,8 +1292,8 @@
             "standard_points": 0,
             "half_points": 0,
             "full_points": 0,
-            "snap_counts": 5,
-            "snap_perc": 7
+            "snap_counts": 7,
+            "snap_perc": 10
         },
         "wk1": {
             "snap_counts": 2,
@@ -971,6 +1308,69 @@
             "standard_points": 0,
             "half_points": 0,
             "full_points": 0
+        },
+        "wk3": {
+            "snap_counts": 2,
+            "snap_perc": 3,
+            "standard_points": 0,
+            "half_points": 0,
+            "full_points": 0
+        }
+    },
+    "cj beathard": {
+        "tot": {
+            "standard_points": -0.1,
+            "half_points": -0.1,
+            "full_points": -0.1,
+            "pass_cmp": 0,
+            "pass_att": 0,
+            "pass_yds": 0,
+            "pass_td": 0,
+            "pass_int": 0,
+            "pass_sacked": 0,
+            "pass_sacked_yds": 0,
+            "pass_long": 0,
+            "pass_rating": 0,
+            "rush_att": 1,
+            "rush_yds": -1,
+            "rush_td": 0,
+            "rush_long": -1,
+            "targets": 0,
+            "rec": 0,
+            "rec_yds": 0,
+            "rec_td": 0,
+            "rec_long": 0,
+            "fumbles": 0,
+            "fumbles_lost": 0,
+            "snap_counts": 1,
+            "snap_perc": 1
+        },
+        "wk3": {
+            "pass_cmp": 0,
+            "pass_att": 0,
+            "pass_yds": 0,
+            "pass_td": 0,
+            "pass_int": 0,
+            "pass_sacked": 0,
+            "pass_sacked_yds": 0,
+            "pass_long": 0,
+            "pass_rating": 0,
+            "rush_att": 1,
+            "rush_yds": -1,
+            "rush_td": 0,
+            "rush_long": -1,
+            "targets": 0,
+            "rec": 0,
+            "rec_yds": 0,
+            "rec_td": 0,
+            "rec_long": 0,
+            "fumbles": 0,
+            "fumbles_lost": 0,
+            "snap_counts": 1,
+            "snap_perc": 1,
+            "standard_points": -0.1,
+            "half_points": -0.1,
+            "full_points": -0.1
         }
     }
 }

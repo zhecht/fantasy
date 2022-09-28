@@ -48,7 +48,7 @@ def getRedzone():
 		elif counts[pos] >= 50:
 			continue
 
-		delta3 = "-" if playerData["gamesPlayed"] < 3 else playerData["delta3"]
+		delta3 = "-" if playerData["gamesPlayed"] <= 3 else playerData["delta3"]
 		counts[pos] += 1
 
 		redzoneResult.append({

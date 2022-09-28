@@ -265,6 +265,7 @@ if __name__ == "__main__":
 		write_cron_FA_json()
 	else:
 		#write_scoreboard()
+		write_cron_rosters()
 		write_cron_FA()
 		write_cron_FA_json()
 		#write_settings()

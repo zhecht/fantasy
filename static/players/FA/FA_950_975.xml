@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.257250/players;start=950;status=FA" time="186.82193756104ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
+<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/league/nfl.l.257250/players;start=950;status=FA" time="203.70483398438ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="60" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
  <league>
   <league_key>414.l.257250</league_key>
   <league_id>257250</league_id>
@@ -8,9 +8,9 @@
   <logo_url></logo_url>
   <draft_status>postdraft</draft_status>
   <num_teams>12</num_teams>
-  <edit_key>3</edit_key>
+  <edit_key>4</edit_key>
   <weekly_deadline/>
-  <league_update_timestamp>1663653650</league_update_timestamp>
+  <league_update_timestamp>1664257176</league_update_timestamp>
   <scoring_type>head</scoring_type>
   <league_type>private</league_type>
   <renew>406_497791</renew>
@@ -20,14 +20,91 @@
   <allow_add_to_dl_extra_pos>0</allow_add_to_dl_extra_pos>
   <is_pro_league>0</is_pro_league>
   <is_cash_league>0</is_cash_league>
-  <current_week>3</current_week>
+  <current_week>4</current_week>
   <start_week>1</start_week>
   <start_date>2022-09-08</start_date>
   <end_week>17</end_week>
   <end_date>2023-01-02</end_date>
   <game_code>nfl</game_code>
   <season>2022</season>
-  <players/>
+  <players count="2">
+   <player>
+    <player_key>414.p.100029</player_key>
+    <player_id>100029</player_id>
+    <name>
+     <full>Carolina</full>
+     <first>Carolina</first>
+     <last/>
+     <ascii_first>Carolina</ascii_first>
+     <ascii_last/>
+    </name>
+    <url>https://sports.yahoo.com/nfl/teams/carolina/</url>
+    <editorial_player_key>nfl.p.100029</editorial_player_key>
+    <editorial_team_key>nfl.t.29</editorial_team_key>
+    <editorial_team_full_name>Carolina Panthers</editorial_team_full_name>
+    <editorial_team_abbr>Car</editorial_team_abbr>
+    <editorial_team_url>https://sports.yahoo.com/nfl/teams/carolina/</editorial_team_url>
+    <bye_weeks>
+     <week>13</week>
+    </bye_weeks>
+    <is_keeper>
+     <status></status>
+     <cost></cost>
+     <kept></kept>
+    </is_keeper>
+    <uniform_number></uniform_number>
+    <display_position>DEF</display_position>
+    <headshot>
+     <url>https://s.yimg.com/cv/ip/ap/default/120210/50x50w_car_1.gif</url>
+     <size>small</size>
+    </headshot>
+    <image_url>https://s.yimg.com/cv/ip/ap/default/120210/50x50w_car_1.gif</image_url>
+    <is_undroppable>0</is_undroppable>
+    <position_type>DT</position_type>
+    <primary_position>DEF</primary_position>
+    <eligible_positions>
+     <position>DEF</position>
+    </eligible_positions>
+   </player>
+   <player>
+    <player_key>414.p.100034</player_key>
+    <player_id>100034</player_id>
+    <name>
+     <full>Houston</full>
+     <first>Houston</first>
+     <last/>
+     <ascii_first>Houston</ascii_first>
+     <ascii_last/>
+    </name>
+    <url>https://sports.yahoo.com/nfl/teams/houston/</url>
+    <editorial_player_key>nfl.p.100034</editorial_player_key>
+    <editorial_team_key>nfl.t.34</editorial_team_key>
+    <editorial_team_full_name>Houston Texans</editorial_team_full_name>
+    <editorial_team_abbr>Hou</editorial_team_abbr>
+    <editorial_team_url>https://sports.yahoo.com/nfl/teams/houston/</editorial_team_url>
+    <bye_weeks>
+     <week>6</week>
+    </bye_weeks>
+    <is_keeper>
+     <status></status>
+     <cost></cost>
+     <kept></kept>
+    </is_keeper>
+    <uniform_number></uniform_number>
+    <display_position>DEF</display_position>
+    <headshot>
+     <url>https://s.yimg.com/lq/i/us/sp/v/nfl/teams/1/50x50w/hou.gif</url>
+     <size>small</size>
+    </headshot>
+    <image_url>https://s.yimg.com/lq/i/us/sp/v/nfl/teams/1/50x50w/hou.gif</image_url>
+    <is_undroppable>0</is_undroppable>
+    <position_type>DT</position_type>
+    <primary_position>DEF</primary_position>
+    <eligible_positions>
+     <position>DEF</position>
+    </eligible_positions>
+   </player>
+  </players>
  </league>
 </fantasy_content>
-<!-- fantasy-sports-api- -public-production-bf1-7df8c95c94-4d7k6 Tue Sep 20 14:33:35 UTC 2022 -->
+<!-- fantasy-sports-api- -public-production-bf1-56cdc596cc-8tcgh Wed Sep 28 15:45:17 UTC 2022 -->
