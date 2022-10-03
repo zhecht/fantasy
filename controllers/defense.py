@@ -137,7 +137,7 @@ def get_ranks_html(settings, over_expected, curr_week=CURR_WEEK):
         html += "<tr><td>{}</td>".format(dis_team.upper())
         for pos in ["QB", "RB", "WR", "TE", "K", "DEF"]:
             r = defense_ranks[dis_team][f"{pos}_rank"]
-            style = get_ranks_style(r, extra="position:relative;z-index:-1;")
+            style = get_ranks_style(r, extra="position:relative;")
             span = f"<span style='position:absolute;bottom:0;right:5px;font-size:10px;'>{r}{get_suffix(r)}</span>"
             val = defense_ranks[dis_team][pos]
             if over_expected:

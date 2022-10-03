@@ -179,6 +179,8 @@ def read_FA_translations():
 
 	for fn in files:
 		fa_json = {}
+		if fn.endswith("xml"):
+			continue
 		with open(fn) as fh:
 			fa_json = json.loads(fh.read())
 		for player in fa_json:
@@ -188,9 +190,12 @@ def read_FA_translations():
 				position = "WR"
 			players_on_FA[player] = {"team_id": 0, "position": position, "pid": 0, "nfl_team": team}
 			if position == "DEF":
-				translations[full] = full
+				translations[player] = player
 			else:
-				translations["{}. {}".format(first[0], last, nfl_team)] = full.lower().replace("'", "")
+				player = player.title()
+				first = player.split(" ")[0][0]
+				last = " ".join(player.split(" ")[1:])
+				translations[f"{first}. {last} {team.upper()}"] = player.lower().replace("'", "")
 	return players_on_FA, translations
 
 def update_players_on_teams(players_on_teams):
@@ -224,11 +229,16 @@ def read_rosters(skip_remove_puncuation=False, players_prefix=players_prefix):
 			else:
 				name_translations["{}. {} {}".format(first[0], last, nfl_team)] = fixName(full)
 				name_translations["{}. {} {}".format(first[0], last, nfl_team.upper())] = fixName(full)
+
+	fixTranslations(name_translations)
 	if skip_remove_puncuation:
 		return players_on_teams, name_translations
 
 	update_players_on_teams(players_on_teams)
 	return players_on_teams, name_translations
+
+def fixTranslations(name_translations):
+	name_translations["I. Smith Jr. MIN"] = "irv smith jr"
 
 def read_standings():
 	

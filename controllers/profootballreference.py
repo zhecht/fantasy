@@ -984,6 +984,7 @@ if __name__ == "__main__":
 		calculate_aggregate_stats()
 
 	#write_team_rosters()
+	#write_boxscore_links()
 	#write_boxscore_stats(args.week, args.team)
-	#calculate_aggregate_stats()
+	calculate_aggregate_stats()
 	#get_opponents("ari")

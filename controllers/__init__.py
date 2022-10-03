@@ -2,6 +2,7 @@
 from controllers.defense import *
 from controllers.main import *
 from controllers.extension import *
+from controllers.props import *
 from controllers.team import *
 from controllers.graphs import *
 from controllers.profootballreference import *
