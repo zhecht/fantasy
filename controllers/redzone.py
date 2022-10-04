@@ -611,7 +611,7 @@ if __name__ == '__main__':
 				if snap_trends[team][player]["snaps"] == 0:
 					if snap_trends[team][player]["looks_per_game"] == 0 and snap_trends[team][player]["targets_per_game"] == 0:
 						continue
-					extra += f"{player}|DNP|{snap_trends[team][player]['looks_per_game']}|{snap_trends[team][player]['looks_share']}%|{snap_trends[team][player]['targets_per_game']}|{snap_trends[team][player]['target_share']}%\n"
+					extra += f"{player.title()}|DNP|{snap_trends[team][player]['looks_per_game']}|{snap_trends[team][player]['looks_share']}%|{snap_trends[team][player]['targets_per_game']}|{snap_trends[team][player]['target_share']}%\n"
 				else:
 					if snap_trends[team][player]["total_looks"] == 0 and snap_trends[team][player]["total_targets"] == 0:
 						pass
@@ -636,7 +636,7 @@ if __name__ == '__main__':
 						"player": player,
 						#"snaps": avgSnaps,
 						"snaps": lastSnaps,
-						"text": f"{player}|{lastSnaps}% ({snapsTrend})|{lpg} ({lpgTrend})|{lookShare}% ({lookShareTrend})|{tpg} ({tpgTrend})|{tgtShare}% ({tgtShareTrend})"
+						"text": f"{player.title()}|{lastSnaps}% ({snapsTrend})|{lpg} ({lpgTrend})|{lookShare}% ({lookShareTrend})|{tpg} ({tpgTrend})|{tgtShare}% ({tgtShareTrend})"
 					})
 
 			for data in sorted(rows, key=operator.itemgetter("snaps"), reverse=True):
