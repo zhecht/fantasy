@@ -516,7 +516,10 @@ def get_player_looks_arr(curr_week=1, is_ui=False):
 				last_looks_perc = looks_perc if curr_week == 1 else 0
 			last_3_looks_perc = looks_perc if curr_week == 1 else 0
 			if curr_week >= 4:
-				last_3_looks_perc = round((float(total_player_looks - int(looks_arr[curr_week - 3]) - int(looks_arr[curr_week - 2]) - int(looks_arr[curr_week - 1])) / last_3_total_team_looks) * 100, 2)
+				if last_3_total_team_looks == 0:
+					last_3_looks_perc = 0
+				else:
+					last_3_looks_perc = round((float(total_player_looks - int(looks_arr[curr_week - 3]) - int(looks_arr[curr_week - 2]) - int(looks_arr[curr_week - 1])) / last_3_total_team_looks) * 100, 2)
 			else:
 				last_3_looks_perc = looks_perc if curr_week == 1 else 0
 		except:
@@ -699,7 +702,7 @@ if __name__ == '__main__':
 				#continue
 
 				#if player["looks"] >= 0 and player["name"] in feelsbad_players: 
-				if player["team"] == 'car':
+				if player["team"] == 'tb':
 					print(f"{player['name'].title()}|{player['team']}|{player['looks_per_game']}|{player['delta']}|{player['delta3']}|{player['looks_perc']}%")
 			exit()
 
@@ -740,13 +743,13 @@ if __name__ == '__main__':
 				delta3 = "-" if player["gamesPlayed"] <= 3 else player["delta3"]
 				print(f"{player['name'].title()}|{player['team'].upper()}|{player['looks_per_game']}|{player['delta']}|{delta3}|{player['looks_perc']}%")
 
-		print("\n#Top 40 TE")
+		print("\n#Top 50 TE")
 		print("\nPlayer|Team|RZ Looks Per Game|1 Week Trend|3 Week Trend|RZ Team Share")
 		print(":--|:--|:--|:--|:--|:--")
 		printed = 0
 		for player in sorted_looks:
 			#continue
-			if printed == 40:
+			if printed == 50:
 				break
 				#pass
 			if player["looks"] >= 0 and players_on_teams[player["name"]]["position"] == "TE":

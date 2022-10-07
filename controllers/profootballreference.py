@@ -846,8 +846,8 @@ def add_stats(boxscorelinks, team, teampath, boxlink, week_arg, team_arg):
 	kicking_stats = get_kicking_stats(outfile)
 	def_stats = get_defense_stats_from_scoring(outfile, team)
 	stats = {"OFF": def_stats}
-	outer_ids = ["all_player_offense", "all_kicking", "all_returns", "all_home_snap_counts", "all_vis_snap_counts"]
-	inner_ids = ["player_offense", "kicking", "returns", "home_snap_counts", "vis_snap_counts"]
+	outer_ids = ["all_player_defense", "all_player_offense", "all_kicking", "all_returns", "all_home_snap_counts", "all_vis_snap_counts"]
+	inner_ids = ["player_defense", "player_offense", "kicking", "returns", "home_snap_counts", "vis_snap_counts"]
 	player_teams = {}
 
 	for i in range(len(outer_ids)):
@@ -880,7 +880,7 @@ def add_stats(boxscorelinks, team, teampath, boxlink, week_arg, team_arg):
 			
 			if "snap" in inner_ids[i]:
 				# if player got 0 points but had snaps
-				if data[0].text not in ["QB", "FB", "RB", "WR", "TE", "K"]:
+				if data[0].text not in ["QB", "FB", "RB", "WR", "TE", "K", "LB", "SS", "FS", "CB", "DE", "DB", "DT", "NT"]:
 					continue
 				if name not in stats:
 					if inner_ids[i].startswith("home") and home_team == team:
@@ -891,6 +891,8 @@ def add_stats(boxscorelinks, team, teampath, boxlink, week_arg, team_arg):
 					snapCntIdx = 1
 					if data[0].text == "K":
 						snapCntIdx = 5
+					elif data[0].text in ["LB", "SS", "FS", "CB", "DE", "DB", "DT", "NT"]:
+						snapCntIdx = 3
 					stats[name]["snap_counts"] = int(data[snapCntIdx].text)
 					stats[name]["snap_perc"] = int(data[snapCntIdx + 1].text.replace("%", ""))
 				except:
@@ -985,6 +987,6 @@ if __name__ == "__main__":
 
 	#write_team_rosters()
 	#write_boxscore_links()
-	#write_boxscore_stats(args.week, args.team)
+	write_boxscore_stats(args.week, args.team)
 	calculate_aggregate_stats()
 	#get_opponents("ari")

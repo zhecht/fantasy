@@ -116,20 +116,6 @@
 				return div;
 			}
 
-			const oddsFormatter = function(cell, params, rendered) {
-				const data = cell.getRow().getData();
-				let t = data.sideOneType;
-				let odds = data.sideOneOdds;
-				if (cell.getField() == "odds2") {
-					t = data.sideTwoType;
-					odds = data.sideTwoOdds;
-				}
-				if (odds.substring(0, 1) != "-") {
-					odds = "+"+odds;
-				}
-				return t+" ("+odds+")";
-			}
-
 			const propFormatter = function(cell, params, rendered) {
 				let prop = cell.getValue();
 				if (prop == "recv_yd") return "REC YDs";
@@ -143,6 +129,7 @@
 				else if (prop == "pass_td") return "PASS TDs";
 				else if (prop == "pass_yd") return "PASS YDs";
 				else if (prop == "recv_rec") return "REC";
+				else if (prop == "tackles_combined") return "TACKLES+ASST";
 				return prop;
 			}
 
@@ -280,13 +267,14 @@
 						{title: "SZN AVG", field: "avg", formatter: avgFormatter, hozAlign: "center"},
 						{title: "Games Over", field: "over", formatter: overFormatter, hozAlign: "center"},
 						{title: "Last Game", field: "lastOver", formatter: lastOverFormatter, hozAlign: "center"},
-						{title: "", field: "odds1", formatter: oddsFormatter},
-						{title: "", field: "odds2", formatter: oddsFormatter},
+						{title: "", field: "overOdds"},
+						{title: "", field: "underOdds"},
 					]
 				})
 			}
 
 			renderTable();
+			TABLE.setFilter("propType", "=", "tackles_combined");
 
 			setTimeout(function() {
 				//console.log(TABLE.getRows()[0].getElement().getElementsByTagName("input")[0]);
