@@ -140,7 +140,7 @@ def getDefPropsData():
 			"hit": True,
 			"opponent": get_opponents(getProfootballReferenceTeam(team.lower()))[CURR_WEEK],
 			"propType": "tackles_combined",
-			"line": line,
+			"line": line or "-",
 			"overOdds": "over ("+overOdds+")",
 			"underOdds": "under ("+underOdds+")",
 			"stats": playerStats
@@ -194,7 +194,7 @@ def getProps_route():
 				"hit": True,
 				"opponent": getYahooTeam(propData[nameRow][typ]["opponent"]),
 				"propType": typ,
-				"line": propData[nameRow][typ]["line"],
+				"line": propData[nameRow][typ]["line"] or "-",
 				"overOdds": propData[nameRow][typ]["sideOneType"]+ " ("+overOdds+")",
 				"underOdds": propData[nameRow][typ]["sideTwoType"]+ " ("+underOdds+")",
 				"stats": playerStats
