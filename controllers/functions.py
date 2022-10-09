@@ -31,10 +31,13 @@ nfc_teams = ['crd', 'atl', 'car', 'chi', 'dal', 'det', 'gnb', 'ram', 'min', 'nor
 def fixName(name):
 	name = name.lower().replace("'", "").strip()
 	name = re.sub(r" (v|iv|iii|ii|jr|sr)(\.?)$", " ", name).replace(".", "").strip()
+
 	if name == "elijah mitchell":
 		return "eli mitchell"
 	elif name == "mike badgley":
 		return "michael badgley"
+	elif name == "pat surtain":
+		return "patrick surtain"
 	elif name == "green bay packers":
 		return "gnb"
 	elif name == "las vegas raiders":

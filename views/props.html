@@ -14,7 +14,7 @@
 			height: 100vh;
 		}
 		#propsTable {
-			width: 90%;
+			width: 100%;
 		}
 		#tableDiv {
 			display: flex;
@@ -74,39 +74,16 @@
 			}
 
 			const percentFormatter = function(cell, params, rendered) {
-				const div = document.createElement("div");
-				div.className = "trendCell";
-
-				let val = "-";
-				if (parseInt(cell.getValue()) != 0) {
-					val = cell.getValue().toFixed(1)+"%";
-				}
-
-				const valDiv = document.createElement("div");
-				valDiv.style["font-weight"] = "bold";
-				valDiv.innerText = val;
-				div.appendChild(valDiv);
-
-				if (val != "-") {
-					const trend = getTrend(cell.getField(), cell.getRow().getData(),percent=true);
-					div.appendChild(trend);
-				}
-				
-				return div;
+				return cell.getValue()+"%";
 			}
 
-			const decimalFormatter = function(cell, params, rendered) {
-				const div = document.createElement("div");
-				div.className = "trendCell";
-				const val = cell.getValue().toFixed(1);
-				const trend = getTrend(cell.getField(), cell.getRow().getData(),percent=true);
+			const projFormatter = function(cell, params, rendered) {
+				const data = cell.getRow().getData();
 
-				const valDiv = document.createElement("div");
-				valDiv.style["font-weight"] = "bold";
-				valDiv.innerText = val;
-				div.appendChild(valDiv);
-				div.appendChild(trend);
-				return div;
+				if (parseFloat(data.proj) >= parseFloat(data.line)) {
+					return "<div class='positive'>"+data.proj+"</div>";
+				}
+				return "<div class='negative'>"+data.proj+"</div>";
 			}
 
 			const teamFormatter = function(cell, params, rendered) {
@@ -151,7 +128,7 @@
 					let avg = 0;
 					let gamesPlayed = 0;
 					for (wk in stats) {
-						if (wk != "tot" && parseInt(wk.substring(2)) <= CURR_WEEK) {
+						if (wk != "tot" && parseInt(wk.substring(2)) <= CURR_WEEK && stats[wk]["snap_counts"] && stats[wk]["snap_counts"] > 1) {
 							gamesPlayed += 1;
 							if (propType == "rush_recv_yd") {
 								avg += stats[wk].rush_yds + stats[wk].rec_yds;
@@ -246,34 +223,46 @@
 				TABLE = new Tabulator("#propsTable", {
 					tooltipsHeader: true,
 					ajaxURL: "/getProps",
-					responsiveLayout:"collapse",
-					layout: "fitDataFill",
+					//responsiveLayout:"collapse",
+					//layout: "fitDataFill",
 					//layout: window.innerWidth <= 450 ? "fitData" : "fitColumns",
-					groupBy: "team",
+					//groupBy: "team",
 					groupHeader: function(value, count, data, group){
 						const playerTxt = count == 1 ? "Player" : "Players"
-						return value + "<span style='color:black; margin-left:10px;'>(" + count + " "+playerTxt+")</span>";
+						return "<a href='https://www.espn.com/nfl/team/depth/_/name/"+value+"' target='_blank'>"+value+"</a>" + "<span style='color:black; margin-left:10px;'>(" + count + " "+playerTxt+")</span>";
 					},
 					initialSort: [
-						{column: "player", dir: "asc"},
-						{column: "team", dir: "asc"}
+						//{column: "pos", dir: "asc"},
+						{column: "diff", dir: "desc"},
+						//{column: "team", dir: "asc"},
 					],
 					columns: [
+					/*
 						{formatter:"responsiveCollapse", width:30, minWidth:30, hozAlign:"center", resizable:false, headerSort:false},
+						*/
 						/*
 						{formatter:"rowSelection", hozAlign:"center", headerSort:false, cellClick:function(e, cell){
 							cell.getRow().toggleSelect();
 						}},
 						*/
 						{title: "Player", field: "player", headerFilter: "input"},
+						{title: "Pos", field: "pos", headerFilter: "select", hozAlign: "center"},
+						{title: "Snap% (wk"+CURR_WEEK+"%)", field: "avgSnaps", hozAlign: "center"},
+						{title: "Plays", field: "avgTotPlays", hozAlign: "center", width: "50"},
 						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
 						{title: "Opp", field: "opponent", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
-						{title: "Scored", field: "scored", formatter: scoredFormatter, hozAlign: "center"},
-						{title: "Line", field: "line", hozAlign: "center"},
+						//{title: "Scored", field: "scored", formatter: scoredFormatter, hozAlign: "center"},
+						{title: "Plays", field: "avgOppTotPlays", hozAlign: "center", width: "50"},
+						{title: "Pass %", field: "oppPassPerc", hozAlign: "center"},
 						{title: "Prop", field: "propType", formatter: propFormatter},
+						{title: "Line", field: "line", hozAlign: "center"},
+						{title: "", field: "diff", hozAlign: "center", visible: false},
 						{title: "SZN AVG", field: "avg", formatter: avgFormatter, hozAlign: "center"},
-						{title: "Games Over", field: "over", formatter: overFormatter, hozAlign: "center"},
-						{title: "Last Game", field: "lastOver", formatter: lastOverFormatter, hozAlign: "center"},
+						{title: "Proj", field: "proj", hozAlign: "center", formatter: projFormatter},
+						{title: "TA Share", field: "tackleShare", hozAlign: "center", sorter:"number", formatter: percentFormatter},
+						{title: "Last 5", field: "last5", hozAlign: "center"},
+						//{title: "Games Over", field: "over", formatter: overFormatter, hozAlign: "center"},
+						//{title: "Last Game", field: "lastOver", formatter: lastOverFormatter, hozAlign: "center"},
 						{title: " ", field: "overOdds"},
 						{title: " ", field: "underOdds"},
 					]

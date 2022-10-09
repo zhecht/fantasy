@@ -150,10 +150,18 @@ def calculate_aggregate_stats(settings=None):
 	with open("{}static/profootballreference/teams.json".format(prefix)) as fh:
 		teamlinks = json.loads(fh.read())
 
+	totPlays = {}
 	for team in teamlinks:
+		team = team.split("/")[-2]
+
+		if team not in totPlays:
+			totPlays[team] = [0]*CURR_WEEK
+		with open(f"{prefix}static/profootballreference/{team}/roster.json") as fh:
+			roster = json.load(fh)
+
 		stats = {}
-		path = "{}static/profootballreference/{}".format(prefix, team.split("/")[-2])
-		files = glob("{}/wk*.json".format(path))
+		path = f"{prefix}static/profootballreference/{team}"
+		files = glob(f"{path}/wk*.json")
 		for f in files:
 			m = re.search(r'wk(\d+).json', f)
 			week = m.group(1)
@@ -165,8 +173,13 @@ def calculate_aggregate_stats(settings=None):
 				player = fixName(player)
 				if player not in stats:
 					stats[player] = {"tot": {"standard_points": 0, "half_points": 0, "full_points": 0}}
-				if "wk{}".format(week) not in stats[player]:
-					stats[player]["wk{}".format(week)] = {}
+				if f"wk{week}" not in stats[player]:
+					stats[player][f"wk{week}"] = {}
+
+				isOffense = roster.get(player, "") in ["QB", "RB", "WR", "WR/RB", "TE"]
+				if isOffense and int(week) <= CURR_WEEK and not totPlays[team][int(week)-1] and "snap_perc" in team_stats[player] and team_stats[player]["snap_perc"]:
+					plays = int(math.ceil(team_stats[player]["snap_counts"] / (team_stats[player]["snap_perc"] / 100)))
+					totPlays[team][int(week)-1] = plays
 
 				points = 0
 				points_arr = {"standard": 0, "half": 0, "full": 0}
@@ -199,13 +212,62 @@ def calculate_aggregate_stats(settings=None):
 					stats[player]["wk{}".format(week)]["{}_points".format(s)] = pts
 					stats[player]["tot"]["{}_points".format(s)] += pts
 			
-		fixStats(team.split("/")[-2], stats)
-		with open("{}/stats.json".format(path), "w") as fh:
+		fixStats(team, stats)
+		with open(f"{path}/stats.json", "w") as fh:
 			json.dump(stats, fh, indent=4)
 
+	for team in totPlays:
+		totPlays[team] = ",".join(str(x) for x in totPlays[team])
+	with open(f"{prefix}static/tot_plays.json", "w") as fh:
+		json.dump(totPlays, fh, indent=4)
+
+	writeRunPassTotals()
+
+def writeRunPassTotals():
+	with open(f"{prefix}static/profootballreference/teams.json") as fh:
+		teamlinks = json.load(fh)
+
+	runPassTotals = {}
+	for team in teamlinks:
+		team = team.split("/")[-2]
+		runPassTotals[team] = {}
+		path = f"{prefix}static/profootballreference/{team}"
+		with open(f"{path}/stats.json") as fh:
+			stats = json.load(fh)
+
+		for name in stats:
+			for wk in stats[name]:
+				if wk == "tot":
+					continue
+				week = int(wk[2:])
+				if wk not in runPassTotals[team]:
+					runPassTotals[team][wk] = {"pass": 0, "run": 0}
+				passAtt = stats[name][wk].get("pass_att", 0)
+				runAtt = stats[name][wk].get("rush_att", 0)
+				if passAtt:
+					runPassTotals[team][wk]["pass"] += passAtt
+				if runAtt:
+					runPassTotals[team][wk]["run"] += runAtt
+
+	res = {}
+	for team in runPassTotals:
+		res[team] = {"run": "", "pass": ""}
+		runs = []
+		passes = []
+		for wk in sorted(runPassTotals[team].keys()):
+			runs.append(runPassTotals[team][wk]["run"])
+			passes.append(runPassTotals[team][wk]["pass"])
+
+		res[team]["passPerc"] = round(sum(passes) / (sum(passes) + sum(runs))*100, 1)
+		res[team]["run"] = ",".join([str(x) for x in runs])
+		res[team]["pass"] = ",".join([str(x) for x in passes])
+
+
+	with open(f"{prefix}static/runPassTotals.json", "w") as fh:
+		json.dump(res, fh, indent=4)
+
 def fixStats(team, stats):
-	if team == "htx":
-		stats["kaimi fairbairn"]["wk4"] = {"standard_points": 0, "half_points": 0, "full_points": 0}
+	pass
 
 # return (in order) list of opponents
 def get_opponents(team):
@@ -845,7 +907,7 @@ def add_stats(boxscorelinks, team, teampath, boxlink, week_arg, team_arg):
 
 	kicking_stats = get_kicking_stats(outfile)
 	def_stats = get_defense_stats_from_scoring(outfile, team)
-	stats = {"OFF": def_stats}
+	stats = {"OFF": def_stats, "DEF": {"tackles": 0}}
 	outer_ids = ["all_player_defense", "all_player_offense", "all_kicking", "all_returns", "all_home_snap_counts", "all_vis_snap_counts"]
 	inner_ids = ["player_defense", "player_offense", "kicking", "returns", "home_snap_counts", "vis_snap_counts"]
 	player_teams = {}
@@ -880,7 +942,7 @@ def add_stats(boxscorelinks, team, teampath, boxlink, week_arg, team_arg):
 			
 			if "snap" in inner_ids[i]:
 				# if player got 0 points but had snaps
-				if data[0].text not in ["QB", "FB", "RB", "WR", "TE", "K", "LB", "SS", "FS", "CB", "DE", "DB", "DT", "NT"]:
+				if data[0].text not in ["QB", "FB", "RB", "WR", "TE", "K", "LB", "S", "SS", "FS", "CB", "DE", "DB", "DT", "NT"]:
 					continue
 				if name not in stats:
 					if inner_ids[i].startswith("home") and home_team == team:
@@ -914,7 +976,9 @@ def add_stats(boxscorelinks, team, teampath, boxlink, week_arg, team_arg):
 					try:                        
 						if td.get("data-stat") == "pass_rating":
 							stats[name][td.get("data-stat")] = float(td.text)
-						else:   
+						else:
+							if td.get("data-stat") == "tackles_combined":
+								stats["DEF"]["tackles"] += int(td.text)
 							stats[name][td.get("data-stat")] = int(td.text)
 					except:
 						stats[name][td.get("data-stat")] = 0
@@ -987,6 +1051,6 @@ if __name__ == "__main__":
 
 	#write_team_rosters()
 	#write_boxscore_links()
-	write_boxscore_stats(args.week, args.team)
+	#write_boxscore_stats(args.week, args.team)
 	calculate_aggregate_stats()
 	#get_opponents("ari")
