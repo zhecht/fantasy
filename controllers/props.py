@@ -299,7 +299,7 @@ def writeDefProps(week):
 	with open(path) as fh:
 		soup = BS(fh.read(), "lxml")
 
-	books = ["fanduel", "betmgm", "draftkings", "caesars"]
+	books = ["fanduel", "betmgm", "draftkings"]
 
 	props = {}
 
@@ -307,7 +307,7 @@ def writeDefProps(week):
 		name = fixName(row.find("div", class_="option-prop-row__player-name").text)
 		team = row.find("div", class_="option-prop-row__player-team").text
 		props[name.lower()+" "+team] = {"line": {}}
-		for idx, td in enumerate(row.findAll("td")[1:-3]):
+		for idx, td in enumerate(row.findAll("td")[1:-4]):
 			odds = td.findAll("div", class_="book-cell__odds")
 			over = under = ""
 			line = ""
@@ -331,7 +331,7 @@ def writeDefProps(week):
 		if lines:
 			props[name.lower()+" "+team]["line"] = lines[0]
 
-	with open(f"{prefix}static/props/wk{week}_def.json", "w") as fh:
+	with open(f"{prefix}static/props/wk{week+1}_def.json", "w") as fh:
 		json.dump(props, fh, indent=4)
 
 
