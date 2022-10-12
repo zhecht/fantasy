@@ -1,7 +1,7 @@
 import re
 
 YEAR = 2022
-CURR_WEEK = 4
+CURR_WEEK = 5
 curr_week = CURR_WEEK
 
 TEAM_TRANS = {
@@ -34,6 +34,8 @@ def fixName(name):
 
 	if name == "elijah mitchell":
 		return "eli mitchell"
+	elif name == "ken walker":
+		return "kenneth walker"
 	elif name == "mike badgley":
 		return "michael badgley"
 	elif name == "pat surtain":

@@ -734,12 +734,16 @@ def fix_roster(roster, team):
 	if team == "atl":
 		roster["cordarrelle patterson"] = "RB"
 		roster["avery williams"] = "RB"
+	elif team == "chi":
+		roster["michael badgley"] = "K"
 	elif team == "clt":
 		roster["rodrigo blankenship"] = "K"
 	elif team == "jax":
 		roster["riley patterson"] = "K"
 	elif team == "nor":
 		roster["taysom hill"] = "TE"
+	elif team == "kan":
+		roster["matt ammendola"] = "K"
 	return
 
 def write_team_rosters(teamlinks={}):

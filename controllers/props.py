@@ -105,6 +105,12 @@ def getDefPropsData():
 		name = " ".join(nameRow.split(" ")[:-1])
 		name = fixName(name.lower())
 		team = nameRow.split(" ")[-1]
+
+		#if team not in ["CIN", "BAL"]:
+		if team not in ["LV", "KC"]:
+			continue
+			pass
+
 		opp = get_opponents(getProfootballReferenceTeam(team.lower()))[CURR_WEEK]
 		pff_team = getProfootballReferenceTeam(team.lower())
 
@@ -192,6 +198,7 @@ def getDefPropsData():
 
 		if line:
 			diff = abs(proj - float(line))
+
 		res.append({
 			"player": name.title(),
 			"team": getYahooTeam(team),
@@ -299,7 +306,7 @@ def writeDefProps(week):
 	with open(path) as fh:
 		soup = BS(fh.read(), "lxml")
 
-	books = ["fanduel", "betmgm", "draftkings"]
+	books = ["fanduel", "betmgm", "draftkings", "caesars"]
 
 	props = {}
 
@@ -307,7 +314,7 @@ def writeDefProps(week):
 		name = fixName(row.find("div", class_="option-prop-row__player-name").text)
 		team = row.find("div", class_="option-prop-row__player-team").text
 		props[name.lower()+" "+team] = {"line": {}}
-		for idx, td in enumerate(row.findAll("td")[1:-4]):
+		for idx, td in enumerate(row.findAll("td")[1:-3]):
 			odds = td.findAll("div", class_="book-cell__odds")
 			over = under = ""
 			line = ""
@@ -331,9 +338,20 @@ def writeDefProps(week):
 		if lines:
 			props[name.lower()+" "+team]["line"] = lines[0]
 
+	fixLines(props)
 	with open(f"{prefix}static/props/wk{week+1}_def.json", "w") as fh:
 		json.dump(props, fh, indent=4)
 
+def fixLines(props):
+	props["johnathan abram LV"] = {
+		"line": "o6.5",
+		"draftkings": {
+			"over": "o6.5 (+105)",
+			"under": "u6.5 (-140)"
+		}
+	}
+	#props["kaiir elam BUF"]["line"] = ""
+	pass
 
 def writeProps():
 	players_on_teams,translations = read_rosters()
