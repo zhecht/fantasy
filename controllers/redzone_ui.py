@@ -43,8 +43,6 @@ def getRedzone():
 		pos = players_on_teams[player]["position"]
 		if pos not in counts:
 			counts[pos] = 0
-		elif pos == "TE" and counts[pos] >= 40:
-			continue
 		elif counts[pos] >= 50:
 			continue
 

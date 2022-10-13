@@ -595,7 +595,7 @@ if __name__ == '__main__':
 		print("\n- Source: https://www.footballguys.com/stats/redzone/teams?team=NYG&year=2022")
 		print("\n- #Reply with a team name if you want to just see their breakdown of W/R/T")
 
-		# uptrend: Allgeier, Kenyan Drake, Monty, Mixon, Hunt, Aaron Jones, PIERCE x4, Deon Jackson, Gaskin, Breece, Miles Sandy Cheeks, Jaylen Waren, Tevin Coleman, Lenny
+		# uptrend: Allgeier, Kenyan Drake, Monty, Hunt, PIERCE x4, Deon Jackson, Gaskin, Breece, Jaylen Waren, Tevin Coleman, Mostert, Lenny
 		# Downtrend: Dobbins?, Jamaal, AJ Dillon, Burkhead, Edmonds, Najee
 		if args.teams:
 			rbbc_teams = args.teams.split(",")

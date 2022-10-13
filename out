@@ -1,289 +1,176 @@
-View on [Site](https://zhecht.pythonanywhere.com/rbbc)
+View on [Site](https://zhecht.pythonanywhere.com/redzone)
 
-Weekly, I'll be posting this backfield analysis alongside my [Redzone Look Trends]() post
+Weekly, I'll be posting this Redzone Look Trends alongside my [Backfield Trends]() post
 
 Notes:
 
-- Purpose: Examine backfield trends from the previous weeks
-
-- Target Share and RZ Share are only relative to FBs/RBs on the team. Data is adjusted for injuries
+- Purpose: Track players getting targets + rushes inside the 20 yard line
 
 - Source: https://www.footballguys.com/stats/redzone/teams?team=NYG&year=2022
 
 - #Reply with a team name if you want to just see their breakdown of W/R/T
 
-#ARI
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
+#Top 50 RB
+
+Player|Team|RZ Looks Per Game|1 Week Trend|3 Week Trend|RZ Team Share
 :--|:--|:--|:--|:--|:--
-Eno Benjamin|54.0% (**+40.0%**)|2.0 (-)|47.6% (**+5.5%**)|3.4 (**+0.15**)|41.5% (**+5.4%**)
-James Conner|35.0% (-31.0%)|1.8 (-0.45)|42.9% (-4.5%)|3.8 (-0.7)|46.3% (-3.7%)
-Darrel Williams|12.0% (-9.0%)|0.5 (-0.17)|11.1% (**+0.6%**)|1.25 (-0.42)|16.1% (-3.1%)
+Kareem Hunt|CLE|4.2|**+0.2**|**+0.7**|35.0%
+Joe Mixon|CIN|4.0|-0.5|**+1.5**|41.67%
+Jonathan Taylor|IND|4.0|-|-0.5|40.0%
+Nick Chubb|CLE|3.8|-0.2|-0.2|31.67%
+Jamaal Williams|DET|3.2|-|-1.8|37.21%
+Miles Sanders|PHI|3.2|**+0.45**|**+1.7**|37.21%
+Josh Jacobs|LV|3.2|-|**+1.2**|32.65%
+James Robinson|JAX|3.2|-0.3|**+0.2**|32.0%
+Derrick Henry|TEN|3.0|-|**+1.0**|53.57%
+Myles Gaskin|MIA|3.0|**+3.0**|-|50.0%
+Austin Ekeler|LAC|3.0|**+0.25**|**+1.0**|31.25%
+Dameon Pierce|HOU|2.8|-|**+1.3**|60.87%
+Khalil Herbert|CHI|2.8|-0.7|**+1.3**|53.85%
+Damien Harris|NE|2.8|-0.2|-0.2|43.75%
+Jeff Wilson|SF|2.8|**+0.05**|-1.7|40.0%
+Breece Hall|NYJ|2.8|**+0.3**|**+0.8**|31.11%
+Jk Dobbins|BAL|2.67|-1.33|-|30.77%
+Cordarrelle Patterson|ATL|2.5|-|-0.5|33.33%
+Javonte Williams|DEN|2.5|-|-1.0|33.33%
+Melvin Gordon|DEN|2.4|**+0.9**|**+0.4**|28.57%
+Aaron Jones|GB|2.4|**+0.15**|-0.1|25.0%
+Clyde Edwards-Helaire|KC|2.4|**+0.4**|**+1.4**|17.65%
+Alvin Kamara|NO|2.33|**+0.83**|-|36.84%
+Najee Harris|PIT|2.2|-0.05|-0.3|40.74%
+Antonio Gibson|WAS|2.2|-0.55|-0.8|34.38%
+Leonard Fournette|TB|2.2|**+0.2**|-0.3|33.33%
+Devin Singletary|BUF|2.2|-0.3|**+0.7**|26.83%
+Michael Carter|NYJ|2.2|**+0.45**|**+0.7**|24.44%
+Dalvin Cook|MIN|2.2|**+0.45**|**+1.7**|21.15%
+Christian Mccaffrey|CAR|2.0|-|-1.0|55.56%
+Saquon Barkley|NYG|2.0|-|-1.0|37.04%
+Cam Akers|LAR|2.0|-0.25|-|24.39%
+Eno Benjamin|ARI|2.0|-|-|22.73%
+Aj Dillon|GB|2.0|-0.5|-1.0|20.83%
+Alexander Mattison|MIN|2.0|**+0.25**|-|19.23%
+Tyrion Davis-Price|SF|2.0|-|-|18.18%
+Jerick Mckinnon|KC|2.0|-|**+0.5**|14.71%
+James Conner|ARI|1.8|-0.45|**+0.3**|20.45%
+Travis Etienne|JAX|1.8|-0.2|-0.2|18.0%
+Tyler Allgeier|ATL|1.75|**+0.42**|-1.25|23.33%
+Caleb Huntley|ATL|1.67|-0.33|-|19.23%
+Rhamondre Stevenson|NE|1.6|**+0.6**|**+1.6**|25.0%
+Kenneth Gainwell|PHI|1.6|-0.4|**+0.1**|18.6%
+David Montgomery|CHI|1.5|**+0.17**|-0.5|35.29%
+Tevin Coleman|SF|1.5|**+1.5**|-|23.08%
+Rashaad Penny|SEA|1.4|-0.35|-0.1|28.0%
+Raheem Mostert|MIA|1.4|**+0.15**|**+0.9**|20.59%
+Isiah Pacheco|KC|1.4|-0.35|-0.1|10.29%
+Tony Pollard|DAL|1.2|-0.3|**+0.7**|23.08%
+Chase Edmonds|MIA|1.2|-0.3|**+0.7**|17.65%
 
+#Top 50 WR
 
-#ATL
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
+Player|Team|RZ Looks Per Game|1 Week Trend|3 Week Trend|RZ Team Share
 :--|:--|:--|:--|:--|:--
-Tyler Allgeier|59.0% (**+15.0%**)|1.75 (**+0.42**)|33.3% (**+12.2%**)|0.5 (-0.17)|25.0% (-8.3%)
-Avery Williams|26.0% (**+13.0%**)|0.2 (**+0.2**)|4.2% (**+4.2%**)|0.8 (**+0.3**)|28.6% (**+11.9%**)
-Keith Smith|26.0% (-1.0%)|0.2 (-0.05)|4.2% (-1.1%)|0.2 (-0.05)|7.1% (-1.2%)
-Caleb Huntley|24.0% (**+2.0%**)|1.67 (-0.33)|27.8% (**+6.7%**)|0.0 (-)|0.0% (0%)
-Cordarrelle Patterson|DNP|2.5|52.6%|1.75|58.3%
+Davante Adams|LV|2.6|-|**+0.1**|26.53%
+Jamarr Chase|CIN|2.4|**+0.15**|-0.6|25.0%
+Stefon Diggs|BUF|2.2|**+0.2**|-0.3|26.83%
+Justin Jefferson|MIN|2.2|**+0.2**|**+0.2**|21.15%
+Cooper Kupp|LAR|1.8|-0.45|-0.7|21.95%
+Courtland Sutton|DEN|1.8|**+0.3**|-0.2|21.43%
+Josh Reynolds|DET|1.8|-|**+0.3**|20.93%
+Garrett Wilson|NYJ|1.8|-0.45|-2.2|20.0%
+Zay Jones|JAX|1.75|-0.58|**+0.25**|15.56%
+Deebo Samuel|SF|1.6|**+0.35**|**+0.1**|22.86%
+Allen Robinson|LAR|1.6|-0.15|**+0.1**|19.51%
+Adam Thielen|MIN|1.6|**+0.1**|**+0.1**|15.38%
+Rondale Moore|ARI|1.5|-0.5|-|21.43%
+Amon-Ra St Brown|DET|1.5|-|-0.5|18.18%
+Aj Brown|PHI|1.4|**+0.15**|**+0.4**|16.28%
+Christian Kirk|JAX|1.4|-0.35|-1.1|14.0%
+Juju Smith-Schuster|KC|1.4|**+0.9**|**+0.4**|10.29%
+Chris Godwin|TB|1.33|**+0.33**|-|17.39%
+Isaiah Mckenzie|BUF|1.25|-|**+0.75**|14.29%
+Michael Pittman|IND|1.25|-0.42|-1.75|14.29%
+Allen Lazard|GB|1.25|**+0.25**|-0.75|13.16%
+Christian Watson|GB|1.25|-0.08|-0.25|12.5%
+Dk Metcalf|SEA|1.2|-0.05|**+1.2**|24.0%
+Noah Brown|DAL|1.2|-0.3|**+0.7**|23.08%
+Romeo Doubs|GB|1.2|-0.05|**+0.2**|12.5%
+Mike Williams|LAC|1.2|-0.05|**+0.7**|12.5%
+Mack Hollins|LV|1.2|-|**+0.7**|12.24%
+Amari Cooper|CLE|1.2|**+0.2**|**+0.7**|10.0%
+Ty Montgomery|NE|1.0|-|-|33.33%
+Velus Jones|CHI|1.0|**+1.0**|-|25.0%
+Isaiah Hodgins|BUF|1.0|**+1.0**|-|16.67%
+Michael Thomas|NO|1.0|-|-|16.67%
+Dezmon Patmon|IND|1.0|-|-|16.67%
+Curtis Samuel|WAS|1.0|-0.25|-|15.62%
+Mike Evans|TB|1.0|-0.33|**+0.5**|14.81%
+Chris Olave|NO|1.0|-|-|14.71%
+Jerry Jeudy|DEN|1.0|-|-|11.9%
+Marquise Brown|ARI|1.0|-0.25|-1.0|11.36%
+Jalen Tolbert|DAL|1.0|-|-|8.33%
+Marquez Valdes-Scantling|KC|1.0|-|-|7.35%
+Terry Mclaurin|WAS|0.8|-0.2|**+0.3**|12.5%
+Jaylen Waddle|MIA|0.8|-0.2|-1.2|11.76%
+Trent Sherfield|MIA|0.8|-0.2|-0.2|11.76%
+Drake London|ATL|0.8|-0.2|-0.2|11.11%
+Devin Duvernay|BAL|0.8|-0.2|**+0.3**|10.81%
+Braxton Berrios|NYJ|0.8|**+0.05**|**+0.3**|8.89%
+Mecole Hardman|KC|0.8|**+0.05**|-0.7|5.88%
+Jahan Dotson|WAS|0.75|-|-0.25|9.68%
+Alec Pierce|IND|0.75|-0.25|-1.25|8.57%
+Hunter Renfrow|LV|0.67|-|-|10.0%
 
+#Top 50 TE
 
-#BAL
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
+Player|Team|RZ Looks Per Game|1 Week Trend|3 Week Trend|RZ Team Share
 :--|:--|:--|:--|:--|:--
-Patrick Ricard|62.0% (-8.0%)|0.4 (-0.1)|11.8% (-0.7%)|1.0 (-0.25)|29.4% (-1.8%)
-Kenyan Drake|42.0% (**+42.0%**)|1.0 (-0.5)|50.0% (**+31.2%**)|0.67 (**+0.17**)|40.0% (**+15.0%**)
-Jk Dobbins|40.0% (-10.0%)|2.67 (-1.33)|66.7% (**+16.7%**)|2.0 (-1.0)|46.2% (-3.8%)
-Mike Davis|8.0% (**+5.0%**)|0.6 (**+0.1**)|17.6% (**+5.1%**)|0.0 (-)|0.0% (0%)
-Justice Hill|DNP|0.25|6.2%|1.0|25.0%
-
-
-#BUF
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
-:--|:--|:--|:--|:--|:--
-Devin Singletary|54.0% (-34.0%)|2.2 (-0.3)|57.9% (**+2.3%**)|4.8 (-0.7)|53.3% (**+2.1%**)
-Zack Moss|29.0% (**+20.0%**)|0.2 (-0.05)|5.3% (-0.3%)|1.6 (-0.4)|17.8% (-0.8%)
-James Cook|18.0% (**+15.0%**)|1.0 (-0.25)|26.3% (-1.5%)|1.4 (-0.35)|15.6% (-0.7%)
-Reggie Gilliam|12.0% (-1.0%)|0.4 (-0.1)|10.5% (-0.6%)|1.2 (-0.3)|13.3% (-0.7%)
-
-
-#CAR
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
-:--|:--|:--|:--|:--|:--
-Christian Mccaffrey|86.0% (-1.0%)|2.0 (-)|90.9% (**+2.0%**)|7.0 (**+1.25**)|85.4% (-3.1%)
-Chuba Hubbard|16.0% (**+10.0%**)|0.2 (-0.05)|9.1% (-2.0%)|0.0 (-)|0.0% (0%)
-Donta Foreman|4.0% (-4.0%)|0.0 (-)|0.0% (0%)|0.0 (-)|0.0% (0%)
-
-
-#CHI
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
-:--|:--|:--|:--|:--|:--
-David Montgomery|72.0% (**+72.0%**)|1.5 (**+0.17**)|42.9% (**+20.7%**)|2.5 (**+0.5**)|66.7% (**+12.2%**)
-Khalil Herbert|28.0% (-49.0%)|2.8 (-0.7)|70.0% (-7.8%)|1.0 (-0.25)|26.3% (-7.0%)
-Khari Blasingame|18.0% (-8.0%)|0.0 (-)|0.0% (0%)|0.0 (-)|0% (0%)
-Trestan Ebner|2.0% (-21.0%)|0.0 (-)|0.0% (0%)|1.0 (-0.33)|25.0% (-8.3%)
-
-
-#CIN
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
-:--|:--|:--|:--|:--|:--
-Joe Mixon|70.0% (-13.0%)|4.0 (-0.5)|87.0% (-3.0%)|5.4 (-0.6)|64.3% (-4.3%)
-Samaje Perine|30.0% (**+11.0%**)|0.6 (**+0.1**)|13.0% (**+3.0%**)|2.6 (**+0.35**)|31.0% (**+5.3%**)
-Chris Evans|DNP|0.0|0.0%|0.67|9.5%
-
-
-#CLE
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
-:--|:--|:--|:--|:--|:--
-Nick Chubb|52.0% (-3.0%)|3.8 (-0.2)|47.5% (-2.5%)|1.8 (-0.2)|33.3% (-1.5%)
-Kareem Hunt|49.0% (0%)|4.2 (**+0.2**)|52.5% (**+2.5%**)|3.2 (-0.05)|59.3% (**+2.8%**)
-Demetric Felton|DNP|0.0|0.0%|1.0|16.7%
-
-
-#DAL
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
-:--|:--|:--|:--|:--|:--
-Ezekiel Elliott|65.0% (**+1.0%**)|1.0 (-)|45.5% (**+5.5%**)|1.4 (-0.35)|35.0% (0%)
-Tony Pollard|42.0% (**+3.0%**)|1.2 (-0.3)|54.5% (-5.5%)|2.6 (-0.65)|65.0% (0%)
-Rico Dowdle|5.0% (**+5.0%**)|0.0 (-)|0.0% (0%)|0.0 (-)|0% (0%)
-
-
-#DEN
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
-:--|:--|:--|:--|:--|:--
-Melvin Gordon|56.0% (**+37.0%**)|2.4 (**+0.9**)|50.0% (**+14.7%**)|2.6 (**+0.1**)|27.7% (**+2.7%**)
-Mike Boone|41.0% (**+5.0%**)|0.4 (**+0.15**)|8.3% (**+2.4%**)|1.6 (**+0.35**)|17.0% (**+4.5%**)
-Devine Ozigbo|3.0% (**+3.0%**)|0.0 (-)|0.0% (0%)|0.0 (-)|0.0% (0%)
-Javonte Williams|DNP|2.5|58.8%|5.5|55.0%
-
-
-#DET
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
-:--|:--|:--|:--|:--|:--
-Craig Reynolds|47.0% (**+15.0%**)|0.0 (-)|0.0% (0%)|1.5 (**+0.5**)|25.0% (**+10.0%**)
-Jamaal Williams|33.0% (-16.0%)|3.2 (-0.8)|84.2% (0%)|1.6 (-0.4)|27.6% (-4.4%)
-Justin Jackson|21.0% (**+7.0%**)|0.5 (-0.5)|20.0% (**+14.7%**)|1.5 (-0.5)|30.0% (-3.3%)
-Dandre Swift|DNP|0.67|14.3%|4.0|63.2%
-
-
-#GB
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
-:--|:--|:--|:--|:--|:--
-Aaron Jones|73.0% (**+11.0%**)|2.4 (**+0.15**)|54.5% (**+7.1%**)|3.8 (-0.2)|57.6% (**+4.3%**)
-Aj Dillon|32.0% (-26.0%)|2.0 (-0.5)|45.5% (-7.1%)|2.8 (-0.7)|42.4% (-4.3%)
-
-
-#HOU
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
-:--|:--|:--|:--|:--|:--
-Dameon Pierce|79.0% (**+11.0%**)|2.8 (-0.2)|82.4% (**+2.4%**)|3.0 (**+0.5**)|37.5% (**+6.3%**)
-Rex Burkhead|21.0% (-11.0%)|0.6 (-0.15)|17.6% (-2.4%)|4.8 (-0.45)|60.0% (-5.6%)
-
-
-#IND
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
-:--|:--|:--|:--|:--|:--
-Deon Jackson|58.0% (**+58.0%**)|0.5 (**+0.5**)|50.0% (**+50.0%**)|2.0 (**+2.0**)|25.0% (**+25.0%**)
-Phillip Lindsay|38.0% (**+38.0%**)|0.0 (-)|0.0% (0%)|4.0 (**+4.0**)|40.0% (**+40.0%**)
-Nyheim Hines|4.0% (-28.0%)|0.6 (-0.15)|15.0% (-0.8%)|4.2 (-0.55)|46.7% (-7.6%)
-Jonathan Taylor|DNP|4.0|84.2%|4.0|45.7%
-
-
-#JAX
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
-:--|:--|:--|:--|:--|:--
-Travis Etienne|53.0% (**+2.0%**)|1.8 (-0.2)|36.0% (-0.4%)|3.2 (**+0.45**)|57.1% (**+4.7%**)
-James Robinson|40.0% (-7.0%)|3.2 (-0.3)|64.0% (**+0.4%**)|1.8 (**+0.05**)|32.1% (-1.2%)
-Jamycal Hasty|4.0% (-2.0%)|0.0 (-)|0.0% (0%)|0.75 (-0.25)|13.0% (-5.8%)
-
-
-#KC
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
-:--|:--|:--|:--|:--|:--
-Jerick Mckinnon|53.0% (**+30.0%**)|2.0 (-)|33.3% (0%)|2.2 (**+0.2**)|36.7% (**+1.9%**)
-Clyde Edwards-Helaire|43.0% (-13.0%)|2.4 (**+0.4**)|40.0% (**+6.7%**)|3.6 (**+0.1**)|60.0% (-0.9%)
-Michael Burton|8.0% (-1.0%)|0.2 (-0.05)|3.3% (-0.9%)|0.2 (-0.05)|3.3% (-1.0%)
-Isiah Pacheco|3.0% (-18.0%)|1.4 (-0.35)|23.3% (-5.9%)|0.0 (-)|0.0% (0%)
-
-
-#LAC
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
-:--|:--|:--|:--|:--|:--
-Austin Ekeler|59.0% (0%)|3.0 (**+0.25**)|55.6% (-2.3%)|6.6 (-0.65)|60.0% (**+0.8%**)
-Joshua Kelley|38.0% (**+18.0%**)|1.2 (**+0.45**)|22.2% (**+6.4%**)|2.0 (-)|18.2% (**+1.9%**)
-Zander Horvath|14.0% (**+3.0%**)|0.4 (-0.1)|7.4% (-3.1%)|1.2 (-0.3)|10.9% (-1.3%)
-Sony Michel|3.0% (-21.0%)|0.8 (**+0.05**)|14.8% (-1.0%)|1.2 (-0.3)|10.9% (-1.3%)
-
-
-#LAR
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
-:--|:--|:--|:--|:--|:--
-Darrell Henderson|57.0% (-2.0%)|1.2 (-0.3)|37.5% (-2.5%)|3.0 (**+0.5**)|75.0% (**+3.6%**)
-Cam Akers|31.0% (-7.0%)|2.0 (-0.25)|62.5% (**+2.5%**)|1.0 (-)|25.0% (-3.6%)
-Malcolm Brown|12.0% (**+9.0%**)|0.0 (-)|0.0% (0%)|0.0 (-)|0% (0%)
-
-
-#LV
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
-:--|:--|:--|:--|:--|:--
-Josh Jacobs|81.0% (-8.0%)|3.2 (-0.55)|84.2% (-4.0%)|3.8 (**+0.3**)|61.3% (-2.3%)
-Jakob Johnson|39.0% (**+4.0%**)|0.0 (-)|0.0% (0%)|0.4 (**+0.15**)|6.5% (**+2.0%**)
-Brandon Bolden|16.0% (**+9.0%**)|0.25 (-0.08)|6.7% (**+0.8%**)|2.0 (**+0.33**)|27.6% (**+2.6%**)
-Zamir White|5.0% (**+1.0%**)|0.67 (**+0.17**)|16.7% (**+10.8%**)|0.0 (-)|0.0% (0%)
-Ameer Abdullah|DNP|0.0|0.0%|0.67|14.3%
-
-
-#MIA
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
-:--|:--|:--|:--|:--|:--
-Raheem Mostert|69.0% (-3.0%)|1.4 (**+0.15**)|41.2% (-0.5%)|2.4 (**+0.15**)|34.3% (-1.7%)
-Alec Ingold|33.0% (0%)|0.2 (-0.05)|5.9% (-2.4%)|1.0 (-0.25)|14.3% (-5.7%)
-Myles Gaskin|19.0% (**+19.0%**)|3.0 (**+3.0**)|60.0% (**+60.0%**)|5.0 (**+5.0**)|50.0% (**+50.0%**)
-Chase Edmonds|15.0% (-13.0%)|1.2 (-0.3)|35.3% (-14.7%)|2.6 (-0.15)|37.1% (-6.9%)
-
-
-#MIN
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
-:--|:--|:--|:--|:--|:--
-Dalvin Cook|57.0% (-6.0%)|2.2 (**+0.45**)|50.0% (**+3.3%**)|3.0 (-0.25)|48.4% (-3.6%)
-Alexander Mattison|43.0% (**+5.0%**)|2.0 (**+0.25**)|45.5% (-1.2%)|2.2 (**+0.45**)|35.5% (**+7.5%**)
-Cj Ham|9.0% (-4.0%)|0.2 (-0.05)|4.5% (-2.2%)|1.0 (-0.25)|16.1% (-3.9%)
-
-
-#NO
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
-:--|:--|:--|:--|:--|:--
-Alvin Kamara|73.0% (**+73.0%**)|2.33 (**+0.83**)|87.5% (**+60.2%**)|5.67 (**+0.17**)|94.4% (**+2.7%**)
-Mark Ingram|22.0% (-26.0%)|1.2 (-0.3)|40.0% (-14.5%)|1.2 (-0.3)|22.2% (-6.4%)
-Dwayne Washington|3.0% (0%)|0.0 (-)|0.0% (0%)|0.0 (-)|0.0% (0%)
-Adam Prentice|DNP|0.0|0.0%|0.33|5.9%
-Tony Jones|DNP|0.5|33.3%|1.0|20.0%
-Latavius Murray|DNP|1.0|25.0%|1.0|25.0%
-
-
-#NE
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
-:--|:--|:--|:--|:--|:--
-Rhamondre Stevenson|90.0% (**+35.0%**)|1.6 (**+0.6**)|34.8% (**+11.3%**)|3.2 (-0.3)|53.3% (**+1.4%**)
-Damien Harris|10.0% (-35.0%)|2.8 (-0.2)|60.9% (-9.7%)|2.0 (-0.25)|33.3% (0%)
-
-
-#NYG
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
-:--|:--|:--|:--|:--|:--
-Saquon Barkley|69.0% (-25.0%)|2.0 (-)|62.5% (-17.5%)|4.6 (**+0.35**)|88.5% (-5.9%)
-Matt Breida|30.0% (**+16.0%**)|0.8 (**+0.3**)|25.0% (**+5.0%**)|0.6 (**+0.35**)|11.5% (**+5.9%**)
-Gary Brightwell|11.0% (**+6.0%**)|0.67 (**+0.67**)|20.0% (**+20.0%**)|0.0 (-)|0.0% (0%)
-
-
-#NYJ
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
-:--|:--|:--|:--|:--|:--
-Breece Hall|69.0% (**+3.0%**)|2.8 (**+0.3**)|56.0% (-2.8%)|5.8 (-0.95)|54.7% (-0.4%)
-Michael Carter|58.0% (-3.0%)|2.2 (**+0.45**)|44.0% (**+2.8%**)|4.2 (-0.55)|39.6% (**+0.8%**)
-Ty Johnson|DNP|0.0|0.0%|1.5|13.6%
-
-
-#PHI
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
-:--|:--|:--|:--|:--|:--
-Miles Sanders|74.0% (**+7.0%**)|3.2 (**+0.45**)|64.0% (**+9.0%**)|2.4 (**+0.15**)|57.1% (**+7.1%**)
-Kenneth Gainwell|22.0% (-5.0%)|1.6 (-0.4)|32.0% (-8.0%)|1.6 (-0.4)|38.1% (-6.3%)
-Trey Sermon|4.0% (-2.0%)|0.0 (-)|0.0% (0%)|0.0 (-)|0.0% (0%)
-Boston Scott|DNP|0.33|11.1%|0.33|7.7%
-
-
-#PIT
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
-:--|:--|:--|:--|:--|:--
-Jaylen Warren|51.0% (**+26.0%**)|0.8 (**+0.05**)|26.7% (**+1.7%**)|1.8 (**+0.8**)|36.0% (**+9.3%**)
-Najee Harris|49.0% (-26.0%)|2.2 (-0.05)|73.3% (-1.7%)|3.0 (**+0.25**)|60.0% (-13.3%)
-Derek Watt|3.0% (-6.0%)|0.0 (-)|0.0% (0%)|0.2 (**+0.2**)|4.0% (**+4.0%**)
-
-
-#SEA
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
-:--|:--|:--|:--|:--|:--
-Kenneth Walker|58.0% (**+22.0%**)|0.0 (-)|0.0% (0%)|0.0 (-)|0% (0%)
-Rashaad Penny|29.0% (-39.0%)|1.4 (-0.35)|58.3% (-5.3%)|1.0 (-0.25)|26.3% (-1.5%)
-Deejay Dallas|19.0% (**+15.0%**)|0.2 (-0.05)|8.3% (-0.8%)|0.6 (**+0.1**)|15.8% (**+4.7%**)
-Travis Homer|DNP|0.0|0.0%|1.33|25.0%
-
-
-#SF
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
-:--|:--|:--|:--|:--|:--
-Jeff Wilson|58.0% (-8.0%)|2.8 (**+0.05**)|60.9% (-3.8%)|1.8 (**+0.05**)|47.4% (-10.9%)
-Kyle Juszczyk|57.0% (-7.0%)|0.6 (-0.15)|13.0% (-4.6%)|1.4 (**+0.15**)|36.8% (-4.9%)
-Tevin Coleman|28.0% (**+26.0%**)|1.5 (**+1.5**)|37.5% (**+37.5%**)|1.5 (**+1.5**)|37.5% (**+37.5%**)
-Jordan Mason|1.0% (**+1.0%**)|0.0 (-)|0.0% (0%)|0.0 (-)|0.0% (0%)
-Eli Mitchell|DNP|1.0|25.0%|0.0|0.0%
-Tyrion Davis-Price|DNP|2.0|20.0%|0.0|0.0%
-
-
-#TB
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
-:--|:--|:--|:--|:--|:--
-Leonard Fournette|62.0% (**+1.0%**)|2.2 (**+0.2**)|73.3% (**+6.6%**)|6.0 (**+1.25**)|69.8% (**+1.9%**)
-Rachaad White|39.0% (**+1.0%**)|0.8 (-0.2)|26.7% (-6.6%)|2.6 (**+0.35**)|30.2% (-1.9%)
-
-
-#TEN
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
-:--|:--|:--|:--|:--|:--
-Derrick Henry|64.0% (-5.0%)|3.0 (**+0.75**)|88.2% (-1.8%)|2.8 (-0.2)|48.3% (-6.2%)
-Dontrell Hilliard|31.0% (0%)|0.5 (**+0.17**)|13.3% (**+3.3%**)|3.5 (**+0.5**)|50.0% (**+7.1%**)
-Tory Carter|11.0% (-9.0%)|0.0 (-)|0.0% (0%)|0.0 (-)|0% (0%)
-Hassan Haskins|3.0% (**+3.0%**)|0.0 (-)|0.0% (0%)|0.25 (-0.08)|5.0% (-2.7%)
-
-
-#WAS
-Player|wk5 Snap %|RZ Looks Per Game|RZ Looks Share|Targets Per Game|RB Target Share
-:--|:--|:--|:--|:--|:--
-Jd Mckissic|41.0% (-10.0%)|0.4 (**+0.15**)|14.3% (**+6.6%**)|6.0 (**+0.25**)|60.0% (**+1.0%**)
-Antonio Gibson|32.0% (-9.0%)|2.2 (-0.55)|78.6% (-6.0%)|4.0 (-)|40.0% (-1.0%)
-Brian Robinson|29.0% (**+29.0%**)|0.0 (-)|0.0% (0%)|0.0 (-)|0.0% (0%)
-Jonathan Williams|DNP|0.33|12.5%|0.0|0.0%
-
+Travis Kelce|KC|3.0|**+0.5**|**+1.5**|22.06%
+Zach Ertz|ARI|2.2|-0.3|-0.3|25.0%
+Mark Andrews|BAL|1.8|-0.2|**+1.3**|24.32%
+David Njoku|CLE|1.4|-0.1|**+0.4**|11.67%
+Tj Hockenson|DET|1.2|-|**+0.2**|13.95%
+Hayden Hurst|CIN|1.2|**+0.45**|**+0.2**|12.5%
+Darren Waller|LV|1.2|-|-0.3|12.24%
+Tyler Higbee|LAR|1.0|-0.25|-0.5|12.2%
+Robert Tonyan|GB|1.0|-|-|10.42%
+Donald Parham|LAC|1.0|**+1.0**|-|7.14%
+Pat Freiermuth|PIT|0.8|**+0.05**|-0.2|14.81%
+Dallas Goedert|PHI|0.8|**+0.05**|**+0.3**|9.3%
+Gerald Everett|LAC|0.8|**+0.05**|-0.2|8.33%
+Irv Smith|MIN|0.8|-0.2|-0.2|7.69%
+Logan Thomas|WAS|0.75|-|-0.25|9.68%
+George Kittle|SF|0.67|-0.33|-|11.76%
+Will Dissly|SEA|0.6|-0.15|**+0.6**|12.0%
+Daniel Bellinger|NYG|0.6|**+0.35**|**+0.1**|11.11%
+Hunter Henry|NE|0.6|**+0.1**|**+0.1**|9.38%
+Juwan Johnson|NO|0.6|-0.15|-0.4|8.82%
+Mo Alie-Cox|IND|0.6|-0.15|**+0.1**|7.32%
+Evan Engram|JAX|0.6|**+0.1**|**+0.6**|6.0%
+Harrison Bryant|CLE|0.6|-0.15|-0.4|5.0%
+Noah Gray|KC|0.6|-0.15|-0.4|4.41%
+Jody Fortson|KC|0.6|-0.15|-0.4|4.41%
+Dalton Schultz|DAL|0.5|**+0.17**|**+0.5**|14.29%
+Jonnu Smith|NE|0.5|-|**+0.5**|8.7%
+Cameron Brate|TB|0.5|-|**+0.5**|8.33%
+Cade Otton|TB|0.5|**+0.5**|**+0.5**|7.41%
+Dawson Knox|BUF|0.5|-|-|5.71%
+Drew Sample|CIN|0.5|-|-|5.56%
+Noah Fant|SEA|0.4|-0.1|-0.1|8.0%
+Chris Myarick|NYG|0.4|**+0.15**|-0.1|7.41%
+Geoff Swaim|TEN|0.4|-|-0.1|7.14%
+Austin Hooper|TEN|0.4|-|-0.1|7.14%
+Durham Smythe|MIA|0.4|**+0.15**|-0.1|5.88%
+Mike Gesicki|MIA|0.4|-0.1|-0.6|5.88%
+Adam Trautman|NO|0.4|**+0.15**|**+0.4**|5.88%
+Parker Hesse|ATL|0.4|-0.1|-0.6|5.56%
+Isaiah Likely|BAL|0.4|**+0.15**|-0.1|5.41%
+Josh Oliver|BAL|0.4|**+0.15**|**+0.4**|5.41%
+Kylen Granson|IND|0.4|-0.1|-0.1|4.88%
+Jelani Woods|IND|0.4|-0.1|**+0.4**|4.88%
+Eric Saubert|DEN|0.4|**+0.15**|-0.1|4.76%
+Tre Mckitty|LAC|0.4|**+0.15**|-0.1|4.17%
+Dan Arnold|JAX|0.4|**+0.15**|-0.1|4.0%
+Johnny Mundt|MIN|0.4|-0.1|-0.1|3.85%
+Jordan Akins|HOU|0.33|-|-|6.25%
+Foster Moreau|LV|0.33|-|-|2.86%
+Kyle Pitts|ATL|0.25|-|-0.25|3.33%

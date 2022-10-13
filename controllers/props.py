@@ -106,13 +106,15 @@ def getDefPropsData():
 		name = fixName(name.lower())
 		team = nameRow.split(" ")[-1]
 
-		#if team not in ["CIN", "BAL"]:
-		if team not in ["LV", "KC"]:
-			continue
+		if team not in ["CHI", "WSH"]:
+			#continue
 			pass
 
 		opp = get_opponents(getProfootballReferenceTeam(team.lower()))[CURR_WEEK]
 		pff_team = getProfootballReferenceTeam(team.lower())
+
+		if opp == "BYE":
+			continue
 
 		with open(f"{prefix}static/profootballreference/{pff_team}/stats.json") as fh:
 			stats = json.load(fh)
@@ -265,6 +267,12 @@ def getProps_route():
 			if not underOdds.startswith("-"):
 				underOdds = "+"+underOdds
 
+			line = propData[nameRow][typ]["line"]
+			if line:
+				pass
+				#diff = abs(proj - float(line))
+
+			#print(player)
 			res.append({
 				"player": player.title(),
 				"team": getYahooTeam(team),
@@ -272,7 +280,7 @@ def getProps_route():
 				"pos": pos,
 				"opponent": getYahooTeam(propData[nameRow][typ]["opponent"]),
 				"propType": typ,
-				"line": propData[nameRow][typ]["line"] or "-",
+				"line": line or "-",
 				"overOdds": propData[nameRow][typ]["sideOneType"]+ " ("+overOdds+")",
 				"underOdds": propData[nameRow][typ]["sideTwoType"]+ " ("+underOdds+")",
 				"stats": playerStats
@@ -297,6 +305,7 @@ def props_post_route():
 
 @props_blueprint.route('/props')
 def props_route():
+	print("here")
 	return render_template("props.html", curr_week=CURR_WEEK)
 
 def writeDefProps(week):
@@ -314,7 +323,7 @@ def writeDefProps(week):
 		name = fixName(row.find("div", class_="option-prop-row__player-name").text)
 		team = row.find("div", class_="option-prop-row__player-team").text
 		props[name.lower()+" "+team] = {"line": {}}
-		for idx, td in enumerate(row.findAll("td")[1:-3]):
+		for idx, td in enumerate(row.findAll("td")[2:-3]):
 			odds = td.findAll("div", class_="book-cell__odds")
 			over = under = ""
 			line = ""
@@ -398,5 +407,5 @@ if __name__ == "__main__":
 	if args.week:
 		week = args.week
 	if args.cron:
-		#writeProps()
-		writeDefProps(week)
+		writeProps()
+		#writeDefProps(week)
