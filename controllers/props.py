@@ -106,8 +106,8 @@ def getDefPropsData():
 		name = fixName(name.lower())
 		team = nameRow.split(" ")[-1]
 
-		if team not in ["CHI", "WSH"]:
-			#continue
+		if team not in ["DEN", "LAC"]:
+			continue
 			pass
 
 		opp = get_opponents(getProfootballReferenceTeam(team.lower()))[CURR_WEEK]
@@ -407,5 +407,5 @@ if __name__ == "__main__":
 	if args.week:
 		week = args.week
 	if args.cron:
-		writeProps()
-		#writeDefProps(week)
+		#writeProps()
+		writeDefProps(week)
