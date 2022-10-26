@@ -451,7 +451,9 @@ def get_defense_tot(curr_week, point_totals_dict, over_expected):
 						which_team = team
 					if over_expected:
 						#print(which_team, point_totals_dict[which_team])
-						#print(which_team, week, pos)
+						if pos == "K" and f"{pos}_wk{week+1}_act" not in point_totals_dict[which_team]:
+							continue
+							
 						j[act_key] += point_totals_dict[which_team][f"{pos}_wk{week+1}_act"]
 						j[proj_key] += point_totals_dict[opp_team][f"{pos}_wk{week+1}_proj"]
 						j[key] += point_totals_dict[which_team][key]
@@ -946,7 +948,8 @@ def add_stats(boxscorelinks, team, teampath, boxlink, week_arg, team_arg):
 			
 			if "snap" in inner_ids[i]:
 				# if player got 0 points but had snaps
-				if data[0].text not in ["QB", "FB", "RB", "WR", "TE", "K", "LB", "S", "SS", "FS", "CB", "DE", "DB", "DT", "NT"]:
+				pos = data[0].text
+				if pos not in ["QB", "FB", "RB", "WR", "TE", "K", "LB", "S", "SS", "FS", "CB", "DE", "DB", "DT", "NT"]:
 					continue
 				if name not in stats:
 					if inner_ids[i].startswith("home") and home_team == team:

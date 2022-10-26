@@ -251,16 +251,18 @@
 						{title: "Plays", field: "avgTotPlays", hozAlign: "center", width: "50"},
 						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
 						{title: "Opp", field: "opponent", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
-						//{title: "Scored", field: "scored", formatter: scoredFormatter, hozAlign: "center"},
+						
 						{title: "Plays", field: "avgOppTotPlays", hozAlign: "center", width: "50"},
 						{title: "Pass %", field: "oppPassPerc", hozAlign: "center"},
-						{title: "Prop", field: "propType", formatter: propFormatter},
+
+						{title: "Prop", field: "propType", formatter: propFormatter, hozAlign: "center"},
 						{title: "Line", field: "line", hozAlign: "center"},
 						{title: "", field: "diff", hozAlign: "center", visible: false},
 						{title: "SZN AVG", field: "avg", formatter: avgFormatter, hozAlign: "center"},
-						{title: "Proj", field: "proj", hozAlign: "center", formatter: projFormatter},
-						{title: "TA Share", field: "tackleShare", hozAlign: "center", sorter:"number", formatter: percentFormatter},
-						{title: "Last 5", field: "last5", hozAlign: "center"},
+						{title: "Total Over", field: "totalOver", formatter: percentFormatter, hozAlign: "center", width:80},
+						//{title: "Proj", field: "proj", hozAlign: "center", formatter: projFormatter},
+						//{title: "TA Share", field: "tackleShare", hozAlign: "center", sorter:"number", formatter: percentFormatter},
+						{title: "Last", field: "last5", hozAlign: "center"},
 						//{title: "Games Over", field: "over", formatter: overFormatter, hozAlign: "center"},
 						//{title: "Last Game", field: "lastOver", formatter: lastOverFormatter, hozAlign: "center"},
 						{title: " ", field: "overOdds"},
@@ -270,7 +272,9 @@
 			}
 
 			renderTable();
-			TABLE.setFilter("propType", "=", "tackles_combined");
+			TABLE.setFilter([
+				{field:"propType", type:"!=", value:"tackles_combined"},
+			]);
 
 			setTimeout(function() {
 				//console.log(TABLE.getRows()[0].getElement().getElementsByTagName("input")[0]);
