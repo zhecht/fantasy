@@ -217,16 +217,16 @@ def getProps_route():
 
 				lastTotalOver = lastTotalGames = 0
 				if line and avgMin and name in lastYearStats[espnTeam] and lastYearStats[espnTeam][name]:
-					for d in lastYearStats[espnTeam][name]:
-						minutes = lastYearStats[espnTeam][name][d]["min"]
+					for dt in lastYearStats[espnTeam][name]:
+						minutes = lastYearStats[espnTeam][name][dt]["min"]
 						if minutes > 0:
 							lastTotalGames += 1
 							if "+" in prop:
 								val = 0.0
 								for p in prop.split("+"):
-									val += lastYearStats[espnTeam][name][d][p]
+									val += lastYearStats[espnTeam][name][dt][p]
 							else:
-								val = lastYearStats[espnTeam][name][d][prop]
+								val = lastYearStats[espnTeam][name][dt][prop]
 							valPerMin = float(val / minutes)
 							linePerMin = float(line) / avgMin
 							if valPerMin > linePerMin:

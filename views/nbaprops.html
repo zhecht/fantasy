@@ -52,7 +52,11 @@
 				let s = "";
 				s += "NAME|TEAM|PROP|LINE|SZN AVG|% OVER|LAST 7 GAMES|LAST YR % OVER|Odds\n";
 				s += ":--|:--|:--|:--|:--|:--|:--|:--|:--\n";
-				for (row of TABLE.getSelectedRows()) {
+				let rows = TABLE.getSelectedRows();
+                if (rows.length == 0) {
+                    rows = TABLE.getRows("active");
+                }
+				for (row of rows) {
 					const data = row.getData();
 					let odds = data.totalOver >= 50 ? data.overOdds : data.underOdds;
 					odds = odds.split(" ")[1].substring(1, 5);
@@ -173,7 +177,7 @@
 			TABLE.setFilter([
 				//{field:"avgMin", type:">=", value:15},
 				//{field:"line", type:">", value:1},
-				{field:"propType", type:"=", value:"pts"},
+				{field:"propType", type:"=", value:"ast"},
 			]);
 		</script>
 

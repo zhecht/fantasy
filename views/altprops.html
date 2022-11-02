@@ -3,7 +3,7 @@
 	<head>
 		<title>Props</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-		<link rel="stylesheet" href="/static/css/nhlteams.css" type="text/css">
+		<link rel="stylesheet" href="/static/css/nbateams.css" type="text/css">
 		<script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.9.3/dist/js/tabulator.min.js"></script>
 		<link href="https://unpkg.com/tabulator-tables@4.9.3/dist/css/tabulator.min.css" rel="stylesheet">
 	</head>
@@ -41,30 +41,38 @@
 			</div>
 		</div>
 		<div id="footer">
-			<button onclick="print();">PRINT</button>
+			<button onclick="print();">Print</button>
 		</div>
 		<script>
 			let TABLE;
-			const teamNames = ["All", "ANA", "ARI", "BOS", "BUF", "CAR", "CBJ", "CGY", "CHI", "COL", "DAL", "DET", "EDM", "FLA", "LA", "MIN", "MTL", "NJ", "NSH", "NYI", "NYR", "OTT", "PHI", "PIT", "SEA", "SJ", "STL", "TB", "TOR", "VAN", "VGK", "WPG", "WSH"];
+			const teamNames = ["All", "ATL", "BKN", "BOS", "CHA", "CHI", "CLE", "DAL", "DEN", "DET", "GS", "HOU", "IND", "LAC", "LAL", "MEM", "MIA", "MIL", "MIN", "NO", "NY", "OKC", "ORL", "PHI", "PHX", "POR", "SA", "SAC", "TOR", "UTAH", "WSH"];
 
 			function print() {
-                let rows = TABLE.getSelectedRows();
+				const args = [];
+				let s = "";
+				s += "NAME|TEAM|LINE|SZN AVG|% OVER|LAST 7 GAMES|LAST YR % OVER|ODDs\n";
+				s += ":--|:--|:--|:--|:--|:--|:--|:--\n";
+				let rows = TABLE.getSelectedRows();
                 if (rows.length == 0) {
                     rows = TABLE.getRows("active");
                 }
-                const args = [];
-                let s = "";
-                s += "NAME|TEAM|PROP|LINE|SZN AVG|% OVER|LAST GAMES|LAST YR % OVER|Odds\n";
-                s += ":--|:--|:--|:--|:--|:--|:--|:--|:--\n";
-                for (row of rows) {
-                    const data = row.getData();
-                    let odds = data.totalOver >= 50 ? data.overOdds : data.underOdds;
-                    odds = odds.split(" ")[1].substring(1, 5);
-                    s += [data.player, data.team, data.propType, data.line, data.avg, data.totalOver+"%", data.last5, data.lastTotalOver+"%",odds].join("|");
-                    s += "\n";
-                }
-                console.log(s);
-            }
+				for (row of rows) {
+					const data = row.getData();
+					let odds = data.odds;
+					let line = "";
+					if (!data.isOver) {
+						line += "u";
+					}
+					line += Math.round(data.line);
+					if (data.isOver) {
+						line += "+";
+					}
+					line += " "+data.propType;
+					s += [data.player, data.team, line, data.avg, data.totalOver+"%", data.last5, data.lastTotalOver+"%",odds].join("|");
+					s += "\n";
+				}
+				console.log(s);
+			}
 
 			function teamFilter(headerValue, rowValue, rowData, filterParams){
 				if (headerValue == "All") {
@@ -123,46 +131,32 @@
 			function renderTable() {
 				TABLE = new Tabulator("#propsTable", {
 					tooltipsHeader: true,
-					ajaxURL: "/getNHLProps",
-					//responsiveLayout:"collapse",
-					//layout: "fitDataFill",
-					//layout: window.innerWidth <= 450 ? "fitData" : "fitColumns",
-					//groupBy: "team",
-					groupHeader: function(value, count, data, group){
+					ajaxURL: "/getAltProps",
+					groupBy: "game",
+					/*groupHeader: function(value, count, data, group){
 						const playerTxt = count == 1 ? "Player" : "Players"
 						return "<a href='https://www.espn.com/nfl/team/depth/_/name/"+value+"' target='_blank'>"+value+"</a>" + "<span style='color:black; margin-left:10px;'>(" + count + " "+playerTxt+")</span>";
 					},
+					*/
 					initialSort: [
 						//{column: "pos", dir: "asc"},
-						{column: "diffAbs", dir: "desc"},
 						//{column: "team", dir: "asc"},
 					],
 					columns: [
-                        {formatter:"rowSelection", hozAlign:"center", headerSort:false, cellClick:function(e, cell){
-                            cell.getRow().toggleSelect();
-                        }},
+						{formatter:"rowSelection", hozAlign:"center", headerSort:false, cellClick:function(e, cell){
+							cell.getRow().toggleSelect();
+						}},
 						{title: "Player", field: "player", headerFilter: "input"},
 						{title: "Avg Min", field: "avgMin", hozAlign: "center", width: 70},
 						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
-						{title: "Opp", field: "opponent", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
-						//{title: "Scored", field: "scored", formatter: scoredFormatter, hozAlign: "center"},
 						{title: "Prop", field: "propType", formatter: propFormatter, hozAlign: "center"},
 						{title: "Line", field: "line", hozAlign: "center"},
 						{title: "SZN AVG", field: "avg", hozAlign: "center", width: 80},
 						{title: "Last YR AVG", field: "lastAvg", hozAlign: "center", width: 80},
-						//{title: "Proj", field: "proj", hozAlign: "center", width: 80},
-						/*
-						{title: "", field: "diffAvg", hozAlign: "center", visible: true},
-						{title: "", field: "diff", hozAlign: "center", visible: true},
-						*/
-						{title: "", field: "diffAbs", hozAlign: "center", visible: false},
 						{title: "Total Over", field: "totalOver", width: 80, hozAlign: "center", formatter: percentFormatter},
 						{title: "Last", field: "last5", hozAlign: "center"},
 						{title: "Last YR Total Over", field: "lastTotalOver", width: 80, hozAlign: "center", formatter: percentFormatter},
-						//{title: "Games Over", field: "over", formatter: overFormatter, hozAlign: "center"},
-						//{title: "Last Game", field: "lastOver", formatter: lastOverFormatter, hozAlign: "center"},
-						{title: " ", field: "overOdds"},
-						{title: " ", field: "underOdds"},
+						{title: " ", field: "odds"},
 					]
 				})
 			}
@@ -171,10 +165,10 @@
 
 			//TABLE.setFilter("propType", "=", "3ptm");
 			TABLE.setFilter([
-				//{field:"avgMin", type:">=", value:5},
-				//{field:"line", type:">", value:1},
+				//{field:"avgMin", type:">=", value:15},
 				
-                {field:"propType", type:"!=", value:"goals"},
+				//{field:"isOver", type:"=", value:true},
+				//{field:"propType", type:"=", value:"ast"},
 			]);
 		</script>
 
