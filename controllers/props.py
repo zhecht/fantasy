@@ -93,6 +93,46 @@ def getOppTotPlays(totPlays, team, opp):
 
 	return plays, oppPlays
 
+def tacklesAnalysis():
+	with open(f"{prefix}static/profootballreference/teams.json") as fh:
+		teams = json.load(fh)
+
+	res = {}
+	for fullTeam in teams:
+		team = fullTeam.split("/")[-2]
+		res[team] = {}
+		for idx, opp in enumerate(get_opponents(team)):
+			if opp == "BYE":
+				continue
+			wk = idx+1
+			res[team][wk] = {"dbs": 0, "lbs": 0}
+
+			with open(f"{prefix}static/profootballreference/{opp}/stats.json") as fh:
+				stats = json.load(fh)
+
+			with open(f"{prefix}static/profootballreference/{opp}/roster.json") as fh:
+				roster = json.load(fh)
+
+			for player in stats:
+				if player not in roster:
+					continue
+				pos = roster[player]
+
+				if pos not in ["LB", "S", "SS", "FS", "CB", "DE", "DB", "DT", "NT"]:
+					continue
+
+				if f"wk{wk}" not in stats[player]:
+					continue
+
+				tackles = stats[player][f"wk{wk}"].get("tackles_combined", 0)
+				if pos in ["LB", "DE", "DT", "NT"]:
+					res[team][wk]["lbs"] += tackles
+				else:
+					res[team][wk]["dbs"] += tackles
+
+	print(res["rav"])
+
+
 def getDefPropsData():
 	pastPropData = {}
 	for file in glob.glob(f"{prefix}static/props/wk*.json"):
@@ -116,6 +156,8 @@ def getDefPropsData():
 	with open(f"{prefix}static/runPassTotals.json") as fh:
 		runPassData = json.load(fh)
 
+	#tacklesAnalysis()
+
 	res = []
 	for nameRow in propData:
 		name = " ".join(nameRow.split(" ")[:-1])
@@ -123,7 +165,7 @@ def getDefPropsData():
 		team = nameRow.split(" ")[-1]
 
 		if team not in ["CHI", "NE"]:
-			continue
+			#continue
 			pass
 
 		opp = get_opponents(getProfootballReferenceTeam(team.lower()))[CURR_WEEK]
@@ -145,12 +187,18 @@ def getDefPropsData():
 		totPlays, oppTotPlays = getOppTotPlays(playsData, pff_team, opp)
 		opponents = get_opponents(pff_team)
 
+		line = propData[nameRow]["line"]
+		if line:
+			line = line[1:]
+
 		playerStats = {}
 		last5 = []
 		totTackles = 0
 		totTeamTackles = 0
 		avgSnaps = 0
 		lastSnaps = 0
+		avg = 0
+		totalOver = 0
 		if name not in stats:
 			pass
 		else:
@@ -168,12 +216,20 @@ def getDefPropsData():
 
 				week = int(wk[2:])
 				totTeamTackles += stats["DEF"][wk]["tackles"]
-				totTackles += gameLogs[wk].get("tackles_combined", 0)
+				tackles = gameLogs[wk].get("tackles_combined", 0)
+				totTackles += tackles
+				if line and tackles > float(line):
+					totalOver += 1
+
 				if "tackles_combined" in gameLogs[wk]:
 					t = str(gameLogs[wk]["tackles_combined"])
 					if name+" "+team in pastPropData and week in pastPropData[name+" "+team]:
 						t += f"({pastPropData[name+' '+team][week]})"
 					last5.append(t)
+
+			if gamesPlayed:
+				avg = round(totTackles / gamesPlayed, 1)
+				totalOver = round((totalOver / gamesPlayed) * 100)
 			playerStats = gameLogs
 			playerStats["tot"]["gamesPlayed"] = gamesPlayed
 			if totTeamSnaps:
@@ -205,9 +261,6 @@ def getDefPropsData():
 			underOdds = "+"+underOdds
 
 		diff = 0
-		line = propData[nameRow]["line"]
-		if line:
-			line = line[1:]
 
 		avgTotPlays = int(round(totPlays / CURR_WEEK))
 		avgOppTotPlays = int(round(oppTotPlays / CURR_WEEK))
@@ -219,7 +272,6 @@ def getDefPropsData():
 
 		if line:
 			diff = abs(proj - float(line))
-		totalOver = 0
 
 		res.append({
 			"player": name.title(),
@@ -228,6 +280,7 @@ def getDefPropsData():
 			"pos": pos,
 			"proj": proj,
 			"diff": diff,
+			"avg": avg,
 			"totalOver": totalOver,
 			"avgSnaps": f"{avgSnaps}% ({lastSnaps}%)",
 			"avgTotPlays": avgTotPlays,
@@ -245,134 +298,6 @@ def getDefPropsData():
 	return res
 
 def customPropData(propData):
-	propData["R. Stevenson NE"] = {
-		"rush_yd": {
-            "propType": "rush_yd",
-            "player": "R. Stevenson",
-            "position": "RB",
-            "team": "NE",
-            "opponent": "CHI",
-            "line": "63.5",
-            "sideOneType": "over",
-            "sideOneOdds": "-115",
-            "sideTwoOdds": "-115",
-            "sideTwoType": "under"
-        },
-        "rush_att": {
-            "propType": "rush_att",
-            "player": "R. Stevenson",
-            "position": "RB",
-            "team": "NE",
-            "opponent": "CHI",
-            "line": "13.5",
-            "sideOneType": "over",
-            "sideOneOdds": "-115",
-            "sideTwoOdds": "-115",
-            "sideTwoType": "under"
-        },
-        "recv_yd": {
-            "propType": "recv_yd",
-            "player": "R. Stevenson",
-            "position": "RB",
-            "team": "NE",
-            "opponent": "CHI",
-            "line": "15.5",
-            "sideOneType": "over",
-            "sideOneOdds": "-120",
-            "sideTwoOdds": "-115",
-            "sideTwoType": "under"
-        },
-        "rush_recv_yd": {
-            "propType": "rush_recv_yd",
-            "player": "R. Stevenson",
-            "position": "RB",
-            "team": "NE",
-            "opponent": "CHI",
-            "line": "83.5",
-            "sideOneType": "over",
-            "sideOneOdds": "-120",
-            "sideTwoOdds": "-115",
-            "sideTwoType": "under"
-        },
-	}
-	propData["D. Harris NE"] = {
-		"rush_yd": {
-            "propType": "rush_yd",
-            "player": "D. Harris",
-            "position": "RB",
-            "team": "NE",
-            "opponent": "CHI",
-            "line": "51.5",
-            "sideOneType": "over",
-            "sideOneOdds": "-115",
-            "sideTwoOdds": "-115",
-            "sideTwoType": "under"
-        },
-        "recv_yd": {
-            "propType": "recv_yd",
-            "player": "D. Harris",
-            "position": "RB",
-            "team": "NE",
-            "opponent": "CHI",
-            "line": "6.5",
-            "sideOneType": "over",
-            "sideOneOdds": "-120",
-            "sideTwoOdds": "-110",
-            "sideTwoType": "under"
-        },
-        "rush_recv_yd": {
-            "propType": "rush_recv_yd",
-            "player": "D. Harris",
-            "position": "RB",
-            "team": "NE",
-            "opponent": "CHI",
-            "line": "62.5",
-            "sideOneType": "over",
-            "sideOneOdds": "-115",
-            "sideTwoOdds": "-110",
-            "sideTwoType": "under"
-        },
-	}
-	propData["D. Parker NE"] = {
-		"recv_yd": {
-            "propType": "recv_yd",
-            "player": "D. Parker",
-            "position": "WR",
-            "team": "NE",
-            "opponent": "CHI",
-            "line": "28.5",
-            "sideOneType": "over",
-            "sideOneOdds": "-115",
-            "sideTwoOdds": "-115",
-            "sideTwoType": "under"
-        },
-        "recv_rec": {
-            "propType": "recv_rec",
-            "player": "D. Parker",
-            "position": "WR",
-            "team": "NE",
-            "opponent": "CHI",
-            "line": "2.5",
-            "sideOneType": "over",
-            "sideOneOdds": "+115",
-            "sideTwoOdds": "-150",
-            "sideTwoType": "under"
-        },
-	}
-	propData["J. Meyers NE"] = {
-		"recv_yd": {
-            "propType": "recv_yd",
-            "player": "J. Meyers",
-            "position": "WR",
-            "team": "NE",
-            "opponent": "CHI",
-            "line": "52.5",
-            "sideOneType": "over",
-            "sideOneOdds": "-115",
-            "sideTwoOdds": "-115",
-            "sideTwoType": "under"
-        },
-	}
 	pass
 
 @props_blueprint.route('/getProps')
@@ -399,7 +324,7 @@ def getProps_route():
 		with open(f"{prefix}static/profootballreference/{pff_team}/stats.json") as fh:
 			stats = json.load(fh)
 
-		if team not in ["CHI", "NE"]:
+		if team not in ["CIN", "CLV"]:
 			continue
 			pass
 
@@ -465,12 +390,17 @@ def getProps_route():
 				diff = round((avg / float(line) - 1), 2)
 			if totalOver and totGames:
 				totalOver = round((totalOver / totGames) * 100)
+
+			avg = 0
+			if totGames:
+				avg = round(tot / totGames, 1)
 			#print(player)
 			res.append({
 				"player": player.title(),
 				"team": getYahooTeam(team),
 				"hit": True,
 				"pos": pos,
+				"avg": avg,
 				"last5": last5,
 				"diff": diff,
 				"totalOver": totalOver,
@@ -547,15 +477,78 @@ def writeDefProps(week):
 	with open(f"{prefix}static/props/wk{week+1}_def.json", "w") as fh:
 		json.dump(props, fh, indent=4)
 
-def fixLines(props):
-	props["johnathan abram LV"] = {
+def fixLines(propData):
+	propData["chuck clark BAL"] = {
 		"line": "o6.5",
 		"draftkings": {
-			"over": "o6.5 (+105)",
-			"under": "u6.5 (-140)"
+			"over": "o6.5 (-110)",
+			"under": "u6.5 (-120)"
 		}
 	}
-	#props["kaiir elam BUF"]["line"] = ""
+	propData["geno stone BAL"] = {
+		"line": "o5.5",
+		"draftkings": {
+			"over": "o5.5 (+115)",
+			"under": "u5.5 (-155)"
+		}
+	}
+	propData["marcus peters BAL"] = {
+		"line": "o3.5",
+		"draftkings": {
+			"over": "o3.5 (-110)",
+			"under": "u3.5 (-120)"
+		}
+	}
+	propData["marlon humphrey BAL"] = {
+		"line": "o3.5",
+		"draftkings": {
+			"over": "o3.5 (-105)",
+			"under": "u3.5 (-125)"
+		}
+	}
+	propData["patrick queen BAL"] = {
+		"line": "o7.5",
+		"draftkings": {
+			"over": "o7.5 (+100)",
+			"under": "u7.5 (-130)"
+		}
+	}
+
+	propData["shaquil barrett TB"] = {
+		"line": "o4.5",
+		"draftkings": {
+			"over": "o4.5 (+125)",
+			"under": "u4.5 (-165)"
+		}
+	}
+	propData["mike edwards TB"] = {
+		"line": "o6.5",
+		"draftkings": {
+			"over": "o6.5 (-155)",
+			"under": "u6.5 (+115)"
+		}
+	}
+	propData["devin white TB"] = {
+		"line": "o6.5",
+		"draftkings": {
+			"over": "o6.5 (-150)",
+			"under": "u6.5 (+115)"
+		}
+	}
+	propData["jamel dean TB"] = {
+		"line": "o5.5",
+		"draftkings": {
+			"over": "o5.5 (+115)",
+			"under": "u5.5 (-150)"
+		}
+	}
+	propData["lavonte david TB"] = {
+		"line": "o7.5",
+		"draftkings": {
+			"over": "o7.5 (-120)",
+			"under": "u7.5 (-110)"
+		}
+	}
 	pass
 
 def writeProps():

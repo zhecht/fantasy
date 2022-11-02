@@ -94,7 +94,9 @@ def write_stats(date):
 							playerStats["min"] = 0
 							break
 						header = headers[tdIdx]
-						if header in ["fg", "3pt", "ft"]:
+						if td.text.strip().replace("-", "") == "":
+							playerStats[header] = 0
+						elif header in ["fg", "3pt", "ft"]:
 							made, att = map(int, td.text.strip().split("-"))
 							playerStats[header+"a"] = att
 							playerStats[header+"m"] = made
@@ -221,24 +223,40 @@ def write_schedule(date):
 	with open(f"{prefix}static/basketballreference/schedule.json") as fh:
 		schedule = json.load(fh)
 
+	with open(f"{prefix}static/basketballreference/scores.json") as fh:
+		scores = json.load(fh)
+
 	for table in soup.findAll("div", class_="ResponsiveTable"):
 		date = table.find("div", class_="Table__Title").text.strip()
 		date = str(datetime.datetime.strptime(date, "%A, %B %d, %Y"))[:10]
 		if date not in boxscores:
 			boxscores[date] = {}
-		if date not in schedule:
-			schedule[date] = []
+		if date not in scores:
+			scores[date] = {}
 
+		schedule[date] = []
 		for row in table.findAll("tr")[1:]:
 			tds = row.findAll("td")
 			awayTeam = tds[0].findAll("a")[-1].get("href").split("/")[-2]
 			homeTeam = tds[1].findAll("a")[-1].get("href").split("/")[-2]
+			score = tds[2].find("a").text.strip()
+			if ", " in score:
+				scoreSp = score.replace(" (OT)", "").split(", ")
+				if awayTeam.upper() in scoreSp[0]:
+					scores[date][awayTeam] = int(scoreSp[0].replace(awayTeam.upper()+" ", ""))
+					scores[date][homeTeam] = int(scoreSp[1].replace(homeTeam.upper()+" ", ""))
+				else:
+					scores[date][awayTeam] = int(scoreSp[1].replace(awayTeam.upper()+" ", ""))
+					scores[date][homeTeam] = int(scoreSp[0].replace(homeTeam.upper()+" ", ""))
 			boxscore = tds[2].find("a").get("href")
 			boxscores[date][f"{awayTeam} @ {homeTeam}"] = boxscore
 			schedule[date].append(f"{awayTeam} @ {homeTeam}")
 
 	with open(f"{prefix}static/basketballreference/boxscores.json", "w") as fh:
 		json.dump(boxscores, fh, indent=4)
+
+	with open(f"{prefix}static/basketballreference/scores.json", "w") as fh:
+		json.dump(scores, fh, indent=4)
 
 	with open(f"{prefix}static/basketballreference/schedule.json", "w") as fh:
 		json.dump(schedule, fh, indent=4)
@@ -248,6 +266,7 @@ if __name__ == "__main__":
 	parser.add_argument("-c", "--cron", action="store_true", help="Start Cron Job")
 	parser.add_argument("-d", "--date", help="Date")
 	parser.add_argument("-s", "--start", help="Start Week", type=int)
+	parser.add_argument("--schedule", help="Schedule", action="store_true")
 	parser.add_argument("-e", "--end", help="End Week", type=int)
 	parser.add_argument("-w", "--week", help="Week", type=int)
 
@@ -261,9 +280,10 @@ if __name__ == "__main__":
 		date = datetime.datetime.now()
 		date = str(date)[:10]
 
-	if args.cron:
+	if args.schedule:
+		write_schedule(date)
+	elif args.cron:
 		pass
-		#write_schedule(date)
 		write_stats(date)
 		#write_averages()
 		

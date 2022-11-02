@@ -148,7 +148,7 @@ def getProps_route():
 				if line and avgMin and name in lastYearStats[espnTeam] and lastYearStats[espnTeam][name]:
 					for d in lastYearStats[espnTeam][name]:
 						minutes = lastYearStats[espnTeam][name][d]["toi/g"]
-						if minutes > 0:
+						if minutes > 0 and convertedProp in lastYearStats[espnTeam][name][d]:
 							lastTotalGames += 1
 							val = lastYearStats[espnTeam][name][d][convertedProp]
 							valPerMin = float(val / minutes)
@@ -172,15 +172,17 @@ def getProps_route():
 								val = 0.0
 								if convertedProp == "pts":
 									val = gameStats[name]["a"] + gameStats[name]["g"]
-								else:
+								elif convertedProp in gameStats[name]:
 									val = gameStats[name][convertedProp]
 
 								if len(last5) < 9:
 									last5.append(str(int(val)))
 								valPerMin = float(val / minutes)
 								linePerMin = float(line) / avgMin
-								if valPerMin > linePerMin:
-									totalOver += 1 
+								if float(val) > float(line):
+									totalOver += 1
+								#if valPerMin > linePerMin:
+								#	totalOver += 1 
 				if totalGames:
 					totalOver = round((totalOver / totalGames) * 100)
 
@@ -274,105 +276,6 @@ def writeProps(date):
 		json.dump(props, fh, indent=4)
 
 def fixLines(props):
-	props["det"]["alex nedeljkovic"] = {
-		"sv": {
-			"line": "o30.5",
-			"draftkings": {
-				"over": "o30.5 (-120)",
-				"under": "u30.5 (-105)"
-			}
-		}
-	}
-	props["ari"]["connor ingram"] = {
-		"sv": {
-			"line": "o30.5",
-			"draftkings": {
-				"over": "o30.5 (-110)",
-				"under": "u30.5 (-115)"
-			}
-		}
-	}
-	props["cbj"]["daniil tarasov"] = {
-		"sv": {
-			"line": "o25.5",
-			"draftkings": {
-				"over": "o25.5 (-105)",
-				"under": "u25.5 (-125)"
-			}
-		}
-	}
-	props["mtl"]["jake allen"] = {
-		"sv": {
-			"line": "o30.5",
-			"draftkings": {
-				"over": "o30.5 (-105)",
-				"under": "u30.5 (-125)"
-			}
-		}
-	}
-	props["min"]["marc-andre fluery"] = {
-		"sv": {
-			"line": "o26.5",
-			"draftkings": {
-				"over": "o26.5 (-125)",
-				"under": "u26.5 (-105)"
-			}
-		}
-	}
-	props["bos"]["linus ullmark"] = {
-		"sv": {
-			"line": "o25.5",
-			"draftkings": {
-				"over": "o25.5 (-115)",
-				"under": "u25.5 (-110)"
-			}
-		}
-	}
-	props["dal"]["jake oettinger"] = {
-		"sv": {
-			"line": "o31.5",
-			"draftkings": {
-				"over": "o31.5 (-125)",
-				"under": "u31.5 (+100)"
-			}
-		}
-	}
-	props["col"]["alexandar georgiev"] = {
-		"sv": {
-			"line": "o26.5",
-			"draftkings": {
-				"over": "o26.5 (-115)",
-				"under": "u26.5 (-110)"
-			}
-		}
-	}
-	props["fla"]["sergei bobrovsky"] = {
-		"sv": {
-			"line": "o24.5",
-			"draftkings": {
-				"over": "o24.5 (-115)",
-				"under": "u24.5 (-110)"
-			}
-		}
-	}
-	props["chi"]["alex stalock"] = {
-		"sv": {
-			"line": "o30.5",
-			"draftkings": {
-				"over": "o30.5 (-115)",
-				"under": "u30.5 (-110)"
-			}
-		}
-	}
-	props["cgy"]["jacob markstrom"] = {
-		"sv": {
-			"line": "o27.5",
-			"draftkings": {
-				"over": "o27.5 (-125)",
-				"under": "u27.5 (+100)"
-			}
-		}
-	}
 	pass
 
 if __name__ == "__main__":

@@ -1008,7 +1008,8 @@ def write_boxscore_stats(week_arg, team_arg):
 		with open("{}/boxscores.json".format(teampath)) as fh:
 			boxscorelinks = json.loads(fh.read())
 		for boxlink in boxscorelinks:
-			add_stats(boxscorelinks, team, teampath, boxlink, week_arg, team_arg)
+			if boxscorelinks[boxlink] == week_arg:
+				add_stats(boxscorelinks, team, teampath, boxlink, week_arg, team_arg)
 
 
 if __name__ == "__main__":
@@ -1052,8 +1053,11 @@ if __name__ == "__main__":
 		write_schedule()
 		write_team_rosters()
 		write_boxscore_links()
+
+		if not args.week:
+			curr_week = CURR_WEEK
 		
-		write_boxscore_stats(args.week, args.team)
+		write_boxscore_stats(curr_week, args.team)
 		calculate_aggregate_stats()
 
 	#write_team_rosters()

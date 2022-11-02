@@ -34,6 +34,85 @@ def fixNBATeam(team):
 		return "utah"
 	return team
 
+def teamTotals(today, schedule):
+	with open(f"{prefix}static/basketballreference/scores.json") as fh:
+		scores = json.load(fh)
+	totals = {}
+	for date in scores:
+		games = schedule[date]
+		for team in scores[date]:
+			opp = ""
+			for game in games:
+				if team in game.split(" @ "):
+					opp = game.replace(team, "").replace(" @ ", "")
+			if team not in totals:
+				totals[team] = {"ppg": 0, "ppga": 0, "games": 0, "overs": [], "ttOvers": []}
+			if opp not in totals:
+				totals[opp] = {"ppg": 0, "ppga": 0, "games": 0, "overs": [], "ttOvers": []}
+			totals[team]["games"] += 1
+			totals[team]["ppg"] += scores[date][team]
+			totals[team]["ppga"] += scores[date][opp]
+			totals[team]["ttOvers"].append(str(scores[date][team]))
+			totals[team]["overs"].append(str(scores[date][team] + scores[date][opp]))
+
+	out = "team|ppg|ppga|overs|overs avg|ttOvers|TT avg\n"
+	out += ":--|:--|:--|:--|:--|:--|:--\n"
+	for game in schedule[today]:
+		away, home = map(str, game.split(" @ "))
+		ppg = round(totals[away]["ppg"] / totals[away]["games"], 1)
+		ppga = round(totals[away]["ppga"] / totals[away]["games"], 1)
+		overs = ",".join(totals[away]["overs"])
+		oversAvg = round(sum([int(x) for x in totals[away]["overs"]]) / len(totals[away]["overs"]), 1)
+		ttOvers = ",".join(totals[away]["ttOvers"])
+		ttOversAvg = round(sum([int(x) for x in totals[away]["ttOvers"]]) / len(totals[away]["ttOvers"]), 1)
+		out += f"{away}|{ppg}|{ppga}|{overs}|{oversAvg}|{ttOvers}|{ttOversAvg}\n"
+		ppg = round(totals[home]["ppg"] / totals[home]["games"], 1)
+		ppga = round(totals[home]["ppga"] / totals[home]["games"], 1)
+		overs = ",".join(totals[home]["overs"])
+		oversAvg = round(sum([int(x) for x in totals[home]["overs"]]) / len(totals[home]["overs"]), 1)
+		ttOvers = ",".join(totals[home]["ttOvers"])
+		ttOversAvg = round(sum([int(x) for x in totals[home]["ttOvers"]]) / len(totals[home]["ttOvers"]), 1)
+		out += f"{home}|{ppg}|{ppga}|{overs}|{oversAvg}|{ttOvers}|{ttOversAvg}\n"
+		out += "-|-|-|-|-|-|-\n"
+
+	with open("out2", "w") as fh:
+		fh.write(out)
+
+def customPropData(propData):
+	over = True
+
+	with open(f"{prefix}static/nbaprops/customProps.json") as fh:
+		data = json.load(fh)
+
+	propData = {}
+	for team in data:
+		if team not in propData:
+			propData[team] = {}
+		for player in data[team]:
+			propData[team][player] = {}
+			for prop in data[team][player]:
+				idx = 0 if over else 1
+				lines = data[team][player][prop]["line"]
+				odds = data[team][player][prop]["odds"]
+				overLine = f"{lines[0]} ({odds[0]})"
+				underLine = ""
+				line = lines[0]
+				if len(lines) > 1:
+					underLine = f"{lines[1]} ({odds[1]})"
+					if not over:
+						line = lines[1]
+
+				propData[team][player][prop] = {
+					"line": line,
+					"draftkings": {
+						"over": overLine,
+						"under": underLine 
+					}
+				}
+
+	return propData
+
+
 @nbaprops_blueprint.route('/getNBAProps')
 def getProps_route():
 	res = []
@@ -52,6 +131,9 @@ def getProps_route():
 	with open(f"{prefix}static/basketballreference/schedule.json") as fh:
 		schedule = json.load(fh)
 
+	#propData = customPropData(propData)
+	teamTotals(date, schedule)
+
 	props = []
 	for team in propData:
 		espnTeam = fixNBATeam(team)
@@ -67,12 +149,12 @@ def getProps_route():
 
 
 
-		if espnTeam.lower() not in ["phx", "lac"]:
+		if espnTeam.lower() not in ["bkn", "ind"]:
 			#continue
 			pass
 
 		for propName in propData[team]:
-			name = propName.replace("-", " ")
+			name = propName.replace("-", " ").replace(".", "").replace("'", "")
 			avgMin = 0
 			if espnTeam in stats and name in stats[espnTeam] and stats[espnTeam][name]["gamesPlayed"]:
 				avgMin = int(stats[espnTeam][name]["min"] / stats[espnTeam][name]["gamesPlayed"])
@@ -101,7 +183,7 @@ def getProps_route():
 					if overLine == line and overOdd > overOdds:
 						overOdds = overOdd
 
-					under = propData[team][propName][prop][book]["under"]
+					under = propData[team][propName][prop][book].get("under", 0)
 					if under:
 						underLine = under.split(" ")[0][1:]
 						underOdd = int(under.split(" ")[1][1:-1])
@@ -170,7 +252,7 @@ def getProps_route():
 								else:
 									val = gameStats[name][prop]
 
-								if len(last5) < 5:
+								if len(last5) < 7:
 									last5.append(str(int(val)))
 								valPerMin = float(val / minutes)
 								linePerMin = float(line) / avgMin

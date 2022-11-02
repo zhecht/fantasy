@@ -41,28 +41,25 @@
 			</div>
 		</div>
 		<div id="footer">
-			<button onclick="save();">Save Favorites</button>
+			<button onclick="print();">Print</button>
 		</div>
 		<script>
 			let TABLE;
 			const teamNames = ["All", "ATL", "BKN", "BOS", "CHA", "CHI", "CLE", "DAL", "DEN", "DET", "GS", "HOU", "IND", "LAC", "LAL", "MEM", "MIA", "MIL", "MIN", "NO", "NY", "OKC", "ORL", "PHI", "PHX", "POR", "SA", "SAC", "TOR", "UTAH", "WSH"];
 
-			function save() {
+			function print() {
 				const args = [];
+				let s = "";
+				s += "NAME|TEAM|PROP|LINE|SZN AVG|% OVER|LAST 7 GAMES|LAST YR % OVER|Odds\n";
+				s += ":--|:--|:--|:--|:--|:--|:--|:--|:--\n";
 				for (row of TABLE.getSelectedRows()) {
 					const data = row.getData();
-					args.push(data.player+"*"+data.propType);
+					let odds = data.totalOver >= 50 ? data.overOdds : data.underOdds;
+					odds = odds.split(" ")[1].substring(1, 5);
+					s += [data.player, data.team, data.propType, data.line, data.avg, data.totalOver+"%", data.last5, data.lastTotalOver+"%",odds].join("|");
+					s += "\n";
 				}
-				var xhttp = new XMLHttpRequest();
-				xhttp.onreadystatechange = function() {
-					if (this.readyState === 4 && this.status === 200) {
-						var j = JSON.parse(this.responseText);
-
-					}
-				};
-				var url = "/props?favorites="+args.join(";");
-				xhttp.open("POST", url);
-				xhttp.send();
+				console.log(s);
 			}
 
 			function teamFilter(headerValue, rowValue, rowData, filterParams){
@@ -140,11 +137,9 @@
 					/*
 						{formatter:"responsiveCollapse", width:30, minWidth:30, hozAlign:"center", resizable:false, headerSort:false},
 						*/
-						/*
 						{formatter:"rowSelection", hozAlign:"center", headerSort:false, cellClick:function(e, cell){
 							cell.getRow().toggleSelect();
 						}},
-						*/
 						{title: "Player", field: "player", headerFilter: "input"},
 						{title: "Avg Min", field: "avgMin", hozAlign: "center", width: 70},
 						{title: "Last YR Avg Min", field: "lastAvgMin", hozAlign: "center", width: 70},
@@ -176,9 +171,9 @@
 
 			//TABLE.setFilter("propType", "=", "3ptm");
 			TABLE.setFilter([
-				{field:"avgMin", type:">=", value:20},
-				{field:"line", type:">", value:1},
-				{field:"propType", type:"!=", value:"3ptm"},
+				//{field:"avgMin", type:">=", value:15},
+				//{field:"line", type:">", value:1},
+				{field:"propType", type:"=", value:"ast"},
 			]);
 		</script>
 

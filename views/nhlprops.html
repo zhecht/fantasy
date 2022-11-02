@@ -41,29 +41,26 @@
 			</div>
 		</div>
 		<div id="footer">
-			<button onclick="save();">Save Favorites</button>
+			<button onclick="print();">PRINT</button>
 		</div>
 		<script>
 			let TABLE;
 			const teamNames = ["All", "ANA", "ARI", "BOS", "BUF", "CAR", "CBJ", "CGY", "CHI", "COL", "DAL", "DET", "EDM", "FLA", "LA", "MIN", "MTL", "NJ", "NSH", "NYI", "NYR", "OTT", "PHI", "PIT", "SEA", "SJ", "STL", "TB", "TOR", "VAN", "VGK", "WPG", "WSH"];
 
-			function save() {
-				const args = [];
-				for (row of TABLE.getSelectedRows()) {
-					const data = row.getData();
-					args.push(data.player+"*"+data.propType);
-				}
-				var xhttp = new XMLHttpRequest();
-				xhttp.onreadystatechange = function() {
-					if (this.readyState === 4 && this.status === 200) {
-						var j = JSON.parse(this.responseText);
-
-					}
-				};
-				var url = "/props?favorites="+args.join(";");
-				xhttp.open("POST", url);
-				xhttp.send();
-			}
+			function print() {
+                const args = [];
+                let s = "";
+                s += "NAME|TEAM|PROP|LINE|SZN AVG|% OVER|LAST GAMES|LAST YR % OVER|Odds\n";
+                s += ":--|:--|:--|:--|:--|:--|:--|:--|:--\n";
+                for (row of TABLE.getSelectedRows()) {
+                    const data = row.getData();
+                    let odds = data.totalOver >= 50 ? data.overOdds : data.underOdds;
+                    odds = odds.split(" ")[1].substring(1, 5);
+                    s += [data.player, data.team, data.propType, data.line, data.avg, data.totalOver+"%", data.last5, data.lastTotalOver+"%",odds].join("|");
+                    s += "\n";
+                }
+                console.log(s);
+            }
 
 			function teamFilter(headerValue, rowValue, rowData, filterParams){
 				if (headerValue == "All") {
@@ -137,6 +134,9 @@
 						//{column: "team", dir: "asc"},
 					],
 					columns: [
+                        {formatter:"rowSelection", hozAlign:"center", headerSort:false, cellClick:function(e, cell){
+                            cell.getRow().toggleSelect();
+                        }},
 						{title: "Player", field: "player", headerFilter: "input"},
 						{title: "Avg Min", field: "avgMin", hozAlign: "center", width: 70},
 						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
@@ -169,7 +169,8 @@
 			TABLE.setFilter([
 				//{field:"avgMin", type:">=", value:5},
 				//{field:"line", type:">", value:1},
-				{field:"propType", type:"=", value:"sog"},
+				
+                {field:"propType", type:"!=", value:"goals"},
 			]);
 		</script>
 

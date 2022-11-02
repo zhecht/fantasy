@@ -87,7 +87,7 @@ def write_stats(date):
 						if not row.find("a"):
 							continue
 						nameLink = row.find("a").get("href").split("/")
-						fullName = row.find("a").text
+						fullName = row.find("a").text.lower().title()
 						playerId = int(nameLink[-1])
 						playerIds[team][fullName] = playerId
 						playerList.append(fullName)
@@ -234,7 +234,7 @@ def write_averages():
 
 def write_schedule(date):
 	url = f"https://www.espn.com/nhl/schedule/_/date/{date.replace('-', '')}"
-	outfile = "out2"
+	outfile = "out"
 	call(["curl", "-k", url, "-o", outfile])
 	soup = BS(open(outfile, 'rb').read(), "lxml")
 

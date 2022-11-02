@@ -41,7 +41,7 @@
 			</div>
 		</div>
 		<div id="footer">
-			<button onclick="save();">Save Favorites</button>
+			<button onclick="print();">PRINT</button>
 		</div>
 		<script>
 			const CURR_WEEK = {{curr_week}};
@@ -64,6 +64,21 @@
 				var url = "/props?favorites="+args.join(";");
 				xhttp.open("POST", url);
 				xhttp.send();
+			}
+
+			function print() {
+				const args = [];
+				let s = "";
+				s += "NAME|TEAM|PROP|LINE|SZN AVG|% OVER|LAST GAMES|ODDs\n";
+				s += ":--|:--|:--|:--|:--|:--|:--|:--\n";
+				for (row of TABLE.getSelectedRows()) {
+					const data = row.getData();
+					let odds = data.overOdds;
+					odds = odds.split(" ")[1].substring(1, 5);
+					s += [data.player, data.team, parseProp(data.propType), data.line, data.avg, data.totalOver+"%", data.last5,odds].join("|");
+					s += "\n";
+				}
+				console.log(s);
 			}
 
 			function teamFilter(headerValue, rowValue, rowData, filterParams){
@@ -95,6 +110,10 @@
 
 			const propFormatter = function(cell, params, rendered) {
 				let prop = cell.getValue();
+				return parseProp(prop);
+			}
+
+			function parseProp(prop) {
 				if (prop == "recv_yd") return "REC YDs";
 				else if (prop == "recv_rec") return "RECs";
 				else if (prop == "rush_att") return "RUSHs";
@@ -197,6 +216,14 @@
 				return "-";
 			}
 
+			const colorFormatter = function(cell, params, rendered) {
+				const data = cell.getRow().getData();
+				if (cell.getValue() >= parseFloat(data.line)) {
+					return "<div class='positive'>"+cell.getValue()+"</div>";
+				}
+				return "<div class='negative'>"+cell.getValue()+"</div>";
+			}
+
 			const scoredFormatter = function(cell, params, rendered) {
 				const data = cell.getRow().getData();
 				const stats = data.stats;
@@ -240,11 +267,9 @@
 					/*
 						{formatter:"responsiveCollapse", width:30, minWidth:30, hozAlign:"center", resizable:false, headerSort:false},
 						*/
-						/*
 						{formatter:"rowSelection", hozAlign:"center", headerSort:false, cellClick:function(e, cell){
 							cell.getRow().toggleSelect();
 						}},
-						*/
 						{title: "Player", field: "player", headerFilter: "input"},
 						{title: "Pos", field: "pos", headerFilter: "select", hozAlign: "center"},
 						{title: "Snap% (wk"+CURR_WEEK+"%)", field: "avgSnaps", hozAlign: "center"},
@@ -258,7 +283,7 @@
 						{title: "Prop", field: "propType", formatter: propFormatter, hozAlign: "center"},
 						{title: "Line", field: "line", hozAlign: "center"},
 						{title: "", field: "diff", hozAlign: "center", visible: false},
-						{title: "SZN AVG", field: "avg", formatter: avgFormatter, hozAlign: "center"},
+						{title: "SZN AVG", field: "avg", hozAlign: "center", formatter: colorFormatter},
 						{title: "Total Over", field: "totalOver", formatter: percentFormatter, hozAlign: "center", width:80},
 						//{title: "Proj", field: "proj", hozAlign: "center", formatter: projFormatter},
 						//{title: "TA Share", field: "tackleShare", hozAlign: "center", sorter:"number", formatter: percentFormatter},
