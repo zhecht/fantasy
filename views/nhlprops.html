@@ -42,17 +42,25 @@
 		</div>
 		<div id="footer">
 			<button onclick="print();">PRINT</button>
+            <button onclick="printAll();">PRINT ALL</button>
 		</div>
 		<script>
 			let TABLE;
 			const teamNames = ["All", "ANA", "ARI", "BOS", "BUF", "CAR", "CBJ", "CGY", "CHI", "COL", "DAL", "DET", "EDM", "FLA", "LA", "MIN", "MTL", "NJ", "NSH", "NYI", "NYR", "OTT", "PHI", "PIT", "SEA", "SJ", "STL", "TB", "TOR", "VAN", "VGK", "WPG", "WSH"];
+            function printAll() {
+                print()
+            }
 
 			function print() {
+                let rows = TABLE.getSelectedRows();
+                if (rows.length == 0) {
+                    rows = TABLE.getRows("active");
+                }
                 const args = [];
                 let s = "";
                 s += "NAME|TEAM|PROP|LINE|SZN AVG|% OVER|LAST GAMES|LAST YR % OVER|Odds\n";
                 s += ":--|:--|:--|:--|:--|:--|:--|:--|:--\n";
-                for (row of TABLE.getSelectedRows()) {
+                for (row of rows) {
                     const data = row.getData();
                     let odds = data.totalOver >= 50 ? data.overOdds : data.underOdds;
                     odds = odds.split(" ")[1].substring(1, 5);
@@ -146,7 +154,7 @@
 						{title: "Line", field: "line", hozAlign: "center"},
 						{title: "SZN AVG", field: "avg", hozAlign: "center", width: 80},
 						{title: "Last YR AVG", field: "lastAvg", hozAlign: "center", width: 80},
-						{title: "Proj", field: "proj", hozAlign: "center", width: 80},
+						//{title: "Proj", field: "proj", hozAlign: "center", width: 80},
 						/*
 						{title: "", field: "diffAvg", hozAlign: "center", visible: true},
 						{title: "", field: "diff", hozAlign: "center", visible: true},

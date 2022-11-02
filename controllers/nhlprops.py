@@ -226,7 +226,7 @@ def writeProps(date):
 
 	props = {}
 
-	for prop in ["sog", "pts", "goals"]:
+	for prop in ["sog", "pts"]:
 		path = f"{prefix}static/nhlprops/{prop}.html"
 		#os.system(f"curl -k \"{url}\" -o {path}")
 		with open(path) as fh:
