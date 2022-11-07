@@ -1049,9 +1049,9 @@ if __name__ == "__main__":
 		pass
 		# only needs to be run once in a while
 		
-		write_team_links()
-		write_schedule()
-		write_team_rosters()
+		#write_team_links()
+		#write_schedule()
+		#write_team_rosters()
 		write_boxscore_links()
 
 		if not args.week:
@@ -1063,5 +1063,5 @@ if __name__ == "__main__":
 	#write_team_rosters()
 	#write_boxscore_links()
 	#write_boxscore_stats(args.week, args.team)
-	calculate_aggregate_stats()
+	#calculate_aggregate_stats()
 	#get_opponents("ari")

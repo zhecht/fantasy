@@ -80,12 +80,9 @@ def getProps_route():
 			pass
 
 		for propName in propData[team]:
-			name = propName.replace("-", " ")
-			shortFirstName = name.split(" ")[0][0]
-			restName = " ".join(name.title().split(" ")[1:])
-			if restName == "Debrusk":
-				restName = "DeBrusk"
-			name = f"{shortFirstName.upper()}. {restName}"
+			shortFirstName = propName.split(" ")[0][0]
+			restName = " ".join(propName.title().split(" ")[1:])
+			name = f"{shortFirstName.upper()}. {restName.replace('-', ' ')}"
 			avgMin = 0
 			if espnTeam in stats and name in stats[espnTeam] and stats[espnTeam][name]["gamesPlayed"]:
 				avgMin = int(stats[espnTeam][name]["toi"] / stats[espnTeam][name]["gamesPlayed"])
@@ -175,7 +172,7 @@ def getProps_route():
 								elif convertedProp in gameStats[name]:
 									val = gameStats[name][convertedProp]
 
-								if len(last5) < 9:
+								if len(last5) < 10:
 									last5.append(str(int(val)))
 								valPerMin = float(val / minutes)
 								linePerMin = float(line) / avgMin

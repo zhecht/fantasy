@@ -193,6 +193,7 @@ def getDefPropsData():
 
 		playerStats = {}
 		last5 = []
+		last5WithLines = []
 		totTackles = 0
 		totTeamTackles = 0
 		avgSnaps = 0
@@ -223,9 +224,10 @@ def getDefPropsData():
 
 				if "tackles_combined" in gameLogs[wk]:
 					t = str(gameLogs[wk]["tackles_combined"])
+					last5.append(t)
 					if name+" "+team in pastPropData and week in pastPropData[name+" "+team]:
 						t += f"({pastPropData[name+' '+team][week]})"
-					last5.append(t)
+					last5WithLines.append(t)
 
 			if gamesPlayed:
 				avg = round(totTackles / gamesPlayed, 1)
@@ -288,6 +290,7 @@ def getDefPropsData():
 			"oppPassPerc": f"{runPassData[opp]['passPerc']}%",
 			"tackleShare": tackleShare,
 			"last5": ",".join(last5),
+			"last5WithLines": ",".join(last5WithLines),
 			"opponent": TEAM_TRANS.get(opp, opp),
 			"propType": "tackles_combined",
 			"line": line or "-",
@@ -299,6 +302,10 @@ def getDefPropsData():
 
 def customPropData(propData):
 	pass
+
+@props_blueprint.route('/getDefProps')
+def getDefProps_route():
+	return jsonify(getDefPropsData())
 
 @props_blueprint.route('/getProps')
 def getProps_route():
@@ -325,7 +332,7 @@ def getProps_route():
 			stats = json.load(fh)
 
 		if team not in ["CIN", "CLV"]:
-			continue
+			#continue
 			pass
 
 		pos = "-"
@@ -412,7 +419,6 @@ def getProps_route():
 				"stats": playerStats
 			})
 
-	res.extend(getDefPropsData())
 	return jsonify(res)
 
 @props_blueprint.route('/props', methods=["POST"])
@@ -431,8 +437,11 @@ def props_post_route():
 
 @props_blueprint.route('/props')
 def props_route():
-	print("here")
 	return render_template("props.html", curr_week=CURR_WEEK)
+
+@props_blueprint.route('/defprops')
+def props_def_route():
+	return render_template("defprops.html", curr_week=CURR_WEEK)
 
 def writeDefProps(week):
 	url = "https://www.actionnetwork.com/nfl/props/tackles-assists"

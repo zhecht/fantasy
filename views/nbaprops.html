@@ -42,25 +42,30 @@
 		</div>
 		<div id="footer">
 			<button onclick="print();">Print</button>
+			<button onclick="print('csv');">PRINT CSV</button>
 		</div>
 		<script>
 			let TABLE;
 			const teamNames = ["All", "ATL", "BKN", "BOS", "CHA", "CHI", "CLE", "DAL", "DEN", "DET", "GS", "HOU", "IND", "LAC", "LAL", "MEM", "MIA", "MIL", "MIN", "NO", "NY", "OKC", "ORL", "PHI", "PHX", "POR", "SA", "SAC", "TOR", "UTAH", "WSH"];
 
-			function print() {
+			function print(output = "") {
 				const args = [];
 				let s = "";
-				s += "NAME|TEAM|PROP|LINE|SZN AVG|% OVER|LAST 7 GAMES|LAST YR % OVER|Odds\n";
-				s += ":--|:--|:--|:--|:--|:--|:--|:--|:--\n";
+				const joinChar = (output == "csv") ? "\t" : "|";
+				s += ["NAME","TEAM","PROP","LINE","SZN AVG","% OVER","LAST 7 GAMES","LAST YR % OVER","OVER", "UNDER"].join(joinChar);
+				s += "\n";
+                if (output != "csv") {
+                    s += ":--|:--|:--|:--|:--|:--|:--|:--|:--|:--\n";
+                }
 				let rows = TABLE.getSelectedRows();
                 if (rows.length == 0) {
                     rows = TABLE.getRows("active");
                 }
 				for (row of rows) {
 					const data = row.getData();
-					let odds = data.totalOver >= 50 ? data.overOdds : data.underOdds;
-					odds = odds.split(" ")[1].substring(1, 5);
-					s += [data.player, data.team, data.propType, data.line, data.avg, data.totalOver+"%", data.last5, data.lastTotalOver+"%",odds].join("|");
+					const overOdds = data.overOdds.split(" ")[1].substring(1, 5);
+					const underOdds = data.underOdds.split(" ")[1].substring(1, 5);
+					s += [data.player, data.team, data.propType, data.line, data.avg, data.totalOver+"%", data.last5, data.lastTotalOver+"%",overOdds, underOdds].join(joinChar);
 					s += "\n";
 				}
 				console.log(s);
@@ -177,6 +182,7 @@
 			TABLE.setFilter([
 				//{field:"avgMin", type:">=", value:15},
 				//{field:"line", type:">", value:1},
+				
 				{field:"propType", type:"=", value:"reb"},
 			]);
 		</script>

@@ -147,8 +147,6 @@ def getProps_route():
 					else:
 						opp = teams[0]
 
-
-
 		if espnTeam.lower() not in ["bkn", "ind"]:
 			#continue
 			pass
@@ -354,10 +352,22 @@ def writeProps(date):
 def fixLines(props):
 	pass
 
+def zeroProps():
+	with open(f"{prefix}static/nbaprops/customProps.json") as fh:
+		data = json.load(fh)
+	for team in data:
+		for player in data[team]:
+			for prop in data[team][player]:
+				data[team][player][prop]["odds"] = ["-0"]*len(data[team][player][prop]["odds"])
+	with open(f"{prefix}static/nbaprops/customProps.json", "w") as fh:
+		json.dump(data, fh, indent=4)
+	
+
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-c", "--cron", action="store_true", help="Start Cron Job")
 	parser.add_argument("-d", "--date", help="Date")
+	parser.add_argument("--zero", help="Zero CustomProp Odds", action="store_true")
 	parser.add_argument("-w", "--week", help="Week", type=int)
 
 	args = parser.parse_args()
@@ -369,3 +379,5 @@ if __name__ == "__main__":
 
 	if args.cron:
 		writeProps(date)
+	elif args.zero:
+		zeroProps()

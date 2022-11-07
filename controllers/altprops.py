@@ -19,10 +19,26 @@ prefix = ""
 if os.path.exists("/home/zhecht/fantasy"):
 	prefix = "/home/zhecht/fantasy/"
 
+def convertPropTeam(team):
+	if team == "ny":
+		return "nyk"
+	elif team == "no":
+		return "nop"
+	elif team == "sa":
+		return "sas"
+	elif team == "gs":
+		return "gsw"
+	return team
+
 @altprops_blueprint.route('/getAltProps')
 def getProps_route():
+	date = datetime.now()
+	date = str(date)[:10]
+
 	with open(f"{prefix}static/nbaprops/customProps.json") as fh:
 		propData = json.load(fh)
+	with open(f"{prefix}static/nbaprops/{date}.json") as fh:
+		todaysPropData = json.load(fh)
 	with open(f"{prefix}static/basketballreference/schedule.json") as fh:
 		schedule = json.load(fh)
 	with open(f"{prefix}static/basketballreference/totals.json") as fh:
@@ -32,13 +48,10 @@ def getProps_route():
 	with open(f"{prefix}static/basketballreference/lastYearStats.json") as fh:
 		lastYearStats = json.load(fh)
 
-	date = datetime.now()
-	date = str(date)[:10]
-
 	data = []
 	for game in schedule[date]:
 		for team in game.split(" @ "):
-
+			propTeam = convertPropTeam(team)
 			for player in propData[team]:
 				avgMin = 0
 				if player in totals[team] and totals[team][player]["gamesPlayed"]:
@@ -48,6 +61,33 @@ def getProps_route():
 					lines = propData[team][player][prop]["line"]
 					odds = propData[team][player][prop]["odds"]
 					isOver = True
+
+					overOdds = underOdds = float('-inf')
+					if propTeam in todaysPropData and player in todaysPropData[propTeam] and prop in todaysPropData[propTeam][player]:
+						for book in todaysPropData[propTeam][player][prop]:
+							if book == "line" or not todaysPropData[propTeam][player][prop][book]["over"]:
+								continue
+
+							line = todaysPropData[propTeam][player][prop]["line"][1:]
+							over = todaysPropData[propTeam][player][prop][book]["over"]
+							overLine = over.split(" ")[0][1:]
+							overOdd = int(over.split(" ")[1][1:-1])
+							if overLine == line and overOdd > overOdds:
+								overOdds = overOdd
+
+							under = todaysPropData[propTeam][player][prop][book].get("under", 0)
+							if under:
+								underLine = under.split(" ")[0][1:]
+								underOdd = int(under.split(" ")[1][1:-1])
+								if underLine == line and underOdd > underOdds:
+									underOdds = underOdd
+
+					overOdds = str(overOdds)
+					underOdds = str(underOdds)
+					if not overOdds.startswith("-"):
+						overOdds = "+"+overOdds
+					if not underOdds.startswith("-"):
+						underOdds = "+"+underOdds
 
 					avg = 0.0
 					if player in totals[team] and totals[team][player]["gamesPlayed"]:
@@ -129,6 +169,8 @@ def getProps_route():
 							"line": line,
 							"avg": avg,
 							"odds": odd,
+							"overOdds": overOdds,
+							"underOdds": underOdds,
 							"lastAvg": lastAvg,
 							"avgMin": avgMin,
 							"totalOver": totalOver,

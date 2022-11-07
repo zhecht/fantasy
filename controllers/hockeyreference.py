@@ -87,7 +87,11 @@ def write_stats(date):
 						if not row.find("a"):
 							continue
 						nameLink = row.find("a").get("href").split("/")
-						fullName = row.find("a").text.lower().title()
+						fullName = row.find("a").text.lower().title().replace("-", " ")
+						if fullName.startswith("J.T."):
+							fullName = fullName.replace("J.T.", "J.")
+						elif fullName.startswith("J.J."):
+							fullName = fullName.replace("J.J.", "J.")
 						playerId = int(nameLink[-1])
 						playerIds[team][fullName] = playerId
 						playerList.append(fullName)

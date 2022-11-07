@@ -41,7 +41,8 @@
 			</div>
 		</div>
 		<div id="footer">
-			<button onclick="print();">PRINT</button>
+			<button onclick="print();">Print</button>
+			<button onclick="print('csv');">PRINT CSV</button>
 		</div>
 		<script>
 			const CURR_WEEK = {{curr_week}};
@@ -66,16 +67,24 @@
 				xhttp.send();
 			}
 
-			function print() {
+			function print(output = "") {
 				const args = [];
 				let s = "";
-				s += "NAME|TEAM|PROP|LINE|SZN AVG|% OVER|LAST GAMES|ODDs\n";
-				s += ":--|:--|:--|:--|:--|:--|:--|:--\n";
-				for (row of TABLE.getSelectedRows()) {
+				const joinChar = (output == "csv") ? "\t" : "|";
+				s += ["NAME","TEAM","PROP","LINE","SZN AVG","% OVER","LAST GAMES","OVER", "UNDER"].join(joinChar);
+				s += "\n";
+                if (output != "csv") {
+                    s += ":--|:--|:--|:--|:--|:--|:--|:--|:--\n";
+                }
+				let rows = TABLE.getSelectedRows();
+                if (rows.length == 0) {
+                    rows = TABLE.getRows("active");
+                }
+				for (row of rows) {
 					const data = row.getData();
-					let odds = data.overOdds;
-					odds = odds.split(" ")[1].substring(1, 5);
-					s += [data.player, data.team, parseProp(data.propType), data.line, data.avg, data.totalOver+"%", data.last5,odds].join("|");
+					const overOdds = data.overOdds.split(" ")[1].substring(1, 5);
+					const underOdds = data.underOdds.split(" ")[1].substring(1, 5);
+					s += [data.player, data.team, parseProp(data.propType), data.line, data.avg, data.totalOver+"%", data.last5, overOdds, underOdds].join(joinChar);
 					s += "\n";
 				}
 				console.log(s);
@@ -271,25 +280,14 @@
 							cell.getRow().toggleSelect();
 						}},
 						{title: "Player", field: "player", headerFilter: "input"},
-						{title: "Pos", field: "pos", headerFilter: "select", hozAlign: "center"},
-						{title: "Snap% (wk"+CURR_WEEK+"%)", field: "avgSnaps", hozAlign: "center"},
-						{title: "Plays", field: "avgTotPlays", hozAlign: "center", width: "50"},
 						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
 						{title: "Opp", field: "opponent", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
-						
-						{title: "Plays", field: "avgOppTotPlays", hozAlign: "center", width: "50"},
-						{title: "Pass %", field: "oppPassPerc", hozAlign: "center"},
-
 						{title: "Prop", field: "propType", formatter: propFormatter, hozAlign: "center"},
 						{title: "Line", field: "line", hozAlign: "center"},
 						{title: "", field: "diff", hozAlign: "center", visible: false},
 						{title: "SZN AVG", field: "avg", hozAlign: "center", formatter: colorFormatter},
 						{title: "Total Over", field: "totalOver", formatter: percentFormatter, hozAlign: "center", width:80},
-						//{title: "Proj", field: "proj", hozAlign: "center", formatter: projFormatter},
-						//{title: "TA Share", field: "tackleShare", hozAlign: "center", sorter:"number", formatter: percentFormatter},
 						{title: "Last", field: "last5", hozAlign: "center"},
-						//{title: "Games Over", field: "over", formatter: overFormatter, hozAlign: "center"},
-						//{title: "Last Game", field: "lastOver", formatter: lastOverFormatter, hozAlign: "center"},
 						{title: " ", field: "overOdds"},
 						{title: " ", field: "underOdds"},
 					]
@@ -297,14 +295,6 @@
 			}
 
 			renderTable();
-			TABLE.setFilter([
-				{field:"propType", type:"!=", value:"tackles_combined"},
-			]);
-
-			setTimeout(function() {
-				//console.log(TABLE.getRows()[0].getElement().getElementsByTagName("input")[0]);
-				//TABLE.getRows()[0].getCells()[0].click()
-			}, 500);
 		</script>
 
 	</body>

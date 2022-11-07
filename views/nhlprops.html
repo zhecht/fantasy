@@ -55,17 +55,17 @@
                 }
                 const args = [];
                 let s = "";
-                const joinChar = (output == "csv") ? ";" : "|";
-                s += ["NAME","TEAM","PROP","LINE","SZN AVG","% OVER","LAST GAMES","LAST YR % OVER","Odds"].join(joinChar);
+                const joinChar = (output == "csv") ? "\t" : "|";
+                s += ["NAME","TEAM","PROP","LINE","SZN AVG","% OVER","LAST GAMES","LAST YR % OVER","OVER", "UNDER"].join(joinChar);
                 s += "\n";
                 if (output != "csv") {
-                    s += ":--|:--|:--|:--|:--|:--|:--|:--|:--\n";
+                    s += ":--|:--|:--|:--|:--|:--|:--|:--|:--|:--\n";
                 }
                 for (row of rows) {
                     const data = row.getData();
-                    let odds = data.totalOver >= 50 ? data.overOdds : data.underOdds;
-                    odds = odds.split(" ")[1].substring(1, 5);
-                    s += [data.player, data.team, data.propType, data.line, data.avg, data.totalOver+"%", data.last5, data.lastTotalOver+"%",odds].join(joinChar);
+                    const overOdds = data.overOdds.split(" ")[1].substring(1, 5);
+					const underOdds = data.underOdds.split(" ")[1].substring(1, 5);
+                    s += [data.player, data.team, data.propType, data.line, data.avg, data.totalOver+"%", data.last5, data.lastTotalOver+"%",overOdds, underOdds].join(joinChar);
                     s += "\n";
                 }
                 console.log(s);
@@ -180,7 +180,7 @@
 				//{field:"line", type:">", value:1},
 				
                 //{field:"propType", type:"!=", value:"goals"},
-                {field:"propType", type:"=", value:"sog"},
+                {field:"propType", type:"=", value:"pts"},
 			]);
 		</script>
 
