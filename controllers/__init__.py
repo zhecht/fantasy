@@ -4,6 +4,7 @@ from controllers.main import *
 from controllers.extension import *
 from controllers.altprops import *
 from controllers.nbaprops import *
+from controllers.ncaabprops import *
 from controllers.nhlprops import *
 from controllers.props import *
 from controllers.team import *

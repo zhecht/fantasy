@@ -300,7 +300,7 @@ def writeProps(date):
 
 	props = {}
 
-	for prop in ["pts", "ast", "reb", "blk", "stl", "pts+ast", "pts+reb", "pts+reb+ast", "reb+ast", "3ptm"]:
+	for prop in ["pts", "ast", "reb", "blk", "stl", "pts+ast", "pts+reb", "pts+reb+ast", "reb+ast", "stl+blk", "3ptm"]:
 		path = f"{prefix}static/nbaprops/{prop}.html"
 		#os.system(f"curl -k \"{url}\" -o {path}")
 		with open(path) as fh:

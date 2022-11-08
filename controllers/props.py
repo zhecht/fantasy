@@ -164,8 +164,8 @@ def getDefPropsData():
 		name = fixName(name.lower())
 		team = nameRow.split(" ")[-1]
 
-		if team not in ["CHI", "NE"]:
-			#continue
+		if team not in ["BAL", "NO"]:
+			continue
 			pass
 
 		opp = get_opponents(getProfootballReferenceTeam(team.lower()))[CURR_WEEK]
@@ -331,8 +331,8 @@ def getProps_route():
 		with open(f"{prefix}static/profootballreference/{pff_team}/stats.json") as fh:
 			stats = json.load(fh)
 
-		if team not in ["CIN", "CLV"]:
-			#continue
+		if team not in ["NO", "BLT"]:
+			continue
 			pass
 
 		pos = "-"

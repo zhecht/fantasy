@@ -4699,21 +4699,187 @@
             "sideTwoType": "under"
         }
     },
+    "player team": {
+        "propType": {
+            "propType": "propType",
+            "player": "player",
+            "position": "position",
+            "team": "team",
+            "opponent": "opponent",
+            "line": "line",
+            "sideOneType": "sideOneType",
+            "sideOneOdds": "sideOneOdds",
+            "sideTwoOdds": "sideTwoOdds",
+            "sideTwoType": "sideTwoType"
+        }
+    },
     "D. Duvernay BLT": {
+        "recv_rec": {
+            "propType": "recv_rec",
+            "player": "D. Duvernay",
+            "position": "WR",
+            "team": "BLT",
+            "opponent": "NO",
+            "line": "3.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-139",
+            "sideTwoOdds": "103",
+            "sideTwoType": "under"
+        },
         "recv_yd": {
             "propType": "recv_yd",
             "player": "D. Duvernay",
             "position": "WR",
             "team": "BLT",
             "opponent": "NO",
-            "line": "43.5",
+            "line": "41.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-115",
+            "sideTwoOdds": "-117",
+            "sideTwoType": "under"
+        }
+    },
+    "I. Likely BLT": {
+        "recv_rec": {
+            "propType": "recv_rec",
+            "player": "I. Likely",
+            "position": "TE",
+            "team": "BLT",
+            "opponent": "NO",
+            "line": "4.5",
+            "sideOneType": "over",
+            "sideOneOdds": "127",
+            "sideTwoOdds": "-171",
+            "sideTwoType": "under"
+        },
+        "recv_yd": {
+            "propType": "recv_yd",
+            "player": "I. Likely",
+            "position": "TE",
+            "team": "BLT",
+            "opponent": "NO",
+            "line": "42.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-143",
+            "sideTwoOdds": "107",
+            "sideTwoType": "under"
+        }
+    },
+    "J. Oliver BLT": {
+        "recv_yd": {
+            "propType": "recv_yd",
+            "player": "J. Oliver",
+            "position": "TE",
+            "team": "BLT",
+            "opponent": "NO",
+            "line": "7.5",
             "sideOneType": "over",
             "sideOneOdds": "-119",
+            "sideTwoOdds": "-109",
+            "sideTwoType": "under"
+        }
+    },
+    "J. Hill BLT": {
+        "rush_yd": {
+            "propType": "rush_yd",
+            "player": "J. Hill",
+            "position": "RB",
+            "team": "BLT",
+            "opponent": "NO",
+            "line": "25.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-114",
+            "sideTwoOdds": "-118",
+            "sideTwoType": "under"
+        }
+    },
+    "K. Drake BLT": {
+        "recv_rec": {
+            "propType": "recv_rec",
+            "player": "K. Drake",
+            "position": "RB",
+            "team": "BLT",
+            "opponent": "NO",
+            "line": "2.5",
+            "sideOneType": "over",
+            "sideOneOdds": "138",
+            "sideTwoOdds": "-190",
+            "sideTwoType": "under"
+        },
+        "recv_yd": {
+            "propType": "recv_yd",
+            "player": "K. Drake",
+            "position": "RB",
+            "team": "BLT",
+            "opponent": "NO",
+            "line": "12.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-111",
+            "sideTwoOdds": "-119",
+            "sideTwoType": "under"
+        },
+        "rush_att": {
+            "propType": "rush_att",
+            "player": "K. Drake",
+            "position": "RB",
+            "team": "BLT",
+            "opponent": "NO",
+            "line": "11.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-103",
+            "sideTwoOdds": "-130",
+            "sideTwoType": "under"
+        },
+        "rush_recv_yd": {
+            "propType": "rush_recv_yd",
+            "player": "K. Drake",
+            "position": "RB",
+            "team": "BLT",
+            "opponent": "NO",
+            "line": "60.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-121",
+            "sideTwoOdds": "-111",
+            "sideTwoType": "under"
+        },
+        "rush_yd": {
+            "propType": "rush_yd",
+            "player": "K. Drake",
+            "position": "RB",
+            "team": "BLT",
+            "opponent": "NO",
+            "line": "44.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-118",
             "sideTwoOdds": "-114",
             "sideTwoType": "under"
         }
     },
     "L. Jackson BLT": {
+        "pass_att": {
+            "propType": "pass_att",
+            "player": "L. Jackson",
+            "position": "QB",
+            "team": "BLT",
+            "opponent": "NO",
+            "line": "29.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-111",
+            "sideTwoOdds": "-120",
+            "sideTwoType": "under"
+        },
+        "pass_comp": {
+            "propType": "pass_comp",
+            "player": "L. Jackson",
+            "position": "QB",
+            "team": "BLT",
+            "opponent": "NO",
+            "line": "19.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-101",
+            "sideTwoOdds": "-135",
+            "sideTwoType": "under"
+        },
         "pass_int": {
             "propType": "pass_int",
             "player": "L. Jackson",
@@ -4722,8 +4888,8 @@
             "opponent": "NO",
             "line": "0.5",
             "sideOneType": "over",
-            "sideOneOdds": "-115",
-            "sideTwoOdds": "-117",
+            "sideOneOdds": "-117",
+            "sideTwoOdds": "-115",
             "sideTwoType": "under"
         },
         "pass_td": {
@@ -4734,8 +4900,32 @@
             "opponent": "NO",
             "line": "1.5",
             "sideOneType": "over",
-            "sideOneOdds": "103",
-            "sideTwoOdds": "-140",
+            "sideOneOdds": "105",
+            "sideTwoOdds": "-141",
+            "sideTwoType": "under"
+        },
+        "pass_yd": {
+            "propType": "pass_yd",
+            "player": "L. Jackson",
+            "position": "QB",
+            "team": "BLT",
+            "opponent": "NO",
+            "line": "214.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-118",
+            "sideTwoOdds": "-116",
+            "sideTwoType": "under"
+        },
+        "rush_att": {
+            "propType": "rush_att",
+            "player": "L. Jackson",
+            "position": "QB",
+            "team": "BLT",
+            "opponent": "NO",
+            "line": "9.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-148",
+            "sideTwoOdds": "111",
             "sideTwoType": "under"
         },
         "rush_yd": {
@@ -4744,21 +4934,57 @@
             "position": "QB",
             "team": "BLT",
             "opponent": "NO",
-            "line": "62.5",
+            "line": "60.5",
             "sideOneType": "over",
-            "sideOneOdds": "-105",
-            "sideTwoOdds": "-128",
+            "sideOneOdds": "-113",
+            "sideTwoOdds": "-119",
             "sideTwoType": "under"
         }
     },
     "A. Kamara NO": {
+        "recv_rec": {
+            "propType": "recv_rec",
+            "player": "A. Kamara",
+            "position": "RB",
+            "team": "NO",
+            "opponent": "BLT",
+            "line": "4.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-173",
+            "sideTwoOdds": "130",
+            "sideTwoType": "under"
+        },
         "recv_yd": {
             "propType": "recv_yd",
             "player": "A. Kamara",
             "position": "RB",
             "team": "NO",
             "opponent": "BLT",
-            "line": "36.5",
+            "line": "40.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-121",
+            "sideTwoOdds": "-112",
+            "sideTwoType": "under"
+        },
+        "rush_att": {
+            "propType": "rush_att",
+            "player": "A. Kamara",
+            "position": "RB",
+            "team": "NO",
+            "opponent": "BLT",
+            "line": "15.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-112",
+            "sideTwoOdds": "-121",
+            "sideTwoType": "under"
+        },
+        "rush_recv_yd": {
+            "propType": "rush_recv_yd",
+            "player": "A. Kamara",
+            "position": "RB",
+            "team": "NO",
+            "opponent": "BLT",
+            "line": "109.5",
             "sideOneType": "over",
             "sideOneOdds": "-116",
             "sideTwoOdds": "-116",
@@ -4770,14 +4996,38 @@
             "position": "RB",
             "team": "NO",
             "opponent": "BLT",
-            "line": "60.5",
+            "line": "64.5",
             "sideOneType": "over",
-            "sideOneOdds": "-117",
-            "sideTwoOdds": "-115",
+            "sideOneOdds": "-114",
+            "sideTwoOdds": "-118",
             "sideTwoType": "under"
         }
     },
     "A. Dalton NO": {
+        "pass_att": {
+            "propType": "pass_att",
+            "player": "A. Dalton",
+            "position": "QB",
+            "team": "NO",
+            "opponent": "BLT",
+            "line": "31.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-116",
+            "sideTwoOdds": "-118",
+            "sideTwoType": "under"
+        },
+        "pass_comp": {
+            "propType": "pass_comp",
+            "player": "A. Dalton",
+            "position": "QB",
+            "team": "NO",
+            "opponent": "BLT",
+            "line": "20.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-112",
+            "sideTwoOdds": "-120",
+            "sideTwoType": "under"
+        },
         "pass_int": {
             "propType": "pass_int",
             "player": "A. Dalton",
@@ -4786,8 +5036,8 @@
             "opponent": "BLT",
             "line": "0.5",
             "sideOneType": "over",
-            "sideOneOdds": "-143",
-            "sideTwoOdds": "106",
+            "sideOneOdds": "-133",
+            "sideTwoOdds": "-101",
             "sideTwoType": "under"
         },
         "pass_td": {
@@ -4798,8 +5048,8 @@
             "opponent": "BLT",
             "line": "1.5",
             "sideOneType": "over",
-            "sideOneOdds": "-102",
-            "sideTwoOdds": "-132",
+            "sideOneOdds": "-101",
+            "sideTwoOdds": "-133",
             "sideTwoType": "under"
         },
         "pass_yd": {
@@ -4808,10 +5058,10 @@
             "position": "QB",
             "team": "NO",
             "opponent": "BLT",
-            "line": "240.5",
+            "line": "232.5",
             "sideOneType": "over",
-            "sideOneOdds": "-118",
-            "sideTwoOdds": "-114",
+            "sideOneOdds": "-116",
+            "sideTwoOdds": "-113",
             "sideTwoType": "under"
         },
         "rush_yd": {
@@ -4820,10 +5070,104 @@
             "position": "QB",
             "team": "NO",
             "opponent": "BLT",
-            "line": "3.5",
+            "line": "4.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-111",
+            "sideTwoOdds": "-121",
+            "sideTwoType": "under"
+        }
+    },
+    "C. Olave NO": {
+        "recv_rec": {
+            "propType": "recv_rec",
+            "player": "C. Olave",
+            "position": "WR",
+            "team": "NO",
+            "opponent": "BLT",
+            "line": "5.5",
+            "sideOneType": "over",
+            "sideOneOdds": "106",
+            "sideTwoOdds": "-142",
+            "sideTwoType": "under"
+        },
+        "recv_yd": {
+            "propType": "recv_yd",
+            "player": "C. Olave",
+            "position": "WR",
+            "team": "NO",
+            "opponent": "BLT",
+            "line": "63.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-123",
+            "sideTwoOdds": "-110",
+            "sideTwoType": "under"
+        }
+    },
+    "J. Johnson NO": {
+        "recv_rec": {
+            "propType": "recv_rec",
+            "player": "J. Johnson",
+            "position": "TE",
+            "team": "NO",
+            "opponent": "BLT",
+            "line": "2.5",
+            "sideOneType": "over",
+            "sideOneOdds": "125",
+            "sideTwoOdds": "-166",
+            "sideTwoType": "under"
+        },
+        "recv_yd": {
+            "propType": "recv_yd",
+            "player": "J. Johnson",
+            "position": "TE",
+            "team": "NO",
+            "opponent": "BLT",
+            "line": "23.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-120",
+            "sideTwoOdds": "-113",
+            "sideTwoType": "under"
+        }
+    },
+    "M. Callaway NO": {
+        "recv_yd": {
+            "propType": "recv_yd",
+            "player": "M. Callaway",
+            "position": "WR",
+            "team": "NO",
+            "opponent": "BLT",
+            "line": "20.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-120",
+            "sideTwoOdds": "-110",
+            "sideTwoType": "under"
+        }
+    },
+    "T. Hill NO": {
+        "rush_yd": {
+            "propType": "rush_yd",
+            "player": "T. Hill",
+            "position": "TE",
+            "team": "NO",
+            "opponent": "BLT",
+            "line": "27.5",
             "sideOneType": "over",
             "sideOneOdds": "-115",
             "sideTwoOdds": "-117",
+            "sideTwoType": "under"
+        }
+    },
+    "T. Smith NO": {
+        "recv_yd": {
+            "propType": "recv_yd",
+            "player": "T. Smith",
+            "position": "WR",
+            "team": "NO",
+            "opponent": "BLT",
+            "line": "20.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-120",
+            "sideTwoOdds": "-110",
             "sideTwoType": "under"
         }
     }
