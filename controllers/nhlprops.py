@@ -22,16 +22,6 @@ if os.path.exists("/home/zhecht/fantasy"):
 	prefix = "/home/zhecht/fantasy/"
 
 def fixNBATeam(team):
-	if team == "gsw":
-		return "gs"
-	elif team == "nop":
-		return "no"
-	elif team == "sas":
-		return "sa"
-	elif team == "nyk":
-		return "ny"
-	elif team == "uta":
-		return "utah"
 	return team
 
 def convertProp(prop):
@@ -216,7 +206,10 @@ def getProps_route():
 
 @nhlprops_blueprint.route('/nhlprops')
 def props_route():
-	return render_template("nhlprops.html")
+	prop = ""
+	if request.args.get("prop"):
+		prop = request.args.get("prop")
+	return render_template("nhlprops.html", prop=prop)
 
 def writeProps(date):
 	url = "https://www.actionnetwork.com/nhl/props/shots-on-goal"

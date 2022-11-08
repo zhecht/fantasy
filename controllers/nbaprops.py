@@ -293,7 +293,10 @@ def getProps_route():
 
 @nbaprops_blueprint.route('/nbaprops')
 def props_route():
-	return render_template("nbaprops.html")
+	prop = ""
+	if request.args.get("prop"):
+		prop = request.args.get("prop")
+	return render_template("nbaprops.html", prop=prop)
 
 def writeProps(date):
 	url = "https://www.actionnetwork.com/nba/props/points"

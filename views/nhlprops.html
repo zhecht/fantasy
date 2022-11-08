@@ -139,7 +139,7 @@
 					},
 					initialSort: [
 						//{column: "pos", dir: "asc"},
-						{column: "diffAbs", dir: "desc"},
+						{column: "totalOver", dir: "desc"},
 						//{column: "team", dir: "asc"},
 					],
 					columns: [
@@ -161,7 +161,7 @@
 						{title: "", field: "diff", hozAlign: "center", visible: true},
 						*/
 						{title: "", field: "diffAbs", hozAlign: "center", visible: false},
-						{title: "Total Over", field: "totalOver", width: 80, hozAlign: "center", formatter: percentFormatter},
+						{title: "Total Over", field: "totalOver", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
 						{title: "Last", field: "last5", hozAlign: "center"},
 						{title: "Last YR Total Over", field: "lastTotalOver", width: 80, hozAlign: "center", formatter: percentFormatter},
 						//{title: "Games Over", field: "over", formatter: overFormatter, hozAlign: "center"},
@@ -183,7 +183,11 @@
                 {field:"propType", type:"=", value:"pts"},
 			]);
 		</script>
-
+		{% if prop != "" %}
+			<script>
+				TABLE.setFilter([{field:"propType", type:"=", value:"{{prop}}"}]);
+			</script>
+		{% endif %}
 	</body>
 
 </html>

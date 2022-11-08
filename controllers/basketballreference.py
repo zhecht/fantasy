@@ -284,6 +284,7 @@ if __name__ == "__main__":
 		write_schedule(date)
 	elif args.cron:
 		pass
+		write_schedule(date)
 		write_stats(date)
 		#write_averages()
 		

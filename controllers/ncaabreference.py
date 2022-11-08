@@ -59,8 +59,8 @@ def write_stats(date):
 		headers = []
 		playerList = []
 		team = away
-		for idx, table in enumerate(soup.findAll("table")[1:5]):
-			if idx == 2:
+		for idx, table in enumerate(soup.findAll("table")[1:3]):
+			if idx == 1:
 				playerList = []
 				team = home
 
@@ -69,42 +69,40 @@ def write_stats(date):
 
 			playerIdx = 0
 			for row in table.findAll("tr")[:-2]:
-				if idx == 0 or idx == 2:
-					# PLAYERS
-					if row.text.strip().lower() in ["starters", "bench", "team"]:
-						continue
-					nameLink = row.find("a").get("href").split("/")
-					fullName = nameLink[-1].replace("-", " ")
-					playerId = int(nameLink[-2])
-					playerIds[team][fullName] = playerId
-					playerList.append(fullName)
-				else:
-					# idx==1 or 3. STATS
-					if row.find("td").text.strip().lower() == "min":
-						headers = []
-						for td in row.findAll("td"):
-							headers.append(td.text.strip().lower())
-						continue
 
-					player = playerList[playerIdx]
-					playerIdx += 1
-					playerStats = {}
-					for tdIdx, td in enumerate(row.findAll("td")):
-						if td.text.lower().startswith("dnp-"):
-							playerStats["min"] = 0
-							break
-						header = headers[tdIdx]
-						if td.text.strip().replace("-", "") == "":
-							playerStats[header] = 0
-						elif header in ["fg", "3pt", "ft"]:
-							made, att = map(int, td.text.strip().split("-"))
-							playerStats[header+"a"] = att
-							playerStats[header+"m"] = made
-						else:
-							val = int(td.text.strip())
-							playerStats[header] = val
+				if len(row.findAll("th")) > 0 and row.findAll("th")[1].text.lower().strip() == "min":
+					headers = []
+					for th in row.findAll("th")[1:]:
+						headers.append(th.text.strip().lower())
+					continue
 
-					allStats[team][player] = playerStats
+				if row.text.strip().lower().startswith("team"):
+					continue
+
+				if not row.find("a"):
+					continue
+				nameLink = row.find("a").get("href").split("/")
+				player = nameLink[-1].replace("-", " ")
+				playerId = int(nameLink[-2])
+				playerIds[team][player] = playerId
+
+				playerStats = {}
+				for tdIdx, td in enumerate(row.findAll("td")[1:]):
+					if td.text.lower().startswith("dnp-"):
+						playerStats["min"] = 0
+						break
+					header = headers[tdIdx]
+					if td.text.strip().replace("-", "") == "":
+						playerStats[header] = 0
+					elif header in ["fg", "3pt", "ft"]:
+						made, att = map(int, td.text.strip().split("-"))
+						playerStats[header+"a"] = att
+						playerStats[header+"m"] = made
+					else:
+						val = int(td.text.strip())
+						playerStats[header] = val
+
+				allStats[team][player] = playerStats
 
 	for team in allStats:
 		if not os.path.isdir(f"{prefix}static/ncaabreference/{team}"):
@@ -162,7 +160,7 @@ def write_averages():
 			pId = ids[team][player]
 			if player in averages[team]:
 				pass
-				#continue
+				continue
 			
 			gamesPlayed = 0
 			averages[team][player] = {}
@@ -256,6 +254,12 @@ def write_schedule(date):
 			score = tds[2].find("a").text.strip()
 			if ", " in score:
 				scoreSp = score.replace(" (OT)", "").split(", ")
+				winnerScore = int(scoreSp[0].split(" ")[1])
+				loserScore = int(scoreSp[1].split(" ")[1])
+
+				winnerHigh = tds[3].find("a").get("href").split("/")[-1].replace("-", " ")
+				loserHigh = tds[4].find("a").get("href").split("/")[-1].replace("-", " ")
+
 				if awayTeam.upper() in scoreSp[0]:
 					scores[date][awayTeam] = int(scoreSp[0].replace(awayTeam.upper()+" ", ""))
 					scores[date][homeTeam] = int(scoreSp[1].replace(homeTeam.upper()+" ", ""))
@@ -320,7 +324,7 @@ if __name__ == "__main__":
 		date = str(date)[:10]
 
 	#writePlayerIds()
-	write_averages()
+	#write_averages()
 
 	if args.schedule:
 		write_schedule(date)

@@ -139,7 +139,7 @@
 					},
 					initialSort: [
 						//{column: "pos", dir: "asc"},
-						{column: "diffAbs", dir: "desc"},
+						{column: "totalOver", dir: "desc"},
 						//{column: "team", dir: "asc"},
 					],
 					columns: [
@@ -177,16 +177,12 @@
 			}
 
 			renderTable();
-
-			//TABLE.setFilter("propType", "=", "3ptm");
-			TABLE.setFilter([
-				//{field:"avgMin", type:">=", value:15},
-				//{field:"line", type:">", value:1},
-				
-				//{field:"propType", type:"=", value:"ast"},
-			]);
 		</script>
-
+		{% if prop != "" %}
+			<script>
+				TABLE.setFilter([{field:"propType", type:"=", value:"{{prop}}"}]);
+			</script>
+		{% endif %}
 	</body>
 
 </html>
