@@ -120,8 +120,6 @@ def getProps_route():
 	date = datetime.now()
 	date = str(date)[:10]
 
-	date = "2022-11-09"
-
 	with open(f"{prefix}static/nbaprops/{date}.json") as fh:
 		propData = json.load(fh)
 	with open(f"{prefix}static/basketballreference/totals.json") as fh:

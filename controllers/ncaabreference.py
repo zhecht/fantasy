@@ -306,6 +306,7 @@ def writePlayerIds():
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
+	parser.add_argument("--averages", help="Last Yr Averages", action="store_true")
 	parser.add_argument("-c", "--cron", action="store_true", help="Start Cron Job")
 	parser.add_argument("-d", "--date", help="Date")
 	parser.add_argument("-s", "--start", help="Start Week", type=int)
@@ -324,9 +325,9 @@ if __name__ == "__main__":
 		date = str(date)[:10]
 
 	#writePlayerIds()
-	#write_averages()
-
-	if args.schedule:
+	if args.averages:
+		write_averages()
+	elif args.schedule:
 		write_schedule(date)
 	elif args.cron:
 		pass
