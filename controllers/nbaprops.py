@@ -120,6 +120,8 @@ def getProps_route():
 	date = datetime.now()
 	date = str(date)[:10]
 
+	date = "2022-11-09"
+
 	with open(f"{prefix}static/nbaprops/{date}.json") as fh:
 		propData = json.load(fh)
 	with open(f"{prefix}static/basketballreference/totals.json") as fh:
@@ -188,6 +190,10 @@ def getProps_route():
 						if underLine == line and underOdd > underOdds:
 							underOdds = underOdd
 
+
+				if overOdds == float('-inf'):
+					continue
+					
 				overOdds = str(overOdds)
 				underOdds = str(underOdds)
 				if not overOdds.startswith("-"):
@@ -295,7 +301,7 @@ def getProps_route():
 def props_route():
 	prop = ""
 	if request.args.get("prop"):
-		prop = request.args.get("prop")
+		prop = request.args.get("prop").replace(" ", "+")
 	return render_template("nbaprops.html", prop=prop)
 
 def writeProps(date):
