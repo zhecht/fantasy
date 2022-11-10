@@ -126,6 +126,8 @@ def getProps_route():
 		stats = json.load(fh)
 	with open(f"{prefix}static/basketballreference/averages.json") as fh:
 		averages = json.load(fh)
+	with open(f"{prefix}static/basketballreference/rankings.json") as fh:
+		rankings = json.load(fh)
 	with open(f"{prefix}static/basketballreference/lastYearStats.json") as fh:
 		lastYearStats = json.load(fh)
 	with open(f"{prefix}static/basketballreference/schedule.json") as fh:
@@ -147,7 +149,7 @@ def getProps_route():
 					else:
 						opp = teams[0]
 
-		if espnTeam.lower() not in ["bkn", "ind"]:
+		if espnTeam.lower() not in ["utah", "atl", "det", "bos", "ny", "bkn", "hou", "tor"]:
 			#continue
 			pass
 
@@ -159,6 +161,9 @@ def getProps_route():
 			for prop in propData[team][propName]:
 				line = propData[team][propName][prop]["line"]
 				avg = "-"
+
+				if "+" in prop:
+					continue
 
 				if espnTeam in stats and name in stats[espnTeam] and stats[espnTeam][name]["gamesPlayed"]:
 					val = 0
@@ -190,7 +195,8 @@ def getProps_route():
 
 
 				if overOdds == float('-inf'):
-					continue
+					#continue
+					pass
 					
 				overOdds = str(overOdds)
 				underOdds = str(underOdds)
@@ -272,6 +278,18 @@ def getProps_route():
 					else:
 						diffAbs = diffAvg
 
+				rank = oppRank = ""
+				rankVal = oppRankVal = ""
+				rankingsProp = convertRankingsProp(prop)
+				if rankingsProp in rankings[opp]:
+					rankVal = str(rankings[espnTeam][rankingsProp]["season"])
+					oppRankVal = str(rankings[opp]["o"+rankingsProp]["season"])
+					if "%" in rankingsProp:
+						rankVal += "%"
+						oppRankVal += "%"
+					rank = rankings[espnTeam][rankingsProp]['rank']
+					oppRank = rankings[opp]['o'+rankingsProp]['rank']
+
 				props.append({
 					"player": name.title(),
 					"team": espnTeam.upper(),
@@ -285,6 +303,10 @@ def getProps_route():
 					"diff": diff,
 					"avgMin": avgMin,
 					"proj": proj,
+					"rank": rank,
+					"oppRank": oppRank,
+					"rankVal": rankVal,
+					"oppRankVal": oppRankVal,
 					"lastAvgMin": lastAvgMin,
 					"totalOver": totalOver,
 					"lastTotalOver": lastTotalOver,
@@ -294,6 +316,15 @@ def getProps_route():
 				})
 
 	return jsonify(props)
+
+def convertRankingsProp(prop):
+	if "+" in prop:
+		return prop
+	elif prop == "3ptm":
+		return "3pt%"
+	elif prop in ["blk", "stl"]:
+		return prop+"pg"
+	return prop[0]+"pg"
 
 @nbaprops_blueprint.route('/nbaprops')
 def props_route():
@@ -338,6 +369,8 @@ def writeProps(date):
 				if odds[1].text != "N/A":
 					under = odds[1].findAll("span")[0].text+" ("+odds[1].findAll("span")[1].text+")"
 				book = books[idx]
+				if book == "betmgm":
+					continue
 
 				if line and line not in props[team][name][prop]["line"]:
 					props[team][name][prop]["line"][line] = 0

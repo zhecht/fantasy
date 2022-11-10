@@ -261,11 +261,61 @@ def write_schedule(date):
 	with open(f"{prefix}static/basketballreference/schedule.json", "w") as fh:
 		json.dump(schedule, fh, indent=4)
 
+def convertTeamRankingsTeam(team):
+	if team == "new orleans":
+		return "no"
+	elif team == "washington":
+		return "wsh"
+	elif team == "okla city":
+		return "okc"
+	elif team == "phoenix":
+		return "phx"
+	elif team == "san antonio":
+		return "sa"
+	elif team == "utah":
+		return "utah"
+	elif team == "brooklyn":
+		return "bkn"
+	elif team == "new york":
+		return "ny"
+	elif team == "golden state":
+		return "gs"
+	return team.replace(" ", "")[:3]
+
+def write_rankings():
+	baseUrl = "https://www.teamrankings.com/nba/stat/"
+	pages = ["assists-per-game", "opponent-assists-per-game", "total-rebounds-per-game", "opponent-total-rebounds-per-game", "points-per-game", "opponent-points-per-game", "three-point-pct",  "opponent-three-point-pct", "blocks-per-game", "opponent-blocks-per-game", "steals-per-game", "opponent-steals-per-game"]
+	ids = ["apg", "oapg", "rpg", "orpg", "ppg", "oppg", "3pt%", "o3pt%", "blkpg", "oblkpg", "stlpg", "ostlpg"]
+
+	rankings = {}
+	for idx, page in enumerate(pages):
+		url = baseUrl+page
+		outfile = "out"
+		call(["curl", "-k", url, "-o", outfile])
+		soup = BS(open(outfile, 'rb').read(), "lxml")
+
+		for row in soup.find("table").findAll("tr")[1:]:
+			tds = row.findAll("td")
+			team = convertTeamRankingsTeam(row.find("a").text.lower())
+			if team not in rankings:
+				rankings[team] = {}
+			if ids[idx] not in rankings[team]:
+				rankings[team][ids[idx]] = {}
+
+			rankings[team][ids[idx]] = {
+				"rank": int(tds[0].text),
+				"season": float(tds[2].text.replace("%", "")),
+				"last3": float(tds[3].text.replace("%", ""))
+			}
+	with open(f"{prefix}static/basketballreference/rankings.json", "w") as fh:
+		json.dump(rankings, fh, indent=4)
+
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-c", "--cron", action="store_true", help="Start Cron Job")
 	parser.add_argument("-d", "--date", help="Date")
 	parser.add_argument("-s", "--start", help="Start Week", type=int)
+	parser.add_argument("--rankings", help="Rankings", action="store_true")
 	parser.add_argument("--schedule", help="Schedule", action="store_true")
 	parser.add_argument("-e", "--end", help="End Week", type=int)
 	parser.add_argument("-w", "--week", help="Week", type=int)
@@ -282,6 +332,8 @@ if __name__ == "__main__":
 
 	if args.schedule:
 		write_schedule(date)
+	elif args.rankings:
+		write_rankings()
 	elif args.cron:
 		pass
 		write_schedule(date)

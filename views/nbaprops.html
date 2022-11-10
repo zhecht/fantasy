@@ -52,10 +52,10 @@
 				const args = [];
 				let s = "";
 				const joinChar = (output == "csv") ? "\t" : "|";
-				s += ["NAME","TEAM","PROP","LINE","SZN AVG","% OVER","LAST 7 GAMES","LAST YR % OVER","OVER", "UNDER"].join(joinChar);
+				s += ["NAME","TEAM","RANK","OPP","OPP RANK","PROP","LINE","SZN AVG","% OVER","LAST 7 GAMES","LAST YR % OVER","OVER", "UNDER"].join(joinChar);
 				s += "\n";
                 if (output != "csv") {
-                    s += ":--|:--|:--|:--|:--|:--|:--|:--|:--|:--\n";
+                    s += ":--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--\n";
                 }
 				let rows = TABLE.getSelectedRows();
                 if (rows.length == 0) {
@@ -63,9 +63,17 @@
                 }
 				for (row of rows) {
 					const data = row.getData();
-					const overOdds = data.overOdds.split(" ")[1].substring(1, 5);
-					const underOdds = data.underOdds.split(" ")[1].substring(1, 5);
-					s += [data.player, data.team, data.propType, data.line, data.avg, data.totalOver+"%", data.last5, data.lastTotalOver+"%",overOdds, underOdds].join(joinChar);
+					let overOdds = data.overOdds.split(" ")[1].substring(1, 5);
+					let underOdds = data.underOdds.split(" ")[1].substring(1, 5);
+					if (output == "csv") {
+						if (parseInt(overOdds) > 0) {
+							overOdds = "'"+overOdds;
+						}
+						if (parseInt(underOdds) > 0) {
+							underOdds = "'"+underOdds;
+						}
+					}
+					s += [data.player, data.team, addNumSuffix(data.rank), data.opponent.toUpperCase(), addNumSuffix(data.oppRank), data.propType, data.line, data.avg, data.totalOver+"%", data.last5, data.lastTotalOver+"%",overOdds, underOdds].join(joinChar);
 					s += "\n";
 				}
 				console.log(s);
@@ -98,31 +106,44 @@
 				return div;
 			}
 
-			const propFormatter = function(cell, params, rendered) {
-				let prop = cell.getValue();
-				if (prop == "recv_yd") return "REC YDs";
-				else if (prop == "recv_rec") return "RECs";
-				else if (prop == "rush_att") return "RUSHs";
-				else if (prop == "rush_recv_yd") return "RUSH+REC YDs";
-				else if (prop == "rush_yd") return "RUSH YDs";
-				else if (prop == "pass_att") return "ATTEMPS";
-				else if (prop == "pass_comp") return "COMPs";
-				else if (prop == "pass_int") return "INTs";
-				else if (prop == "pass_td") return "PASS TDs";
-				else if (prop == "pass_yd") return "PASS YDs";
-				else if (prop == "recv_rec") return "REC";
-				else if (prop == "tackles_combined") return "TACKLES";
-				return prop;
+			function addNumSuffix(val) {
+				const a = val % 10;
+				const b = val % 100;
+				if (val == 0) {
+					return "";
+				}
+				if (a == 1 && b != 11) {
+					return val+"st";
+				} else if (a == 2 && b != 12) {
+					return val+"nd";
+				} else if (a == 3 && b != 13) {
+					return val+"rd";
+				} else {
+					return val+"th";
+				}
 			}
 
-			function convertType(type) {
-				if (type == "pass_comp") return "pass_cmp";
-				else if (type == "recv_rec") return "rec";
-				else if (type == "recv_yd") return "rec_yds";
-				else if (type == "pass_comp") return "pass_cmp";
-				else if (type == "pass_yd") return "pass_yds";
-				else if (type == "rush_yd") return "rush_yds";
-				return type;
+			const rankFormatter = function(cell, params, rendered) {
+				const field = cell.getField();
+				const val = cell.getValue();
+				const suffix = addNumSuffix(val);
+				if (field == "oppRank") {
+					if (val >= 20) {
+						return "<div class='positive'>"+suffix+"</div>";
+					} else if (val <= 10) {
+						return "<div class='negative'>"+suffix+"</div>";
+					} else {
+						return suffix;
+					}
+				} else {
+					if (val <= 10) {
+						return "<div class='positive'>"+suffix+"</div>";
+					} else if (val >= 20) {
+						return "<div class='negative'>"+suffix+"</div>";
+					} else {
+						return suffix;
+					}
+				}
 			}
 
 			function renderTable() {
@@ -153,23 +174,20 @@
 						{title: "Avg Min", field: "avgMin", hozAlign: "center", width: 70},
 						{title: "Last YR Avg Min", field: "lastAvgMin", hozAlign: "center", width: 70},
 						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
+						{title: "Rank", field: "rank", hozAlign: "center", formatter: rankFormatter, width: 70},
+						//{title: "Rank Val", field: "rankVal", hozAlign: "center", width: 70},
 						{title: "Opp", field: "opponent", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
-						//{title: "Scored", field: "scored", formatter: scoredFormatter, hozAlign: "center"},
-						{title: "Prop", field: "propType", formatter: propFormatter, hozAlign: "center"},
+						{title: "Opp Rank", field: "oppRank", hozAlign: "center", formatter: rankFormatter, width: 70},
+						//{title: "Opp Rank Val", field: "oppRankVal", hozAlign: "center", width: 70},
+						{title: "Prop", field: "propType", hozAlign: "center"},
 						{title: "Line", field: "line", hozAlign: "center"},
 						{title: "SZN AVG", field: "avg", hozAlign: "center", width: 80},
 						{title: "Last YR AVG", field: "lastAvg", hozAlign: "center", width: 80},
-						{title: "Proj", field: "proj", hozAlign: "center", width: 80},
-						/*
-						{title: "", field: "diffAvg", hozAlign: "center", visible: true},
-						{title: "", field: "diff", hozAlign: "center", visible: true},
-						*/
+						//{title: "Proj", field: "proj", hozAlign: "center", width: 80},
 						{title: "", field: "diffAbs", hozAlign: "center", visible: false},
 						{title: "Total Over", field: "totalOver", width: 80, hozAlign: "center", formatter: percentFormatter},
 						{title: "Last", field: "last5", hozAlign: "center"},
 						{title: "Last YR Total Over", field: "lastTotalOver", width: 80, hozAlign: "center", formatter: percentFormatter},
-						//{title: "Games Over", field: "over", formatter: overFormatter, hozAlign: "center"},
-						//{title: "Last Game", field: "lastOver", formatter: lastOverFormatter, hozAlign: "center"},
 						{title: " ", field: "overOdds"},
 						{title: " ", field: "underOdds"},
 					]
