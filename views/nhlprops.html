@@ -63,8 +63,16 @@
                 }
                 for (row of rows) {
                     const data = row.getData();
-                    const overOdds = data.overOdds.split(" ")[1].substring(1, 5);
-					const underOdds = data.underOdds.split(" ")[1].substring(1, 5);
+                    let overOdds = data.overOdds.split(" ")[1].substring(1, 5);
+					let underOdds = data.underOdds.split(" ")[1].substring(1, 5);
+					if (output == "csv") {
+						if (parseInt(overOdds) > 0) {
+							overOdds = "'"+overOdds;
+						}
+						if (parseInt(underOdds) > 0) {
+							underOdds = "'"+underOdds;
+						}
+					}
                     s += [data.player, data.team, data.propType, data.line, data.avg, data.totalOver+"%", data.last5, data.lastTotalOver+"%",overOdds, underOdds].join(joinChar);
                     s += "\n";
                 }

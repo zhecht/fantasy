@@ -1,0 +1,693 @@
+<!doctype html>
+<!--[if lt IE 7]>  <html class="ie ie6 lte9 lte8 lte7 skinId-1"  lang="en" id="template" > <![endif]-->
+<!--[if IE 7]>     <html class="ie ie7 lte9 lte8 lte7 gt6 skinId-1" lang="en" id="template"> <![endif]-->
+<!--[if IE 8]>     <html class="ie ie8 lte9 lte8 gt6 gt7 skinId-1" lang="en" id="template"> <![endif]-->
+<!--[if IE 9]>     <html class="ie ie9 lte9 gt6 gt7 gt8 skinId-1" lang="en" id="template"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html itemscope itemtype="http://schema.org/Organization" lang="en" class="not-ie skinId-1" id="template">
+<!--<![endif]-->
+<head>
+    
+<!-- app dynamics random number = 7 -->
+
+    <script src="/static/js/1667412606/bW9kZXJuaXpyLmpz.js" charset="utf-8"></script>
+    <script src="/min/index1?a=230443d8-649d-11e6-8b77-86f30ca893d3&g=ff-base"></script>
+    <link id="nfl-assets" /><script type="text/javascript">
+    var googletag = googletag || {};
+    googletag.cmd = googletag.cmd || [];
+    googletag.cmd.push(function() {
+        
+        googletag.pubads().enableSingleRequest();
+
+        // Disable initial load, we will use refresh() to fetch ads.
+        // Calling this function means that display() calls just
+        // register the slot as ready, but do not fetch ads for it.
+        googletag.pubads().disableInitialLoad();
+        googletag.pubads().collapseEmptyDivs();
+        // Enable services
+        googletag.enableServices();
+    });
+    (function() {
+        var gads = document.createElement("script");
+        gads.async = true;
+        gads.type = "text/javascript";
+        var useSSL = "https:" == document.location.protocol;
+        gads.src = (useSSL ? "https:" : "http:") + "//www.googletagservices.com/tag/js/gpt.js";
+        var node =document.getElementsByTagName("script")[0];
+        node.parentNode.insertBefore(gads, node);
+    })();
+</script>
+<script>
+    /* Adobe recommends adding this snippet to handle the flicker while they change content 
+        https://docs.adobe.com/content/help/en/launch/using/extensions-ref/adobe-extension/target-extension/overview.html#adobe-target-extension-with-an-asynchronous-deployment
+    */
+    ;(function(win, doc, style, timeout) {
+        var STYLE_ID = 'at-body-style';
+        function getParent() {
+            return doc.getElementsByTagName('head')[0];
+        }
+
+        function addStyle(parent, id, def) {
+            if (!parent) {
+            return;
+            }
+
+            var style = doc.createElement('style');
+            style.id = id;
+            style.innerHTML = def;
+            parent.appendChild(style);
+        }
+
+        function removeStyle(parent, id) {
+            if (!parent) {
+            return;
+            }
+
+            var style = doc.getElementById(id);
+
+            if (!style) {
+            return;
+            }
+
+            parent.removeChild(style);
+        }
+        addStyle(getParent(), STYLE_ID, style);
+        window.setTimeout(function() {
+            removeStyle(getParent(), STYLE_ID);
+        }, timeout);
+    }(window, document, "body {opacity: 0 !important}", 4000));
+</script>
+<script src="//assets.adobedtm.com/a5ea4e8f4344/9ef398705f83/launch-767faae3c07e.min.js" async></script>
+<script type="text/javascript">
+window.analyticsData = {
+    "user": {
+        "userID": null,
+        "leagueID": null,
+        "teamID": null,
+        "leagueManager": "non-commissioner",
+        "playerType": "anonymous",
+        "leagueType": null,
+        "QBplayerID": "",
+        "RBplayerID": "",
+        "WRplayerID": "",
+        "TEplayerID": "",
+        "KDEFplayerID": ""
+    },
+    "page": {
+        "siteName": "nfl fantasy",
+        "siteSection": "research",
+        "siteSubsection": "research projections",
+        "globalDomain": "fantasy.nfl.com",
+        "contentType": "landing",
+        "pageDetail": "landing",
+        "siteLanguage": "english",
+        "optimizedFor": "desktop",
+        "pageName": "nfl fantasy:research:research projections:landing"
+    }
+};
+
+</script>
+<!-- Quantcast Choice. Consent Manager Tag v2.0 (for TCF 2.0) -->
+<script type="text/javascript" async=true>
+(function () {
+    var host = window.location.hostname;
+    var element = document.createElement("script");
+    var firstScript = document.getElementsByTagName("script")[0];
+    var milliseconds = new Date().getTime();
+    var url = "https://quantcast.mgr.consensu.org".concat(
+        "/choice/",
+        "gGpYeVwuEvd4w",
+        "/",
+        host,
+        "/choice.js"
+    );
+    var uspTries = 0;
+    var uspTriesLimit = 3;
+    element.async = true;
+    element.type = "text/javascript";
+    element.src = url;
+    firstScript.parentNode.insertBefore(element, firstScript);
+    function makeStub() {
+        var TCF_LOCATOR_NAME = "__tcfapiLocator";
+        var queue = [];
+        var win = window;
+        var cmpFrame;
+        function addFrame() {
+            var doc = win.document;
+            var otherCMP = !!win.frames[TCF_LOCATOR_NAME];
+            if (!otherCMP) {
+                if (doc.body) {
+                    var iframe = doc.createElement("iframe");
+                    iframe.style.cssText = "display:none";
+                    iframe.name = TCF_LOCATOR_NAME;
+                    doc.body.appendChild(iframe);
+                } else {
+                    setTimeout(addFrame, 5);
+                }
+            }
+            return !otherCMP;
+        }
+        function tcfAPIHandler() {
+            var gdprApplies;
+            var args = arguments;
+            if (!args.length) {
+                return queue;
+            } else if (args[0] === "setGdprApplies") {
+                if (
+                    args.length > 3 &&
+                    args[2] === 2 &&
+                    typeof args[3] === "boolean"
+                ) {
+                    gdprApplies = args[3];
+                    if (typeof args[2] === "function") {
+                        args[2]("set", true);
+                    }
+                }
+            } else if (args[0] === "ping") {
+                var retr = {
+                    gdprApplies: gdprApplies,
+                    cmpLoaded: false,
+                    cmpStatus: "stub",
+                };
+                if (typeof args[2] === "function") {
+                    args[2](retr);
+                }
+            } else {
+                queue.push(args);
+            }
+        }
+        function postMessageEventHandler(event) {
+            var msgIsString = typeof event.data === "string";
+            var json = {};
+            try {
+                if (msgIsString) {
+                    json = JSON.parse(event.data);
+                } else {
+                    json = event.data;
+                }
+            } catch (ignore) {}
+            var payload = json.__tcfapiCall;
+            if (payload) {
+                window.__tcfapi(
+                    payload.command,
+                    payload.version,
+                    function (retValue, success) {
+                        var returnMsg = {
+                            __tcfapiReturn: {
+                                returnValue: retValue,
+                                success: success,
+                                callId: payload.callId,
+                            },
+                        };
+                        if (msgIsString) {
+                            returnMsg = JSON.stringify(returnMsg);
+                        }
+                        event.source.postMessage(returnMsg, "*");
+                    },
+                    payload.parameter
+                );
+            }
+        }
+        while (win) {
+            try {
+                if (win.frames[TCF_LOCATOR_NAME]) {
+                    cmpFrame = win;
+                    break;
+                }
+            } catch (ignore) {}
+            if (win === window.top) {
+                break;
+            }
+            win = win.parent;
+        }
+        if (!cmpFrame) {
+            addFrame();
+            win.__tcfapi = tcfAPIHandler;
+            win.addEventListener("message", postMessageEventHandler, false);
+        }
+    }
+    if (typeof module !== "undefined") {
+        module.exports = makeStub;
+    } else {
+        makeStub();
+    }
+    var uspStubFunction = function () {
+        var arg = arguments;
+        if (typeof window.__uspapi !== uspStubFunction) {
+            setTimeout(function () {
+                if (typeof window.__uspapi !== "undefined") {
+                    window.__uspapi.apply(window.__uspapi, arg);
+                }
+            }, 500);
+        }
+    };
+    var checkIfUspIsReady = function () {
+        uspTries++;
+        if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+            console.warn("USP is not accessible");
+        } else {
+            clearInterval(uspInterval);
+        }
+    };
+    if (typeof window.__uspapi === "undefined") {
+        window.__uspapi = uspStubFunction;
+        var uspInterval = setInterval(checkIfUspIsReady, 6000);
+    }
+})();
+var showAds = function () {
+    if (googletag) {
+        googletag.cmd.push(function () {
+            googletag.pubads().refresh();
+        });
+    }
+};
+var showNonTargetedAds = function () {
+    if (googletag) {
+        googletag.cmd.push(function () {
+            googletag.pubads().setRequestNonPersonalizedAds(1);
+            googletag.pubads().refresh();
+        });
+    }
+};
+window.__tcfapi("addEventListener", 2, function (tcData, success) {
+    if (success) {
+        if (!tcData.gdprApplies) {
+            showAds();
+        } else {
+            if (tcData.eventStatus === "tcloaded") {
+              showAds();
+            } else if (tcData.eventStatus === "useractioncomplete") {
+              showAds();
+            } else if (tcData.eventStatus !== "cmpuishown") {
+              showNonTargetedAds();
+            }
+        }
+    }
+});
+</script>
+<!-- End Quantcast Choice. Consent Manager Tag v2.0 (for TCF 2.0) -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "url": "https://fantasy.nfl.com/",
+    "logo": "https://fantasy.nfl.com/jslib/nav/images/fantasy-logo.svg"
+   }
+</script>
+<script type="text/javascript" src="https://cdns.gigya.com/js/gigya.js?apikey=3_WPLZFkJ278FjSau2FfLCrTRUyksAjeYpcva-qIfGl71F4VWrI-7Xb5y0snqKXDva"></script>
+<meta name="description" content="Explore fantasy football projections with latest player news, trends, injuries and other information and can be sorted statistically for your picks.">
+    <script>
+    (function (w) {
+
+        var FF = w.FF = w.FF || {};
+        FF.constants = {
+            AD_ORD:         1668061549,
+            ENV:            "production",
+            RENDER_START:   new Date(),
+            TIME:           1668065149000,
+            PLAYER_CARD_FEATURE: ""
+        };
+
+    }(window));
+    </script>
+    <!-- Loads the NFL constants -->
+    <script src="/static/js/1667412606/bmZsLWNvbnN0YW50cy5qcw...js"></script>
+    <script>
+      // Overwrite nfl constants with system defaults.
+      window.nfl.constants.ID_MANAGER = '/account/sign-in';
+    </script>
+    <title>Fantasy Football Projections | NFL Fantasy</title>
+    <meta name="msvalidate.01" content="EDD46A4B9FD14F0A47471FDE9821BA49"/>    <!-- print css -->
+        <!-- shared css -->
+        <link rel="stylesheet" type="text/css" href="/static/css/1667412607/cHVyZS1taW4uY3NzO3lyZXNldC5jc3M7Zm9udHMuY3NzO3NpdGUuY3NzO2ZvbnRmYWNlLmNzcztvdmVybGF5LmNzczt0YWJsZS5jc3M7cGFnaW5hdGlvbi5jc3M7Y2x1YkltYWdlcy5jc3M7bmZsTmF2LmNzcztmb3Jtc05vTGVzcy5jc3M7cGxheWVyQ2FyZC5jc3M7ZHluYW1pY0Vycm9yLmNzcztlcnJvcnMuY3NzO3ZpZGVvLmNzczttaXNjUHRzLmNzcztuYXZCYXIuY3NzO3Bvc2l0aW9uLW5hdi5jc3M7bmF2LWJhci5jc3M7dGFiQmFyLmNzczt0YWItYmFyLmNzcztsZWFybk1vcmUuY3NzO3BhcnRuZXJzLWxvZ2luLmNzcztwb3B1cC5jc3M7bW9kYWwtbG9naW4uY3NzO2ZhbnRhc3ktaGVhZGVyLmNzcztmZi1zYXAtbW9kYWwuY3NzO3l1aTItc2tpbi1zYW0tY2FsZW5kYXItbWluLmNzczt1cHNlbGwuY3Nz.css" />
+        <!-- page css  -->
+        <!-- main css file -->
+    <link rel="stylesheet" type="text/css" href="/static/css/1667412606/d2Vla05hdi5jc3M7cGxheWVycy1maWx0ZXIuY3NzO3BsYXllcnNIb21lLmNzcztsZWFybk1vcmUuY3Nz.css" />
+    
+
+    </head>
+
+<body id="researchProjectionsPage" class="noJs yui-skin-sam yui3-skin-sam g-a">
+
+
+<div id="doc">
+    <a class="skip-to-content-link" href="#bd">
+        Skip to content
+    </a>
+
+        <div id="hd-wrap">
+        <div id="hd">
+            <link type="text/css" rel="stylesheet" href="//fantasy.nfl.com/jslib/nav/index.css" />
+<script src="//fantasy.nfl.com/jslib/nav/index.js"></script>
+<div id="nfl-fantasy-nav"></div>
+<script type="text/javascript">
+    (function() {
+        var nav = window.NFL_FANTASY_NAV('#nfl-fantasy-nav', '');
+    }());
+</script>
+<noscript>
+    <div id="noJsMessage">
+        <p>Free Fantasy Football | 2015 Fantasy Football - NFL.com relies heavily on Javascript.</p>
+        <p class="last">For the ultimate experience please enable Javascript in your browser.</p>
+    </div>
+</noscript>
+        </div>
+    </div>
+            <div id="subHd">
+        <div id="googleadtag-BANNER1923919348" class="ad ad-BANNER" style="width: 728px; height: 90px;" >
+    <script >
+    if (window.googletag) {
+        googletag.cmd.push(function() {
+            var path = "/4595/fantasy.nfl.com/research/researchprojections",
+                size = [728, 90],
+                id = "googleadtag-BANNER1923919348",
+                pubService = googletag.pubads();
+            googletag.defineSlot(path, size, id).
+                addService(pubService).
+                setTargeting('s1', 'research').setTargeting('s2', 'researchprojections').
+                setTargeting("slot", "top").
+                setTargeting("test", "").
+                setTargeting('leagueSpon', 'default').setTargeting('class', 'subHeaderBANNER').
+                setTargeting("url", "research_researchprojections");
+
+        });
+    }
+    </script>
+</div><style>
+    .g-a #bd, .g-b #bd, .g-c #bd { padding-top: 20px; }
+    #bd h1.title { display: none; }
+</style>
+<div class="subHeaderTOPPERcontainer">
+    <h1>Fantasy Football Player Projections</h1>
+    <span class="halfBg"></span>
+    <div id="googleadtag-TOPPER72217677" class="ad ad-TOPPER" style="width: 500px; height: 70px;" >
+    <script >
+    if (window.googletag) {
+        googletag.cmd.push(function() {
+            var path = "/4595/fantasy.nfl.com/research/researchprojections",
+                size = [500, 70],
+                id = "googleadtag-TOPPER72217677",
+                pubService = googletag.pubads();
+            googletag.defineSlot(path, size, id).
+                addService(pubService).
+                setTargeting('s1', 'research').setTargeting('s2', 'researchprojections').
+                setTargeting("slot", "spon").
+                setTargeting("test", "").
+                setTargeting('leagueSpon', 'default').setTargeting('class', 'subHeaderTOPPER').
+                setTargeting("url", "research_researchprojections");
+
+        });
+    }
+    </script>
+</div>
+</div>    </div>
+            <div id="bd-wrap">
+    <div id="bd" role="main">
+
+        
+        
+        <h1 class='title'>Fantasy Football Player Projections</h1>
+
+        
+                            <div id="primary"><div id="primaryContent">
+                <div id="researchProjections" class="mod dynamicModule history-researchProjections cache-* moduleName-researchProjections">
+    <div class="content">
+        <div class="hd">
+            <div class="summary">View and sort statistical and fantasy football player projections based on the latest player news, injury updates and trends. <a href="/registration/learnMore#lm-playerProjections" class="learnMore" onclick="return false;">Learn More &gt;</a>            </div>
+            <div id="players-filter" class="mod">
+                <div class="content">
+                    <div class="hd">
+                        <div class="wrap"> 
+                        
+                            <form method="get" class="searchForm" action="/research/search">
+                            <ul><li class="textbox first"><span class="error"></span><label for="searchQuery">Search Player By Name</label> <input class="xautocomplete text" id="searchQuery" name="searchQuery" type="text" value="Search Player By Name"/><b class="submit"></b></li><li class="submit last"><strong class="submit"><input aria-role="button" class="submit" name="jSubmit" tabindex="0" type="submit" value="Submit"/></strong></li></ul><input class="hidden" name="statCategory" type="hidden" value="projectedStats"/><input class="hidden" name="statType" type="hidden" value="weekProjectedStats"/><input class="hidden" name="statSeason" type="hidden" value="2022"/><input class="hidden" name="statWeek" type="hidden" value="9"/><input class="hidden" name="sort" type="hidden" value="projectedPts"/><input class="hidden" name="position" type="hidden" value="7"/>                            </form>
+                        
+                            <div class="position-nav nav-bar">
+                                <ul><li class="posLabel first"><span>Position:</span></li><li id="posO"><a href="/research/projections?position=O&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=9"  class="dynamic"><span>All Offense</span></a></li><li id="pos1"><a href="/research/projections?position=1&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=9"  class="dynamic"><span>QB</span></a></li><li id="pos2"><a href="/research/projections?position=2&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=9"  class="dynamic"><span>RB</span></a></li><li id="pos3"><a href="/research/projections?position=3&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=9"  class="dynamic"><span>WR</span></a></li><li id="pos4"><a href="/research/projections?position=4&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=9"  class="dynamic"><span>TE</span></a></li><li id="pos7" class="selected"><a href="/research/projections?position=7&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=9"  class="dynamic"><span>K</span></a></li><li id="pos8" class="last"><a href="/research/projections?position=8&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=9"  class="dynamic"><span>DEF</span></a></li></ul>                            </div>
+                        </div>
+                    </div>
+                    <div class="bd">
+                        <div class='stat-type-nav'><ul class="weekNav weekNav-full nav-bar"><li class="wl label first"><span><span class="effect"></span><span class="text">Weeks:</span></span></li><li class="ww ww-1"><a href="/research/projections?position=7&sort=projectedPts&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=1"  class="dynamic w-1"><span>1</span></a></li><li class="ww ww-2"><a href="/research/projections?position=7&sort=projectedPts&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=2"  class="dynamic w-2"><span>2</span></a></li><li class="ww ww-3"><a href="/research/projections?position=7&sort=projectedPts&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=3"  class="dynamic w-3"><span>3</span></a></li><li class="ww ww-4"><a href="/research/projections?position=7&sort=projectedPts&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=4"  class="dynamic w-4"><span>4</span></a></li><li class="ww ww-5"><a href="/research/projections?position=7&sort=projectedPts&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=5"  class="dynamic w-5"><span>5</span></a></li><li class="ww ww-6"><a href="/research/projections?position=7&sort=projectedPts&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=6"  class="dynamic w-6"><span>6</span></a></li><li class="ww ww-7"><a href="/research/projections?position=7&sort=projectedPts&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=7"  class="dynamic w-7"><span>7</span></a></li><li class="ww ww-8"><a href="/research/projections?position=7&sort=projectedPts&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=8"  class="dynamic w-8"><span>8</span></a></li><li class="ww ww-9 selected"><a href="/research/projections?position=7&sort=projectedPts&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=9"  class="dynamic w-9"><span>9</span></a></li><li class="ww ww-10"><a href="/research/projections?position=7&sort=projectedPts&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=10"  class="dynamic w-10"><span>10</span></a></li><li class="ww ww-11"><a href="/research/projections?position=7&sort=projectedPts&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=11"  class="dynamic w-11"><span>11</span></a></li><li class="ww ww-12"><a href="/research/projections?position=7&sort=projectedPts&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=12"  class="dynamic w-12"><span>12</span></a></li><li class="ww ww-13"><a href="/research/projections?position=7&sort=projectedPts&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=13"  class="dynamic w-13"><span>13</span></a></li><li class="ww ww-14"><a href="/research/projections?position=7&sort=projectedPts&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=14"  class="dynamic w-14"><span>14</span></a></li><li class="ww ww-15"><a href="/research/projections?position=7&sort=projectedPts&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=15"  class="dynamic w-15"><span>15</span></a></li><li class="ww ww-16"><a href="/research/projections?position=7&sort=projectedPts&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=16"  class="dynamic w-16"><span>16</span></a></li><li class="ww ww-17"><a href="/research/projections?position=7&sort=projectedPts&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=17"  class="dynamic w-17"><span>17</span></a></li><li class="ww ww-18"><a href="/research/projections?position=7&sort=projectedPts&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=18"  class="dynamic w-18"><span>18</span></a></li><li id="st2022" class="last"><a href="/research/projections?position=7&sort=projectedPts&statCategory=projectedStats&statSeason=2022&statType=seasonProjectedStats"  class="dynamic"><span><span class="effect"></span><span class="text">2022 Season</span></span></a></li></ul></div>
+                        <div class="paginationWrap">
+                            <div class="pagination search"><span class="paginationTitle"> 26 - 50 of 53 </span><ul><li class="prev first"><a href="?offset=1&position=7&sort=projectedPts&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=9"  class="dynamic"><</a></li><li class="pageNav-pageNav-0"><a href="?offset=1&position=7&sort=projectedPts&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=9"  class="dynamic">1</a></li><li class="pageNav-pageNav-1"><span class="dynamic">2</span></li><li class="pageNav-pageNav-2"><a href="?offset=51&position=7&sort=projectedPts&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=9"  class="dynamic">3</a></li><li class="next last"><a href="?offset=51&position=7&sort=projectedPts&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=9"  class="dynamic">></a></li></ul></div>                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="bd">
+            <div class="tableWrap"><table cellpadding="0" cellspacing="0" class="tableType-player hasGroups"><thead><tr class="first"><th class="playerNameAndInfo first">&nbsp;</th><th class="playerOpponent">&nbsp;</th><th class="group pat firstgroup-pat" scope="colgroup"><em><b></b><span>PAT</span></em></th><th class="group fgMade firstgroup-fgMade" colspan="5" scope="colgroup"><em><b></b><span>FG Made</span></em></th><th class="group points firstgroup-points last" scope="colgroup"><em><b></b><span>Fantasy</span></em></th></tr><tr class="last"><th class="playerNameAndInfo first" scope="col"><a href="/research/projections?position=7&sort=name&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=9" class="dynamic">Player</a></th><th class="playerOpponent" scope="col"><span>Opp</span></th><th class="stat stat_33 numeric" scope="col"><a href="/research/projections?position=7&sort=33&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=9" class="dynamic">Made</a></th><th class="stat stat_35 numeric" scope="col"><a href="/research/projections?position=7&sort=35&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=9" class="dynamic">0-19</a></th><th class="stat stat_36 numeric" scope="col"><a href="/research/projections?position=7&sort=36&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=9" class="dynamic">20-29</a></th><th class="stat stat_37 numeric" scope="col"><a href="/research/projections?position=7&sort=37&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=9" class="dynamic">30-39</a></th><th class="stat stat_38 numeric" scope="col"><a href="/research/projections?position=7&sort=38&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=9" class="dynamic">40-49</a></th><th class="stat stat_39 numeric" scope="col"><a href="/research/projections?position=7&sort=39&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=9" class="dynamic">50+</a></th><th class="stat projected numeric sorted last" scope="col"><a href="/research/projections?position=7&sort=projectedPts&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=9" class="dynamic">Points</a></th></tr></thead><tbody><tr class="player-2565555 odd first"><td class="playerNameAndInfo first"><div class="c c-noteam"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2565555" class="playerCard playerName playerNameFull playerNameId-2565555 what-playerCard">Matt Ammendola</a> <em>K</em>    </div></td><td class="playerOpponent">Bye</td><td class="stat stat_33 numeric"><span class="playerStat statId-33 playerId-2565555">-</span></td><td class="stat stat_35 numeric"><span class="playerStat statId-35 playerId-2565555">-</span></td><td class="stat stat_36 numeric"><span class="playerStat statId-36 playerId-2565555">-</span></td><td class="stat stat_37 numeric"><span class="playerStat statId-37 playerId-2565555">-</span></td><td class="stat stat_38 numeric"><span class="playerStat statId-38 playerId-2565555">-</span></td><td class="stat stat_39 numeric"><span class="playerStat statId-39 playerId-2565555">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2565555 bye">-</span></td></tr><tr class="player-2556472 even"><td class="playerNameAndInfo first"><div class="c c-lac"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2556472" class="playerCard playerName playerNameFull playerNameId-2556472 what-playerCard">Taylor Bertolet</a> <em>K - LAC</em> <strong class="status status-o" title="Out">O</strong>   </div></td><td class="playerOpponent">@ATL</td><td class="stat stat_33 numeric"><span class="playerStat statId-33 playerId-2556472">-</span></td><td class="stat stat_35 numeric"><span class="playerStat statId-35 playerId-2556472">-</span></td><td class="stat stat_36 numeric"><span class="playerStat statId-36 playerId-2556472">-</span></td><td class="stat stat_37 numeric"><span class="playerStat statId-37 playerId-2556472">-</span></td><td class="stat stat_38 numeric"><span class="playerStat statId-38 playerId-2556472">-</span></td><td class="stat stat_39 numeric"><span class="playerStat statId-39 playerId-2556472">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2556472">0.00</span></td></tr><tr class="player-2564106 odd"><td class="playerNameAndInfo first"><div class="c c-noteam"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2564106" class="playerCard playerName playerNameFull playerNameId-2564106 what-playerCard">Rodrigo Blankenship</a> <em>K</em> <strong class="status status-q" title="Questionable">Q</strong>   </div></td><td class="playerOpponent">Bye</td><td class="stat stat_33 numeric"><span class="playerStat statId-33 playerId-2564106">-</span></td><td class="stat stat_35 numeric"><span class="playerStat statId-35 playerId-2564106">-</span></td><td class="stat stat_36 numeric"><span class="playerStat statId-36 playerId-2564106">-</span></td><td class="stat stat_37 numeric"><span class="playerStat statId-37 playerId-2564106">-</span></td><td class="stat stat_38 numeric"><span class="playerStat statId-38 playerId-2564106">-</span></td><td class="stat stat_39 numeric"><span class="playerStat statId-39 playerId-2564106">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2564106 bye">-</span></td></tr><tr class="player-2567139 even"><td class="playerNameAndInfo first"><div class="c c-noteam"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2567139" class="playerCard playerName playerNameFull playerNameId-2567139 what-playerCard">Jose Borregales</a> <em>K</em>    </div></td><td class="playerOpponent">Bye</td><td class="stat stat_33 numeric"><span class="playerStat statId-33 playerId-2567139">-</span></td><td class="stat stat_35 numeric"><span class="playerStat statId-35 playerId-2567139">-</span></td><td class="stat stat_36 numeric"><span class="playerStat statId-36 playerId-2567139">-</span></td><td class="stat stat_37 numeric"><span class="playerStat statId-37 playerId-2567139">-</span></td><td class="stat stat_38 numeric"><span class="playerStat statId-38 playerId-2567139">-</span></td><td class="stat stat_39 numeric"><span class="playerStat statId-39 playerId-2567139">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2567139 bye">-</span></td></tr><tr class="player-2550545 odd"><td class="playerNameAndInfo first"><div class="c c-pit"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2550545" class="playerCard playerName playerNameFull playerNameId-2550545 what-playerCard">Chris Boswell</a> <em>K - PIT</em> <strong class="status status-q" title="Questionable">Q</strong> <a class="playerNote playerCard what-playerCard playerNote-breaking" title="View Breaking Player News" onclick="return false" href="/players/card?leagueId=0&playerId=2550545">View News</a>  </div></td><td class="playerOpponent">Bye</td><td class="stat stat_33 numeric"><span class="playerStat statId-33 playerId-2550545">-</span></td><td class="stat stat_35 numeric"><span class="playerStat statId-35 playerId-2550545">-</span></td><td class="stat stat_36 numeric"><span class="playerStat statId-36 playerId-2550545">-</span></td><td class="stat stat_37 numeric"><span class="playerStat statId-37 playerId-2550545">-</span></td><td class="stat stat_38 numeric"><span class="playerStat statId-38 playerId-2550545">-</span></td><td class="stat stat_39 numeric"><span class="playerStat statId-39 playerId-2550545">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2550545 bye">-</span></td></tr><tr class="player-2568435 even"><td class="playerNameAndInfo first"><div class="c c-lac"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2568435" class="playerCard playerName playerNameFull playerNameId-2568435 what-playerCard">Cameron Dicker</a> <em>K - LAC</em>    </div></td><td class="playerOpponent">@ATL</td><td class="stat stat_33 numeric"><span class="playerStat statId-33 playerId-2568435">-</span></td><td class="stat stat_35 numeric"><span class="playerStat statId-35 playerId-2568435">-</span></td><td class="stat stat_36 numeric"><span class="playerStat statId-36 playerId-2568435">-</span></td><td class="stat stat_37 numeric"><span class="playerStat statId-37 playerId-2568435">-</span></td><td class="stat stat_38 numeric"><span class="playerStat statId-38 playerId-2568435">-</span></td><td class="stat stat_39 numeric"><span class="playerStat statId-39 playerId-2568435">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2568435">0.00</span></td></tr><tr class="player-2565360 odd"><td class="playerNameAndInfo first"><div class="c c-noteam"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2565360" class="playerCard playerName playerNameFull playerNameId-2565360 what-playerCard">Dominik Eberle</a> <em>K</em>    </div></td><td class="playerOpponent">Bye</td><td class="stat stat_33 numeric"><span class="playerStat statId-33 playerId-2565360">-</span></td><td class="stat stat_35 numeric"><span class="playerStat statId-35 playerId-2565360">-</span></td><td class="stat stat_36 numeric"><span class="playerStat statId-36 playerId-2565360">-</span></td><td class="stat stat_37 numeric"><span class="playerStat statId-37 playerId-2565360">-</span></td><td class="stat stat_38 numeric"><span class="playerStat statId-38 playerId-2565360">-</span></td><td class="stat stat_39 numeric"><span class="playerStat statId-39 playerId-2565360">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2565360 bye">-</span></td></tr><tr class="player-71309 even"><td class="playerNameAndInfo first"><div class="c c-nyg"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=71309" class="playerCard playerName playerNameFull playerNameId-71309 what-playerCard">Graham Gano</a> <em>K - NYG</em>    </div></td><td class="playerOpponent">Bye</td><td class="stat stat_33 numeric"><span class="playerStat statId-33 playerId-71309">-</span></td><td class="stat stat_35 numeric"><span class="playerStat statId-35 playerId-71309">-</span></td><td class="stat stat_36 numeric"><span class="playerStat statId-36 playerId-71309">-</span></td><td class="stat stat_37 numeric"><span class="playerStat statId-37 playerId-71309">-</span></td><td class="stat stat_38 numeric"><span class="playerStat statId-38 playerId-71309">-</span></td><td class="stat stat_39 numeric"><span class="playerStat statId-39 playerId-71309">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-71309 bye">-</span></td></tr><tr class="player-2568684 odd"><td class="playerNameAndInfo first"><div class="c c-noteam"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2568684" class="playerCard playerName playerNameFull playerNameId-2568684 what-playerCard">Jonathan Garibay</a> <em>K</em>    </div></td><td class="playerOpponent">Bye</td><td class="stat stat_33 numeric"><span class="playerStat statId-33 playerId-2568684">-</span></td><td class="stat stat_35 numeric"><span class="playerStat statId-35 playerId-2568684">-</span></td><td class="stat stat_36 numeric"><span class="playerStat statId-36 playerId-2568684">-</span></td><td class="stat stat_37 numeric"><span class="playerStat statId-37 playerId-2568684">-</span></td><td class="stat stat_38 numeric"><span class="playerStat statId-38 playerId-2568684">-</span></td><td class="stat stat_39 numeric"><span class="playerStat statId-39 playerId-2568684">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2568684 bye">-</span></td></tr><tr class="player-2558178 even"><td class="playerNameAndInfo first"><div class="c c-car"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2558178" class="playerCard playerName playerNameFull playerNameId-2558178 what-playerCard">Zane Gonzalez</a> <em>K - CAR</em> <strong class="status status-ir" title="Injured Reserve">IR</strong>   </div></td><td class="playerOpponent">@CIN</td><td class="stat stat_33 numeric"><span class="playerStat statId-33 playerId-2558178">-</span></td><td class="stat stat_35 numeric"><span class="playerStat statId-35 playerId-2558178">-</span></td><td class="stat stat_36 numeric"><span class="playerStat statId-36 playerId-2558178">-</span></td><td class="stat stat_37 numeric"><span class="playerStat statId-37 playerId-2558178">-</span></td><td class="stat stat_38 numeric"><span class="playerStat statId-38 playerId-2558178">-</span></td><td class="stat stat_39 numeric"><span class="playerStat statId-39 playerId-2558178">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2558178">0.00</span></td></tr><tr class="player-2506264 odd"><td class="playerNameAndInfo first"><div class="c c-sf"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2506264" class="playerCard playerName playerNameFull playerNameId-2506264 what-playerCard">Robbie Gould</a> <em>K - SF</em>    </div></td><td class="playerOpponent">Bye</td><td class="stat stat_33 numeric"><span class="playerStat statId-33 playerId-2506264">-</span></td><td class="stat stat_35 numeric"><span class="playerStat statId-35 playerId-2506264">-</span></td><td class="stat stat_36 numeric"><span class="playerStat statId-36 playerId-2506264">-</span></td><td class="stat stat_37 numeric"><span class="playerStat statId-37 playerId-2506264">-</span></td><td class="stat stat_38 numeric"><span class="playerStat statId-38 playerId-2506264">-</span></td><td class="stat stat_39 numeric"><span class="playerStat statId-39 playerId-2506264">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2506264 bye">-</span></td></tr><tr class="player-2539227 even"><td class="playerNameAndInfo first"><div class="c c-lac"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2539227" class="playerCard playerName playerNameFull playerNameId-2539227 what-playerCard">Dustin Hopkins</a> <em>K - LAC</em> <strong class="status status-q" title="Questionable">Q</strong> <a class="playerNote playerCard what-playerCard playerNote-breaking" title="View Breaking Player News" onclick="return false" href="/players/card?leagueId=0&playerId=2539227">View News</a>  </div></td><td class="playerOpponent">@ATL</td><td class="stat stat_33 numeric"><span class="playerStat statId-33 playerId-2539227">-</span></td><td class="stat stat_35 numeric"><span class="playerStat statId-35 playerId-2539227">-</span></td><td class="stat stat_36 numeric"><span class="playerStat statId-36 playerId-2539227">-</span></td><td class="stat stat_37 numeric"><span class="playerStat statId-37 playerId-2539227">-</span></td><td class="stat stat_38 numeric"><span class="playerStat statId-38 playerId-2539227">-</span></td><td class="stat stat_39 numeric"><span class="playerStat statId-39 playerId-2539227">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2539227">0.00</span></td></tr><tr class="player-2566740 odd"><td class="playerNameAndInfo first"><div class="c c-noteam"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2566740" class="playerCard playerName playerNameFull playerNameId-2566740 what-playerCard">Brian Johnson</a> <em>K</em>    </div></td><td class="playerOpponent">Bye</td><td class="stat stat_33 numeric"><span class="playerStat statId-33 playerId-2566740">-</span></td><td class="stat stat_35 numeric"><span class="playerStat statId-35 playerId-2566740">-</span></td><td class="stat stat_36 numeric"><span class="playerStat statId-36 playerId-2566740">-</span></td><td class="stat stat_37 numeric"><span class="playerStat statId-37 playerId-2566740">-</span></td><td class="stat stat_38 numeric"><span class="playerStat statId-38 playerId-2566740">-</span></td><td class="stat stat_39 numeric"><span class="playerStat statId-39 playerId-2566740">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2566740 bye">-</span></td></tr><tr class="player-2540243 even"><td class="playerNameAndInfo first"><div class="c c-dal"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2540243" class="playerCard playerName playerNameFull playerNameId-2540243 what-playerCard">Brett Maher</a> <em>K - DAL</em>    </div></td><td class="playerOpponent">Bye</td><td class="stat stat_33 numeric"><span class="playerStat statId-33 playerId-2540243">-</span></td><td class="stat stat_35 numeric"><span class="playerStat statId-35 playerId-2540243">-</span></td><td class="stat stat_36 numeric"><span class="playerStat statId-36 playerId-2540243">-</span></td><td class="stat stat_37 numeric"><span class="playerStat statId-37 playerId-2540243">-</span></td><td class="stat stat_38 numeric"><span class="playerStat statId-38 playerId-2540243">-</span></td><td class="stat stat_39 numeric"><span class="playerStat statId-39 playerId-2540243">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2540243 bye">-</span></td></tr><tr class="player-2569215 odd"><td class="playerNameAndInfo first"><div class="c c-jax"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2569215" class="playerCard playerName playerNameFull playerNameId-2569215 what-playerCard">James McCourt</a> <em>K - JAX</em>    </div></td><td class="playerOpponent">LV</td><td class="stat stat_33 numeric"><span class="playerStat statId-33 playerId-2569215">-</span></td><td class="stat stat_35 numeric"><span class="playerStat statId-35 playerId-2569215">-</span></td><td class="stat stat_36 numeric"><span class="playerStat statId-36 playerId-2569215">-</span></td><td class="stat stat_37 numeric"><span class="playerStat statId-37 playerId-2569215">-</span></td><td class="stat stat_38 numeric"><span class="playerStat statId-38 playerId-2569215">-</span></td><td class="stat stat_39 numeric"><span class="playerStat statId-39 playerId-2569215">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2569215">0.00</span></td></tr><tr class="player-2541556 even"><td class="playerNameAndInfo first"><div class="c c-den"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2541556" class="playerCard playerName playerNameFull playerNameId-2541556 what-playerCard">Brandon McManus</a> <em>K - DEN</em>    </div></td><td class="playerOpponent">Bye</td><td class="stat stat_33 numeric"><span class="playerStat statId-33 playerId-2541556">-</span></td><td class="stat stat_35 numeric"><span class="playerStat statId-35 playerId-2541556">-</span></td><td class="stat stat_36 numeric"><span class="playerStat statId-36 playerId-2541556">-</span></td><td class="stat stat_37 numeric"><span class="playerStat statId-37 playerId-2541556">-</span></td><td class="stat stat_38 numeric"><span class="playerStat statId-38 playerId-2541556">-</span></td><td class="stat stat_39 numeric"><span class="playerStat statId-39 playerId-2541556">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2541556 bye">-</span></td></tr><tr class="player-2567754 odd"><td class="playerNameAndInfo first"><div class="c c-noteam"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2567754" class="playerCard playerName playerNameFull playerNameId-2567754 what-playerCard">Andrew Mevis</a> <em>K</em>    </div></td><td class="playerOpponent">Bye</td><td class="stat stat_33 numeric"><span class="playerStat statId-33 playerId-2567754">-</span></td><td class="stat stat_35 numeric"><span class="playerStat statId-35 playerId-2567754">-</span></td><td class="stat stat_36 numeric"><span class="playerStat statId-36 playerId-2567754">-</span></td><td class="stat stat_37 numeric"><span class="playerStat statId-37 playerId-2567754">-</span></td><td class="stat stat_38 numeric"><span class="playerStat statId-38 playerId-2567754">-</span></td><td class="stat stat_39 numeric"><span class="playerStat statId-39 playerId-2567754">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2567754 bye">-</span></td></tr><tr class="player-2565550 even"><td class="playerNameAndInfo first"><div class="c c-noteam"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2565550" class="playerCard playerName playerNameFull playerNameId-2565550 what-playerCard">JJ Molson</a> <em>K</em>    </div></td><td class="playerOpponent">Bye</td><td class="stat stat_33 numeric"><span class="playerStat statId-33 playerId-2565550">-</span></td><td class="stat stat_35 numeric"><span class="playerStat statId-35 playerId-2565550">-</span></td><td class="stat stat_36 numeric"><span class="playerStat statId-36 playerId-2565550">-</span></td><td class="stat stat_37 numeric"><span class="playerStat statId-37 playerId-2565550">-</span></td><td class="stat stat_38 numeric"><span class="playerStat statId-38 playerId-2565550">-</span></td><td class="stat stat_39 numeric"><span class="playerStat statId-39 playerId-2565550">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2565550 bye">-</span></td></tr><tr class="player-2565744 odd"><td class="playerNameAndInfo first"><div class="c c-noteam"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2565744" class="playerCard playerName playerNameFull playerNameId-2565744 what-playerCard">Chris Naggar</a> <em>K</em>    </div></td><td class="playerOpponent">Bye</td><td class="stat stat_33 numeric"><span class="playerStat statId-33 playerId-2565744">-</span></td><td class="stat stat_35 numeric"><span class="playerStat statId-35 playerId-2565744">-</span></td><td class="stat stat_36 numeric"><span class="playerStat statId-36 playerId-2565744">-</span></td><td class="stat stat_37 numeric"><span class="playerStat statId-37 playerId-2565744">-</span></td><td class="stat stat_38 numeric"><span class="playerStat statId-38 playerId-2565744">-</span></td><td class="stat stat_39 numeric"><span class="playerStat statId-39 playerId-2565744">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2565744 bye">-</span></td></tr><tr class="player-2565684 even"><td class="playerNameAndInfo first"><div class="c c-ne"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2565684" class="playerCard playerName playerNameFull playerNameId-2565684 what-playerCard">Quinn Nordin</a> <em>K - NE</em> <strong class="status status-nfi-r" title="Non Football Injury - Reserve">NFI-R</strong>   </div></td><td class="playerOpponent">IND</td><td class="stat stat_33 numeric"><span class="playerStat statId-33 playerId-2565684">-</span></td><td class="stat stat_35 numeric"><span class="playerStat statId-35 playerId-2565684">-</span></td><td class="stat stat_36 numeric"><span class="playerStat statId-36 playerId-2565684">-</span></td><td class="stat stat_37 numeric"><span class="playerStat statId-37 playerId-2565684">-</span></td><td class="stat stat_38 numeric"><span class="playerStat statId-38 playerId-2565684">-</span></td><td class="stat stat_39 numeric"><span class="playerStat statId-39 playerId-2565684">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2565684">0.00</span></td></tr><tr class="player-2556771 odd"><td class="playerNameAndInfo first"><div class="c c-noteam"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2556771" class="playerCard playerName playerNameFull playerNameId-2556771 what-playerCard">Aldrick Rosas</a> <em>K</em> <strong class="status status-q" title="Questionable">Q</strong>   </div></td><td class="playerOpponent">Bye</td><td class="stat stat_33 numeric"><span class="playerStat statId-33 playerId-2556771">-</span></td><td class="stat stat_35 numeric"><span class="playerStat statId-35 playerId-2556771">-</span></td><td class="stat stat_36 numeric"><span class="playerStat statId-36 playerId-2556771">-</span></td><td class="stat stat_37 numeric"><span class="playerStat statId-37 playerId-2556771">-</span></td><td class="stat stat_38 numeric"><span class="playerStat statId-38 playerId-2556771">-</span></td><td class="stat stat_39 numeric"><span class="playerStat statId-39 playerId-2556771">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2556771 bye">-</span></td></tr><tr class="player-2561269 even"><td class="playerNameAndInfo first"><div class="c c-noteam"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2561269" class="playerCard playerName playerNameFull playerNameId-2561269 what-playerCard">Ryan Santoso</a> <em>K</em>    </div></td><td class="playerOpponent">Bye</td><td class="stat stat_33 numeric"><span class="playerStat statId-33 playerId-2561269">-</span></td><td class="stat stat_35 numeric"><span class="playerStat statId-35 playerId-2561269">-</span></td><td class="stat stat_36 numeric"><span class="playerStat statId-36 playerId-2561269">-</span></td><td class="stat stat_37 numeric"><span class="playerStat statId-37 playerId-2561269">-</span></td><td class="stat stat_38 numeric"><span class="playerStat statId-38 playerId-2561269">-</span></td><td class="stat stat_39 numeric"><span class="playerStat statId-39 playerId-2561269">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2561269 bye">-</span></td></tr><tr class="player-2569450 odd"><td class="playerNameAndInfo first"><div class="c c-noteam"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2569450" class="playerCard playerName playerNameFull playerNameId-2569450 what-playerCard">Nick Sciba</a> <em>K</em>    </div></td><td class="playerOpponent">Bye</td><td class="stat stat_33 numeric"><span class="playerStat statId-33 playerId-2569450">-</span></td><td class="stat stat_35 numeric"><span class="playerStat statId-35 playerId-2569450">-</span></td><td class="stat stat_36 numeric"><span class="playerStat statId-36 playerId-2569450">-</span></td><td class="stat stat_37 numeric"><span class="playerStat statId-37 playerId-2569450">-</span></td><td class="stat stat_38 numeric"><span class="playerStat statId-38 playerId-2569450">-</span></td><td class="stat stat_39 numeric"><span class="playerStat statId-39 playerId-2569450">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2569450 bye">-</span></td></tr><tr class="player-2562729 even"><td class="playerNameAndInfo first"><div class="c c-noteam"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2562729" class="playerCard playerName playerNameFull playerNameId-2562729 what-playerCard">Austin Seibert</a> <em>K</em> <strong class="status status-q" title="Questionable">Q</strong>   </div></td><td class="playerOpponent">Bye</td><td class="stat stat_33 numeric"><span class="playerStat statId-33 playerId-2562729">-</span></td><td class="stat stat_35 numeric"><span class="playerStat statId-35 playerId-2562729">-</span></td><td class="stat stat_36 numeric"><span class="playerStat statId-36 playerId-2562729">-</span></td><td class="stat stat_37 numeric"><span class="playerStat statId-37 playerId-2562729">-</span></td><td class="stat stat_38 numeric"><span class="playerStat statId-38 playerId-2562729">-</span></td><td class="stat stat_39 numeric"><span class="playerStat statId-39 playerId-2562729">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2562729 bye">-</span></td></tr><tr class="player-2564397 odd last"><td class="playerNameAndInfo first"><div class="c c-noteam"><b></b><a onclick="return false" href="/players/card?leagueId=0&playerId=2564397" class="playerCard playerName playerNameFull playerNameId-2564397 what-playerCard">Sam Sloman</a> <em>K</em>    </div></td><td class="playerOpponent">Bye</td><td class="stat stat_33 numeric"><span class="playerStat statId-33 playerId-2564397">-</span></td><td class="stat stat_35 numeric"><span class="playerStat statId-35 playerId-2564397">-</span></td><td class="stat stat_36 numeric"><span class="playerStat statId-36 playerId-2564397">-</span></td><td class="stat stat_37 numeric"><span class="playerStat statId-37 playerId-2564397">-</span></td><td class="stat stat_38 numeric"><span class="playerStat statId-38 playerId-2564397">-</span></td><td class="stat stat_39 numeric"><span class="playerStat statId-39 playerId-2564397">-</span></td><td class="stat projected numeric sorted last"><span class="playerWeekProjectedPts playerId-2564397 bye">-</span></td></tr></tbody></table></div>        </div>
+        <div class="ft paginationWrap">
+            <div class="paginationWrap">
+                <div class="pagination search"><span class="paginationTitle"> 26 - 50 of 53 </span><ul><li class="prev first"><a href="?offset=1&position=7&sort=projectedPts&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=9"  class="dynamic"><</a></li><li class="pageNav-pageNav-0"><a href="?offset=1&position=7&sort=projectedPts&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=9"  class="dynamic">1</a></li><li class="pageNav-pageNav-1"><span class="dynamic">2</span></li><li class="pageNav-pageNav-2"><a href="?offset=51&position=7&sort=projectedPts&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=9"  class="dynamic">3</a></li><li class="next last"><a href="?offset=51&position=7&sort=projectedPts&statCategory=projectedStats&statSeason=2022&statType=weekProjectedStats&statWeek=9"  class="dynamic">></a></li></ul></div>            </div>
+                    </div>
+    </div>
+</div>
+            </div></div>            
+                        <div class="sh s"></div>
+        <div class="sh t"></div>
+        </div>
+
+    </div>
+            <div id="ft-wrap">
+        <div id="ft">
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script> 
+$(window).on("load", function () {
+    var MutationObserver =
+        window.MutationObserver ||
+        window.WebKitMutationObserver ||
+        window.MozMutationObserver;
+    var reactInited = false;
+    $.ajax({
+        url: "https://www.nfl.com/_libraries/fragments/assets",
+        type: "get",
+        dataType: "html",
+        success: function (data) {
+            data = data.replace(/window\.gigya.*;\n/g, "");
+            data = data.replace(/"\/compiledassets/g,
+                        '"https://www.nfl.com/compiledassets');
+            var appendTo = $(document.createDocumentFragment());
+            appendTo.append(data);
+            appendTo.find(`link[rel="icon"]`).remove();
+            $("#nfl-assets").replaceWith(appendTo);
+            $.ajax({
+                url: "https://www.nfl.com/_libraries/fragments/footer-fragment",
+                type: "get",
+                dataType: "html",
+                success: function (data) {
+                    $("#nfl-footer").replaceWith(data);
+                },
+            });
+        },
+    });
+    if (MutationObserver) {
+        // check for the require lib
+        var body = document.querySelector("body");
+        var observer = new MutationObserver(function (mutations) {
+            if (
+                window.requirejs &&
+                window.requirejs.config &&
+                window.Y &&
+                window.Y.React &&
+                !reactInited
+            ) {
+                window.Y.React.init();
+                reactInited = true;
+            }
+        });
+        observer.observe(body, { subtree: true, childList: true });
+    } else {
+        // if no browser support, use set timeout to wait for require
+        window.setTimeout(function () {
+            if (window.Y && window.Y.React && !reactInited) {
+                window.Y.React.init();
+                reactInited = true;
+            }
+        }, 2000);
+    }
+});
+</script>
+
+<div id="nfl-footer"></div>
+        </div>
+    </div>
+    </div>
+<script type="text/javascript">
+FF.constants.RENDER_END = new Date();
+YEXT = null;
+var SYSTEMENVIRONMENT = "production";
+var ADPATH = "fantasy.nfl.com";
+var VIDEOPLAYERFILENAME = "https://static.nfl.com/static/site/" + nfl.constants.ASSET_VERSION + "/flash/video/inline-video-player.swf";
+var LEAGUEID = '0';
+var TEAMID = '';
+var VIDEOPLAYERHTML = true;
+var FANTASY_COOKIE_NAME = 'ff';
+var FANTASY_JS_HOST = 'fantasy.nfl.com';
+</script>
+<script>
+(function(){
+    // allow groups in scripts to propagate
+    var yConfigGroups = ( window.YUI_config ) ? window.YUI_config.groups : {};
+
+    window.YUI_config = {
+        comboBase : "/min/index1?a=230443d8-649d-11e6-8b77-86f30ca893d3&b=static/js/yui/3.15.0/build&f=",        combine : true,
+        comboSep : ",",
+        root : "",
+        timeout: 10000,
+        modules:  {
+
+            siteSpecific: {
+               fullpath: "/static/js/1667412606/aGFzaFRhZy5qcztzbHlub2RlLmpzO292ZXJsYXktbW9kYWwuanM7ZGF0YXNjaGVtYUNvbnRlbnQuanM7ZHluYW1pY01vZHVsZS5qczthdXRvY29tcGxldGUuanM7dXRpbC5qcztwYWdlVHJhY2tpbmcuanM7c3dmT2JqZWN0LmpzO3ZpZGVvLmpzO3JlYWN0LmpzO3ZpZGVvUmVhY3QuanM7cGxheWVyLmpzO3BsYXllckNhcmQuanM7YWRzLmpzO3Njb3Jlcy5qcztpbWFnZXMuanM7dGVhbU1hbmFnZXJBc3Npc3QuanM7ZmYtYWpheC1mb3JtLmpzO2ZmLXBhcnRuZXJzLWxvZ2luLmpzO2ZmLWNoYXJ0cy1wbGF5ZXItY2FyZC5qcztkZXYtbG9naW4uanM..js",
+               requires: ["plugin"]
+            }
+    ,            pageSpecific: {
+               fullpath: "/static/js/1667412606/cGxheWVyc0hvbWUuanM..js",
+               requires: ["plugin"]
+            }
+,            teamManagerAssistCss : {
+                fullpath:'/static/css/1667412606/dGVhbU1hbmFnZXJBc3Npc3QuY3Nz.css',
+                type:'css'
+            }
+        }
+    };
+    window.YUI_config.groups = yConfigGroups;
+
+if (window.nfl) {
+    NFL_config = window.NFL_config || {},
+    YUI_config = window.YUI_config || {};
+
+    // YUI_config.comboBase = 'http://yui.yahooapis.com/combo?';
+    YUI_config.comboBase = "/min/index1?a=230443d8-649d-11e6-8b77-86f30ca893d3&b=static/js/yui/3.15.0/build&f="
+    YUI_config.combine = true;
+    YUI_config.comboSep = ",";
+    YUI_config.root = "";
+    YUI_config.modules = YUI_config.modules || {};
+    window.isDev = false;//set this to true to run gamecenter against prod endpoints
+    var Constants = nfl.constants;
+    YUI_config.groups.nfl = {
+        base: Constants.SCRIPT_PATH + '/scripts/modules/',
+        combine: true,
+        comboBase: [
+            Constants.NFL_COMBO_URL,
+            "?",
+            encodeURIComponent(Constants.ASSET_VERSION + Constants.ASSET_BUILD),
+            "&b=",
+            encodeURIComponent("yui3/static/" + Constants.ASSET_VERSION + "/scripts/modules"),
+            "&ss=anyraw&f="
+        ].join(""),
+        comboSep: ",",
+        root: "",
+        filter: {
+            searchExp: '([^\\/]+)\\/\\1-min\\.(js|css)',
+            replaceStr: "$1.$2"
+        },
+        modules: {
+            'nfl-carousel': { requires: ['plugin', 'base-build', 'nfl-lang', 'array-extras'], optional: 'anim' },
+            'nfl-centerpiece': { requires: ['node', 'anim', 'widget', 'base-build', 'nfl-lang', 'nfl-carousel', 'nfl-subnav' ], optional: ['nfl-video'] },
+            'nfl-lang': { requires: ['querystring'] },
+            'nfl-pagination': { requires: ['plugin', 'base-build', 'nfl-lang'] },
+            'nfl-subnav': { requires: [ 'node', 'plugin', 'base-build', 'classnamemanager', 'array-extras' ], optional: ['nfl-history-manager'] },
+            'widget-node-builder': { requires: [ 'node-base' ] },
+            'modal-mask': { requires: [ 'base-build', 'base', 'widget', 'widget-stack', 'node' ] },
+            'modal-login': { requires: ['base-build', 'base', 'widget', 'widget-position', 'widget-position-align', 'widget-stack', 'modal-mask', 'widget-node-builder', 'event-touch', 'json-parse', 'transition' ], skinnable : true },
+        }
+    }
+}
+})();
+YUI( YUI_config ).use("pageSpecific",
+"siteSpecific",
+"ads",
+"anim",
+"async-queue",
+"autocomplete",
+"base",
+"cache",
+"dataschema",
+"datasource",
+"dump",
+"dynamic-modules",
+"event",
+"event-custom",
+"event-valuechange",
+"history",
+"io",
+"json-parse",
+"loader",
+"node",
+"node-event-simulate",
+"overlay",
+"overlay-modal",
+"page-tracking",
+"player",
+"playerCard",
+"players-home",
+"plugin",
+"react-video",
+"slynode",
+"util",
+"video",
+"widget",
+"widget-position",
+"widget-position-align",
+'ac-plugin',
+'ac-widget',
+'ads',
+'dataschema-jsoncontent',
+'datasource-jsoncontentschema',
+'dev-login',
+'dynamic-modules',
+'ff-ajax-form',
+'ff-charts-player-card',
+'ff-partners-login',
+'images',
+'overlay-modal',
+'page-tracking',
+'player',
+'playerCard',
+'players-home',
+'react',
+'react-video',
+'scores',
+'slynode',
+'swfobject',
+'team-manager-assist',
+'util',
+'video', function (Y) {
+    FF.constants.YUI_START = new Date();
+    Y.one('#researchProjectionsPage').removeClass('noJs');
+
+        (function () {
+        try { Y.Util.init(document.body) }
+        catch (err) { Y.log('initErrorCatch:' + err.message); return false; }
+    }());
+    (function () {
+        try { Y.PageTracking.init() }
+        catch (err) { Y.log('initErrorCatch:' + err.message); return false; }
+    }());
+    (function () {
+        try { Y.PlayersHome.init() }
+        catch (err) { Y.log('initErrorCatch:' + err.message); return false; }
+    }());
+    (function () {
+        try { Y.Player.init(); }
+        catch (err) { Y.log('initErrorCatch:' + err.message); return false; }
+    }());
+
+    window.Y = Y;
+
+    // debug info used in full.php
+    FF.constants.YUI_END = new Date();
+    Y.on('domready', function () {
+        // console.log('YUI domready event fired');
+        FF.constants.DOM_READY = new Date();
+    });
+    Y.on('contentready', function () { FF.constants.CONTENT_READY = new Date(); });
+    Y.on('available', function () { FF.constants.AVAILABLE = new Date(); });
+
+});
+</script>
+
+</body>
+</html>
+<!-- lv1prdfantweb96 -->

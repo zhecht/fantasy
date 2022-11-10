@@ -1011,6 +1011,63 @@ def write_boxscore_stats(week_arg, team_arg):
 			if boxscorelinks[boxlink] == week_arg:
 				add_stats(boxscorelinks, team, teampath, boxlink, week_arg, team_arg)
 
+def convertTeamRankingsTeam(team):
+	if team == "indianapolis":
+		return "clt"
+	elif team == "arizona":
+		return "crd"
+	elif team == "green bay":
+		return "gnb"
+	elif team == "houston":
+		return "htx"
+	elif team == "jacksonville":
+		return "jax"
+	elif team == "new orleans":
+		return "nor"
+	elif team == "new england":
+		return "nwe"
+	elif team == "tennessee":
+		return "oti"
+	elif team == "las vegas":
+		return "rai"
+	elif team == "la rams":
+		return "ram"
+	elif team == "baltimore":
+		return "rav"
+	elif team == "la chargers":
+		return "sdg"
+	elif team == "san francisco":
+		return "sfo"
+	return team.replace(" ", "")[:3]
+
+def write_rankings():
+	baseUrl = "https://www.teamrankings.com/nfl/stat/"
+	pages = ["plays-per-game", "opponent-plays-per-game", "tackles-per-game", "opponent-tackles-per-game", "points-per-game", "opponent-points-per-game", "1st-half-points-per-game", "opponent-1st-half-points-per-game", "qb-sacked-per-game", "sacks-per-game", "opponent-yards-per-rush-attempt", "opponent-yards-per-completion", "opponent-rushing-attempts-per-game", "opponent-pass-attempts-per-game", "opponent-passing-yards-per-game", "opponent-completions-per-game", "opponent-passing-touchdowns-per-game", "interceptions-per-game"]
+	ids = ["playspg", "oplayspg", "tpg", "otpg", "ppg", "oppg", "1hppg", "o1hppg", "qbspg", "spg", "oydpra", "oydpc", "oruattpg", "opaattpg", "opaydpg", "ocmppg", "opatdpg", "ointpg"]
+
+	rankings = {}
+	for idx, page in enumerate(pages):
+		url = baseUrl+page
+		outfile = "out"
+		call(["curl", "-k", url, "-o", outfile])
+		soup = BS(open(outfile, 'rb').read(), "lxml")
+
+		for row in soup.find("table").findAll("tr")[1:]:
+			tds = row.findAll("td")
+			team = convertTeamRankingsTeam(row.find("a").text.lower())
+			if team not in rankings:
+				rankings[team] = {}
+			if ids[idx] not in rankings[team]:
+				rankings[team][ids[idx]] = {}
+
+			rankings[team][ids[idx]] = {
+				"rank": int(tds[0].text),
+				"season": float(tds[2].text.replace("%", "")),
+				"last3": float(tds[3].text.replace("%", ""))
+			}
+
+	with open(f"{prefix}static/profootballreference/rankings.json", "w") as fh:
+		json.dump(rankings, fh, indent=4)
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
@@ -1050,16 +1107,18 @@ if __name__ == "__main__":
 		# only needs to be run once in a while
 		
 		#write_team_links()
-		#write_schedule()
-		#write_team_rosters()
+		write_schedule()
+		write_team_rosters()
 		write_boxscore_links()
 
 		if not args.week:
 			curr_week = CURR_WEEK
 		
+		write_rankings()
 		write_boxscore_stats(curr_week, args.team)
 		calculate_aggregate_stats()
 
+	write_rankings()
 	#write_team_rosters()
 	#write_boxscore_links()
 	#write_boxscore_stats(args.week, args.team)

@@ -71,10 +71,10 @@
 				const args = [];
 				let s = "";
 				const joinChar = (output == "csv") ? "\t" : "|";
-				s += ["NAME","TEAM","PROP","LINE","SZN AVG","% OVER","LAST GAMES","OVER", "UNDER"].join(joinChar);
+				s += ["NAME","TEAM","RANK","OPP","OPP RANK","PROP","LINE","SZN AVG","% OVER","LAST GAMES","OVER", "UNDER"].join(joinChar);
 				s += "\n";
                 if (output != "csv") {
-                    s += ":--|:--|:--|:--|:--|:--|:--|:--|:--\n";
+                    s += ":--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--\n";
                 }
 				let rows = TABLE.getSelectedRows();
                 if (rows.length == 0) {
@@ -82,9 +82,17 @@
                 }
 				for (row of rows) {
 					const data = row.getData();
-					const overOdds = data.overOdds.split(" ")[1].substring(1, 5);
-					const underOdds = data.underOdds.split(" ")[1].substring(1, 5);
-					s += [data.player, data.team, parseProp(data.propType), data.line, data.avg, data.totalOver+"%", data.last5, overOdds, underOdds].join(joinChar);
+					let overOdds = data.overOdds.split(" ")[1].substring(1, 5);
+					let underOdds = data.underOdds.split(" ")[1].substring(1, 5);
+					if (output == "csv") {
+						if (parseInt(overOdds) > 0) {
+							overOdds = "'"+overOdds;
+						}
+						if (parseInt(underOdds) > 0) {
+							underOdds = "'"+underOdds;
+						}
+					}
+					s += [data.player, data.team, addNumSuffix(data.rank), data.opponent, addNumSuffix(data.oppRank), parseProp(data.propType), data.line, data.avg, data.totalOver+"%", data.last5, overOdds, underOdds].join(joinChar);
 					s += "\n";
 				}
 				console.log(s);
@@ -255,6 +263,46 @@
 				return "-";
 			}
 
+			function addNumSuffix(val) {
+				const a = val % 10;
+				const b = val % 100;
+				if (val == 0) {
+					return "";
+				}
+				if (a == 1 && b != 11) {
+					return val+"st";
+				} else if (a == 2 && b != 12) {
+					return val+"nd";
+				} else if (a == 3 && b != 13) {
+					return val+"rd";
+				} else {
+					return val+"th";
+				}
+			}
+
+			const rankFormatter = function(cell, params, rendered) {
+				const field = cell.getField();
+				const val = cell.getValue();
+				const suffix = addNumSuffix(val);
+				if (field == "oppRank") {
+					if (val >= 20) {
+						return "<div class='positive'>"+suffix+"</div>";
+					} else if (val <= 10) {
+						return "<div class='negative'>"+suffix+"</div>";
+					} else {
+						return suffix;
+					}
+				} else {
+					if (val <= 10) {
+						return "<div class='positive'>"+suffix+"</div>";
+					} else if (val >= 20) {
+						return "<div class='negative'>"+suffix+"</div>";
+					} else {
+						return suffix;
+					}
+				}
+			}
+
 			function renderTable() {
 				TABLE = new Tabulator("#propsTable", {
 					tooltipsHeader: true,
@@ -269,7 +317,7 @@
 					},
 					initialSort: [
 						//{column: "pos", dir: "asc"},
-						{column: "diff", dir: "desc"},
+						{column: "totalOver", dir: "desc"},
 						//{column: "team", dir: "asc"},
 					],
 					columns: [
@@ -279,16 +327,17 @@
 						{title: "Player", field: "player", headerFilter: "input"},
 						{title: "Pos", field: "pos", headerFilter: "select", hozAlign: "center"},
 						{title: "Snap% (wk"+CURR_WEEK+"%)", field: "avgSnaps", hozAlign: "center"},
-						{title: "Plays", field: "avgTotPlays", hozAlign: "center", width: "50"},
+						//{title: "Plays", field: "avgTotPlays", hozAlign: "center", width: "50"},
 						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
+						{title: "Rank", field: "rank", hozAlign: "center", formatter: rankFormatter, width: 70},
 						{title: "Opp", field: "opponent", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
-						
-						{title: "Plays", field: "avgOppTotPlays", hozAlign: "center", width: "50"},
+						{title: "Opp Rank", field: "oppRank", hozAlign: "center", formatter: rankFormatter, width: 70},
+						//{title: "Plays", field: "avgOppTotPlays", hozAlign: "center", width: "50"},
 						{title: "Pass %", field: "oppPassPerc", hozAlign: "center"},
 						{title: "Line", field: "line", hozAlign: "center"},
 						{title: "", field: "diff", hozAlign: "center", visible: false},
 						{title: "SZN AVG", field: "avg", hozAlign: "center", formatter: colorFormatter},
-						{title: "Total Over", field: "totalOver", formatter: percentFormatter, hozAlign: "center", width:80},
+						{title: "Total Over", field: "totalOver", formatter: percentFormatter, hozAlign: "center", width:80, sorter:"number"},
 						{title: "Last", field: "last5WithLines", hozAlign: "center"},
 						{title: " ", field: "overOdds"},
 						{title: " ", field: "underOdds"},

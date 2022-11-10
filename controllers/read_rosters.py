@@ -84,7 +84,7 @@ def write_cron_FA_json():
 				if pos == "WR,RB":
 					pos = "WR"
 
-				j[full.lower().replace("'", "")] = [nfl_team, pos, pid]
+				j[full.lower().replace(".", "").replace("'", "")] = [nfl_team, pos, pid]
 			with open(f"{prefix}static/{players_prefix}/FA/{status}_{i}_{i+25}.json", "w") as fh:
 				json.dump(j, fh, indent=4)
 

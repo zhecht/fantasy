@@ -163,7 +163,8 @@ def getProps_route():
 				avg = "-"
 
 				if "+" in prop:
-					continue
+					#continue
+					pass
 
 				if espnTeam in stats and name in stats[espnTeam] and stats[espnTeam][name]["gamesPlayed"]:
 					val = 0
@@ -195,7 +196,7 @@ def getProps_route():
 
 
 				if overOdds == float('-inf'):
-					#continue
+					continue
 					pass
 					
 				overOdds = str(overOdds)
@@ -324,6 +325,8 @@ def convertRankingsProp(prop):
 		return "3pt%"
 	elif prop in ["blk", "stl"]:
 		return prop+"pg"
+	elif prop == "pts":
+		return "fgpg"
 	return prop[0]+"pg"
 
 @nbaprops_blueprint.route('/nbaprops')

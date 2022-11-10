@@ -79,6 +79,8 @@ def getYahooTeam(team):
 		return "LAR"
 	elif team == "WSH":
 		return "WAS"
+	elif team == "SDG":
+		return "LAC"
 	return team
 
 def getOppTotPlays(totPlays, team, opp):
@@ -156,6 +158,9 @@ def getDefPropsData():
 	with open(f"{prefix}static/runPassTotals.json") as fh:
 		runPassData = json.load(fh)
 
+	with open(f"{prefix}static/profootballreference/rankings.json") as fh:
+		rankings = json.load(fh)
+
 	#tacklesAnalysis()
 
 	res = []
@@ -164,7 +169,7 @@ def getDefPropsData():
 		name = fixName(name.lower())
 		team = nameRow.split(" ")[-1]
 
-		if team not in ["BAL", "NO"]:
+		if team not in ["CAR", "ATL"]:
 			continue
 			pass
 
@@ -275,13 +280,21 @@ def getDefPropsData():
 		if line:
 			diff = abs(proj - float(line))
 
+		rank = oppRank = ""
+		if "tpg" in rankings[pff_team] and "otpg" in rankings[opp]:
+			rank = rankings[pff_team]["tpg"]["rank"]
+			oppRank = rankings[opp]["otpg"]["rank"]
+
 		res.append({
 			"player": name.title(),
 			"team": getYahooTeam(team),
+			"opponent": TEAM_TRANS.get(opp, opp),
 			"hit": True,
 			"pos": pos,
 			"proj": proj,
 			"diff": diff,
+			"rank": rank,
+			"oppRank": oppRank,
 			"avg": avg,
 			"totalOver": totalOver,
 			"avgSnaps": f"{avgSnaps}% ({lastSnaps}%)",
@@ -291,7 +304,6 @@ def getDefPropsData():
 			"tackleShare": tackleShare,
 			"last5": ",".join(last5),
 			"last5WithLines": ",".join(last5WithLines),
-			"opponent": TEAM_TRANS.get(opp, opp),
 			"propType": "tackles_combined",
 			"line": line or "-",
 			"overOdds": "over ("+overOdds+")",
@@ -313,6 +325,8 @@ def getProps_route():
 
 	with open(f"{prefix}static/props.json") as fh:
 		propData = json.load(fh)
+	with open(f"{prefix}static/profootballreference/rankings.json") as fh:
+		rankings = json.load(fh)
 
 	customPropData(propData)
 
@@ -324,6 +338,7 @@ def getProps_route():
 		name = " ".join(nameRow.split(" ")[:-1])
 		team = nameRow.split(" ")[-1]
 		pff_team = getProfootballReferenceTeam(team.lower())
+		opp = get_opponents(pff_team)[CURR_WEEK]
 
 		if team == "team":
 			continue
@@ -331,7 +346,7 @@ def getProps_route():
 		with open(f"{prefix}static/profootballreference/{pff_team}/stats.json") as fh:
 			stats = json.load(fh)
 
-		if team not in ["NO", "BLT"]:
+		if team not in ["CAR", "ATL"]:
 			continue
 			pass
 
@@ -342,6 +357,9 @@ def getProps_route():
 			player = name
 		else:
 			player = translations[name+" "+getYahooTeam(team)]
+			player = player.replace(".", "")
+			if player == "terrace marshall jr":
+				player = "terrace marshall"
 			if player in stats:
 				gameLogs = stats[player]
 				gamesPlayed = 0
@@ -401,17 +419,25 @@ def getProps_route():
 			avg = 0
 			if totGames:
 				avg = round(tot / totGames, 1)
+
+			oppRank = ""
+			oppRankVal = ""
+			rankingsProp = convertRankingsProp(typ)
+			if "o"+rankingsProp in rankings[opp]:
+				oppRankVal = str(rankings[opp]["o"+rankingsProp]["season"])
+				oppRank = rankings[opp]['o'+rankingsProp]['rank']
 			#print(player)
 			res.append({
 				"player": player.title(),
 				"team": getYahooTeam(team),
+				"opponent": getYahooTeam(opp.upper()),
+				"oppRank": oppRank,
 				"hit": True,
 				"pos": pos,
 				"avg": avg,
 				"last5": last5,
 				"diff": diff,
 				"totalOver": totalOver,
-				"opponent": getYahooTeam(propData[nameRow][typ]["opponent"]),
 				"propType": typ,
 				"line": line or "-",
 				"overOdds": propData[nameRow][typ]["sideOneType"]+ " ("+overOdds+")",
@@ -420,6 +446,26 @@ def getProps_route():
 			})
 
 	return jsonify(res)
+
+def convertRankingsProp(prop):
+	if "+" in prop:
+		return prop
+	elif prop in ["pass_comp", "recv_rec"]:
+		return "cmppg"
+	elif prop in ["pass_yd", "recv_yd"]:
+		return "paydpg"
+	elif prop in ["rush_yd"]:
+		return "ydpra"
+	elif prop in ["rush_att"]:
+		return "ruattpg"
+	elif prop in ["pass_att"]:
+		return "paattpg"
+	elif prop == "pass_td":
+		return "patdpg"
+	elif prop == "pass_int":
+		return "intpg"
+	#return prop[0]+"pg"
+	return prop
 
 @props_blueprint.route('/props', methods=["POST"])
 def props_post_route():
@@ -487,77 +533,6 @@ def writeDefProps(week):
 		json.dump(props, fh, indent=4)
 
 def fixLines(propData):
-	propData["chuck clark BAL"] = {
-		"line": "o6.5",
-		"draftkings": {
-			"over": "o6.5 (-110)",
-			"under": "u6.5 (-120)"
-		}
-	}
-	propData["geno stone BAL"] = {
-		"line": "o5.5",
-		"draftkings": {
-			"over": "o5.5 (+115)",
-			"under": "u5.5 (-155)"
-		}
-	}
-	propData["marcus peters BAL"] = {
-		"line": "o3.5",
-		"draftkings": {
-			"over": "o3.5 (-110)",
-			"under": "u3.5 (-120)"
-		}
-	}
-	propData["marlon humphrey BAL"] = {
-		"line": "o3.5",
-		"draftkings": {
-			"over": "o3.5 (-105)",
-			"under": "u3.5 (-125)"
-		}
-	}
-	propData["patrick queen BAL"] = {
-		"line": "o7.5",
-		"draftkings": {
-			"over": "o7.5 (+100)",
-			"under": "u7.5 (-130)"
-		}
-	}
-
-	propData["shaquil barrett TB"] = {
-		"line": "o4.5",
-		"draftkings": {
-			"over": "o4.5 (+125)",
-			"under": "u4.5 (-165)"
-		}
-	}
-	propData["mike edwards TB"] = {
-		"line": "o6.5",
-		"draftkings": {
-			"over": "o6.5 (-155)",
-			"under": "u6.5 (+115)"
-		}
-	}
-	propData["devin white TB"] = {
-		"line": "o6.5",
-		"draftkings": {
-			"over": "o6.5 (-150)",
-			"under": "u6.5 (+115)"
-		}
-	}
-	propData["jamel dean TB"] = {
-		"line": "o5.5",
-		"draftkings": {
-			"over": "o5.5 (+115)",
-			"under": "u5.5 (-150)"
-		}
-	}
-	propData["lavonte david TB"] = {
-		"line": "o7.5",
-		"draftkings": {
-			"over": "o7.5 (-120)",
-			"under": "u7.5 (-110)"
-		}
-	}
 	pass
 
 def writeProps():
@@ -582,6 +557,7 @@ def writeProps():
 			currProps[field] = data[idxs[field]].replace('"', '')
 
 		player = currProps["player"]+" "+currProps["team"]
+		player = player.replace("Jr.", "Jr")
 		#player = translations[player]
 		if player not in props:
 			props[player] = {}

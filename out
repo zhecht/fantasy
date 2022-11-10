@@ -181,9 +181,9 @@
 			
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>NBA Stats - NBA Team Opponent Steals per Game | TeamRankings.com</title>
+        <title>NFL Football Stats - NFL Team Opponent Interceptions Thrown per Game | TeamRankings.com</title>
         <meta name="apple-mobile-web-app-title" content="TeamRankings">
-        <meta name="description" content="NBA opponent steals per game, by team."/>
+        <meta name="description" content="NFL Football opponent interceptions thrown per game, by team."/>
 		
 				
 				
@@ -215,7 +215,7 @@
 		 
 	</head>
 
-    <body class="nba notice nba-stats wider-desktop-sidebar no-mobile-tab-bar showing-ads">
+    <body class="nfl notice nfl-stats wider-desktop-sidebar no-mobile-tab-bar showing-ads">
 
 					
 	
@@ -745,10 +745,10 @@
 					        <a href="#" class="main-menu-link"><svg class="icon icon-arrow-left2"><use xlink:href="#icon-arrow-left2"></use></svg> Main Menu</a>
 				        </div> <!-- breadcrumb -->
 											
-<div class="section-nav hidden" data-section="nfl" >
+<div class="section-nav " data-section="nfl" >
 	<div class="section-nav-header">NFL</div>
-    <ul class="nav-list nav-list-with-lines ">
-        <li><a href="#" class="expand-controller "><span class="long-name ">Betting & Pool Picks</span><span class="short-name hidden">Picks</span> <svg class="icon"><use xlink:href="#icon-arrow-right2"></use></svg></a>
+    <ul class="nav-list nav-list-with-lines is-expanded">
+        <li><a href="#" class="expand-controller "><span class="long-name hidden">Betting & Pool Picks</span><span class="short-name ">Picks</span> <svg class="icon"><use xlink:href="#icon-arrow-right2"></use></svg></a>
 	        <ul class="nav-list hidden">
 				<li><a href="/football-pool-picks/">Pick'em Picks</a></li>
 				<li><a href="/nfl-survivor-pool-picks/">Survivor Picks</a></li>
@@ -767,13 +767,13 @@
 				<li><a href="/nfl/trends/" >Team Trends</a></li>
 			</ul>
 		</li>
-        <li><a href="#" class="expand-controller "><span class="long-name ">Projections & Standings</span><span class="short-name hidden">Projections</span> <svg class="icon"><use xlink:href="#icon-arrow-right2"></use></svg></a>
+        <li><a href="#" class="expand-controller "><span class="long-name hidden">Projections & Standings</span><span class="short-name ">Projections</span> <svg class="icon"><use xlink:href="#icon-arrow-right2"></use></svg></a>
             <ul class="nav-list hidden">
 				<li><a href="/nfl/standings/" >Current Standings</a></li>
 				<li><a href="/nfl/projections/standings/" >Projected Standings</a></li>
 	        </ul>
 		</li>
-        <li class="matchups-group"><a href="#" class="expand-controller "><span class="long-name ">Matchups & Schedules</span><span class="short-name hidden">Matchups</span> <svg class="icon"><use xlink:href="#icon-arrow-right2"></use></svg></a>
+        <li class="matchups-group"><a href="#" class="expand-controller "><span class="long-name hidden">Matchups & Schedules</span><span class="short-name ">Matchups</span> <svg class="icon"><use xlink:href="#icon-arrow-right2"></use></svg></a>
         	<ul class="nav-list hidden">
 				<li><a href="/nfl/schedules/season/" >Season Schedule</a></li>
 				
@@ -800,10 +800,10 @@
 				<li><a href="/nfl/rankings/teams/" >Rankings Comparison</a></li>
 	        </ul>
 		</li>
-        <li><a href="#" class="expand-controller ">Stats <svg class="icon"><use xlink:href="#icon-arrow-right2"></use></svg></a>
-	        <ul class="nav-list hidden">
+        <li><a href="#" class="expand-controller is-expanded">Stats <svg class="icon"><use xlink:href="#icon-arrow-right2"></use></svg></a>
+	        <ul class="nav-list ">
 				<li><a href="/nfl/stats/" >All Stats</a></li>
-				<li><a href="/nfl/team-stats/" >Team Stats</a></li>
+				<li><a href="/nfl/team-stats/" class="is-current">Team Stats</a></li>
 				<li><a href="/nfl/player-stats/" >Player Stats</a></li>
 			</ul>
 		</li>
@@ -880,10 +880,7 @@
 	        <ul class="nav-list hidden">
 				<li><a href="/ncf/schedules/season/" >Season Schedule</a></li>
                                 
-                                                                                          <li><a href="/college-football/matchup/huskies-broncos-week-11-2022" >N Illinois @ W Michigan</a></li>
-                                                              <li><a href="/college-football/matchup/bulls-chippewas-week-11-2022" >Buffalo @ Central Mich</a></li>
-                                                              <li><a href="/college-football/matchup/golden-flashes-falcons-week-11-2022" >Kent State @ Bowling Grn</a></li>
-                                                              <li><a href="/college-football/matchup/golden-hurricane-tigers-week-11-2022" >Tulsa @ Memphis</a></li>
+                                                                                          <li><a href="/college-football/matchup/golden-hurricane-tigers-week-11-2022" >Tulsa @ Memphis</a></li>
                                                               <li><a href="/college-football/matchup/eagles-ragin-cajuns-week-11-2022" >GA Southern @ LA Lafayette</a></li>
                                                               <li><a href="/college-football/matchup/pirates-bearcats-week-11-2022" >E Carolina @ Cincinnati</a></li>
                                                               <li><a href="/college-football/matchup/buffaloes-trojans-week-11-2022" >Colorado @ USC</a></li>
@@ -895,6 +892,9 @@
                                                               <li><a href="/college-football/matchup/hoosiers-buckeyes-week-11-2022" >Indiana @ Ohio State</a></li>
                                                               <li><a href="/college-football/matchup/scarlet-knights-spartans-week-11-2022" >Rutgers @ Michigan St</a></li>
                                                               <li><a href="/college-football/matchup/sooners-mountaineers-week-11-2022" >Oklahoma @ W Virginia</a></li>
+                                                              <li><a href="/college-football/matchup/panthers-cavaliers-week-11-2022" >Pittsburgh @ Virginia</a></li>
+                                                              <li><a href="/college-football/matchup/tigers-volunteers-week-11-2022" >Missouri @ Tennessee</a></li>
+                                                              <li><a href="/college-football/matchup/commodores-wildcats-week-11-2022" >Vanderbilt @ Kentucky</a></li>
                                                           				<li><a href="/ncf/schedules/season/">More...</a></li>
 			</ul>
 		</li>
@@ -1016,10 +1016,10 @@
 </div> <!-- mlb -->
 						
 
-<div class="section-nav " data-section="nba" >
+<div class="section-nav hidden" data-section="nba" >
 	<div class="section-nav-header">NBA</div>
-    <ul class="nav-list nav-list-with-lines is-expanded">     
-                <li><a href="#" class="expand-controller "><span class="long-name hidden">Betting Picks</span><span class="short-name ">Picks</span> <svg class="icon"><use xlink:href="#icon-arrow-right2"></use></svg></a>
+    <ul class="nav-list nav-list-with-lines ">     
+                <li><a href="#" class="expand-controller "><span class="long-name ">Betting Picks</span><span class="short-name hidden">Picks</span> <svg class="icon"><use xlink:href="#icon-arrow-right2"></use></svg></a>
 	        <ul class="nav-list hidden">
 				<li><a href="/nba-betting-picks/" class="">Betting Picks Grid</a></li>
 				<li><a href="/nba-win-picks/" class="">Game Winner Picks</a></li>
@@ -1036,30 +1036,21 @@
 				<li><a href="/nba/trends/" >Team Trends</a></li>
 			</ul>
 		</li>
-        <li><a href="#" class="expand-controller "><span class="long-name hidden">Projections & Standings</span><span class="short-name ">Projections</span> <svg class="icon"><use xlink:href="#icon-arrow-right2"></use></svg></a>
+        <li><a href="#" class="expand-controller "><span class="long-name ">Projections & Standings</span><span class="short-name hidden">Projections</span> <svg class="icon"><use xlink:href="#icon-arrow-right2"></use></svg></a>
             <ul class="nav-list hidden">
 				<li><a href="/nba/standings/" >Current Standings</a></li>
 				<li><a href="/nba/projections/standings/" >Projected Standings</a></li>
 	        </ul>
 		</li>
-        <li><a href="#" class="expand-controller "><span class="long-name hidden">Matchups & Schedules</span><span class="short-name ">Matchups</span> <svg class="icon"><use xlink:href="#icon-arrow-right2"></use></svg></a>
+        <li><a href="#" class="expand-controller "><span class="long-name ">Matchups & Schedules</span><span class="short-name hidden">Matchups</span> <svg class="icon"><use xlink:href="#icon-arrow-right2"></use></svg></a>
         	<ul class="nav-list hidden">
 				<li><a href="/nba/schedules/" >Daily Schedule</a></li>
 				<li><a href="/nba/schedules/season/" >Season Schedule</a></li>
                                 
-                                                                                          <li><a href="/nba/matchup/pelicans-bulls-2022-11-09" >New Orleans @ Chicago</a></li>
-                                                              <li><a href="/nba/matchup/jazz-hawks-2022-11-09" >Utah @ Atlanta</a></li>
-                                                              <li><a href="/nba/matchup/knicks-nets-2022-11-09" >New York @ Brooklyn</a></li>
-                                                              <li><a href="/nba/matchup/nuggets-pacers-2022-11-09" >Denver @ Indiana</a></li>
-                                                              <li><a href="/nba/matchup/suns-timberwolves-2022-11-09" >Phoenix @ Minnesota</a></li>
-                                                              <li><a href="/nba/matchup/trail-blazers-hornets-2022-11-09" >Portland @ Charlotte</a></li>
-                                                              <li><a href="/nba/matchup/bucks-thunder-2022-11-09" >Milwaukee @ Okla City</a></li>
-                                                              <li><a href="/nba/matchup/lakers-clippers-2022-11-09" >LA Lakers @ LA Clippers</a></li>
-                                                              <li><a href="/nba/matchup/cavaliers-kings-2022-11-09" >Cleveland @ Sacramento</a></li>
-                                                              <li><a href="/nba/matchup/mavericks-magic-2022-11-09" >Dallas @ Orlando</a></li>
-                                                              <li><a href="/nba/matchup/grizzlies-spurs-2022-11-09" >Memphis @ San Antonio</a></li>
-                                                              <li><a href="/nba/matchup/rockets-raptors-2022-11-09" >Houston @ Toronto</a></li>
-                                                              <li><a href="/nba/matchup/pistons-celtics-2022-11-09" >Detroit @ Boston</a></li>
+                                                                                          <li><a href="/nba/matchup/76ers-hawks-2022-11-10" >Philadelphia @ Atlanta</a></li>
+                                                              <li><a href="/nba/matchup/trail-blazers-pelicans-2022-11-10" >Portland @ New Orleans</a></li>
+                                                              <li><a href="/nba/matchup/mavericks-wizards-2022-11-10" >Dallas @ Washington</a></li>
+                                                              <li><a href="/nba/matchup/hornets-heat-2022-11-10" >Charlotte @ Miami</a></li>
                                                           			</ul>
 		</li>
         <li><a href="#" class="expand-controller ">Rankings <svg class="icon"><use xlink:href="#icon-arrow-right2"></use></svg></a>
@@ -1069,10 +1060,10 @@
 				<li><a href="/nba/rankings/teams/" >Rankings Comparison</a></li>
 	        </ul>
 		</li>
-        <li><a href="#" class="expand-controller is-expanded">Stats <svg class="icon"><use xlink:href="#icon-arrow-right2"></use></svg></a>
-	        <ul class="nav-list ">
+        <li><a href="#" class="expand-controller ">Stats <svg class="icon"><use xlink:href="#icon-arrow-right2"></use></svg></a>
+	        <ul class="nav-list hidden">
 				<li><a href="/nba/stats/" >All Stats</a></li>
-				<li><a href="/nba/team-stats/" class="is-current">Team Stats</a></li>
+				<li><a href="/nba/team-stats/" >Team Stats</a></li>
 				<li><a href="/nba/player-stats/" >Player Stats</a></li>
 			</ul>
 		</li>
@@ -1150,18 +1141,21 @@
 				<li><a href="/ncb/schedules/" >Daily Schedule</a></li>
 				<li><a href="/ncb/schedules/season/" >Season Schedule</a></li>
                                 
-                                                                                          <li><a href="/ncaa-basketball/matchup/jackrabbits-broncos-2022-11-09" >S Dakota St @ Boise State</a></li>
-                                                              <li><a href="/ncaa-basketball/matchup/eagles-toreros-2022-11-09" >Fla Gulf Cst @ San Diego</a></li>
-                                                              <li><a href="/ncaa-basketball/matchup/wildcats-raiders-2022-11-09" >Davidson @ Wright State</a></li>
-                                                              <li><a href="/ncaa-basketball/matchup/knights-cardinals-2022-11-09" >Bellarmine @ Louisville</a></li>
-                                                              <li><a href="/ncaa-basketball/matchup/hawks-pirates-2022-11-09" >Monmouth @ Seton Hall</a></li>
-                                                              <li><a href="/ncaa-basketball/matchup/bisons-coyotes-2022-11-09" >Lipscomb @ South Dakota</a></li>
-                                                              <li><a href="/ncaa-basketball/matchup/roos-tigers-2022-11-09" >UMKC @ LSU</a></li>
-                                                              <li><a href="/ncaa-basketball/matchup/skyhawks-penguins-2022-11-09" >TN Martin @ Youngs St</a></li>
-                                                              <li><a href="/ncaa-basketball/matchup/pirates-dukes-2022-11-09" >Hampton @ James Mad</a></li>
-                                                              <li><a href="/ncaa-basketball/matchup/jaguars-bulldogs-2022-11-09" >IUPUI @ Drake</a></li>
-                                                              <li><a href="/ncaa-basketball/matchup/rattlers-pilots-2022-11-09" >Florida A&amp;M @ Portland</a></li>
-                                                              <li><a href="/ncaa-basketball/matchup/eagles-red-foxes-2022-11-09" >American @ Marist</a></li>
+                                                                                          <li><a href="/ncaa-basketball/matchup/salukis-cowboys-2022-11-10" >S Illinois @ Oklahoma St</a></li>
+                                                              <li><a href="/ncaa-basketball/matchup/catamounts-gaels-2022-11-10" >Vermont @ St Marys</a></li>
+                                                              <li><a href="/ncaa-basketball/matchup/tigers-minutemen-2022-11-10" >Towson @ U Mass</a></li>
+                                                              <li><a href="/ncaa-basketball/matchup/tigers-red-raiders-2022-11-10" >TX Southern @ Texas Tech</a></li>
+                                                              <li><a href="/ncaa-basketball/matchup/bison-jayhawks-2022-11-10" >N Dakota St @ Kansas</a></li>
+                                                              <li><a href="/ncaa-basketball/matchup/hilltoppers-colonels-2022-11-10" >W Kentucky @ E Kentucky</a></li>
+                                                              <li><a href="/ncaa-basketball/matchup/greyhounds-nittany-lions-2022-11-10" >Loyola-MD @ Penn State</a></li>
+                                                              <li><a href="/ncaa-basketball/matchup/colonels-cowboys-2022-11-10" >Nicholls St @ Wyoming</a></li>
+                                                              <li><a href="/ncaa-basketball/matchup/runnin-bulldogs-lumberjacks-2022-11-10" >Gard-Webb @ Ste F Austin</a></li>
+                                                              <li><a href="/ncaa-basketball/matchup/raiders-bears-2022-11-10" >Colgate @ Brown</a></li>
+                                                              <li><a href="/ncaa-basketball/matchup/highlanders-lions-2022-11-10" >UC Riverside @ Loyola Mymt</a></li>
+                                                              <li><a href="/ncaa-basketball/matchup/highlanders-fighting-irish-2022-11-10" >Radford @ Notre Dame</a></li>
+                                                              <li><a href="/ncaa-basketball/matchup/eagles-broncos-2022-11-10" >GA Southern @ Santa Clara</a></li>
+                                                              <li><a href="/ncaa-basketball/matchup/mustangs-dons-2022-11-10" >Cal Poly @ San Francisco</a></li>
+                                                              <li><a href="/ncaa-basketball/matchup/lumberjacks-sun-devils-2022-11-10" >N Arizona @ Arizona St</a></li>
                                                           				<li><a href="/ncb/schedules/">More...</a></li>
 			</ul>
 		</li>
@@ -1454,7 +1448,7 @@
 					
 					
 					
-									        <li class="top-level-list-item has-subnav"><a href="/nfl/" class="top-level-list-link subnav-toggle ">NFL</a>
+									        <li class="top-level-list-item has-subnav"><a href="/nfl/" class="top-level-list-link subnav-toggle is-current">NFL</a>
 							<div class="main-nav-subnav two-subnav-columns clearfix ">
 	<div class="subnav-column-wrapper">	
 		<div class="subnav-column">
@@ -1488,7 +1482,7 @@
 	</div> <!-- subnav-column-wrapper -->	   			        	
 </div> <!-- main-nav-subnav -->						</li>
 					
-										<li class="top-level-list-item has-subnav"><a class="top-level-list-link subnav-toggle is-current" href="/nba/">NBA</a>
+										<li class="top-level-list-item has-subnav"><a class="top-level-list-link subnav-toggle " href="/nba/">NBA</a>
 						<div class="main-nav-subnav two-subnav-columns clearfix">
 	<div class="subnav-column-wrapper">	
 		<div class="subnav-column">
@@ -1711,7 +1705,241 @@
 	</div> <!-- ad -->
 </div> <!-- top-banner-ad -->							</div> <!-- mobile-only -->
 			
-																					
+										<div class="desktop-only">
+																						<div class="newsletter-signup-box display-desktop-bar">
+		
+				
+				
+		<form class="team-newsletter-signup" method="get" action="/api/team-newsletter/subscribe/">
+
+				
+					<div class="clearfix">
+			<div class="newsletter-signup-orange-arrow">Who’s your favorite NFL team?</div>
+		
+
+					<div class="newsletter-signup-logo-wrapper clearfix">
+				<div class="newsletter-signup-logo-tile-wrapper">
+	<a href="#" title="Seattle" data-team-id="26">
+		<span class="visually hidden">Seattle</span>
+		<div class="newsletter-signup-logo-tile nfl-logo logo-26"></div>
+	</a>
+</div>
+
+<div class="newsletter-signup-logo-tile-wrapper">
+	<a href="#" title="New England" data-team-id="17">
+		<span class="visually hidden">New England</span>
+		<div class="newsletter-signup-logo-tile nfl-logo logo-17"></div>
+	</a>
+</div>
+
+<div class="newsletter-signup-logo-tile-wrapper">
+	<a href="#" title="Kasnas City" data-team-id="12">
+		<span class="visually hidden">Kansas City</span>
+		<div class="newsletter-signup-logo-tile nfl-logo logo-12"></div>
+	</a>
+</div>
+
+<div class="newsletter-signup-logo-tile-wrapper">
+	<a href="#" title="Carolina" data-team-id="29">
+		<span class="visually hidden">Carolina</span>
+		<div class="newsletter-signup-logo-tile nfl-logo logo-29"></div>
+	</a>
+</div>
+
+<div class="newsletter-signup-logo-tile-wrapper">
+	<a href="#" title="Denver" data-team-id="7">
+		<span class="visually hidden">Denver</span>
+		<div class="newsletter-signup-logo-tile nfl-logo logo-7"></div>
+	</a>
+</div>
+
+<div class="newsletter-signup-logo-tile-wrapper">
+	<a href="#" title="Cincinnati" data-team-id="4">
+		<span class="visually hidden">Cincinnati</span>
+		<div class="newsletter-signup-logo-tile nfl-logo logo-4"></div>
+	</a>
+</div>
+
+<div class="newsletter-signup-logo-tile-wrapper">
+	<a href="#" title="Arizona" data-team-id="22">
+		<span class="visually hidden">Arizona</span>
+		<div class="newsletter-signup-logo-tile nfl-logo logo-22"></div>
+	</a>
+</div>
+
+<div class="newsletter-signup-logo-tile-wrapper">
+	<a href="#" title="Pittsburgh" data-team-id="23">
+		<span class="visually hidden">Pittsburgh</span>
+		<div class="newsletter-signup-logo-tile nfl-logo logo-23"></div>
+	</a>
+</div>
+
+<div class="newsletter-signup-logo-tile-wrapper">
+	<a href="#" title="Green Bay" data-team-id="9">
+		<span class="visually hidden">Green Bay</span>
+		<div class="newsletter-signup-logo-tile nfl-logo logo-9"></div>
+	</a>
+</div>
+
+<div class="newsletter-signup-logo-tile-wrapper">
+	<a href="#" title="Minnesota" data-team-id="16">
+		<span class="visually hidden">Minnesota</span>
+		<div class="newsletter-signup-logo-tile nfl-logo logo-16"></div>
+	</a>
+</div>
+
+<div class="newsletter-signup-logo-tile-wrapper">
+	<a href="#" title="NY Jets" data-team-id="20">
+		<span class="visually hidden">NY Jets</span>
+		<div class="newsletter-signup-logo-tile nfl-logo logo-20"></div>
+	</a>
+</div>
+
+<div class="newsletter-signup-logo-tile-wrapper">
+	<a href="#" title="Buffalo" data-team-id="2">
+		<span class="visually hidden">Buffalo</span>
+		<div class="newsletter-signup-logo-tile nfl-logo logo-2"></div>
+	</a>
+</div>
+
+<div class="newsletter-signup-logo-tile-wrapper">
+	<a href="#" title="Detroit" data-team-id="8">
+		<span class="visually hidden">Detroit</span>
+		<div class="newsletter-signup-logo-tile nfl-logo logo-8"></div>
+	</a>
+</div>
+
+<div class="newsletter-signup-logo-tile-wrapper">
+	<a href="#" title="Houston" data-team-id="34">
+		<span class="visually hidden">Houston</span>
+		<div class="newsletter-signup-logo-tile nfl-logo logo-34"></div>
+	</a>
+</div>
+
+<div class="newsletter-signup-logo-tile-wrapper">
+	<a href="#" title="Baltimore" data-team-id="33">
+		<span class="visually hidden">Baltimore</span>
+		<div class="newsletter-signup-logo-tile nfl-logo logo-33"></div>
+	</a>
+</div>
+
+<div class="newsletter-signup-logo-tile-wrapper">
+	<a href="#" title="St Louis" data-team-id="14">
+		<span class="visually hidden">St Louis</span>
+		<div class="newsletter-signup-logo-tile nfl-logo logo-14"></div>
+	</a>
+</div>
+
+<div class="newsletter-signup-logo-tile-wrapper">
+	<a href="#" title="Philadelphia" data-team-id="21">
+		<span class="visually hidden">Philadelphia</span>
+		<div class="newsletter-signup-logo-tile nfl-logo logo-21"></div>
+	</a>
+</div>
+
+<div class="newsletter-signup-logo-tile-wrapper">
+	<a href="#" title="San Diego" data-team-id="24">
+		<span class="visually hidden">San Diego</span>
+		<div class="newsletter-signup-logo-tile nfl-logo logo-24"></div>
+	</a>
+</div>
+
+<div class="newsletter-signup-logo-tile-wrapper">
+	<a href="#" title="Indianapolis" data-team-id="11">
+		<span class="visually hidden">Indianapolis</span>
+		<div class="newsletter-signup-logo-tile nfl-logo logo-11"></div>
+	</a>
+</div>
+
+<div class="newsletter-signup-logo-tile-wrapper">
+	<a href="#" title="NY Giants" data-team-id="19">
+		<span class="visually hidden">NY Giants</span>
+		<div class="newsletter-signup-logo-tile nfl-logo logo-19"></div>
+	</a>
+</div>			</div> <!-- clearfix -->			
+				
+		
+					<div class="newsletter-signup-or-text">or</div>
+				
+								<div class="form-row newsletter-form-row-team-chooser">
+					<select id="team-chooser" class="tr-select">
+						<option value="choose">Full Team List</option>
+													<option value="22" data-conference="102" data-full-name="Arizona" data-mascot="Cardinals" data-logo-url="/images/logos-teams/nfl/250/22.png?v=2022">Arizona</option>
+													<option value="1" data-conference="102" data-full-name="Atlanta" data-mascot="Falcons" data-logo-url="/images/logos-teams/nfl/250/1.png?v=2022">Atlanta</option>
+													<option value="33" data-conference="101" data-full-name="Baltimore" data-mascot="Ravens" data-logo-url="/images/logos-teams/nfl/250/33.png?v=2022">Baltimore</option>
+													<option value="2" data-conference="101" data-full-name="Buffalo" data-mascot="Bills" data-logo-url="/images/logos-teams/nfl/250/2.png?v=2022">Buffalo</option>
+													<option value="29" data-conference="102" data-full-name="Carolina" data-mascot="Panthers" data-logo-url="/images/logos-teams/nfl/250/29.png?v=2022">Carolina</option>
+													<option value="3" data-conference="102" data-full-name="Chicago" data-mascot="Bears" data-logo-url="/images/logos-teams/nfl/250/3.png?v=2022">Chicago</option>
+													<option value="4" data-conference="101" data-full-name="Cincinnati" data-mascot="Bengals" data-logo-url="/images/logos-teams/nfl/250/4.png?v=2022">Cincinnati</option>
+													<option value="5" data-conference="101" data-full-name="Cleveland" data-mascot="Browns" data-logo-url="/images/logos-teams/nfl/250/5.png?v=2022">Cleveland</option>
+													<option value="6" data-conference="102" data-full-name="Dallas" data-mascot="Cowboys" data-logo-url="/images/logos-teams/nfl/250/6.png?v=2022">Dallas</option>
+													<option value="7" data-conference="101" data-full-name="Denver" data-mascot="Broncos" data-logo-url="/images/logos-teams/nfl/250/7.png?v=2022">Denver</option>
+													<option value="8" data-conference="102" data-full-name="Detroit" data-mascot="Lions" data-logo-url="/images/logos-teams/nfl/250/8.png?v=2022">Detroit</option>
+													<option value="9" data-conference="102" data-full-name="Green Bay" data-mascot="Packers" data-logo-url="/images/logos-teams/nfl/250/9.png?v=2022">Green Bay</option>
+													<option value="34" data-conference="101" data-full-name="Houston" data-mascot="Texans" data-logo-url="/images/logos-teams/nfl/250/34.png?v=2022">Houston</option>
+													<option value="11" data-conference="101" data-full-name="Indianapolis" data-mascot="Colts" data-logo-url="/images/logos-teams/nfl/250/11.png?v=2022">Indianapolis</option>
+													<option value="30" data-conference="101" data-full-name="Jacksonville" data-mascot="Jaguars" data-logo-url="/images/logos-teams/nfl/250/30.png?v=2022">Jacksonville</option>
+													<option value="12" data-conference="101" data-full-name="Kansas City" data-mascot="Chiefs" data-logo-url="/images/logos-teams/nfl/250/12.png?v=2022">Kansas City</option>
+													<option value="24" data-conference="101" data-full-name="Los Angeles" data-mascot="Chargers" data-logo-url="/images/logos-teams/nfl/250/24.png?v=2022">LA Chargers</option>
+													<option value="14" data-conference="102" data-full-name="Los Angeles" data-mascot="Rams" data-logo-url="/images/logos-teams/nfl/250/14.png?v=2022">LA Rams</option>
+													<option value="13" data-conference="101" data-full-name="Las Vegas" data-mascot="Raiders" data-logo-url="/images/logos-teams/nfl/250/13.png?v=2022">Las Vegas</option>
+													<option value="15" data-conference="101" data-full-name="Miami" data-mascot="Dolphins" data-logo-url="/images/logos-teams/nfl/250/15.png?v=2022">Miami</option>
+													<option value="16" data-conference="102" data-full-name="Minnesota" data-mascot="Vikings" data-logo-url="/images/logos-teams/nfl/250/16.png?v=2022">Minnesota</option>
+													<option value="17" data-conference="101" data-full-name="New England" data-mascot="Patriots" data-logo-url="/images/logos-teams/nfl/250/17.png?v=2022">New England</option>
+													<option value="18" data-conference="102" data-full-name="New Orleans" data-mascot="Saints" data-logo-url="/images/logos-teams/nfl/250/18.png?v=2022">New Orleans</option>
+													<option value="19" data-conference="102" data-full-name="New York" data-mascot="Giants" data-logo-url="/images/logos-teams/nfl/250/19.png?v=2022">NY Giants</option>
+													<option value="20" data-conference="101" data-full-name="New York" data-mascot="Jets" data-logo-url="/images/logos-teams/nfl/250/20.png?v=2022">NY Jets</option>
+													<option value="21" data-conference="102" data-full-name="Philadelphia" data-mascot="Eagles" data-logo-url="/images/logos-teams/nfl/250/21.png?v=2022">Philadelphia</option>
+													<option value="23" data-conference="101" data-full-name="Pittsburgh" data-mascot="Steelers" data-logo-url="/images/logos-teams/nfl/250/23.png?v=2022">Pittsburgh</option>
+													<option value="25" data-conference="102" data-full-name="San Francisco" data-mascot="49ers" data-logo-url="/images/logos-teams/nfl/250/25.png?v=2022">San Francisco</option>
+													<option value="26" data-conference="102" data-full-name="Seattle" data-mascot="Seahawks" data-logo-url="/images/logos-teams/nfl/250/26.png?v=2022">Seattle</option>
+													<option value="27" data-conference="102" data-full-name="Tampa Bay" data-mascot="Buccaneers" data-logo-url="/images/logos-teams/nfl/250/27.png?v=2022">Tampa Bay</option>
+													<option value="10" data-conference="101" data-full-name="Tennessee" data-mascot="Titans" data-logo-url="/images/logos-teams/nfl/250/10.png?v=2022">Tennessee</option>
+													<option value="28" data-conference="102" data-full-name="Washington" data-mascot="Commanders" data-logo-url="/images/logos-teams/nfl/250/28.png?v=2022">Washington</option>
+											</select>
+				</div>						
+						
+					</div> <!-- clearfix -->
+				
+		
+					<div class="desktop-bar-part-2 hidden">
+				<div class="desktop-bar-content-wrapper">
+					<div class="desktop-bar-headline">Be the smartest <span class="desktop-bar-mascot"></span> fan in the room.</div>
+					<p class="desktop-bar-text">Enter your email and we'll send you exclusive <span class="desktop-bar-full-name"></span> predictions and analysis. Give it a try, it's free!</p>
+					
+					<div class="desktop-bar-wrapper clearfix">
+						<div class="desktop-bar-image-wrapper"></div>
+						<div class="desktop-bar-text-wrapper">
+							<div class="form-row">
+								<label for="email">Your Email Address</label>
+								<input type="email" name="email" class="email-val" value="" autocomplete="off" autocorrect="off" autocapitalize="off">
+								<div class="email-suggestion"></div>
+							</div>
+							<div class="hidden msg msg-error space-bottom"></div>
+							<div class="form-row">
+								<input type="submit" class="team-signup-submit btn btn-blue btn-width-full" value="Get Updates">
+							</div>
+							<input type="hidden" name="team_id" value="" class="team-id-val">
+							<input type="hidden" name="formtime" value="1668096483" class="formtime-val">
+							<input type="hidden" name="league_abbr" value="nfl" class="league-abbr-val">
+						</div> <!-- desktop-bar-text-wrapper -->
+					</div> <!-- desktop-bar-wrapper -->
+				</div> <!-- desktop-bar-content-wrapper -->
+			</div> <!-- desktop-bar-part-2 -->
+			<div class="msg msg-success space-top text-center hidden"></div>
+				</form>
+		
+			</div> <!-- newsletter-signup-box -->
+
+		
+	<script type="text/javascript">
+		$(document).ready(function(){
+			handleTeamNewsletterSignups('desktop-bar', 0);
+		});
+	</script>
+	
+				</div>
+																		
 			<div class="main-wrapper clearfix has-left-sidebar">
 							
 
@@ -1720,7 +1948,7 @@
 
 
 
-	<h1 id="h1-title" >NBA Team Opponent Steals per Game</h1>
+	<h1 id="h1-title" >NFL Team Opponent Interceptions Thrown per Game</h1>
 
 
 
@@ -1748,207 +1976,286 @@
 		<div class="expand-content hidden">
 	        
 <ul class="chooser-list">
- 			<li class="expand-section"><a href="#" class="expand-controller">Scoring <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
+ 			<li class="expand-section"><a href="#" class="expand-controller">Scoring Offense <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
 			<ul class="expand-content hidden">
-															<li><a href="/nba/stat/points-per-game">Points per Game</a></li>
-																				<li><a href="/nba/stat/average-scoring-margin">Average Scoring Margin</a></li>
-																				<li><a href="/nba/stat/offensive-efficiency">Offensive Efficiency</a></li>
-																				<li><a href="/nba/stat/floor-percentage">Floor %</a></li>
-																				<li><a href="/nba/stat/1st-quarter-points-per-game">1st Quarter Points per Game</a></li>
-																				<li><a href="/nba/stat/2nd-quarter-points-per-game">2nd Quarter Points per Game</a></li>
-																				<li><a href="/nba/stat/3rd-quarter-points-per-game">3rd Quarter Points per Game</a></li>
-																				<li><a href="/nba/stat/4th-quarter-points-per-game">4th Quarter Points per Game</a></li>
-																				<li><a href="/nba/stat/1st-half-points-per-game">1st Half Points per Game</a></li>
-																				<li><a href="/nba/stat/2nd-half-points-per-game">2nd Half Points per Game</a></li>
-																				<li><a href="/nba/stat/overtime-points-per-game">Overtime Points per Game</a></li>
-																				<li><a href="/nba/stat/points-in-paint-per-game">Points in Paint per Game</a></li>
-																				<li><a href="/nba/stat/fastbreak-points-per-game">Fastbreak Points per Game</a></li>
-																				<li><a href="/nba/stat/fastbreak-efficiency">Fastbreak Efficiency</a></li>
-																				<li><a href="/nba/stat/average-biggest-lead">Average Biggest Lead</a></li>
-																				<li><a href="/nba/stat/average-1st-quarter-margin">Average 1st Quarter Margin</a></li>
-																				<li><a href="/nba/stat/average-2nd-quarter-margin">Average 2nd Quarter Margin</a></li>
-																				<li><a href="/nba/stat/average-3rd-quarter-margin">Average 3rd Quarter Margin</a></li>
-																				<li><a href="/nba/stat/average-4th-quarter-margin">Average 4th Quarter Margin</a></li>
-																				<li><a href="/nba/stat/average-1st-half-margin">Average 1st Half Margin</a></li>
-																				<li><a href="/nba/stat/average-2nd-half-margin">Average 2nd Half Margin</a></li>
-																				<li><a href="/nba/stat/average-overtime-margin">Average Overtime Margin</a></li>
-																				<li><a href="/nba/stat/average-margin-thru-3-quarters">Average Margin Thru 3 Quarters</a></li>
-																				<li><a href="/nba/stat/points-from-2-pointers">Points from 2 pointers</a></li>
-																				<li><a href="/nba/stat/points-from-3-pointers">Points from 3 pointers</a></li>
-																				<li><a href="/nba/stat/percent-of-points-from-2-pointers">Percent of Points from 2 Pointers</a></li>
-																				<li><a href="/nba/stat/percent-of-points-from-3-pointers">Percent of Points from 3 Pointers</a></li>
-																				<li><a href="/nba/stat/percent-of-points-from-free-throws">Percent of Points from Free Throws</a></li>
+															<li><a href="/nfl/stat/points-per-game">Points per Game</a></li>
+																				<li><a href="/nfl/stat/average-scoring-margin">Average Scoring Margin</a></li>
+																				<li><a href="/nfl/stat/yards-per-point">Yards per Point</a></li>
+																				<li><a href="/nfl/stat/yards-per-point-margin">Yards per Point Margin</a></li>
+																				<li><a href="/nfl/stat/points-per-play">Points per Play</a></li>
+																				<li><a href="/nfl/stat/points-per-play-margin">Points per Play Margin</a></li>
+																				<li><a href="/nfl/stat/touchdowns-per-game">Touchdowns per Game</a></li>
+																				<li><a href="/nfl/stat/red-zone-scoring-attempts-per-game">Red Zone Scoring Attempts per Game</a></li>
+																				<li><a href="/nfl/stat/red-zone-scores-per-game">Red Zone Scores per Game (TDs only)</a></li>
+																				<li><a href="/nfl/stat/red-zone-scoring-pct">Red Zone Scoring Percentage (TD only)</a></li>
+																				<li><a href="/nfl/stat/extra-point-attempts-per-game">Extra Point Attempts per Game</a></li>
+																				<li><a href="/nfl/stat/extra-points-made-per-game">Extra Points Made per Game</a></li>
+																				<li><a href="/nfl/stat/two-point-conversion-attempts-per-game">Two Point Conversion Attempts per Game</a></li>
+																				<li><a href="/nfl/stat/two-point-conversions-per-game">Two Point Conversions per Game</a></li>
+																				<li><a href="/nfl/stat/points-per-field-goal-attempt">Points per Field Goal Attempt</a></li>
+																				<li><a href="/nfl/stat/extra-point-conversion-pct">Extra Point Conversion Percentage</a></li>
+																				<li><a href="/nfl/stat/two-point-conversion-pct">Two Point Conversion Percentage</a></li>
+																				<li><a href="/nfl/stat/offensive-touchdowns-per-game">Offensive Touchdowns per Game</a></li>
+																				<li><a href="/nfl/stat/defensive-touchdowns-per-game">Defensive Touchdowns per Game</a></li>
+																				<li><a href="/nfl/stat/special-teams-touchdowns-per-game">Special Teams Touchdowns per Game</a></li>
+																				<li><a href="/nfl/stat/offensive-points-per-game">Offensive Points per Game (Estimated)</a></li>
+																				<li><a href="/nfl/stat/defensive-points-per-game">Defensive Points per Game (Estimated)</a></li>
+																				<li><a href="/nfl/stat/special-teams-points-per-game">Special Teams Points per Game (Estimated)</a></li>
+																				<li><a href="/nfl/stat/offensive-point-share-pct">Offensive Point Share Percentage (Estimated)</a></li>
 												</ul>
 		</li>
-			<li class="expand-section"><a href="#" class="expand-controller">Shooting <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
+			<li class="expand-section"><a href="#" class="expand-controller">Offense by Quarter <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
 			<ul class="expand-content hidden">
-															<li><a href="/nba/stat/shooting-pct">Shooting %</a></li>
-																				<li><a href="/nba/stat/effective-field-goal-pct">Effective Field Goal %</a></li>
-																				<li><a href="/nba/stat/three-point-pct">Three Point %</a></li>
-																				<li><a href="/nba/stat/two-point-pct">Two Point %</a></li>
-																				<li><a href="/nba/stat/free-throw-pct">Free Throw %</a></li>
-																				<li><a href="/nba/stat/true-shooting-percentage">True Shooting %</a></li>
-																				<li><a href="/nba/stat/field-goals-made-per-game">Field Goals Made per Game</a></li>
-																				<li><a href="/nba/stat/field-goals-attempted-per-game">Field Goals Attempted per Game</a></li>
-																				<li><a href="/nba/stat/three-pointers-made-per-game">Three Pointers Made per Game</a></li>
-																				<li><a href="/nba/stat/three-pointers-attempted-per-game">Three Pointers Attempted per Game</a></li>
-																				<li><a href="/nba/stat/free-throws-made-per-game">Free Throws Made per Game</a></li>
-																				<li><a href="/nba/stat/free-throws-attempted-per-game">Free Throws Attempted per Game</a></li>
-																				<li><a href="/nba/stat/three-point-rate">Three Point Rate</a></li>
-																				<li><a href="/nba/stat/two-point-rate">Two Point Rate</a></li>
-																				<li><a href="/nba/stat/fta-per-fga">FTA per FGA</a></li>
-																				<li><a href="/nba/stat/ftm-per-100-possessions">FTM per 100 Possessions</a></li>
-																				<li><a href="/nba/stat/free-throw-rate">Free Throws Attempted per Offensive Play</a></li>
-																				<li><a href="/nba/stat/non-blocked-2-pt-pct">Non-blocked 2 Pt %</a></li>
+															<li><a href="/nfl/stat/1st-quarter-points-per-game">1st Quarter Points/Game</a></li>
+																				<li><a href="/nfl/stat/2nd-quarter-points-per-game">2nd Quarter Points/Game</a></li>
+																				<li><a href="/nfl/stat/3rd-quarter-points-per-game">3rd Quarter Points/Game</a></li>
+																				<li><a href="/nfl/stat/4th-quarter-points-per-game">4th Quarter Points/Game</a></li>
+																				<li><a href="/nfl/stat/overtime-points-per-game">Overtime Points/Game</a></li>
+																				<li><a href="/nfl/stat/1st-half-points-per-game">1st Half Points/Game</a></li>
+																				<li><a href="/nfl/stat/2nd-half-points-per-game">2nd Half Points/Game</a></li>
+																				<li><a href="/nfl/stat/1st-quarter-time-of-possession-share-pct">1st Quarter Time of Possession Share %</a></li>
+																				<li><a href="/nfl/stat/2nd-quarter-time-of-possession-share-pct">2nd Quarter Time of Possession Share %</a></li>
+																				<li><a href="/nfl/stat/3rd-quarter-time-of-possession-share-pct">3rd Quarter Time of Possession Share %</a></li>
+																				<li><a href="/nfl/stat/4th-quarter-time-of-possession-share-pct">4th Quarter Time of Possession Share %</a></li>
+																				<li><a href="/nfl/stat/1st-half-time-of-possession-share-pct">1st Half Time of Possession Share %</a></li>
+																				<li><a href="/nfl/stat/2nd-half-time-of-possession-share-pct">2nd Half Time of Possession Share %</a></li>
 												</ul>
 		</li>
-			<li class="expand-section"><a href="#" class="expand-controller">Rebounding <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
+			<li class="expand-section"><a href="#" class="expand-controller">Total Offense <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
 			<ul class="expand-content hidden">
-															<li><a href="/nba/stat/offensive-rebounds-per-game">Offensive Rebounds per Game</a></li>
-																				<li><a href="/nba/stat/defensive-rebounds-per-game">Defensive Rebounds per Game</a></li>
-																				<li><a href="/nba/stat/team-rebounds-per-game">Team Rebounds per Game</a></li>
-																				<li><a href="/nba/stat/total-rebounds-per-game">Total Rebounds per Game</a></li>
-																				<li><a href="/nba/stat/offensive-rebounding-pct">Offensive Rebounding %</a></li>
-																				<li><a href="/nba/stat/defensive-rebounding-pct">Defensive Rebounding %</a></li>
-																				<li><a href="/nba/stat/total-rebounding-percentage">Total Rebounding % (Rebound Rate)</a></li>
+															<li><a href="/nfl/stat/yards-per-game">Yards per Game</a></li>
+																				<li><a href="/nfl/stat/plays-per-game">Plays per Game</a></li>
+																				<li><a href="/nfl/stat/yards-per-play">Yards per Play</a></li>
+																				<li><a href="/nfl/stat/first-downs-per-game">First Downs per Game</a></li>
+																				<li><a href="/nfl/stat/third-downs-per-game">Third Downs per Game</a></li>
+																				<li><a href="/nfl/stat/third-down-conversions-per-game">Third Down Conversions per Game</a></li>
+																				<li><a href="/nfl/stat/fourth-downs-per-game">Fourth Downs per Game</a></li>
+																				<li><a href="/nfl/stat/fourth-down-conversions-per-game">Fourth Down Conversions per Game</a></li>
+																				<li><a href="/nfl/stat/average-time-of-possession-net-of-ot">Average Time of Possession (Excluding OT)</a></li>
+																				<li><a href="/nfl/stat/time-of-possession-pct-net-of-ot">Time of Possession Percentage (Excluding OT)</a></li>
+																				<li><a href="/nfl/stat/seconds-per-play">Seconds per Play</a></li>
+																				<li><a href="/nfl/stat/first-downs-per-play">First Downs per Play</a></li>
+																				<li><a href="/nfl/stat/third-down-conversion-pct">Third Down Conversion Percentage</a></li>
+																				<li><a href="/nfl/stat/fourth-down-conversion-pct">Fourth Down Conversion Percentage</a></li>
+																				<li><a href="/nfl/stat/punts-per-play">Punts per Play</a></li>
+																				<li><a href="/nfl/stat/punts-per-offensive-score">Punts per Offensive Score</a></li>
+																				<li><a href="/nfl/stat/opponent-tackles-per-game">Opponent Tackles per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-solo-tackles-per-game">Opponent Solo Tackles per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-assisted-tackles-per-game">Opponent Assisted Tackles per Game</a></li>
 												</ul>
 		</li>
-			<li class="expand-section"><a href="#" class="expand-controller">Blocks & Steals <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
+			<li class="expand-section"><a href="#" class="expand-controller">Rushing Offense <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
 			<ul class="expand-content hidden">
-															<li><a href="/nba/stat/blocks-per-game">Blocks per Game</a></li>
-																				<li><a href="/nba/stat/steals-per-game">Steals per Game</a></li>
-																				<li><a href="/nba/stat/block-pct">Block %</a></li>
-																				<li><a href="/nba/stat/steal-pct">Steals per Defensive Play</a></li>
+															<li><a href="/nfl/stat/rushing-attempts-per-game">Rushing Attempts per Game</a></li>
+																				<li><a href="/nfl/stat/rushing-yards-per-game">Rushing Yards per Game</a></li>
+																				<li><a href="/nfl/stat/rushing-first-downs-per-game">Rushing First Downs per Game</a></li>
+																				<li><a href="/nfl/stat/rushing-touchdowns-per-game">Rushing Touchdowns per Game</a></li>
+																				<li><a href="/nfl/stat/yards-per-rush-attempt">Yards per Rush Attempt</a></li>
+																				<li><a href="/nfl/stat/rushing-play-pct">Rushing Play Percentage </a></li>
+																				<li><a href="/nfl/stat/rushing-touchdown-pct">Rushing Touchdown Percentage</a></li>
+																				<li><a href="/nfl/stat/rushing-first-down-pct">Rushing First Down Percentage</a></li>
+																				<li><a href="/nfl/stat/rushing-yards-pct">Rushing Yards Percentage</a></li>
 												</ul>
 		</li>
-			<li class="expand-section"><a href="#" class="expand-controller">Assists & Turnovers <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
+			<li class="expand-section"><a href="#" class="expand-controller">Passing Offense <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
 			<ul class="expand-content hidden">
-															<li><a href="/nba/stat/assists-per-game">Assists per Game</a></li>
-																				<li><a href="/nba/stat/turnovers-per-game">Turnovers per Game</a></li>
-																				<li><a href="/nba/stat/turnovers-per-possession">Turnovers per Possession</a></li>
-																				<li><a href="/nba/stat/assist--per--turnover-ratio">Assist / Turnover Ratio</a></li>
-																				<li><a href="/nba/stat/assists-per-fgm">Assists per FGM</a></li>
-																				<li><a href="/nba/stat/assists-per-possession">Assists per Possession</a></li>
-																				<li><a href="/nba/stat/turnover-pct">Turnovers per Offensive Play</a></li>
+															<li><a href="/nfl/stat/pass-attempts-per-game">Pass Attempts per Game</a></li>
+																				<li><a href="/nfl/stat/completions-per-game">Completions per Game</a></li>
+																				<li><a href="/nfl/stat/incompletions-per-game">Incompletions per Game</a></li>
+																				<li><a href="/nfl/stat/completion-pct">Completion Percentage</a></li>
+																				<li><a href="/nfl/stat/passing-yards-per-game">Passing Yards per Game</a></li>
+																				<li><a href="/nfl/stat/gross-passing-yards-per-game">Gross Passing Yards per Game</a></li>
+																				<li><a href="/nfl/stat/yards-per-pass-attempt">Yards per Pass Attempt</a></li>
+																				<li><a href="/nfl/stat/yards-per-completion">Yards per Completion</a></li>
+																				<li><a href="/nfl/stat/passing-touchdowns-per-game">Passing Touchdowns per Game</a></li>
+																				<li><a href="/nfl/stat/passing-touchdown-pct">Passing Touchdown Percentage</a></li>
+																				<li><a href="/nfl/stat/qb-sacked-per-game">QB Sacked per Game</a></li>
+																				<li><a href="/nfl/stat/qb-sacked-pct">QB Sacked Percentage</a></li>
+																				<li><a href="/nfl/stat/passing-first-downs-per-game">Passing First Downs per Game</a></li>
+																				<li><a href="/nfl/stat/passing-first-down-pct">Passing First Down Percentage</a></li>
+																				<li><a href="/nfl/stat/average-team-passer-rating">Average Team Passer Rating</a></li>
+																				<li><a href="/nfl/stat/passing-play-pct">Passing Play Percentage</a></li>
+																				<li><a href="/nfl/stat/passing-yards-pct">Passing Yards Percentage</a></li>
 												</ul>
 		</li>
-			<li class="expand-section"><a href="#" class="expand-controller">Fouls <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
+			<li class="expand-section"><a href="#" class="expand-controller">Special Teams Offense <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
 			<ul class="expand-content hidden">
-															<li><a href="/nba/stat/personal-fouls-per-game">Personal Fouls per Game</a></li>
-																				<li><a href="/nba/stat/technical-fouls-per-game">Technical Fouls per Game</a></li>
-																				<li><a href="/nba/stat/personal-fouls-per-possession">Personal Fouls per Possession</a></li>
-																				<li><a href="/nba/stat/personal-foul-pct">Personal Fouls per Defensive Play</a></li>
+															<li><a href="/nfl/stat/other-touchdowns-per-game">Non-Offensive Touchdowns per Game</a></li>
+																				<li><a href="/nfl/stat/field-goal-attempts-per-game">Field Goal Attempts per Game</a></li>
+																				<li><a href="/nfl/stat/field-goals-made-per-game">Field Goals Made per Game</a></li>
+																				<li><a href="/nfl/stat/field-goals-got-blocked-per-game">Field Goals Got Blocked per Game</a></li>
+																				<li><a href="/nfl/stat/kicking-points-per-game">Kicking Points per Game</a></li>
+																				<li><a href="/nfl/stat/punt-attempts-per-game">Punt Attempts per Game</a></li>
+																				<li><a href="/nfl/stat/punts-got-blocked-per-game">Punts Got Blocked per Game</a></li>
+																				<li><a href="/nfl/stat/gross-punt-yards-per-game">Gross Punt Yards per Game</a></li>
+																				<li><a href="/nfl/stat/net-punt-yards-per-game">Net Punt Yards per Game</a></li>
+																				<li><a href="/nfl/stat/kickoffs-per-game">Kickoffs per Game</a></li>
+																				<li><a href="/nfl/stat/touchbacks-per-game">Touchbacks per Game</a></li>
+																				<li><a href="/nfl/stat/kickoff-touchback-pct">Kickoff Touchback Percentage</a></li>
+																				<li><a href="/nfl/stat/field-goal-conversion-pct">Field Goal Conversion Percentage</a></li>
+																				<li><a href="/nfl/stat/field-goal-got-blocked-pct">Field Goal Got Blocked Percentage</a></li>
+																				<li><a href="/nfl/stat/field-goal-conversion-pct-net-of-blocks">Field Goal Conversion Percentage (Excluding Blocks) </a></li>
+																				<li><a href="/nfl/stat/punt-blocked-pct">Punt Blocked Percentage</a></li>
+																				<li><a href="/nfl/stat/net-yards-per-punt-attempt">Net Yards per Punt Attempt</a></li>
+																				<li><a href="/nfl/stat/gross-yards-per-successful-punt">Gross Yards per Successful Punt</a></li>
+																				<li><a href="/nfl/stat/net-yards-per-successful-punt">Net Yards per Successful Punt</a></li>
 												</ul>
 		</li>
 			<li class="expand-section"><a href="#" class="expand-controller">Scoring Defense <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
 			<ul class="expand-content hidden">
-															<li><a href="/nba/stat/opponent-points-per-game">Opponent Points per Game</a></li>
-																				<li><a href="/nba/stat/opponent-average-scoring-margin">Opponent Average Scoring Margin</a></li>
-																				<li><a href="/nba/stat/defensive-efficiency">Defensive Efficiency</a></li>
-																				<li><a href="/nba/stat/opponent-floor-percentage">Opponent Floor %</a></li>
-																				<li><a href="/nba/stat/opponent-1st-quarter-points-per-game">Opponent 1st Quarter Points per Game</a></li>
-																				<li><a href="/nba/stat/opponent-2nd-quarter-points-per-game">Opponent 2nd Quarter Points per Game</a></li>
-																				<li><a href="/nba/stat/opponent-3rd-quarter-points-per-game">Opponent 3rd Quarter Points per Game</a></li>
-																				<li><a href="/nba/stat/opponent-4th-quarter-points-per-game">Opponent 4th Quarter Points per Game</a></li>
-																				<li><a href="/nba/stat/opponent-overtime-points-per-game">Opponent Overtime Points per Game</a></li>
-																				<li><a href="/nba/stat/opponent-points-in-paint-per-game">Opponent Points in Paint per Game</a></li>
-																				<li><a href="/nba/stat/opponent-fastbreak-points-per-game">Opponent Fastbreak Points per Game</a></li>
-																				<li><a href="/nba/stat/opponent-fastbreak-efficiency">Opponent Fastbreak Efficiency</a></li>
-																				<li><a href="/nba/stat/opponent-average-biggest-lead">Opponent Average Biggest Lead</a></li>
-																				<li><a href="/nba/stat/opponent-1st-half-points-per-game">Opponent 1st Half Points per Game</a></li>
-																				<li><a href="/nba/stat/opponent-2nd-half-points-per-game">Opponent 2nd Half Points per Game</a></li>
-																				<li><a href="/nba/stat/opponent-points-from-2-pointers">Opponent Points from 2 pointers</a></li>
-																				<li><a href="/nba/stat/opponent-points-from-3-pointers">Opponent Points from 3 pointers</a></li>
-																				<li><a href="/nba/stat/opponent-percent-of-points-from-2-pointers">Opponent Percent of Points from 2 Pointers</a></li>
-																				<li><a href="/nba/stat/opponent-percent-of-points-from-3-pointers">Opponent Percent of Points from 3 Pointers</a></li>
-																				<li><a href="/nba/stat/opponent-percent-of-points-from-free-throws">Opponent Percent of Points from Free Throws</a></li>
+															<li><a href="/nfl/stat/opponent-points-per-game">Opponent Points per Game</a></li>
+																				<li><a href="/nfl/stat/opp-yards-per-point">Opp Yards per Point</a></li>
+																				<li><a href="/nfl/stat/opponent-points-per-play">Opponent Points per Play</a></li>
+																				<li><a href="/nfl/stat/opponent-touchdowns-per-game">Opponent Touchdowns per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-red-zone-scoring-attempts-per-game">Opponent Red Zone Scoring Attempts per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-red-zone-scores-per-game">Opponent Red Zone Scores per Game (TDs only)</a></li>
+																				<li><a href="/nfl/stat/opponent-red-zone-scoring-pct">Opponent Red Zone Scoring Percentage (TD only)</a></li>
+																				<li><a href="/nfl/stat/opponent-extra-point-attempts-per-game">Opponent Extra Point Attempts per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-extra-points-made-per-game">Opponent Extra Points Made per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-two-point-conversion-attempts-per-game">Opponent Two Point Conversion Attempts per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-two-point-conversions-per-game">Opponent Two Point Conversions per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-points-per-field-goal-attempt">Opponent Points per Field Goal Attempt</a></li>
+																				<li><a href="/nfl/stat/opponent-extra-point-conversion-pct">Opponent Extra Point Conversion Percentage</a></li>
+																				<li><a href="/nfl/stat/opponent-two-point-conversion-pct">Opponent Two Point Conversion Percentage</a></li>
+																				<li><a href="/nfl/stat/opponent-offensive-touchdowns-per-game">Opponent Offensive Touchdowns per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-defensive-touchdowns-per-game">Opponent Defensive Touchdowns per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-special-teams-touchdowns-per-game">Opponent Special Teams Touchdowns per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-offensive-points-per-game">Opponent Offensive Points per Game (Estimated)</a></li>
+																				<li><a href="/nfl/stat/opponent-defensive-points-per-game">Opponent Defensive Points per Game (Estimated)</a></li>
+																				<li><a href="/nfl/stat/opponent-special-teams-points-per-game">Opponent Special Teams Points per Game (Estimated)</a></li>
+																				<li><a href="/nfl/stat/opponent-offensive-point-share-pct">Opponent Offensive Point Share Percentage (Estimated)</a></li>
 												</ul>
 		</li>
-			<li class="expand-section"><a href="#" class="expand-controller">Shooting Defense <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
+			<li class="expand-section"><a href="#" class="expand-controller">Defense by Quarter <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
 			<ul class="expand-content hidden">
-															<li><a href="/nba/stat/opponent-shooting-pct">Opponent Shooting %</a></li>
-																				<li><a href="/nba/stat/opponent-effective-field-goal-pct">Opponent Effective Field Goal %</a></li>
-																				<li><a href="/nba/stat/opponent-three-point-pct">Opponent Three Point %</a></li>
-																				<li><a href="/nba/stat/opponent-two-point-pct">Opponent Two Point %</a></li>
-																				<li><a href="/nba/stat/opponent-free-throw-pct">Opponent Free Throw %</a></li>
-																				<li><a href="/nba/stat/opponent-true-shooting-percentage">Opponent True Shooting %</a></li>
-																				<li><a href="/nba/stat/opponent-field-goals-made-per-game">Opponent Field Goals Made per Game</a></li>
-																				<li><a href="/nba/stat/opponent-field-goals-attempted-per-game">Opponent Field Goals Attempted per Game</a></li>
-																				<li><a href="/nba/stat/opponent-three-pointers-made-per-game">Opponent Three Pointers Made per Game</a></li>
-																				<li><a href="/nba/stat/opponent-three-pointers-attempted-per-game">Opponent Three Pointers Attempted per Game</a></li>
-																				<li><a href="/nba/stat/opponent-free-throws-made-per-game">Opponent Free Throws Made per Game</a></li>
-																				<li><a href="/nba/stat/opponent-free-throws-attempted-per-game">Opponent Free Throws Attempted per Game</a></li>
-																				<li><a href="/nba/stat/opponent-three-point-rate">Opponent Three Point Rate</a></li>
-																				<li><a href="/nba/stat/opponent-two-point-rate">Opponent Two Point Rate</a></li>
-																				<li><a href="/nba/stat/opponent-fta-per-fga">Opponent FTA per FGA</a></li>
-																				<li><a href="/nba/stat/opponent-ftm-per-100-possessions">Opponent Free Throws Made per 100 Possessions</a></li>
-																				<li><a href="/nba/stat/opponent-free-throw-rate">Opponent Free Throws Attempted per Offensive Play</a></li>
-																				<li><a href="/nba/stat/opponent-non-blocked-2-pt-pct">Opponent Non-blocked 2 Pt %</a></li>
+															<li><a href="/nfl/stat/opp-1st-quarter-points-per-game">Opp 1st Quarter Points/Game</a></li>
+																				<li><a href="/nfl/stat/opp-2nd-quarter-points-per-game">Opp 2nd Quarter Points/Game</a></li>
+																				<li><a href="/nfl/stat/opp-3rd-quarter-points-per-game">Opp 3rd Quarter Points/Game</a></li>
+																				<li><a href="/nfl/stat/opp-4th-quarter-points-per-game">Opp 4th Quarter Points/Game</a></li>
+																				<li><a href="/nfl/stat/opp-overtime-points-per-game">Opp Overtime Points/Game</a></li>
+																				<li><a href="/nfl/stat/opponent-1st-half-points-per-game">Opponent 1st Half Points/Game</a></li>
+																				<li><a href="/nfl/stat/opponent-2nd-half-points-per-game">Opponent 2nd Half Points/Game</a></li>
 												</ul>
 		</li>
-			<li class="expand-section"><a href="#" class="expand-controller">Opponent Rebounding <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
+			<li class="expand-section"><a href="#" class="expand-controller">Total Defense <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
 			<ul class="expand-content hidden">
-															<li><a href="/nba/stat/opponent-offensive-rebounds-per-game">Opponent Offensive Rebounds per Game</a></li>
-																				<li><a href="/nba/stat/opponent-defensive-rebounds-per-game">Opponent Defensive Rebounds per Game</a></li>
-																				<li><a href="/nba/stat/opponent-team-rebounds-per-game">Opponent Team Rebounds per Game</a></li>
-																				<li><a href="/nba/stat/opponent-total-rebounds-per-game">Opponent Total Rebounds per Game</a></li>
-																				<li><a href="/nba/stat/opponent-offensive-rebounding-pct">Opponent Offensive Rebounding %</a></li>
-																				<li><a href="/nba/stat/opponent-defensive-rebounding-pct">Opponent Defensive Rebounding %</a></li>
+															<li><a href="/nfl/stat/opponent-yards-per-game">Opponent Yards per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-plays-per-game">Opponent Plays per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-yards-per-play">Opponent Yards per Play</a></li>
+																				<li><a href="/nfl/stat/opponent-first-downs-per-game">Opponent First Downs per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-third-downs-per-game">Opponent Third Downs per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-third-down-conversions-per-game">Opponent Third Down Conversions per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-fourth-downs-per-game">Opponent Fourth Downs per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-fourth-down-conversions-per-game">Opponent Fourth Down Conversions per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-average-time-of-possession-net-of-ot">Opponent Average Time of Possession (Excluding OT)</a></li>
+																				<li><a href="/nfl/stat/opponent-time-of-possession-pct-net-of-ot">Opponent Time of Possession Percentage (Excluding OT)</a></li>
+																				<li><a href="/nfl/stat/opponent-seconds-per-play">Opponent Seconds per Play</a></li>
+																				<li><a href="/nfl/stat/opponent-first-downs-per-play">Opponent First Downs per Play</a></li>
+																				<li><a href="/nfl/stat/opponent-third-down-conversion-pct">Opponent Third Down Conversion Percentage</a></li>
+																				<li><a href="/nfl/stat/opponent-fourth-down-conversion-pct">Opponent Fourth Down Conversion Percentage</a></li>
+																				<li><a href="/nfl/stat/opponent-punts-per-play">Opponent Punts per Play</a></li>
+																				<li><a href="/nfl/stat/opponent-punts-per-offensive-score">Opponent Punts per Offensive Score</a></li>
+																				<li><a href="/nfl/stat/tackles-per-game">Tackles per Game</a></li>
+																				<li><a href="/nfl/stat/solo-tackles-per-game">Solo Tackles per Game</a></li>
+																				<li><a href="/nfl/stat/assisted-tackles-per-game">Assisted Tackles per Game</a></li>
 												</ul>
 		</li>
-			<li class="expand-section"><a href="#" class="expand-controller">Opponent Blocks & Steals <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
+			<li class="expand-section"><a href="#" class="expand-controller">Rushing Defense <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
 			<ul class="expand-content hidden">
-															<li><a href="/nba/stat/opponent-blocks-per-game">Opponent Blocks per Game</a></li>
-																				<li><a href="/nba/stat/opponent-steals-per-game">Opponent Steals per Game</a></li>
-																				<li><a href="/nba/stat/opponent-block-pct">Opponent Block %</a></li>
-																				<li><a href="/nba/stat/opponent-steals-perpossession">Opponent Steals per Possession</a></li>
-																				<li><a href="/nba/stat/opponent-steal-pct">Opponent Steals per Defensive Play</a></li>
+															<li><a href="/nfl/stat/opponent-rushing-attempts-per-game">Opponent Rushing Attempts per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-rushing-yards-per-game">Opponent Rushing Yards per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-rushing-first-downs-per-game">Opponent Rushing First Downs per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-rushing-touchdowns-per-game">Opponent Rushing Touchdowns per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-yards-per-rush-attempt">Opponent Yards per Rush Attempt</a></li>
+																				<li><a href="/nfl/stat/opponent-rushing-play-pct">Opponent Rushing Play Percentage </a></li>
+																				<li><a href="/nfl/stat/opponent-rushing-touchdown-pct">Opponent Rushing Touchdown Percentage</a></li>
+																				<li><a href="/nfl/stat/opponent-rushing-first-down-pct">Opponent Rushing First Down Percentage</a></li>
+																				<li><a href="/nfl/stat/opponent-rushing-yards-pct">Opponent Rushing Yards Percentage</a></li>
 												</ul>
 		</li>
-			<li class="expand-section"><a href="#" class="expand-controller">Opponent Assists & Turnovers <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
+			<li class="expand-section"><a href="#" class="expand-controller">Passing Defense <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
 			<ul class="expand-content hidden">
-															<li><a href="/nba/stat/opponent-assists-per-game">Opponent Assists per Game</a></li>
-																				<li><a href="/nba/stat/opponent-turnovers-per-game">Opponent Turnovers per Game</a></li>
-																				<li><a href="/nba/stat/opponent-assist--per--turnover-ratio">Opponent Assist / Turnover Ratio</a></li>
-																				<li><a href="/nba/stat/opponent-assists-per-fgm">Opponent Assists per FGM</a></li>
-																				<li><a href="/nba/stat/opponent-assists-per-possession">Opponent Assists per Possession</a></li>
-																				<li><a href="/nba/stat/opponent-turnovers-per-possession">Opponent Turnovers per Possession</a></li>
-																				<li><a href="/nba/stat/opponent-turnover-pct">Opponent Turnovers per Offensive Play</a></li>
+															<li><a href="/nfl/stat/opponent-pass-attempts-per-game">Opponent Pass Attempts per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-completions-per-game">Opponent Completions per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-incompletions-per-game">Opponent Incompletions per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-completion-pct">Opponent Completion Percentage</a></li>
+																				<li><a href="/nfl/stat/opponent-passing-yards-per-game">Opponent Passing Yards per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-gross-passing-yards-per-game">Opponent Gross Passing Yards per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-yards-per-pass-attempt">Opponent Yards per Pass Attempt</a></li>
+																				<li><a href="/nfl/stat/opponent-yards-per-completion">Opponent Yards per Completion</a></li>
+																				<li><a href="/nfl/stat/opponent-passing-first-downs-per-game">Opponent Passing First Downs per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-passing-touchdowns-per-game">Opponent Passing Touchdowns per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-passing-touchdown-pct">Opponent Passing Touchdown Percentage</a></li>
+																				<li><a href="/nfl/stat/opponent-average-team-passer-rating">Opponent Average Team Passer Rating</a></li>
+																				<li><a href="/nfl/stat/sack-pct">Sack Percentage</a></li>
+																				<li><a href="/nfl/stat/opponent-passing-play-pct">Opponent Passing Play Percentage</a></li>
+																				<li><a href="/nfl/stat/opponent-passing-yards-pct">Opponent Passing Yards Percentage</a></li>
+																				<li><a href="/nfl/stat/sacks-per-game">Sacks per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-passing-first-down-pct">Opponent Passing First Down Percentage</a></li>
 												</ul>
 		</li>
-			<li class="expand-section"><a href="#" class="expand-controller">Opponent Fouls <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
+			<li class="expand-section"><a href="#" class="expand-controller">Special Teams Defense <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
 			<ul class="expand-content hidden">
-															<li><a href="/nba/stat/opponent-personal-fouls-per-game">Opponent Personal Fouls per Game</a></li>
-																				<li><a href="/nba/stat/opponent-technical-fouls-per-game">Opponent Technical Fouls per Game</a></li>
-																				<li><a href="/nba/stat/opponent-personal-fouls-per-possession">Opponent Personal Fouls per Possession</a></li>
-																				<li><a href="/nba/stat/opponent-personal-foul-pct">Opponent Personal Fouls per Defensive Play</a></li>
+															<li><a href="/nfl/stat/opponent-other-touchdowns-per-game">Opponent Non-Offensive Touchdowns per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-field-goal-attempts-per-game">Opponent Field Goal Attempts per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-field-goals-made-per-game">Opponent Field Goals Made per Game</a></li>
+																				<li><a href="/nfl/stat/field-goals-blocked-per-game">Field Goals Blocked per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-kicking-points-per-game">Opponent Kicking Points per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-punt-attempts-per-game">Opponent Punt Attempts per Game</a></li>
+																				<li><a href="/nfl/stat/punts-blocked-per-game">Punts Blocked per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-gross-punt-yards-per-game">Opponent Gross Punt Yards per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-net-punt-yards-per-game">Opponent Net Punt Yards per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-kickoffs-per-game">Opponent Kickoffs per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-touchbacks-per-game">Opponent Touchbacks per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-kickoff-touchback-pct">Opponent Kickoff Touchback Percentage</a></li>
+																				<li><a href="/nfl/stat/opponent-field-goal-conversion-pct">Opponent Field Goal Conversion Percentage</a></li>
+																				<li><a href="/nfl/stat/block-field-goal-pct">Block Field Goal Percentage</a></li>
+																				<li><a href="/nfl/stat/opponent-field-goal-conversion-pct-net-of-blocks">Opponent Field Goal Conversion Percentage (Net of Blocks) </a></li>
+																				<li><a href="/nfl/stat/block-punt-pct">Block Punt Percentage</a></li>
+																				<li><a href="/nfl/stat/opponent-net-yards-per-punt-attempt">Opponent Net Yards per Punt Attempt</a></li>
+																				<li><a href="/nfl/stat/opponent-gross-yards-per-successful-punt">Opponent Gross Yards per Successful Punt</a></li>
+																				<li><a href="/nfl/stat/opponent-net-yards-per-successful-punt">Opponent Net Yards per Successful Punt</a></li>
 												</ul>
 		</li>
-			<li class="expand-section"><a href="#" class="expand-controller">Other <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
+			<li class="expand-section"><a href="#" class="expand-controller">Turnovers <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
 			<ul class="expand-content hidden">
-															<li><a href="/nba/stat/games-played">Games Played</a></li>
-																				<li><a href="/nba/stat/possessions-per-game">Possessions per Game</a></li>
-																				<li><a href="/nba/stat/extra-chances-per-game">Extra Scoring Chances per Game</a></li>
-																				<li><a href="/nba/stat/effective-possession-ratio">Effective Possession Ratio</a></li>
-																				<li><a href="/nba/stat/opponent-effective-possession-ratio">Opponent Effective Possession Ratio</a></li>
-																				<li><a href="/nba/stat/points-plus-rebounds-plus-assists-per-game">Points + Rebounds + Assists per Game</a></li>
-																				<li><a href="/nba/stat/points-plus-rebounds-per-game">Points + Rebounds per Game</a></li>
-																				<li><a href="/nba/stat/points-plus-assists-per-game">Points + Assists per Game</a></li>
-																				<li><a href="/nba/stat/rebounds-plus-assists-per-game">Rebounds + Assists per Game</a></li>
-																				<li><a href="/nba/stat/steals-plus-blocks-per-game">Steals + Blocks per Game</a></li>
-																				<li><a href="/nba/stat/opponent-points-plus-rebounds-plus-assists-per-gam">Opponent Points + Rebounds + Assists per Game</a></li>
-																				<li><a href="/nba/stat/opponent-points-plus-rebounds-per-game">Opponent Points + Rebounds per Game</a></li>
-																				<li><a href="/nba/stat/opponent-points-plus-assists-per-game">Opponent Points + Assists per Game</a></li>
-																				<li><a href="/nba/stat/opponent-rebounds-plus-assists-per-game">Opponent Rebounds + Assists per Game</a></li>
-																				<li><a href="/nba/stat/opponent-steals-plus-blocks-per-game">Opponent Steals + Blocks per Game</a></li>
+															<li><a href="/nfl/stat/interceptions-thrown-per-game">Interceptions Thrown per Game</a></li>
+																				<li><a href="/nfl/stat/percent-of-games-with-an-interception-thrown">Percent of Games With Interception Thrown</a></li>
+																				<li><a href="/nfl/stat/fumbles-per-game">Fumbles per Game</a></li>
+																				<li><a href="/nfl/stat/fumbles-lost-per-game">Fumbles Lost per Game</a></li>
+																				<li><a href="/nfl/stat/fumbles-not-lost-per-game">Fumbles Not Lost per Game</a></li>
+																				<li><a href="/nfl/stat/safeties-per-game">Safeties per Game</a></li>
+																				<li><a href="/nfl/stat/giveaways-per-game">Giveaways per Game</a></li>
+																				<li><a href="/nfl/stat/turnover-margin-per-game">Turnover Margin per Game</a></li>
+																				<li><a href="/nfl/stat/interceptions-per-game">Opponent Interceptions Thrown per Game</a></li>
+																				<li><a href="/nfl/stat/percent-of-games-with-an-interception">Opponent Percent of Games With Interception Thrown</a></li>
+																				<li><a href="/nfl/stat/opponent-fumbles-per-game">Opponent Fumbles per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-fumbles-lost-per-game">Opponent Fumbles Lost per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-fumbles-not-lost-per-game">Opponent Fumbles Not Lost per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-safeties-per-game">Opponent Safeties per Game</a></li>
+																				<li><a href="/nfl/stat/takeaways-per-game">Takeaways per Game</a></li>
+																				<li><a href="/nfl/stat/pass-intercepted-pct">Interceptions Thrown Percentage</a></li>
+																				<li><a href="/nfl/stat/fumble-recovery-pct">Fumble Recovery Percentage</a></li>
+																				<li><a href="/nfl/stat/giveaway-fumble-recovery-pct">Giveaway Fumble Recovery Percentage</a></li>
+																				<li><a href="/nfl/stat/takeaway-fumble-recovery-pct">Takeaway Fumble Recovery Percentage</a></li>
+																				<li><a href="/nfl/stat/interception-pct">Opponent Interceptions Thrown Percentage</a></li>
+																				<li><a href="/nfl/stat/opponent-fumble-recovery-pct">Opponent Fumble Recovery Percentage</a></li>
+																				<li><a href="/nfl/stat/opponent-giveaway-fumble-recovery-pct">Opponent Giveaway Fumble Recovery Percentage</a></li>
+																				<li><a href="/nfl/stat/opponent-takeaway-fumble-recovery-pct">Opponent Takeaway Fumble Recovery Percentage</a></li>
 												</ul>
 		</li>
-			<li class="expand-section"><a href="#" class="expand-controller">Winning Percentage <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
+			<li class="expand-section"><a href="#" class="expand-controller">Penalties <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
 			<ul class="expand-content hidden">
-															<li><a href="/nba/stat/win-pct-all-games">Win % - All Games</a></li>
-																				<li><a href="/nba/stat/win-pct-close-games">Win % - Close Games</a></li>
-																				<li><a href="/nba/stat/opponent-win-pct-all-games">Opponent Win % - All Games</a></li>
-																				<li><a href="/nba/stat/opponent-win-pct-close-games">Opponent Win % - Close Games</a></li>
+															<li><a href="/nfl/stat/penalties-per-game">Penalties per Game</a></li>
+																				<li><a href="/nfl/stat/penalty-yards-per-game">Penalty Yards per Game</a></li>
+																				<li><a href="/nfl/stat/penalty-first-downs-per-game">Penalty First Downs per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-penalties-per-game">Opponent Penalties per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-penalty-yards-per-game">Opponent Penalty Yards per Game</a></li>
+																				<li><a href="/nfl/stat/opponent-penalty-first-downs-per-game">Opponent Penalty First Downs per Game</a></li>
+																				<li><a href="/nfl/stat/penalty-yards-per-penalty">Penalty Yards per Penalty</a></li>
+																				<li><a href="/nfl/stat/penalties-per-play">Penalties per Play</a></li>
+																				<li><a href="/nfl/stat/opponent-penalty-yards-per-penalty">Opponent Penalty Yards per Penalty</a></li>
+																				<li><a href="/nfl/stat/opponent-penalties-per-play">Opponent Penalties per Play</a></li>
 												</ul>
 		</li>
 	</ul>
@@ -1962,32 +2269,32 @@
 	                                                <div class="table-filter">
                         <label for="date">Season:</label>
                         <select id="date" name="date" class="redirectOnChange">
-                                                                        <option value="2004-06-16" >2003-2004</option>
-                                                                        <option value="2005-06-24" >2004-2005</option>
-                                                                        <option value="2006-06-21" >2005-2006</option>
-                                                                        <option value="2007-06-15" >2006-2007</option>
-                                                                        <option value="2008-06-18" >2007-2008</option>
-                                                                        <option value="2009-06-15" >2008-2009</option>
-                                                                        <option value="2010-06-18" >2009-2010</option>
-                                                                        <option value="2011-06-12" >2010-2011</option>
-                                                                        <option value="2012-06-21" >2011-2012</option>
-                                                                        <option value="2013-06-20" >2012-2013</option>
-                                                                        <option value="2014-06-15" >2013-2014</option>
-                                                                        <option value="2015-06-16" >2014-2015</option>
-                                                                        <option value="2016-06-20" >2015-2016</option>
-                                                                        <option value="2017-06-13" >2016-2017</option>
-                                                                        <option value="2018-06-09" >2017-2018</option>
-                                                                        <option value="2019-06-14" >2018-2019</option>
-                                                                        <option value="2020-10-12" >2019-2020</option>
-                                                                        <option value="2021-07-21" >2020-2021</option>
-                                                                        <option value="2022-06-17" >2021-2022</option>
-                                                                        <option value="2022-11-09" SELECTED>2022-2023</option>
+                                                                        <option value="2004-02-02" >2003</option>
+                                                                        <option value="2005-02-07" >2004</option>
+                                                                        <option value="2006-02-06" >2005</option>
+                                                                        <option value="2007-02-05" >2006</option>
+                                                                        <option value="2008-02-04" >2007</option>
+                                                                        <option value="2009-02-02" >2008</option>
+                                                                        <option value="2010-02-08" >2009</option>
+                                                                        <option value="2011-02-07" >2010</option>
+                                                                        <option value="2012-02-05" >2011</option>
+                                                                        <option value="2013-02-03" >2012</option>
+                                                                        <option value="2014-02-02" >2013</option>
+                                                                        <option value="2015-02-01" >2014</option>
+                                                                        <option value="2016-02-08" >2015</option>
+                                                                        <option value="2017-02-06" >2016</option>
+                                                                        <option value="2018-02-05" >2017</option>
+                                                                        <option value="2019-02-04" >2018</option>
+                                                                        <option value="2020-02-03" >2019</option>
+                                                                        <option value="2021-02-08" >2020</option>
+                                                                        <option value="2022-02-14" >2021</option>
+                                                                        <option value="2022-11-10" SELECTED>2022</option>
                                                         </select>
                 </div> <!-- table-filter -->
 
                 <div class="table-filter">
                         <label for="custom_date">Date:</label>
-                        <input type="text" class="custom-date" data-query-param-name="date" value="11/09/2022" readonly="true">
+                        <input type="text" class="custom-date" data-query-param-name="date" value="11/10/2022" readonly="true">
                 </div> <!-- table-filter -->		        </div> <!-- table-filters -->
 
 	<table class="tr-table datatable scrollable">
@@ -1996,314 +2303,334 @@
                         <th class="text-center sort-asc-first sort-first">Rank</th>
 
 			<th class="text-left sort-asc-first">Team</th>
-			<th class="text-right sort-asc-first">2022</th>
-			<th class="text-right nowrap sort-asc-first">Last 3</th>
-			<th class="text-right nowrap sort-asc-first">Last 1</th>
-			<th class="text-right sort-asc-first">Home</th>
-			<th class="text-right sort-asc-first">Away</th>
-			<th class="text-right sort-asc-first">2021</th>
+			<th class="text-right">2022</th>
+			<th class="text-right nowrap">Last 3</th>
+			<th class="text-right nowrap">Last 1</th>
+			<th class="text-right">Home</th>
+			<th class="text-right">Away</th>
+			<th class="text-right">2021</th>
 		</tr>
 	</thead>
 	<tbody>
 	        		        			<tr>
 									<td class="rank text-center" data-sort="1">1</td>
-								<td class="text-left nowrap" data-sort="Toronto"><a href="https://www.teamrankings.com/nba/team/toronto-raptors">Toronto</a></td>
-				<td class="text-right" data-sort="5.45455">5.5</td>
-				<td class="text-right" data-sort="8">8.0</td>
-				<td class="text-right" data-sort="7">7.0</td>
-				<td class="text-right" data-sort="5.6">5.6</td>
-				<td class="text-right" data-sort="5.33333">5.3</td>
-				<td class="text-right" data-sort="6.60227">6.6</td>
+								<td class="text-left nowrap" data-sort="Philadelphia"><a href="https://www.teamrankings.com/nfl/team/philadelphia-eagles">Philadelphia</a></td>
+				<td class="text-right" data-sort="1.5">1.5</td>
+				<td class="text-right" data-sort="2">2.0</td>
+				<td class="text-right" data-sort="2">2.0</td>
+				<td class="text-right" data-sort="2">2.0</td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="0.666667">0.7</td>
 			</tr>
 				        			<tr>
 									<td class="rank text-center" data-sort="2">2</td>
-								<td class="text-left nowrap" data-sort="Boston"><a href="https://www.teamrankings.com/nba/team/boston-celtics">Boston</a></td>
-				<td class="text-right" data-sort="5.9">5.9</td>
-				<td class="text-right" data-sort="6">6.0</td>
-				<td class="text-right" data-sort="4">4.0</td>
-				<td class="text-right" data-sort="6.5">6.5</td>
-				<td class="text-right" data-sort="5.5">5.5</td>
-				<td class="text-right" data-sort="7.68868">7.7</td>
+								<td class="text-left nowrap" data-sort="Buffalo"><a href="https://www.teamrankings.com/nfl/team/buffalo-bills">Buffalo</a></td>
+				<td class="text-right" data-sort="1.375">1.4</td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="0">0.0</td>
+				<td class="text-right" data-sort="1.33333">1.3</td>
+				<td class="text-right" data-sort="1.4">1.4</td>
+				<td class="text-right" data-sort="1.10526">1.1</td>
 			</tr>
 				        			<tr>
 									<td class="rank text-center" data-sort="3">3</td>
-								<td class="text-left nowrap" data-sort="Atlanta"><a href="https://www.teamrankings.com/nba/team/atlanta-hawks">Atlanta</a></td>
-				<td class="text-right" data-sort="6.3">6.3</td>
-				<td class="text-right" data-sort="5.33333">5.3</td>
-				<td class="text-right" data-sort="5">5.0</td>
-				<td class="text-right" data-sort="6.6">6.6</td>
-				<td class="text-right" data-sort="6">6.0</td>
-				<td class="text-right" data-sort="7.13483">7.1</td>
+								<td class="text-left nowrap" data-sort="NY Jets"><a href="https://www.teamrankings.com/nfl/team/new-york-jets">NY Jets</a></td>
+				<td class="text-right" data-sort="1.22222">1.2</td>
+				<td class="text-right" data-sort="1.33333">1.3</td>
+				<td class="text-right" data-sort="2">2.0</td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="1.5">1.5</td>
+				<td class="text-right" data-sort="0.411765">0.4</td>
 			</tr>
 				        			<tr>
-									<td class="rank text-center" data-sort="4">4</td>
-								<td class="text-left nowrap" data-sort="Philadelphia"><a href="https://www.teamrankings.com/nba/team/philadelphia-76ers">Philadelphia</a></td>
-				<td class="text-right" data-sort="6.36364">6.4</td>
-				<td class="text-right" data-sort="5.66667">5.7</td>
-				<td class="text-right" data-sort="8">8.0</td>
-				<td class="text-right" data-sort="4.83333">4.8</td>
-				<td class="text-right" data-sort="8.2">8.2</td>
-				<td class="text-right" data-sort="6.68085">6.7</td>
+									<td class="rank text-center" data-sort="3">3</td>
+								<td class="text-left nowrap" data-sort="New England"><a href="https://www.teamrankings.com/nfl/team/new-england-patriots">New England</a></td>
+				<td class="text-right" data-sort="1.22222">1.2</td>
+				<td class="text-right" data-sort="1.66667">1.7</td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="1.4">1.4</td>
+				<td class="text-right" data-sort="1.27778">1.3</td>
 			</tr>
 				        			<tr>
 									<td class="rank text-center" data-sort="5">5</td>
-								<td class="text-left nowrap" data-sort="Okla City"><a href="https://www.teamrankings.com/nba/team/oklahoma-city-thunder">Okla City</a></td>
-				<td class="text-right" data-sort="6.4">6.4</td>
-				<td class="text-right" data-sort="6">6.0</td>
-				<td class="text-right" data-sort="6">6.0</td>
-				<td class="text-right" data-sort="6.4">6.4</td>
-				<td class="text-right" data-sort="6.4">6.4</td>
-				<td class="text-right" data-sort="8.47561">8.5</td>
+								<td class="text-left nowrap" data-sort="Pittsburgh"><a href="https://www.teamrankings.com/nfl/team/pittsburgh-steelers">Pittsburgh</a></td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="0">0.0</td>
+				<td class="text-right" data-sort="0">0.0</td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="0.777778">0.8</td>
 			</tr>
 				        			<tr>
-									<td class="rank text-center" data-sort="6">6</td>
-								<td class="text-left nowrap" data-sort="Memphis"><a href="https://www.teamrankings.com/nba/team/memphis-grizzlies">Memphis</a></td>
-				<td class="text-right" data-sort="6.45455">6.5</td>
-				<td class="text-right" data-sort="7">7.0</td>
-				<td class="text-right" data-sort="5">5.0</td>
-				<td class="text-right" data-sort="6.4">6.4</td>
-				<td class="text-right" data-sort="6.5">6.5</td>
-				<td class="text-right" data-sort="7.12766">7.1</td>
+									<td class="rank text-center" data-sort="5">5</td>
+								<td class="text-left nowrap" data-sort="Chicago"><a href="https://www.teamrankings.com/nfl/team/chicago-bears">Chicago</a></td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="1.33333">1.3</td>
+				<td class="text-right" data-sort="0">0.0</td>
+				<td class="text-right" data-sort="0.75">0.8</td>
+				<td class="text-right" data-sort="1.2">1.2</td>
+				<td class="text-right" data-sort="0.470588">0.5</td>
 			</tr>
 				        			<tr>
-									<td class="rank text-center" data-sort="6">6</td>
-								<td class="text-left nowrap" data-sort="Miami"><a href="https://www.teamrankings.com/nba/team/miami-heat">Miami</a></td>
-				<td class="text-right" data-sort="6.45455">6.5</td>
-				<td class="text-right" data-sort="6">6.0</td>
-				<td class="text-right" data-sort="7">7.0</td>
-				<td class="text-right" data-sort="7.14286">7.1</td>
-				<td class="text-right" data-sort="5.25">5.3</td>
-				<td class="text-right" data-sort="7.2">7.2</td>
+									<td class="rank text-center" data-sort="5">5</td>
+								<td class="text-left nowrap" data-sort="Tennessee"><a href="https://www.teamrankings.com/nfl/team/tennessee-titans">Tennessee</a></td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="1.33333">1.3</td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="1.33333">1.3</td>
+				<td class="text-right" data-sort="0.8">0.8</td>
+				<td class="text-right" data-sort="0.944444">0.9</td>
 			</tr>
 				        			<tr>
-									<td class="rank text-center" data-sort="8">8</td>
-								<td class="text-left nowrap" data-sort="Milwaukee"><a href="https://www.teamrankings.com/nba/team/milwaukee-bucks">Milwaukee</a></td>
-				<td class="text-right" data-sort="6.8">6.8</td>
-				<td class="text-right" data-sort="6.33333">6.3</td>
-				<td class="text-right" data-sort="11">11.0</td>
-				<td class="text-right" data-sort="7">7.0</td>
-				<td class="text-right" data-sort="6.33333">6.3</td>
-				<td class="text-right" data-sort="7.28723">7.3</td>
+									<td class="rank text-center" data-sort="5">5</td>
+								<td class="text-left nowrap" data-sort="Baltimore"><a href="https://www.teamrankings.com/nfl/team/baltimore-ravens">Baltimore</a></td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="0.333333">0.3</td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="0.529412">0.5</td>
 			</tr>
 				        			<tr>
-									<td class="rank text-center" data-sort="9">9</td>
-								<td class="text-left nowrap" data-sort="Phoenix"><a href="https://www.teamrankings.com/nba/team/phoenix-suns">Phoenix</a></td>
-				<td class="text-right" data-sort="6.9">6.9</td>
-				<td class="text-right" data-sort="5.33333">5.3</td>
-				<td class="text-right" data-sort="5">5.0</td>
-				<td class="text-right" data-sort="6.57143">6.6</td>
-				<td class="text-right" data-sort="7.66667">7.7</td>
-				<td class="text-right" data-sort="7.51579">7.5</td>
+									<td class="rank text-center" data-sort="5">5</td>
+								<td class="text-left nowrap" data-sort="Minnesota"><a href="https://www.teamrankings.com/nfl/team/minnesota-vikings">Minnesota</a></td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="1.66667">1.7</td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="0.941176">0.9</td>
 			</tr>
 				        			<tr>
 									<td class="rank text-center" data-sort="10">10</td>
-								<td class="text-left nowrap" data-sort="Charlotte"><a href="https://www.teamrankings.com/nba/team/charlotte-hornets">Charlotte</a></td>
-				<td class="text-right" data-sort="6.90909">6.9</td>
-				<td class="text-right" data-sort="5.33333">5.3</td>
+								<td class="text-left nowrap" data-sort="Atlanta"><a href="https://www.teamrankings.com/nfl/team/atlanta-falcons">Atlanta</a></td>
+				<td class="text-right" data-sort="0.888889">0.9</td>
+				<td class="text-right" data-sort="0.666667">0.7</td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="0.75">0.8</td>
+				<td class="text-right" data-sort="0.705882">0.7</td>
+			</tr>
+				        			<tr>
+									<td class="rank text-center" data-sort="10">10</td>
+								<td class="text-left nowrap" data-sort="Jacksonville"><a href="https://www.teamrankings.com/nfl/team/jacksonville-jaguars">Jacksonville</a></td>
+				<td class="text-right" data-sort="0.888889">0.9</td>
+				<td class="text-right" data-sort="0.333333">0.3</td>
+				<td class="text-right" data-sort="0">0.0</td>
+				<td class="text-right" data-sort="0.75">0.8</td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="0.411765">0.4</td>
+			</tr>
+				        			<tr>
+									<td class="rank text-center" data-sort="10">10</td>
+								<td class="text-left nowrap" data-sort="Cincinnati"><a href="https://www.teamrankings.com/nfl/team/cincinnati-bengals">Cincinnati</a></td>
+				<td class="text-right" data-sort="0.888889">0.9</td>
+				<td class="text-right" data-sort="1">1.0</td>
 				<td class="text-right" data-sort="2">2.0</td>
-				<td class="text-right" data-sort="7">7.0</td>
-				<td class="text-right" data-sort="6.83333">6.8</td>
-				<td class="text-right" data-sort="7.49398">7.5</td>
-			</tr>
-				        			<tr>
-									<td class="rank text-center" data-sort="11">11</td>
-								<td class="text-left nowrap" data-sort="Chicago"><a href="https://www.teamrankings.com/nba/team/chicago-bulls">Chicago</a></td>
-				<td class="text-right" data-sort="7.08333">7.1</td>
-				<td class="text-right" data-sort="8.66667">8.7</td>
-				<td class="text-right" data-sort="10">10.0</td>
-				<td class="text-right" data-sort="7.33333">7.3</td>
-				<td class="text-right" data-sort="6.83333">6.8</td>
-				<td class="text-right" data-sort="7.08046">7.1</td>
-			</tr>
-				        			<tr>
-									<td class="rank text-center" data-sort="12">12</td>
-								<td class="text-left nowrap" data-sort="Detroit"><a href="https://www.teamrankings.com/nba/team/detroit-pistons">Detroit</a></td>
-				<td class="text-right" data-sort="7.09091">7.1</td>
-				<td class="text-right" data-sort="10.3333">10.3</td>
-				<td class="text-right" data-sort="9">9.0</td>
-				<td class="text-right" data-sort="6.33333">6.3</td>
-				<td class="text-right" data-sort="8">8.0</td>
-				<td class="text-right" data-sort="7.39024">7.4</td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="0.8">0.8</td>
+				<td class="text-right" data-sort="1">1.0</td>
 			</tr>
 				        			<tr>
 									<td class="rank text-center" data-sort="13">13</td>
-								<td class="text-left nowrap" data-sort="Dallas"><a href="https://www.teamrankings.com/nba/team/dallas-mavericks">Dallas</a></td>
-				<td class="text-right" data-sort="7.22222">7.2</td>
-				<td class="text-right" data-sort="9.66667">9.7</td>
-				<td class="text-right" data-sort="13">13.0</td>
-				<td class="text-right" data-sort="7.33333">7.3</td>
-				<td class="text-right" data-sort="7">7.0</td>
-				<td class="text-right" data-sort="6.66">6.7</td>
+								<td class="text-left nowrap" data-sort="Dallas"><a href="https://www.teamrankings.com/nfl/team/dallas-cowboys">Dallas</a></td>
+				<td class="text-right" data-sort="0.875">0.9</td>
+				<td class="text-right" data-sort="0.666667">0.7</td>
+				<td class="text-right" data-sort="0">0.0</td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="0.666667">0.7</td>
+				<td class="text-right" data-sort="1.5">1.5</td>
 			</tr>
 				        			<tr>
-									<td class="rank text-center" data-sort="14">14</td>
-								<td class="text-left nowrap" data-sort="Washington"><a href="https://www.teamrankings.com/nba/team/washington-wizards">Washington</a></td>
-				<td class="text-right" data-sort="7.27273">7.3</td>
-				<td class="text-right" data-sort="8">8.0</td>
-				<td class="text-right" data-sort="8">8.0</td>
-				<td class="text-right" data-sort="8">8.0</td>
-				<td class="text-right" data-sort="6.66667">6.7</td>
-				<td class="text-right" data-sort="7.29268">7.3</td>
+									<td class="rank text-center" data-sort="13">13</td>
+								<td class="text-left nowrap" data-sort="Houston"><a href="https://www.teamrankings.com/nfl/team/houston-texans">Houston</a></td>
+				<td class="text-right" data-sort="0.875">0.9</td>
+				<td class="text-right" data-sort="0.333333">0.3</td>
+				<td class="text-right" data-sort="0">0.0</td>
+				<td class="text-right" data-sort="0.5">0.5</td>
+				<td class="text-right" data-sort="1.25">1.3</td>
+				<td class="text-right" data-sort="1">1.0</td>
 			</tr>
 				        			<tr>
-									<td class="rank text-center" data-sort="15">15</td>
-								<td class="text-left nowrap" data-sort="New York"><a href="https://www.teamrankings.com/nba/team/new-york-knicks">New York</a></td>
-				<td class="text-right" data-sort="7.3">7.3</td>
-				<td class="text-right" data-sort="8">8.0</td>
-				<td class="text-right" data-sort="7">7.0</td>
-				<td class="text-right" data-sort="7.4">7.4</td>
-				<td class="text-right" data-sort="7.2">7.2</td>
-				<td class="text-right" data-sort="6.96341">7.0</td>
+									<td class="rank text-center" data-sort="13">13</td>
+								<td class="text-left nowrap" data-sort="LA Chargers"><a href="https://www.teamrankings.com/nfl/team/los-angeles-chargers">LA Chargers</a></td>
+				<td class="text-right" data-sort="0.875">0.9</td>
+				<td class="text-right" data-sort="0.333333">0.3</td>
+				<td class="text-right" data-sort="0">0.0</td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="0.75">0.8</td>
+				<td class="text-right" data-sort="0.647059">0.6</td>
 			</tr>
 				        			<tr>
 									<td class="rank text-center" data-sort="16">16</td>
-								<td class="text-left nowrap" data-sort="Brooklyn"><a href="https://www.teamrankings.com/nba/team/brooklyn-nets">Brooklyn</a></td>
-				<td class="text-right" data-sort="7.36364">7.4</td>
-				<td class="text-right" data-sort="4.66667">4.7</td>
-				<td class="text-right" data-sort="7">7.0</td>
-				<td class="text-right" data-sort="8.66667">8.7</td>
-				<td class="text-right" data-sort="5.8">5.8</td>
-				<td class="text-right" data-sort="7.98851">8.0</td>
+								<td class="text-left nowrap" data-sort="San Francisco"><a href="https://www.teamrankings.com/nfl/team/san-francisco-49ers">San Francisco</a></td>
+				<td class="text-right" data-sort="0.75">0.8</td>
+				<td class="text-right" data-sort="0.333333">0.3</td>
+				<td class="text-right" data-sort="0">0.0</td>
+				<td class="text-right" data-sort="1.33333">1.3</td>
+				<td class="text-right" data-sort="0.4">0.4</td>
+				<td class="text-right" data-sort="0.55">0.6</td>
 			</tr>
 				        			<tr>
-									<td class="rank text-center" data-sort="17">17</td>
-								<td class="text-left nowrap" data-sort="Sacramento"><a href="https://www.teamrankings.com/nba/team/sacramento-kings">Sacramento</a></td>
-				<td class="text-right" data-sort="7.44444">7.4</td>
-				<td class="text-right" data-sort="6">6.0</td>
-				<td class="text-right" data-sort="5">5.0</td>
-				<td class="text-right" data-sort="7.75">7.8</td>
-				<td class="text-right" data-sort="7.2">7.2</td>
-				<td class="text-right" data-sort="8.14634">8.1</td>
+									<td class="rank text-center" data-sort="16">16</td>
+								<td class="text-left nowrap" data-sort="Denver"><a href="https://www.teamrankings.com/nfl/team/denver-broncos">Denver</a></td>
+				<td class="text-right" data-sort="0.75">0.8</td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="2">2.0</td>
+				<td class="text-right" data-sort="0.75">0.8</td>
+				<td class="text-right" data-sort="0.75">0.8</td>
+				<td class="text-right" data-sort="0.764706">0.8</td>
 			</tr>
 				        			<tr>
 									<td class="rank text-center" data-sort="18">18</td>
-								<td class="text-left nowrap" data-sort="Utah"><a href="https://www.teamrankings.com/nba/team/utah-jazz">Utah</a></td>
-				<td class="text-right" data-sort="7.58333">7.6</td>
-				<td class="text-right" data-sort="8">8.0</td>
-				<td class="text-right" data-sort="7">7.0</td>
-				<td class="text-right" data-sort="8.6">8.6</td>
-				<td class="text-right" data-sort="6.85714">6.9</td>
-				<td class="text-right" data-sort="7.67045">7.7</td>
+								<td class="text-left nowrap" data-sort="Tampa Bay"><a href="https://www.teamrankings.com/nfl/team/tampa-bay-buccaneers">Tampa Bay</a></td>
+				<td class="text-right" data-sort="0.666667">0.7</td>
+				<td class="text-right" data-sort="0">0.0</td>
+				<td class="text-right" data-sort="0">0.0</td>
+				<td class="text-right" data-sort="0.4">0.4</td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="1">1.0</td>
 			</tr>
 				        			<tr>
-									<td class="rank text-center" data-sort="19">19</td>
-								<td class="text-left nowrap" data-sort="Indiana"><a href="https://www.teamrankings.com/nba/team/indiana-pacers">Indiana</a></td>
-				<td class="text-right" data-sort="7.6">7.6</td>
-				<td class="text-right" data-sort="9.33333">9.3</td>
-				<td class="text-right" data-sort="7">7.0</td>
-				<td class="text-right" data-sort="7.2">7.2</td>
-				<td class="text-right" data-sort="8">8.0</td>
-				<td class="text-right" data-sort="8.09756">8.1</td>
+									<td class="rank text-center" data-sort="18">18</td>
+								<td class="text-left nowrap" data-sort="Arizona"><a href="https://www.teamrankings.com/nfl/team/arizona-cardinals">Arizona</a></td>
+				<td class="text-right" data-sort="0.666667">0.7</td>
+				<td class="text-right" data-sort="1.33333">1.3</td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="0.8">0.8</td>
+				<td class="text-right" data-sort="0.5">0.5</td>
+				<td class="text-right" data-sort="0.722222">0.7</td>
 			</tr>
 				        			<tr>
-									<td class="rank text-center" data-sort="20">20</td>
-								<td class="text-left nowrap" data-sort="Orlando"><a href="https://www.teamrankings.com/nba/team/orlando-magic">Orlando</a></td>
-				<td class="text-right" data-sort="7.63636">7.6</td>
-				<td class="text-right" data-sort="6.33333">6.3</td>
-				<td class="text-right" data-sort="9">9.0</td>
-				<td class="text-right" data-sort="5.4">5.4</td>
-				<td class="text-right" data-sort="9.5">9.5</td>
-				<td class="text-right" data-sort="7.9878">8.0</td>
+									<td class="rank text-center" data-sort="18">18</td>
+								<td class="text-left nowrap" data-sort="Carolina"><a href="https://www.teamrankings.com/nfl/team/carolina-panthers">Carolina</a></td>
+				<td class="text-right" data-sort="0.666667">0.7</td>
+				<td class="text-right" data-sort="0.666667">0.7</td>
+				<td class="text-right" data-sort="0">0.0</td>
+				<td class="text-right" data-sort="0.6">0.6</td>
+				<td class="text-right" data-sort="0.75">0.8</td>
+				<td class="text-right" data-sort="0.529412">0.5</td>
 			</tr>
 				        			<tr>
 									<td class="rank text-center" data-sort="21">21</td>
-								<td class="text-left nowrap" data-sort="New Orleans"><a href="https://www.teamrankings.com/nba/team/new-orleans-pelicans">New Orleans</a></td>
-				<td class="text-right" data-sort="8.1">8.1</td>
-				<td class="text-right" data-sort="8.33333">8.3</td>
-				<td class="text-right" data-sort="6">6.0</td>
-				<td class="text-right" data-sort="9.33333">9.3</td>
-				<td class="text-right" data-sort="7.57143">7.6</td>
-				<td class="text-right" data-sort="7.36667">7.4</td>
+								<td class="text-left nowrap" data-sort="Detroit"><a href="https://www.teamrankings.com/nfl/team/detroit-lions">Detroit</a></td>
+				<td class="text-right" data-sort="0.625">0.6</td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="3">3.0</td>
+				<td class="text-right" data-sort="0.8">0.8</td>
+				<td class="text-right" data-sort="0.333333">0.3</td>
+				<td class="text-right" data-sort="0.647059">0.6</td>
 			</tr>
 				        			<tr>
-									<td class="rank text-center" data-sort="22">22</td>
-								<td class="text-left nowrap" data-sort="LA Clippers"><a href="https://www.teamrankings.com/nba/team/los-angeles-clippers">LA Clippers</a></td>
-				<td class="text-right" data-sort="8.18182">8.2</td>
-				<td class="text-right" data-sort="6">6.0</td>
-				<td class="text-right" data-sort="6">6.0</td>
-				<td class="text-right" data-sort="6.8">6.8</td>
-				<td class="text-right" data-sort="9.33333">9.3</td>
-				<td class="text-right" data-sort="7.65476">7.7</td>
+									<td class="rank text-center" data-sort="21">21</td>
+								<td class="text-left nowrap" data-sort="LA Rams"><a href="https://www.teamrankings.com/nfl/team/los-angeles-rams">LA Rams</a></td>
+				<td class="text-right" data-sort="0.625">0.6</td>
+				<td class="text-right" data-sort="0.333333">0.3</td>
+				<td class="text-right" data-sort="0">0.0</td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="0">0.0</td>
+				<td class="text-right" data-sort="1.09524">1.1</td>
 			</tr>
 				        			<tr>
 									<td class="rank text-center" data-sort="23">23</td>
-								<td class="text-left nowrap" data-sort="Denver"><a href="https://www.teamrankings.com/nba/team/denver-nuggets">Denver</a></td>
-				<td class="text-right" data-sort="8.4">8.4</td>
-				<td class="text-right" data-sort="10.3333">10.3</td>
-				<td class="text-right" data-sort="14">14.0</td>
-				<td class="text-right" data-sort="8.25">8.3</td>
-				<td class="text-right" data-sort="8.5">8.5</td>
-				<td class="text-right" data-sort="8">8.0</td>
+								<td class="text-left nowrap" data-sort="Green Bay"><a href="https://www.teamrankings.com/nfl/team/green-bay-packers">Green Bay</a></td>
+				<td class="text-right" data-sort="0.555556">0.6</td>
+				<td class="text-right" data-sort="1.33333">1.3</td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="0.333333">0.3</td>
+				<td class="text-right" data-sort="0.666667">0.7</td>
+				<td class="text-right" data-sort="1.05556">1.1</td>
 			</tr>
 				        			<tr>
-									<td class="rank text-center" data-sort="24">24</td>
-								<td class="text-left nowrap" data-sort="Minnesota"><a href="https://www.teamrankings.com/nba/team/minnesota-timberwolves">Minnesota</a></td>
-				<td class="text-right" data-sort="8.54545">8.5</td>
-				<td class="text-right" data-sort="10">10.0</td>
-				<td class="text-right" data-sort="13">13.0</td>
-				<td class="text-right" data-sort="9">9.0</td>
-				<td class="text-right" data-sort="7.33333">7.3</td>
-				<td class="text-right" data-sort="7.26966">7.3</td>
+									<td class="rank text-center" data-sort="23">23</td>
+								<td class="text-left nowrap" data-sort="Seattle"><a href="https://www.teamrankings.com/nfl/team/seattle-seahawks">Seattle</a></td>
+				<td class="text-right" data-sort="0.555556">0.6</td>
+				<td class="text-right" data-sort="0.333333">0.3</td>
+				<td class="text-right" data-sort="0">0.0</td>
+				<td class="text-right" data-sort="0.5">0.5</td>
+				<td class="text-right" data-sort="0.6">0.6</td>
+				<td class="text-right" data-sort="0.647059">0.6</td>
 			</tr>
 				        			<tr>
 									<td class="rank text-center" data-sort="25">25</td>
-								<td class="text-left nowrap" data-sort="Cleveland"><a href="https://www.teamrankings.com/nba/team/cleveland-cavaliers">Cleveland</a></td>
-				<td class="text-right" data-sort="8.6">8.6</td>
-				<td class="text-right" data-sort="7.33333">7.3</td>
-				<td class="text-right" data-sort="8">8.0</td>
-				<td class="text-right" data-sort="7.25">7.3</td>
-				<td class="text-right" data-sort="9.5">9.5</td>
-				<td class="text-right" data-sort="8.40476">8.4</td>
+								<td class="text-left nowrap" data-sort="Miami"><a href="https://www.teamrankings.com/nfl/team/miami-dolphins">Miami</a></td>
+				<td class="text-right" data-sort="0.444444">0.4</td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="0">0.0</td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="0">0.0</td>
+				<td class="text-right" data-sort="0.823529">0.8</td>
 			</tr>
 				        			<tr>
-									<td class="rank text-center" data-sort="26">26</td>
-								<td class="text-left nowrap" data-sort="LA Lakers"><a href="https://www.teamrankings.com/nba/team/los-angeles-lakers">LA Lakers</a></td>
-				<td class="text-right" data-sort="8.7">8.7</td>
-				<td class="text-right" data-sort="8.33333">8.3</td>
-				<td class="text-right" data-sort="10">10.0</td>
-				<td class="text-right" data-sort="6.83333">6.8</td>
-				<td class="text-right" data-sort="11.5">11.5</td>
-				<td class="text-right" data-sort="8.34146">8.3</td>
+									<td class="rank text-center" data-sort="25">25</td>
+								<td class="text-left nowrap" data-sort="Indianapolis"><a href="https://www.teamrankings.com/nfl/team/indianapolis-colts">Indianapolis</a></td>
+				<td class="text-right" data-sort="0.444444">0.4</td>
+				<td class="text-right" data-sort="0.333333">0.3</td>
+				<td class="text-right" data-sort="0">0.0</td>
+				<td class="text-right" data-sort="0.5">0.5</td>
+				<td class="text-right" data-sort="0.4">0.4</td>
+				<td class="text-right" data-sort="1.11765">1.1</td>
 			</tr>
 				        			<tr>
 									<td class="rank text-center" data-sort="27">27</td>
-								<td class="text-left nowrap" data-sort="Golden State"><a href="https://www.teamrankings.com/nba/team/golden-state-warriors">Golden State</a></td>
-				<td class="text-right" data-sort="8.81818">8.8</td>
-				<td class="text-right" data-sort="9.33333">9.3</td>
-				<td class="text-right" data-sort="9">9.0</td>
-				<td class="text-right" data-sort="11.4">11.4</td>
-				<td class="text-right" data-sort="6.66667">6.7</td>
-				<td class="text-right" data-sort="7.78846">7.8</td>
+								<td class="text-left nowrap" data-sort="Las Vegas"><a href="https://www.teamrankings.com/nfl/team/las-vegas-raiders">Las Vegas</a></td>
+				<td class="text-right" data-sort="0.375">0.4</td>
+				<td class="text-right" data-sort="0.333333">0.3</td>
+				<td class="text-right" data-sort="0">0.0</td>
+				<td class="text-right" data-sort="0.666667">0.7</td>
+				<td class="text-right" data-sort="0.2">0.2</td>
+				<td class="text-right" data-sort="0.333333">0.3</td>
 			</tr>
 				        			<tr>
-									<td class="rank text-center" data-sort="28">28</td>
-								<td class="text-left nowrap" data-sort="Houston"><a href="https://www.teamrankings.com/nba/team/houston-rockets">Houston</a></td>
-				<td class="text-right" data-sort="8.90909">8.9</td>
-				<td class="text-right" data-sort="9.33333">9.3</td>
-				<td class="text-right" data-sort="7">7.0</td>
-				<td class="text-right" data-sort="8.66667">8.7</td>
-				<td class="text-right" data-sort="9">9.0</td>
-				<td class="text-right" data-sort="9.46341">9.5</td>
+									<td class="rank text-center" data-sort="27">27</td>
+								<td class="text-left nowrap" data-sort="Cleveland"><a href="https://www.teamrankings.com/nfl/team/cleveland-browns">Cleveland</a></td>
+				<td class="text-right" data-sort="0.375">0.4</td>
+				<td class="text-right" data-sort="0.333333">0.3</td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="0.2">0.2</td>
+				<td class="text-right" data-sort="0.666667">0.7</td>
+				<td class="text-right" data-sort="0.764706">0.8</td>
 			</tr>
 				        			<tr>
-									<td class="rank text-center" data-sort="29">29</td>
-								<td class="text-left nowrap" data-sort="Portland"><a href="https://www.teamrankings.com/nba/team/portland-trail-blazers">Portland</a></td>
-				<td class="text-right" data-sort="9.1">9.1</td>
-				<td class="text-right" data-sort="8.66667">8.7</td>
-				<td class="text-right" data-sort="11">11.0</td>
-				<td class="text-right" data-sort="9.6">9.6</td>
-				<td class="text-right" data-sort="8.6">8.6</td>
-				<td class="text-right" data-sort="8.19512">8.2</td>
+									<td class="rank text-center" data-sort="27">27</td>
+								<td class="text-left nowrap" data-sort="Kansas City"><a href="https://www.teamrankings.com/nfl/team/kansas-city-chiefs">Kansas City</a></td>
+				<td class="text-right" data-sort="0.375">0.4</td>
+				<td class="text-right" data-sort="0.666667">0.7</td>
+				<td class="text-right" data-sort="0">0.0</td>
+				<td class="text-right" data-sort="0.25">0.3</td>
+				<td class="text-right" data-sort="0.5">0.5</td>
+				<td class="text-right" data-sort="0.8">0.8</td>
 			</tr>
 				        			<tr>
 									<td class="rank text-center" data-sort="30">30</td>
-								<td class="text-left nowrap" data-sort="San Antonio"><a href="https://www.teamrankings.com/nba/team/san-antonio-spurs">San Antonio</a></td>
-				<td class="text-right" data-sort="9.72727">9.7</td>
-				<td class="text-right" data-sort="10">10.0</td>
-				<td class="text-right" data-sort="14">14.0</td>
-				<td class="text-right" data-sort="11.1667">11.2</td>
-				<td class="text-right" data-sort="8">8.0</td>
-				<td class="text-right" data-sort="7.28916">7.3</td>
+								<td class="text-left nowrap" data-sort="Washington"><a href="https://www.teamrankings.com/nfl/team/washington-commanders">Washington</a></td>
+				<td class="text-right" data-sort="0.333333">0.3</td>
+				<td class="text-right" data-sort="0.333333">0.3</td>
+				<td class="text-right" data-sort="1">1.0</td>
+				<td class="text-right" data-sort="0.4">0.4</td>
+				<td class="text-right" data-sort="0.25">0.3</td>
+				<td class="text-right" data-sort="0.647059">0.6</td>
+			</tr>
+				        			<tr>
+									<td class="rank text-center" data-sort="31">31</td>
+								<td class="text-left nowrap" data-sort="New Orleans"><a href="https://www.teamrankings.com/nfl/team/new-orleans-saints">New Orleans</a></td>
+				<td class="text-right" data-sort="0.222222">0.2</td>
+				<td class="text-right" data-sort="0.333333">0.3</td>
+				<td class="text-right" data-sort="0">0.0</td>
+				<td class="text-right" data-sort="0.2">0.2</td>
+				<td class="text-right" data-sort="0.25">0.3</td>
+				<td class="text-right" data-sort="1.05882">1.1</td>
+			</tr>
+				        			<tr>
+									<td class="rank text-center" data-sort="32">32</td>
+								<td class="text-left nowrap" data-sort="NY Giants"><a href="https://www.teamrankings.com/nfl/team/new-york-giants">NY Giants</a></td>
+				<td class="text-right" data-sort="0.125">0.1</td>
+				<td class="text-right" data-sort="0.333333">0.3</td>
+				<td class="text-right" data-sort="0">0.0</td>
+				<td class="text-right" data-sort="0.25">0.3</td>
+				<td class="text-right" data-sort="0">0.0</td>
+				<td class="text-right" data-sort="0.882353">0.9</td>
 			</tr>
 			</tbody>
 </table>
@@ -2356,121 +2683,144 @@
 			</div> <!-- post -->
 		</div> <!-- blog-posts -->
 
-		<h2>More Opponent Blocks & Steals Stats</h2>
+		<h2>More Turnovers Stats</h2>
         <ul>
-		        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        		        			        				<li><a href="/nba/stat/opponent-blocks-per-game">Opponent Blocks per Game</a></li>
-        			        				        		        			        				<li>Opponent Steals per Game</li>
-        			        				        		        			        				<li><a href="/nba/stat/opponent-block-pct">Opponent Block %</a></li>
-        			        				        		        			        				<li><a href="/nba/stat/opponent-steals-perpossession">Opponent Steals per Possession</a></li>
-        			        				        		        			        				<li><a href="/nba/stat/opponent-steal-pct">Opponent Steals per Defensive Play</a></li>
-        			        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        </ul>
+		        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        				        		        			        				<li><a href="/nfl/stat/interceptions-thrown-per-game">Interceptions Thrown per Game</a></li>
+        			        				        		        			        				<li><a href="/nfl/stat/percent-of-games-with-an-interception-thrown">Percent of Games With Interception Thrown</a></li>
+        			        				        		        			        				<li><a href="/nfl/stat/fumbles-per-game">Fumbles per Game</a></li>
+        			        				        		        			        				<li><a href="/nfl/stat/fumbles-lost-per-game">Fumbles Lost per Game</a></li>
+        			        				        		        			        				<li><a href="/nfl/stat/fumbles-not-lost-per-game">Fumbles Not Lost per Game</a></li>
+        			        				        		        			        				<li><a href="/nfl/stat/safeties-per-game">Safeties per Game</a></li>
+        			        				        		        			        				<li><a href="/nfl/stat/giveaways-per-game">Giveaways per Game</a></li>
+        			        				        		        			        				<li><a href="/nfl/stat/turnover-margin-per-game">Turnover Margin per Game</a></li>
+        			        				        		        			        				<li>Opponent Interceptions Thrown per Game</li>
+        			        				        		        			        				<li><a href="/nfl/stat/percent-of-games-with-an-interception">Opponent Percent of Games With Interception Thrown</a></li>
+        			        				        		        			        				<li><a href="/nfl/stat/opponent-fumbles-per-game">Opponent Fumbles per Game</a></li>
+        			        				        		        			        				<li><a href="/nfl/stat/opponent-fumbles-lost-per-game">Opponent Fumbles Lost per Game</a></li>
+        			        				        		        			        				<li><a href="/nfl/stat/opponent-fumbles-not-lost-per-game">Opponent Fumbles Not Lost per Game</a></li>
+        			        				        		        			        				<li><a href="/nfl/stat/opponent-safeties-per-game">Opponent Safeties per Game</a></li>
+        			        				        		        			        				<li><a href="/nfl/stat/takeaways-per-game">Takeaways per Game</a></li>
+        			        				        		        			        				<li><a href="/nfl/stat/pass-intercepted-pct">Interceptions Thrown Percentage</a></li>
+        			        				        		        			        				<li><a href="/nfl/stat/fumble-recovery-pct">Fumble Recovery Percentage</a></li>
+        			        				        		        			        				<li><a href="/nfl/stat/giveaway-fumble-recovery-pct">Giveaway Fumble Recovery Percentage</a></li>
+        			        				        		        			        				<li><a href="/nfl/stat/takeaway-fumble-recovery-pct">Takeaway Fumble Recovery Percentage</a></li>
+        			        				        		        			        				<li><a href="/nfl/stat/interception-pct">Opponent Interceptions Thrown Percentage</a></li>
+        			        				        		        			        				<li><a href="/nfl/stat/opponent-fumble-recovery-pct">Opponent Fumble Recovery Percentage</a></li>
+        			        				        		        			        				<li><a href="/nfl/stat/opponent-giveaway-fumble-recovery-pct">Opponent Giveaway Fumble Recovery Percentage</a></li>
+        			        				        		        			        				<li><a href="/nfl/stat/opponent-takeaway-fumble-recovery-pct">Opponent Takeaway Fumble Recovery Percentage</a></li>
+        			        				        				        				        				        				        				        				        				        				        				        				        </ul>
 
 </aside>
 			</div> <!-- main-wrapper -->
 				<div class="left-sidebar desktop-only">
 						  			<h2 class="extra-section-nav-header">Premium Picks</h2>
 		<ul class="nav-list nav-list-premium-products">
-			<li><a href="/nba-betting-picks/">NBA Betting Picks <svg class="icon icon-star-full2"><use xlink:href="#icon-star-full2"></use></svg></a></li>
+			<li><a href="/football-pool-picks/">Pick’em Picks <svg class="icon icon-football"><use xlink:href="#icon-football"></use></svg></a></li>
+			<li><a href="/nfl-survivor-pool-picks/">Survivor Picks <svg class="icon icon-trophy2"><use xlink:href="#icon-trophy2"></use></svg></a></li>
+			<li><a href="/nfl-betting-picks/">NFL Betting Picks <svg class="icon icon-star-full2"><use xlink:href="#icon-star-full2"></use></svg></a></li>
 		</ul>
 	
-
-<div class="section-nav " data-section="nba" role="navigation">
-	<div class="section-nav-header">NBA</div>
-    <ul class="nav-list nav-list-with-lines is-expanded">     
-                <li><a href="#" class="expand-controller "><span class="long-name ">Betting Picks</span><span class="short-name hidden">Picks</span> <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
+<div class="section-nav " data-section="nfl" role="navigation">
+	<div class="section-nav-header">NFL</div>
+    <ul class="nav-list nav-list-with-lines is-expanded">
+        <li><a href="#" class="expand-controller "><span class="long-name ">Betting & Pool Picks</span><span class="short-name hidden">Picks</span> <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
 	        <ul class="nav-list hidden">
-				<li><a href="/nba-betting-picks/" class="">Betting Picks Grid</a></li>
-				<li><a href="/nba-win-picks/" class="">Game Winner Picks</a></li>
-				<li><a href="/nba-ats-picks/" class="">Point Spread Picks</a></li>
-				<li><a href="/nba-over-under-picks/" class="">Over Under Picks</a></li>
-				<li><a href="/nba-money-line-picks/" class="">Money Line Picks</a></li>
-				<li><a href="/nba-upset-predictions/" class="">Most Likely Upsets</a></li>
-				<li><a href="/nba/betting-models/" >Prediction Accuracy</a></li>
+				<li><a href="/football-pool-picks/">Pick'em Picks</a></li>
+				<li><a href="/nfl-survivor-pool-picks/">Survivor Picks</a></li>
+				<li><a href="/nfl-betting-picks/" class="">Betting Picks Grid</a></li>
+				<li><a href="/nfl-win-picks/" class="">Game Winner Picks</a></li>
+				<li><a href="/nfl-ats-picks/" class="">Point Spread Picks</a></li>
+				<li><a href="/nfl-over-under-picks/" class="">Over Under Picks</a></li>
+				<li><a href="/nfl-money-line-picks/" class="">Money Line Picks</a></li>
+				<li><a href="/nfl-upset-predictions/" class="">Most Likely Upsets</a></li>
+				<li><a href="/nfl/betting-models/" >Prediction Accuracy</a></li>
 	        </ul>
         </li>
 		<li><a href="#" class="expand-controller ">Odds & Trends <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
 			<ul class="nav-list hidden">
-				<li><a href="/nba/odds/" >Betting Odds</a></li>
-				<li><a href="/nba/trends/" >Team Trends</a></li>
+				<li><a href="/nfl/odds/" >Betting Odds</a></li>
+				<li><a href="/nfl/trends/" >Team Trends</a></li>
 			</ul>
 		</li>
         <li><a href="#" class="expand-controller "><span class="long-name ">Projections & Standings</span><span class="short-name hidden">Projections</span> <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
             <ul class="nav-list hidden">
-				<li><a href="/nba/standings/" >Current Standings</a></li>
-				<li><a href="/nba/projections/standings/" >Projected Standings</a></li>
+				<li><a href="/nfl/standings/" >Current Standings</a></li>
+				<li><a href="/nfl/projections/standings/" >Projected Standings</a></li>
 	        </ul>
 		</li>
-        <li><a href="#" class="expand-controller "><span class="long-name ">Matchups & Schedules</span><span class="short-name hidden">Matchups</span> <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
+        <li class="matchups-group"><a href="#" class="expand-controller "><span class="long-name ">Matchups & Schedules</span><span class="short-name hidden">Matchups</span> <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
         	<ul class="nav-list hidden">
-				<li><a href="/nba/schedules/" >Daily Schedule</a></li>
-				<li><a href="/nba/schedules/season/" >Season Schedule</a></li>
-                                
-                                                                                          <li><a href="/nba/matchup/pelicans-bulls-2022-11-09" >New Orleans @ Chicago</a></li>
-                                                              <li><a href="/nba/matchup/jazz-hawks-2022-11-09" >Utah @ Atlanta</a></li>
-                                                              <li><a href="/nba/matchup/knicks-nets-2022-11-09" >New York @ Brooklyn</a></li>
-                                                              <li><a href="/nba/matchup/nuggets-pacers-2022-11-09" >Denver @ Indiana</a></li>
-                                                              <li><a href="/nba/matchup/suns-timberwolves-2022-11-09" >Phoenix @ Minnesota</a></li>
-                                                              <li><a href="/nba/matchup/trail-blazers-hornets-2022-11-09" >Portland @ Charlotte</a></li>
-                                                              <li><a href="/nba/matchup/bucks-thunder-2022-11-09" >Milwaukee @ Okla City</a></li>
-                                                              <li><a href="/nba/matchup/lakers-clippers-2022-11-09" >LA Lakers @ LA Clippers</a></li>
-                                                              <li><a href="/nba/matchup/cavaliers-kings-2022-11-09" >Cleveland @ Sacramento</a></li>
-                                                              <li><a href="/nba/matchup/mavericks-magic-2022-11-09" >Dallas @ Orlando</a></li>
-                                                              <li><a href="/nba/matchup/grizzlies-spurs-2022-11-09" >Memphis @ San Antonio</a></li>
-                                                              <li><a href="/nba/matchup/rockets-raptors-2022-11-09" >Houston @ Toronto</a></li>
-                                                              <li><a href="/nba/matchup/pistons-celtics-2022-11-09" >Detroit @ Boston</a></li>
-                                                          			</ul>
+				<li><a href="/nfl/schedules/season/" >Season Schedule</a></li>
+				
+			    			      			        <li><a href="/nfl/matchup/falcons-panthers-week-10-2022" >Atlanta @ Carolina</a></li>
+			      			        <li><a href="/nfl/matchup/seahawks-buccaneers-week-10-2022" >Seattle vs. Tampa Bay</a></li>
+			      			        <li><a href="/nfl/matchup/broncos-titans-week-10-2022" >Denver @ Tennessee</a></li>
+			      			        <li><a href="/nfl/matchup/saints-steelers-week-10-2022" >New Orleans @ Pittsburgh</a></li>
+			      			        <li><a href="/nfl/matchup/texans-giants-week-10-2022" >Houston @ NY Giants</a></li>
+			      			        <li><a href="/nfl/matchup/browns-dolphins-week-10-2022" >Cleveland @ Miami</a></li>
+			      			        <li><a href="/nfl/matchup/jaguars-chiefs-week-10-2022" >Jacksonville @ Kansas City</a></li>
+			      			        <li><a href="/nfl/matchup/lions-bears-week-10-2022" >Detroit @ Chicago</a></li>
+			      			        <li><a href="/nfl/matchup/vikings-bills-week-10-2022" >Minnesota @ Buffalo</a></li>
+			      			        <li><a href="/nfl/matchup/colts-raiders-week-10-2022" >Indianapolis @ Las Vegas</a></li>
+			      			        <li><a href="/nfl/matchup/cowboys-packers-week-10-2022" >Dallas @ Green Bay</a></li>
+			      			        <li><a href="/nfl/matchup/cardinals-rams-week-10-2022" >Arizona @ LA Rams</a></li>
+			      			        <li><a href="/nfl/matchup/chargers-49ers-week-10-2022" >LA Chargers @ San Francisco</a></li>
+			      			        <li><a href="/nfl/matchup/commanders-eagles-week-10-2022" >Washington @ Philadelphia</a></li>
+			      			    			</ul>
 		</li>
         <li><a href="#" class="expand-controller ">Rankings <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
 	        <ul class="nav-list hidden">
-				<li><a href="/nba/ranking/predictive-by-other/" >Predictive Rankings</a></li>
-				<li><a href="/nba/rankings/" >More Rankings</a></li>
-				<li><a href="/nba/rankings/teams/" >Rankings Comparison</a></li>
+				<li><a href="/nfl/ranking/predictive-by-other/" >Predictive Rankings</a></li>
+				<li><a href="/nfl/rankings/" >More Rankings</a></li>
+				<li><a href="/nfl/rankings/teams/" >Rankings Comparison</a></li>
 	        </ul>
 		</li>
         <li><a href="#" class="expand-controller is-expanded">Stats <svg class="icon"><use xlink:href="#icon-minus3"></use></svg></a>
 	        <ul class="nav-list ">
-				<li><a href="/nba/stats/" >All Stats</a></li>
-				<li><a href="/nba/team-stats/" class="is-current">Team Stats</a></li>
-				<li><a href="/nba/player-stats/" >Player Stats</a></li>
+				<li><a href="/nfl/stats/" >All Stats</a></li>
+				<li><a href="/nfl/team-stats/" class="is-current">Team Stats</a></li>
+				<li><a href="/nfl/player-stats/" >Player Stats</a></li>
 			</ul>
 		</li>
-        <li><a href="#" class="expand-controller ">Teams <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
+        <li class="teams-group"><a href="#" class="expand-controller ">Teams <svg class="icon"><use xlink:href="#icon-plus3"></use></svg></a>
 	        <ul class="nav-list hidden">
-				<li><a href="/nba/team/atlanta-hawks/">Atlanta Hawks</a></li>
-				<li><a href="/nba/team/boston-celtics/">Boston Celtics</a></li>   
-				<li><a href="/nba/team/brooklyn-nets/">Brooklyn Nets</a></li>
-				<li><a href="/nba/team/charlotte-hornets/">Charlotte Hornets</a></li>
-				<li><a href="/nba/team/chicago-bulls/">Chicago Bulls</a></li>
-				<li><a href="/nba/team/cleveland-cavaliers/">Cleveland Cavaliers</a></li>
-				<li><a href="/nba/team/dallas-mavericks/">Dallas Mavericks</a></li>
-				<li><a href="/nba/team/denver-nuggets/">Denver Nuggets</a></li>
-				<li><a href="/nba/team/detroit-pistons/">Detroit Pistons</a></li>
-				<li><a href="/nba/team/golden-state-warriors/">Golden State Warriors</a></li>
-				<li><a href="/nba/team/houston-rockets/">Houston Rockets</a></li>
-				<li><a href="/nba/team/indiana-pacers/">Indiana Pacers</a></li>
-				<li><a href="/nba/team/los-angeles-clippers/">Los Angeles Clippers</a></li>
-				<li><a href="/nba/team/los-angeles-lakers/">Los Angeles Lakers</a></li>
-				<li><a href="/nba/team/memphis-grizzlies/">Memphis Grizzlies</a></li>
-				<li><a href="/nba/team/miami-heat/">Miami Heat</a></li>
-				<li><a href="/nba/team/milwaukee-bucks/">Milwaukee Bucks</a></li>
-				<li><a href="/nba/team/minnesota-timberwolves/">Minnesota Timberwolves</a></li>
-				<li><a href="/nba/team/new-orleans-pelicans/">New Orleans Pelicans</a></li>
-				<li><a href="/nba/team/new-york-knicks/">New York Knicks</a></li>
-				<li><a href="/nba/team/oklahoma-city-thunder/">Oklahoma City Thunder</a></li>
-				<li><a href="/nba/team/orlando-magic/">Orlando Magic</a></li>
-				<li><a href="/nba/team/philadelphia-76ers/">Philadelphia 76ers</a></li>
-				<li><a href="/nba/team/phoenix-suns/">Phoenix Suns</a></li>
-				<li><a href="/nba/team/portland-trail-blazers/">Portland Trail Blazers</a></li>
-				<li><a href="/nba/team/sacramento-kings/">Sacramento Kings</a></li>
-				<li><a href="/nba/team/san-antonio-spurs/">San Antonio Spurs</a></li>
-				<li><a href="/nba/team/toronto-raptors/">Toronto Raptors</a></li>
-				<li><a href="/nba/team/utah-jazz/">Utah Jazz</a></li>
-				<li><a href="/nba/team/washington-wizards/">Washington Wizards</a></li>
+				<li><a href="/nfl/team/arizona-cardinals/">Arizona Cardinals</a></li>
+				<li><a href="/nfl/team/atlanta-falcons/">Atlanta Falcons</a></li>
+				<li><a href="/nfl/team/baltimore-ravens/">Baltimore Ravens</a></li>
+				<li><a href="/nfl/team/buffalo-bills/">Buffalo Bills</a></li>
+				<li><a href="/nfl/team/carolina-panthers/">Carolina Panthers</a></li>
+				<li><a href="/nfl/team/chicago-bears/">Chicago Bears</a></li>
+				<li><a href="/nfl/team/cincinnati-bengals/">Cincinnati Bengals</a></li>
+				<li><a href="/nfl/team/cleveland-browns/">Cleveland Browns</a></li>
+				<li><a href="/nfl/team/dallas-cowboys/">Dallas Cowboys</a></li>
+				<li><a href="/nfl/team/denver-broncos/">Denver Broncos</a></li>
+				<li><a href="/nfl/team/detroit-lions/">Detroit Lions</a></li>
+				<li><a href="/nfl/team/green-bay-packers/">Green Bay Packers</a></li>
+				<li><a href="/nfl/team/houston-texans/">Houston Texans</a></li>
+				<li><a href="/nfl/team/indianapolis-colts/">Indianapolis Colts</a></li>
+				<li><a href="/nfl/team/jacksonville-jaguars/">Jacksonville Jaguars</a></li>
+				<li><a href="/nfl/team/kansas-city-chiefs/">Kansas City Chiefs</a></li>
+				<li><a href="/nfl/team/miami-dolphins/">Miami Dolphins</a></li>
+				<li><a href="/nfl/team/las-vegas-raiders/">Las Vegas Raiders</a></li>
+				<li><a href="/nfl/team/los-angeles-chargers/">Los Angeles Chargers</a></li>
+				<li><a href="/nfl/team/los-angeles-rams/">Los Angeles Rams</a></li>
+				<li><a href="/nfl/team/minnesota-vikings/">Minnesota Vikings</a></li>
+				<li><a href="/nfl/team/new-england-patriots/">New England Patriots</a></li>
+				<li><a href="/nfl/team/new-orleans-saints/">New Orleans Saints</a></li>
+				<li><a href="/nfl/team/new-york-giants/">New York Giants</a></li>
+				<li><a href="/nfl/team/new-york-jets/">New York Jets</a></li>
+				<li><a href="/nfl/team/philadelphia-eagles/">Philadelphia Eagles</a></li>
+				<li><a href="/nfl/team/pittsburgh-steelers/">Pittsburgh Steelers</a></li>
+				<li><a href="/nfl/team/san-francisco-49ers/">San Francisco 49ers</a></li>
+				<li><a href="/nfl/team/seattle-seahawks/">Seattle Seahawks</a></li>
+				<li><a href="/nfl/team/tampa-bay-buccaneers/">Tampa Bay Buccaneers</a></li>
+				<li><a href="/nfl/team/tennessee-titans/">Tennessee Titans</a></li>
+				<li><a href="/nfl/team/washington-commanders/">Washington Commanders</a></li>
 			</ul>
 		</li>
-	    		    <li class="sport-home-link"><a href="/nba/">NBA Home</a></li>
-            </ul>
-</div> <!-- nba -->
+        	        <li class="sport-home-link"><a href="/nfl/">NFL Home</a></li>
+	        </ul>
+</div> <!-- nfl -->
 			</div> <!-- left-sidebar -->
 			<div class="desktop-nav-overlay"></div>
 		</div> <!-- content-wrapper -->
@@ -2602,7 +2952,7 @@
 
 
 <!-- Start TR tag -->
-	<iframe src="/logger.php?page_key=nba%2Fstat%2Fopponent-steals-per-game&amp;page_league=nba&amp;page_type=stat&amp;funnel_page_type=&amp;trk=&amp;uri=%2Fnba%2Fstat%2Fopponent-steals-per-game&amp;refer=&amp;check=913e1cd30c7bb13f30cfe10a8be33fe9" width="0" height="0" frameborder="0"></iframe>
+	<iframe src="/logger.php?page_key=nfl%2Fstat%2Finterceptions-per-game&amp;page_league=nfl&amp;page_type=stat&amp;funnel_page_type=&amp;trk=&amp;uri=%2Fnfl%2Fstat%2Finterceptions-per-game&amp;refer=&amp;check=79c4e34857f633cf5d27bf4512573f1f" width="0" height="0" frameborder="0"></iframe>
 <!-- End TR tag -->
 
 

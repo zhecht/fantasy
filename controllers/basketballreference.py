@@ -241,7 +241,7 @@ def write_schedule(date):
 			homeTeam = tds[1].findAll("a")[-1].get("href").split("/")[-2]
 			score = tds[2].find("a").text.strip()
 			if ", " in score:
-				scoreSp = score.replace(" (OT)", "").split(", ")
+				scoreSp = score.replace(" (2OT)", "").replace(" (OT)", "").split(", ")
 				if awayTeam.upper() in scoreSp[0]:
 					scores[date][awayTeam] = int(scoreSp[0].replace(awayTeam.upper()+" ", ""))
 					scores[date][homeTeam] = int(scoreSp[1].replace(homeTeam.upper()+" ", ""))
@@ -284,8 +284,11 @@ def convertTeamRankingsTeam(team):
 
 def write_rankings():
 	baseUrl = "https://www.teamrankings.com/nba/stat/"
-	pages = ["assists-per-game", "opponent-assists-per-game", "total-rebounds-per-game", "opponent-total-rebounds-per-game", "points-per-game", "opponent-points-per-game", "three-point-pct",  "opponent-three-point-pct", "blocks-per-game", "opponent-blocks-per-game", "steals-per-game", "opponent-steals-per-game"]
-	ids = ["apg", "oapg", "rpg", "orpg", "ppg", "oppg", "3pt%", "o3pt%", "blkpg", "oblkpg", "stlpg", "ostlpg"]
+	pages = ["assists-per-game", "opponent-assists-per-game", "total-rebounds-per-game", "opponent-total-rebounds-per-game", "field-goals-made-per-game", "opponent-field-goals-made-per-game", "three-point-pct",  "opponent-three-point-pct", "blocks-per-game", "opponent-blocks-per-game", "steals-per-game", "opponent-steals-per-game"]
+	ids = ["apg", "oapg", "rpg", "orpg", "fgpg", "ofgpg", "3pt%", "o3pt%", "blkpg", "oblkpg", "stlpg", "ostlpg"]
+
+	with open(f"{prefix}static/basketballreference/rankings.json") as fh:
+		rankings = json.load(fh)
 
 	rankings = {}
 	for idx, page in enumerate(pages):
@@ -307,6 +310,48 @@ def write_rankings():
 				"season": float(tds[2].text.replace("%", "")),
 				"last3": float(tds[3].text.replace("%", ""))
 			}
+
+	comboRanks = {}
+	comboRanksList = []
+	for team in rankings:
+		data = {
+			"pts+ast": rankings[team]["apg"]["season"]+rankings[team]["fgpg"]["season"],
+			"opts+ast": rankings[team]["oapg"]["season"]+rankings[team]["ofgpg"]["season"],
+			"pts+reb": rankings[team]["rpg"]["season"]+rankings[team]["fgpg"]["season"],
+			"opts+reb": rankings[team]["orpg"]["season"]+rankings[team]["ofgpg"]["season"],
+			"pts+reb+ast": rankings[team]["rpg"]["season"]+rankings[team]["apg"]["season"]+rankings[team]["fgpg"]["season"],
+			"opts+reb+ast": rankings[team]["orpg"]["season"]+rankings[team]["oapg"]["season"]+rankings[team]["ofgpg"]["season"],
+			"reb+ast": rankings[team]["rpg"]["season"]+rankings[team]["apg"]["season"],
+			"oreb+ast": rankings[team]["orpg"]["season"]+rankings[team]["oapg"]["season"],
+			"stl+blk": rankings[team]["stlpg"]["season"]+rankings[team]["blkpg"]["season"],
+			"ostl+blk": rankings[team]["ostlpg"]["season"]+rankings[team]["oblkpg"]["season"],
+		}
+		comboRanks[team] = data
+		data["team"] = team
+		comboRanksList.append(data)
+
+	headers = ["pts+ast", "pts+reb", "pts+reb+ast", "reb+ast", "stl+blk"]
+	for team in rankings:
+		for header in headers:
+			sortedList = sorted(comboRanksList, key=operator.itemgetter(header), reverse=True)
+			rank = 0
+			for idx, row in enumerate(sortedList):
+				if row["team"] == team:
+					rank = idx+1
+			rankings[team][header] = {
+				"rank": rank,
+				"season": comboRanks[team][header]
+			}
+			sortedList = sorted(comboRanksList, key=operator.itemgetter("o"+header))
+			rank = 0
+			for idx, row in enumerate(sortedList):
+				if row["team"] == team:
+					rank = idx+1
+			rankings[team]["o"+header] = {
+				"rank": rank,
+				"season": comboRanks[team]["o"+header]
+			}
+
 	with open(f"{prefix}static/basketballreference/rankings.json", "w") as fh:
 		json.dump(rankings, fh, indent=4)
 
@@ -337,6 +382,7 @@ if __name__ == "__main__":
 	elif args.cron:
 		pass
 		write_schedule(date)
+		write_rankings()
 		write_stats(date)
 		#write_averages()
 		
