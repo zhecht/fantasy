@@ -52,7 +52,7 @@
 				const args = [];
 				let s = "";
 				const joinChar = (output == "csv") ? "\t" : "|";
-				s += ["NAME","TEAM","RANK","OPP","OPP RANK","PROP","LINE","SZN AVG","% OVER","LAST 7 GAMES","LAST YR % OVER","OVER", "UNDER"].join(joinChar);
+				s += ["NAME","POS","TEAM","OPP","OPP RANK","PROP","LINE","SZN AVG","% OVER","LAST 7 GAMES","LAST YR % OVER","OVER", "UNDER"].join(joinChar);
 				s += "\n";
                 if (output != "csv") {
                     s += ":--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--\n";
@@ -63,8 +63,8 @@
                 }
 				for (row of rows) {
 					const data = row.getData();
-					let overOdds = data.overOdds.split(" ")[1].substring(1, 5);
-					let underOdds = data.underOdds.split(" ")[1].substring(1, 5);
+					let overOdds = data.overOdds;
+					let underOdds = data.underOdds;
 					if (output == "csv") {
 						if (parseInt(overOdds) > 0) {
 							overOdds = "'"+overOdds;
@@ -73,7 +73,7 @@
 							underOdds = "'"+underOdds;
 						}
 					}
-					s += [data.player, data.team, addNumSuffix(data.rank), data.opponent.toUpperCase(), addNumSuffix(data.oppRank), data.propType, data.line, data.avg, data.totalOver+"%", data.last5, data.lastTotalOver+"%",overOdds, underOdds].join(joinChar);
+					s += [data.player, data.position, data.team, data.opponent.toUpperCase(), addNumSuffix(data.oppRank), data.propType, data.line, data.avg, data.totalOver+"%", data.last5, data.lastTotalOver+"%",overOdds, underOdds].join(joinChar);
 					s += "\n";
 				}
 				console.log(s);
@@ -97,6 +97,14 @@
 					return "<div class='positive'>"+data.proj+"</div>";
 				}
 				return "<div class='negative'>"+data.proj+"</div>";
+			}
+
+			const colorFormatter = function(cell, params, rendered) {
+				const data = cell.getRow().getData();
+				if (cell.getValue() >= parseFloat(data.line)) {
+					return "<div class='positive'>"+cell.getValue()+"</div>";
+				}
+				return "<div class='negative'>"+cell.getValue()+"</div>";
 			}
 
 			const teamFormatter = function(cell, params, rendered) {
@@ -169,27 +177,28 @@
 						*/
 						{formatter:"rowSelection", hozAlign:"center", headerSort:false, cellClick:function(e, cell){
 							cell.getRow().toggleSelect();
-						}},
+						}},	
 						{title: "Player", field: "player", headerFilter: "input"},
+						{title: "Pos", field: "position", hozAlign: "center", width: 50},
 						{title: "Avg Min", field: "avgMin", hozAlign: "center", width: 70},
 						{title: "Last YR Avg Min", field: "lastAvgMin", hozAlign: "center", width: 70},
 						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
-						{title: "Rank", field: "rank", hozAlign: "center", formatter: rankFormatter, width: 70},
+						//{title: "Rank", field: "rank", hozAlign: "center", formatter: rankFormatter, width: 70},
 						//{title: "Rank Val", field: "rankVal", hozAlign: "center", width: 70},
 						{title: "Opp", field: "opponent", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
 						{title: "Opp Rank", field: "oppRank", hozAlign: "center", formatter: rankFormatter, width: 70},
 						//{title: "Opp Rank Val", field: "oppRankVal", hozAlign: "center", width: 70},
 						{title: "Prop", field: "propType", hozAlign: "center"},
 						{title: "Line", field: "line", hozAlign: "center"},
-						{title: "SZN AVG", field: "avg", hozAlign: "center", width: 80},
-						{title: "Last YR AVG", field: "lastAvg", hozAlign: "center", width: 80},
-						//{title: "Proj", field: "proj", hozAlign: "center", width: 80},
+						{title: "SZN AVG", field: "avg", hozAlign: "center", width: 80, formatter: colorFormatter},
+						{title: "Variance", field: "avgVariance", hozAlign: "center", width: 80},
 						{title: "", field: "diffAbs", hozAlign: "center", visible: false},
 						{title: "Total Over", field: "totalOver", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
 						{title: "Last", field: "last5", hozAlign: "center"},
+						{title: "Last YR AVG", field: "lastAvg", hozAlign: "center", width: 80, formatter: colorFormatter},
 						{title: "Last YR Total Over", field: "lastTotalOver", width: 80, hozAlign: "center", formatter: percentFormatter},
-						{title: " ", field: "overOdds"},
-						{title: " ", field: "underOdds"},
+						{title: "Over", field: "overOdds", hozAlign: "center"},
+						{title: "Under", field: "underOdds", hozAlign: "center"},
 					]
 				})
 			}

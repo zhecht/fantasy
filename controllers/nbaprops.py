@@ -120,7 +120,7 @@ def getProps_route():
 	date = datetime.now()
 	date = str(date)[:10]
 
-	with open(f"{prefix}static/nbaprops/{date}.json") as fh:
+	with open(f"{prefix}static/nbaprops/dates/{date}.json") as fh:
 		propData = json.load(fh)
 	with open(f"{prefix}static/basketballreference/totals.json") as fh:
 		stats = json.load(fh)
@@ -132,6 +132,8 @@ def getProps_route():
 		lastYearStats = json.load(fh)
 	with open(f"{prefix}static/basketballreference/schedule.json") as fh:
 		schedule = json.load(fh)
+	with open(f"{prefix}static/basketballreference/roster.json") as fh:
+		roster = json.load(fh)
 
 	#propData = customPropData(propData)
 	teamTotals(date, schedule)
@@ -163,6 +165,9 @@ def getProps_route():
 				avg = "-"
 
 				if "+" in prop:
+					#continue
+					pass
+				if prop in ["stl", "blk", "stl+blk", "3ptm"]:
 					#continue
 					pass
 
@@ -243,7 +248,7 @@ def getProps_route():
 				if lastTotalGames:
 					lastTotalOver = round((lastTotalOver / lastTotalGames) * 100)
 
-				totalOver = totalGames = 0
+				totalOver = totalGames = avgVariance = 0
 				last5 = []
 				if line and avgMin:
 					files = sorted(glob.glob(f"{prefix}static/basketballreference/{espnTeam}/*.json"), key=lambda k: datetime.strptime(k.split("/")[-1].replace(".json", ""), "%Y-%m-%d"), reverse=True)
@@ -261,6 +266,7 @@ def getProps_route():
 								else:
 									val = gameStats[name][prop]
 
+								avgVariance += (val / float(line)) - 1
 								if len(last5) < 7:
 									last5.append(str(int(val)))
 								valPerMin = float(val / minutes)
@@ -270,6 +276,7 @@ def getProps_route():
 									totalOver += 1 
 				if totalGames:
 					totalOver = round((totalOver / totalGames) * 100)
+					avgVariance = round(avgVariance / totalGames, 1)
 
 				diffAbs = 0
 				if avgMin:
@@ -295,6 +302,7 @@ def getProps_route():
 					"player": name.title(),
 					"team": espnTeam.upper(),
 					"opponent": opp,
+					"position": roster[espnTeam][name],
 					"propType": prop,
 					"line": line or "-",
 					"avg": avg,
@@ -304,6 +312,7 @@ def getProps_route():
 					"diff": diff,
 					"avgMin": avgMin,
 					"proj": proj,
+					"avgVariance": avgVariance,
 					"rank": rank,
 					"oppRank": oppRank,
 					"rankVal": rankVal,
@@ -312,8 +321,8 @@ def getProps_route():
 					"totalOver": totalOver,
 					"lastTotalOver": lastTotalOver,
 					"last5": ",".join(last5),
-					"overOdds": "over ("+overOdds+")",
-					"underOdds": "under ("+underOdds+")"
+					"overOdds": overOdds,
+					"underOdds": underOdds
 				})
 
 	return jsonify(props)
@@ -389,7 +398,7 @@ def writeProps(date):
 				props[team][name][prop]["line"] = lines[0]
 
 	fixLines(props)
-	with open(f"{prefix}static/nbaprops/{date}.json", "w") as fh:
+	with open(f"{prefix}static/nbaprops/dates/{date}.json", "w") as fh:
 		json.dump(props, fh, indent=4)
 
 def fixLines(props):

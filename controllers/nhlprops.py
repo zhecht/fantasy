@@ -38,7 +38,7 @@ def getProps_route():
 	date = datetime.now()
 	date = str(date)[:10]
 
-	with open(f"{prefix}static/nhlprops/{date}.json") as fh:
+	with open(f"{prefix}static/nhlprops/dates/{date}.json") as fh:
 		propData = json.load(fh)
 	with open(f"{prefix}static/hockeyreference/totals.json") as fh:
 		stats = json.load(fh)
@@ -262,7 +262,7 @@ def writeProps(date):
 				props[team][name][prop]["line"] = lines[0]
 
 	fixLines(props)
-	with open(f"{prefix}static/nhlprops/{date}.json", "w") as fh:
+	with open(f"{prefix}static/nhlprops/dates/{date}.json", "w") as fh:
 		json.dump(props, fh, indent=4)
 
 def fixLines(props):
