@@ -168,7 +168,7 @@ def getProps_route():
 					#continue
 					pass
 				if prop in ["stl", "blk", "stl+blk", "3ptm"]:
-					#continue
+					continue
 					pass
 
 				if espnTeam in stats and name in stats[espnTeam] and stats[espnTeam][name]["gamesPlayed"]:
@@ -199,6 +199,16 @@ def getProps_route():
 						if underLine == line and underOdd > underOdds:
 							underOdds = underOdd
 
+				try:
+					line = float(line)
+				except:
+					line = 0.0
+
+				if line:
+					if line > 3:
+						line -= 2
+					else:
+						line -= 1
 
 				if overOdds == float('-inf'):
 					continue
@@ -248,7 +258,7 @@ def getProps_route():
 				if lastTotalGames:
 					lastTotalOver = round((lastTotalOver / lastTotalGames) * 100)
 
-				totalOver = totalGames = avgVariance = 0
+				totalOver = totalOverLast5 = totalGames = avgVariance = 0
 				last5 = []
 				if line and avgMin:
 					files = sorted(glob.glob(f"{prefix}static/basketballreference/{espnTeam}/*.json"), key=lambda k: datetime.strptime(k.split("/")[-1].replace(".json", ""), "%Y-%m-%d"), reverse=True)
@@ -273,10 +283,14 @@ def getProps_route():
 								linePerMin = float(line) / avgMin
 								#if valPerMin > linePerMin:
 								if val > float(line):
-									totalOver += 1 
+									totalOver += 1
+									if len(last5) <= 5:
+										totalOverLast5 += 1
 				if totalGames:
 					totalOver = round((totalOver / totalGames) * 100)
 					avgVariance = round(avgVariance / totalGames, 1)
+					last5Size = len(last5) if len(last5) < 5 else 5
+					totalOverLast5 = round((totalOverLast5 / last5Size) * 100)
 
 				diffAbs = 0
 				if avgMin:
@@ -319,6 +333,7 @@ def getProps_route():
 					"oppRankVal": oppRankVal,
 					"lastAvgMin": lastAvgMin,
 					"totalOver": totalOver,
+					"totalOverLast5": totalOverLast5,
 					"lastTotalOver": lastTotalOver,
 					"last5": ",".join(last5),
 					"overOdds": overOdds,
