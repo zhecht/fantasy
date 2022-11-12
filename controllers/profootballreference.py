@@ -1074,6 +1074,7 @@ if __name__ == "__main__":
 	parser.add_argument("-c", "--cron", action="store_true", help="Start Cron Job")
 	parser.add_argument("-r", "--ranks", action="store_true", help="Get Ranks")    
 	parser.add_argument("-schedule", "--schedule", help="Print Schedule", action="store_true")
+	parser.add_argument("--rankings", help="Rankings", action="store_true")
 	parser.add_argument("-s", "--start", help="Start Week", type=int)
 	parser.add_argument("-e", "--end", help="End Week", type=int)
 	parser.add_argument("-t", "--team", help="Get Team")
@@ -1102,6 +1103,8 @@ if __name__ == "__main__":
 			print("\n#Wk{} vs. {} {} - {} pts".format(data["week"], data["opp"], args.pos, data["points"]))
 			arr = [ d.split(": ")[1] for d in data["players"] ]
 			print("\n".join(arr))
+	elif args.rankings:
+		write_rankings()
 	elif args.cron:
 		pass
 		# only needs to be run once in a while
@@ -1118,7 +1121,7 @@ if __name__ == "__main__":
 		write_boxscore_stats(curr_week, args.team)
 		calculate_aggregate_stats()
 
-	write_rankings()
+	#write_rankings()
 	#write_team_rosters()
 	#write_boxscore_links()
 	#write_boxscore_stats(args.week, args.team)

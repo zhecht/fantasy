@@ -198,11 +198,83 @@ def getProps_route():
 					"totalOver": totalOver,
 					"lastTotalOver": lastTotalOver,
 					"last5": ",".join(last5),
-					"overOdds": "over ("+overOdds+")",
-					"underOdds": "under ("+underOdds+")"
+					"overOdds": overOdds,
+					"underOdds": underOdds
 				})
 
+	write_csvs(props)
 	return jsonify(props)
+
+def write_csvs(props):
+	csvs = {}
+	splitProps = {"full": []}
+	headers = "\t".join(["NAME","TEAM","PROP","LINE","SZN AVG","% OVER","LAST 10 GAMES","LAST YR % OVER","OVER", "UNDER"])
+	reddit = "|".join(headers.split("\t"))
+	reddit += "\n:--|:--|:--|:--|:--|:--|:--|:--|:--|:--"
+
+	for row in props:
+		if row["propType"] not in splitProps:
+			splitProps[row["propType"]] = []
+
+		if row["overOdds"] == '-inf':
+			continue
+
+		splitProps[row["propType"]].append(row)
+		splitProps["full"].append(row)
+
+	for prop in splitProps:
+		csvs[prop] = headers
+		rows = sorted(splitProps[prop], key=lambda k: (k["totalOver"]), reverse=True)
+		for row in rows:
+			overOdds = row["overOdds"]
+			underOdds = row["underOdds"]
+			if int(overOdds) > 0:
+				overOdds = "'"+overOdds
+			if int(underOdds) > 0:
+				underOdds = "'"+underOdds
+			csvs[prop] += "\n" + "\t".join([row["player"], row["team"], row["propType"], str(row["line"]), str(row["avg"]), f"{row['totalOver']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
+
+	# add full rows
+	csvs["full"] = headers
+	rows = sorted(splitProps["full"], key=lambda k: (k["player"]))
+	for row in rows:
+		overOdds = row["overOdds"]
+		underOdds = row["underOdds"]
+		if int(overOdds) > 0:
+			overOdds = "'"+overOdds
+		if int(underOdds) > 0:
+			underOdds = "'"+underOdds
+		csvs["full"] += "\n" + "\t".join([row["player"], row["team"], row["propType"], str(row["line"]), str(row["avg"]), f"{row['totalOver']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
+
+	# add top 4 to reddit
+	for prop in ["sog", "pts"]:
+		rows = sorted(splitProps[prop], key=lambda k: (k["totalOver"]), reverse=True)
+		for row in rows[:4]:
+			overOdds = row["overOdds"]
+			underOdds = row["underOdds"]
+			reddit += "\n" + "|".join([row["player"], row["team"], row["propType"], str(row["line"]), str(row["avg"]), f"{row['totalOver']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
+		reddit += "\n-|-|-|-|-|-|-|-|-|-"
+
+	with open(f"{prefix}static/nhlprops/csvs/reddit", "w") as fh:
+		fh.write(reddit)
+
+	for prop in csvs:
+		with open(f"{prefix}static/nhlprops/csvs/{prop}.csv", "w") as fh:
+			fh.write(csvs[prop])
+
+def addNumSuffix(val):
+	a = val % 10;
+	b = val % 100;
+	if val == 0:
+		return ""
+	if a == 1 and b != 11:
+		return f"{val}st"
+	elif a == 2 and b != 12:
+		return f"{val}nd"
+	elif a == 3 and b != 13:
+		return f"{val}rd"
+	else:
+		return f"{val}th"
 
 @nhlprops_blueprint.route('/nhlprops')
 def props_route():

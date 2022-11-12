@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Props</title>
+		<title>NHL Props</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 		<link rel="stylesheet" href="/static/css/nhlteams.css" type="text/css">
 		<script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.9.3/dist/js/tabulator.min.js"></script>
@@ -56,15 +56,15 @@
                 const args = [];
                 let s = "";
                 const joinChar = (output == "csv") ? "\t" : "|";
-                s += ["NAME","TEAM","PROP","LINE","SZN AVG","% OVER","LAST GAMES","LAST YR % OVER","OVER", "UNDER"].join(joinChar);
+                s += ["NAME","TEAM","PROP","LINE","SZN AVG","% OVER","LAST 10 GAMES","LAST YR % OVER","OVER", "UNDER"].join(joinChar);
                 s += "\n";
                 if (output != "csv") {
                     s += ":--|:--|:--|:--|:--|:--|:--|:--|:--|:--\n";
                 }
                 for (row of rows) {
                     const data = row.getData();
-                    let overOdds = data.overOdds.split(" ")[1].substring(1, 5);
-					let underOdds = data.underOdds.split(" ")[1].substring(1, 5);
+                    let overOdds = data.overOdds;
+					let underOdds = data.underOdds;
 					if (output == "csv") {
 						if (parseInt(overOdds) > 0) {
 							overOdds = "'"+overOdds;
@@ -174,8 +174,8 @@
 						{title: "Last YR Total Over", field: "lastTotalOver", width: 80, hozAlign: "center", formatter: percentFormatter},
 						//{title: "Games Over", field: "over", formatter: overFormatter, hozAlign: "center"},
 						//{title: "Last Game", field: "lastOver", formatter: lastOverFormatter, hozAlign: "center"},
-						{title: " ", field: "overOdds"},
-						{title: " ", field: "underOdds"},
+						{title: "Over", field: "overOdds", hozAlign: "center", sorter: "number"},
+						{title: "Under", field: "underOdds", hozAlign: "center", sorter: "number"},
 					]
 				})
 			}

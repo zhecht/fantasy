@@ -170,7 +170,7 @@ def getDefPropsData():
 		team = nameRow.split(" ")[-1]
 
 		if team not in ["CAR", "ATL"]:
-			continue
+			#continue
 			pass
 
 		opp = get_opponents(getProfootballReferenceTeam(team.lower()))[CURR_WEEK]
@@ -347,7 +347,7 @@ def getProps_route():
 			stats = json.load(fh)
 
 		if team not in ["CAR", "ATL"]:
-			continue
+			#continue
 			pass
 
 		pos = "-"
@@ -430,7 +430,7 @@ def getProps_route():
 			res.append({
 				"player": player.title(),
 				"team": getYahooTeam(team),
-				"opponent": getYahooTeam(opp.upper()),
+				"opponent": getYahooTeam(TEAM_TRANS.get(opp, opp).upper()),
 				"oppRank": oppRank,
 				"hit": True,
 				"pos": pos,

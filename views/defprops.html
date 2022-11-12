@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Props</title>
+		<title>Tackles Props</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 		<link rel="stylesheet" href="/static/css/teams.css" type="text/css">
 		<script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.9.3/dist/js/tabulator.min.js"></script>
@@ -71,7 +71,7 @@
 				const args = [];
 				let s = "";
 				const joinChar = (output == "csv") ? "\t" : "|";
-				s += ["NAME","TEAM","RANK","OPP","OPP RANK","PROP","LINE","SZN AVG","% OVER","LAST GAMES","OVER", "UNDER"].join(joinChar);
+				s += ["NAME","POS","TEAM","OPP","OPP RANK","PROP","LINE","SZN AVG","% OVER","LAST GAMES","OVER", "UNDER"].join(joinChar);
 				s += "\n";
                 if (output != "csv") {
                     s += ":--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--\n";
@@ -92,7 +92,7 @@
 							underOdds = "'"+underOdds;
 						}
 					}
-					s += [data.player, data.team, addNumSuffix(data.rank), data.opponent, addNumSuffix(data.oppRank), parseProp(data.propType), data.line, data.avg, data.totalOver+"%", data.last5, overOdds, underOdds].join(joinChar);
+					s += [data.player, data.pos, data.team, data.opponent.toUpperCase(), addNumSuffix(data.oppRank), parseProp(data.propType), data.line, data.avg, data.totalOver+"%", data.last5, overOdds, underOdds].join(joinChar);
 					s += "\n";
 				}
 				console.log(s);
@@ -329,7 +329,7 @@
 						{title: "Snap% (wk"+CURR_WEEK+"%)", field: "avgSnaps", hozAlign: "center"},
 						//{title: "Plays", field: "avgTotPlays", hozAlign: "center", width: "50"},
 						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
-						{title: "Rank", field: "rank", hozAlign: "center", formatter: rankFormatter, width: 70},
+						//{title: "Rank", field: "rank", hozAlign: "center", formatter: rankFormatter, width: 70},
 						{title: "Opp", field: "opponent", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
 						{title: "Opp Rank", field: "oppRank", hozAlign: "center", formatter: rankFormatter, width: 70},
 						//{title: "Plays", field: "avgOppTotPlays", hozAlign: "center", width: "50"},
