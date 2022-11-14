@@ -136,7 +136,8 @@ def getProps_route():
 		roster = json.load(fh)
 
 	#propData = customPropData(propData)
-	teamTotals(date, schedule)
+
+	#teamTotals(date, schedule)
 
 	props = []
 	for team in propData:
@@ -151,7 +152,7 @@ def getProps_route():
 					else:
 						opp = teams[0]
 
-		if espnTeam.lower() not in ["min", "mem", "cle", "gs", "sac", "lal"]:
+		if espnTeam.lower() not in ["bkn", "lal"]:
 			#continue
 			pass
 
@@ -168,7 +169,7 @@ def getProps_route():
 					#continue
 					pass
 				if prop in ["stl", "blk", "stl+blk", "3ptm"]:
-					continue
+					#continue
 					pass
 
 				if espnTeam in stats and name in stats[espnTeam] and stats[espnTeam][name]["gamesPlayed"]:
@@ -204,8 +205,10 @@ def getProps_route():
 				except:
 					line = 0.0
 
-				if 1 and line:
-					if line > 4:
+				if 0 and line:
+					if prop == "reb+ast":
+						continue
+					if line > 5:
 						line -= 2
 					else:
 						line -= 1
@@ -302,23 +305,20 @@ def getProps_route():
 					else:
 						diffAbs = diffAvg
 
-				rank = oppRank = ""
-				rankVal = oppRankVal = ""
-				rankingsProp = convertRankingsProp(prop)
-				if rankingsProp in rankings[opp]:
-					rankVal = str(rankings[espnTeam][rankingsProp]["season"])
-					oppRankVal = str(rankings[opp]["o"+rankingsProp]["season"])
-					if "%" in rankingsProp:
-						rankVal += "%"
-						oppRankVal += "%"
-					rank = rankings[espnTeam][rankingsProp]['rank']
-					oppRank = rankings[opp]['o'+rankingsProp]['rank']
+				pos = roster[espnTeam][name]
+
+				oppRank = ""
+				rankingsPos = pos
+				if pos == "F":
+					rankingsPos = "PF"
+				if rankingsPos in rankings[opp] and prop in rankings[opp][rankingsPos]:
+					oppRank = rankings[opp][rankingsPos][prop+"_rank"]
 
 				props.append({
 					"player": name.title(),
 					"team": espnTeam.upper(),
 					"opponent": opp,
-					"position": roster[espnTeam][name],
+					"position": pos,
 					"propType": prop,
 					"line": line or "-",
 					"avg": avg,
@@ -329,10 +329,7 @@ def getProps_route():
 					"avgMin": avgMin,
 					"proj": proj,
 					"avgVariance": avgVariance,
-					"rank": rank,
 					"oppRank": oppRank,
-					"rankVal": rankVal,
-					"oppRankVal": oppRankVal,
 					"lastAvgMin": lastAvgMin,
 					"totalOver": totalOver,
 					"totalOverLast5": totalOverLast5,

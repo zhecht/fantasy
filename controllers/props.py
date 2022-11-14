@@ -169,7 +169,7 @@ def getDefPropsData():
 		name = fixName(name.lower())
 		team = nameRow.split(" ")[-1]
 
-		if team not in ["CAR", "ATL"]:
+		if team not in ["PHI", "WAS"]:
 			#continue
 			pass
 
@@ -319,6 +319,21 @@ def customPropData(propData):
 def getDefProps_route():
 	return jsonify(getDefPropsData())
 
+def checkTrades(player, stats):
+	with open(f"{prefix}static/nfl_trades.json") as fh:
+		trades = json.load(fh) 
+
+	if player not in trades:
+		return
+	trade = trades[player]
+	with open(f"{prefix}static/profootballreference/{trade['from']}/stats.json") as fh:
+		oldStats = json.load(fh)
+	if player in oldStats:
+		for wk in oldStats[player]:
+			if wk == "tot" or wk in stats:
+				continue
+			stats[wk] = oldStats[player][wk]
+
 @props_blueprint.route('/getProps')
 def getProps_route():
 	res = []
@@ -346,9 +361,14 @@ def getProps_route():
 		with open(f"{prefix}static/profootballreference/{pff_team}/stats.json") as fh:
 			stats = json.load(fh)
 
-		if team not in ["CAR", "ATL"]:
-			#continue
+		if team not in ["PHI", "WAS"]:
+			continue
 			pass
+
+		if name == "T. Etienne":
+			name = "T. Etienne Jr"
+		if name.endswith("Jr"):
+			name = name.replace("Jr", "Jr.")
 
 		pos = "-"
 		playerStats = {}
@@ -360,8 +380,11 @@ def getProps_route():
 			player = player.replace(".", "")
 			if player == "terrace marshall jr":
 				player = "terrace marshall"
+			elif player == "amari rodgers":
+				player = "aaron rodgers"
 			if player in stats:
 				gameLogs = stats[player]
+				checkTrades(player, gameLogs)
 				gamesPlayed = 0
 				for wk in sorted(gameLogs.keys(), reverse=True):
 					if wk == "tot" or not gameLogs[wk].get("snap_counts", 0):
@@ -387,6 +410,7 @@ def getProps_route():
 			tot = totGames = totalOver = 0
 			if player in stats:
 				gameLogs = stats[player]
+				checkTrades(player, gameLogs)
 				for wk in sorted(gameLogs.keys(), reverse=True):
 					if wk == "tot":
 						continue

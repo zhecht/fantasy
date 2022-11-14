@@ -282,34 +282,71 @@ def convertTeamRankingsTeam(team):
 		return "gs"
 	return team.replace(" ", "")[:3]
 
+def convertFProsTeam(team):
+	if team.startswith("uth"):
+		return "utah"
+	elif team.startswith("sas"):
+		return "sa"
+	elif team.startswith("pho"):
+		return "phx"
+	elif team.startswith("nyk"):
+		return "ny"
+	elif team.startswith("gsw"):
+		return "gs"
+	return team.replace(" ", "")[:3]
+
 def write_rankings():
-	baseUrl = "https://www.teamrankings.com/nba/stat/"
-	pages = ["assists-per-game", "opponent-assists-per-game", "total-rebounds-per-game", "opponent-total-rebounds-per-game", "field-goals-made-per-game", "opponent-field-goals-made-per-game", "three-point-pct",  "opponent-three-point-pct", "blocks-per-game", "opponent-blocks-per-game", "steals-per-game", "opponent-steals-per-game", "points-plus-assists-per-game", "opponent-points-plus-assists-per-game", "points-plus-rebounds-per-game", "opponent-points-plus-rebounds-per-game", "points-plus-rebounds-plus-assists-per-game", "opponent-points-plus-rebounds-plus-assists-per-gam", "rebounds-plus-assists-per-game", "opponent-rebounds-plus-assists-per-game", "steals-plus-blocks-per-game", "opponent-steals-plus-blocks-per-game"]
-	ids = ["apg", "oapg", "rpg", "orpg", "fgpg", "ofgpg", "3pt%", "o3pt%", "blkpg", "oblkpg", "stlpg", "ostlpg", "pts+ast", "opts+ast", "pts+reb", "opts+reb", "pts+reb+ast", "opts+reb+ast", "reb+ast", "oreb+ast", "stl+blk", "ostl+blk"]
+	url = "https://www.fantasypros.com/daily-fantasy/nba/fanduel-defense-vs-position.php"
+	outfile = "out"
+	#call(["curl", "-k", url, "-o", outfile])
+	soup = BS(open(outfile, 'rb').read(), "lxml")
 
-	with open(f"{prefix}static/basketballreference/rankings.json") as fh:
-		rankings = json.load(fh)
-
+	allPos = ["PG", "SG", "SF", "PF", "C"]
+	headers = ["pts","reb","ast","3ptm","stl","blk","to"]
 	rankings = {}
-	for idx, page in enumerate(pages):
-		url = baseUrl+page
-		outfile = "out"
-		call(["curl", "-k", url, "-o", outfile])
-		soup = BS(open(outfile, 'rb').read(), "lxml")
+	sortedRankings = {}
+	for row in soup.find("table").findAll("tr")[1:]:
+		pos = row.get("class")[-1]
+		if pos not in allPos:
+			continue
+		if row.get("class")[0] != "GC-0":
+			continue
+		tds = row.findAll("td")
+		team = convertFProsTeam(tds[0].text.lower().strip())
+		if team not in rankings:
+			rankings[team] = {}
+		if pos not in rankings[team]:
+			rankings[team][pos] = {}
+		if pos not in sortedRankings:
+			sortedRankings[pos] = []
 
-		for row in soup.find("table").findAll("tr")[1:]:
-			tds = row.findAll("td")
-			team = convertTeamRankingsTeam(row.find("a").text.lower())
-			if team not in rankings:
-				rankings[team] = {}
-			if ids[idx] not in rankings[team]:
-				rankings[team][ids[idx]] = {}
+		pts = float(tds[1].text.strip())
+		reb = float(tds[2].text.strip())
+		ast = float(tds[3].text.strip())
+		j = {
+			"pts": pts,
+			"reb": reb,
+			"ast": ast,
+			"pts+ast": pts+ast,
+			"pts+reb": pts+reb,
+			"pts+reb+ast": pts+reb+ast,
+			"reb+ast": reb+ast,
+			"3ptm": float(tds[4].text.strip()),
+			"stl": float(tds[5].text.strip()),
+			"blk": float(tds[6].text.strip()),
+			"stl+blk": float(tds[5].text.strip()) + float(tds[6].text.strip()),
+			"to": float(tds[7].text.strip()),
+		}
+		rankings[team][pos] = j
+		j["team"] = team
+		sortedRankings[pos].append(j)
 
-			rankings[team][ids[idx]] = {
-				"rank": int(tds[0].text),
-				"season": float(tds[2].text.replace("%", "")),
-				"last3": float(tds[3].text.replace("%", ""))
-			}
+	allHeaders = ["pts", "reb", "ast", "pts+ast", "pts+reb", "pts+reb+ast", "reb+ast", "3ptm", "stl", "blk", "stl+blk", "to"]
+	for header in allHeaders:
+		for pos in allPos:
+			sortedRanks = sorted(sortedRankings[pos], key=lambda k: (k[header]))
+			for idx, rank in enumerate(sortedRanks):
+				rankings[rank["team"]][pos][header+"_rank"] = idx+1
 
 	with open(f"{prefix}static/basketballreference/rankings.json", "w") as fh:
 		json.dump(rankings, fh, indent=4)

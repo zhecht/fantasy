@@ -71,10 +71,10 @@
 				const args = [];
 				let s = "";
 				const joinChar = (output == "csv") ? "\t" : "|";
-				s += ["NAME","TEAM","PROP","LINE","SZN AVG","% OVER","LAST GAMES","OVER", "UNDER"].join(joinChar);
+				s += ["NAME","TEAM","OPP","RANK","PROP","LINE","SZN AVG","% OVER","LAST GAMES","OVER", "UNDER"].join(joinChar);
 				s += "\n";
                 if (output != "csv") {
-                    s += ":--|:--|:--|:--|:--|:--|:--|:--|:--\n";
+                    s += ":--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--\n";
                 }
 				let rows = TABLE.getSelectedRows();
                 if (rows.length == 0) {
@@ -92,7 +92,7 @@
 							underOdds = "'"+underOdds;
 						}
 					}
-					s += [data.player, data.team, parseProp(data.propType), data.line, data.avg, data.totalOver+"%", data.last5, overOdds, underOdds].join(joinChar);
+					s += [data.player, data.team, data.opponent, addNumSuffix(data.oppRank), parseProp(data.propType), data.line, data.avg, data.totalOver+"%", data.last5, overOdds, underOdds].join(joinChar);
 					s += "\n";
 				}
 				console.log(s);
