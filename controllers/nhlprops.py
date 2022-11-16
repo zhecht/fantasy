@@ -13,6 +13,7 @@ import operator
 import os
 import subprocess
 import re
+import time
 
 nhlprops_blueprint = Blueprint('nhlprops', __name__, template_folder='views')
 
@@ -289,56 +290,64 @@ def props_route():
 	return render_template("nhlprops.html", prop=prop)
 
 def writeProps(date):
-	url = "https://www.actionnetwork.com/nhl/props/shots-on-goal"
-
+	actionNetworkBookIds = {
+		68: "draftkings",
+		69: "fanduel"
+	}
+	
+	optionTypes = {}
+	propMap = {
+		"sog": "core_bet_type_31_shots_on_goal",
+		"pts": "core_bet_type_280_points",
+	}
 	props = {}
-
 	for prop in ["sog", "pts"]:
-		path = f"{prefix}static/nhlprops/{prop}.html"
-		#os.system(f"curl -k \"{url}\" -o {path}")
+
+		path = f"{prefix}static/nhlprops/{prop}.json"
+		url = f"https://api.actionnetwork.com/web/v1/leagues/3/props/{propMap[prop]}?bookIds=69,68&date={date.replace('-', '')}"
+		time.sleep(0.2)
+		os.system(f"curl -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0' -k \"{url}\" -o {path}")
+
 		with open(path) as fh:
-			soup = BS(fh.read(), "lxml")
+			j = json.load(fh)
 
-		books = ["fanduel", "betmgm", "draftkings", "caesars"]
-		#books = ["fanduel", "betmgm", "draftkings"]
+		if "markets" not in j:
+			continue
+		market = j["markets"][0]
 
-		for row in soup.findAll("tr")[1:]:
-			name = row.find("div", class_="total-prop-row__player-name").text.lower()
-			team = row.find("div", class_="total-prop-row__player-team").text.lower()
-			if team not in props:
-				props[team] = {}
+		for option in market["rules"]["options"]:
+			optionTypes[int(option)] = market["rules"]["options"][option]["option_type"].lower()
 
-			if name not in props[team]:
-				props[team][name] = {}
-			if prop not in props[team][name]:
-				props[team][name][prop] = {}
+		teamIds = {}
+		for row in market["teams"]:
+			teamIds[row["id"]] = row["abbr"].lower()
 
-			props[team][name][prop] = {"line": {}}
-			for idx, td in enumerate(row.findAll("td")[2:-4]):
-				odds = td.findAll("div", class_="book-cell__odds")
-				over = under = ""
-				line = ""
-				if odds[0].text != "N/A":
-					over = odds[0].findAll("span")[0].text+" ("+odds[0].findAll("span")[1].text+")"
-					line = odds[0].findAll("span")[0].text
-				if odds[1].text != "N/A":
-					under = odds[1].findAll("span")[0].text+" ("+odds[1].findAll("span")[1].text+")"
-				book = books[idx]
+		playerIds = {}
+		for row in market["players"]:
+			playerIds[row["id"]] = row["full_name"].lower()
 
-				if line and line not in props[team][name][prop]["line"]:
-					props[team][name][prop]["line"][line] = 0
-				if line:
-					props[team][name][prop]["line"][line] += 1
+		books = market["books"]
+		for bookData in books:
+			bookId = bookData["book_id"]
+			if bookId not in actionNetworkBookIds:
+				continue
+			for oddData in bookData["odds"]:
+				player = playerIds[oddData["player_id"]]
+				team = teamIds[oddData["team_id"]]
+				overUnder = optionTypes[oddData["option_type_id"]]
+				book = actionNetworkBookIds[bookId]
 
-				props[team][name][prop][book] = {
-					"over": over,
-					"under": under
-				}
-			lines = sorted(props[team][name][prop]["line"])
-			if lines:
-				props[team][name][prop]["line"] = lines[0]
-
-	fixLines(props)
+				if team not in props:
+					props[team] = {}
+				if player not in props[team]:
+					props[team][player] = {}
+				if prop not in props[team][player]:
+					props[team][player][prop] = {}
+				if book not in props[team][player][prop]:
+					props[team][player][prop][book] = {}
+				props[team][player][prop][book][overUnder] = f"{overUnder[0]}{oddData['value']} ({oddData['money']})"
+				if "line" not in props[team][player][prop]:
+					props[team][player][prop]["line"] = f"o{oddData['value']}"
 	with open(f"{prefix}static/nhlprops/dates/{date}.json", "w") as fh:
 		json.dump(props, fh, indent=4)
 

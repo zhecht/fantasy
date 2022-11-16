@@ -158,18 +158,15 @@
 				TABLE = new Tabulator("#propsTable", {
 					tooltipsHeader: true,
 					ajaxURL: "/getNBAProps",
+					ajaxParams:{alt: "{{alt}}"},
 					//responsiveLayout:"collapse",
 					//layout: "fitDataFill",
 					//layout: window.innerWidth <= 450 ? "fitData" : "fitColumns",
-					//groupBy: "team",
-					groupHeader: function(value, count, data, group){
-						const playerTxt = count == 1 ? "Player" : "Players"
-						return "<a href='https://www.espn.com/nfl/team/depth/_/name/"+value+"' target='_blank'>"+value+"</a>" + "<span style='color:black; margin-left:10px;'>(" + count + " "+playerTxt+")</span>";
-					},
+					groupBy: "{{alt}}" != "" ? "game" : "",
 					initialSort: [
 						//{column: "pos", dir: "asc"},
-						{column: "totalOverPerMin", dir: "desc"},
-						{column: "totalOverLast5", dir: "desc"},
+						{column: "totalOverPerMin", dir: "{{alt}}" == "under" ? "asc" : "desc"},
+						{column: "totalOverLast5", dir: "{{alt}}" == "under" ? "asc" : "desc"},
 						//{column: "team", dir: "asc"},
 					],
 					columns: [

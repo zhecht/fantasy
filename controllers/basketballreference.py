@@ -155,9 +155,8 @@ def write_averages():
 
 	if 0:
 		ids = {
-			"lac": {
-				"kawhi leonard": 6450,
-				"john wall": 4237
+			"chi": {
+				"zach lavine": 3064440
 			}
 		}
 
@@ -309,6 +308,8 @@ def convertFProsTeam(team):
 		return "gs"
 	elif team.startswith("nor"):
 		return "no"
+	elif team.startswith("was"):
+		return "wsh"
 	return team.replace(" ", "")[:3]
 
 def write_rankings():

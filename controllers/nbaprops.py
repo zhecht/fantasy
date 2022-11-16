@@ -6,6 +6,7 @@ from sys import platform
 from datetime import datetime
 
 import argparse
+import time
 import glob
 import json
 import math
@@ -119,19 +120,45 @@ def writeProps(date):
 		68: "draftkings",
 		69: "fanduel"
 	}
-	
-	overUnderIds = {42: "over", 43: "under", 35: "under", 34: "over", 40: "over", 41: "under", 345: "over", 349: "under", 350: "over", 346: "under", 341: "under", 342: "over", 39: "over", 38: "under", 348: "under", 344: "over", 343: "under", 347: "over", 36: "under", 37: "over", 30: "under", 31: "over"}
+	propMap = {
+		"3ptm": "core_bet_type_21_3fgm",
+		"reb": "core_bet_type_23_rebounds",
+		"stl": "core_bet_type_24_steals",
+		"blk": "core_bet_type_25_blocks",
+		"ast": "core_bet_type_26_assists",
+		"pts": "core_bet_type_27_points",
+		"pts+reb+ast": "core_bet_type_85_points_rebounds_assists",
+		"pts+reb": "core_bet_type_86_points_rebounds",
+		"pts+ast": "core_bet_type_87_points_assists",
+		"reb+ast": "core_bet_type_88_rebounds_assists",
+		"stl+blk": "core_bet_type_89_steals_blocks"
+	}
 	props = {}
+	optionTypes = {}
 	for prop in ["pts", "ast", "reb", "blk", "stl", "pts+ast", "pts+reb", "pts+reb+ast", "reb+ast", "stl+blk", "3ptm"]:
-		path = f"{prefix}static/nbaprops/{prop}.html"
-		with open(path) as fh:
-			soup = BS(fh.read(), "lxml")
 
-		j = eval(soup.find("script", id="__NEXT_DATA__").text.replace("false", "False").replace("true", "True").replace("null", "0"))
-		market = j["props"]["pageProps"]["initialMarketConfig"]["market"]
+		path = f"{prefix}static/nbaprops/{prop}.json"
+		url = f"https://api.actionnetwork.com/web/v1/leagues/4/props/{propMap[prop]}?bookIds=69,68&date={date.replace('-', '')}"
+		time.sleep(0.2)
+		os.system(f"curl -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0' -k \"{url}\" -o {path}")
+
+		with open(path) as fh:
+			j = json.load(fh)
+
+		with open(path, "w") as fh:
+			json.dump(j, fh, indent=4)
+
+		if "markets" not in j:
+			continue
+		market = j["markets"][0]
+
+		for option in market["rules"]["options"]:
+			optionTypes[int(option)] = market["rules"]["options"][option]["option_type"].lower()
+
 		teamIds = {}
 		for row in market["teams"]:
 			teamIds[row["id"]] = row["abbr"].lower()
+
 		playerIds = {}
 		for row in market["players"]:
 			playerIds[row["id"]] = row["full_name"].lower()
@@ -144,10 +171,7 @@ def writeProps(date):
 			for oddData in bookData["odds"]:
 				player = playerIds[oddData["player_id"]]
 				team = teamIds[oddData["team_id"]]
-				try:
-					overUnder = overUnderIds[oddData["option_type_id"]]
-				except:
-					continue
+				overUnder = optionTypes[oddData["option_type_id"]]
 				book = actionNetworkBookIds[bookId]
 
 				if team not in props:
@@ -161,12 +185,17 @@ def writeProps(date):
 				props[team][player][prop][book][overUnder] = f"{overUnder[0]}{oddData['value']} ({oddData['money']})"
 				if "line" not in props[team][player][prop]:
 					props[team][player][prop]["line"] = f"o{oddData['value']}"
+				elif oddData['value'] < float(props[team][player][prop]["line"][1:]):
+					props[team][player][prop]["line"] = f"o{oddData['value']}"
+
 	with open(f"{prefix}static/nbaprops/dates/{date}.json", "w") as fh:
 		json.dump(props, fh, indent=4)
 
 @nbaprops_blueprint.route('/getNBAProps')
 def getProps_route():
 	res = []
+
+	alt = request.args.get("alt") or ""
 
 	date = datetime.now()
 	date = str(date)[:10]
@@ -191,15 +220,17 @@ def getProps_route():
 	props = []
 	for team in propData:
 		espnTeam = fixNBATeam(team)
-		opp = ""
+		opp = game = ""
 		if date in schedule:
 			for teams in schedule[date]:
+				game = teams
 				teams = teams.split(" @ ")
 				if espnTeam in teams:
 					if teams.index(espnTeam) == 0:
 						opp = teams[1]
 					else:
 						opp = teams[0]
+					break
 
 		if espnTeam.lower() not in ["lac", "hou"]:
 			#continue
@@ -254,13 +285,21 @@ def getProps_route():
 				except:
 					line = 0.0
 
-				if 1 and line:
+				if alt and line:
 					if prop in ["stl+blk", "reb+ast"]:
 						continue
-					if line > 5:
-						line -= 2
+					if alt == "over":
+						if line > 5:
+							line -= 2
+						else:
+							line -= 1
 					else:
-						line -= 1
+						if "+" in prop or prop in ["3ptm", "stl", "blk"]:
+							continue
+						if line > 5:
+							line += 2
+						else:
+							line += 1
 					if line < 0:
 						line = 0
 
@@ -366,6 +405,7 @@ def getProps_route():
 					oppRank = rankings[opp][rankingsPos][prop+"_rank"]
 
 				props.append({
+					"game": game,
 					"player": name.title(),
 					"team": espnTeam.upper(),
 					"opponent": opp,
@@ -476,68 +516,12 @@ def convertRankingsProp(prop):
 @nbaprops_blueprint.route('/nbaprops')
 def props_route():
 	prop = ""
+	alt = ""
 	if request.args.get("prop"):
 		prop = request.args.get("prop").replace(" ", "+")
-	return render_template("nbaprops.html", prop=prop)
-
-def writeProps2(date):
-	url = "https://www.actionnetwork.com/nba/props/points"
-
-	props = {}
-
-	for prop in ["pts", "ast", "reb", "blk", "stl", "pts+ast", "pts+reb", "pts+reb+ast", "reb+ast", "stl+blk", "3ptm"]:
-		path = f"{prefix}static/nbaprops/{prop}.html"
-		#os.system(f"curl -k \"{url}\" -o {path}")
-		with open(path) as fh:
-			soup = BS(fh.read(), "lxml")
-
-		books = ["fanduel", "betmgm", "draftkings", "caesars"]
-		#books = ["fanduel", "betmgm", "draftkings"]
-
-		for row in soup.findAll("tr")[1:]:
-			name = row.find("div", class_="total-prop-row__player-name").text.lower()
-			team = row.find("div", class_="total-prop-row__player-team").text.lower()
-			if team not in props:
-				props[team] = {}
-
-			if name not in props[team]:
-				props[team][name] = {}
-			if prop not in props[team][name]:
-				props[team][name][prop] = {}
-
-			props[team][name][prop] = {"line": {}}
-			for idx, td in enumerate(row.findAll("td")[2:-4]):
-				odds = td.findAll("div", class_="book-cell__odds")
-				over = under = ""
-				line = ""
-				if odds[0].text != "N/A":
-					over = odds[0].findAll("span")[0].text+" ("+odds[0].findAll("span")[1].text+")"
-					line = odds[0].findAll("span")[0].text
-				if odds[1].text != "N/A":
-					under = odds[1].findAll("span")[0].text+" ("+odds[1].findAll("span")[1].text+")"
-				book = books[idx]
-				if book == "betmgm":
-					continue
-
-				if line and line not in props[team][name][prop]["line"]:
-					props[team][name][prop]["line"][line] = 0
-				if line:
-					props[team][name][prop]["line"][line] += 1
-
-				props[team][name][prop][book] = {
-					"over": over,
-					"under": under
-				}
-			lines = sorted(props[team][name][prop]["line"])
-			if lines:
-				props[team][name][prop]["line"] = lines[0]
-
-	fixLines(props)
-	with open(f"{prefix}static/nbaprops/dates/{date}.json", "w") as fh:
-		json.dump(props, fh, indent=4)
-
-def fixLines(props):
-	pass
+	if request.args.get("alt"):
+		alt = request.args.get("alt")
+	return render_template("nbaprops.html", prop=prop, alt=alt)
 
 def zeroProps():
 	with open(f"{prefix}static/nbaprops/customProps.json") as fh:
