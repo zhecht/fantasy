@@ -145,7 +145,7 @@ def getProps_route():
 				if lastTotalGames:
 					lastTotalOver = round((lastTotalOver / lastTotalGames) * 100)
 
-				totalOver = totalGames = 0
+				totalOver = totalOverLast5 = totalGames = 0
 				last5 = []
 				if line and avgMin:
 					files = sorted(glob.glob(f"{prefix}static/hockeyreference/{espnTeam}/*.json"), key=lambda k: datetime.strptime(k.split("/")[-1].replace(".json", ""), "%Y-%m-%d"), reverse=True)
@@ -168,10 +168,14 @@ def getProps_route():
 								linePerMin = float(line) / avgMin
 								if float(val) > float(line):
 									totalOver += 1
+									if len(last5) <= 5:
+										totalOverLast5 += 1
 								#if valPerMin > linePerMin:
 								#	totalOver += 1 
 				if totalGames:
 					totalOver = round((totalOver / totalGames) * 100)
+					last5Size = len(last5) if len(last5) < 5 else 5
+					totalOverLast5 = round((totalOverLast5 / last5Size) * 100)
 
 				diffAbs = 0
 				if avgMin:
@@ -196,6 +200,7 @@ def getProps_route():
 					"proj": proj,
 					"lastAvgMin": lastAvgMin,
 					"totalOver": totalOver,
+					"totalOverLast5": totalOverLast5,
 					"lastTotalOver": lastTotalOver,
 					"last5": ",".join(last5),
 					"overOdds": overOdds,
@@ -208,9 +213,9 @@ def getProps_route():
 def write_csvs(props):
 	csvs = {}
 	splitProps = {"full": []}
-	headers = "\t".join(["NAME","TEAM","PROP","LINE","SZN AVG","% OVER","LAST 10 GAMES","LAST YR % OVER","OVER", "UNDER"])
+	headers = "\t".join(["NAME","TEAM","PROP","LINE","SZN AVG","% OVER","L5 % OVER","LAST 10 GAMES","LAST YR % OVER","OVER", "UNDER"])
 	reddit = "|".join(headers.split("\t"))
-	reddit += "\n:--|:--|:--|:--|:--|:--|:--|:--|:--|:--"
+	reddit += "\n:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--"
 
 	for row in props:
 		if row["propType"] not in splitProps:
@@ -224,7 +229,7 @@ def write_csvs(props):
 
 	for prop in splitProps:
 		csvs[prop] = headers
-		rows = sorted(splitProps[prop], key=lambda k: (k["totalOver"]), reverse=True)
+		rows = sorted(splitProps[prop], key=lambda k: (k["totalOverLast5"], k["totalOver"]), reverse=True)
 		for row in rows:
 			overOdds = row["overOdds"]
 			underOdds = row["underOdds"]
@@ -232,7 +237,7 @@ def write_csvs(props):
 				overOdds = "'"+overOdds
 			if int(underOdds) > 0:
 				underOdds = "'"+underOdds
-			csvs[prop] += "\n" + "\t".join([row["player"], row["team"], row["propType"], str(row["line"]), str(row["avg"]), f"{row['totalOver']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
+			csvs[prop] += "\n" + "\t".join([row["player"], row["team"], row["propType"], str(row["line"]), str(row["avg"]), f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
 
 	# add full rows
 	csvs["full"] = headers
@@ -248,12 +253,12 @@ def write_csvs(props):
 
 	# add top 4 to reddit
 	for prop in ["sog", "pts"]:
-		rows = sorted(splitProps[prop], key=lambda k: (k["totalOver"]), reverse=True)
+		rows = sorted(splitProps[prop], key=lambda k: (k["totalOverLast5"], k["totalOver"]), reverse=True)
 		for row in rows[:4]:
 			overOdds = row["overOdds"]
 			underOdds = row["underOdds"]
-			reddit += "\n" + "|".join([row["player"], row["team"], row["propType"], str(row["line"]), str(row["avg"]), f"{row['totalOver']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
-		reddit += "\n-|-|-|-|-|-|-|-|-|-"
+			reddit += "\n" + "|".join([row["player"], row["team"], row["propType"], str(row["line"]), str(row["avg"]), f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
+		reddit += "\n-|-|-|-|-|-|-|-|-|-|-"
 
 	with open(f"{prefix}static/nhlprops/csvs/reddit", "w") as fh:
 		fh.write(reddit)

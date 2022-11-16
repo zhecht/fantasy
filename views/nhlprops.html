@@ -56,10 +56,10 @@
                 const args = [];
                 let s = "";
                 const joinChar = (output == "csv") ? "\t" : "|";
-                s += ["NAME","TEAM","PROP","LINE","SZN AVG","% OVER","LAST 10 GAMES","LAST YR % OVER","OVER", "UNDER"].join(joinChar);
+                s += ["NAME","TEAM","PROP","LINE","SZN AVG","% OVER","L5 % OVER","LAST 10 GAMES","LAST YR % OVER","OVER", "UNDER"].join(joinChar);
                 s += "\n";
                 if (output != "csv") {
-                    s += ":--|:--|:--|:--|:--|:--|:--|:--|:--|:--\n";
+                    s += ":--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--\n";
                 }
                 for (row of rows) {
                     const data = row.getData();
@@ -73,7 +73,7 @@
 							underOdds = "'"+underOdds;
 						}
 					}
-                    s += [data.player, data.team, data.propType, data.line, data.avg, data.totalOver+"%", data.last5, data.lastTotalOver+"%",overOdds, underOdds].join(joinChar);
+                    s += [data.player, data.team, data.propType, data.line, data.avg, data.totalOver+"%", data.totalOverLast5+"%", data.last5, data.lastTotalOver+"%",overOdds, underOdds].join(joinChar);
                     s += "\n";
                 }
                 console.log(s);
@@ -146,8 +146,8 @@
 						return "<a href='https://www.espn.com/nfl/team/depth/_/name/"+value+"' target='_blank'>"+value+"</a>" + "<span style='color:black; margin-left:10px;'>(" + count + " "+playerTxt+")</span>";
 					},
 					initialSort: [
-						//{column: "pos", dir: "asc"},
 						{column: "totalOver", dir: "desc"},
+						{column: "totalOverLast5", dir: "desc"},
 						//{column: "team", dir: "asc"},
 					],
 					columns: [
@@ -170,6 +170,7 @@
 						*/
 						{title: "", field: "diffAbs", hozAlign: "center", visible: false},
 						{title: "Total Over", field: "totalOver", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
+						{title: "L5 Total Over", field: "totalOverLast5", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
 						{title: "Last", field: "last5", hozAlign: "center"},
 						{title: "Last YR Total Over", field: "lastTotalOver", width: 80, hozAlign: "center", formatter: percentFormatter},
 						//{title: "Games Over", field: "over", formatter: overFormatter, hozAlign: "center"},

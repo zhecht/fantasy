@@ -150,7 +150,17 @@ def write_averages():
 	with open(f"{prefix}static/basketballreference/averages.json") as fh:
 		averages = json.load(fh)
 
-	lastYearStats = {}
+	with open(f"{prefix}static/basketballreference/lastYearStats.json") as fh:
+		lastYearStats = json.load(fh)
+
+	if 0:
+		ids = {
+			"lac": {
+				"kawhi leonard": 6450,
+				"john wall": 4237
+			}
+		}
+
 	headers = ["min", "fg", "fg%", "3pt", "3p%", "ft", "ft%", "reb", "ast", "blk", "stl", "pf", "to", "pts"]
 	for team in ids:
 		if team not in averages:
@@ -163,13 +173,17 @@ def write_averages():
 			if player in averages[team]:
 				pass
 				continue
+
+			year = "2022"
+			if player in ["kawhi leonard", "john wall"]:
+				year = "2021"
 			
 			gamesPlayed = 0
 			averages[team][player] = {}
 			lastYearStats[team][player] = {}
 
 			time.sleep(0.175)
-			url = f"https://www.espn.com/nba/player/gamelog/_/id/{pId}/type/nba/year/2022"
+			url = f"https://www.espn.com/nba/player/gamelog/_/id/{pId}/type/nba/year/{year}"
 			outfile = "out"
 			call(["curl", "-k", url, "-o", outfile])
 			soup = BS(open(outfile, 'rb').read(), "lxml")
@@ -293,12 +307,14 @@ def convertFProsTeam(team):
 		return "ny"
 	elif team.startswith("gsw"):
 		return "gs"
+	elif team.startswith("nor"):
+		return "no"
 	return team.replace(" ", "")[:3]
 
 def write_rankings():
 	url = "https://www.fantasypros.com/daily-fantasy/nba/fanduel-defense-vs-position.php"
 	outfile = "out"
-	#call(["curl", "-k", url, "-o", outfile])
+	call(["curl", "-k", url, "-o", outfile])
 	soup = BS(open(outfile, 'rb').read(), "lxml")
 
 	allPos = ["PG", "SG", "SF", "PF", "C"]
@@ -387,6 +403,7 @@ if __name__ == "__main__":
 	parser.add_argument("-s", "--start", help="Start Week", type=int)
 	parser.add_argument("--rankings", help="Rankings", action="store_true")
 	parser.add_argument("--roster", help="Roster", action="store_true")
+	parser.add_argument("--averages", help="averages", action="store_true")
 	parser.add_argument("--schedule", help="Schedule", action="store_true")
 	parser.add_argument("-e", "--end", help="End Week", type=int)
 	parser.add_argument("-w", "--week", help="Week", type=int)
@@ -403,6 +420,8 @@ if __name__ == "__main__":
 
 	if args.schedule:
 		write_schedule(date)
+	elif args.averages:
+		write_averages()
 	elif args.rankings:
 		write_rankings()
 	elif args.roster:

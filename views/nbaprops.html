@@ -168,7 +168,7 @@
 					},
 					initialSort: [
 						//{column: "pos", dir: "asc"},
-						{column: "totalOver", dir: "desc"},
+						{column: "totalOverPerMin", dir: "desc"},
 						{column: "totalOverLast5", dir: "desc"},
 						//{column: "team", dir: "asc"},
 					],
@@ -192,6 +192,7 @@
 						//{title: "Variance", field: "avgVariance", hozAlign: "center", width: 80},
 						{title: "", field: "diffAbs", hozAlign: "center", visible: false},
 						{title: "Total Over", field: "totalOver", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
+						{title: "Total Over Per Min", field: "totalOverPerMin", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
 						{title: "L5 Total Over", field: "totalOverLast5", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
 						{title: "Last", field: "last5", hozAlign: "center"},
 						{title: "Last YR AVG", field: "lastAvg", hozAlign: "center", width: 80, formatter: colorFormatter},

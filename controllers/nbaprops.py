@@ -55,27 +55,29 @@ def teamTotals(today, schedule):
 			totals[team]["ttOvers"].append(str(scores[date][team]))
 			totals[team]["overs"].append(str(scores[date][team] + scores[date][opp]))
 
-	out = "team|ppg|ppga|overs|overs avg|ttOvers|TT avg\n"
-	out += ":--|:--|:--|:--|:--|:--|:--\n"
+	out = "\t".join([x.upper() for x in ["team", "ppg", "ppga", "overs", "overs avg", "tt overs", "tt avg"]])
+	out += "\n"
+	#out += ":--|:--|:--|:--|:--|:--|:--\n"
+	cutoff = 7
 	for game in schedule[today]:
 		away, home = map(str, game.split(" @ "))
 		ppg = round(totals[away]["ppg"] / totals[away]["games"], 1)
 		ppga = round(totals[away]["ppga"] / totals[away]["games"], 1)
-		overs = ",".join(totals[away]["overs"])
+		overs = ",".join(totals[away]["overs"][:cutoff])
 		oversAvg = round(sum([int(x) for x in totals[away]["overs"]]) / len(totals[away]["overs"]), 1)
-		ttOvers = ",".join(totals[away]["ttOvers"])
+		ttOvers = ",".join(totals[away]["ttOvers"][:cutoff])
 		ttOversAvg = round(sum([int(x) for x in totals[away]["ttOvers"]]) / len(totals[away]["ttOvers"]), 1)
-		out += f"{away}|{ppg}|{ppga}|{overs}|{oversAvg}|{ttOvers}|{ttOversAvg}\n"
+		out += "\t".join([away.upper(), str(ppg), str(ppga), overs, str(oversAvg), ttOvers, str(ttOversAvg)]) + "\n"
 		ppg = round(totals[home]["ppg"] / totals[home]["games"], 1)
 		ppga = round(totals[home]["ppga"] / totals[home]["games"], 1)
-		overs = ",".join(totals[home]["overs"])
+		overs = ",".join(totals[home]["overs"][:cutoff])
 		oversAvg = round(sum([int(x) for x in totals[home]["overs"]]) / len(totals[home]["overs"]), 1)
-		ttOvers = ",".join(totals[home]["ttOvers"])
+		ttOvers = ",".join(totals[home]["ttOvers"][:cutoff])
 		ttOversAvg = round(sum([int(x) for x in totals[home]["ttOvers"]]) / len(totals[home]["ttOvers"]), 1)
-		out += f"{home}|{ppg}|{ppga}|{overs}|{oversAvg}|{ttOvers}|{ttOversAvg}\n"
-		out += "-|-|-|-|-|-|-\n"
+		out += "\t".join([home.upper(), str(ppg), str(ppga), overs, str(oversAvg), ttOvers, str(ttOversAvg)]) + "\n"
+		out += "\t".join(["-"]*7) + "\n"
 
-	with open("out2", "w") as fh:
+	with open(f"{prefix}static/nbaprops/csvs/totals.csv", "w") as fh:
 		fh.write(out)
 
 def customPropData(propData):
@@ -112,6 +114,55 @@ def customPropData(propData):
 
 	return propData
 
+def writeProps(date):
+	actionNetworkBookIds = {
+		68: "draftkings",
+		69: "fanduel"
+	}
+	
+	overUnderIds = {42: "over", 43: "under", 35: "under", 34: "over", 40: "over", 41: "under", 345: "over", 349: "under", 350: "over", 346: "under", 341: "under", 342: "over", 39: "over", 38: "under", 348: "under", 344: "over", 343: "under", 347: "over", 36: "under", 37: "over", 30: "under", 31: "over"}
+	props = {}
+	for prop in ["pts", "ast", "reb", "blk", "stl", "pts+ast", "pts+reb", "pts+reb+ast", "reb+ast", "stl+blk", "3ptm"]:
+		path = f"{prefix}static/nbaprops/{prop}.html"
+		with open(path) as fh:
+			soup = BS(fh.read(), "lxml")
+
+		j = eval(soup.find("script", id="__NEXT_DATA__").text.replace("false", "False").replace("true", "True").replace("null", "0"))
+		market = j["props"]["pageProps"]["initialMarketConfig"]["market"]
+		teamIds = {}
+		for row in market["teams"]:
+			teamIds[row["id"]] = row["abbr"].lower()
+		playerIds = {}
+		for row in market["players"]:
+			playerIds[row["id"]] = row["full_name"].lower()
+
+		books = market["books"]
+		for bookData in books:
+			bookId = bookData["book_id"]
+			if bookId not in actionNetworkBookIds:
+				continue
+			for oddData in bookData["odds"]:
+				player = playerIds[oddData["player_id"]]
+				team = teamIds[oddData["team_id"]]
+				try:
+					overUnder = overUnderIds[oddData["option_type_id"]]
+				except:
+					continue
+				book = actionNetworkBookIds[bookId]
+
+				if team not in props:
+					props[team] = {}
+				if player not in props[team]:
+					props[team][player] = {}
+				if prop not in props[team][player]:
+					props[team][player][prop] = {}
+				if book not in props[team][player][prop]:
+					props[team][player][prop][book] = {}
+				props[team][player][prop][book][overUnder] = f"{overUnder[0]}{oddData['value']} ({oddData['money']})"
+				if "line" not in props[team][player][prop]:
+					props[team][player][prop]["line"] = f"o{oddData['value']}"
+	with open(f"{prefix}static/nbaprops/dates/{date}.json", "w") as fh:
+		json.dump(props, fh, indent=4)
 
 @nbaprops_blueprint.route('/getNBAProps')
 def getProps_route():
@@ -137,8 +188,6 @@ def getProps_route():
 
 	#propData = customPropData(propData)
 
-	#teamTotals(date, schedule)
-
 	props = []
 	for team in propData:
 		espnTeam = fixNBATeam(team)
@@ -152,7 +201,7 @@ def getProps_route():
 					else:
 						opp = teams[0]
 
-		if espnTeam.lower() not in ["bkn", "lal"]:
+		if espnTeam.lower() not in ["lac", "hou"]:
 			#continue
 			pass
 
@@ -205,8 +254,8 @@ def getProps_route():
 				except:
 					line = 0.0
 
-				if 0 and line:
-					if prop == "reb+ast":
+				if 1 and line:
+					if prop in ["stl+blk", "reb+ast"]:
 						continue
 					if line > 5:
 						line -= 2
@@ -263,7 +312,7 @@ def getProps_route():
 				if lastTotalGames:
 					lastTotalOver = round((lastTotalOver / lastTotalGames) * 100)
 
-				totalOver = totalOverLast5 = totalGames = avgVariance = 0
+				totalOverPerMin = totalOver = totalOverLast5 = totalGames = avgVariance = 0
 				last5 = []
 				if line and avgMin:
 					files = sorted(glob.glob(f"{prefix}static/basketballreference/{espnTeam}/*.json"), key=lambda k: datetime.strptime(k.split("/")[-1].replace(".json", ""), "%Y-%m-%d"), reverse=True)
@@ -286,13 +335,15 @@ def getProps_route():
 									last5.append(str(int(val)))
 								valPerMin = float(val / minutes)
 								linePerMin = float(line) / avgMin
-								#if valPerMin > linePerMin:
+								if valPerMin > linePerMin:
+									totalOverPerMin += 1
 								if val > float(line):
 									totalOver += 1
 									if len(last5) <= 5:
 										totalOverLast5 += 1
 				if totalGames:
 					totalOver = round((totalOver / totalGames) * 100)
+					totalOverPerMin = round((totalOverPerMin / totalGames) * 100)
 					avgVariance = round(avgVariance / totalGames, 1)
 					last5Size = len(last5) if len(last5) < 5 else 5
 					totalOverLast5 = round((totalOverLast5 / last5Size) * 100)
@@ -332,6 +383,7 @@ def getProps_route():
 					"oppRank": oppRank,
 					"lastAvgMin": lastAvgMin,
 					"totalOver": totalOver,
+					"totalOverPerMin": totalOverPerMin,
 					"totalOverLast5": totalOverLast5,
 					"lastTotalOver": lastTotalOver,
 					"last5": ",".join(last5),
@@ -339,6 +391,7 @@ def getProps_route():
 					"underOdds": underOdds
 				})
 
+	teamTotals(date, schedule)
 	write_csvs(props)
 	return jsonify(props)
 
@@ -427,7 +480,7 @@ def props_route():
 		prop = request.args.get("prop").replace(" ", "+")
 	return render_template("nbaprops.html", prop=prop)
 
-def writeProps(date):
+def writeProps2(date):
 	url = "https://www.actionnetwork.com/nba/props/points"
 
 	props = {}

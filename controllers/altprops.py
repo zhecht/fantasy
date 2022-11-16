@@ -37,7 +37,7 @@ def getProps_route():
 
 	with open(f"{prefix}static/nbaprops/customProps.json") as fh:
 		propData = json.load(fh)
-	with open(f"{prefix}static/nbaprops/{date}.json") as fh:
+	with open(f"{prefix}static/nbaprops/dates/{date}.json") as fh:
 		todaysPropData = json.load(fh)
 	with open(f"{prefix}static/basketballreference/schedule.json") as fh:
 		schedule = json.load(fh)
