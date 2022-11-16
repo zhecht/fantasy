@@ -43,6 +43,7 @@
 		<div id="footer">
 			<button onclick="print();">Print</button>
 			<button onclick="print('csv');">PRINT CSV</button>
+			<button onclick="calculateParlayOdds();">Parlay Odds</button>
 		</div>
 		<script>
 			let TABLE;
@@ -77,6 +78,40 @@
 					s += "\n";
 				}
 				console.log(s);
+			}
+
+			function calculateParlayOdds() {
+				const rows = TABLE.getSelectedRows();
+				let totOdds = 1;
+				let out = "";
+				for (row of rows) {
+					const data = row.getData();
+					const overLast5 = data.totalOverLast5;
+					const overPerMin = data.totalOverPerMin;
+					const avg = (overLast5 + overPerMin) / 2;
+
+					let odds = 0;
+					if (avg == 100) {
+						odds = -100000;
+					} else {
+						odds = (100 * avg) / (-100 + avg);
+					}
+					const decOdds = (100 / odds) + 1;
+
+					totOdds *= decOdds;
+					out += [data.player, data.propType, "avg="+avg+"%", odds].join(", ");
+					out += "\n";
+				}
+
+				out += "totOdds="+totOdds.toFixed(3);
+				const usOdds = Math.round((100 / (totOdds-1)));
+				out += "\nUS Odds="+usOdds;
+				if (usOdds > 0) {
+					out += "\nProb="+((100 / (usOdds + 100)) * 100).toFixed(2)+"%";
+				} else {
+					out += "\nProb="+((-(usOdds) / (-(usOdds) + 100)) * 100).toFixed(2)+"%";
+				}
+				alert(out);
 			}
 
 			function teamFilter(headerValue, rowValue, rowData, filterParams){
