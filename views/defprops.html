@@ -82,8 +82,8 @@
                 }
 				for (row of rows) {
 					const data = row.getData();
-					let overOdds = data.overOdds.split(" ")[1].substring(1, 5);
-					let underOdds = data.underOdds.split(" ")[1].substring(1, 5);
+					let overOdds = data.overOdds;
+					let underOdds = data.underOdds;
 					if (output == "csv") {
 						if (parseInt(overOdds) > 0) {
 							overOdds = "'"+overOdds;
@@ -92,7 +92,7 @@
 							underOdds = "'"+underOdds;
 						}
 					}
-					s += [data.player, data.pos, data.team, data.opponent.toUpperCase(), addNumSuffix(data.oppRank), parseProp(data.propType), data.line, data.avg, data.totalOver+"%", data.last5, overOdds, underOdds].join(joinChar);
+					s += [data.player, data.pos, data.team.toUpperCase(), data.opponent.toUpperCase(), addNumSuffix(data.oppRank), parseProp(data.propType), data.line, data.avg, data.totalOver+"%", data.last5, overOdds, underOdds].join(joinChar);
 					s += "\n";
 				}
 				console.log(s);
@@ -316,9 +316,7 @@
 						return "<a href='https://www.espn.com/nfl/team/depth/_/name/"+value+"' target='_blank'>"+value+"</a>" + "<span style='color:black; margin-left:10px;'>(" + count + " "+playerTxt+")</span>";
 					},
 					initialSort: [
-						//{column: "pos", dir: "asc"},
 						{column: "totalOver", dir: "desc"},
-						//{column: "team", dir: "asc"},
 					],
 					columns: [
 						{formatter:"rowSelection", hozAlign:"center", headerSort:false, cellClick:function(e, cell){
@@ -326,21 +324,16 @@
 						}},
 						{title: "Player", field: "player", headerFilter: "input"},
 						{title: "Pos", field: "pos", headerFilter: "select", hozAlign: "center"},
-						{title: "Snap% (wk"+CURR_WEEK+"%)", field: "avgSnaps", hozAlign: "center"},
-						//{title: "Plays", field: "avgTotPlays", hozAlign: "center", width: "50"},
 						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
-						//{title: "Rank", field: "rank", hozAlign: "center", formatter: rankFormatter, width: 70},
 						{title: "Opp", field: "opponent", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
 						{title: "Opp Rank", field: "oppRank", hozAlign: "center", formatter: rankFormatter, width: 70},
-						//{title: "Plays", field: "avgOppTotPlays", hozAlign: "center", width: "50"},
-						{title: "Pass %", field: "oppPassPerc", hozAlign: "center"},
 						{title: "Line", field: "line", hozAlign: "center"},
 						{title: "", field: "diff", hozAlign: "center", visible: false},
 						{title: "SZN AVG", field: "avg", hozAlign: "center", formatter: colorFormatter},
 						{title: "Total Over", field: "totalOver", formatter: percentFormatter, hozAlign: "center", width:80, sorter:"number"},
 						{title: "Last", field: "last5WithLines", hozAlign: "center"},
-						{title: " ", field: "overOdds"},
-						{title: " ", field: "underOdds"},
+						{title: "Over", field: "overOdds", hozAlign: "center"},
+						{title: "Under", field: "underOdds", hozAlign: "center"},
 					]
 				})
 			}

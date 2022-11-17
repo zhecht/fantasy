@@ -68,20 +68,18 @@ def getProfootballReferenceTeam(team):
 	return team
 
 def getYahooTeam(team):
-	if team == "ARZ":
-		return "ARI"
-	elif team == "BLT":
-		return "BAL"
-	elif team == "CLV":
-		return "CLE"
-	elif team == "HST":
-		return "HOU"
-	elif team == "LA":
-		return "LAR"
-	elif team == "WSH":
-		return "WAS"
-	elif team == "SDG":
-		return "LAC"
+	if team == "arz":
+		return "ari"
+	elif team == "blt":
+		return "bal"
+	elif team == "clv":
+		return "cle"
+	elif team == "hst":
+		return "hou"
+	elif team == "la":
+		return "lar"
+	elif team == "sdg":
+		return "lac"
 	return team
 
 def getOppTotPlays(totPlays, team, opp):
@@ -136,9 +134,9 @@ def tacklesAnalysis():
 	print(res["rav"])
 
 
-def getDefPropsData():
+def getDefPropsData(teams):
 	pastPropData = {}
-	for file in glob.glob(f"{prefix}static/props/wk*.json"):
+	for file in glob.glob(f"{prefix}static/props/wk*_def.json"):
 		wk = int(file.split("wk")[-1].split("_")[0])
 		if wk <= CURR_WEEK:
 			with open(file) as fh:
@@ -152,7 +150,6 @@ def getDefPropsData():
 
 	with open(f"{prefix}static/props/wk{CURR_WEEK+1}_def.json") as fh:
 		propData = json.load(fh)
-
 	with open(f"{prefix}static/tot_plays.json") as fh:
 		playsData = json.load(fh)
 
@@ -161,156 +158,117 @@ def getDefPropsData():
 
 	with open(f"{prefix}static/profootballreference/rankings.json") as fh:
 		rankings = json.load(fh)
+	with open(f"{prefix}static/profootballreference/averages.json") as fh:
+		averages = json.load(fh)
+	with open(f"{prefix}static/profootballreference/roster.json") as fh:
+		roster = json.load(fh)
+	with open(f"{prefix}static/profootballreference/totals.json") as fh:
+		totals = json.load(fh)
 
 	#tacklesAnalysis()
 
 	res = []
-	for nameRow in propData:
-		name = " ".join(nameRow.split(" ")[:-1])
-		name = fixName(name.lower())
-		team = nameRow.split(" ")[-1]
+	for team in propData:
+		for name in propData[team]:
+			for prop in propData[team][name]:
+				espnTeam = team
 
-		if team not in ["PHI", "WSH"]:
-			#continue
-			pass
-
-		opp = get_opponents(getProfootballReferenceTeam(team.lower()))[CURR_WEEK]
-		pff_team = getProfootballReferenceTeam(team.lower())
-
-		if opp == "BYE":
-			continue
-
-		with open(f"{prefix}static/profootballreference/{pff_team}/stats.json") as fh:
-			stats = json.load(fh)
-
-		with open(f"{prefix}static/profootballreference/{pff_team}/roster.json") as fh:
-			roster = json.load(fh)
-		
-		pos = "-"
-		if name in roster:
-			pos = roster[name]
-
-		totPlays, oppTotPlays = getOppTotPlays(playsData, pff_team, opp)
-		opponents = get_opponents(pff_team)
-
-		line = propData[nameRow]["line"]
-		if line:
-			line = line[1:]
-
-		playerStats = {}
-		last5 = []
-		last5WithLines = []
-		totTackles = 0
-		totTeamTackles = 0
-		avgSnaps = 0
-		lastSnaps = 0
-		avg = 0
-		totalOver = 0
-		if name not in stats:
-			pass
-		else:
-			gameLogs = stats[name]
-			gamesPlayed = 0
-			totTeamSnaps = totSnaps = 0
-			for wk in sorted(gameLogs.keys(), reverse=True):
-				if wk == "tot" or not gameLogs[wk].get("snap_counts", 0):
+				if teams and team not in teams:
 					continue
-				gamesPlayed += 1
-				totTeamSnaps += int(gameLogs[wk]["snap_counts"] / (gameLogs[wk]["snap_perc"] / 100))
-				totSnaps += gameLogs[wk]["snap_counts"]
-				if lastSnaps == 0:
-					lastSnaps = gameLogs[wk]["snap_perc"]
 
-				week = int(wk[2:])
-				totTeamTackles += stats["DEF"][wk]["tackles"]
-				tackles = gameLogs[wk].get("tackles_combined", 0)
-				totTackles += tackles
-				if line and tackles > float(line):
-					totalOver += 1
+				opponents = get_opponents(espnTeam)
+				opp = opponents[CURR_WEEK]
+				if opp == "BYE":
+					continue
+				
+				pos = "-"
+				if name in roster[team]:
+					pos = roster[team][name]
 
-				if "tackles_combined" in gameLogs[wk]:
-					t = str(gameLogs[wk]["tackles_combined"])
+				#totPlays, oppTotPlays = getOppTotPlays(playsData, pff_team, opp)
+				line = propData[team][name][prop]["line"]
+				if line:
+					line = line[1:]
+
+				playerStats = {}
+				last5 = []
+				last5WithLines = []
+				totTackles = 0
+				totTeamTackles = 0
+				avg = 0
+				totalOver = 0
+				gamesPlayed = totals[espnTeam][name]["gamesPlayed"]
+				totTeamSnaps = totSnaps = 0
+				wks = glob.glob(f"{prefix}static/profootballreference/{espnTeam}/wk*.json")
+				for wk in sorted(wks, key=lambda k: int(k.split("/")[-1][2:-5]), reverse=True):
+					with open(wk) as fh:
+						data = json.load(fh)
+					if name not in data:
+						continue
+
+					week = int(wk.split("/")[-1][2:-5])
+					tackles = data[name].get("tackles_combined", 0)
+					totTackles += tackles
+					if line and tackles > float(line):
+						totalOver += 1
+
+					t = str(int(tackles))
 					last5.append(t)
-					if name+" "+team in pastPropData and week in pastPropData[name+" "+team]:
-						t += f"({pastPropData[name+' '+team][week]})"
+					if name+" "+team.upper() in pastPropData and week in pastPropData[name+" "+team.upper()]:
+						t += f"({pastPropData[name+' '+team.upper()][week]})"
 					last5WithLines.append(t)
 
-			if gamesPlayed:
-				avg = round(totTackles / gamesPlayed, 1)
-				totalOver = round((totalOver / gamesPlayed) * 100)
-			playerStats = gameLogs
-			playerStats["tot"]["gamesPlayed"] = gamesPlayed
-			if totTeamSnaps:
-				avgSnaps = int(round((totSnaps / totTeamSnaps)*100))
+				if gamesPlayed:
+					avg = round(totTackles / gamesPlayed, 1)
+					totalOver = round((totalOver / gamesPlayed) * 100)
 
-		overOdds = underOdds = float('-inf')
-		for book in propData[nameRow]:
-			if book == "line" or not propData[nameRow][book]["over"]:
-				continue
+				overOdds = underOdds = float('-inf')
+				for book in propData[team][name][prop]:
+					if book == "line" or not propData[team][name][prop][book]["over"]:
+						continue
 
-			line = propData[nameRow]["line"][1:]
-			over = propData[nameRow][book]["over"]
-			overLine = over.split(" ")[0][1:]
-			overOdd = int(over.split(" ")[1][1:-1])
-			if overLine == line and overOdd > overOdds:
-				overOdds = overOdd
+					line = propData[team][name][prop]["line"][1:]
+					over = propData[team][name][prop][book]["over"]
+					overLine = over.split(" ")[0][1:]
+					overOdd = int(over.split(" ")[1][1:-1])
+					if overLine == line and overOdd > overOdds:
+						overOdds = overOdd
 
-			under = propData[nameRow][book]["under"]
-			underLine = under.split(" ")[0][1:]
-			underOdd = int(under.split(" ")[1][1:-1])
-			if underLine == line and underOdd > underOdds:
-				underOdds = underOdd
+					under = propData[team][name][prop][book]["under"]
+					underLine = under.split(" ")[0][1:]
+					underOdd = int(under.split(" ")[1][1:-1])
+					if underLine == line and underOdd > underOdds:
+						underOdds = underOdd
 
-		overOdds = str(overOdds)
-		underOdds = str(underOdds)
-		if not overOdds.startswith("-"):
-			overOdds = "+"+overOdds
-		if not underOdds.startswith("-"):
-			underOdds = "+"+underOdds
+				overOdds = str(overOdds)
+				underOdds = str(underOdds)
+				if not overOdds.startswith("-"):
+					overOdds = "+"+overOdds
+				if not underOdds.startswith("-"):
+					underOdds = "+"+underOdds
 
-		diff = 0
+				rank = oppRank = ""
+				if "tpg" in rankings[espnTeam] and "otpg" in rankings[opp]:
+					rank = rankings[espnTeam]["tpg"]["rank"]
+					oppRank = rankings[opp]["otpg"]["rank"]
 
-		avgTotPlays = int(round(totPlays / CURR_WEEK))
-		avgOppTotPlays = int(round(oppTotPlays / CURR_WEEK))
-		tackleShare = 0
-		proj = 0
-		if totTeamTackles:
-			tackleShare = round((totTackles / totTeamTackles)*100, 1)
-			proj = round((totTackles / totTeamTackles)*int(round(avgOppTotPlays+avgTotPlays) / 2), 1)
-
-		if line:
-			diff = abs(proj - float(line))
-
-		rank = oppRank = ""
-		if "tpg" in rankings[pff_team] and "otpg" in rankings[opp]:
-			rank = rankings[pff_team]["tpg"]["rank"]
-			oppRank = rankings[opp]["otpg"]["rank"]
-
-		res.append({
-			"player": name.title(),
-			"team": getYahooTeam(team),
-			"opponent": TEAM_TRANS.get(opp, opp),
-			"hit": True,
-			"pos": pos,
-			"proj": proj,
-			"diff": diff,
-			"rank": rank,
-			"oppRank": oppRank,
-			"avg": avg,
-			"totalOver": totalOver,
-			"avgSnaps": f"{avgSnaps}% ({lastSnaps}%)",
-			"avgTotPlays": avgTotPlays,
-			"avgOppTotPlays": avgOppTotPlays,
-			"oppPassPerc": f"{runPassData[opp]['passPerc']}%",
-			"tackleShare": tackleShare,
-			"last5": ",".join(last5),
-			"last5WithLines": ",".join(last5WithLines),
-			"propType": "tackles_combined",
-			"line": line or "-",
-			"overOdds": "over ("+overOdds+")",
-			"underOdds": "under ("+underOdds+")",
-			"stats": playerStats
-		})
+				res.append({
+					"player": name.title(),
+					"team": getYahooTeam(team),
+					"opponent": TEAM_TRANS.get(opp, opp),
+					"hit": True,
+					"pos": pos,
+					"rank": rank,
+					"oppRank": oppRank,
+					"avg": avg,
+					"totalOver": totalOver,
+					"last5": ",".join(last5),
+					"last5WithLines": ",".join(last5WithLines),
+					"propType": "tackles_combined",
+					"line": line or "-",
+					"overOdds": overOdds,
+					"underOdds": underOdds
+				})
 	return res
 
 def customPropData(propData):
@@ -318,7 +276,10 @@ def customPropData(propData):
 
 @props_blueprint.route('/getDefProps')
 def getDefProps_route():
-	return jsonify(getDefPropsData())
+	teams = request.args.get("teams") or ""
+	if teams:
+		teams = teams.upper().split(",")
+	return jsonify(getDefPropsData(teams))
 
 def checkTrades(player, stats):
 	with open(f"{prefix}static/nfl_trades.json") as fh:
@@ -327,13 +288,13 @@ def checkTrades(player, stats):
 	if player not in trades:
 		return
 	trade = trades[player]
-	with open(f"{prefix}static/profootballreference/{trade['from']}/stats.json") as fh:
-		oldStats = json.load(fh)
-	if player in oldStats:
-		for wk in oldStats[player]:
-			if wk == "tot" or wk in stats:
-				continue
-			stats[wk] = oldStats[player][wk]
+
+	for file in os.listdir(f"{prefix}static/profootballreference/{trade['from']}/"):
+		with open(file) as fh:
+			oldStats = json.load(fh)
+		wk = file.split("/")[-1][:-5]
+		if player in oldStats:
+			stats[wk] = oldStats[player]
 
 @props_blueprint.route('/getProps')
 def getProps_route():
@@ -347,28 +308,37 @@ def getProps_route():
 		propData = json.load(fh)
 	with open(f"{prefix}static/profootballreference/rankings.json") as fh:
 		rankings = json.load(fh)
+	with open(f"{prefix}static/profootballreference/totals.json") as fh:
+		totals = json.load(fh)
+	with open(f"{prefix}static/profootballreference/lastYearStats.json") as fh:
+		lastYearStats = json.load(fh)
+	with open(f"{prefix}static/profootballreference/averages.json") as fh:
+		averages = json.load(fh)
+	with open(f"{prefix}static/profootballreference/roster.json") as fh:
+		roster = json.load(fh)
 
-	customPropData(propData)
-
-	players_on_teams,translations = read_rosters()
-	fa,fa_translations = read_FA_translations()
-	translations = {**translations, **fa_translations}
+	translations = {}
+	for team in roster:
+		for player in roster[team]:
+			first = player[0].upper()
+			rest = " ".join(player.title().split(" ")[1:])
+			translations[f"{first}. {rest} {team}"] = player
+	#customPropData(propData)
+	player = ""
 
 	for nameRow in propData:
 		name = " ".join(nameRow.split(" ")[:-1])
 		team = nameRow.split(" ")[-1]
-		pff_team = getProfootballReferenceTeam(team.lower())
-		opp = get_opponents(pff_team)[CURR_WEEK]
+		espnTeam = getYahooTeam(team.lower())
+		opp = get_opponents(espnTeam)[CURR_WEEK]
 
 		if team == "team":
 			continue
 
-		with open(f"{prefix}static/profootballreference/{pff_team}/stats.json") as fh:
-			stats = json.load(fh)
-
 		if teams and team not in teams:
 			continue
 
+		name = name.replace("-", " ")
 		if name == "T. Etienne":
 			name = "T. Etienne Jr"
 		if name.endswith("Jr"):
@@ -376,26 +346,22 @@ def getProps_route():
 
 		pos = "-"
 		playerStats = {}
-		if name+" "+getYahooTeam(team) not in translations:
+
+		if name+" "+espnTeam not in translations:
 			#print(name)
 			player = name
 		else:
-			player = translations[name+" "+getYahooTeam(team)]
+			player = translations[name+" "+espnTeam]
 			player = player.replace(".", "")
 			if player == "terrace marshall jr":
 				player = "terrace marshall"
-			elif player == "amari rodgers":
-				player = "aaron rodgers"
-			if player in stats:
-				gameLogs = stats[player]
-				checkTrades(player, gameLogs)
-				gamesPlayed = 0
-				for wk in sorted(gameLogs.keys(), reverse=True):
-					if wk == "tot" or not gameLogs[wk].get("snap_counts", 0):
-						continue
-					gamesPlayed += 1
-				playerStats = gameLogs
-				playerStats["tot"]["gamesPlayed"] = gamesPlayed
+			for file in os.listdir(f"{prefix}static/profootballreference/{espnTeam}/"):
+				with open(f"{prefix}static/profootballreference/{espnTeam}/{file}") as fh:
+					gameStats = json.load(fh)
+				wk = file.split("/")[-1][:-5]
+				if player in gameStats:
+					playerStats[wk] = gameStats[player]
+			checkTrades(player, playerStats)
 
 		for typ in propData[nameRow]:
 			overOdds = propData[nameRow][typ]["sideOneOdds"]
@@ -410,32 +376,43 @@ def getProps_route():
 				pass
 				#diff = abs(proj - float(line))
 
-			last5 = []
-			tot = totGames = totalOver = 0
-			if player in stats:
-				gameLogs = stats[player]
-				checkTrades(player, gameLogs)
-				for wk in sorted(gameLogs.keys(), reverse=True):
-					if wk == "tot":
-						continue
+			lastTotalOver = lastTotalGames = 0
+			if line and player in lastYearStats[espnTeam] and lastYearStats[espnTeam][player]:
+				for dt in lastYearStats[espnTeam][player]:
+					lastTotalGames += 1
+					val = 0
 					if typ == "rush_recv_yd":
-						if "rush_yds" in gameLogs[wk] and "rec_yds" in gameLogs[wk]:
-							val = gameLogs[wk]["rush_yds"] + gameLogs[wk]["rec_yds"]
-							if val > float(line):
-								totalOver += 1
-							last5.append(val)
-							if gameLogs[wk]["snap_counts"] > 0:
-								totGames += 1
-								tot += val
+						val = lastYearStats[espnTeam][player][dt].get("rush_yds", 0) + lastYearStats[espnTeam][player][dt].get("rec_yds", 0)
 					else:
 						t = typ.replace("comp", "cmp").replace("_yd", "_yds").replace("recv_rec", "rec").replace("recv_", "rec_")
-						if t in gameLogs[wk]:
-							if gameLogs[wk][t] > float(line):
-								totalOver += 1
-							last5.append(gameLogs[wk][t])
-							if gameLogs[wk]["snap_counts"] > 0:
-								totGames += 1
-								tot += gameLogs[wk][t]
+						if t in lastYearStats[espnTeam][player][dt]:
+							val = lastYearStats[espnTeam][player][dt][t]
+					if val > float(line):
+						lastTotalOver += 1
+			if lastTotalGames:
+				lastTotalOver = round((lastTotalOver / lastTotalGames) * 100)
+
+			last5 = []
+			totGames = totals[espnTeam][player]["gamesPlayed"]
+			tot = totalOver = totalOverLast3 = 0
+			for wk in sorted(playerStats.keys(), key=lambda k: int(k[2:]), reverse=True):
+				if typ == "rush_recv_yd":
+					val = playerStats[wk].get("rush_yds", 0) + playerStats[wk].get("rec_yds", 0)
+					last5.append(val)
+					tot += val
+					if val > float(line):
+						totalOver += 1
+						if len(last5) <= 3:
+							totalOverLast3 += 1
+				else:
+					t = typ.replace("comp", "cmp").replace("_yd", "_yds").replace("recv_rec", "rec").replace("recv_", "rec_")
+					val = playerStats[wk].get(t, 0)
+					tot += val
+					last5.append(val)
+					if val > float(line):
+						totalOver += 1
+						if len(last5) <= 3:
+							totalOverLast3 += 1
 
 			diff = 0
 			if line and totGames:
@@ -443,33 +420,49 @@ def getProps_route():
 				diff = round((avg / float(line) - 1), 2)
 			if totalOver and totGames:
 				totalOver = round((totalOver / totGames) * 100)
+				last5Size = len(last5) if len(last5) < 3 else 3
+				totalOverLast3 = round((totalOverLast3 / last5Size) * 100)
 
 			avg = 0
 			if totGames:
 				avg = round(tot / totGames, 1)
 
+			lastAvg = 0
+			if player in averages[espnTeam] and averages[espnTeam][player]:
+				if typ == "rush_recv_yd":
+					if "rush_yds" in averages[espnTeam][player] and "rec_yds" in averages[espnTeam][player]:
+						lastAvg = averages[espnTeam][player]["rush_yds"] + averages[espnTeam][player]["rec_yds"]
+				else:
+					t = typ.replace("comp", "cmp").replace("_yd", "_yds").replace("recv_rec", "rec").replace("recv_", "rec_")
+					if t in averages[espnTeam][player]:
+						lastAvg = averages[espnTeam][player][t]
+				lastAvg = round(lastAvg, 1)
+
 			oppRank = ""
 			oppRankVal = ""
 			rankingsProp = convertRankingsProp(typ)
-			if "o"+rankingsProp in rankings[opp]:
+			if opp != "BYE" and "o"+rankingsProp in rankings[opp]:
 				oppRankVal = str(rankings[opp]["o"+rankingsProp]["season"])
 				oppRank = rankings[opp]['o'+rankingsProp]['rank']
 			#print(player)
 			res.append({
 				"player": player.title(),
-				"team": getYahooTeam(team),
-				"opponent": getYahooTeam(TEAM_TRANS.get(opp, opp).upper()),
+				"team": espnTeam.upper(),
+				"opponent": opp.upper(),
 				"oppRank": oppRank,
 				"hit": True,
 				"pos": pos,
+				"lastAvg": lastAvg,
 				"avg": avg,
 				"last5": last5,
 				"diff": diff,
 				"totalOver": totalOver,
+				"totalOverLast3": totalOverLast3,
+				"lastTotalOver": lastTotalOver,
 				"propType": typ,
 				"line": line or "-",
-				"overOdds": propData[nameRow][typ]["sideOneType"]+ " ("+overOdds+")",
-				"underOdds": propData[nameRow][typ]["sideTwoType"]+ " ("+underOdds+")",
+				"overOdds": overOdds,
+				"underOdds": underOdds,
 				"stats": playerStats
 			})
 
@@ -521,8 +514,10 @@ def props_def_route():
 def writeDefProps(week):
 	actionNetworkBookIds = {
 		68: "draftkings",
-		69: "fanduel"
+		69: "fanduel",
+		1599: "betmgm"
 	}
+	prop = "tackles_combined"
 	props = {}
 	optionTypes = {}
 
@@ -530,8 +525,7 @@ def writeDefProps(week):
 	date = str(date)[:10]
 
 	path = f"{prefix}static/props/wk{week+1}defprops.json"
-	url = f"https://api.actionnetwork.com/web/v1/leagues/1/props/core_bet_type_70_tackles_assists?bookIds=69,68&date={date.replace('-', '')}"
-	time.sleep(0.2)
+	url = f"https://api.actionnetwork.com/web/v1/leagues/1/props/core_bet_type_70_tackles_assists?bookIds=69,68,1599&date={date.replace('-', '')}"
 	os.system(f"curl -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0' -k \"{url}\" -o {path}")
 
 	with open(path) as fh:
@@ -553,7 +547,7 @@ def writeDefProps(week):
 
 	playerIds = {}
 	for row in market["players"]:
-		playerIds[row["id"]] = row["full_name"].lower()
+		playerIds[row["id"]] = row["full_name"].lower().replace(".", "")
 
 	books = market["books"]
 	for bookData in books:

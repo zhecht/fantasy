@@ -43,6 +43,7 @@
 		<div id="footer">
 			<button onclick="print();">Print</button>
 			<button onclick="print('csv');">PRINT CSV</button>
+			<button onclick="calculateParlayOdds();">Parlay Odds</button>
 		</div>
 		<script>
 			const CURR_WEEK = {{curr_week}};
@@ -71,10 +72,10 @@
 				const args = [];
 				let s = "";
 				const joinChar = (output == "csv") ? "\t" : "|";
-				s += ["NAME","TEAM","OPP","RANK","PROP","LINE","SZN AVG","% OVER","LAST GAMES","OVER", "UNDER"].join(joinChar);
+				s += ["NAME","TEAM","OPP","RANK","PROP","LINE","SZN AVG","% OVER","L3 % OVER","LAST GAMES","LAST YR % OVER","OVER","UNDER"].join(joinChar);
 				s += "\n";
                 if (output != "csv") {
-                    s += ":--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--\n";
+                    s += ":--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--\n";
                 }
 				let rows = TABLE.getSelectedRows();
                 if (rows.length == 0) {
@@ -82,8 +83,8 @@
                 }
 				for (row of rows) {
 					const data = row.getData();
-					let overOdds = data.overOdds.split(" ")[1].substring(1, 5);
-					let underOdds = data.underOdds.split(" ")[1].substring(1, 5);
+					let overOdds = data.overOdds;
+					let underOdds = data.underOdds;
 					if (output == "csv") {
 						if (parseInt(overOdds) > 0) {
 							overOdds = "'"+overOdds;
@@ -92,10 +93,44 @@
 							underOdds = "'"+underOdds;
 						}
 					}
-					s += [data.player, data.team, data.opponent, addNumSuffix(data.oppRank), parseProp(data.propType), data.line, data.avg, data.totalOver+"%", data.last5, overOdds, underOdds].join(joinChar);
+					s += [data.player, data.team, data.opponent, addNumSuffix(data.oppRank), parseProp(data.propType), data.line, data.avg, data.totalOver+"%", data.totalOverLast3+"%", data.last5, data.lastTotalOver+"%", overOdds, underOdds].join(joinChar);
 					s += "\n";
 				}
 				console.log(s);
+			}
+
+			function calculateParlayOdds() {
+				const rows = TABLE.getSelectedRows();
+				let totOdds = 1;
+				let out = "";
+				for (row of rows) {
+					const data = row.getData();
+					const overLast3 = data.totalOverLast3;
+					const totalOver = data.totalOver;
+					const avg = (overLast3 + totalOver) / 2;
+
+					let odds = 0;
+					if (avg == 100) {
+						odds = -100000;
+					} else {
+						odds = (100 * avg) / (-100 + avg);
+					}
+					const decOdds = (100 / odds) + 1;
+
+					totOdds *= decOdds;
+					out += [data.player, parseProp(data.propType), "avg="+avg+"%", odds].join(", ");
+					out += "\n";
+				}
+
+				out += "totOdds="+totOdds.toFixed(3);
+				const usOdds = Math.round((100 / (totOdds-1)));
+				out += "\nUS Odds="+usOdds;
+				if (usOdds > 0) {
+					out += "\nProb="+((100 / (usOdds + 100)) * 100).toFixed(2)+"%";
+				} else {
+					out += "\nProb="+((-(usOdds) / (-(usOdds) + 100)) * 100).toFixed(2)+"%";
+				}
+				alert(out);
 			}
 
 			function teamFilter(headerValue, rowValue, rowData, filterParams){
@@ -317,14 +352,10 @@
 						return "<a href='https://www.espn.com/nfl/team/depth/_/name/"+value+"' target='_blank'>"+value+"</a>" + "<span style='color:black; margin-left:10px;'>(" + count + " "+playerTxt+")</span>";
 					},
 					initialSort: [
-						//{column: "pos", dir: "asc"},
 						{column: "totalOver", dir: "desc"},
-						//{column: "team", dir: "asc"},
+						{column: "totalOverLast3", dir: "desc"},
 					],
 					columns: [
-					/*
-						{formatter:"responsiveCollapse", width:30, minWidth:30, hozAlign:"center", resizable:false, headerSort:false},
-						*/
 						{formatter:"rowSelection", hozAlign:"center", headerSort:false, cellClick:function(e, cell){
 							cell.getRow().toggleSelect();
 						}},
@@ -336,10 +367,13 @@
 						{title: "Line", field: "line", hozAlign: "center"},
 						{title: "", field: "diff", hozAlign: "center", visible: false},
 						{title: "SZN AVG", field: "avg", hozAlign: "center", formatter: colorFormatter},
-						{title: "Total Over", field: "totalOver", formatter: percentFormatter, hozAlign: "center", width:80, sorter: "number"},
+						{title: "% Over", field: "totalOver", formatter: percentFormatter, hozAlign: "center", width:80, sorter: "number"},
+						{title: "L3 % Over", field: "totalOverLast3", formatter: percentFormatter, hozAlign: "center", width:80, sorter: "number"},
 						{title: "Last", field: "last5", hozAlign: "center"},
-						{title: " ", field: "overOdds"},
-						{title: " ", field: "underOdds"},
+						{title: "Last YR AVG", field: "lastAvg", hozAlign: "center", width: 80, formatter: colorFormatter},
+						{title: "Last YR Total Over", field: "lastTotalOver", width: 80, hozAlign: "center", formatter: percentFormatter},
+						{title: "Over", field: "overOdds", hozAlign: "center"},
+						{title: "Under", field: "underOdds", hozAlign: "center"},
 					]
 				})
 			}

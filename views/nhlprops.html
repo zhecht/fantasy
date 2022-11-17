@@ -86,8 +86,7 @@
 				let out = "";
 				for (row of rows) {
 					const data = row.getData();
-					const overLast5 = data.totalOverLast5;
-					const avg = (overLast5 + data.avg) / 2;
+					const avg = (data.totalOverLast5 + data.totalOver) / 2;
 
 					let odds = 0;
 					if (avg == 100) {

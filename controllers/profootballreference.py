@@ -1,5 +1,4 @@
 import argparse
-import datetime
 import glob
 import json
 import math
@@ -23,6 +22,8 @@ try:
   import urllib2 as urllib
 except:
   import urllib.request as urllib
+
+from datetime import datetime
 
 prefix = ""
 if os.path.exists("/home/zhecht/fantasy"):
@@ -277,7 +278,9 @@ def get_opponents(team):
 	opps = []
 	for i in range(1, 18):
 		opp_team = "BYE"
-		for games in schedule[str(i)]:
+		if f"wk{i}" not in schedule:
+			continue
+		for games in schedule[f"wk{i}"]:
 			away, home = games.split(" @ ")
 			if away == team or TEAM_TRANS.get(away, away) == TEAM_TRANS.get(team, team):
 				opp_team = home
@@ -699,7 +702,7 @@ def get_total_ranks(curr_week, settings):
 def write_team_links():
 	url = "https://www.pro-football-reference.com/teams/"
 	soup = BS(urllib.urlopen(url).read(), "lxml")
-	time.sleep(0.2)
+	time.sleep(2)
 	rows = soup.find("table", id="teams_active").find_all("tr")[2:]
 	j = {}
 	for tr in rows:
@@ -710,29 +713,6 @@ def write_team_links():
 			pass
 	with open("{}static/profootballreference/teams.json".format(prefix), "w") as fh:
 		json.dump(j, fh, indent=4)
-
-def write_boxscore_links():
-	teamlinks = {}
-	with open("{}static/profootballreference/teams.json".format(prefix)) as fh:
-		teamlinks = json.loads(fh.read())
-
-	for team in teamlinks:
-		path = "{}static/profootballreference/{}".format(prefix, team.split("/")[-2])
-		if not os.path.exists(path):
-			call(["mkdir", "-p", path])
-		url = f"https://www.pro-football-reference.com{team}/{YEAR}/gamelog"
-		time.sleep(0.2)
-		soup = BS(urllib.urlopen(url).read(), "lxml")
-		boxscore_links = {}
-		for i in range(16):
-			row = soup.find("tr", id=f"gamelog{YEAR}.{i+1}")
-			if row:
-				link = row.find("a")
-				if link.text == "preview":
-					break
-				boxscore_links[link.get("href")] = i + 1
-		with open("{}/boxscores.json".format(path), "w") as fh:
-			json.dump(boxscore_links, fh, indent=4)
 
 def fix_roster(roster, team):
 	if team == "atl":
@@ -750,297 +730,381 @@ def fix_roster(roster, team):
 		roster["matt ammendola"] = "K"
 	return
 
-def write_team_rosters(teamlinks={}):
-	if not teamlinks:
-		with open("{}static/profootballreference/teams.json".format(prefix)) as fh:
-			teamlinks = json.loads(fh.read())
+def writeSchedule(week):
+	url = f"https://www.espn.com/nfl/schedule/_/week/{week}"
+	week = f"wk{week}"
+	outfile = "out"
+	call(["curl", "-k", url, "-o", outfile])
+	soup = BS(open(outfile, 'rb').read(), "lxml")
 
-	for team in teamlinks:
-		roster = {}
-		path = "{}static/profootballreference/{}".format(prefix, team.split("/")[-2])
+	with open(f"{prefix}static/profootballreference/boxscores.json") as fh:
+		boxscores = json.load(fh)
 
-		if not os.path.exists(path):
-			os.mkdir(path)
-		url = f"https://www.pro-football-reference.com{team}/{YEAR}_roster.htm"
-		outfile = "{}/roster.html".format(path)
-		call(["curl", "-k", url, "-o", outfile])
+	with open(f"{prefix}static/profootballreference/schedule.json") as fh:
+		schedule = json.load(fh)
 
-		# for some reason, the real HTML is commented out?
-		soup = BS(open(outfile, 'rb').read(), "lxml")
-		if soup.find("div", id="all_roster") is None:
+	with open(f"{prefix}static/profootballreference/scores.json") as fh:
+		scores = json.load(fh)
+
+	schedule[week] = []
+
+	for table in soup.findAll("div", class_="ResponsiveTable"):
+		try:
+			date = table.find("div", class_="Table__Title").text.strip()
+			date = str(datetime.strptime(date, "%A, %B %d, %Y"))[:10]
+		except:
 			continue
-		children = soup.find("div", id="all_roster").children
-		html = None
-		for c in children:
-			if isinstance(c, Comment):
-				html = c
-		os.remove(outfile)
 
-		soup = BS(html, "lxml")
-		rows = soup.find("table", id="roster").find_all("tr")[1:]
-		for tr in rows:
-			tds = tr.find_all("td")
-			name = tds[0].text.strip().lower().replace("'", "").replace(".", "").replace(" (ir)", "")
-			pos = tds[2].text
-			#if name in roster and roster[name] != pos:
-			#	print(name, roster[name], pos)
-			roster[fixName(name)] = pos
-		fix_roster(roster, team.split("/")[-2])
-		with open("{}/roster.json".format(path), "w") as fh:
-			json.dump(roster, fh, indent=4)
-	call(["rm", "-rf", "{}static/profootballreference/teams".format(prefix)])
-	return
+		if week not in boxscores:
+			boxscores[week] = {}
+		if week not in scores:
+			scores[week] = {}
+		for row in table.findAll("tr")[1:]:
+			tds = row.findAll("td")
+			awayTeam = tds[0].findAll("a")[-1].get("href").split("/")[-2]
+			homeTeam = tds[1].findAll("a")[-1].get("href").split("/")[-2]
+			score = tds[2].find("a").text.strip()
+			if ", " in score:
+				scoreSp = score.replace(" (2OT)", "").replace(" (OT)", "").split(", ")
+				if awayTeam.upper() in scoreSp[0]:
+					scores[week][awayTeam] = int(scoreSp[0].replace(awayTeam.upper()+" ", ""))
+					scores[week][homeTeam] = int(scoreSp[1].replace(homeTeam.upper()+" ", ""))
+				else:
+					scores[week][awayTeam] = int(scoreSp[1].replace(awayTeam.upper()+" ", ""))
+					scores[week][homeTeam] = int(scoreSp[0].replace(homeTeam.upper()+" ", ""))
+			boxscore = tds[2].find("a").get("href")
+			boxscores[week][f"{awayTeam} @ {homeTeam}"] = boxscore
+			schedule[week].append(f"{awayTeam} @ {homeTeam}")
 
-def get_indexes(header_row):
-	indexes = {}
-	for idx, th in enumerate(header_row):
-		# get indexes
-		indexes[th.get("data-stat")] = idx
-	return indexes
+	with open(f"{prefix}static/profootballreference/boxscores.json", "w") as fh:
+		json.dump(boxscores, fh, indent=4)
 
-def write_schedule():
-	url = f"https://www.pro-football-reference.com/years/{YEAR}/games.htm"
-	soup = BS(urllib.urlopen(url).read(), "lxml")
-	time.sleep(0.2)
-	rows = soup.find("table", id="games").find_all("tr")[1:] # skip header row
-	schedule = {}
-	for tr in rows:
-		if tr.get("class") and "thead" in tr.get("class"):
-			continue
-		if tr.find("th").text.lower().startswith("pre"):
-			continue
-		week = int(tr.find("th").text)
-		if week not in schedule:
-			schedule[week] = []
-		winner = tr.find_all("td")[3].find("a").get("href").split("/")[-2]
-		location = tr.find_all("td")[4].text
-		loser = tr.find_all("td")[5].find("a").get("href").split("/")[-2]
-		s = "{} @ {}".format(loser, winner)
-		if location == "@":
-			s = "{} @ {}".format(winner, loser)
-		schedule[week].append(s)
-	with open("{}static/profootballreference/schedule.json".format(prefix), "w") as fh:
+	with open(f"{prefix}static/profootballreference/scores.json", "w") as fh:
+		json.dump(scores, fh, indent=4)
+
+	with open(f"{prefix}static/profootballreference/schedule.json", "w") as fh:
 		json.dump(schedule, fh, indent=4)
 
-short_names = {"falcons": "atl", "bills": "buf", "panthers": "car", "bears": "chi", "bengals": "cin", "browns": "cle", "colts": "clt", "cardinals": "crd", "cowboys": "dal", "broncos": "den", "lions": "det", "packers": "gnb", "texans": "htx", "jaguars": "jax", "chiefs": "kan", "dolphins": "mia", "vikings": "min", "saints": "nor", "patriots": "nwe", "giants": "nyg", "jets": "nyj", "titans": "oti", "eagles": "phi", "steelers": "pit", "raiders": "rai", "rams": "ram", "ravens": "rav", "chargers": "sdg", "seahawks": "sea", "49ers": "sfo", "buccaneers": "tam", "washington": "was", "commanders": "was"}
 
-def get_kicking_stats(outfile):
-	soup = BS(open(outfile, 'rb').read(), "lxml")
-	scoring = soup.find("table", id="scoring")
+def writeRosters():
+	with open(f"{prefix}static/profootballreference/playerIds.json") as fh:
+		playerIds = json.load(fh)
 
-	if not scoring:
-		return {}
-
-	stats = {}
-	rows = scoring.find_all("tr")
-	for row in rows[1:]:
-		tds = row.find_all("td")
-		team = short_names[tds[1].text.lower()]
-		detail = tds[2]
-		m = re.search(r"(\d+) yard field goal", detail.text)
-		if m:
-			name = detail.find("a").text.strip().lower().replace(".", "").replace("'", "")
-			if name not in stats:
-				stats[name] = []
-			distance = m.group(1)
-			stats[name].append(distance)
-	return stats
-
-def get_defense_stats_from_scoring(outfile, team):
-	soup = BS(open(outfile, 'rb').read(), "lxml")
-	scoring = soup.find("table", id="scoring")
-	
-	if not scoring:
-		return {"2pt_conversions": 0, "safety": 0, "def_tds": 0}
-
-	rows = scoring.find_all("tr")
-	vis_score = 0
-	home_score = 0
-	conversions = 0
-	safety = 0
-	def_tds = 0
-	for row in rows[1:]:
-		tds = row.find_all("td")
-		ck_team = short_names[tds[1].text.lower()]
-		vis = 0 if tds[-2].text.strip() == "" else int(tds[-2].text)
-		home = 0 if tds[-1].text.strip() == "" else int(tds[-1].text)
-		if ck_team == team:
-			if vis - vis_score == 8:
-				conversions += 1
-			elif home - home_score == 8:
-				conversions += 1
-		else:
-			if tds[2].text.find("Safety") >= 0:
-				safety += 1
-			elif tds[2].text.find("interception return") >= 0 or tds[2].text.find("fumble return") >= 0:
-				def_tds += 1
-		vis_score = vis
-		home_score = home
-	return {"2pt_conversions": conversions, "safety": safety, "def_tds": def_tds}
-
-def add_defense_stats(stats, tds):
-	for td in tds:
-		key = td.get("data-stat")
-		if key not in ["pass_int", "pass_sacked", "pass_td", "rush_td", "fumbles_lost", "fgm", "xpm", "punt_ret_td", "kick_ret_td"]:
+	roster = {}
+	for team in os.listdir(f"{prefix}static/profootballreference/"):
+		if team.endswith(".json"):
 			continue
-		
-		if not td.text:
-			val = 0
-		else:
-			val = int(td.text)
-		if key not in stats["OFF"]:
-			stats["OFF"][key] = 0
-		stats["OFF"][key] += val
-	return
 
-def add_stats(boxscorelinks, team, teampath, boxlink, week_arg, team_arg):
-	url = "https://www.pro-football-reference.com{}#all_team_stats".format(boxlink)
-
-	home_team = re.match(r".*\d+(.*).htm", boxlink).group(1)
-	away_team = None
-	if home_team != team:
-		away_team = team
-
-	if week_arg and boxscorelinks[boxlink] != week_arg:
-		return
-	elif team_arg and team != team_arg:
-		return
-
-	outfile = "{}/wk{}.html".format(teampath, boxscorelinks[boxlink])
-	if os.path.exists(outfile):
-		from datetime import datetime
-		last_modified = os.stat(outfile).st_mtime
-		dt = datetime.fromtimestamp(last_modified)
-
-	call(["curl", "-k", url, "-o", outfile])
-
-	kicking_stats = get_kicking_stats(outfile)
-	def_stats = get_defense_stats_from_scoring(outfile, team)
-	stats = {"OFF": def_stats, "DEF": {"tackles": 0}}
-	outer_ids = ["all_player_defense", "all_player_offense", "all_kicking", "all_returns", "all_home_snap_counts", "all_vis_snap_counts"]
-	inner_ids = ["player_defense", "player_offense", "kicking", "returns", "home_snap_counts", "vis_snap_counts"]
-	player_teams = {}
-
-	for i in range(len(outer_ids)):
+		roster[team] = {}
+		url = f"https://www.espn.com/nfl/team/roster/_/name/{team}/"
+		outfile = "out"
+		time.sleep(0.2)
+		call(["curl", "-k", url, "-o", outfile])
 		soup = BS(open(outfile, 'rb').read(), "lxml")
-		childrenEl = soup.find("div", id=outer_ids[i])
 
-		if not childrenEl:
-			continue
+		for table in soup.findAll("table"):
+			for row in table.findAll("tr")[1:]:
+				nameLink = row.findAll("td")[1].find("a").get("href").split("/")
+				fullName = nameLink[-1].replace("-", " ")
+				playerId = int(nameLink[-2])
+				playerIds[team][fullName] = playerId
+				roster[team][fullName] = row.findAll("td")[2].text.strip()
 
-		children = childrenEl.children
-		if soup.find("table", id=inner_ids[i]) is None:
-			html = None
-			for c in children:
-				if isinstance(c, Comment):
-					soup = BS(c, "lxml")
-					break
+	with open(f"{prefix}static/profootballreference/playerIds.json", "w") as fh:
+		json.dump(playerIds, fh, indent=4)
 
-		rows = soup.find("table", id=inner_ids[i]).find_all("tr")
-		for tr in rows[2:]:
-			classes = tr.get("class")
-			if classes and "thead" in classes:
-				continue
-			name = tr.find("th").text.strip().lower().replace("'", "").replace(".", "")
-			name = fixName(name)
-			data = tr.find_all("td")
-			if "snap" not in inner_ids[i]:
-				ck_team = get_abbr(data[0].text.lower()) # might have different abbr
-				if away_team is None and ck_team != home_team:
-					away_team = ck_team
-			
-			if "snap" in inner_ids[i]:
-				# if player got 0 points but had snaps
-				pos = data[0].text
-				if pos not in ["QB", "FB", "RB", "WR", "TE", "K", "LB", "S", "SS", "FS", "CB", "DE", "DB", "DT", "NT"]:
-					continue
-				if name not in stats:
-					if inner_ids[i].startswith("home") and home_team == team:
-						stats[name] = {}
-					elif inner_ids[i].startswith("vis") and away_team == team:
-						stats[name] = {}
+	with open(f"{prefix}static/profootballreference/roster.json", "w") as fh:
+		json.dump(roster, fh, indent=4)
+
+def write_stats(week):
+	with open(f"{prefix}static/profootballreference/boxscores.json") as fh:
+		boxscores = json.load(fh)
+
+	with open(f"{prefix}static/profootballreference/playerIds.json") as fh:
+		playerIds = json.load(fh)
+
+	week = f"wk{week}"
+	if week not in boxscores:
+		print("No games found for this week")
+		exit()
+
+	allStats = {}
+	for game in boxscores[week]:
+		away, home = map(str, game.split(" @ "))
+
+		if away not in allStats:
+			allStats[away] = {}
+		if home not in allStats:
+			allStats[home] = {}
+
+		link = boxscores[week][game].replace("game?gameId=", "boxscore/_/gameId/")
+		url = f"https://www.espn.com{link}"
+		outfile = "out"
+		time.sleep(0.2)
+		call(["curl", "-k", url, "-o", outfile])
+		soup = BS(open(outfile, 'rb').read(), "lxml")
+
+		playerList = []
+		team = away
+		tables = soup.findAll("table")[1:-2]
+		for idx, table in enumerate(tables):
+			if idx % 2 == 0:
+				team = away
+			else:
+				team = home
+
+			if team not in playerIds:
+				playerIds[team] = {}
+
+			title = table.findPrevious("div", class_="team-name").text.strip().split(" ")[-1].lower()
+			shortHeader = ""
+			if title == "receiving":
+				shortHeader = "rec"
+			elif title == "defensive":
+				shortHeader = "def"
+			elif title == "interceptions":
+				shortHeader = "def_int"
+			elif title in ["returns", "punting", "fumbles"]:
+				shortHeader = title
+			else:
+				shortHeader = title[:4]
+
+			cutoff = 2 if title == "defensive" else 1
+			for row in table.findAll("tr")[cutoff:-1]:
 				try:
-					snapCntIdx = 1
-					if data[0].text == "K":
-						snapCntIdx = 5
-					elif data[0].text in ["LB", "SS", "FS", "CB", "DE", "DB", "DT", "NT"]:
-						snapCntIdx = 3
-					stats[name]["snap_counts"] = int(data[snapCntIdx].text)
-					stats[name]["snap_perc"] = int(data[snapCntIdx + 1].text.replace("%", ""))
+					nameLink = row.find("a").get("href").split("/")
 				except:
-					pass
-			elif outer_ids[i] == "all_returns":
-				# add kick_ret , punt_ret for other team
-				if team != ck_team:
-					add_defense_stats(stats, data[1:])
-			elif team == ck_team:
-				if name not in stats:
-					stats[name] = {}
-				add_defense_stats(stats, data[1:])
-				if inner_ids[i] == "kicking":
-					try:
-						stats[name]["fg_made"] = kicking_stats[name]
-					except:
-						pass
-				for td in data[1:]: # skip team
-					try:                        
-						if td.get("data-stat") == "pass_rating":
-							stats[name][td.get("data-stat")] = float(td.text)
+					continue
+				player = nameLink[-1].replace("-", " ")
+				playerId = int(nameLink[-2])
+				playerIds[team][player] = playerId
+
+				if player not in allStats[team]:
+					allStats[team][player] = {}
+
+				for td in row.findAll("td")[1:]:
+					header = "_".join(td.get("class"))
+					if header == "car":
+						header = "rush_att"
+					elif header == "rec":
+						if shortHeader == "fumbles":
+							header = "fumbles_recovered"
 						else:
-							if td.get("data-stat") == "tackles_combined":
-								stats["DEF"]["tackles"] += int(td.text)
-							stats[name][td.get("data-stat")] = int(td.text)
-					except:
-						stats[name][td.get("data-stat")] = 0
-	for s in ["kick_ret_td", "punt_ret_td"]:
-		if s not in stats["OFF"]:
-			stats["OFF"][s] = 0
-	with open("{}/wk{}.json".format(teampath, boxscorelinks[boxlink]), "w") as fh:
-		json.dump(stats, fh, indent=4)
-	os.remove(outfile)
+							header = "rec"
+					elif header == "fum":
+						header = "fumbles"
+					elif header == "lost":
+						header = "fumbles_lost"
+					elif header == "tot":
+						header = "tackles_combined"
+					elif header == "solo":
+						header = "tackles_solo"
+					elif shortHeader == "def" and header == "td":
+						header = "def_td"
+					elif shortHeader == "def_int" and header == "int":
+						header = "def_int"
+					elif shortHeader in ["pass", "rush", "rec", "def_int", "returns"]:
+						header = f"{shortHeader}_{header}"
 
-def write_boxscore_stats(week_arg, team_arg):
-	teamlinks = {}
-	with open("{}static/profootballreference/teams.json".format(prefix)) as fh:
-		teamlinks = json.loads(fh.read())
+					if header == "pass_c-att":
+						made, att = map(int, td.text.strip().split("/"))
+						allStats[team][player]["pass_cmp"] = made
+						allStats[team][player]["pass_att"] = att
+					elif header in ["xp", "fg"]:
+						made, att = map(int, td.text.strip().split("/"))
+						allStats[team][player][header+"m"] = made
+						allStats[team][player][header+"a"] = att
+					elif header == "pass_sacks":
+						made, att = map(int, td.text.strip().split("-"))
+						allStats[team][player]["pass_sacks"] = made
+					else:
+						val = td.text.strip()
+						try:
+							val = float(val)
+						except:
+							val = 0.0
+						allStats[team][player][header] = val
 
-	for link in teamlinks:
-		team = link.split("/")[-2]
-		teampath = "{}static/profootballreference/{}".format(prefix, team)
-		boxscorelinks = {}
-		with open("{}/boxscores.json".format(teampath)) as fh:
-			boxscorelinks = json.loads(fh.read())
-		for boxlink in boxscorelinks:
-			if boxscorelinks[boxlink] == week_arg:
-				add_stats(boxscorelinks, team, teampath, boxlink, week_arg, team_arg)
+	for team in allStats:
+		if not os.path.isdir(f"{prefix}static/profootballreference/{team}"):
+			os.mkdir(f"{prefix}static/profootballreference/{team}")
+		with open(f"{prefix}static/profootballreference/{team}/{week}.json", "w") as fh:
+			json.dump(allStats[team], fh, indent=4)
+
+	write_totals()
+
+	with open(f"{prefix}static/profootballreference/playerIds.json", "w") as fh:
+		json.dump(playerIds, fh, indent=4)
+
+def write_totals():
+	totals = {}
+	for team in os.listdir(f"{prefix}static/profootballreference/"):
+		if team.endswith("json"):
+			continue
+		if team not in totals:
+			totals[team] = {}
+
+		for file in glob(f"{prefix}static/profootballreference/{team}/*.json"):
+			with open(file) as fh:
+				stats = json.load(fh)
+			for player in stats:
+				if player not in totals[team]:
+					totals[team][player] = stats[player]
+				else:
+					for header in stats[player]:
+						if header not in totals[team][player]:
+							totals[team][player][header] = 0
+						totals[team][player][header] += stats[player][header]
+
+				if "gamesPlayed" not in totals[team][player]:
+					totals[team][player]["gamesPlayed"] = 0
+				if len(set(stats[player].values())) > 1:
+					totals[team][player]["gamesPlayed"] += 1
+
+	with open(f"{prefix}static/profootballreference/totals.json", "w") as fh:
+		json.dump(totals, fh, indent=4)
+
+def convertESPNHeader(header):
+	if header == "completions":
+		return "pass_cmp"
+	elif header == "longest pass":
+		return "pass_long"
+	elif header == "long rushing":
+		return "rush_long"
+	elif header == "long reception":
+		return "rec_long"
+	elif header == "long interception":
+		return "int_long"
+	elif header == "interceptions":
+		return "pass_int"
+	elif header == "yards per pass attempt":
+		return "pass_avg"
+	elif header == "yards per rush attempt":
+		return "rush_avg"
+	elif header == "yards per reception":
+		return "rec_avg"
+	elif header == "completion percentage":
+		return "pass_cmp_pct"
+	elif header == "total sacks":
+		return "pass_sacks"
+	elif header == "passer rating":
+		return "passer_rtg"
+	elif header == "receptions":
+		return "rec"
+	elif header == "total tackles":
+		return "tackles_combined"
+	elif header == "solo tackles":
+		return "tackles_solo"
+	elif header == "assist tackles":
+		return "tackles_assists"
+
+	header = header.replace("attempts", "att").replace("passing", "pass").replace("rushing", "rush").replace("receiving", "rec").replace("yards", "yds").replace("touchdowns", "td").replace("adjusted ", "").replace("targets", "tgts")
+	return "_".join(header.split(" "))
+
+def writeAverages():
+	with open(f"{prefix}static/profootballreference/playerIds.json") as fh:
+		ids = json.load(fh)
+
+	with open(f"{prefix}static/profootballreference/averages.json") as fh:
+		averages = json.load(fh)
+
+	with open(f"{prefix}static/profootballreference/lastYearStats.json") as fh:
+		lastYearStats = json.load(fh)
+
+	if 0:
+		ids = {}
+
+	for team in ids:
+		if team not in averages:
+			averages[team] = {}
+		if team not in lastYearStats:
+			lastYearStats[team] = {}
+
+		for player in ids[team]:
+			pId = ids[team][player]
+			if player in averages[team]:
+				pass
+				continue
+
+			year = "2021"
+			if player in []:
+				year = "2020"
+			
+			gamesPlayed = 0
+			averages[team][player] = {}
+			lastYearStats[team][player] = {}
+
+			time.sleep(0.3)
+			url = f"https://www.espn.com/nfl/player/gamelog/_/id/{pId}/type/nfl/year/{year}"
+			outfile = "out"
+			call(["curl", "-k", url, "-o", outfile])
+			soup = BS(open(outfile, 'rb').read(), "lxml")
+
+			for table in soup.findAll("table")[:-1]:
+				if "postseason" in table.text.strip().lower() or "preseason" in table.text.strip().lower():
+					continue
+				headers = []
+				for th in soup.findAll("tr")[1].findAll("th")[3:]:
+					headers.append(convertESPNHeader(th.get("title").lower()))
+				for row in table.findAll("tr")[2:]:
+					if row.text.lower().startswith("regular season stats"):
+						for idx, td in enumerate(row.findAll("td")[1:]):
+							header = headers[idx]
+							val = td.text.strip().replace(",", "")
+							if "-" in val:
+								val = "0"
+							if "." not in val:
+								val = round(float(val) / gamesPlayed, 2)
+							else:
+								val = float(val)
+							averages[team][player][header] = val
+
+						averages[team][player]["gamesPlayed"] = gamesPlayed
+					else:
+						tds = row.findAll("td")
+						if len(tds) > 1 and ("@" in tds[1].text or "vs" in tds[1].text):
+							#opp = tds[1].findAll("a")[-1].get("href").split("/")[-2]
+							dateStr = tds[0].text.strip()
+							if 1 <= int(dateStr.split(" ")[-1].split("/")[0]) <= 4:
+								dateStr += f"/{int(year)+1}"
+							else:
+								dateStr += f"/{year}"
+							date = str(datetime.strptime(dateStr, "%a %m/%d/%Y")).split(" ")[0]
+							lastYearStats[team][player][date] = {}
+							gamesPlayed += 1
+							for idx, td in enumerate(tds[3:]):
+								header = headers[idx]
+								try:
+									val = float(td.text.strip())
+								except:
+									val = 0.0
+								lastYearStats[team][player][date][header] = val
+
+	with open(f"{prefix}static/profootballreference/averages.json", "w") as fh:
+		json.dump(averages, fh, indent=4)
+
+	with open(f"{prefix}static/profootballreference/lastYearStats.json", "w") as fh:
+		json.dump(lastYearStats, fh, indent=4)
 
 def convertTeamRankingsTeam(team):
-	if team == "indianapolis":
-		return "clt"
-	elif team == "arizona":
-		return "crd"
-	elif team == "green bay":
-		return "gnb"
-	elif team == "houston":
-		return "htx"
+	if team == "green bay":
+		return "gb"
 	elif team == "jacksonville":
 		return "jax"
 	elif team == "new orleans":
-		return "nor"
+		return "no"
 	elif team == "new england":
-		return "nwe"
-	elif team == "tennessee":
-		return "oti"
+		return "ne"
 	elif team == "las vegas":
-		return "rai"
-	elif team == "la rams":
-		return "ram"
-	elif team == "baltimore":
-		return "rav"
-	elif team == "la chargers":
-		return "sdg"
+		return "lv"
+	elif team == "tampa bay":
+		return "tb"
 	elif team == "san francisco":
-		return "sfo"
+		return "sf"
+	elif team == "washington":
+		return "wsh"
+	elif team == "kansas city":
+		return "kc"
 	return team.replace(" ", "")[:3]
 
 def write_rankings():
@@ -1052,6 +1116,7 @@ def write_rankings():
 	for idx, page in enumerate(pages):
 		url = baseUrl+page
 		outfile = "out"
+		time.sleep(0.2)
 		call(["curl", "-k", url, "-o", outfile])
 		soup = BS(open(outfile, 'rb').read(), "lxml")
 
@@ -1075,9 +1140,11 @@ def write_rankings():
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-c", "--cron", action="store_true", help="Start Cron Job")
-	parser.add_argument("-r", "--ranks", action="store_true", help="Get Ranks")    
+	parser.add_argument("-r", "--ranks", action="store_true", help="Get Ranks")
+	parser.add_argument("--averages", help="averages", action="store_true")
 	parser.add_argument("-schedule", "--schedule", help="Print Schedule", action="store_true")
 	parser.add_argument("--rankings", help="Rankings", action="store_true")
+	parser.add_argument("--roster", help="Roster", action="store_true")
 	parser.add_argument("-s", "--start", help="Start Week", type=int)
 	parser.add_argument("-e", "--end", help="End Week", type=int)
 	parser.add_argument("-t", "--team", help="Get Team")
@@ -1085,14 +1152,20 @@ if __name__ == "__main__":
 	parser.add_argument("-w", "--week", help="Week", type=int)
 
 	args = parser.parse_args()
-
+	curr_week = ""
 	if args.start:
 		curr_week = args.start
 	settings = {'0_points_allowed': 10, '7-13_points_allowed': 4, 'sack': 1, 'ppr': 0.5, 'touchdown': 6, 'pass_tds': 4, 'fumble_recovery': 2, '1-6_points_allowed': 7, 'xpm': 1, 'fumbles_lost': -2, 'rec_tds': 6, 'interception': 2, 'field_goal_0-19': 3, 'safety': 2, 'field_goal_50+': 5, 'pass_yds': 25, 'field_goal_20-29': 3, 'pass_int': -2, 'rush_yds': 10, 'rush_tds': 6, '21-27_points_allowed': 0, '28-34_points_allowed': -1, '14-20_points_allowed': 1, 'field_goal_30-39': 3, 'field_goal_40-49': 4, '35+_points_allowed': -4, 'rec_yds': 10}
 
-	if args.schedule:
-		schedule = read_schedule()
-		print(schedule[str(curr_week)])
+	if args.week:
+		curr_week = int(args.week)
+	else:
+		curr_week = CURR_WEEK
+
+	if args.averages:
+		writeAverages()
+	elif args.schedule:
+		writeSchedule(curr_week)
 	elif args.ranks:
 		get_total_ranks(curr_week, settings)
 	elif args.team and args.pos:
@@ -1106,27 +1179,13 @@ if __name__ == "__main__":
 			print("\n#Wk{} vs. {} {} - {} pts".format(data["week"], data["opp"], args.pos, data["points"]))
 			arr = [ d.split(": ")[1] for d in data["players"] ]
 			print("\n".join(arr))
+	elif args.roster:
+		writeRosters()
 	elif args.rankings:
 		write_rankings()
 	elif args.cron:
 		pass
 		# only needs to be run once in a while
-		
-		#write_team_links()
-		write_schedule()
-		write_team_rosters()
-		write_boxscore_links()
-
-		if not args.week:
-			curr_week = CURR_WEEK
-		
-		write_rankings()
-		write_boxscore_stats(curr_week, args.team)
-		calculate_aggregate_stats()
-
-	#write_rankings()
-	#write_team_rosters()
-	#write_boxscore_links()
-	#write_boxscore_stats(args.week, args.team)
-	#calculate_aggregate_stats()
-	#get_opponents("ari")
+		#write_rankings()
+		#writeSchedule(curr_week)
+		write_stats(curr_week)

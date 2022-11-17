@@ -53,10 +53,10 @@
 				const args = [];
 				let s = "";
 				const joinChar = (output == "csv") ? "\t" : "|";
-				s += ["NAME","POS","TEAM","OPP","OPP RANK","PROP","LINE","SZN AVG","% OVER","L5 % OVER","LAST 7 GAMES","LAST YR % OVER","OVER", "UNDER"].join(joinChar);
+				s += ["NAME","POS","MIN","TEAM","OPP","OPP RANK","PROP","LINE","SZN AVG","% OVER","L5 % OVER","LAST 7 GAMES","LAST YR % OVER","OVER", "UNDER"].join(joinChar);
 				s += "\n";
                 if (output != "csv") {
-                    s += ":--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--\n";
+                    s += ":--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--\n";
                 }
 				let rows = TABLE.getSelectedRows();
                 if (rows.length == 0) {
@@ -74,7 +74,7 @@
 							underOdds = "'"+underOdds;
 						}
 					}
-					s += [data.player, data.position, data.team, data.opponent.toUpperCase(), addNumSuffix(data.oppRank), data.propType, data.line, data.avg, data.totalOver+"%", data.totalOverLast5+"%", data.last5, data.lastTotalOver+"%",overOdds, underOdds].join(joinChar);
+					s += [data.player, data.avgMin, data.position, data.team, data.opponent.toUpperCase(), addNumSuffix(data.oppRank), data.propType, data.line, data.avg, data.totalOver+"%", data.totalOverLast5+"%", data.last5, data.lastTotalOver+"%",overOdds, underOdds].join(joinChar);
 					s += "\n";
 				}
 				console.log(s);

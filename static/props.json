@@ -1,5 +1,17 @@
 {
     "A. Dillon GB": {
+        "recv_rec": {
+            "propType": "recv_rec",
+            "player": "A. Dillon",
+            "position": "RB",
+            "team": "GB",
+            "opponent": "TEN",
+            "line": "1.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-104",
+            "sideTwoOdds": "-128",
+            "sideTwoType": "under"
+        },
         "recv_yd": {
             "propType": "recv_yd",
             "player": "A. Dillon",
@@ -8,8 +20,8 @@
             "opponent": "TEN",
             "line": "8.5",
             "sideOneType": "over",
-            "sideOneOdds": "-110",
-            "sideTwoOdds": "-120",
+            "sideOneOdds": "-115",
+            "sideTwoOdds": "-115",
             "sideTwoType": "under"
         },
         "rush_recv_yd": {
@@ -18,10 +30,10 @@
             "position": "RB",
             "team": "GB",
             "opponent": "TEN",
-            "line": "45.5",
+            "line": "48.5",
             "sideOneType": "over",
-            "sideOneOdds": "-115",
-            "sideTwoOdds": "-117",
+            "sideOneOdds": "-119",
+            "sideTwoOdds": "-112",
             "sideTwoType": "under"
         },
         "rush_yd": {
@@ -30,14 +42,26 @@
             "position": "RB",
             "team": "GB",
             "opponent": "TEN",
-            "line": "33.5",
+            "line": "36.5",
             "sideOneType": "over",
-            "sideOneOdds": "-118",
-            "sideTwoOdds": "-114",
+            "sideOneOdds": "-123",
+            "sideTwoOdds": "-111",
             "sideTwoType": "under"
         }
     },
     "A. Jones GB": {
+        "recv_rec": {
+            "propType": "recv_rec",
+            "player": "A. Jones",
+            "position": "RB",
+            "team": "GB",
+            "opponent": "TEN",
+            "line": "3.5",
+            "sideOneType": "over",
+            "sideOneOdds": "114",
+            "sideTwoOdds": "-155",
+            "sideTwoType": "under"
+        },
         "recv_yd": {
             "propType": "recv_yd",
             "player": "A. Jones",
@@ -46,8 +70,20 @@
             "opponent": "TEN",
             "line": "23.5",
             "sideOneType": "over",
-            "sideOneOdds": "-121",
-            "sideTwoOdds": "-111",
+            "sideOneOdds": "-115",
+            "sideTwoOdds": "-117",
+            "sideTwoType": "under"
+        },
+        "rush_att": {
+            "propType": "rush_att",
+            "player": "A. Jones",
+            "position": "RB",
+            "team": "GB",
+            "opponent": "TEN",
+            "line": "13.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-111",
+            "sideTwoOdds": "-121",
             "sideTwoType": "under"
         },
         "rush_recv_yd": {
@@ -56,10 +92,10 @@
             "position": "RB",
             "team": "GB",
             "opponent": "TEN",
-            "line": "85.5",
+            "line": "84.5",
             "sideOneType": "over",
-            "sideOneOdds": "-120",
-            "sideTwoOdds": "-112",
+            "sideOneOdds": "-116",
+            "sideTwoOdds": "-116",
             "sideTwoType": "under"
         },
         "rush_yd": {
@@ -68,10 +104,10 @@
             "position": "RB",
             "team": "GB",
             "opponent": "TEN",
-            "line": "57.5",
+            "line": "56.5",
             "sideOneType": "over",
-            "sideOneOdds": "-115",
-            "sideTwoOdds": "-115",
+            "sideOneOdds": "-118",
+            "sideTwoOdds": "-114",
             "sideTwoType": "under"
         }
     },
@@ -84,8 +120,8 @@
             "opponent": "TEN",
             "line": "33.5",
             "sideOneType": "over",
-            "sideOneOdds": "-124",
-            "sideTwoOdds": "-110",
+            "sideOneOdds": "-119",
+            "sideTwoOdds": "-113",
             "sideTwoType": "under"
         },
         "pass_comp": {
@@ -94,10 +130,10 @@
             "position": "QB",
             "team": "GB",
             "opponent": "TEN",
-            "line": "22.5",
+            "line": "21.5",
             "sideOneType": "over",
             "sideOneOdds": "-112",
-            "sideTwoOdds": "-119",
+            "sideTwoOdds": "-120",
             "sideTwoType": "under"
         },
         "pass_int": {
@@ -108,7 +144,7 @@
             "opponent": "TEN",
             "line": "0.5",
             "sideOneType": "over",
-            "sideOneOdds": "153",
+            "sideOneOdds": "152",
             "sideTwoOdds": "-209",
             "sideTwoType": "under"
         },
@@ -120,8 +156,8 @@
             "opponent": "TEN",
             "line": "1.5",
             "sideOneType": "over",
-            "sideOneOdds": "-114",
-            "sideTwoOdds": "-117",
+            "sideOneOdds": "-109",
+            "sideTwoOdds": "-122",
             "sideTwoType": "under"
         },
         "pass_yd": {
@@ -130,10 +166,10 @@
             "position": "QB",
             "team": "GB",
             "opponent": "TEN",
-            "line": "243.5",
+            "line": "240.5",
             "sideOneType": "over",
-            "sideOneOdds": "-111",
-            "sideTwoOdds": "-120",
+            "sideOneOdds": "-114",
+            "sideTwoOdds": "-114",
             "sideTwoType": "under"
         },
         "rush_yd": {
@@ -144,50 +180,86 @@
             "opponent": "TEN",
             "line": "2.5",
             "sideOneType": "over",
-            "sideOneOdds": "-113",
-            "sideTwoOdds": "-119",
+            "sideOneOdds": "-110",
+            "sideTwoOdds": "-120",
             "sideTwoType": "under"
         }
     },
     "A. Lazard GB": {
+        "recv_rec": {
+            "propType": "recv_rec",
+            "player": "A. Lazard",
+            "position": "WR",
+            "team": "GB",
+            "opponent": "TEN",
+            "line": "4.5",
+            "sideOneType": "over",
+            "sideOneOdds": "124",
+            "sideTwoOdds": "-167",
+            "sideTwoType": "under"
+        },
         "recv_yd": {
             "propType": "recv_yd",
             "player": "A. Lazard",
             "position": "WR",
             "team": "GB",
             "opponent": "TEN",
-            "line": "46.5",
+            "line": "48.5",
             "sideOneType": "over",
-            "sideOneOdds": "-122",
-            "sideTwoOdds": "-112",
+            "sideOneOdds": "-121",
+            "sideTwoOdds": "-111",
             "sideTwoType": "under"
         }
     },
     "C. Watson GB": {
+        "recv_rec": {
+            "propType": "recv_rec",
+            "player": "C. Watson",
+            "position": "WR",
+            "team": "GB",
+            "opponent": "TEN",
+            "line": "4.5",
+            "sideOneType": "over",
+            "sideOneOdds": "126",
+            "sideTwoOdds": "-169",
+            "sideTwoType": "under"
+        },
         "recv_yd": {
             "propType": "recv_yd",
             "player": "C. Watson",
             "position": "WR",
             "team": "GB",
             "opponent": "TEN",
-            "line": "35.5",
+            "line": "44.5",
             "sideOneType": "over",
-            "sideOneOdds": "-117",
-            "sideTwoOdds": "-112",
+            "sideOneOdds": "-112",
+            "sideTwoOdds": "-120",
             "sideTwoType": "under"
         }
     },
     "R. Tonyan GB": {
+        "recv_rec": {
+            "propType": "recv_rec",
+            "player": "R. Tonyan",
+            "position": "TE",
+            "team": "GB",
+            "opponent": "TEN",
+            "line": "2.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-176",
+            "sideTwoOdds": "131",
+            "sideTwoType": "under"
+        },
         "recv_yd": {
             "propType": "recv_yd",
             "player": "R. Tonyan",
             "position": "TE",
             "team": "GB",
             "opponent": "TEN",
-            "line": "27.5",
+            "line": "28.5",
             "sideOneType": "over",
             "sideOneOdds": "-113",
-            "sideTwoOdds": "-119",
+            "sideTwoOdds": "-117",
             "sideTwoType": "under"
         }
     },
@@ -200,8 +272,8 @@
             "opponent": "GB",
             "line": "2.5",
             "sideOneType": "over",
-            "sideOneOdds": "-107",
-            "sideTwoOdds": "-125",
+            "sideOneOdds": "-103",
+            "sideTwoOdds": "-130",
             "sideTwoType": "under"
         },
         "recv_yd": {
@@ -212,8 +284,8 @@
             "opponent": "GB",
             "line": "24.5",
             "sideOneType": "over",
-            "sideOneOdds": "-111",
-            "sideTwoOdds": "-121",
+            "sideOneOdds": "-115",
+            "sideTwoOdds": "-117",
             "sideTwoType": "under"
         }
     },
@@ -226,8 +298,22 @@
             "opponent": "GB",
             "line": "10.5",
             "sideOneType": "over",
-            "sideOneOdds": "-123",
+            "sideOneOdds": "-121",
             "sideTwoOdds": "-111",
+            "sideTwoType": "under"
+        }
+    },
+    "C. Hollister TEN": {
+        "recv_yd": {
+            "propType": "recv_yd",
+            "player": "C. Hollister",
+            "position": "WR",
+            "team": "TEN",
+            "opponent": "GB",
+            "line": "0.5",
+            "sideOneType": "over",
+            "sideOneOdds": "100",
+            "sideTwoOdds": "-135",
             "sideTwoType": "under"
         }
     },
@@ -240,7 +326,7 @@
             "opponent": "GB",
             "line": "1.5",
             "sideOneType": "over",
-            "sideOneOdds": "-170",
+            "sideOneOdds": "-165",
             "sideTwoOdds": "125",
             "sideTwoType": "under"
         },
@@ -253,7 +339,7 @@
             "line": "11.5",
             "sideOneType": "over",
             "sideOneOdds": "-112",
-            "sideTwoOdds": "-119",
+            "sideTwoOdds": "-117",
             "sideTwoType": "under"
         },
         "rush_att": {
@@ -262,10 +348,10 @@
             "position": "RB",
             "team": "TEN",
             "opponent": "GB",
-            "line": "21.5",
+            "line": "22.5",
             "sideOneType": "over",
-            "sideOneOdds": "-128",
-            "sideTwoOdds": "-106",
+            "sideOneOdds": "-105",
+            "sideTwoOdds": "-131",
             "sideTwoType": "under"
         },
         "rush_recv_yd": {
@@ -274,9 +360,9 @@
             "position": "RB",
             "team": "TEN",
             "opponent": "GB",
-            "line": "114.5",
+            "line": "115.5",
             "sideOneType": "over",
-            "sideOneOdds": "-117",
+            "sideOneOdds": "-118",
             "sideTwoOdds": "-114",
             "sideTwoType": "under"
         },
@@ -286,10 +372,10 @@
             "position": "RB",
             "team": "TEN",
             "opponent": "GB",
-            "line": "99.5",
+            "line": "100.5",
             "sideOneType": "over",
-            "sideOneOdds": "-124",
-            "sideTwoOdds": "-108",
+            "sideOneOdds": "-121",
+            "sideTwoOdds": "-112",
             "sideTwoType": "under"
         }
     },
@@ -302,8 +388,8 @@
             "opponent": "GB",
             "line": "1.5",
             "sideOneType": "over",
-            "sideOneOdds": "-200",
-            "sideTwoOdds": "146",
+            "sideOneOdds": "-195",
+            "sideTwoOdds": "144",
             "sideTwoType": "under"
         },
         "recv_yd": {
@@ -328,8 +414,8 @@
             "opponent": "GB",
             "line": "3.5",
             "sideOneType": "over",
-            "sideOneOdds": "126",
-            "sideTwoOdds": "-168",
+            "sideOneOdds": "131",
+            "sideTwoOdds": "-176",
             "sideTwoType": "under"
         },
         "recv_yd": {
@@ -354,8 +440,8 @@
             "opponent": "GB",
             "line": "26.5",
             "sideOneType": "over",
-            "sideOneOdds": "-113",
-            "sideTwoOdds": "-119",
+            "sideOneOdds": "-112",
+            "sideTwoOdds": "-120",
             "sideTwoType": "under"
         },
         "pass_comp": {
@@ -366,8 +452,8 @@
             "opponent": "GB",
             "line": "16.5",
             "sideOneType": "over",
-            "sideOneOdds": "-135",
-            "sideTwoOdds": "-101",
+            "sideOneOdds": "-129",
+            "sideTwoOdds": "-103",
             "sideTwoType": "under"
         },
         "pass_int": {
@@ -378,7 +464,7 @@
             "opponent": "GB",
             "line": "0.5",
             "sideOneType": "over",
-            "sideOneOdds": "-101",
+            "sideOneOdds": "-103",
             "sideTwoOdds": "-133",
             "sideTwoType": "under"
         },
@@ -390,8 +476,8 @@
             "opponent": "GB",
             "line": "0.5",
             "sideOneType": "over",
-            "sideOneOdds": "-273",
-            "sideTwoOdds": "191",
+            "sideOneOdds": "-254",
+            "sideTwoOdds": "182",
             "sideTwoType": "under"
         },
         "pass_yd": {
@@ -400,10 +486,10 @@
             "position": "QB",
             "team": "TEN",
             "opponent": "GB",
-            "line": "184.5",
+            "line": "183.5",
             "sideOneType": "over",
-            "sideOneOdds": "-115",
-            "sideTwoOdds": "-115",
+            "sideOneOdds": "-116",
+            "sideTwoOdds": "-116",
             "sideTwoType": "under"
         },
         "rush_yd": {
@@ -412,10 +498,10 @@
             "position": "QB",
             "team": "TEN",
             "opponent": "GB",
-            "line": "8.5",
+            "line": "7.5",
             "sideOneType": "over",
-            "sideOneOdds": "-107",
-            "sideTwoOdds": "-125",
+            "sideOneOdds": "-125",
+            "sideTwoOdds": "-107",
             "sideTwoType": "under"
         }
     },
@@ -426,10 +512,10 @@
             "position": "WR",
             "team": "TEN",
             "opponent": "GB",
-            "line": "3.5",
+            "line": "2.5",
             "sideOneType": "over",
-            "sideOneOdds": "133",
-            "sideTwoOdds": "-182",
+            "sideOneOdds": "-178",
+            "sideTwoOdds": "133",
             "sideTwoType": "under"
         },
         "recv_yd": {
@@ -440,8 +526,182 @@
             "opponent": "GB",
             "line": "33.5",
             "sideOneType": "over",
-            "sideOneOdds": "-109",
-            "sideTwoOdds": "-127",
+            "sideOneOdds": "-105",
+            "sideTwoOdds": "-129",
+            "sideTwoType": "under"
+        }
+    },
+    "B. Cooks HST": {
+        "recv_yd": {
+            "propType": "recv_yd",
+            "player": "B. Cooks",
+            "position": "WR",
+            "team": "HST",
+            "opponent": "WAS",
+            "line": "54.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-116",
+            "sideTwoOdds": "-116",
+            "sideTwoType": "under"
+        }
+    },
+    "D. Pierce HST": {
+        "rush_yd": {
+            "propType": "rush_yd",
+            "player": "D. Pierce",
+            "position": "RB",
+            "team": "HST",
+            "opponent": "WAS",
+            "line": "79.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-116",
+            "sideTwoOdds": "-118",
+            "sideTwoType": "under"
+        }
+    },
+    "D. Mills HST": {
+        "pass_int": {
+            "propType": "pass_int",
+            "player": "D. Mills",
+            "position": "QB",
+            "team": "HST",
+            "opponent": "WAS",
+            "line": "0.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-168",
+            "sideTwoOdds": "124",
+            "sideTwoType": "under"
+        },
+        "pass_td": {
+            "propType": "pass_td",
+            "player": "D. Mills",
+            "position": "QB",
+            "team": "HST",
+            "opponent": "WAS",
+            "line": "1.5",
+            "sideOneType": "over",
+            "sideOneOdds": "148",
+            "sideTwoOdds": "-203",
+            "sideTwoType": "under"
+        },
+        "pass_yd": {
+            "propType": "pass_yd",
+            "player": "D. Mills",
+            "position": "QB",
+            "team": "HST",
+            "opponent": "WAS",
+            "line": "222.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-117",
+            "sideTwoOdds": "-115",
+            "sideTwoType": "under"
+        }
+    },
+    "N. Collins HST": {
+        "recv_yd": {
+            "propType": "recv_yd",
+            "player": "N. Collins",
+            "position": "WR",
+            "team": "HST",
+            "opponent": "WAS",
+            "line": "40.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-117",
+            "sideTwoOdds": "-115",
+            "sideTwoType": "under"
+        }
+    },
+    "A. Gibson WAS": {
+        "rush_yd": {
+            "propType": "rush_yd",
+            "player": "A. Gibson",
+            "position": "RB",
+            "team": "WAS",
+            "opponent": "HST",
+            "line": "46.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-119",
+            "sideTwoOdds": "-113",
+            "sideTwoType": "under"
+        }
+    },
+    "B. Robinson Jr WAS": {
+        "rush_yd": {
+            "propType": "rush_yd",
+            "player": "B. Robinson Jr.",
+            "position": "RB",
+            "team": "WAS",
+            "opponent": "HST",
+            "line": "63.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-117",
+            "sideTwoOdds": "-115",
+            "sideTwoType": "under"
+        }
+    },
+    "C. Samuel WAS": {
+        "recv_yd": {
+            "propType": "recv_yd",
+            "player": "C. Samuel",
+            "position": "WR",
+            "team": "WAS",
+            "opponent": "HST",
+            "line": "45.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-115",
+            "sideTwoOdds": "-115",
+            "sideTwoType": "under"
+        }
+    },
+    "T. Heinicke WAS": {
+        "pass_int": {
+            "propType": "pass_int",
+            "player": "T. Heinicke",
+            "position": "QB",
+            "team": "WAS",
+            "opponent": "HST",
+            "line": "0.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-140",
+            "sideTwoOdds": "104",
+            "sideTwoType": "under"
+        },
+        "pass_td": {
+            "propType": "pass_td",
+            "player": "T. Heinicke",
+            "position": "QB",
+            "team": "WAS",
+            "opponent": "HST",
+            "line": "1.5",
+            "sideOneType": "over",
+            "sideOneOdds": "125",
+            "sideTwoOdds": "-168",
+            "sideTwoType": "under"
+        },
+        "pass_yd": {
+            "propType": "pass_yd",
+            "player": "T. Heinicke",
+            "position": "QB",
+            "team": "WAS",
+            "opponent": "HST",
+            "line": "218.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-114",
+            "sideTwoOdds": "-118",
+            "sideTwoType": "under"
+        }
+    },
+    "T. McLaurin WAS": {
+        "recv_yd": {
+            "propType": "recv_yd",
+            "player": "T. McLaurin",
+            "position": "WR",
+            "team": "WAS",
+            "opponent": "HST",
+            "line": "59.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-115",
+            "sideTwoOdds": "-117",
             "sideTwoType": "under"
         }
     },
@@ -466,8 +726,8 @@
             "opponent": "CAR",
             "line": "1.5",
             "sideOneType": "over",
-            "sideOneOdds": "157",
-            "sideTwoOdds": "-219",
+            "sideOneOdds": "152",
+            "sideTwoOdds": "-209",
             "sideTwoType": "under"
         },
         "pass_yd": {
@@ -476,10 +736,10 @@
             "position": "QB",
             "team": "BLT",
             "opponent": "CAR",
-            "line": "180.5",
+            "line": "184.5",
             "sideOneType": "over",
-            "sideOneOdds": "-122",
-            "sideTwoOdds": "-111",
+            "sideOneOdds": "-126",
+            "sideTwoOdds": "-108",
             "sideTwoType": "under"
         },
         "rush_yd": {
@@ -504,8 +764,8 @@
             "opponent": "BLT",
             "line": "0.5",
             "sideOneType": "over",
-            "sideOneOdds": "-241",
-            "sideTwoOdds": "171",
+            "sideOneOdds": "-224",
+            "sideTwoOdds": "159",
             "sideTwoType": "under"
         },
         "pass_td": {
@@ -528,10 +788,10 @@
             "position": "RB",
             "team": "CAR",
             "opponent": "BLT",
-            "line": "50.5",
+            "line": "49.5",
             "sideOneType": "over",
-            "sideOneOdds": "-115",
-            "sideTwoOdds": "-117",
+            "sideOneOdds": "-120",
+            "sideTwoOdds": "-112",
             "sideTwoType": "under"
         }
     },
@@ -544,8 +804,8 @@
             "opponent": "BLT",
             "line": "52.5",
             "sideOneType": "over",
-            "sideOneOdds": "-116",
-            "sideTwoOdds": "-116",
+            "sideOneOdds": "-118",
+            "sideTwoOdds": "-114",
             "sideTwoType": "under"
         }
     },
@@ -556,10 +816,50 @@
             "position": "WR",
             "team": "CAR",
             "opponent": "BLT",
-            "line": "33.5",
+            "line": "32.5",
             "sideOneType": "over",
-            "sideOneOdds": "-117",
-            "sideTwoOdds": "-115",
+            "sideOneOdds": "-119",
+            "sideTwoOdds": "-113",
+            "sideTwoType": "under"
+        }
+    },
+    "A. Robinson II LA": {
+        "recv_yd": {
+            "propType": "recv_yd",
+            "player": "A. Robinson II",
+            "position": "WR",
+            "team": "LA",
+            "opponent": "NO",
+            "line": "49.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-110",
+            "sideTwoOdds": "-120",
+            "sideTwoType": "under"
+        }
+    },
+    "M. Stafford LA": {
+        "pass_int": {
+            "propType": "pass_int",
+            "player": "M. Stafford",
+            "position": "QB",
+            "team": "LA",
+            "opponent": "NO",
+            "line": "0.5",
+            "sideOneType": "over",
+            "sideOneOdds": "-157",
+            "sideTwoOdds": "116",
+            "sideTwoType": "under"
+        },
+        "pass_td": {
+            "propType": "pass_td",
+            "player": "M. Stafford",
+            "position": "QB",
+            "team": "LA",
+            "opponent": "NO",
+            "line": "1.5",
+            "sideOneType": "over",
+            "sideOneOdds": "147",
+            "sideTwoOdds": "-200",
             "sideTwoType": "under"
         }
     },
@@ -570,10 +870,10 @@
             "position": "RB",
             "team": "NO",
             "opponent": "LA",
-            "line": "32.5",
+            "line": "33.5",
             "sideOneType": "over",
-            "sideOneOdds": "-119",
-            "sideTwoOdds": "-113",
+            "sideOneOdds": "-112",
+            "sideTwoOdds": "-120",
             "sideTwoType": "under"
         },
         "rush_yd": {
@@ -582,9 +882,9 @@
             "position": "RB",
             "team": "NO",
             "opponent": "LA",
-            "line": "58.5",
+            "line": "64.5",
             "sideOneType": "over",
-            "sideOneOdds": "-118",
+            "sideOneOdds": "-117",
             "sideTwoOdds": "-115",
             "sideTwoType": "under"
         }
@@ -598,8 +898,8 @@
             "opponent": "LA",
             "line": "0.5",
             "sideOneType": "over",
-            "sideOneOdds": "-166",
-            "sideTwoOdds": "123",
+            "sideOneOdds": "-157",
+            "sideTwoOdds": "116",
             "sideTwoType": "under"
         },
         "pass_td": {
@@ -610,8 +910,8 @@
             "opponent": "LA",
             "line": "1.5",
             "sideOneType": "over",
-            "sideOneOdds": "175",
-            "sideTwoOdds": "-246",
+            "sideOneOdds": "151",
+            "sideTwoOdds": "-206",
             "sideTwoType": "under"
         },
         "pass_yd": {
@@ -620,10 +920,10 @@
             "position": "QB",
             "team": "NO",
             "opponent": "LA",
-            "line": "212.5",
+            "line": "213.5",
             "sideOneType": "over",
-            "sideOneOdds": "-106",
-            "sideTwoOdds": "-127",
+            "sideOneOdds": "-108",
+            "sideTwoOdds": "-125",
             "sideTwoType": "under"
         }
     },
@@ -634,10 +934,10 @@
             "position": "WR",
             "team": "NO",
             "opponent": "LA",
-            "line": "51.5",
+            "line": "52.5",
             "sideOneType": "over",
-            "sideOneOdds": "-121",
-            "sideTwoOdds": "-112",
+            "sideOneOdds": "-119",
+            "sideTwoOdds": "-113",
             "sideTwoType": "under"
         }
     },
@@ -648,10 +948,10 @@
             "position": "WR",
             "team": "NO",
             "opponent": "LA",
-            "line": "33.5",
+            "line": "34.5",
             "sideOneType": "over",
-            "sideOneOdds": "-120",
-            "sideTwoOdds": "-112",
+            "sideOneOdds": "-118",
+            "sideTwoOdds": "-114",
             "sideTwoType": "under"
         }
     },
@@ -662,10 +962,10 @@
             "position": "TE",
             "team": "NO",
             "opponent": "LA",
-            "line": "25.5",
+            "line": "27.5",
             "sideOneType": "over",
-            "sideOneOdds": "-115",
-            "sideTwoOdds": "-117",
+            "sideOneOdds": "-111",
+            "sideTwoOdds": "-121",
             "sideTwoType": "under"
         }
     }

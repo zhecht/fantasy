@@ -305,7 +305,7 @@ def writeProps(date):
 
 		path = f"{prefix}static/nhlprops/{prop}.json"
 		url = f"https://api.actionnetwork.com/web/v1/leagues/3/props/{propMap[prop]}?bookIds=69,68&date={date.replace('-', '')}"
-		time.sleep(0.2)
+		time.sleep(0.5)
 		os.system(f"curl -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0' -k \"{url}\" -o {path}")
 
 		with open(path) as fh:
