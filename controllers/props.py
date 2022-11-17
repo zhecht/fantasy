@@ -3,7 +3,6 @@ from flask import *
 from subprocess import call
 from bs4 import BeautifulSoup as BS
 from sys import platform
-from datetime import datetime
 
 import glob
 import json
@@ -21,6 +20,8 @@ except:
 	from functions import *
 	from profootballreference import *
 	from read_rosters import *
+
+from datetime import datetime
 
 props_blueprint = Blueprint('props', __name__, template_folder='views')
 
@@ -170,7 +171,7 @@ def getDefPropsData():
 		team = nameRow.split(" ")[-1]
 
 		if team not in ["PHI", "WSH"]:
-			continue
+			#continue
 			pass
 
 		opp = get_opponents(getProfootballReferenceTeam(team.lower()))[CURR_WEEK]
@@ -338,6 +339,10 @@ def checkTrades(player, stats):
 def getProps_route():
 	res = []
 
+	teams = request.args.get("teams") or ""
+	if teams:
+		teams = teams.upper().split(",")
+
 	with open(f"{prefix}static/props.json") as fh:
 		propData = json.load(fh)
 	with open(f"{prefix}static/profootballreference/rankings.json") as fh:
@@ -361,9 +366,8 @@ def getProps_route():
 		with open(f"{prefix}static/profootballreference/{pff_team}/stats.json") as fh:
 			stats = json.load(fh)
 
-		if team not in ["PHI", "WAS"]:
+		if teams and team not in teams:
 			continue
-			pass
 
 		if name == "T. Etienne":
 			name = "T. Etienne Jr"
@@ -507,52 +511,75 @@ def props_post_route():
 
 @props_blueprint.route('/props')
 def props_route():
-	return render_template("props.html", curr_week=CURR_WEEK)
+	teams = request.args.get("teams") or ""
+	return render_template("props.html", curr_week=CURR_WEEK, teams=teams)
 
 @props_blueprint.route('/defprops')
 def props_def_route():
 	return render_template("defprops.html", curr_week=CURR_WEEK)
 
 def writeDefProps(week):
-	url = "https://www.actionnetwork.com/nfl/props/tackles-assists"
-	path = f"{prefix}static/props/wk{week+1}defprops.html"
-	#os.system(f"curl -k \"{url}\" -o {path}")
-	with open(path) as fh:
-		soup = BS(fh.read(), "lxml")
-
-	books = ["fanduel", "betmgm", "draftkings", "caesars"]
-
+	actionNetworkBookIds = {
+		68: "draftkings",
+		69: "fanduel"
+	}
 	props = {}
+	optionTypes = {}
 
-	for row in soup.findAll("tr")[1:]:
-		name = fixName(row.find("div", class_="total-prop-row__player-name").text)
-		team = row.find("div", class_="total-prop-row__player-team").text
-		props[name.lower()+" "+team] = {"line": {}}
-		for idx, td in enumerate(row.findAll("td")[2:-4]):
-			odds = td.findAll("div", class_="book-cell__odds")
-			over = under = ""
-			line = ""
-			if odds[0].text != "N/A":
-				over = odds[0].findAll("span")[0].text+" ("+odds[0].findAll("span")[1].text+")"
-				line = odds[0].findAll("span")[0].text
-			if odds[1].text != "N/A":
-				under = odds[1].findAll("span")[0].text+" ("+odds[1].findAll("span")[1].text+")"
-			book = books[idx]
+	date = datetime.now()
+	date = str(date)[:10]
 
-			if line and line not in props[name.lower()+" "+team]["line"]:
-				props[name.lower()+" "+team]["line"][line] = 0
-			if line:
-				props[name.lower()+" "+team]["line"][line] += 1
+	path = f"{prefix}static/props/wk{week+1}defprops.json"
+	url = f"https://api.actionnetwork.com/web/v1/leagues/1/props/core_bet_type_70_tackles_assists?bookIds=69,68&date={date.replace('-', '')}"
+	time.sleep(0.2)
+	os.system(f"curl -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0' -k \"{url}\" -o {path}")
 
-			props[name.lower()+" "+team][book] = {
-				"over": over,
-				"under": under
-			}
-		lines = sorted(props[name.lower()+" "+team]["line"])
-		if lines:
-			props[name.lower()+" "+team]["line"] = lines[0]
+	with open(path) as fh:
+		j = json.load(fh)
 
-	fixLines(props)
+	with open(path, "w") as fh:
+		json.dump(j, fh, indent=4)
+
+	if "markets" not in j:
+		return
+	market = j["markets"][0]
+
+	for option in market["rules"]["options"]:
+		optionTypes[int(option)] = market["rules"]["options"][option]["option_type"].lower()
+
+	teamIds = {}
+	for row in market["teams"]:
+		teamIds[row["id"]] = row["abbr"].lower()
+
+	playerIds = {}
+	for row in market["players"]:
+		playerIds[row["id"]] = row["full_name"].lower()
+
+	books = market["books"]
+	for bookData in books:
+		bookId = bookData["book_id"]
+		if bookId not in actionNetworkBookIds:
+			continue
+		for oddData in bookData["odds"]:
+			player = playerIds[oddData["player_id"]]
+			team = teamIds[oddData["team_id"]]
+			overUnder = optionTypes[oddData["option_type_id"]]
+			book = actionNetworkBookIds[bookId]
+
+			if team not in props:
+				props[team] = {}
+			if player not in props[team]:
+				props[team][player] = {}
+			if prop not in props[team][player]:
+				props[team][player][prop] = {}
+			if book not in props[team][player][prop]:
+				props[team][player][prop][book] = {}
+			props[team][player][prop][book][overUnder] = f"{overUnder[0]}{oddData['value']} ({oddData['money']})"
+			if "line" not in props[team][player][prop]:
+				props[team][player][prop]["line"] = f"o{oddData['value']}"
+			elif oddData['value'] < float(props[team][player][prop]["line"][1:]):
+				props[team][player][prop]["line"] = f"o{oddData['value']}"
+
 	with open(f"{prefix}static/props/wk{week+1}_def.json", "w") as fh:
 		json.dump(props, fh, indent=4)
 

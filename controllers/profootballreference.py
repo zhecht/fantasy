@@ -699,6 +699,7 @@ def get_total_ranks(curr_week, settings):
 def write_team_links():
 	url = "https://www.pro-football-reference.com/teams/"
 	soup = BS(urllib.urlopen(url).read(), "lxml")
+	time.sleep(0.2)
 	rows = soup.find("table", id="teams_active").find_all("tr")[2:]
 	j = {}
 	for tr in rows:
@@ -720,6 +721,7 @@ def write_boxscore_links():
 		if not os.path.exists(path):
 			call(["mkdir", "-p", path])
 		url = f"https://www.pro-football-reference.com{team}/{YEAR}/gamelog"
+		time.sleep(0.2)
 		soup = BS(urllib.urlopen(url).read(), "lxml")
 		boxscore_links = {}
 		for i in range(16):
@@ -799,6 +801,7 @@ def get_indexes(header_row):
 def write_schedule():
 	url = f"https://www.pro-football-reference.com/years/{YEAR}/games.htm"
 	soup = BS(urllib.urlopen(url).read(), "lxml")
+	time.sleep(0.2)
 	rows = soup.find("table", id="games").find_all("tr")[1:] # skip header row
 	schedule = {}
 	for tr in rows:

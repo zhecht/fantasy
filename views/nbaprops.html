@@ -243,6 +243,11 @@
 				TABLE.setFilter([{field:"propType", type:"=", value:"{{prop}}"}]);
 			</script>
 		{% endif %}
+		{% if date == "" %}
+			<script>
+				TABLE.getColumn("hit").hide();
+			</script>
+		{% endif %}
 	</body>
 
 </html>
