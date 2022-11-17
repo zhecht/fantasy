@@ -199,6 +199,8 @@ def getProps_route():
 
 	date = datetime.now()
 	date = str(date)[:10]
+	if request.args.get("date"):
+		date = request.args.get("date")
 
 	with open(f"{prefix}static/nbaprops/dates/{date}.json") as fh:
 		propData = json.load(fh)
@@ -288,6 +290,8 @@ def getProps_route():
 				if alt and line:
 					if prop in ["stl+blk", "reb+ast"]:
 						continue
+					if prop not in ["reb", "ast"]:
+						continue
 					if alt == "over":
 						if line > 5:
 							line -= 2
@@ -353,9 +357,11 @@ def getProps_route():
 
 				totalOverPerMin = totalOver = totalOverLast5 = totalGames = avgVariance = 0
 				last5 = []
+				hit = False
 				if line and avgMin:
 					files = sorted(glob.glob(f"{prefix}static/basketballreference/{espnTeam}/*.json"), key=lambda k: datetime.strptime(k.split("/")[-1].replace(".json", ""), "%Y-%m-%d"), reverse=True)
 					for file in files:
+						chkDate = file.split("/")[-1].replace(".json","")
 						with open(file) as fh:
 							gameStats = json.load(fh)
 						if name in gameStats:
@@ -368,6 +374,13 @@ def getProps_route():
 										val += gameStats[name][p]
 								else:
 									val = gameStats[name][prop]
+
+								if chkDate == date:
+									if alt == "over" and val > float(line):
+										hit = True
+									elif alt == "under" and val < float(line):
+										hit = True
+									continue
 
 								avgVariance += (val / float(line)) - 1
 								if len(last5) < 7:
@@ -409,6 +422,7 @@ def getProps_route():
 					"player": name.title(),
 					"team": espnTeam.upper(),
 					"opponent": opp,
+					"hit": hit,
 					"position": pos,
 					"propType": prop,
 					"line": line or "-",
@@ -432,7 +446,8 @@ def getProps_route():
 				})
 
 	teamTotals(date, schedule)
-	write_csvs(props)
+	if not alt:
+		write_csvs(props)
 	return jsonify(props)
 
 def write_csvs(props):
@@ -458,7 +473,10 @@ def write_csvs(props):
 				overOdds = "'"+overOdds
 			if int(underOdds) > 0:
 				underOdds = "'"+underOdds
-			csvs[prop] += "\n" + "\t".join([row["player"], row["position"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
+			try:
+				csvs[prop] += "\n" + "\t".join([row["player"], row["position"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
+			except:
+				pass
 
 	# add full rows
 	csvs["full"] = headers
@@ -470,7 +488,10 @@ def write_csvs(props):
 			overOdds = "'"+overOdds
 		if int(underOdds) > 0:
 			underOdds = "'"+underOdds
-		csvs["full"] += "\n" + "\t".join([row["player"], row["position"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
+		try:
+			csvs["full"] += "\n" + "\t".join([row["player"], row["position"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
+		except:
+			pass
 
 	# add top 4 to reddit
 	for prop in ["pts", "reb", "ast"]:
@@ -478,7 +499,10 @@ def write_csvs(props):
 		for row in rows[:4]:
 			overOdds = row["overOdds"]
 			underOdds = row["underOdds"]
-			reddit += "\n" + "|".join([row["player"], row["position"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
+			try:
+				reddit += "\n" + "|".join([row["player"], row["position"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
+			except:
+				pass
 		reddit += "\n-|-|-|-|-|-|-|-|-|-|-|-|-|-"
 
 	with open(f"{prefix}static/nbaprops/csvs/reddit", "w") as fh:
@@ -515,13 +539,14 @@ def convertRankingsProp(prop):
 
 @nbaprops_blueprint.route('/nbaprops')
 def props_route():
-	prop = ""
-	alt = ""
+	prop = alt = date = ""
 	if request.args.get("prop"):
 		prop = request.args.get("prop").replace(" ", "+")
 	if request.args.get("alt"):
 		alt = request.args.get("alt")
-	return render_template("nbaprops.html", prop=prop, alt=alt)
+	if request.args.get("date"):
+		date = request.args.get("date")
+	return render_template("nbaprops.html", prop=prop, alt=alt, date=date)
 
 def zeroProps():
 	with open(f"{prefix}static/nbaprops/customProps.json") as fh:

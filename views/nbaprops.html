@@ -193,7 +193,7 @@
 				TABLE = new Tabulator("#propsTable", {
 					tooltipsHeader: true,
 					ajaxURL: "/getNBAProps",
-					ajaxParams:{alt: "{{alt}}"},
+					ajaxParams:{alt: "{{alt}}", date: "{{date}}"},
 					//responsiveLayout:"collapse",
 					//layout: "fitDataFill",
 					//layout: window.innerWidth <= 450 ? "fitData" : "fitColumns",
@@ -210,7 +210,8 @@
 						*/
 						{formatter:"rowSelection", hozAlign:"center", headerSort:false, cellClick:function(e, cell){
 							cell.getRow().toggleSelect();
-						}},	
+						}},
+						{title: "Hit", field: "hit", formatter:"tickCross", width: 60, hozAlign: "center"},
 						{title: "Player", field: "player", headerFilter: "input"},
 						{title: "Pos", field: "position", hozAlign: "center", width: 50},
 						{title: "Avg Min", field: "avgMin", hozAlign: "center", width: 70},
