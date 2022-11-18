@@ -52,6 +52,7 @@ def write_stats(date):
 		link = boxscores[date][game].replace("game?gameId=", "boxscore/_/gameId/")
 		url = f"https://www.espn.com{link}"
 		outfile = "out"
+		time.sleep(0.2)
 		call(["curl", "-k", url, "-o", outfile])
 		soup = BS(open(outfile, 'rb').read(), "lxml")
 		
@@ -227,6 +228,7 @@ def write_averages():
 def write_schedule(date):
 	url = f"https://www.espn.com/nba/schedule/_/date/{date.replace('-','')}"
 	outfile = "out"
+	time.sleep(0.2)
 	call(["curl", "-k", url, "-o", outfile])
 	soup = BS(open(outfile, 'rb').read(), "lxml")
 
@@ -255,7 +257,7 @@ def write_schedule(date):
 			score = tds[2].find("a").text.strip()
 			if ", " in score:
 				scoreSp = score.replace(" (2OT)", "").replace(" (OT)", "").split(", ")
-				if awayTeam.upper() in scoreSp[0]:
+				if f"{awayTeam.upper()} " in scoreSp[0]:
 					scores[date][awayTeam] = int(scoreSp[0].replace(awayTeam.upper()+" ", ""))
 					scores[date][homeTeam] = int(scoreSp[1].replace(homeTeam.upper()+" ", ""))
 				else:

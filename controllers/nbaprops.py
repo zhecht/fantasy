@@ -45,7 +45,9 @@ def teamTotals(today, schedule):
 			opp = ""
 			for game in games:
 				if team in game.split(" @ "):
-					opp = game.replace(team, "").replace(" @ ", "")
+					idx = game.split(" @ ").index(team)
+					if idx >= 0:
+						opp = game.split(" @ ")[idx]
 			if team not in totals:
 				totals[team] = {"ppg": 0, "ppga": 0, "games": 0, "overs": [], "ttOvers": []}
 			if opp not in totals:
@@ -195,6 +197,9 @@ def writeProps(date):
 def getProps_route():
 	res = []
 
+	teams = request.args.get("teams") or ""
+	if teams:
+		teams = teams.lower().split(",")
 	alt = request.args.get("alt") or ""
 
 	date = datetime.now()
@@ -224,19 +229,18 @@ def getProps_route():
 		espnTeam = fixNBATeam(team)
 		opp = game = ""
 		if date in schedule:
-			for teams in schedule[date]:
-				game = teams
-				teams = teams.split(" @ ")
-				if espnTeam in teams:
-					if teams.index(espnTeam) == 0:
-						opp = teams[1]
+			for t in schedule[date]:
+				game = t
+				t = t.split(" @ ")
+				if espnTeam in t:
+					if t.index(espnTeam) == 0:
+						opp = t[1]
 					else:
-						opp = teams[0]
+						opp = t[0]
 					break
 
-		if espnTeam.lower() not in ["lac", "hou"]:
-			#continue
-			pass
+		if teams and team not in teams:
+			continue
 
 		for propName in propData[team]:
 			name = propName.replace("-", " ").replace(".", "").replace("'", "")
@@ -293,13 +297,23 @@ def getProps_route():
 					if prop not in ["reb", "ast"]:
 						#continue
 						pass
-					if alt == "over":
+					if alt == "maxover":
 						if "pts+" in prop:
 							line = math.floor(line / 5)*5 - 0.5
 						elif line > 5:
 							line -= 2
 						else:
 							line -= 1
+					elif alt == "over":
+						if prop in ["3ptm", "stl"]:
+							continue
+						if "pts+" in prop:
+							line = math.floor(line / 5)*5 - 0.5
+						elif line > 5:
+							line -= 1
+						else:
+							if overOdds > -140:
+								line -= 1
 					else:
 						if "+" in prop or prop in ["3ptm", "stl", "blk"]:
 							continue
@@ -383,6 +397,8 @@ def getProps_route():
 										hit = True
 									elif alt == "under" and val < float(line):
 										hit = True
+									elif not alt and val < float(line):
+										hit = True
 									continue
 
 								avgVariance += (val / float(line)) - 1
@@ -456,7 +472,7 @@ def getProps_route():
 def write_csvs(props):
 	csvs = {}
 	splitProps = {"full": []}
-	headers = "\t".join(["NAME","POS","MIN","TEAM","OPP","OPP RANK","PROP","LINE","SZN AVG","% OVER","L5 % OVER","LAST 7 GAMES","LAST YR % OVER","OVER", "UNDER"])
+	headers = "\t".join(["NAME","POS","MIN","TEAM","OPP","OPP RANK","PROP","LINE","SZN AVG","% OVER","L5 % OVER","LAST 7 GAMES ➡️","LAST YR % OVER","OVER", "UNDER"])
 	reddit = "|".join(headers.split("\t"))
 	reddit += "\n:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--"
 
@@ -542,14 +558,16 @@ def convertRankingsProp(prop):
 
 @nbaprops_blueprint.route('/nbaprops')
 def props_route():
-	prop = alt = date = ""
+	prop = alt = date = teams = ""
 	if request.args.get("prop"):
 		prop = request.args.get("prop").replace(" ", "+")
 	if request.args.get("alt"):
 		alt = request.args.get("alt")
 	if request.args.get("date"):
 		date = request.args.get("date")
-	return render_template("nbaprops.html", prop=prop, alt=alt, date=date)
+	if request.args.get("teams"):
+		teams = request.args.get("teams")
+	return render_template("nbaprops.html", prop=prop, alt=alt, date=date, teams=teams)
 
 def zeroProps():
 	with open(f"{prefix}static/nbaprops/customProps.json") as fh:

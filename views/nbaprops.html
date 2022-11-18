@@ -53,7 +53,7 @@ v<!DOCTYPE html>
 				const args = [];
 				let s = "";
 				const joinChar = (output == "csv") ? "\t" : "|";
-				s += ["NAME","POS","MIN","TEAM","OPP","OPP RANK","PROP","LINE","SZN AVG","% OVER","L5 % OVER","LAST 7 GAMES","LAST YR % OVER","OVER", "UNDER"].join(joinChar);
+				s += ["NAME","POS","MIN","TEAM","OPP","OPP RANK","PROP","LINE","SZN AVG","% OVER","L5 % OVER","LAST 7 GAMES ➡️","LAST YR % OVER","OVER", "UNDER"].join(joinChar);
 				s += "\n";
                 if (output != "csv") {
                     s += ":--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--\n";
@@ -74,7 +74,7 @@ v<!DOCTYPE html>
 							underOdds = "'"+underOdds;
 						}
 					}
-					s += [data.player, data.avgMin, data.position, data.team, data.opponent.toUpperCase(), addNumSuffix(data.oppRank), data.propType, data.line, data.avg, data.totalOver+"%", data.totalOverLast5+"%", data.last5, data.lastTotalOver+"%",overOdds, underOdds].join(joinChar);
+					s += [data.player, data.position, data.avgMin, data.team, data.opponent.toUpperCase(), addNumSuffix(data.oppRank), data.propType, data.line, data.avg, data.totalOver+"%", data.totalOverLast5+"%", data.last5, data.lastTotalOver+"%",overOdds, underOdds].join(joinChar);
 					s += "\n";
 				}
 				console.log(s);
@@ -103,7 +103,7 @@ v<!DOCTYPE html>
 					out += "\n";
 				}
 
-				out += "totOdds="+totOdds.toFixed(3);
+				out += "totOdds="+totOdds.toFixed(5);
 				const usOdds = Math.round((100 / (totOdds-1)));
 				out += "\nUS Odds="+usOdds;
 				if (usOdds > 0) {
@@ -193,7 +193,7 @@ v<!DOCTYPE html>
 				TABLE = new Tabulator("#propsTable", {
 					tooltipsHeader: true,
 					ajaxURL: "/getNBAProps",
-					ajaxParams:{alt: "{{alt}}", date: "{{date}}"},
+					ajaxParams:{alt: "{{alt}}", date: "{{date}}", teams: "{{teams}}"},
 					//responsiveLayout:"collapse",
 					//layout: "fitDataFill",
 					//layout: window.innerWidth <= 450 ? "fitData" : "fitColumns",
