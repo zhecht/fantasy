@@ -170,6 +170,7 @@
 				TABLE = new Tabulator("#propsTable", {
 					tooltipsHeader: true,
 					ajaxURL: "/getNHLProps",
+					ajaxParams:{alt: "{{alt}}", date: "{{date}}"},
 					//responsiveLayout:"collapse",
 					//layout: "fitDataFill",
 					//layout: window.innerWidth <= 450 ? "fitData" : "fitColumns",
@@ -187,6 +188,7 @@
                         {formatter:"rowSelection", hozAlign:"center", headerSort:false, cellClick:function(e, cell){
                             cell.getRow().toggleSelect();
                         }},
+                        {title: "Hit", field: "hit", formatter:"tickCross", width: 60, hozAlign: "center"},
 						{title: "Player", field: "player", headerFilter: "input"},
 						{title: "Avg Min", field: "avgMin", hozAlign: "center", width: 70},
 						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
@@ -228,6 +230,11 @@
 		{% if prop != "" %}
 			<script>
 				TABLE.setFilter([{field:"propType", type:"=", value:"{{prop}}"}]);
+			</script>
+		{% endif %}
+		{% if date == "" %}
+			<script>
+				TABLE.getColumn("hit").hide();
 			</script>
 		{% endif %}
 	</body>

@@ -36,8 +36,12 @@ def convertProp(prop):
 def getProps_route():
 	res = []
 
+	alt = request.args.get("alt") or ""
+
 	date = datetime.now()
 	date = str(date)[:10]
+	if request.args.get("date"):
+		date = request.args.get("date")
 
 	with open(f"{prefix}static/nhlprops/dates/{date}.json") as fh:
 		propData = json.load(fh)
@@ -148,9 +152,11 @@ def getProps_route():
 
 				totalOver = totalOverLast5 = totalGames = 0
 				last5 = []
+				hit = False
 				if line and avgMin:
 					files = sorted(glob.glob(f"{prefix}static/hockeyreference/{espnTeam}/*.json"), key=lambda k: datetime.strptime(k.split("/")[-1].replace(".json", ""), "%Y-%m-%d"), reverse=True)
 					for file in files:
+						chkDate = file.split("/")[-1].replace(".json","")
 						with open(file) as fh:
 							gameStats = json.load(fh)
 						if name in gameStats:
@@ -162,6 +168,11 @@ def getProps_route():
 									val = gameStats[name]["a"] + gameStats[name]["g"]
 								elif convertedProp in gameStats[name]:
 									val = gameStats[name][convertedProp]
+
+								if chkDate == date:
+									if val > float(line):
+										hit = True
+									continue
 
 								if len(last5) < 10:
 									last5.append(str(int(val)))
@@ -193,6 +204,7 @@ def getProps_route():
 					"propType": prop,
 					"line": line or "-",
 					"avg": avg,
+					"hit": hit,
 					"diffAvg": diffAvg,
 					"diffAbs": abs(diffAbs),
 					"lastAvg": lastAvg,
@@ -284,10 +296,14 @@ def addNumSuffix(val):
 
 @nhlprops_blueprint.route('/nhlprops')
 def props_route():
-	prop = ""
+	prop = alt = date = ""
 	if request.args.get("prop"):
 		prop = request.args.get("prop")
-	return render_template("nhlprops.html", prop=prop)
+	if request.args.get("alt"):
+		alt = request.args.get("alt")
+	if request.args.get("date"):
+		date = request.args.get("date")
+	return render_template("nhlprops.html", prop=prop, alt=alt, date=date)
 
 def writeProps(date):
 	actionNetworkBookIds = {

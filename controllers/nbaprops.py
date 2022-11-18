@@ -399,7 +399,7 @@ def getProps_route():
 				if totalGames:
 					totalOver = round((totalOver / totalGames) * 100)
 					totalOverPerMin = round((totalOverPerMin / totalGames) * 100)
-					avgVariance = round(avgVariance / totalGames, 1)
+					avgVariance = round(avgVariance / totalGames, 2)
 					last5Size = len(last5) if len(last5) < 5 else 5
 					totalOverLast5 = round((totalOverLast5 / last5Size) * 100)
 

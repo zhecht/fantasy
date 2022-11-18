@@ -80,6 +80,8 @@ def getYahooTeam(team):
 		return "lar"
 	elif team == "sdg":
 		return "lac"
+	elif team == "was":
+		return "wsh"
 	return team
 
 def getOppTotPlays(totPlays, team, opp):
@@ -316,6 +318,8 @@ def getProps_route():
 		averages = json.load(fh)
 	with open(f"{prefix}static/profootballreference/roster.json") as fh:
 		roster = json.load(fh)
+	with open(f"{prefix}static/profootballreference/schedule.json") as fh:
+		schedule = json.load(fh)
 
 	translations = {}
 	for team in roster:
@@ -466,7 +470,54 @@ def getProps_route():
 				"stats": playerStats
 			})
 
+	teamTotals(schedule)
 	return jsonify(res)
+
+def teamTotals(schedule):
+	with open(f"{prefix}static/profootballreference/scores.json") as fh:
+		scores = json.load(fh)
+	totals = {}
+	for wk in scores:
+		games = schedule[wk]
+		for team in scores[wk]:
+			opp = ""
+			for game in games:
+				if team in game.split(" @ "):
+					opp = game.replace(team, "").replace(" @ ", "")
+			if team not in totals:
+				totals[team] = {"ppg": 0, "ppga": 0, "games": 0, "overs": [], "ttOvers": []}
+			if opp not in totals:
+				totals[opp] = {"ppg": 0, "ppga": 0, "games": 0, "overs": [], "ttOvers": []}
+			totals[team]["games"] += 1
+			totals[team]["ppg"] += scores[wk][team]
+			totals[team]["ppga"] += scores[wk][opp]
+			totals[team]["ttOvers"].append(str(scores[wk][team]))
+			totals[team]["overs"].append(str(scores[wk][team] + scores[wk][opp]))
+
+	out = "\t".join([x.upper() for x in ["team", "ppg", "ppga", "overs", "overs avg", "tt overs", "tt avg"]])
+	out += "\n"
+	#out += ":--|:--|:--|:--|:--|:--|:--\n"
+	cutoff = 7
+	for game in schedule[f"wk{CURR_WEEK+1}"]:
+		away, home = map(str, game.split(" @ "))
+		ppg = round(totals[away]["ppg"] / totals[away]["games"], 1)
+		ppga = round(totals[away]["ppga"] / totals[away]["games"], 1)
+		overs = ",".join(totals[away]["overs"][:cutoff])
+		oversAvg = round(sum([int(x) for x in totals[away]["overs"]]) / len(totals[away]["overs"]), 1)
+		ttOvers = ",".join(totals[away]["ttOvers"][:cutoff])
+		ttOversAvg = round(sum([int(x) for x in totals[away]["ttOvers"]]) / len(totals[away]["ttOvers"]), 1)
+		out += "\t".join([away.upper(), str(ppg), str(ppga), overs, str(oversAvg), ttOvers, str(ttOversAvg)]) + "\n"
+		ppg = round(totals[home]["ppg"] / totals[home]["games"], 1)
+		ppga = round(totals[home]["ppga"] / totals[home]["games"], 1)
+		overs = ",".join(totals[home]["overs"][:cutoff])
+		oversAvg = round(sum([int(x) for x in totals[home]["overs"]]) / len(totals[home]["overs"]), 1)
+		ttOvers = ",".join(totals[home]["ttOvers"][:cutoff])
+		ttOversAvg = round(sum([int(x) for x in totals[home]["ttOvers"]]) / len(totals[home]["ttOvers"]), 1)
+		out += "\t".join([home.upper(), str(ppg), str(ppga), overs, str(oversAvg), ttOvers, str(ttOversAvg)]) + "\n"
+		out += "\t".join(["-"]*7) + "\n"
+
+	with open(f"{prefix}static/props/totals.csv", "w") as fh:
+		fh.write(out)
 
 def convertRankingsProp(prop):
 	if "+" in prop:
