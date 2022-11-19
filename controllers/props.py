@@ -166,6 +166,8 @@ def getDefPropsData(teams):
 		roster = json.load(fh)
 	with open(f"{prefix}static/profootballreference/totals.json") as fh:
 		totals = json.load(fh)
+	with open(f"{prefix}static/profootballreference/lastYearStats.json") as fh:
+		lastYearStats = json.load(fh)
 
 	#tacklesAnalysis()
 
@@ -176,6 +178,8 @@ def getDefPropsData(teams):
 				espnTeam = team
 
 				if teams and team not in teams:
+					continue
+				if team in ["gb", "ten"]:
 					continue
 
 				opponents = get_opponents(espnTeam)
@@ -191,6 +195,19 @@ def getDefPropsData(teams):
 				line = propData[team][name][prop]["line"]
 				if line:
 					line = line[1:]
+
+
+				lastTotalOver = lastTotalGames = 0
+				if line and name in lastYearStats[espnTeam] and lastYearStats[espnTeam][name]:
+					for dt in lastYearStats[espnTeam][name]:
+						lastTotalGames += 1
+						val = 0
+						if "tackles_combined" in lastYearStats[espnTeam][name][dt]:
+							val = lastYearStats[espnTeam][name][dt]["tackles_combined"]
+						if val > float(line):
+							lastTotalOver += 1
+				if lastTotalGames:
+					lastTotalOver = round((lastTotalOver / lastTotalGames) * 100)
 
 				playerStats = {}
 				last5 = []
@@ -264,6 +281,7 @@ def getDefPropsData(teams):
 					"oppRank": oppRank,
 					"avg": avg,
 					"totalOver": totalOver,
+					"lastTotalOver": lastTotalOver,
 					"last5": ",".join(last5),
 					"last5WithLines": ",".join(last5WithLines),
 					"propType": "tackles_combined",
@@ -291,7 +309,7 @@ def checkTrades(player, stats):
 		return
 	trade = trades[player]
 
-	for file in os.listdir(f"{prefix}static/profootballreference/{trade['from']}/"):
+	for file in glob.glob(f"{prefix}static/profootballreference/{trade['from']}/*.json"):
 		with open(file) as fh:
 			oldStats = json.load(fh)
 		wk = file.split("/")[-1][:-5]
@@ -345,8 +363,10 @@ def getProps_route():
 		name = name.replace("-", " ")
 		if name == "T. Etienne":
 			name = "T. Etienne Jr"
-		if name.endswith("Jr"):
-			name = name.replace("Jr", "Jr.")
+		elif name == "D. Henderson":
+			name = "D. Henderson Jr"
+		elif name == "A. St. Brown":
+			name = "A. Ra St Brown"
 
 		pos = "-"
 		playerStats = {}
@@ -357,8 +377,8 @@ def getProps_route():
 		else:
 			player = translations[name+" "+espnTeam]
 			player = player.replace(".", "")
-			if player == "terrace marshall jr":
-				player = "terrace marshall"
+			if player == "jameson williams" and espnTeam == "det":
+				player = "jamaal williams"
 			for file in os.listdir(f"{prefix}static/profootballreference/{espnTeam}/"):
 				with open(f"{prefix}static/profootballreference/{espnTeam}/{file}") as fh:
 					gameStats = json.load(fh)
@@ -598,7 +618,7 @@ def writeDefProps(week):
 
 	playerIds = {}
 	for row in market["players"]:
-		playerIds[row["id"]] = row["full_name"].lower().replace(".", "")
+		playerIds[row["id"]] = row["full_name"].lower().replace(".", "").replace("-", " ")
 
 	books = market["books"]
 	for bookData in books:
@@ -632,7 +652,6 @@ def fixLines(propData):
 	pass
 
 def writeProps():
-	players_on_teams,translations = read_rosters()
 	with open(f"{prefix}static/props/wk{CURR_WEEK+1}.csv") as fh:
 		lines = [line.strip() for line in fh.readlines() if line.strip()]
 
@@ -652,8 +671,9 @@ def writeProps():
 		for field in idxs:
 			currProps[field] = data[idxs[field]].replace('"', '')
 
-		player = currProps["player"]+" "+currProps["team"]
-		player = player.replace("Jr.", "Jr")
+		team = getYahooTeam(currProps["team"].lower())
+		player = currProps["player"].lower().title().replace("Jr.", "Jr")
+		player += " "+team.upper()
 		#player = translations[player]
 		if player not in props:
 			props[player] = {}

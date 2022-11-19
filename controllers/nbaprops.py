@@ -305,7 +305,7 @@ def getProps_route():
 						else:
 							line -= 1
 					elif alt == "over":
-						if prop in ["3ptm", "stl"]:
+						if "+" in prop or prop in ["3ptm", "stl", "blk"]:
 							continue
 						if "pts+" in prop:
 							line = math.floor(line / 5)*5 - 0.5
