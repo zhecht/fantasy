@@ -393,11 +393,11 @@ def getProps_route():
 									val = gameStats[name][prop]
 
 								if chkDate == date:
-									if alt == "over" and val > float(line):
+									if alt.endswith("over") and val > float(line):
 										hit = True
 									elif alt == "under" and val < float(line):
 										hit = True
-									elif not alt and val < float(line):
+									elif not alt and val > float(line):
 										hit = True
 									continue
 

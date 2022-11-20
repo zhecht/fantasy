@@ -179,8 +179,6 @@ def getDefPropsData(teams):
 
 				if teams and team not in teams:
 					continue
-				if team in ["gb", "ten"]:
-					continue
 
 				opponents = get_opponents(espnTeam)
 				opp = opponents[CURR_WEEK]
@@ -301,13 +299,17 @@ def getDefProps_route():
 		teams = teams.upper().split(",")
 	return jsonify(getDefPropsData(teams))
 
-def checkTrades(player, stats):
+def checkTrades(player, team, stats, totals):
 	with open(f"{prefix}static/nfl_trades.json") as fh:
-		trades = json.load(fh) 
+		trades = json.load(fh)
+
+	totGames = totals[team][player]["gamesPlayed"]
 
 	if player not in trades:
-		return
+		return totGames
 	trade = trades[player]
+
+	totGames += totals[trade["from"]][player]["gamesPlayed"]
 
 	for file in glob.glob(f"{prefix}static/profootballreference/{trade['from']}/*.json"):
 		with open(file) as fh:
@@ -315,6 +317,8 @@ def checkTrades(player, stats):
 		wk = file.split("/")[-1][:-5]
 		if player in oldStats:
 			stats[wk] = oldStats[player]
+
+	return totGames
 
 @props_blueprint.route('/getProps')
 def getProps_route():
@@ -344,7 +348,11 @@ def getProps_route():
 		for player in roster[team]:
 			first = player[0].upper()
 			rest = " ".join(player.title().split(" ")[1:])
-			translations[f"{first}. {rest} {team}"] = player
+			n = f"{first}. {rest}"
+			translations[f"{n} {team}"] = player
+			if n.split(" ")[-1].lower() in ["i", "ii", "iii", "iv", "v"]:
+				n = " ".join(n.split(" ")[:-1])
+				translations[f"{n} {team}"] = player
 	#customPropData(propData)
 	player = ""
 
@@ -370,6 +378,7 @@ def getProps_route():
 
 		pos = "-"
 		playerStats = {}
+		totGames = 0
 
 		if name+" "+espnTeam not in translations:
 			#print(name)
@@ -385,7 +394,7 @@ def getProps_route():
 				wk = file.split("/")[-1][:-5]
 				if player in gameStats:
 					playerStats[wk] = gameStats[player]
-			checkTrades(player, playerStats)
+			totGames = checkTrades(player, team.lower(),playerStats, totals)
 
 		for typ in propData[nameRow]:
 			overOdds = propData[nameRow][typ]["sideOneOdds"]
@@ -417,7 +426,6 @@ def getProps_route():
 				lastTotalOver = round((lastTotalOver / lastTotalGames) * 100)
 
 			last5 = []
-			totGames = totals[espnTeam][player]["gamesPlayed"]
 			tot = totalOver = totalOverLast3 = 0
 			for wk in sorted(playerStats.keys(), key=lambda k: int(k[2:]), reverse=True):
 				if typ == "rush_recv_yd":
@@ -493,9 +501,43 @@ def getProps_route():
 	teamTotals(schedule)
 	return jsonify(res)
 
+def getTeamTds(schedule):
+	teamTds = {}
+	wk = f"wk{CURR_WEEK+1}"
+	for file in os.listdir(f"{prefix}static/profootballreference/"):
+		if file.endswith("json"):
+			continue
+		team = file.split("/")[-1]
+		wks = glob.glob(f"{prefix}static/profootballreference/{team}/wk*.json")
+		for wk in sorted(wks, key=lambda k: int(k.split("/")[-1][2:-5]), reverse=True):
+			with open(wk) as fh:
+				stats = json.load(fh)
+
+			week = int(wk.split("/")[-1][2:-5])
+			opp = ""
+			for games in schedule[f"wk{week}"]:
+				if team in games.split(" @ "):
+					opp = games.replace(team, "").replace(" @ ", "")
+					break
+
+			tds = 0
+			for player in stats:
+				tds += stats[player].get("pass_td", 0) + stats[player].get("rush_td", 0) + stats[player].get("def_td", 0) + stats[player].get("def_int_td", 0)
+
+			if team not in teamTds:
+				teamTds[team] = {"scored": [], "allowed": [0]*CURR_WEEK}
+			if opp not in teamTds:
+				teamTds[opp] = {"scored": [], "allowed": [0]*CURR_WEEK}
+			teamTds[team]["scored"].append(int(tds))
+			teamTds[opp]["allowed"][week-1] = int(tds)
+
+	return teamTds
+
+
 def teamTotals(schedule):
 	with open(f"{prefix}static/profootballreference/scores.json") as fh:
 		scores = json.load(fh)
+	teamTds = getTeamTds(schedule)
 	totals = {}
 	for wk in scores:
 		games = schedule[wk]
@@ -514,10 +556,10 @@ def teamTotals(schedule):
 			totals[team]["ttOvers"].append(str(scores[wk][team]))
 			totals[team]["overs"].append(str(scores[wk][team] + scores[wk][opp]))
 
-	out = "\t".join([x.upper() for x in ["team", "ppg", "ppga", "overs", "overs avg", "tt overs", "tt avg"]])
+	out = "\t".join([x.upper() for x in ["team", "ppg", "ppga", "overs", "overs avg", "tt overs", "tt avg", "tot tds", "tot tds avg", "tot tds allowed", "tot tds allowed avg"]])
 	out += "\n"
 	#out += ":--|:--|:--|:--|:--|:--|:--\n"
-	cutoff = 7
+	cutoff = 20
 	for game in schedule[f"wk{CURR_WEEK+1}"]:
 		away, home = map(str, game.split(" @ "))
 		ppg = round(totals[away]["ppg"] / totals[away]["games"], 1)
@@ -526,15 +568,23 @@ def teamTotals(schedule):
 		oversAvg = round(sum([int(x) for x in totals[away]["overs"]]) / len(totals[away]["overs"]), 1)
 		ttOvers = ",".join(totals[away]["ttOvers"][:cutoff])
 		ttOversAvg = round(sum([int(x) for x in totals[away]["ttOvers"]]) / len(totals[away]["ttOvers"]), 1)
-		out += "\t".join([away.upper(), str(ppg), str(ppga), overs, str(oversAvg), ttOvers, str(ttOversAvg)]) + "\n"
+		totTds = ",".join([str(x) for x in teamTds[away]["scored"]])
+		totTdsAvg = round(sum(teamTds[away]["scored"]) / len(teamTds[away]["scored"]), 1)
+		totTdsAllowed = ",".join([str(x) for x in teamTds[away]["allowed"][::-1]])
+		totTdsAllowedAvg = round(sum(teamTds[away]["allowed"]) / len(teamTds[away]["allowed"]), 1)
+		out += "\t".join([away.upper(), str(ppg), str(ppga), overs, str(oversAvg), ttOvers, str(ttOversAvg), totTds, str(totTdsAvg), totTdsAllowed, str(totTdsAllowedAvg)]) + "\n"
 		ppg = round(totals[home]["ppg"] / totals[home]["games"], 1)
 		ppga = round(totals[home]["ppga"] / totals[home]["games"], 1)
 		overs = ",".join(totals[home]["overs"][:cutoff])
 		oversAvg = round(sum([int(x) for x in totals[home]["overs"]]) / len(totals[home]["overs"]), 1)
 		ttOvers = ",".join(totals[home]["ttOvers"][:cutoff])
 		ttOversAvg = round(sum([int(x) for x in totals[home]["ttOvers"]]) / len(totals[home]["ttOvers"]), 1)
-		out += "\t".join([home.upper(), str(ppg), str(ppga), overs, str(oversAvg), ttOvers, str(ttOversAvg)]) + "\n"
-		out += "\t".join(["-"]*7) + "\n"
+		totTds = ",".join([str(x) for x in teamTds[home]["scored"]])
+		totTdsAvg = round(sum(teamTds[home]["scored"]) / len(teamTds[home]["scored"]), 1)
+		totTdsAllowed = ",".join([str(x) for x in teamTds[home]["allowed"][::-1]])
+		totTdsAllowedAvg = round(sum(teamTds[home]["allowed"]) / len(teamTds[home]["allowed"]), 1)
+		out += "\t".join([home.upper(), str(ppg), str(ppga), overs, str(oversAvg), ttOvers, str(ttOversAvg), totTds, str(totTdsAvg), totTdsAllowed, str(totTdsAllowedAvg)]) + "\n"
+		out += "\t".join(["-"]*11) + "\n"
 
 	with open(f"{prefix}static/props/totals.csv", "w") as fh:
 		fh.write(out)
@@ -618,7 +668,7 @@ def writeDefProps(week):
 
 	playerIds = {}
 	for row in market["players"]:
-		playerIds[row["id"]] = row["full_name"].lower().replace(".", "").replace("-", " ")
+		playerIds[row["id"]] = row["full_name"].lower().replace(".", "").replace("-", " ").replace("'", "")
 
 	books = market["books"]
 	for bookData in books:
@@ -627,6 +677,8 @@ def writeDefProps(week):
 			continue
 		for oddData in bookData["odds"]:
 			player = playerIds[oddData["player_id"]]
+			if player == "lawrence guy sr":
+				player = "lawrence guy"
 			team = teamIds[oddData["team_id"]]
 			overUnder = optionTypes[oddData["option_type_id"]]
 			book = actionNetworkBookIds[bookId]
