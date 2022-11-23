@@ -153,6 +153,16 @@ def writeLineups():
 		lineupList = game.findAll("ul", class_="lineup__list")
 		for idx, teamLink in enumerate(teams):
 			team = teamLink.get("href").split("-")[-1]
+			if team == "was":
+				team = "wsh"
+			elif team == "nop":
+				team = "no"
+			elif team == "sas":
+				team = "sa"
+			elif team == "uta":
+				team = "utah"
+			elif team == "gsw":
+				team = "gs"
 			lineups[team] = {
 				"starters": {},
 				"injuries": {}
