@@ -248,6 +248,8 @@ def write_schedule(date):
 	with open(f"{prefix}static/hockeyreference/boxscores.json") as fh:
 		boxscores = json.load(fh)
 
+	schedule[date] = []
+
 	for table in soup.findAll("div", class_="ResponsiveTable"):
 		date = table.find("div", class_="Table__Title").text.strip()
 		date = str(datetime.datetime.strptime(date, "%A, %B %d, %Y"))[:10]
@@ -275,6 +277,7 @@ if __name__ == "__main__":
 	parser.add_argument("-c", "--cron", action="store_true", help="Start Cron Job")
 	parser.add_argument("-d", "--date", help="Date")
 	parser.add_argument("-s", "--start", help="Start Week", type=int)
+	parser.add_argument("--schedule", help="Schedule", action="store_true")
 	parser.add_argument("-e", "--end", help="End Week", type=int)
 	parser.add_argument("-w", "--week", help="Week", type=int)
 
@@ -288,7 +291,9 @@ if __name__ == "__main__":
 		date = datetime.datetime.now()
 		date = str(date)[:10]
 
-	if args.cron:
+	if args.schedule:
+		write_schedule(date)
+	elif args.cron:
 		pass
 		write_schedule(date)
 		write_stats(date)

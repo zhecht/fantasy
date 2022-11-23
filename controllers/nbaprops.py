@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup as BS
 from sys import platform
 from datetime import datetime
 
+from itertools import zip_longest
 import argparse
 import time
 import glob
@@ -116,6 +117,112 @@ def customPropData(propData):
 				}
 
 	return propData
+
+def convertRotoPlayer(player):
+	trans = {
+		"nicolas claxton": "nic claxton",
+		"jaren jackson": "jaren jackson jr",
+		"michael porter": "michael porter jr",
+		"marvin bagley": "marvin bagley iii",
+		"lonnie walker": "lonnie walker iv",
+		"troy brown": "troy brown jr",
+		"danuel house": "danuel house jr"
+	}
+	return trans.get(player, player)
+
+def writeLineups():
+
+	with open(f"{prefix}static/basketballreference/totals.json") as fh:
+		stats = json.load(fh)
+	with open(f"{prefix}static/basketballreference/schedule.json") as fh:
+		schedule = json.load(fh)
+
+	url = "https://www.rotowire.com/basketball/nba-lineups.php"
+	outfile = "out"
+	call(["curl", "-k", url, "-o", outfile])
+	soup = BS(open(outfile, 'rb').read(), "lxml")
+
+	date = datetime.now()
+	date = str(date)[:10]
+
+	lineups = {}
+	for game in soup.findAll("div", class_="lineup"):
+		if "is-tools" in game.get("class"):
+			continue
+		teams = game.findAll("a", class_="lineup__team")
+		lineupList = game.findAll("ul", class_="lineup__list")
+		for idx, teamLink in enumerate(teams):
+			team = teamLink.get("href").split("-")[-1]
+			lineups[team] = {
+				"starters": {},
+				"injuries": {}
+			}
+			injured = False
+
+			for playerIdx, li in enumerate(lineupList[idx].findAll("li", class_="lineup__player")):
+				player = " ".join(li.find("a").get("href").split("/")[-1].split("-")[:-1])
+				player = convertRotoPlayer(player)
+				pos = li.find("div").text
+				inj = "-"
+				if li.find("span"):
+					inj = li.find("span").text
+
+				avgMin = ppg = apg = rpg = 0
+				if player in stats[team] and stats[team][player]["gamesPlayed"]:
+					gamesPlayed = stats[team][player]["gamesPlayed"]
+					avgMin = int(stats[team][player]["min"] / gamesPlayed)
+					ppg = round(stats[team][player]["pts"] / gamesPlayed, 1)
+					apg = round(stats[team][player]["ast"] / gamesPlayed, 1)
+					rpg = round(stats[team][player]["reb"] / gamesPlayed, 1)
+				j = {
+					"pos": pos,
+					"inj": inj,
+					"avgMin": avgMin,
+					"ppg": ppg,
+					"apg": apg,
+					"rpg": rpg
+				}
+
+				if playerIdx >= 5 and "has-injury-status" in li.get("class"):
+					lineups[team]["injuries"][player] = j
+				else:
+					lineups[team]["starters"][player] = j
+
+	with open(f"{prefix}static/nbaprops/lineups.json", "w") as fh:
+		json.dump(lineups, fh, indent=4)
+
+	headers = ["NAME","TEAM","POS","INJ","MIN","RPG","APG","PPG"]
+	out = "\t".join(headers+[" "]+headers) + "\n"
+	for game in schedule[date]:
+		away, home = map(str, game.split(" @ "))
+		for starting in ["starters", "injuries"]:
+			out += f"{away.upper()} {starting.capitalize()}\t"
+			out += "\t".join(["-"]*len(headers))
+			out += f"\t{home.upper()} {starting.capitalize()}\t"
+			out += "\t".join(["-"]*(len(headers)-1)) + "\n"
+			zip1 = lineups[away][starting]
+			zip2 = lineups[home][starting]
+			for awayPlayer, homePlayer in zip_longest(zip1, zip2):
+				if awayPlayer:
+					awayData = lineups[away][starting][awayPlayer]
+					out += "\t".join([awayPlayer.title(), away.upper(), awayData["pos"], awayData["inj"], str(awayData["avgMin"]), str(awayData["rpg"]), str(awayData["apg"]), str(awayData["ppg"])])
+				else:
+					out += "\t".join(["-"]*(len(headers)))
+
+				out += "\t\t"
+				if homePlayer:
+					homeData = lineups[home][starting][homePlayer]
+					out += "\t".join([homePlayer.title(), home.upper(), homeData["pos"], homeData["inj"], str(homeData["avgMin"]), str(homeData["rpg"]), str(homeData["apg"]), str(homeData["ppg"])])
+				else:
+					out += "\t".join(["-"]*(len(headers)))
+				out += "\n"
+			out += "\t".join(["-"]*(len(headers)*2+1)) + "\n"
+		out += "\t".join(["-"]*(len(headers)*2+1)) + "\n"
+		out += "\t".join(["-"]*(len(headers)*2+1)) + "\n"
+
+	with open(f"{prefix}static/nbaprops/csvs/lineups.csv", "w") as fh:
+		fh.write(out)
+
 
 def writeProps(date):
 	actionNetworkBookIds = {
@@ -306,6 +413,7 @@ def getProps_route():
 							line -= 1
 					elif alt == "over":
 						if "+" in prop or prop in ["3ptm", "stl", "blk"]:
+							pass
 							continue
 						if "pts+" in prop:
 							line = math.floor(line / 5)*5 - 0.5
@@ -585,6 +693,7 @@ if __name__ == "__main__":
 	parser.add_argument("-c", "--cron", action="store_true", help="Start Cron Job")
 	parser.add_argument("-d", "--date", help="Date")
 	parser.add_argument("--zero", help="Zero CustomProp Odds", action="store_true")
+	parser.add_argument("--lineups", help="Lineups", action="store_true")
 	parser.add_argument("-w", "--week", help="Week", type=int)
 
 	args = parser.parse_args()
@@ -595,6 +704,9 @@ if __name__ == "__main__":
 		date = str(date)[:10]
 
 	if args.cron:
+		writeLineups()
 		writeProps(date)
+	elif args.lineups:
+		writeLineups()
 	elif args.zero:
 		zeroProps()

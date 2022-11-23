@@ -296,7 +296,7 @@ def customPropData(propData):
 def getDefProps_route():
 	teams = request.args.get("teams") or ""
 	if teams:
-		teams = teams.upper().split(",")
+		teams = teams.lower().split(",")
 	return jsonify(getDefPropsData(teams))
 
 def checkTrades(player, team, stats, totals):
@@ -630,7 +630,8 @@ def props_route():
 
 @props_blueprint.route('/defprops')
 def props_def_route():
-	return render_template("defprops.html", curr_week=CURR_WEEK)
+	teams = request.args.get("teams") or ""
+	return render_template("defprops.html", curr_week=CURR_WEEK, teams=teams)
 
 def writeDefProps(week):
 	actionNetworkBookIds = {
