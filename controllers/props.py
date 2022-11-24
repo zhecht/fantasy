@@ -138,17 +138,18 @@ def tacklesAnalysis():
 
 def getDefPropsData(teams):
 	pastPropData = {}
-	for file in glob.glob(f"{prefix}static/props/wk*_def.json"):
-		wk = int(file.split("wk")[-1].split("_")[0])
-		if wk <= CURR_WEEK:
-			with open(file) as fh:
-				data = json.load(fh)
-			for name in data:
-				if name not in pastPropData:
-					pastPropData[name] = {}
-				if not data[name]["line"]:
-					continue
-				pastPropData[name][wk] = data[name]["line"][1:]
+	if 0:
+		for file in glob.glob(f"{prefix}static/props/wk*_def.json"):
+			wk = int(file.split("wk")[-1].split("_")[0])
+			if wk <= CURR_WEEK:
+				with open(file) as fh:
+					data = json.load(fh)
+				for name in data:
+					if name not in pastPropData:
+						pastPropData[name] = {}
+					if not data[name]["line"]:
+						continue
+					pastPropData[name][wk] = data[name]["line"][1:]
 
 	with open(f"{prefix}static/props/wk{CURR_WEEK+1}_def.json") as fh:
 		propData = json.load(fh)
@@ -303,6 +304,8 @@ def checkTrades(player, team, stats, totals):
 	with open(f"{prefix}static/nfl_trades.json") as fh:
 		trades = json.load(fh)
 
+	if player not in totals[team]:
+		return 0
 	totGames = totals[team][player]["gamesPlayed"]
 
 	if player not in trades:
@@ -388,6 +391,8 @@ def getProps_route():
 			player = player.replace(".", "")
 			if player == "jameson williams" and espnTeam == "det":
 				player = "jamaal williams"
+			elif player == "marcus jones":
+				player = "mac jones"
 			for file in os.listdir(f"{prefix}static/profootballreference/{espnTeam}/"):
 				with open(f"{prefix}static/profootballreference/{espnTeam}/{file}") as fh:
 					gameStats = json.load(fh)

@@ -1,0 +1,699 @@
+{
+    "markets": [
+        {
+            "id": 2893,
+            "type": "core_bet_type_70_tackles_assists",
+            "name": "Tackles + Ast",
+            "props_type": "player_props",
+            "rules": {
+                "options": {
+                    "404": {
+                        "sort_order": 1,
+                        "option_type": "Over",
+                        "abbreviation": "o"
+                    },
+                    "405": {
+                        "sort_order": 2,
+                        "option_type": "Under",
+                        "abbreviation": "u"
+                    }
+                },
+                "stat_key": [
+                    "defense.combined"
+                ],
+                "full_name": "Tackles + Assists",
+                "sort_order": {
+                    "nfl": 22
+                }
+            },
+            "line_type": "total",
+            "books": [
+                {
+                    "book_id": 1599,
+                    "odds": [
+                        {
+                            "edge": null,
+                            "grade": null,
+                            "money": -155,
+                            "value": 5.5,
+                            "is_best": null,
+                            "team_id": 146,
+                            "deeplink": {
+                                "game_id": 13628605,
+                                "market_id": 858817713,
+                                "result_id": -1746630521
+                            },
+                            "player_id": 108158,
+                            "bet_quality": null,
+                            "implied_value": null,
+                            "option_type_id": 405,
+                            "game_id": 132487,
+                            "prop_id": 19640612
+                        },
+                        {
+                            "edge": null,
+                            "grade": null,
+                            "money": 115,
+                            "value": 5.5,
+                            "is_best": null,
+                            "team_id": 146,
+                            "deeplink": {
+                                "game_id": 13628605,
+                                "market_id": 858817713,
+                                "result_id": -1746630522
+                            },
+                            "player_id": 108158,
+                            "bet_quality": null,
+                            "implied_value": null,
+                            "option_type_id": 404,
+                            "game_id": 132487,
+                            "prop_id": 19640612
+                        },
+                        {
+                            "edge": null,
+                            "grade": null,
+                            "money": -155,
+                            "value": 6.5,
+                            "is_best": null,
+                            "team_id": 125,
+                            "deeplink": {
+                                "game_id": 13628605,
+                                "market_id": 858818729,
+                                "result_id": -1746628194
+                            },
+                            "player_id": 60169,
+                            "bet_quality": null,
+                            "implied_value": null,
+                            "option_type_id": 405,
+                            "game_id": 132487,
+                            "prop_id": 19640659
+                        },
+                        {
+                            "edge": null,
+                            "grade": null,
+                            "money": 115,
+                            "value": 6.5,
+                            "is_best": null,
+                            "team_id": 125,
+                            "deeplink": {
+                                "game_id": 13628605,
+                                "market_id": 858818729,
+                                "result_id": -1746628195
+                            },
+                            "player_id": 60169,
+                            "bet_quality": null,
+                            "implied_value": null,
+                            "option_type_id": 404,
+                            "game_id": 132487,
+                            "prop_id": 19640659
+                        },
+                        {
+                            "edge": null,
+                            "grade": null,
+                            "money": -155,
+                            "value": 7.5,
+                            "is_best": null,
+                            "team_id": 144,
+                            "deeplink": {
+                                "game_id": 13628606,
+                                "market_id": 858162808,
+                                "result_id": -1748294152
+                            },
+                            "player_id": 111889,
+                            "bet_quality": null,
+                            "implied_value": null,
+                            "option_type_id": 405,
+                            "game_id": 132486,
+                            "prop_id": 19561319
+                        },
+                        {
+                            "edge": null,
+                            "grade": null,
+                            "money": 115,
+                            "value": 7.5,
+                            "is_best": null,
+                            "team_id": 144,
+                            "deeplink": {
+                                "game_id": 13628606,
+                                "market_id": 858162808,
+                                "result_id": -1748294153
+                            },
+                            "player_id": 111889,
+                            "bet_quality": null,
+                            "implied_value": null,
+                            "option_type_id": 404,
+                            "game_id": 132486,
+                            "prop_id": 19561319
+                        },
+                        {
+                            "edge": null,
+                            "grade": null,
+                            "money": -150,
+                            "value": 5.5,
+                            "is_best": null,
+                            "team_id": 140,
+                            "deeplink": {
+                                "game_id": 13628606,
+                                "market_id": 858163100,
+                                "result_id": -1748293538
+                            },
+                            "player_id": 5416,
+                            "bet_quality": null,
+                            "implied_value": null,
+                            "option_type_id": 404,
+                            "game_id": 132486,
+                            "prop_id": 19555529
+                        },
+                        {
+                            "edge": null,
+                            "grade": null,
+                            "money": 110,
+                            "value": 5.5,
+                            "is_best": null,
+                            "team_id": 140,
+                            "deeplink": {
+                                "game_id": 13628606,
+                                "market_id": 858163100,
+                                "result_id": -1748293537
+                            },
+                            "player_id": 5416,
+                            "bet_quality": null,
+                            "implied_value": null,
+                            "option_type_id": 405,
+                            "game_id": 132486,
+                            "prop_id": 19555529
+                        },
+                        {
+                            "edge": null,
+                            "grade": null,
+                            "money": -150,
+                            "value": 5.5,
+                            "is_best": null,
+                            "team_id": 140,
+                            "deeplink": {
+                                "game_id": 13628606,
+                                "market_id": 858366568,
+                                "result_id": -1747785035
+                            },
+                            "player_id": 108238,
+                            "bet_quality": null,
+                            "implied_value": null,
+                            "option_type_id": 404,
+                            "game_id": 132486,
+                            "prop_id": 19550295
+                        },
+                        {
+                            "edge": null,
+                            "grade": null,
+                            "money": 115,
+                            "value": 5.5,
+                            "is_best": null,
+                            "team_id": 140,
+                            "deeplink": {
+                                "game_id": 13628606,
+                                "market_id": 858366568,
+                                "result_id": -1747785034
+                            },
+                            "player_id": 108238,
+                            "bet_quality": null,
+                            "implied_value": null,
+                            "option_type_id": 405,
+                            "game_id": 132486,
+                            "prop_id": 19550295
+                        },
+                        {
+                            "edge": null,
+                            "grade": null,
+                            "money": -150,
+                            "value": 5.5,
+                            "is_best": null,
+                            "team_id": 144,
+                            "deeplink": {
+                                "game_id": 13628606,
+                                "market_id": 858163106,
+                                "result_id": -1748293526
+                            },
+                            "player_id": 5093,
+                            "bet_quality": null,
+                            "implied_value": null,
+                            "option_type_id": 404,
+                            "game_id": 132486,
+                            "prop_id": 19550072
+                        },
+                        {
+                            "edge": null,
+                            "grade": null,
+                            "money": 115,
+                            "value": 5.5,
+                            "is_best": null,
+                            "team_id": 144,
+                            "deeplink": {
+                                "game_id": 13628606,
+                                "market_id": 858163106,
+                                "result_id": -1748293525
+                            },
+                            "player_id": 5093,
+                            "bet_quality": null,
+                            "implied_value": null,
+                            "option_type_id": 405,
+                            "game_id": 132486,
+                            "prop_id": 19550072
+                        },
+                        {
+                            "edge": null,
+                            "grade": null,
+                            "money": -140,
+                            "value": 4.5,
+                            "is_best": null,
+                            "team_id": 140,
+                            "deeplink": {
+                                "game_id": 13628606,
+                                "market_id": 858163277,
+                                "result_id": -1748293168
+                            },
+                            "player_id": 166297,
+                            "bet_quality": null,
+                            "implied_value": null,
+                            "option_type_id": 405,
+                            "game_id": 132486,
+                            "prop_id": 19550170
+                        },
+                        {
+                            "edge": null,
+                            "grade": null,
+                            "money": 105,
+                            "value": 4.5,
+                            "is_best": null,
+                            "team_id": 140,
+                            "deeplink": {
+                                "game_id": 13628606,
+                                "market_id": 858163277,
+                                "result_id": -1748293169
+                            },
+                            "player_id": 166297,
+                            "bet_quality": null,
+                            "implied_value": null,
+                            "option_type_id": 404,
+                            "game_id": 132486,
+                            "prop_id": 19550170
+                        },
+                        {
+                            "edge": null,
+                            "grade": null,
+                            "money": -125,
+                            "value": 4.5,
+                            "is_best": null,
+                            "team_id": 125,
+                            "deeplink": {
+                                "game_id": 13628605,
+                                "market_id": 858817775,
+                                "result_id": -1746630397
+                            },
+                            "player_id": 735,
+                            "bet_quality": null,
+                            "implied_value": null,
+                            "option_type_id": 404,
+                            "game_id": 132487,
+                            "prop_id": 19640671
+                        },
+                        {
+                            "edge": null,
+                            "grade": null,
+                            "money": -105,
+                            "value": 4.5,
+                            "is_best": null,
+                            "team_id": 125,
+                            "deeplink": {
+                                "game_id": 13628605,
+                                "market_id": 858817775,
+                                "result_id": -1746630396
+                            },
+                            "player_id": 735,
+                            "bet_quality": null,
+                            "implied_value": null,
+                            "option_type_id": 405,
+                            "game_id": 132487,
+                            "prop_id": 19640671
+                        },
+                        {
+                            "edge": null,
+                            "grade": null,
+                            "money": -125,
+                            "value": 7.5,
+                            "is_best": null,
+                            "team_id": 146,
+                            "deeplink": {
+                                "game_id": 13628605,
+                                "market_id": 858817446,
+                                "result_id": -1746631208
+                            },
+                            "player_id": 62988,
+                            "bet_quality": null,
+                            "implied_value": null,
+                            "option_type_id": 405,
+                            "game_id": 132487,
+                            "prop_id": 19640467
+                        },
+                        {
+                            "edge": null,
+                            "grade": null,
+                            "money": -105,
+                            "value": 7.5,
+                            "is_best": null,
+                            "team_id": 146,
+                            "deeplink": {
+                                "game_id": 13628605,
+                                "market_id": 858817446,
+                                "result_id": -1746631209
+                            },
+                            "player_id": 62988,
+                            "bet_quality": null,
+                            "implied_value": null,
+                            "option_type_id": 404,
+                            "game_id": 132487,
+                            "prop_id": 19640467
+                        },
+                        {
+                            "edge": null,
+                            "grade": null,
+                            "money": -105,
+                            "value": 6.5,
+                            "is_best": null,
+                            "team_id": 125,
+                            "deeplink": {
+                                "game_id": 13628605,
+                                "market_id": 858817723,
+                                "result_id": -1746630501
+                            },
+                            "player_id": 166459,
+                            "bet_quality": null,
+                            "implied_value": null,
+                            "option_type_id": 405,
+                            "game_id": 132487,
+                            "prop_id": 19640605
+                        },
+                        {
+                            "edge": null,
+                            "grade": null,
+                            "money": -130,
+                            "value": 6.5,
+                            "is_best": null,
+                            "team_id": 125,
+                            "deeplink": {
+                                "game_id": 13628605,
+                                "market_id": 858817723,
+                                "result_id": -1746630502
+                            },
+                            "player_id": 166459,
+                            "bet_quality": null,
+                            "implied_value": null,
+                            "option_type_id": 404,
+                            "game_id": 132487,
+                            "prop_id": 19640605
+                        },
+                        {
+                            "edge": null,
+                            "grade": null,
+                            "money": -105,
+                            "value": 6.5,
+                            "is_best": null,
+                            "team_id": 146,
+                            "deeplink": {
+                                "game_id": 13628605,
+                                "market_id": 858817624,
+                                "result_id": -1746630744
+                            },
+                            "player_id": 87536,
+                            "bet_quality": null,
+                            "implied_value": null,
+                            "option_type_id": 405,
+                            "game_id": 132487,
+                            "prop_id": 19640508
+                        },
+                        {
+                            "edge": null,
+                            "grade": null,
+                            "money": -130,
+                            "value": 6.5,
+                            "is_best": null,
+                            "team_id": 146,
+                            "deeplink": {
+                                "game_id": 13628605,
+                                "market_id": 858817624,
+                                "result_id": -1746630745
+                            },
+                            "player_id": 87536,
+                            "bet_quality": null,
+                            "implied_value": null,
+                            "option_type_id": 404,
+                            "game_id": 132487,
+                            "prop_id": 19640508
+                        },
+                        {
+                            "edge": null,
+                            "grade": null,
+                            "money": 100,
+                            "value": 5.5,
+                            "is_best": null,
+                            "team_id": 125,
+                            "deeplink": {
+                                "game_id": 13628605,
+                                "market_id": 858817821,
+                                "result_id": -1746630293
+                            },
+                            "player_id": 87562,
+                            "bet_quality": null,
+                            "implied_value": null,
+                            "option_type_id": 404,
+                            "game_id": 132487,
+                            "prop_id": 19640686
+                        },
+                        {
+                            "edge": null,
+                            "grade": null,
+                            "money": -130,
+                            "value": 5.5,
+                            "is_best": null,
+                            "team_id": 125,
+                            "deeplink": {
+                                "game_id": 13628605,
+                                "market_id": 858817821,
+                                "result_id": -1746630292
+                            },
+                            "player_id": 87562,
+                            "bet_quality": null,
+                            "implied_value": null,
+                            "option_type_id": 405,
+                            "game_id": 132487,
+                            "prop_id": 19640686
+                        },
+                        {
+                            "edge": null,
+                            "grade": null,
+                            "money": 115,
+                            "value": 3.5,
+                            "is_best": null,
+                            "team_id": 125,
+                            "deeplink": {
+                                "game_id": 13628605,
+                                "market_id": 858817727,
+                                "result_id": -1746630493
+                            },
+                            "player_id": 146926,
+                            "bet_quality": null,
+                            "implied_value": null,
+                            "option_type_id": 405,
+                            "game_id": 132487,
+                            "prop_id": 19640597
+                        },
+                        {
+                            "edge": null,
+                            "grade": null,
+                            "money": -155,
+                            "value": 3.5,
+                            "is_best": null,
+                            "team_id": 125,
+                            "deeplink": {
+                                "game_id": 13628605,
+                                "market_id": 858817727,
+                                "result_id": -1746630494
+                            },
+                            "player_id": 146926,
+                            "bet_quality": null,
+                            "implied_value": null,
+                            "option_type_id": 404,
+                            "game_id": 132487,
+                            "prop_id": 19640597
+                        },
+                        {
+                            "edge": null,
+                            "grade": null,
+                            "money": 115,
+                            "value": 5.5,
+                            "is_best": null,
+                            "team_id": 140,
+                            "deeplink": {
+                                "game_id": 13628606,
+                                "market_id": 858552327,
+                                "result_id": -1747303484
+                            },
+                            "player_id": 87511,
+                            "bet_quality": null,
+                            "implied_value": null,
+                            "option_type_id": 405,
+                            "game_id": 132486,
+                            "prop_id": 19550204
+                        },
+                        {
+                            "edge": null,
+                            "grade": null,
+                            "money": -150,
+                            "value": 5.5,
+                            "is_best": null,
+                            "team_id": 140,
+                            "deeplink": {
+                                "game_id": 13628606,
+                                "market_id": 858552327,
+                                "result_id": -1747303485
+                            },
+                            "player_id": 87511,
+                            "bet_quality": null,
+                            "implied_value": null,
+                            "option_type_id": 404,
+                            "game_id": 132486,
+                            "prop_id": 19550204
+                        }
+                    ]
+                }
+            ],
+            "teams": [
+                {
+                    "id": 125,
+                    "abbr": "BUF",
+                    "logo": "https://static.sprtactn.co/teamlogos/nfl/100/buf.png",
+                    "url_slug": "buffalo-bills",
+                    "full_name": "Buffalo Bills",
+                    "display_name": "Bills",
+                    "primary_color": "00338D",
+                    "secondary_color": "C60C30"
+                },
+                {
+                    "id": 140,
+                    "abbr": "DAL",
+                    "logo": "https://static.sprtactn.co/teamlogos/nfl/100/dal.png",
+                    "url_slug": "dallas-cowboys",
+                    "full_name": "Dallas Cowboys",
+                    "display_name": "Cowboys",
+                    "primary_color": "003594",
+                    "secondary_color": "869397"
+                },
+                {
+                    "id": 144,
+                    "abbr": "NYG",
+                    "logo": "https://static.sprtactn.co/teamlogos/nfl/100/nygd.png",
+                    "url_slug": "new-york-giants",
+                    "full_name": "New York Giants",
+                    "display_name": "Giants",
+                    "primary_color": "0B2265",
+                    "secondary_color": "A71930"
+                },
+                {
+                    "id": 146,
+                    "abbr": "DET",
+                    "logo": "https://static.sprtactn.co/teamlogos/nfl/100/det.png",
+                    "url_slug": "detroit-lions",
+                    "full_name": "Detroit Lions",
+                    "display_name": "Lions",
+                    "primary_color": "005A8B",
+                    "secondary_color": "B0B7BC"
+                }
+            ],
+            "players": [
+                {
+                    "id": 735,
+                    "abbr": "J.Poyer",
+                    "image": "https://assets.actionnetwork.com/200x200/aced310b5b9042999a3155a69cbff047.png",
+                    "full_name": "Jordan Poyer"
+                },
+                {
+                    "id": 5093,
+                    "abbr": "J.Smith",
+                    "image": "https://assets.actionnetwork.com/200x200/71d1653fd3e84cc5b4d72556b5d583fd.png",
+                    "full_name": "Jaylon Smith"
+                },
+                {
+                    "id": 5416,
+                    "abbr": "J.Kearse",
+                    "image": "https://assets.actionnetwork.com/200x200/3a14c801b64f40c0a2f2af2a70279b69.png",
+                    "full_name": "Jayron Kearse"
+                },
+                {
+                    "id": 60169,
+                    "abbr": "M.Milano",
+                    "image": "https://assets.actionnetwork.com/200x200/0db68532965641cc83316af6fa06de2e.png",
+                    "full_name": "Matt Milano"
+                },
+                {
+                    "id": 62988,
+                    "abbr": "A.Anzalone",
+                    "image": "https://assets.actionnetwork.com/200x200/ae0dc718caa84377942e3bfd9ba5f716.png",
+                    "full_name": "Alex Anzalone"
+                },
+                {
+                    "id": 87511,
+                    "abbr": "L.Vander Esch",
+                    "image": "https://assets.actionnetwork.com/200x200/989d68547dca4a68bd0b46e71c514812.png",
+                    "full_name": "Leighton Vander Esch"
+                },
+                {
+                    "id": 87536,
+                    "abbr": "D.Elliott",
+                    "image": "https://assets.actionnetwork.com/200x200/170f3dc2a475462aaadaf064383c6c52.png",
+                    "full_name": "DeShon Elliott"
+                },
+                {
+                    "id": 87562,
+                    "abbr": "T.Johnson",
+                    "image": "https://assets.actionnetwork.com/200x200/d04b6354d8ea464fa33425d464494ec1.png",
+                    "full_name": "Taron Johnson"
+                },
+                {
+                    "id": 108158,
+                    "abbr": "W.Harris",
+                    "image": "https://assets.actionnetwork.com/200x200/7fbb629ed8a24a64bb995030c62f0c1e.png",
+                    "full_name": "Will Harris"
+                },
+                {
+                    "id": 108238,
+                    "abbr": "D.Wilson",
+                    "image": "https://assets.actionnetwork.com/200x200/0bf9c0c52f19478580d864daebb8427b.png",
+                    "full_name": "Donovan Wilson"
+                },
+                {
+                    "id": 111889,
+                    "abbr": "J.Love",
+                    "image": "https://assets.actionnetwork.com/200x200/0c072279a8b04109af84e9a14a05f2f8.png",
+                    "full_name": "Julian Love"
+                },
+                {
+                    "id": 146926,
+                    "abbr": "D.Jackson",
+                    "image": "https://assets.actionnetwork.com/200x200/59df767fdc734e2d96dd532f241e2da9.png",
+                    "full_name": "Dane Jackson"
+                },
+                {
+                    "id": 166297,
+                    "abbr": "M.Parsons",
+                    "image": "https://assets.actionnetwork.com/200x200/42b3ff90624d4b93a055a25e32b603ed.png",
+                    "full_name": "Micah Parsons"
+                },
+                {
+                    "id": 166459,
+                    "abbr": "D.Hamlin",
+                    "image": "https://assets.actionnetwork.com/200x200/0d439d1ffdec4c29b723f839d27df3ee.png",
+                    "full_name": "Damar Hamlin"
+                }
+            ]
+        }
+    ]
+}

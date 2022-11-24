@@ -1186,6 +1186,6 @@ if __name__ == "__main__":
 	elif args.cron:
 		pass
 		# only needs to be run once in a while
-		#write_rankings()
-		#writeSchedule(curr_week)
+		write_rankings()
+		writeSchedule(curr_week)
 		write_stats(curr_week)
