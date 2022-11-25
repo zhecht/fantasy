@@ -163,6 +163,8 @@ def writeLineups():
 				team = "utah"
 			elif team == "gsw":
 				team = "gs"
+			elif team == "nyk":
+				team = "ny"
 			lineups[team] = {
 				"starters": {},
 				"injuries": {}

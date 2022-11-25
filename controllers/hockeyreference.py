@@ -251,6 +251,8 @@ def write_schedule(date):
 	schedule[date] = []
 
 	for table in soup.findAll("div", class_="ResponsiveTable"):
+		if not table.find("div", class_="Table__Title"):
+			continue
 		date = table.find("div", class_="Table__Title").text.strip()
 		date = str(datetime.datetime.strptime(date, "%A, %B %d, %Y"))[:10]
 		if date not in boxscores:
