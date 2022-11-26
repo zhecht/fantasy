@@ -92,6 +92,10 @@ def write_stats(date):
 							fullName = fullName.replace("J.T.", "J.")
 						elif fullName.startswith("J.J."):
 							fullName = fullName.replace("J.J.", "J.")
+						elif fullName.startswith("T.J."):
+							fullName = fullName.replace("T.J.", "T.")
+						elif fullName.startswith("A.J."):
+							fullName = fullName.replace("A.J.", "A.")
 						playerId = int(nameLink[-1])
 						playerIds[team][fullName] = playerId
 						playerList.append(fullName)
@@ -106,7 +110,10 @@ def write_stats(date):
 								headers.append(td.text.strip().lower())
 							continue
 
-						player = playerList[playerIdx]
+						try:
+							player = playerList[playerIdx]
+						except:
+							continue
 						playerIdx += 1
 						playerStats = {}
 						for tdIdx, td in enumerate(row.findAll("td")):

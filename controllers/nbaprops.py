@@ -126,7 +126,11 @@ def convertRotoPlayer(player):
 		"marvin bagley": "marvin bagley iii",
 		"lonnie walker": "lonnie walker iv",
 		"troy brown": "troy brown jr",
-		"danuel house": "danuel house jr"
+		"danuel house": "danuel house jr",
+		"otto porter": "otto porter jr",
+		"kevin porter": "kevin porter jr",
+		"jabari smith": "jabari smith jr",
+		"gary trent": "gary trent jr",
 	}
 	return trans.get(player, player)
 
