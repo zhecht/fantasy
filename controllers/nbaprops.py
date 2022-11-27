@@ -622,7 +622,7 @@ def write_csvs(props):
 				pass
 
 	# add full rows
-	csvs["full"] = headers
+	csvs["full_name"] = headers
 	rows = sorted(splitProps["full"], key=lambda k: (k["player"]))
 	for row in rows:
 		overOdds = row["overOdds"]
@@ -632,7 +632,21 @@ def write_csvs(props):
 		if int(underOdds) > 0:
 			underOdds = "'"+underOdds
 		try:
-			csvs["full"] += "\n" + "\t".join([row["player"], row["position"], str(row["avgMin"]), row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
+			csvs["full_name"] += "\n" + "\t".join([row["player"], row["position"], str(row["avgMin"]), row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
+		except:
+			pass
+
+	csvs["full_hit"] = headers
+	rows = sorted(splitProps["full"], key=lambda k: (k["totalOverLast5"], k["totalOver"]), reverse=True)
+	for row in rows:
+		overOdds = row["overOdds"]
+		underOdds = row["underOdds"]
+		if int(overOdds) > 0:
+			overOdds = "'"+overOdds
+		if int(underOdds) > 0:
+			underOdds = "'"+underOdds
+		try:
+			csvs["full_hit"] += "\n" + "\t".join([row["player"], row["position"], str(row["avgMin"]), row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
 		except:
 			pass
 
