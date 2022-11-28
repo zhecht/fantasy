@@ -131,6 +131,7 @@ def convertRotoPlayer(player):
 		"kevin porter": "kevin porter jr",
 		"jabari smith": "jabari smith jr",
 		"gary trent": "gary trent jr",
+		"marcus morris": "marcus morris sr",
 	}
 	return trans.get(player, player)
 
@@ -423,6 +424,7 @@ def getProps_route():
 					if alt == "maxover":
 						if "pts+" in prop:
 							line = math.floor(line / 5)*5 - 0.5
+							continue
 						elif line > 5:
 							line -= 2
 						else:
