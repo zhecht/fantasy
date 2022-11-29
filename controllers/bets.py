@@ -38,7 +38,7 @@ def bets_post_route():
 		teams.extend(bet["players"].keys())
 
 	finished = []
-	finished = ["atl @ phi", "min @ wsh", "cha @ bos", "orl @ bkn", "cle @ tor", "chi @ utah", "hou @ den", "phx @ sac", "ind @ lal"]
+	finished = []
 
 	allStats = {}
 	if not res:

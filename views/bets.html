@@ -64,10 +64,9 @@
 			<div id="timer">120</div>
 			{% for bet in bets %}
 				<div class="bet">
-					<div class="odds">{{bet.odds}}</div>
-					<div class="odds">
-						<span class="teams">{{" v ".join(bet["players"].keys())}}</span><span class="timeLeft"></span></div>
+					<div class="odds">{{bet.odds}} <span class="timeLeft"></span></div>
 					{% for team in bet["players"] %}
+						<div class="odds">{{team}}</div>
 						{% for player in bet["players"][team] %}
 							{% set last = player.split("\t")[0].replace(" jr", "").replace(" iv", "").split(" ")[-1] %}
 							{% set line = player.split("\t")[1] %}
@@ -94,7 +93,7 @@
 				}
 			};
 			xhttp.open("POST", "/updatebets?date={{date}}");
-			xhttp.send();
+			//xhttp.send();
 		}
 
 		function updateRows(data) {
