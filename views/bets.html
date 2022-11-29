@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Bets</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="/static/css/nbateams.css" type="text/css">
+		<script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.9.3/dist/js/tabulator.min.js"></script>
+		<link href="https://unpkg.com/tabulator-tables@4.9.3/dist/css/tabulator.min.css" rel="stylesheet">
+	</head>
+	<style>
+		body {
+			margin: 0;
+			font-size: 18px;
+			height: 100vh;
+		}
+		#tableDiv {
+			position: relative;
+			height: 100%;
+			display: flex;
+			justify-content: space-evenly;
+			align-items: center;
+			flex-wrap: wrap;
+		}
+		.bet {
+			padding: 0 10px;
+		}
+		.odds {
+			width: 100%;
+			text-align: center;
+			border: 1px solid;
+		}
+		.line {
+			width: 100px;
+		}
+		.row {
+			display: flex;
+			border: 1px solid;
+		}
+		.row div {
+			padding: 10px;
+			border-right: 1px solid;
+		}
+		.row div:nth-child(1) {
+			min-width: 120px;
+		}
+		#record {
+			width: 100%;
+			text-align: center;
+		}
+		.scored {
+			width: 25px;
+			text-align: center;
+		}
+		#timer {
+			position: absolute;
+			top: 25px; right:5%;
+		}
+		.negative { color: red; }
+		.positive { color: green; }
+	</style>
+	<body>
+		<div id="tableDiv">
+			<h2 id="record">0W-OL (0u)</h2>
+			<div id="timer">120</div>
+			{% for bet in bets %}
+				<div class="bet">
+					<div class="odds">{{bet.odds}}</div>
+					<div class="odds">
+						<span class="teams">{{" v ".join(bet["players"].keys())}}</span><span class="timeLeft"></span></div>
+					{% for team in bet["players"] %}
+						{% for player in bet["players"][team] %}
+							{% set last = player.split("\t")[0].replace(" jr", "").replace(" iv", "").split(" ")[-1] %}
+							{% set line = player.split("\t")[1] %}
+							{% set prop = line.split(" ")[1] %}
+							<div class="row {{team}}_{{last}}_{{prop}}">
+								<div>{{last}}</div>
+								<div class="line">{{line}}</div>
+								<div class="scored">0</div>
+							</div>
+						{% endfor %}
+					{% endfor %}
+				</div>
+			{% endfor %}
+		</div>
+	</body>
+	<script>
+		let seconds = 120;
+		function update() {
+			let xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState === 4 && this.status === 200) {
+					const j = JSON.parse(this.responseText);
+					updateRows(j);
+				}
+			};
+			xhttp.open("POST", "/updatebets?date={{date}}");
+			xhttp.send();
+		}
+
+		function updateRows(data) {
+			for (team in data["scores"]) {
+				for (player in data["scores"][team]) {
+					const sp = player.replace(" jr", "").replace(" iv", "").split(" ");
+					const last = sp[sp.length - 1];
+					for (prop in data["scores"][team][player]) {
+						const rows = document.getElementsByClassName([team, last, prop].join("_"));
+						for (row of rows) {
+							const lineSp = row.getElementsByClassName("line")[0].innerText.split(" ");
+							const line = parseInt(lineSp[0].replace("+", ""));
+							const scored = parseInt(data["scores"][team][player][prop]);
+							row.getElementsByClassName("scored")[0].innerText = scored;
+							if (scored >= line) {
+								row.classList.add("positive");
+							}
+						}
+					}
+				}
+			}
+
+			let record = [0,0];
+			let units = 0;
+			for (bet of document.getElementsByClassName("bet")) {
+				let won = false;
+				const team = bet.getElementsByClassName("teams")[0].innerText.split(" v ")[0];
+				const odds = parseInt(bet.getElementsByClassName("odds")[0].innerText);
+				let timeLeft = data["timeLeft"][team];
+				if (timeLeft) {
+					bet.getElementsByClassName("timeLeft")[0].innerText = " - "+timeLeft;
+					if (timeLeft == "final") {
+						won = true;
+						for (row of bet.getElementsByClassName("row")) {
+							if (row.className.split(" ").indexOf("positive") < 0) {
+								won = false;
+								row.classList.add("negative");
+							}
+						}
+						if (won) {
+							record[0] += 1;
+							if (odds < 0) {
+								units += -(100 / odds);
+							} else {
+								units += (odds / 100);
+							}
+						} else {
+							record[1] += 1;
+							units -= 1;
+						}
+					}
+				}
+			}
+			let recordStr = record[0]+"W-"+record[1]+"L (";
+			if (units > 0) {
+				recordStr += "+";
+			} else {
+				recordStr += "-";
+			}
+			recordStr += units.toFixed(2)+"u)";
+			document.getElementById("record").innerText = recordStr;
+			seconds = 120;
+		}
+
+		update();
+
+		const timer = setInterval(function() {
+			document.getElementById("timer").innerText = seconds;
+			seconds -= 1;
+		}, 1000);
+		setInterval(function() {
+			update();
+		}, 120*1000);
+	</script>
+</html>

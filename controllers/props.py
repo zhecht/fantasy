@@ -685,6 +685,8 @@ def writeDefProps(week):
 			player = playerIds[oddData["player_id"]]
 			if player == "lawrence guy sr":
 				player = "lawrence guy"
+			elif player == "devin bush jr":
+				player = "devin bush"
 			team = teamIds[oddData["team_id"]]
 			overUnder = optionTypes[oddData["option_type_id"]]
 			book = actionNetworkBookIds[bookId]

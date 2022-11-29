@@ -614,6 +614,8 @@ def write_csvs(props):
 		for row in rows:
 			overOdds = row["overOdds"]
 			underOdds = row["underOdds"]
+			if underOdds == '-inf':
+				underOdds = 0
 			if int(overOdds) > 0:
 				overOdds = "'"+overOdds
 			if int(underOdds) > 0:
@@ -629,6 +631,8 @@ def write_csvs(props):
 	for row in rows:
 		overOdds = row["overOdds"]
 		underOdds = row["underOdds"]
+		if underOdds == '-inf':
+			underOdds = 0
 		if int(overOdds) > 0:
 			overOdds = "'"+overOdds
 		if int(underOdds) > 0:
@@ -643,6 +647,8 @@ def write_csvs(props):
 	for row in rows:
 		overOdds = row["overOdds"]
 		underOdds = row["underOdds"]
+		if underOdds == '-inf':
+			underOdds = 0
 		if int(overOdds) > 0:
 			overOdds = "'"+overOdds
 		if int(underOdds) > 0:
@@ -668,6 +674,8 @@ def write_csvs(props):
 		fh.write(reddit)
 
 	for prop in csvs:
+		if prop == "full":
+			continue
 		with open(f"{prefix}static/nbaprops/csvs/{prop}.csv", "w") as fh:
 			fh.write(csvs[prop])
 

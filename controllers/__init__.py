@@ -1,4 +1,4 @@
-
+from controllers.bets import *
 from controllers.defense import *
 from controllers.main import *
 from controllers.extension import *
