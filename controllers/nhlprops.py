@@ -36,6 +36,9 @@ def convertProp(prop):
 def getProps_route():
 	res = []
 
+	teams = request.args.get("teams") or ""
+	if teams:
+		teams = teams.lower().split(",")
 	alt = request.args.get("alt") or ""
 
 	date = datetime.now()
@@ -62,17 +65,16 @@ def getProps_route():
 
 		opp = ""
 		if date in schedule:
-			for teams in schedule[date]:
-				teams = teams.split(" @ ")
-				if espnTeam in teams:
-					if teams.index(espnTeam) == 0:
-						opp = teams[1]
+			for t in schedule[date]:
+				t = t.split(" @ ")
+				if espnTeam in t:
+					if t.index(espnTeam) == 0:
+						opp = t[1]
 					else:
-						opp = teams[0]
+						opp = t[0]
 
-		if espnTeam.lower() not in ["phx", "lac"]:
-			#continue
-			pass
+		if teams and team not in teams:
+			continue
 
 		for propName in propData[team]:
 			shortFirstName = propName.split(" ")[0][0]
@@ -220,8 +222,64 @@ def getProps_route():
 					"underOdds": underOdds
 				})
 
+	teamTotals()
 	write_csvs(props)
 	return jsonify(props)
+
+def teamTotals():
+	today = datetime.now()
+	today = str(today)[:10]
+
+	with open(f"{prefix}static/hockeyreference/schedule.json") as fh:
+		schedule = json.load(fh)
+	with open(f"{prefix}static/hockeyreference/scores.json") as fh:
+		scores = json.load(fh)
+
+	totals = {}
+	dates = sorted(schedule.keys(), key=lambda k: datetime.strptime(k, "%Y-%m-%d"), reverse=True)
+	for date in dates:
+		for game in schedule[date]:
+			gameSp = game.split(" @ ")
+			for idx, team in enumerate(gameSp):
+				opp = gameSp[0] if idx == 1 else gameSp[1]
+
+				if date not in scores or team not in scores[date]:
+					continue
+
+				if team not in totals:
+					totals[team] = {"gpg": 0, "gpga": 0, "games": 0, "overs": [], "ttOvers": [], "opp_ttOvers": []}
+				totals[team]["games"] += 1
+				totals[team]["gpg"] += scores[date][team]
+				totals[team]["gpga"] += scores[date][opp]
+				totals[team]["ttOvers"].append(str(scores[date][team]))
+				totals[team]["opp_ttOvers"].append(str(scores[date][opp]))
+				totals[team]["overs"].append(str(scores[date][team] + scores[date][opp]))
+
+	out = "\t".join([x.upper() for x in ["team", "gpg", "tt overs", "gpga", "opp tt overs", "overs avg", "overs"]]) + "\n"
+	cutoff = 10
+	for game in schedule[today]:
+		away, home = map(str, game.split(" @ "))
+		gpg = round(totals[away]["gpg"] / totals[away]["games"], 1)
+		gpga = round(totals[away]["gpga"] / totals[away]["games"], 1)
+		overs = ",".join(totals[away]["overs"][:cutoff])
+		oversAvg = round(sum([int(x) for x in totals[away]["overs"]]) / len(totals[away]["overs"]), 1)
+		ttOvers = ",".join(totals[away]["ttOvers"][:cutoff])
+		opp_ttOvers = ",".join(totals[away]["opp_ttOvers"][:cutoff])
+
+		out += "\t".join([away.upper(), str(gpg), ttOvers, str(gpga), opp_ttOvers, str(oversAvg), overs]) + "\n"
+
+		gpg = round(totals[home]["gpg"] / totals[home]["games"], 1)
+		gpga = round(totals[home]["gpga"] / totals[home]["games"], 1)
+		overs = ",".join(totals[home]["overs"][:cutoff])
+		oversAvg = round(sum([int(x) for x in totals[home]["overs"]]) / len(totals[home]["overs"]), 1)
+		ttOvers = ",".join(totals[home]["ttOvers"][:cutoff])
+		opp_ttOvers = ",".join(totals[home]["opp_ttOvers"][:cutoff])
+		out += "\t".join([home.upper(), str(gpg), ttOvers, str(gpga), opp_ttOvers, str(oversAvg), overs]) + "\n"
+		out += "\t".join(["-"]*7) + "\n"
+
+	with open(f"{prefix}static/nhlprops/csvs/totals.csv", "w") as fh:
+		fh.write(out)
+
 
 def write_csvs(props):
 	csvs = {}
@@ -296,14 +354,16 @@ def addNumSuffix(val):
 
 @nhlprops_blueprint.route('/nhlprops')
 def props_route():
-	prop = alt = date = ""
+	prop = alt = date = teams = ""
 	if request.args.get("prop"):
 		prop = request.args.get("prop")
 	if request.args.get("alt"):
 		alt = request.args.get("alt")
 	if request.args.get("date"):
 		date = request.args.get("date")
-	return render_template("nhlprops.html", prop=prop, alt=alt, date=date)
+	if request.args.get("teams"):
+		teams = request.args.get("teams")
+	return render_template("nhlprops.html", prop=prop, alt=alt, date=date, teams=teams)
 
 def writeProps(date):
 	actionNetworkBookIds = {

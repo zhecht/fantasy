@@ -133,10 +133,10 @@ def writeCSV():
 		})
 
 	res = sorted(res, key=lambda k: k["pts"], reverse=True)
-	out = "\t".join(["", "TEAMS","PTS","WINS","TIES","GOALS"]) + "\n"
+	out = "\t".join(["", "TEAMS","PTS","GAMES","WINS","TIES","GOALS"]) + "\n"
 	for row in res:
 		out += "\t".join([str(x) for x in [
-			row["duder"].upper(), row["teams"], row["pts"], row["wins"], row["ties"], row["goals"]
+			row["duder"].upper(), row["teams"], row["pts"], row["games"], row["wins"], row["ties"], row["goals"]
 		]]) + "\n"
 
 	with open(f"{prefix}static/soccerreference/out.csv", "w") as fh:

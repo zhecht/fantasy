@@ -132,6 +132,7 @@ def convertRotoPlayer(player):
 		"jabari smith": "jabari smith jr",
 		"gary trent": "gary trent jr",
 		"marcus morris": "marcus morris sr",
+		"wendell carter": "wendell carter jr",
 	}
 	return trans.get(player, player)
 
@@ -734,6 +735,7 @@ if __name__ == "__main__":
 	parser.add_argument("-d", "--date", help="Date")
 	parser.add_argument("--zero", help="Zero CustomProp Odds", action="store_true")
 	parser.add_argument("--lineups", help="Lineups", action="store_true")
+	parser.add_argument("--skip-lineups", help="Skip Lineups", action="store_true")
 	parser.add_argument("-w", "--week", help="Week", type=int)
 
 	args = parser.parse_args()
@@ -744,7 +746,8 @@ if __name__ == "__main__":
 		date = str(date)[:10]
 
 	if args.cron:
-		writeLineups()
+		if not args.skip_lineups:
+			writeLineups()
 		writeProps(date)
 	elif args.lineups:
 		writeLineups()

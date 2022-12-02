@@ -1,77 +1,98 @@
 {
 	"bets": [
 		{
-			"odds": 103,
+			"odds": -114,
+			"sport": "nba",
+			"players": {
+				"det": [
+					"marvin bagley iii\t13+ pts"
+				]
+			}
+		},
+		{
+			"odds": 240,
+			"sport": "nba",
+			"players": {
+				"det": [
+					"bojan bogdanovic\t3+ reb"
+				],
+				"dal": [
+					"luka doncic\t7+ reb",
+					"spencer dinwiddie\t2+ reb",
+					"dorian finney smith\t1+ ast",
+					"tim hardaway jr\t2+ reb"
+				]
+			}
+		},
+		{
+			"odds": -102,
 			"sport": "nhl",
 			"players": {
 				"van": [
 					"jt miller\t1+ pts"
 				],
-				"bos": [
-					"brad marchand\t1+ pts"
+				"nj": [
+					"nico hischier\t1+ pts"
 				]
 			}
 		},
 		{
-			"odds": 123,
+			"odds": -102,
 			"sport": "nhl",
 			"players": {
 				"tb": [
 					"steven stamkos\t1+ pts"
 				],
-				"nyi": [
-					"mathew barzal\t1+ pts"
+				"nj": [
+					"nico hischier\t1+ pts"
 				]
 			}
 		},
 		{
-			"odds": 105,
-			"sport": "nhl",
-			"players": {
-				"pit": [
-					"sidney crosby\t1+ pts"
-				],
-				"sj": [
-					"timo meier\t1+ pts"
-				]
-			}
-		},
-		{
-			"odds": 140,
-			"sport": "nhl",
-			"players": {
-				"col": [
-					"artturi lehkonen\t1+ pts"
-				],
-				"sea": [
-					"andre burakovsky\t1+ pts"
-				]
-			}
-		},
-		{
-			"odds": 1360,
+			"odds": -101,
 			"sport": "nhl",
 			"players": {
 				"van": [
 					"jt miller\t1+ pts"
 				],
-				"bos": [
-					"brad marchand\t1+ pts"
-				],
-				"pit": [
-					"sidney crosby\t1+ pts"
-				],
-				"sj": [
-					"timo meier\t1+ pts"
-				],
 				"col": [
 					"artturi lehkonen\t1+ pts"
+				]
+			}
+		},
+		{
+			"odds": 116,
+			"sport": "nhl",
+			"players": {
+				"pit": [
+					"jake guentzel\t1+ pts"
 				],
-				"fla": [
-					"aaron ekblad\t1+ pts"
+				"ari": [
+					"clayton keller\t1+ pts"
+				]
+			}
+		},
+		{
+			"odds": 805,
+			"sport": "nhl",
+			"players": {
+				"van": [
+					"jt miller\t1+ pts"
 				],
-				"nyi": [
-					"mathew barzal\t1+ pts"
+				"pit": [
+					"jake guentzel\t1+ pts"
+				],
+				"tb": [
+					"steven stamkos\t1+ pts"
+				],
+				"nj": [
+					"nico hischier\t1+ pts"
+				],
+				"car": [
+					"sebastian aho\t1+ pts"	
+				],
+				"sea": [
+					"andre burakovsky\t1+ pts"
 				]
 			}
 		}

@@ -62,7 +62,7 @@ def write_stats(date):
 			soup = BS(open(outfile, 'rb').read(), "lxml")
 
 			chkPre = soup.find("div", class_="ScoreCell__NotesWrapper")
-			if chkPre and chkPre.text.strip().lower() == "preseason":
+			if chkPre and "preseason" in chkPre.text.strip().lower():
 				continue
 
 			# tables are split with players then stats, players -> stats
@@ -131,8 +131,9 @@ def write_stats(date):
 		for team in allStats:
 			if not os.path.isdir(f"{prefix}static/hockeyreference/{team}"):
 				os.mkdir(f"{prefix}static/hockeyreference/{team}")
-			with open(f"{prefix}static/hockeyreference/{team}/{date}.json", "w") as fh:
-				json.dump(allStats[team], fh, indent=4)
+			if allStats[team]:
+				with open(f"{prefix}static/hockeyreference/{team}/{date}.json", "w") as fh:
+					json.dump(allStats[team], fh, indent=4)
 
 	write_totals()
 
@@ -255,6 +256,9 @@ def write_schedule(date):
 	with open(f"{prefix}static/hockeyreference/boxscores.json") as fh:
 		boxscores = json.load(fh)
 
+	with open(f"{prefix}static/hockeyreference/scores.json") as fh:
+		scores = json.load(fh)
+
 	schedule[date] = []
 
 	for table in soup.findAll("div", class_="ResponsiveTable"):
@@ -262,21 +266,34 @@ def write_schedule(date):
 			continue
 		date = table.find("div", class_="Table__Title").text.strip()
 		date = str(datetime.datetime.strptime(date, "%A, %B %d, %Y"))[:10]
+		schedule[date] = []
 		if date not in boxscores:
 			boxscores[date] = {}
-		if date not in schedule:
-			schedule[date] = []
+		if date not in scores:
+			scores[date] = {}
 
 		for row in table.findAll("tr")[1:]:
 			tds = row.findAll("td")
 			awayTeam = tds[0].findAll("a")[-1].get("href").split("/")[-2]
 			homeTeam = tds[1].findAll("a")[-1].get("href").split("/")[-2]
 			boxscore = tds[2].find("a").get("href")
+			score = tds[2].find("a").text.strip()
+			if ", " in score and os.path.exists(f"{prefix}static/hockeyreference/{awayTeam}/{date}.json"):
+				scoreSp = score.replace(" (SO)", "").replace(" (OT)", "").split(", ")
+				if awayTeam == scoreSp[0].split(" ")[0].lower():
+					scores[date][awayTeam] = int(scoreSp[0].split(" ")[1])
+					scores[date][homeTeam] = int(scoreSp[1].split(" ")[1])
+				else:
+					scores[date][awayTeam] = int(scoreSp[1].split(" ")[1])
+					scores[date][homeTeam] = int(scoreSp[0].split(" ")[1])
 			boxscores[date][f"{awayTeam} @ {homeTeam}"] = boxscore
 			schedule[date].append(f"{awayTeam} @ {homeTeam}")
 
 	with open(f"{prefix}static/hockeyreference/boxscores.json", "w") as fh:
 		json.dump(boxscores, fh, indent=4)
+
+	with open(f"{prefix}static/hockeyreference/scores.json", "w") as fh:
+		json.dump(scores, fh, indent=4)
 
 	with open(f"{prefix}static/hockeyreference/schedule.json", "w") as fh:
 		json.dump(schedule, fh, indent=4)
@@ -287,6 +304,7 @@ if __name__ == "__main__":
 	parser.add_argument("-d", "--date", help="Date")
 	parser.add_argument("-s", "--start", help="Start Week", type=int)
 	parser.add_argument("--schedule", help="Schedule", action="store_true")
+	parser.add_argument("--totals", help="Totals", action="store_true")
 	parser.add_argument("-e", "--end", help="End Week", type=int)
 	parser.add_argument("-w", "--week", help="Week", type=int)
 
@@ -302,9 +320,9 @@ if __name__ == "__main__":
 
 	if args.schedule:
 		write_schedule(date)
+	elif args.totals:
+		write_totals()
 	elif args.cron:
-		pass
 		write_schedule(date)
 		write_stats(date)
-		#write_totals()
 		#write_averages()
