@@ -342,7 +342,7 @@
 				TABLE = new Tabulator("#propsTable", {
 					tooltipsHeader: true,
 					ajaxURL: "/getProps",
-					ajaxParams:{teams: "{{teams}}"},
+					ajaxParams:{teams: "{{teams}}", prop: "{{prop}}", players: "{{players}}"},
 					//responsiveLayout:"collapse",
 					//layout: "fitDataFill",
 					//layout: window.innerWidth <= 450 ? "fitData" : "fitColumns",

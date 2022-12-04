@@ -16,6 +16,11 @@ import os
 import subprocess
 import re
 
+try:
+	from controllers.functions import *
+except:
+	from functions import *
+
 bets_blueprint = Blueprint('bets', __name__, template_folder='views')
 
 prefix = ""
@@ -34,12 +39,13 @@ def bets_post_route():
 	if not res:
 		res = {
 			"nba": {"scores": {}, "timeLeft": {}},
+			"nfl": {"scores": {}, "timeLeft": {}},
 			"nhl": {"scores": {}, "timeLeft": {}}
 		}
 
-	paths = ["basketball", "hockey"]
+	paths = ["profootball", "basketball", "hockey"]
 	allStats = {}
-	for idx, sport in enumerate(["nba", "nhl"]):
+	for idx, sport in enumerate(["nfl", "nba", "nhl"]):
 		with open(f"{prefix}static/{paths[idx]}reference/boxscores.json") as fh:
 			boxscores = json.load(fh)
 		teams = []
@@ -48,10 +54,13 @@ def bets_post_route():
 				continue
 			teams.extend(bet["players"].keys())
 
-		finished = ["phi @ cle", "atl @ orl", "phi @ cle", "sj @ tor", "nyr @ ott", "mil @ ny", "wsh @ bkn", "tor @ no", "sa @ okc", "mem @ min", "hou @ den", "chi @ phx", "lac @ utah", "ind @ sac", "por @ lal", "buf @ det", "edm @ chi"]
+		finished = ["den @ no", "phx @ sa"]
 
 		allStats[sport] = {}
-		for game in boxscores[date]:
+		dt = date
+		if sport == "nfl":
+			dt = f"wk{CURR_WEEK+1}"
+		for game in boxscores[dt]:
 			away, home = map(str, game.split(" @ "))
 
 			if away not in allStats[sport]:
@@ -67,7 +76,7 @@ def bets_post_route():
 				res[sport]["timeLeft"][home] = "final"
 				continue
 
-			link = boxscores[date][game].replace("game?gameId=", "boxscore/_/gameId/")
+			link = boxscores[dt][game].replace("game?gameId=", "boxscore/_/gameId/")
 			url = f"https://www.espn.com{link}"
 			outfile = "out"
 			time.sleep(0.2)
@@ -77,83 +86,160 @@ def bets_post_route():
 			headers = []
 			playerList = []
 			team = away
-			endCutoff = 5 if sport == "nba" else 9
-			for tableIdx, table in enumerate(soup.findAll("table")[1:endCutoff]):
-				if sport == "nba":
-					if tableIdx == 2:
-						playerList = []
-						team = home
-				elif sport == "nhl":
-					if tableIdx in [2,4,6]:
-						playerList = []
-					if tableIdx == 4:
-						team = home
 
-				playerIdx = 0
-				for row in table.findAll("tr")[:-2]:
-					arr = [0,2] if sport == "nba" else [0,2,4,6]
-					if tableIdx in arr:
-						# PLAYERS
-						if row.text.strip().lower() in ["starters", "bench", "team", "skaters", "defensemen", "goalies"]:
-							continue
-						if not row.find("a"):
-							continue
-						nameLink = row.find("a").get("href").split("/")
-						if sport == "nba":
-							fullName = nameLink[-1].replace("-", " ")
-						else:
-							fullName = row.find("a").text.lower().title().replace("-", " ")
-							if fullName.startswith("J.T."):
-								fullName = fullName.replace("J.T.", "J.")
-							elif fullName.startswith("J.J."):
-								fullName = fullName.replace("J.J.", "J.")
-							elif fullName.startswith("T.J."):
-								fullName = fullName.replace("T.J.", "T.")
-							elif fullName.startswith("A.J."):
-								fullName = fullName.replace("A.J.", "A.")
-						playerList.append(fullName)
+			if sport == "nfl":
+				tables = soup.findAll("table")[1:-2]
+				for idx, table in enumerate(tables):
+					if idx % 2 == 0:
+						team = away
 					else:
-						# idx==1 or 3. STATS
-						if not row.find("td"):
-							continue
-						firstTd = row.find("td").text.strip().lower()
-						if firstTd in ["min", "g", "sa"]:
-							headers = []
-							for td in row.findAll("td"):
-								headers.append(td.text.strip().lower())
-							continue
+						team = home
 
+					title = table.findPrevious("div", class_="team-name").text.strip().split(" ")[-1].lower()
+					shortHeader = ""
+					if title == "receiving":
+						shortHeader = "rec"
+					elif title == "defensive":
+						shortHeader = "def"
+					elif title == "interceptions":
+						shortHeader = "def_int"
+					elif title in ["returns", "punting", "fumbles"]:
+						shortHeader = title
+					else:
+						shortHeader = title[:4]
+
+					cutoff = 2 if title == "defensive" else 1
+					for row in table.findAll("tr")[cutoff:-1]:
 						try:
-							player = playerList[playerIdx]
+							nameLink = row.find("a").get("href").split("/")
 						except:
 							continue
-						playerIdx += 1
-						playerStats = {}
-						for tdIdx, td in enumerate(row.findAll("td")):
-							if td.text.lower().startswith("dnp-") or td.text.lower().startswith("has not"):
-								playerStats["min"] = 0
-								break
-							header = headers[tdIdx]
-							if sport == "nba":
-								if td.text.strip().replace("-", "") == "":
-									playerStats[header] = 0
-								elif header in ["fg", "3pt", "ft"]:
-									made, att = map(int, td.text.strip().split("-"))
-									playerStats[header+"a"] = att
-									playerStats[header+"m"] = made
-								else:
-									val = int(td.text.strip())
-									playerStats[header] = val
-							else:
-								val = 0
-								if header in ["toi", "pptoi", "shtoi", "estoi"]:
-									valSp = td.text.strip().split(":")
-									val = int(valSp[0])+round(int(valSp[1]) / 60, 2)
-								else:
-									val = float(td.text.strip())
-								playerStats[header] = val
+						player = nameLink[-1].replace("-", " ")
+						if player not in allStats[sport][team]:
+							allStats[sport][team][player] = {}
 
-						allStats[sport][team][player] = playerStats
+						for td in row.findAll("td")[1:]:
+							header = "_".join(td.get("class"))
+							if header == "car":
+								header = "rush_att"
+							elif header == "rec":
+								if shortHeader == "fumbles":
+									header = "fumbles_recovered"
+								else:
+									header = "rec"
+							elif header == "fum":
+								header = "fumbles"
+							elif header == "lost":
+								header = "fumbles_lost"
+							elif header == "tot":
+								header = "tackles_combined"
+							elif header == "solo":
+								header = "tackles_solo"
+							elif shortHeader == "def" and header == "td":
+								header = "def_td"
+							elif shortHeader == "def_int" and header == "int":
+								header = "def_int"
+							elif shortHeader in ["pass", "rush", "rec", "def_int", "returns"]:
+								header = f"{shortHeader}_{header}"
+
+							if header == "pass_c-att":
+								made, att = map(int, td.text.strip().split("/"))
+								allStats[sport][team][player]["pass_cmp"] = made
+								allStats[sport][team][player]["pass_att"] = att
+							elif header in ["xp", "fg"]:
+								made, att = map(int, td.text.strip().split("/"))
+								allStats[sport][team][player][header+"m"] = made
+								allStats[sport][team][player][header+"a"] = att
+							elif header == "pass_sacks":
+								made, att = map(int, td.text.strip().split("-"))
+								allStats[sport][team][player]["pass_sacks"] = made
+							else:
+								val = td.text.strip()
+								try:
+									val = float(val)
+								except:
+									val = 0.0
+								allStats[sport][team][player][header] = val
+			else:
+				endCutoff = 5
+				if sport == "nhl":
+					endCutoff = 9
+				for tableIdx, table in enumerate(soup.findAll("table")[1:endCutoff]):
+					if sport == "nba":
+						if tableIdx == 2:
+							playerList = []
+							team = home
+					elif sport == "nhl":
+						if tableIdx in [2,4,6]:
+							playerList = []
+						if tableIdx == 4:
+							team = home
+
+					playerIdx = 0
+					for row in table.findAll("tr")[:-2]:
+						arr = [0,2] if sport == "nba" else [0,2,4,6]
+						if tableIdx in arr:
+							# PLAYERS
+							if row.text.strip().lower() in ["starters", "bench", "team", "skaters", "defensemen", "goalies"]:
+								continue
+							if not row.find("a"):
+								continue
+							nameLink = row.find("a").get("href").split("/")
+							if sport == "nba":
+								fullName = nameLink[-1].replace("-", " ")
+							else:
+								fullName = row.find("a").text.lower().title().replace("-", " ")
+								if fullName.startswith("J.T."):
+									fullName = fullName.replace("J.T.", "J.")
+								elif fullName.startswith("J.J."):
+									fullName = fullName.replace("J.J.", "J.")
+								elif fullName.startswith("T.J."):
+									fullName = fullName.replace("T.J.", "T.")
+								elif fullName.startswith("A.J."):
+									fullName = fullName.replace("A.J.", "A.")
+							playerList.append(fullName)
+						else:
+							# idx==1 or 3. STATS
+							if not row.find("td"):
+								continue
+							firstTd = row.find("td").text.strip().lower()
+							if firstTd in ["min", "g", "sa"]:
+								headers = []
+								for td in row.findAll("td"):
+									headers.append(td.text.strip().lower())
+								continue
+
+							try:
+								player = playerList[playerIdx]
+							except:
+								continue
+							playerIdx += 1
+							playerStats = {}
+							for tdIdx, td in enumerate(row.findAll("td")):
+								if td.text.lower().startswith("dnp-") or td.text.lower().startswith("has not"):
+									playerStats["min"] = 0
+									break
+								header = headers[tdIdx]
+								if sport == "nba":
+									if td.text.strip().replace("-", "") == "":
+										playerStats[header] = 0
+									elif header in ["fg", "3pt", "ft"]:
+										made, att = map(int, td.text.strip().split("-"))
+										playerStats[header+"a"] = att
+										playerStats[header+"m"] = made
+									else:
+										val = int(td.text.strip())
+										playerStats[header] = val
+								else:
+									val = 0
+									if header in ["toi", "pptoi", "shtoi", "estoi"]:
+										valSp = td.text.strip().split(":")
+										val = int(valSp[0])+round(int(valSp[1]) / 60, 2)
+									else:
+										val = float(td.text.strip())
+									playerStats[header] = val
+
+							allStats[sport][team][player] = playerStats
 
 	for bet in bets["bets"]:
 		sport = bet["sport"]

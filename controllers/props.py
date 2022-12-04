@@ -323,13 +323,238 @@ def checkTrades(player, team, stats, totals):
 
 	return totGames
 
+def getATTDRankings(roster):
+	rankings = []
+	with open(f"{prefix}static/profootballreference/schedule.json") as fh:
+		schedule = json.load(fh)
+	for wk in schedule:
+		for game in schedule[wk]:
+			pass
+	return rankings
+
+@props_blueprint.route('/getATTDProps')
+def getProps_ATTD_route():
+	res = []
+
+	with open(f"{prefix}static/props/attd.json") as fh:
+		attd = json.load(fh)
+	with open(f"{prefix}static/profootballreference/averages.json") as fh:
+		averages = json.load(fh)
+	with open(f"{prefix}static/profootballreference/roster.json") as fh:
+		roster = json.load(fh)
+	with open(f"{prefix}static/profootballreference/lastYearStats.json") as fh:
+		lastYearStats = json.load(fh)
+
+	rankings = getATTDRankings(roster)
+
+	for team in attd:
+		teamStats = {}
+		opp = get_opponents(team)[CURR_WEEK]
+		for file in glob.glob(f"{prefix}static/profootballreference/{team}/*.json"):
+			with open(file) as fh:
+				gameStats = json.load(fh)
+			wk = file.split("/")[-1].replace(".json", "")
+			teamStats[wk] = gameStats
+
+		for player in attd[team]:
+			if player.endswith("defense"):
+				continue
+
+			fd_odds = attd[team][player].get("fanduel", 0)
+			dk_odds = attd[team][player].get("draftkings", 0)
+			if fd_odds > 0:
+				fd_odds = f"+{fd_odds}"
+			if dk_odds > 0:
+				dk_odds = f"+{dk_odds}"
+
+			pos = "-"
+			if team in roster and player in roster[team]:
+				pos = roster[team][player]
+
+			tds = []
+			last3 = []
+			for wk in sorted(teamStats.keys(), key=lambda k: int(k.replace("wk", "")), reverse=True):
+				if player in teamStats[wk]:
+					totTds = teamStats[wk][player].get("rush_td", 0) + teamStats[wk][player].get("rec_td", 0)
+					tds.append(int(totTds))
+					if len(last3) < 3:
+						last3.append(int(totTds))
+
+			scored = [x for x in tds if x > 0]
+			avg = avgLast3 = totalOver = totalOverLast3 = 0
+			if tds:
+				totalOver = round(len(scored) * 100 / len(tds))
+				totalOverLast3 = round(len([x for x in last3 if x > 0]) * 100 / len(last3))
+				avg = round(sum(tds) / len(tds), 1)
+				avgLast3 = round(sum(last3) / len(last3), 1)
+
+			lastTotalOver = lastTotalGames = 0
+			if player in lastYearStats[team] and lastYearStats[team][player]:
+				for dt in lastYearStats[team][player]:
+					lastTotalGames += 1
+					val = lastYearStats[team][player][dt].get("rush_td", 0) + lastYearStats[team][player][dt].get("rec_td", 0)
+					if val >= 1:
+						lastTotalOver += 1
+			if lastTotalGames:
+				lastTotalOver = round((lastTotalOver / lastTotalGames) * 100)
+
+			lastAvg = 0
+			if player in averages[team] and averages[team][player]:
+				lastAvg = averages[team][player].get("rush_td", 0) + averages[team][player].get("rec_td", 0)
+				lastAvg = round(lastAvg, 1)
+
+			res.append({
+				"player": player.title(),
+				"pos": pos,
+				"team": team,
+				"opponent": opp,
+				"avg": avg,
+				"avgLast3": avgLast3,
+				"lastAvg": lastAvg,
+				"prop": "ATTD",
+				"line": 1,
+				"dk_odds": dk_odds,
+				"fd_odds": fd_odds,
+				"totalOver": totalOver,
+				"totalOverLast3": totalOverLast3,
+				"lastTotalOver": lastTotalOver,
+				"last": ",".join([str(x) for x in tds]),
+			})
+
+	return jsonify(res)
+
+
+@props_blueprint.route('/getLongestProps')
+def getProps_longest_route():
+	res = []
+
+	propArg = request.args.get("prop") or ""
+	teams = request.args.get("teams") or ""
+	if teams:
+		teams = teams.upper().split(",")
+
+	with open(f"{prefix}static/props/longest.json") as fh:
+		longest = json.load(fh)
+	with open(f"{prefix}static/profootballreference/averages.json") as fh:
+		averages = json.load(fh)
+	with open(f"{prefix}static/profootballreference/roster.json") as fh:
+		roster = json.load(fh)
+	with open(f"{prefix}static/profootballreference/lastYearStats.json") as fh:
+		lastYearStats = json.load(fh)
+
+	for team in longest:
+
+		if teams and team.upper() not in teams:
+			continue
+
+		teamStats = {}
+		opp = get_opponents(team)[CURR_WEEK]
+		for file in glob.glob(f"{prefix}static/profootballreference/{team}/*.json"):
+			with open(file) as fh:
+				gameStats = json.load(fh)
+			wk = file.split("/")[-1].replace(".json", "")
+			teamStats[wk] = gameStats
+
+		for player in longest[team]:
+			
+			pos = "-"
+			if team in roster and player in roster[team]:
+				pos = roster[team][player]
+
+			for prop in longest[team][player]:
+
+				if propArg and prop != propArg:
+					continue
+
+				last = []
+				last3 = []
+				for wk in sorted(teamStats.keys(), key=lambda k: int(k.replace("wk", "")), reverse=True):
+					if player in teamStats[wk]:
+						val = teamStats[wk][player].get(prop, 0)
+						last.append(int(val))
+						if len(last3) < 3:
+							last3.append(int(val))
+
+				# get best odds
+				overOdds = underOdds = float('-inf')
+				line = ""
+				for book in longest[team][player][prop]:
+					if book == "line" or not longest[team][player][prop][book]["over"]:
+						continue
+
+					line = longest[team][player][prop]["line"][1:]
+					over = longest[team][player][prop][book]["over"]
+					overLine = over.split(" ")[0][1:]
+					overOdd = int(over.split(" ")[1][1:-1])
+					if overLine == line and overOdd > overOdds:
+						overOdds = overOdd
+
+					under = longest[team][player][prop][book].get("under", 0)
+					if under:
+						underLine = under.split(" ")[0][1:]
+						underOdd = int(under.split(" ")[1][1:-1])
+						if underLine == line and underOdd > underOdds:
+							underOdds = underOdd
+
+				try:
+					line = float(line)
+				except:
+					line = 0.0
+
+				avg = avgLast3 = totalOver = totalOverLast3 = 0
+				if last:
+					scored = [x for x in last if x > line]
+					totalOver = round(len(scored) * 100 / len(last))
+					totalOverLast3 = round(len([x for x in last3 if x > line]) * 100 / len(last3))
+					avg = round(sum(last) / len(last), 1)
+					avgLast3 = round(sum(last3) / len(last3), 1)
+
+				lastTotalOver = lastTotalGames = 0
+				if player in lastYearStats[team] and lastYearStats[team][player]:
+					for dt in lastYearStats[team][player]:
+						lastTotalGames += 1
+						val = lastYearStats[team][player][dt].get(prop, 0)
+						if val > line:
+							lastTotalOver += 1
+				if lastTotalGames:
+					lastTotalOver = round((lastTotalOver / lastTotalGames) * 100)
+
+				lastAvg = 0
+				if player in averages[team] and averages[team][player]:
+					lastAvg = averages[team][player].get(prop, 0) * averages[team][player].get("gamesPlayed", 0)
+					lastAvg = round(lastAvg, 1)
+
+				res.append({
+					"player": player.title(),
+					"pos": pos,
+					"team": team,
+					"opponent": opp,
+					"avg": avg,
+					"avgLast3": avgLast3,
+					"lastAvg": lastAvg,
+					"prop": prop,
+					"line": line,
+					"overOdds": overOdds,
+					"underOdds": underOdds,
+					"totalOver": totalOver,
+					"totalOverLast3": totalOverLast3,
+					"lastTotalOver": lastTotalOver,
+					"last": ",".join([str(x) for x in last]),
+				})
+
+	return jsonify(res)
+
 @props_blueprint.route('/getProps')
 def getProps_route():
 	res = []
 
+	propArg = request.args.get("prop") or ""
 	teams = request.args.get("teams") or ""
 	if teams:
 		teams = teams.upper().split(",")
+	players = request.args.get("players") or []
+	if players:
+		players = players.split(",")
 
 	with open(f"{prefix}static/props.json") as fh:
 		propData = json.load(fh)
@@ -393,6 +618,10 @@ def getProps_route():
 				player = "jamaal williams"
 			elif player == "marcus jones":
 				player = "mac jones"
+
+			if players and player not in players:
+				continue
+
 			for file in os.listdir(f"{prefix}static/profootballreference/{espnTeam}/"):
 				with open(f"{prefix}static/profootballreference/{espnTeam}/{file}") as fh:
 					gameStats = json.load(fh)
@@ -402,6 +631,8 @@ def getProps_route():
 			totGames = checkTrades(player, team.lower(),playerStats, totals)
 
 		for typ in propData[nameRow]:
+			if propArg and typ != propArg:
+				continue
 			overOdds = propData[nameRow][typ]["sideOneOdds"]
 			underOdds = propData[nameRow][typ]["sideTwoOdds"]
 			if not overOdds.startswith("-"):
@@ -505,6 +736,71 @@ def getProps_route():
 
 	teamTotals(schedule)
 	return jsonify(res)
+
+def writeLongestProps(week):
+	actionNetworkBookIds = {
+		68: "draftkings",
+		69: "fanduel",
+		1599: "betmgm"
+	}
+	prop = ""
+	props = {}
+	optionTypes = {}
+
+	date = datetime.now()
+	date = str(date)[:10]
+
+	apis = ["core_bet_type_58_longest_rush", "core_bet_type_59_longest_reception", "core_bet_type_60_longest_completion"]
+	for api, prop in zip(apis, ["rush_long", "rec_long", "pass_long"]):
+		path = f"out"
+		url = f"https://api.actionnetwork.com/web/v1/leagues/1/props/{api}?bookIds=69,68,1599&date={date.replace('-', '')}"
+		os.system(f"curl -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0' -k \"{url}\" -o {path}")
+
+		with open(path) as fh:
+			j = json.load(fh)
+
+		if "markets" not in j:
+			return
+		market = j["markets"][0]
+
+		for option in market["rules"]["options"]:
+			optionTypes[int(option)] = market["rules"]["options"][option]["option_type"].lower()
+
+		teamIds = {}
+		for row in market["teams"]:
+			teamIds[row["id"]] = row["abbr"].lower()
+
+		playerIds = {}
+		for row in market["players"]:
+			playerIds[row["id"]] = row["full_name"].lower().replace(".", "").replace("-", " ").replace("'", "")
+
+		books = market["books"]
+		for bookData in books:
+			bookId = bookData["book_id"]
+			if bookId not in actionNetworkBookIds:
+				continue
+			for oddData in bookData["odds"]:
+				player = playerIds[oddData["player_id"]]
+				team = teamIds[oddData["team_id"]]
+				overUnder = optionTypes[oddData["option_type_id"]]
+				book = actionNetworkBookIds[bookId]
+
+				if team not in props:
+					props[team] = {}
+				if player not in props[team]:
+					props[team][player] = {}
+				if prop not in props[team][player]:
+					props[team][player][prop] = {}
+				if book not in props[team][player][prop]:
+					props[team][player][prop][book] = {}
+				props[team][player][prop][book][overUnder] = f"{overUnder[0]}{oddData['value']} ({oddData['money']})"
+				if "line" not in props[team][player][prop]:
+					props[team][player][prop]["line"] = f"o{oddData['value']}"
+				elif oddData['value'] < float(props[team][player][prop]["line"][1:]):
+					props[team][player][prop]["line"] = f"o{oddData['value']}"
+
+	with open(f"{prefix}static/props/longest.json", "w") as fh:
+		json.dump(props, fh, indent=4)
 
 def getTeamTds(schedule):
 	teamTds = {}
@@ -628,10 +924,23 @@ def props_post_route():
     	json.dump(favs, fh, indent=4)
     return jsonify(success=1)
 
+@props_blueprint.route('/attd')
+def props_attd_route():
+	teams = request.args.get("teams") or ""
+	return render_template("attd.html", curr_week=CURR_WEEK, teams=teams)
+
+@props_blueprint.route('/longest')
+def props_longest_route():
+	teams = request.args.get("teams") or ""
+	prop = request.args.get("prop") or ""
+	return render_template("longest.html", curr_week=CURR_WEEK, teams=teams, prop=prop)
+
 @props_blueprint.route('/props')
 def props_route():
 	teams = request.args.get("teams") or ""
-	return render_template("props.html", curr_week=CURR_WEEK, teams=teams)
+	prop = request.args.get("prop") or ""
+	players = request.args.get("players") or ""
+	return render_template("props.html", curr_week=CURR_WEEK, teams=teams, prop=prop, players=players)
 
 @props_blueprint.route('/defprops')
 def props_def_route():
@@ -708,6 +1017,59 @@ def writeDefProps(week):
 	with open(f"{prefix}static/props/wk{week+1}_def.json", "w") as fh:
 		json.dump(props, fh, indent=4)
 
+def writeActionNetworkProps(week):
+	actionNetworkBookIds = {
+		68: "draftkings",
+		69: "fanduel",
+		1599: "betmgm"
+	}
+	prop = "attd"
+	props = {}
+
+	date = datetime.now()
+	date = str(date)[:10]
+
+	path = f"out"
+	url = f"https://api.actionnetwork.com/web/v1/leagues/1/props/core_bet_type_62_anytime_touchdown_scorer?bookIds=69,68,1599&date={date.replace('-', '')}"
+	os.system(f"curl -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0' -k \"{url}\" -o {path}")
+
+	with open(path) as fh:
+		j = json.load(fh)
+
+	with open(path, "w") as fh:
+		json.dump(j, fh, indent=4)
+
+	if "markets" not in j:
+		return
+	market = j["markets"][0]
+
+	teamIds = {}
+	for row in market["teams"]:
+		teamIds[row["id"]] = row["abbr"].lower()
+
+	playerIds = {}
+	for row in market["players"]:
+		playerIds[row["id"]] = row["full_name"].lower().replace(".", "").replace("-", " ").replace("'", "")
+
+	books = market["books"]
+	for bookData in books:
+		bookId = bookData["book_id"]
+		if bookId not in actionNetworkBookIds:
+			continue
+		for oddData in bookData["odds"]:
+			player = playerIds[oddData["player_id"]]
+			team = teamIds[oddData["team_id"]]
+			book = actionNetworkBookIds[bookId]
+
+			if team not in props:
+				props[team] = {}
+			if player not in props[team]:
+				props[team][player] = {}
+			props[team][player][book] = oddData['money']
+
+	with open(f"{prefix}static/props/attd.json", "w") as fh:
+		json.dump(props, fh, indent=4)
+
 def fixLines(propData):
 	pass
 
@@ -759,3 +1121,5 @@ if __name__ == "__main__":
 	if args.cron:
 		writeProps()
 		writeDefProps(week)
+		writeActionNetworkProps(week)
+		writeLongestProps(week)

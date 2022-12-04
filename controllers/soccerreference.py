@@ -90,13 +90,14 @@ def writeCSV():
 
 	totals = {}
 	for date in schedule:
+		year,mon,day = map(int, date.split("-"))
 		for game in schedule[date]:
 			gameSp = game.split(" @ ")
 			for idx, team in enumerate(gameSp):
 				oppScore = scores[date][gameSp[0]] if idx == 1 else scores[date][gameSp[1]]
 				score = scores[date][team]
 				if team not in totals:
-					totals[team] = {"goals": 0, "w": 0, "l":0, "t": 0, "pts": 0, "games": 0}
+					totals[team] = {"goals": 0, "w": 0, "l":0, "t": 0, "pts": 0, "games": 0, "r16w": 0}
 				totals[team]["goals"] += score
 				totals[team]["games"] += 1
 				if score == oppScore:
@@ -107,6 +108,7 @@ def writeCSV():
 					totals[team]["pts"] += 2
 					if mon == 12 and day >= 3:
 						totals[team]["pts"] += 1
+						totals[team]["r16w"] += 1
 					if mon == 12 and day == 18:
 						totals[team]["pts"] += 1
 				else:
@@ -114,11 +116,12 @@ def writeCSV():
 
 	res = []
 	for duder in teams:
-		totPts = totTies = totWins = totGames = totGoals = 0
+		totPts = totr16 = totTies = totWins = totGames = totGoals = 0
 		for team in teams[duder]:
 			totPts += totals[team]["pts"]
 			totTies += totals[team]["t"]
 			totWins += totals[team]["w"]
+			totr16 += totals[team]["r16w"]
 			totGames += totals[team]["games"]
 			totGoals += totals[team]["goals"]
 
@@ -128,15 +131,16 @@ def writeCSV():
 			"pts": totPts,
 			"ties": totTies,
 			"wins": totWins,
+			"r16wins": totr16,
 			"games": totGames,
 			"goals": totGoals
 		})
 
-	res = sorted(res, key=lambda k: k["pts"], reverse=True)
-	out = "\t".join(["", "TEAMS","PTS","GAMES","WINS","TIES","GOALS"]) + "\n"
+	res = sorted(res, key=lambda k: (k["pts"], k["wins"], k["goals"]), reverse=True)
+	out = "\t".join(["", "TEAMS","PTS","GAMES","WINS","R16 WINS","TIES","GOALS"]) + "\n"
 	for row in res:
 		out += "\t".join([str(x) for x in [
-			row["duder"].upper(), row["teams"], row["pts"], row["games"], row["wins"], row["ties"], row["goals"]
+			row["duder"].upper(), row["teams"], row["pts"], row["games"], row["wins"], row["r16wins"], row["ties"], row["goals"]
 		]]) + "\n"
 
 	with open(f"{prefix}static/soccerreference/out.csv", "w") as fh:

@@ -936,6 +936,28 @@ def write_stats(week):
 	with open(f"{prefix}static/profootballreference/playerIds.json", "w") as fh:
 		json.dump(playerIds, fh, indent=4)
 
+def writeQBLongest(week):
+	for team in os.listdir(f"{prefix}static/profootballreference/"):
+		if team.endswith("json"):
+			continue
+		for file in glob(f"{prefix}static/profootballreference/{team}/*.json"):
+			with open(file) as fh:
+				stats = json.load(fh)
+
+			longestRec = passAtt = 0
+			qb = ""
+			for player in stats:
+				if stats[player].get("pass_att", 0) > passAtt:
+					passAtt = stats[player]["pass_att"]
+					qb = player
+				longestRec = max(longestRec, stats[player].get("rec_long", 0))
+			if qb:
+				stats[qb]["pass_long"] = longestRec
+
+			with open(file, "w") as fh:
+				json.dump(stats, fh, indent=4)
+
+
 def write_totals():
 	totals = {}
 	for team in os.listdir(f"{prefix}static/profootballreference/"):
@@ -1189,3 +1211,4 @@ if __name__ == "__main__":
 		write_rankings()
 		writeSchedule(curr_week)
 		write_stats(curr_week)
+		writeQBLongest(curr_week)

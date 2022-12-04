@@ -423,6 +423,8 @@ def getProps_route():
 						#continue
 						pass
 					if alt == "maxover":
+						if prop not in ["reb", "ast"]:
+							continue
 						if "pts+" in prop:
 							line = math.floor(line / 5)*5 - 0.5
 							continue
@@ -442,10 +444,10 @@ def getProps_route():
 							if overOdds > -140:
 								line -= 1
 					else:
-						if "+" in prop or prop in ["3ptm", "stl", "blk"]:
+						if prop not in ["reb", "ast"]:
 							continue
 						if line > 5:
-							line += 2
+							line += 1
 						else:
 							line += 1
 					if line < 0:
@@ -526,11 +528,13 @@ def getProps_route():
 										hit = True
 									elif not alt and val > float(line):
 										hit = True
-									continue
 
 								avgVariance += (val / float(line)) - 1
 								if len(last5) < 7:
-									last5.append(str(int(val)))
+									v = str(int(val))
+									if hit and chkDate == date:
+										v = f"'{v}'"
+									last5.append(v)
 								valPerMin = float(val / minutes)
 								linePerMin = float(line) / avgMin
 								if valPerMin > linePerMin:
@@ -560,6 +564,8 @@ def getProps_route():
 				rankingsPos = pos
 				if pos == "F":
 					rankingsPos = "PF"
+				elif pos == "G":
+					rankingsPos = "SG"
 				if rankingsPos in rankings[opp] and prop in rankings[opp][rankingsPos]:
 					oppRank = rankings[opp][rankingsPos][prop+"_rank"]
 
