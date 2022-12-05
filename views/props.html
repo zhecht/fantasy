@@ -44,11 +44,38 @@
 			<button onclick="print();">Print</button>
 			<button onclick="print('csv');">PRINT CSV</button>
 			<button onclick="calculateParlayOdds();">Parlay Odds</button>
+			<button onclick="addLast();">Add</button>
 		</div>
 		<script>
 			const CURR_WEEK = {{curr_week}};
 			let TABLE;
 			const teamNames = ["All", "ARI", "ATL", "BAL", "BUF", "CAR", "CHI", "CIN", "CLE", "DAL", "DEN", "DET", "GB", "HOU", "IND", "JAX", "KC", "LAC", "LAR", "LV", "MIA", "MIN", "NO", "NE", "NYG", "NYJ", "PHI", "PIT", "SEA", "SF", "TB", "TEN", "WAS"];
+
+			function addLast() {
+				let rows = TABLE.getSelectedRows();
+				if (rows.length == 0) {
+                    rows = TABLE.getRows("active");
+                }
+                let arr = [];
+                let diff = [];
+                let firstRow = true;
+				for (row of rows) {
+					const data = row.getData();
+					let idx = 0;
+					for (val of data.last5) {
+						if (firstRow) {
+							arr.push(val);
+							diff.push(val);
+						} else {
+							arr[idx] += val;
+							diff[idx] -= val;
+						}
+						idx++;
+					}
+					firstRow = false;
+				}
+				console.log(arr, diff);
+			}
 
 			function save() {
 				const args = [];

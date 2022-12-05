@@ -54,7 +54,7 @@ def bets_post_route():
 				continue
 			teams.extend(bet["players"].keys())
 
-		finished = ["den @ no", "phx @ sa"]
+		finished = ["den @ no", "phx @ sa", "bos @ bkn", "lal @ wsh", "chi @ sac", "cle @ ny", "mem @ det"]
 
 		allStats[sport] = {}
 		dt = date

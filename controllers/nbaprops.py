@@ -59,7 +59,8 @@ def teamTotals(today, schedule):
 			totals[team]["ttOvers"].append(str(scores[date][team]))
 			totals[team]["overs"].append(str(scores[date][team] + scores[date][opp]))
 
-	out = "\t".join([x.upper() for x in ["team", "ppg", "ppga", "overs", "overs avg", "tt overs", "tt avg"]])
+	headers = ["team", "ppg", "ppga", "overs", "overs avg", "tt overs", "tt avg", "tt even %"]
+	out = "\t".join([x.upper() for x in headers])
 	out += "\n"
 	#out += ":--|:--|:--|:--|:--|:--|:--\n"
 	cutoff = 7
@@ -71,15 +72,17 @@ def teamTotals(today, schedule):
 		oversAvg = round(sum([int(x) for x in totals[away]["overs"]]) / len(totals[away]["overs"]), 1)
 		ttOvers = ",".join(totals[away]["ttOvers"][:cutoff])
 		ttOversAvg = round(sum([int(x) for x in totals[away]["ttOvers"]]) / len(totals[away]["ttOvers"]), 1)
-		out += "\t".join([away.upper(), str(ppg), str(ppga), overs, str(oversAvg), ttOvers, str(ttOversAvg)]) + "\n"
+		ttEven = round(len([x for x in totals[away]["ttOvers"] if int(x) % 2 == 0]) * 100 / len(totals[away]["ttOvers"]), 1)
+		out += "\t".join([str(x) for x in [away.upper(), ppg, ppga, overs, oversAvg, ttOvers, ttOversAvg, ttEven]]) + "\n"
 		ppg = round(totals[home]["ppg"] / totals[home]["games"], 1)
 		ppga = round(totals[home]["ppga"] / totals[home]["games"], 1)
 		overs = ",".join(totals[home]["overs"][:cutoff])
 		oversAvg = round(sum([int(x) for x in totals[home]["overs"]]) / len(totals[home]["overs"]), 1)
 		ttOvers = ",".join(totals[home]["ttOvers"][:cutoff])
 		ttOversAvg = round(sum([int(x) for x in totals[home]["ttOvers"]]) / len(totals[home]["ttOvers"]), 1)
-		out += "\t".join([home.upper(), str(ppg), str(ppga), overs, str(oversAvg), ttOvers, str(ttOversAvg)]) + "\n"
-		out += "\t".join(["-"]*7) + "\n"
+		ttEven = round(len([x for x in totals[home]["ttOvers"] if int(x) % 2 == 0]) * 100 / len(totals[home]["ttOvers"]), 1)
+		out += "\t".join([str(x) for x in [home.upper(), ppg, ppga, overs, oversAvg, ttOvers, ttOversAvg, ttEven]]) + "\n"
+		out += "\t".join(["-"]*len(headers)) + "\n"
 
 	with open(f"{prefix}static/nbaprops/csvs/totals.csv", "w") as fh:
 		fh.write(out)
