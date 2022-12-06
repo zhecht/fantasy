@@ -696,7 +696,7 @@ def write_csvs(props):
 
 	# add full rows
 	csvs["full_name"] = headers
-	rows = sorted(splitProps["full"], key=lambda k: (k["player"]))
+	rows = sorted(splitProps["full"], key=lambda k: (k["player"], -k["totalOverLast5"], -k["totalOver"]))
 	for row in rows:
 		overOdds = row["overOdds"]
 		underOdds = row["underOdds"]

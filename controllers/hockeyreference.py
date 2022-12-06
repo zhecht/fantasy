@@ -167,6 +167,71 @@ def write_totals():
 	with open(f"{prefix}static/hockeyreference/totals.json", "w") as fh:
 		json.dump(totals, fh, indent=4)
 
+def convertStatMuseTeam(team):
+	team = team.lower()
+	if team.startswith("montreal"):
+		return "mtl"
+	elif team.endswith("islanders"):
+		return "nyi"
+	elif team.endswith("rangers"):
+		return "nyr"
+	elif team.endswith("devils"):
+		return "nj"
+	elif team.endswith("kings"):
+		return "la"
+	elif team.endswith("blues"):
+		return "stl"
+	elif team.endswith("flames"):
+		return "cgy"
+	elif team.endswith("capitals"):
+		return "wsh"
+	elif team.endswith("knights"):
+		return "vgk"
+	elif team.endswith("jackets"):
+		return "cbj"
+	elif team.endswith("jets"):
+		return "wpg"
+	elif team.endswith("panthers"):
+		return "fla"
+	elif team.endswith("lightning"):
+		return "tb"
+	elif team.endswith("sharks"):
+		return "sj"
+	elif team.endswith("predators"):
+		return "nsh"
+	return team[:3]
+
+def writeRankings():
+	baseurl = f"https://www.statmuse.com/nhl/ask/"
+
+	rankings = {}
+	shortIds = ["tot", "last5", "tot", "last5"]
+	urls = ["nhl+team+goals+%2B+assists+per+game+this+year", "nhl+team+goals+%2B+assists+per+game+last+5+games", "nhl-team-goals-allowed-plus-assists-allowed-per-game-this-year", "nhl-team-goals-allowed-plus-assists-allowed-per-game-last-5-games"]
+	for timePeriod, url in zip(shortIds, urls):
+		outfile = "out"
+		time.sleep(0.3)
+		call(["curl", "-k", baseurl+url, "-o", outfile])
+		soup = BS(open(outfile, 'rb').read(), "lxml")
+
+		ans = eval(soup.find("visual-answer").get("answer").replace("true", "True").replace("false", "False"))
+
+		for row in ans["visual"]["detail"][0]["grids"][0]["rows"]:
+			team = convertStatMuseTeam(row["TEAM"]["value"])
+			if team not in rankings:
+				rankings[team] = {}
+			if timePeriod not in rankings[team]:
+				rankings[team][timePeriod] = {}
+			for stat in row:
+				if stat in ["TEAM", "SEASON"]:
+					continue
+				try:
+					rankings[team][timePeriod][stat] = row[stat]["value"]
+				except:
+					pass
+
+	with open(f"{prefix}static/hockeyreference/rankings.json", "w") as fh:
+		json.dump(rankings, fh, indent=4)
+
 def write_averages():
 	with open(f"{prefix}static/hockeyreference/playerIds.json") as fh:
 		ids = json.load(fh)
@@ -303,6 +368,8 @@ if __name__ == "__main__":
 	parser.add_argument("-c", "--cron", action="store_true", help="Start Cron Job")
 	parser.add_argument("-d", "--date", help="Date")
 	parser.add_argument("-s", "--start", help="Start Week", type=int)
+	parser.add_argument("--averages", help="Last Yr Averages", action="store_true")
+	parser.add_argument("--rankings", help="Rankings", action="store_true")
 	parser.add_argument("--schedule", help="Schedule", action="store_true")
 	parser.add_argument("--totals", help="Totals", action="store_true")
 	parser.add_argument("-e", "--end", help="End Week", type=int)
@@ -322,7 +389,11 @@ if __name__ == "__main__":
 		write_schedule(date)
 	elif args.totals:
 		write_totals()
+	elif args.rankings:
+		writeRankings()
+	elif args.averages:
+		write_averages()
 	elif args.cron:
 		write_schedule(date)
 		write_stats(date)
-		#write_averages()
+		writeRankings()

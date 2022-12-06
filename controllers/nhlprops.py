@@ -48,8 +48,12 @@ def getProps_route():
 
 	with open(f"{prefix}static/nhlprops/dates/{date}.json") as fh:
 		propData = json.load(fh)
+	with open(f"{prefix}static/hockeyreference/rankings.json") as fh:
+		rankings = json.load(fh)
 	with open(f"{prefix}static/hockeyreference/totals.json") as fh:
 		stats = json.load(fh)
+	with open(f"{prefix}static/hockeyreference/scores.json") as fh:
+		scores = json.load(fh)
 	with open(f"{prefix}static/hockeyreference/averages.json") as fh:
 		averages = json.load(fh)
 	with open(f"{prefix}static/hockeyreference/lastYearStats.json") as fh:
@@ -152,6 +156,7 @@ def getProps_route():
 				if lastTotalGames:
 					lastTotalOver = round((lastTotalOver / lastTotalGames) * 100)
 
+				winLossSplits = [[],[]]
 				totalOver = totalOverLast5 = totalGames = 0
 				last5 = []
 				hit = False
@@ -176,6 +181,19 @@ def getProps_route():
 										hit = True
 									continue
 
+								pastOpp = ""
+								for game in schedule[chkDate]:
+									gameSp = game.split(" @ ")
+									if espnTeam in gameSp:
+										pastOpp = gameSp[0] if espnTeam == gameSp[1] else gameSp[1]
+										break
+								teamScore = scores[chkDate][espnTeam]
+								oppScore = scores[chkDate][pastOpp]
+								if teamScore > oppScore:
+									winLossSplits[0].append(val)
+								elif teamScore < oppScore:
+									winLossSplits[1].append(val)
+
 								if len(last5) < 10:
 									last5.append(str(int(val)))
 								valPerMin = float(val / minutes)
@@ -199,6 +217,28 @@ def getProps_route():
 					else:
 						diffAbs = diffAvg
 
+				winSplitAvg = lossSplitAvg = 0
+				if len(winLossSplits[0]):
+					winSplitAvg = round(sum(winLossSplits[0]) / len(winLossSplits[0]),2)
+				if len(winLossSplits[1]):
+					lossSplitAvg = round(sum(winLossSplits[1]) / len(winLossSplits[1]),2)
+				winLoss = f"{winSplitAvg} - {lossSplitAvg}"
+
+				oppOver = oppOverTot = 0
+				if prop == "sv":
+					files = sorted(glob.glob(f"{prefix}static/hockeyreference/{espnTeam}/*.json"))
+					for file in files:
+						with open(file) as fh:
+							gameStats = json.load(fh)
+						oppOverTot += 1
+						totSaves = 0
+						for player in gameStats:
+							totSaves += gameStats[player].get("sv", 0)
+						if totSaves > float(line):
+							oppOver += 1
+					oppOver = round(oppOver * 100 / oppOverTot)
+
+
 				props.append({
 					"player": propName.title(),
 					"team": espnTeam.upper(),
@@ -214,6 +254,20 @@ def getProps_route():
 					"avgMin": avgMin,
 					"proj": proj,
 					"lastAvgMin": lastAvgMin,
+					"oppOver": oppOver,
+					"winLossSplits": winLoss,
+					"ptsPerGame": round((rankings[espnTeam]["tot"]["G"] / rankings[espnTeam]["tot"]["GP"]) + rankings[espnTeam]["tot"]["A/GP"], 1),
+					"ptsPerGameLast5": round((rankings[espnTeam]["last5"]["G"] / rankings[espnTeam]["last5"]["GP"]) + rankings[espnTeam]["last5"]["A/GP"], 1),
+					"shotsPerGame": round(rankings[espnTeam]["tot"]["S/GP"], 1),
+					"shotsPerGameLast5": round(rankings[espnTeam]["last5"]["S/GP"], 1),
+					"shotsAgainstPerGame": round(rankings[espnTeam]["tot"]["SA/GP"], 1),
+					"shotsAgainstPerGameLast5": round(rankings[espnTeam]["last5"]["SA/GP"], 1),
+					"oppPtsPerGame": round((rankings[opp]["tot"]["GA"] / rankings[opp]["tot"]["GP"]) + (rankings[opp]["tot"]["OPP A"] / rankings[opp]["tot"]["GP"]), 1),
+					"oppPtsPerGameLast5": round((rankings[opp]["last5"]["GA"] / rankings[opp]["last5"]["GP"]) + (rankings[opp]["last5"]["OPP A"] / rankings[opp]["last5"]["GP"]), 1),
+					"oppShotsPerGame": round(rankings[opp]["tot"]["S/GP"], 1),
+					"oppShotsPerGameLast5": round(rankings[opp]["last5"]["S/GP"], 1),
+					"oppShotsAgainstPerGame": round(rankings[opp]["tot"]["SA/GP"], 1),
+					"oppShotsAgainstPerGameLast5": round(rankings[opp]["last5"]["SA/GP"], 1),
 					"totalOver": totalOver,
 					"totalOverLast5": totalOverLast5,
 					"lastTotalOver": lastTotalOver,
@@ -428,6 +482,33 @@ def writeProps(date):
 		json.dump(props, fh, indent=4)
 
 def fixLines(props):
+	rows = [
+		"tb\tandrei vasilevskiy\t26.5\t-120,-120\tsv",
+		"det\tville husso\t27.5\t-130,-110\tsv",
+		"chi\tarvid soderblom\t31.5\t-110,-130\tsv",
+		"nj\tvitek vanecek\t22.5\t-120,-120\tsv",
+		"cbj\telvis merzlikins\t31.5\t-120,-120\tsv",
+		"pit\ttristan jarry\t27.5\t-115,-125\tsv",
+		"ott\tcam talbot\t28.5\t-125,-115\tsv",
+		"la\tpheonix copley\t28.5\t-125,-115\tsv",
+		"nyi\tilya sorokin\t27.5\t-115,-125\tsv",
+		"wpg\tconnor hellebuyck\t31.5\t-120,-120\tsv",
+		"fla\tspencer knight\t28.5\t-125,-115\tsv",
+		"dal\tjake oettinger\t27.5\t-120,-120\tsv",
+		"sea\tmartin jones\t25.5\t-120,-120\tsv",
+	]
+	for row in rows:
+		data = row.split("\t")
+		odds = data[3].split(",")
+		props[data[0]][data[1]] = {
+			data[4]: {
+				"draftkings": {
+					"over": f"o{data[2]} ({odds[0]})",
+					"under": f"u{data[2]} ({odds[1]})"
+				},
+				"line": "o"+data[2]
+			}
+		}
 	pass
 
 if __name__ == "__main__":

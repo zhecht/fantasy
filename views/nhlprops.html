@@ -34,6 +34,7 @@
 	</style>
 	<body>
 		<div id="header">
+			<button onclick="hideExtras()">Hide Extras</button>
 		</div>
 		<div id="tableDiv">
 			<div id="propsTable">
@@ -78,6 +79,14 @@
                     s += "\n";
                 }
                 console.log(s);
+            }
+
+            function hideExtras() {
+            	TABLE.getColumn("shotsAgainstPerGame").hide();
+				TABLE.getColumn("oppShotsPerGame").hide();
+				TABLE.getColumn("propType").hide();
+				TABLE.getColumn("winLossSplits").hide();
+
             }
 
             function calculateParlayOdds() {
@@ -166,6 +175,14 @@
 				return type;
 			}
 
+			const colorFormatter = function(cell, params, rendered) {
+				const data = cell.getRow().getData();
+				if (cell.getValue() >= parseFloat(data.line)) {
+					return "<div class='positive'>"+cell.getValue()+"</div>";
+				}
+				return "<div class='negative'>"+cell.getValue()+"</div>";
+			}
+
 			function renderTable() {
 				TABLE = new Tabulator("#propsTable", {
 					tooltipsHeader: true,
@@ -192,12 +209,24 @@
 						{title: "Player", field: "player", headerFilter: "input"},
 						{title: "Avg Min", field: "avgMin", hozAlign: "center", width: 70},
 						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
+						{title: "PTS/G", field: "ptsPerGame", hozAlign: "center", width: 70},
+						{title: "L5 PTS/G", field: "ptsPerGameLast5", hozAlign: "center", width: 70},
+						{title: "S/G", field: "shotsPerGame", hozAlign: "center", width: 70},
+						{title: "L5 S/G", field: "shotsPerGameLast5", hozAlign: "center", width: 70},
+						{title: "SA/G", field: "shotsAgainstPerGame", hozAlign: "center", width: 70, formatter: colorFormatter},
+						{title: "L5 SA/G", field: "shotsAgainstPerGameLast5", hozAlign: "center", width: 70, formatter: colorFormatter},
 						{title: "Opp", field: "opponent", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
-						//{title: "Scored", field: "scored", formatter: scoredFormatter, hozAlign: "center"},
+						{title: "Opp S/G", field: "oppShotsPerGame", hozAlign: "center", width: 70, formatter: colorFormatter},
+						{title: "L5 Opp S/G", field: "oppShotsPerGameLast5", hozAlign: "center", width: 70, formatter: colorFormatter},
+						{title: "Opp SA/G", field: "oppShotsAgainstPerGame", hozAlign: "center", width: 70},
+						{title: "L5 Opp SA/G", field: "oppShotsAgainstPerGameLast5", hozAlign: "center", width: 70},
+						{title: "Opp PTS/G", field: "oppPtsPerGame", hozAlign: "center", width: 70},
+						{title: "L5 Opp PTS/G", field: "oppPtsPerGameLast5", hozAlign: "center", width: 70},
+						{title: "Opp % Over", field: "oppOver", hozAlign: "center", width: 70, formatter: percentFormatter},
 						{title: "Prop", field: "propType", formatter: propFormatter, hozAlign: "center"},
 						{title: "Line", field: "line", hozAlign: "center"},
-						{title: "SZN AVG", field: "avg", hozAlign: "center", width: 80},
-						{title: "Last YR AVG", field: "lastAvg", hozAlign: "center", width: 80},
+						{title: "SZN AVG", field: "avg", hozAlign: "center", width: 80, formatter: colorFormatter},
+						{title: "W-L Splits", field: "winLossSplits", hozAlign: "center", width: 150},
 						//{title: "Proj", field: "proj", hozAlign: "center", width: 80},
 						/*
 						{title: "", field: "diffAvg", hozAlign: "center", visible: true},
@@ -207,6 +236,7 @@
 						{title: "Total Over", field: "totalOver", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
 						{title: "L5 Total Over", field: "totalOverLast5", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
 						{title: "Last", field: "last5", hozAlign: "center"},
+						{title: "Last YR AVG", field: "lastAvg", hozAlign: "center", width: 80, formatter: colorFormatter},
 						{title: "Last YR Total Over", field: "lastTotalOver", width: 80, hozAlign: "center", formatter: percentFormatter},
 						//{title: "Games Over", field: "over", formatter: overFormatter, hozAlign: "center"},
 						//{title: "Last Game", field: "lastOver", formatter: lastOverFormatter, hozAlign: "center"},
@@ -230,6 +260,31 @@
 		{% if prop != "" %}
 			<script>
 				TABLE.setFilter([{field:"propType", type:"=", value:"{{prop}}"}]);
+			</script>
+		{% endif %}
+		{% if prop != "sv" %}
+			<script>
+				TABLE.getColumn("shotsAgainstPerGame").hide();
+				TABLE.getColumn("shotsAgainstPerGameLast5").hide();
+				TABLE.getColumn("oppShotsPerGame").hide();
+				TABLE.getColumn("oppShotsPerGameLast5").hide();
+				TABLE.getColumn("oppOver").hide();
+			</script>
+		{% endif %}
+		{% if prop != "pts" %}
+			<script>
+				TABLE.getColumn("ptsPerGame").hide();
+				TABLE.getColumn("ptsPerGameLast5").hide();
+				TABLE.getColumn("oppPtsPerGame").hide();
+				TABLE.getColumn("oppPtsPerGameLast5").hide();
+			</script>
+		{% endif %}
+		{% if prop != "sog" %}
+			<script>
+				TABLE.getColumn("shotsPerGame").hide();
+				TABLE.getColumn("shotsPerGameLast5").hide();
+				TABLE.getColumn("oppShotsAgainstPerGame").hide();
+				TABLE.getColumn("oppShotsAgainstPerGameLast5").hide();
 			</script>
 		{% endif %}
 		{% if date == "" %}
