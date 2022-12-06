@@ -156,8 +156,8 @@ def write_averages():
 
 	if 0:
 		ids = {
-			"chi": {
-				"zach lavine": 3064440
+			"mil": {
+				"khris middleton": 6609
 			}
 		}
 
@@ -313,6 +313,9 @@ def convertFProsTeam(team):
 	elif team.startswith("was"):
 		return "wsh"
 	return team.replace(" ", "")[:3]
+
+def writeTotalsPerGame():
+	pass
 
 def write_rankings():
 	url = "https://www.fantasypros.com/daily-fantasy/nba/fanduel-defense-vs-position.php"

@@ -321,6 +321,47 @@ def writeProps(date):
 	with open(f"{prefix}static/nbaprops/dates/{date}.json", "w") as fh:
 		json.dump(props, fh, indent=4)
 
+def getOppOvers(schedule, roster):
+	overs = {}
+	for team in roster:
+		files = sorted(glob.glob(f"{prefix}static/basketballreference/{team}/*.json"), key=lambda k: datetime.strptime(k.split("/")[-1].replace(".json", ""), "%Y-%m-%d"), reverse=True)
+		for file in files:
+			chkDate = file.split("/")[-1].replace(".json","")
+			opp = ""
+			for game in schedule[chkDate]:
+				if team in game.split(" @ "):
+					opp = [t for t in game.split(" @ ") if t != team][0]
+			if opp not in overs:
+				overs[opp] = {}
+
+			with open(file) as fh:
+				gameStats = json.load(fh)
+			for player in gameStats:
+				if player not in roster[team] or gameStats[player]["min"] < 25:
+					continue
+
+				pos = roster[team][player]
+				if pos == "G":
+					pos = "SG"
+				elif pos == "F":
+					pos = "PF"
+				if pos not in overs[opp]:
+					overs[opp][pos] = {}
+				for prop in ["pts", "ast", "reb", "blk", "stl", "pts+ast", "pts+reb", "pts+reb+ast", "reb+ast", "stl+blk", "3ptm"]:
+					if prop not in overs[opp][pos]:
+						overs[opp][pos][prop] = []
+					if "+" in prop or prop in gameStats[player]:
+						val = 0.0
+						if "+" in prop:
+							for p in prop.split("+"):
+								val += gameStats[player][p]
+						else:
+							val = gameStats[player][prop]
+						val = val / gameStats[player]["min"]
+						overs[opp][pos][prop].append(val)
+	return overs
+
+
 @nbaprops_blueprint.route('/getNBAProps')
 def getProps_route():
 	res = []
@@ -350,6 +391,7 @@ def getProps_route():
 	with open(f"{prefix}static/basketballreference/roster.json") as fh:
 		roster = json.load(fh)
 
+	oppOvers = getOppOvers(schedule, roster)
 	#propData = customPropData(propData)
 
 	props = []
@@ -535,8 +577,10 @@ def getProps_route():
 								avgVariance += (val / float(line)) - 1
 								if len(last5) < 7:
 									v = str(int(val))
-									if hit and chkDate == date:
+									if chkDate == date:
 										v = f"'{v}'"
+										last5.append(v)
+										continue
 									last5.append(v)
 								valPerMin = float(val / minutes)
 								linePerMin = float(line) / avgMin
@@ -572,6 +616,20 @@ def getProps_route():
 				if rankingsPos in rankings[opp] and prop in rankings[opp][rankingsPos]:
 					oppRank = rankings[opp][rankingsPos][prop+"_rank"]
 
+				oppOver = 0
+				overPos = pos
+				if pos == "G":
+					overPos = "SG"
+				elif pos == "F":
+					overPos = "PF"
+				overList = oppOvers[opp][overPos][prop]
+				linePerMin = line / avgMin
+				if overList:
+					oppOver = round(len([x for x in overList if x > linePerMin]) * 100 / len(overList))
+
+				if not line:
+					continue
+
 				props.append({
 					"game": game,
 					"player": name.title(),
@@ -590,6 +648,7 @@ def getProps_route():
 					"proj": proj,
 					"avgVariance": avgVariance,
 					"oppRank": oppRank,
+					"oppOver": oppOver,
 					"lastAvgMin": lastAvgMin,
 					"totalOver": totalOver,
 					"totalOverPerMin": totalOverPerMin,
@@ -600,8 +659,8 @@ def getProps_route():
 					"underOdds": underOdds
 				})
 
-	teamTotals(date, schedule)
 	if not alt:
+		teamTotals(date, schedule)
 		write_csvs(props)
 	return jsonify(props)
 

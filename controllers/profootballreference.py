@@ -937,16 +937,41 @@ def write_stats(week):
 		json.dump(playerIds, fh, indent=4)
 
 def writeQBLongest(week):
+	with open(f"{prefix}static/profootballreference/roster.json") as fh:
+		roster = json.load(fh)
+
+	longestRanks = {}
 	for team in os.listdir(f"{prefix}static/profootballreference/"):
 		if team.endswith("json"):
 			continue
+
+		longestRanks[team] = {}
 		for file in glob(f"{prefix}static/profootballreference/{team}/*.json"):
 			with open(file) as fh:
 				stats = json.load(fh)
 
+			wk = file.split("/")[-1].replace(".json", "")
+			longestRanks[team][wk] = {}
+
 			longestRec = passAtt = 0
 			qb = ""
 			for player in stats:
+				try:
+					pos = roster[team][player]
+				except:
+					continue
+				if pos not in ["QB","WR","TE","RB"]:
+					continue
+				if pos not in longestRanks[team][wk]:
+					longestRanks[team][wk][pos] = {
+						"pass_long": [],
+						"rec_long": [],
+						"rush_long": []
+					}
+				for prop in ["pass_long", "rush_long", "rec_long"]:
+					val = stats[player].get(prop, 0)
+					if val:
+						longestRanks[team][wk][pos][prop].append(val)
 				if stats[player].get("pass_att", 0) > passAtt:
 					passAtt = stats[player]["pass_att"]
 					qb = player
@@ -957,6 +982,8 @@ def writeQBLongest(week):
 			with open(file, "w") as fh:
 				json.dump(stats, fh, indent=4)
 
+	with open(f"{prefix}static/props/longestRanks.json", "w") as fh:
+		json.dump(longestRanks, fh, indent=4)
 
 def write_totals():
 	totals = {}
@@ -1212,3 +1239,5 @@ if __name__ == "__main__":
 		writeSchedule(curr_week)
 		write_stats(curr_week)
 		writeQBLongest(curr_week)
+
+	#writeQBLongest(curr_week)

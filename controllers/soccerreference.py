@@ -100,6 +100,11 @@ def writeCSV():
 					totals[team] = {"goals": 0, "w": 0, "l":0, "t": 0, "pts": 0, "games": 0, "r16w": 0}
 				totals[team]["goals"] += score
 				totals[team]["games"] += 1
+				if date == "2022-12-05":
+					if team == "croatia":
+						score = 3
+					elif team == "japan":
+						oppScore = 3
 				if score == oppScore:
 					totals[team]["t"] += 1
 					totals[team]["pts"] += 1

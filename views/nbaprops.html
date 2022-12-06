@@ -197,6 +197,7 @@
 					//responsiveLayout:"collapse",
 					//layout: "fitDataFill",
 					//layout: window.innerWidth <= 450 ? "fitData" : "fitColumns",
+					
 					groupBy: "{{alt}}" != "" ? "game" : "",
 					initialSort: [
 						//{column: "pos", dir: "asc"},
@@ -219,6 +220,7 @@
 						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
 						{title: "Opp", field: "opponent", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
 						{title: "Opp Rank", field: "oppRank", hozAlign: "center", formatter: rankFormatter, width: 70},
+						{title: "Opp % Over", field: "oppOver", hozAlign: "center", formatter: percentFormatter, width: 70},
 						{title: "Prop", field: "propType", hozAlign: "center"},
 						{title: "Line", field: "line", hozAlign: "center"},
 						{title: "SZN AVG", field: "avg", hozAlign: "center", width: 80, formatter: colorFormatter},

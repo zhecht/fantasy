@@ -48,6 +48,9 @@
 		</div>
 		<script>
 			const CURR_WEEK = {{curr_week}};
+			const line = {{line}};
+			const spread = {{spread}};
+
 			let TABLE;
 			const teamNames = ["All", "ARI", "ATL", "BAL", "BUF", "CAR", "CHI", "CIN", "CLE", "DAL", "DEN", "DET", "GB", "HOU", "IND", "JAX", "KC", "LAC", "LAR", "LV", "MIA", "MIN", "NO", "NE", "NYG", "NYJ", "PHI", "PIT", "SEA", "SF", "TB", "TEN", "WAS"];
 
@@ -57,24 +60,83 @@
                     rows = TABLE.getRows("active");
                 }
                 let arr = [];
+                let tot = [];
                 let diff = [];
                 let firstRow = true;
 				for (row of rows) {
 					const data = row.getData();
 					let idx = 0;
+					arr.push(data.last5.join(","));
 					for (val of data.last5) {
 						if (firstRow) {
-							arr.push(val);
+							tot.push(val);
 							diff.push(val);
 						} else {
-							arr[idx] += val;
+							tot[idx] += val;
 							diff[idx] -= val;
 						}
 						idx++;
 					}
 					firstRow = false;
 				}
-				console.log(arr, diff);
+
+				let over = pairs = 0;
+				for (r1 of rows[0].getData().last5) {
+					for (r2 of rows[1].getData().last5) {
+						if (rows.length > 2) {
+							for (r3 of rows[2].getData().last5) {
+								if (r1+r2+r3 > line) {
+									over += 1;
+								}
+								pairs += 1;	
+							}	
+						} else {
+							if (r1+r2 > line) {
+								over += 1;
+							}
+							pairs += 1;
+						}
+					}
+				}
+				const pairsOver = (over * 100 / pairs).toFixed(1);
+
+				let out = "";
+				out += "Line: "+line+" -- Spread: "+spread+"\n\n";
+				out += rows[0].getData().player+": "+rows[0].getData().last5.join(",")+"\n";
+				out += rows[1].getData().player+": "+rows[1].getData().last5.join(",")+"\n\n";
+				out += "Tot Pairs Over: "+pairsOver+"%\n";
+				out += "Tot: "+tot.join(",")+"\n\n";
+
+				over = pairs = 0;
+				for (r1 of rows[0].getData().last5) {
+					for (r2 of rows[1].getData().last5) {
+						if (r1+spread > r2) {
+							over += 1;
+						}
+						pairs += 1;
+					}
+				}
+				out += "Diff Pairs Over: "+(over * 100 / pairs).toFixed(1)+"%\n";
+				out += "Diff: "+diff.join(",")+"\n\n";
+
+				over = pairs = 0;
+				for (r1 of rows[0].getData().last5) {
+					for (r2 of rows[1].getData().last5) {
+						if (r1 >= r2) {
+							over += 1;
+						}
+						pairs += 1;
+					}
+				}
+				const avg = over * 100 / pairs;
+				let odds = 0;
+				if (avg == 100) {
+					odds = -100000;
+				} else {
+					odds = (100 * avg) / (-100 + avg);
+				}
+				out += "ML Pairs Over: "+avg.toFixed(1)+"% ("+parseInt(odds)+")\n";
+				alert(out);
 			}
 
 			function save() {

@@ -336,6 +336,10 @@ def getATTDRankings(roster):
 def getProps_ATTD_route():
 	res = []
 
+	teams = request.args.get("teams") or ""
+	if teams:
+		teams = teams.upper().split(",")
+
 	with open(f"{prefix}static/props/attd.json") as fh:
 		attd = json.load(fh)
 	with open(f"{prefix}static/profootballreference/averages.json") as fh:
@@ -348,6 +352,9 @@ def getProps_ATTD_route():
 	rankings = getATTDRankings(roster)
 
 	for team in attd:
+
+		if teams and team.upper() not in teams:
+			continue
 		teamStats = {}
 		opp = get_opponents(team)[CURR_WEEK]
 		for file in glob.glob(f"{prefix}static/profootballreference/{team}/*.json"):
@@ -423,6 +430,31 @@ def getProps_ATTD_route():
 
 	return jsonify(res)
 
+def getLongestRanks():
+	with open(f"{prefix}static/profootballreference/schedule.json") as fh:
+		schedule = json.load(fh)
+	with open(f"{prefix}static/props/longestRanks.json") as fh:
+		longestRanks = json.load(fh)
+	ranks = {}
+	for wk in schedule:
+		if int(wk[2:]) > CURR_WEEK:
+			continue
+		for game in schedule[wk]:
+			gameSp = game.split(" @ ")
+			for gameIdx, team in enumerate(gameSp):
+				opp = gameSp[0] if gameIdx == 1 else gameSp[1]
+				if team not in ranks:
+					ranks[team] = {}
+				if wk not in ranks[team]:
+					ranks[team][wk] = {}
+				for pos in longestRanks[opp][wk]:
+					ranks[team][wk][pos] = {
+						"pass_long": max(longestRanks[opp][wk][pos]["pass_long"] or [0]),
+						"rec_long": max(longestRanks[opp][wk][pos]["rec_long"] or [0]),
+						"rush_long": max(longestRanks[opp][wk][pos]["rush_long"] or [0])
+					}
+	return ranks
+
 
 @props_blueprint.route('/getLongestProps')
 def getProps_longest_route():
@@ -441,6 +473,8 @@ def getProps_longest_route():
 		roster = json.load(fh)
 	with open(f"{prefix}static/profootballreference/lastYearStats.json") as fh:
 		lastYearStats = json.load(fh)
+
+	longestRanks = getLongestRanks()
 
 	for team in longest:
 
@@ -501,6 +535,18 @@ def getProps_longest_route():
 				except:
 					line = 0.0
 
+				oppOver = oppOverTot = 0
+				oppOverList = []
+				if pos != "-":
+					for wk in sorted(longestRanks[opp], key=lambda k: int(k.replace("wk", "")), reverse=True):
+						if longestRanks[opp][wk][pos][prop] > line:
+							oppOver += 1
+						oppOverList.append(longestRanks[opp][wk][pos][prop])
+						oppOverTot += 1
+
+				if oppOverTot:
+					oppOver = round(oppOver * 100 / oppOverTot, 1)
+
 				avg = avgLast3 = totalOver = totalOverLast3 = 0
 				if last:
 					scored = [x for x in last if x > line]
@@ -540,6 +586,8 @@ def getProps_longest_route():
 					"totalOverLast3": totalOverLast3,
 					"lastTotalOver": lastTotalOver,
 					"last": ",".join([str(x) for x in last]),
+					"oppOver": oppOver,
+					"oppOverList": ",".join([str(int(x)) for x in oppOverList])
 				})
 
 	return jsonify(res)
@@ -755,6 +803,7 @@ def writeLongestProps(week):
 		path = f"out"
 		url = f"https://api.actionnetwork.com/web/v1/leagues/1/props/{api}?bookIds=69,68,1599&date={date.replace('-', '')}"
 		os.system(f"curl -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0' -k \"{url}\" -o {path}")
+		time.sleep(0.4)
 
 		with open(path) as fh:
 			j = json.load(fh)
@@ -940,7 +989,9 @@ def props_route():
 	teams = request.args.get("teams") or ""
 	prop = request.args.get("prop") or ""
 	players = request.args.get("players") or ""
-	return render_template("props.html", curr_week=CURR_WEEK, teams=teams, prop=prop, players=players)
+	line = request.args.get("line") or 0
+	spread = request.args.get("spread") or 0
+	return render_template("props.html", curr_week=CURR_WEEK, teams=teams, prop=prop, players=players, line=line, spread=spread)
 
 @props_blueprint.route('/defprops')
 def props_def_route():
