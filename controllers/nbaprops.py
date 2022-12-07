@@ -623,7 +623,9 @@ def getProps_route():
 				elif pos == "F":
 					overPos = "PF"
 				overList = oppOvers[opp][overPos][prop]
-				linePerMin = line / avgMin
+				linePerMin = 0
+				if avgMin:
+					linePerMin = line / avgMin
 				if overList:
 					oppOver = round(len([x for x in overList if x > linePerMin]) * 100 / len(overList))
 

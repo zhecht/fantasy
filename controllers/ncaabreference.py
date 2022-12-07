@@ -29,7 +29,7 @@ prefix = ""
 if os.path.exists("/home/zhecht/fantasy"):
 	prefix = "/home/zhecht/fantasy/"
 
-def write_stats(date):
+def write_stats(date, teamArg=""):
 	with open(f"{prefix}static/ncaabreference/boxscores.json") as fh:
 		boxscores = json.load(fh)
 
@@ -47,86 +47,54 @@ def write_stats(date):
 	for game in boxscores[date]:
 		away, home = map(str, game.split(" @ "))
 
+		if teamArg and teamArg not in game.split(" @ "):
+			continue
+
 		if away not in allStats:
 			allStats[away] = {}
 		if home not in allStats:
 			allStats[home] = {}
 
-		link = boxscores[date][game].replace("game?gameId=", "boxscore/_/gameId/")
-		url = f"https://www.espn.com{link}"
+		gameId = boxscores[date][game].split("/")[-1]
+		time.sleep(0.5)
+		url = f"https://site.web.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?region=us&lang=en&contentorigin=espn&event={gameId}"
 		outfile = "out"
-		#call(["curl", "-k", url, "-o", outfile])
-		soup = BS(open(outfile, 'rb').read(), "lxml")
+		call(["curl", "-k", url, "-o", outfile])
 
-
-		data = "{}"
-		for script in soup.findAll("script"):
-			if script.text.strip().startswith("window['__espnfitt__']"):
-				m = re.search(r"window\['__espnfitt__'\]={(.*?)};", script.text)
-				if m:
-					data = "{" + m.group(1).replace("false", "False").replace("true", "True").replace("null", "None") + "}"
-					break
-
-		data = eval(data)
+		with open("out") as fh:
+			data = json.load(fh)
 
 		#with open("out2", "w") as fh:
 		#	json.dump(data, fh, indent=4)
 
-		for prop in data["page"]["content"]["gamepackage"]["gmLdrs"]["ldrs"]:
-			print(prop["name"])
+		if "code" in data and data["code"] == 400:
+			continue
 
-		exit()
-		
-		# tables are split with players then stats, players -> stats
-		headers = []
-		playerList = []
-		team = away
-		for idx, table in enumerate(soup.findAll("table")[1:5]):
-			if idx == 2:
-				playerList = []
-				team = home
-
+		if "players" not in data["boxscore"]:
+			continue
+		for teamRow in data["boxscore"]["players"]:
+			team = teamRow["team"]["abbreviation"].lower()
 			if team not in playerIds:
 				playerIds[team] = {}
+			headers = [h.lower() for h in teamRow["statistics"][0]["names"]]
 
-			playerIdx = 0
-			for row in table.findAll("tr")[:-2]:
-				if idx == 0 or idx == 2:
-					# PLAYERS
-					if row.text.strip().lower() in ["starters", "bench", "team"]:
-						continue
-					nameLink = row.find("a").get("href").split("/")
-					fullName = nameLink[-1].replace("-", " ")
-					playerId = int(nameLink[-2])
-					playerIds[team][fullName] = playerId
-					playerList.append(fullName)
-				else:
-					# idx==1 or 3. STATS
-					if row.find("td").text.strip().lower() == "min":
-						headers = []
-						for td in row.findAll("td"):
-							headers.append(td.text.strip().lower())
-						continue
+			for playerRow in teamRow["statistics"][0]["athletes"]:
+				if playerRow["didNotPlay"]:
+					continue
+				player = playerRow["athlete"]["displayName"].lower()
+				playerId = int(playerRow["athlete"]["id"])
+				pos = playerRow["athlete"]["position"]["abbreviation"]
 
-					player = playerList[playerIdx]
-					playerIdx += 1
-					playerStats = {}
-					for tdIdx, td in enumerate(row.findAll("td")):
-						if td.text.lower().startswith("dnp-"):
-							playerStats["min"] = 0
-							break
-						header = headers[tdIdx]
-						if td.text.strip().replace("-", "") == "":
-							playerStats[header] = 0
-						elif header in ["fg", "3pt", "ft"]:
-							made, att = map(int, td.text.strip().split("-"))
-							playerStats[header+"a"] = att
-							playerStats[header+"m"] = made
-						else:
-							val = int(td.text.strip())
-							playerStats[header] = val
+				playerIds[team][player] = playerId
+				allStats[team][player] = {}
 
-					allStats[team][player] = playerStats
+				for header, stat in zip(headers, playerRow["stats"]):
+					if "-" in stat:
+						made, att = map(int, stat.split("-"))
+						allStats[team][player][header+"m"] = made
+						allStats[team][player][header+"a"] = att
+					else:
+						allStats[team][player][header] = int(stat)
 
 	for team in allStats:
 		if not os.path.isdir(f"{prefix}static/ncaabreference/{team}"):
@@ -159,7 +127,7 @@ def write_totals():
 
 				if "gamesPlayed" not in totals[team][player]:
 					totals[team][player]["gamesPlayed"] = 0
-				if stats[player]["min"] > 0:
+				if stats[player].get("min", 0) > 0:
 					totals[team][player]["gamesPlayed"] += 1
 
 	with open(f"{prefix}static/ncaabreference/totals.json", "w") as fh:
@@ -232,6 +200,66 @@ def write_averages():
 		with open(f"{prefix}static/ncaabreference/lastYearStats.json", "w") as fh:
 			json.dump(lastYearStats, fh, indent=4)
 
+def writeMissingTeamStats(teamArg):
+	date = datetime.datetime.now()
+	year = str(date)[:4]
+
+	with open(f"{prefix}static/ncaabreference/teams.json") as fh:
+		teams = json.load(fh)
+
+	with open(f"{prefix}static/ncaabreference/boxscores.json") as fh:
+		boxscores = json.load(fh)
+
+	with open(f"{prefix}static/ncaabreference/scores.json") as fh:
+		scores = json.load(fh)
+
+	with open(f"{prefix}static/ncaabreference/schedule.json") as fh:
+		schedule = json.load(fh)
+	
+	for team in teamArg.lower().split(","):
+		teamId = teams[team]["id"]
+
+		url = f"https://site.web.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/{teamId}/schedule?region=us&lang=en&seasontype=2"
+		outfile = "out"
+		call(["curl", "-k", url, "-o", outfile])
+
+		with open("out") as fh:
+			data = json.load(fh)
+
+		for row in data["events"]:
+			dt = datetime.datetime.strptime(row["date"],"%Y-%m-%dT%H:%MZ") - datetime.timedelta(hours=5)
+			date = str(dt)[:10]
+			if datetime.datetime.strptime(date, "%Y-%m-%d") > datetime.datetime.now():
+				continue
+			game = row["shortName"].lower()
+
+			if date not in schedule:
+				schedule[date] = []
+			if date not in boxscores:
+				boxscores[date] = {}
+			if date not in scores:
+				scores[date] = {}
+			if game not in schedule[date]:
+				schedule[date].append(game)
+				boxscores[date][game] = row["id"]
+				for teamRow in row["competitions"][0]["competitors"]:
+					t = teamRow["team"]["abbreviation"].lower()
+					scores[date][t] = teamRow["score"]["value"]
+
+	with open(f"{prefix}static/ncaabreference/scores.json", "w") as fh:
+		json.dump(scores, fh, indent=4)
+
+	with open(f"{prefix}static/ncaabreference/boxscores.json", "w") as fh:
+		json.dump(boxscores, fh, indent=4)
+
+	with open(f"{prefix}static/ncaabreference/schedule.json", "w") as fh:
+		json.dump(schedule, fh, indent=4)
+
+	for team in teamArg.lower().split(","):
+		for date in schedule:
+			for game in schedule[date]:
+				if team in game.split(" @ ") and not os.path.exists(f"{prefix}static/ncaabreference/{team}/{date}.json"):
+					write_stats(date, teamArg=team)
 
 def write_schedule(date):
 	#url = f"https://www.espn.com/mens-college-basketball/schedule/_/date/{date.replace('-','')}"
@@ -247,51 +275,34 @@ def write_schedule(date):
 	with open(f"{prefix}static/ncaabreference/scores.json") as fh:
 		scores = json.load(fh)
 
-	dt = datetime.datetime.strptime(date, "%Y-%m-%d")
-	#while dt < datetime.datetime.now():
-	date = str(dt)[:10]
-	time.sleep(0.4)
-	url = f"https://www.espn.com/mens-college-basketball/scoreboard/_/date/{date.replace('-','')}"
+	#time.sleep(0.4)
+	url = f"https://site.web.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?region=us&lang=en&contentorigin=espn&limit=300&dates={date.replace('-','')}&tz=America/New_York"
 	outfile = "out"
 	call(["curl", "-k", url, "-o", outfile])
-	soup = BS(open(outfile, 'rb').read(), "lxml")
+
+	with open("out") as fh:
+		data = json.load(fh)
+
+	#with open("out2", "w") as fh:
+	#	json.dump(data, fh, indent=4)
 
 	boxscores[date] = {}
 	scores[date] = {}
 	schedule[date] = []
 
-	for row in soup.findAll("section", class_="Scoreboard"):
-		
-		teamNames = row.findAll("div", class_="ScoreCell__Team")
-		scoreList = row.findAll("div", class_="ScoreCell__Score")
-		game = []
-		for idx, team in enumerate(teamNames):
-			teamLink = team.find("a")
-			displayTeam = ""
-			if teamLink:
-				displayTeam = teamLink.text.strip().lower()
-				team = teamLink.get("href").split("/")[-1]
-				teams[team] = {
-					"display": displayTeam,
-					"id": int(teamLink.get("href").split("/")[-2])
-				}
-			else:
-				displayTeam = team.text.lower()
-				team = displayTeam.replace(" ", "-")
-				teams[team] = {
-					"display": displayTeam,
-					"id": 0
-				}
+	for gameRow in data["events"]:
+		game = gameRow["shortName"].lower()
 
-			game.append(team)
+		for teamData in gameRow["competitions"][0]["competitors"]:
+			team = game.split(" @ ")[0] if teamData["homeAway"] == "away" else game.split(" @ ")[1]
+			teams[team] = {
+				"display": teamData["team"]["displayName"],
+				"id": teamData["team"]["id"]
+			}
+			scores[date][team] = int(teamData["score"])
 
-			if scoreList:
-				scores[date][team] = int(scoreList[idx].text.strip())
-
-		game = " @ ".join(game)
+		boxscores[date][game] = gameRow["links"][0]["href"].split("/")[-1]
 		schedule[date].append(game)
-		boxscores[date][game] = row.find("div", class_="Scoreboard__Callouts").find("a").get("href")
-
 		#dt = dt + datetime.timedelta(days=1)
 
 	with open(f"{prefix}static/ncaabreference/teams.json", "w") as fh:
@@ -334,6 +345,7 @@ if __name__ == "__main__":
 	parser.add_argument("-c", "--cron", action="store_true", help="Start Cron Job")
 	parser.add_argument("-d", "--date", help="Date")
 	parser.add_argument("-s", "--start", help="Start Week", type=int)
+	parser.add_argument("-t", "--teams", help="Teams")
 	parser.add_argument("--schedule", help="Schedule", action="store_true")
 	parser.add_argument("-e", "--end", help="End Week", type=int)
 	parser.add_argument("-w", "--week", help="Week", type=int)
@@ -353,6 +365,8 @@ if __name__ == "__main__":
 		write_averages()
 	elif args.schedule:
 		write_schedule(date)
+	elif args.teams:
+		writeMissingTeamStats(args.teams)
 	elif args.cron:
-		pass
+		write_schedule(date)
 		write_stats(date)

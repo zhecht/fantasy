@@ -99,10 +99,19 @@
 				return div;
 			}
 
+			const colorFormatter = function(cell, params, rendered) {
+				const data = cell.getRow().getData();
+				if (cell.getValue() >= parseFloat(data.line)) {
+					return "<div class='positive'>"+cell.getValue()+"</div>";
+				}
+				return "<div class='negative'>"+cell.getValue()+"</div>";
+			}
+
 			function renderTable() {
 				TABLE = new Tabulator("#propsTable", {
 					tooltipsHeader: true,
 					ajaxURL: "/getNCAABProps",
+					ajaxParams:{teams: "{{teams}}"},
 					//responsiveLayout:"collapse",
 					//layout: "fitDataFill",
 					//layout: window.innerWidth <= 450 ? "fitData" : "fitColumns",
@@ -112,7 +121,8 @@
 						return "<a href='https://www.espn.com/nfl/team/depth/_/name/"+value+"' target='_blank'>"+value+"</a>" + "<span style='color:black; margin-left:10px;'>(" + count + " "+playerTxt+")</span>";
 					},
 					initialSort: [
-						{column: "diffAbs", dir: "desc"},
+						{column: "totalOver", dir: "desc"},
+						{column: "totalOverLast5", dir: "desc"},
 					],
 					columns: [
 						{formatter:"rowSelection", hozAlign:"center", headerSort:false, cellClick:function(e, cell){
@@ -120,19 +130,15 @@
 						}},
 						{title: "Player", field: "player", headerFilter: "input"},
 						{title: "Avg Min", field: "avgMin", hozAlign: "center", width: 70},
-						{title: "Last YR Avg Min", field: "lastAvgMin", hozAlign: "center", width: 70},
 						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
 						{title: "Opp", field: "opponent", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
 						{title: "Prop", field: "propType", hozAlign: "center"},
 						{title: "Line", field: "line", hozAlign: "center"},
-						{title: "SZN AVG", field: "avg", hozAlign: "center", width: 80},
-						{title: "Last YR AVG", field: "lastAvg", hozAlign: "center", width: 80},
-						{title: "", field: "diffAbs", hozAlign: "center", visible: false},
+						{title: "SZN AVG", field: "avg", hozAlign: "center", width: 80, formatter: colorFormatter},
 						{title: "Total Over", field: "totalOver", width: 80, hozAlign: "center", formatter: percentFormatter},
 						{title: "Last", field: "last5", hozAlign: "center"},
-						{title: "Last YR Total Over", field: "lastTotalOver", width: 80, hozAlign: "center", formatter: percentFormatter},
-						{title: " ", field: "overOdds"},
-						{title: " ", field: "underOdds"},
+						{title: "Over", field: "overOdds", hozAlign: "center"},
+						{title: "Under", field: "underOdds", hozAlign: "center"},
 					]
 				})
 			}
