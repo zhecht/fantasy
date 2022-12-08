@@ -288,11 +288,12 @@ def writeProps(date):
 		"3ptm": "core_bet_type_21_3fgm",
 		"reb": "core_bet_type_23_rebounds",
 		"ast": "core_bet_type_26_assists",
-		"pts": "core_bet_type_27_points"
+		"pts": "core_bet_type_27_points",
+		"pts+reb+ast": "core_bet_type_85_points_rebounds_assists",
 	}
 	props = {}
 	optionTypes = {}
-	for prop in ["pts", "ast", "reb", "3ptm"]:
+	for prop in ["pts", "ast", "reb", "pts+reb+ast", "3ptm"]:
 
 		path = f"{prefix}static/ncaabprops/{prop}.json"
 		url = f"https://api.actionnetwork.com/web/v1/leagues/6/props/{propMap[prop]}?bookIds=69,68&date={date.replace('-', '')}"

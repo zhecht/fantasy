@@ -132,7 +132,10 @@ def write_totals():
 					for header in stats[player]:
 						if header not in totals[team][player]:
 							totals[team][player][header] = 0
-						totals[team][player][header] += stats[player][header]
+						try:
+							totals[team][player][header] += stats[player][header]
+						except:
+							pass
 
 				if "gamesPlayed" not in totals[team][player]:
 					totals[team][player]["gamesPlayed"] = 0

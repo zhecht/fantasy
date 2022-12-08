@@ -919,13 +919,15 @@ def writeH2H():
 	for prop in ids:
 		time.sleep(0.5)
 		url = f"https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/42648/categories/1206/subcategories/{ids[prop]}?format=json"
-		outfile = "out2"
+		outfile = "out"
 		call(["curl", "-k", url, "-o", outfile])
 
-		with open("out2") as fh:
+		with open("out") as fh:
 			data = json.load(fh)
 
 		events = {}
+		if "eventGroup" not in data:
+			continue
 		for event in data["eventGroup"]["events"]:
 			game = convertDKTeam(event["teamShortName1"].lower()) + " @ " + convertDKTeam(event["teamShortName2"].lower())
 			if game not in h2h:
