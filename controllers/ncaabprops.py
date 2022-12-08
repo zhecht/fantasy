@@ -85,6 +85,8 @@ def getProps_route():
 		propData = json.load(fh)
 	with open(f"{prefix}static/ncaabreference/totals.json") as fh:
 		stats = json.load(fh)
+	with open(f"{prefix}static/ncaabreference/roster.json") as fh:
+		roster = json.load(fh)
 	with open(f"{prefix}static/ncaabreference/averages.json") as fh:
 		averages = json.load(fh)
 	with open(f"{prefix}static/ncaabreference/lastYearStats.json") as fh:
@@ -162,10 +164,10 @@ def getProps_route():
 				if lastAvg and line:
 					diff = round((lastAvg / float(line) - 1), 2)
 
-				totalOver = totalGames = 0
+				totalOverPerMin = totalOver = totalOverLast5 = totalGames = 0
 				last5 = []
 				if line and avgMin:
-					files = sorted(glob.glob(f"{prefix}static/ncaabreference/{team}/*.json"), key=lambda k: datetime.strptime(k.split("/")[-1].replace(".json", ""), "%Y-%m-%d"), reverse=True)
+					files = sorted(glob.glob(f"{prefix}static/ncaabreference/{team}/*-*-*.json"), key=lambda k: datetime.strptime(k.split("/")[-1].replace(".json", ""), "%Y-%m-%d"), reverse=True)
 					for file in files:
 						with open(file) as fh:
 							gameStats = json.load(fh)
@@ -186,23 +188,36 @@ def getProps_route():
 								linePerMin = float(line) / avgMin
 								#if valPerMin > linePerMin:
 								if val > float(line):
-									totalOver += 1 
+									totalOver += 1
+									if len(last5) <= 5:
+										totalOverLast5 += 1 
 				if totalGames:
 					totalOver = round((totalOver / totalGames) * 100)
+					last5Size = len(last5) if len(last5) < 5 else 5
+					totalOverLast5 = round((totalOverLast5 / last5Size) * 100)
+
+				pos = ""
+				if team in roster and name in roster[team]:
+					pos = roster[team][name]
 
 				props.append({
 					"player": name.title(),
 					"team": team.upper(),
+					"pos": pos,
 					"opponent": opp,
 					"propType": prop,
 					"line": line or "-",
 					"avg": avg,
 					"avgMin": avgMin,
 					"totalOver": totalOver,
+					"totalOverLast5": totalOverLast5,
 					"last5": ",".join(last5),
 					"overOdds": overOdds,
 					"underOdds": underOdds
 				})
+
+
+	writeCsvs(props)
 
 	return jsonify(props)
 
@@ -210,6 +225,59 @@ def getProps_route():
 def props_route():
 	teams = request.args.get("teams") or ""
 	return render_template("ncaabprops.html", teams=teams)
+
+
+def writeCsvs(props):
+	csvs = {}
+	splitProps = {"full": []}
+	headers = "\t".join(["NAME","POS","TEAM","OPP","PROP","LINE","SZN AVG","% OVER","L5 % OVER","LAST 7 GAMES ➡️","OVER", "UNDER"])
+	reddit = "|".join(headers.split("\t"))
+	reddit += "\n:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--"
+
+	for row in props:
+		if row["propType"] not in splitProps:
+			splitProps[row["propType"]] = []
+		splitProps[row["propType"]].append(row)
+		splitProps["full"].append(row)
+
+	# add full rows
+	csvs["full_name"] = headers
+	rows = sorted(splitProps["full"], key=lambda k: (k["player"], -k["totalOverLast5"], -k["totalOver"]))
+	for row in rows:
+		overOdds = row["overOdds"]
+		underOdds = row["underOdds"]
+		if underOdds == '-inf':
+			underOdds = 0
+		if int(overOdds) > 0:
+			overOdds = "'"+overOdds
+		if int(underOdds) > 0:
+			underOdds = "'"+underOdds
+		try:
+			csvs["full_name"] += "\n" + "\t".join([row["player"], row["pos"], row["team"], row["opponent"].upper(), row["propType"], str(row["line"]), str(row["avg"]), f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], overOdds, underOdds])
+		except:
+			pass
+
+	csvs["full_hit"] = headers
+	rows = sorted(splitProps["full"], key=lambda k: (k["totalOverLast5"], k["totalOver"]), reverse=True)
+	for row in rows:
+		overOdds = row["overOdds"]
+		underOdds = row["underOdds"]
+		if underOdds == '-inf':
+			underOdds = 0
+		if int(overOdds) > 0:
+			overOdds = "'"+overOdds
+		if int(underOdds) > 0:
+			underOdds = "'"+underOdds
+		try:
+			csvs["full_hit"] += "\n" + "\t".join([row["player"], row["pos"], row["team"], row["opponent"].upper(), row["propType"], str(row["line"]), str(row["avg"]), f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], overOdds, underOdds])
+		except:
+			pass
+
+	for prop in csvs:
+		if prop == "full":
+			continue
+		with open(f"{prefix}static/ncaabprops/csvs/{prop}.csv", "w") as fh:
+			fh.write(csvs[prop])
 
 def writeProps(date):
 	actionNetworkBookIds = {
@@ -260,6 +328,12 @@ def writeProps(date):
 			for oddData in bookData["odds"]:
 				player = playerIds[oddData["player_id"]]
 				team = teamIds[oddData["team_id"]]
+				if team == "nova":
+					team = "vill"
+				elif team == "ind":
+					team = "iu"
+				elif team == "sc":
+					team = "scu"
 				overUnder = optionTypes[oddData["option_type_id"]]
 				book = actionNetworkBookIds[bookId]
 

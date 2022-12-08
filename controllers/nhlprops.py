@@ -176,17 +176,25 @@ def getProps_route():
 								elif convertedProp in gameStats[name]:
 									val = gameStats[name][convertedProp]
 
-								if chkDate == date:
-									if val > float(line):
-										hit = True
-									continue
-
 								pastOpp = ""
 								for game in schedule[chkDate]:
 									gameSp = game.split(" @ ")
 									if espnTeam in gameSp:
 										pastOpp = gameSp[0] if espnTeam == gameSp[1] else gameSp[1]
 										break
+
+								if chkDate == date:
+									if val > float(line):
+										hit = True
+
+								if len(last5) < 10:
+									v = str(int(val))
+									if chkDate == date:
+										v = f"'{v}'"
+										last5.append(v)
+										continue
+									last5.append(v)
+
 								teamScore = scores[chkDate][espnTeam]
 								oppScore = scores[chkDate][pastOpp]
 								if teamScore > oppScore:
@@ -194,8 +202,6 @@ def getProps_route():
 								elif teamScore < oppScore:
 									winLossSplits[1].append(val)
 
-								if len(last5) < 10:
-									last5.append(str(int(val)))
 								valPerMin = float(val / minutes)
 								linePerMin = float(line) / avgMin
 								if float(val) > float(line):
@@ -207,7 +213,8 @@ def getProps_route():
 				if totalGames:
 					totalOver = round((totalOver / totalGames) * 100)
 					last5Size = len(last5) if len(last5) < 5 else 5
-					totalOverLast5 = round((totalOverLast5 / last5Size) * 100)
+					if last5Size:
+						totalOverLast5 = round((totalOverLast5 / last5Size) * 100)
 
 				diffAbs = 0
 				if avgMin:
@@ -483,19 +490,19 @@ def writeProps(date):
 
 def fixLines(props):
 	rows = [
-		"tb\tandrei vasilevskiy\t26.5\t-120,-120\tsv",
-		"det\tville husso\t27.5\t-130,-110\tsv",
-		"chi\tarvid soderblom\t31.5\t-110,-130\tsv",
-		"nj\tvitek vanecek\t22.5\t-120,-120\tsv",
-		"cbj\telvis merzlikins\t31.5\t-120,-120\tsv",
-		"pit\ttristan jarry\t27.5\t-115,-125\tsv",
-		"ott\tcam talbot\t28.5\t-125,-115\tsv",
-		"la\tpheonix copley\t28.5\t-125,-115\tsv",
-		"nyi\tilya sorokin\t27.5\t-115,-125\tsv",
-		"wpg\tconnor hellebuyck\t31.5\t-120,-120\tsv",
-		"fla\tspencer knight\t28.5\t-125,-115\tsv",
-		"dal\tjake oettinger\t27.5\t-120,-120\tsv",
-		"sea\tmartin jones\t25.5\t-120,-120\tsv",
+		"wsh\tcharlie lindgren\t27.5\t-130,-110\tsv",
+		"phi\tcarter hart\t27.5\t-120,-120\tsv",
+		"buf\tukko luukkonen\t28.5\t-115,-125\tsv",
+		"cbj\tjoonas korpisalo\t30.5\t-125,-115\tsv",
+		"cgy\tdan vladar\t26.5\t-110,-130\tsv",
+		"min\tmarc fleury\t29.5\t-120,-120\tsv",
+		"bos\tlinus ullmark\t26.5\t-115,-125\tsv",
+		"col\talexandar georgiev\t29.5\t-115,-125\tsv",
+		"ari\tconnor ingram\t30.5\t-115,-125\tsv",
+		"edm\tstuart skinner\t24.5\t-125,-115\tsv",
+		"nyr\tigor shesterkin\t28.5\t-120,-120\tsv",
+		"vgk\tlogan thompson\t27.5\t-125,-115\tsv",
+		"sj\tkaapo kahkonen\t28.5\t-110,-130\tsv",
 	]
 	for row in rows:
 		data = row.split("\t")

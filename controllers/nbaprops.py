@@ -370,6 +370,9 @@ def getProps_route():
 	if teams:
 		teams = teams.lower().split(",")
 	alt = request.args.get("alt") or ""
+	players = request.args.get("players") or []
+	if players:
+		playes = players.split(",")
 
 	date = datetime.now()
 	date = str(date)[:10]
@@ -414,6 +417,10 @@ def getProps_route():
 
 		for propName in propData[team]:
 			name = propName.replace("-", " ").replace(".", "").replace("'", "")
+
+			if players and name not in players:
+				continue
+
 			avgMin = 0
 			if espnTeam in stats and name in stats[espnTeam] and stats[espnTeam][name]["gamesPlayed"]:
 				avgMin = int(stats[espnTeam][name]["min"] / stats[espnTeam][name]["gamesPlayed"])
@@ -548,6 +555,8 @@ def getProps_route():
 
 				totalOverPerMin = totalOver = totalOverLast5 = totalGames = avgVariance = 0
 				last5 = []
+				lastAll = []
+				lastAllPerMin = []
 				hit = False
 				if line and avgMin:
 					files = sorted(glob.glob(f"{prefix}static/basketballreference/{espnTeam}/*.json"), key=lambda k: datetime.strptime(k.split("/")[-1].replace(".json", ""), "%Y-%m-%d"), reverse=True)
@@ -582,8 +591,11 @@ def getProps_route():
 										last5.append(v)
 										continue
 									last5.append(v)
+
 								valPerMin = float(val / minutes)
 								linePerMin = float(line) / avgMin
+								lastAll.append(str(int(val)))
+								lastAllPerMin.append(str(valPerMin))
 								if valPerMin > linePerMin:
 									totalOverPerMin += 1
 								if val > float(line):
@@ -657,6 +669,8 @@ def getProps_route():
 					"totalOverLast5": totalOverLast5,
 					"lastTotalOver": lastTotalOver,
 					"last5": ",".join(last5),
+					"lastAll": ",".join(lastAll),
+					"lastAllPerMin": ",".join(lastAllPerMin),
 					"overOdds": overOdds,
 					"underOdds": underOdds
 				})
@@ -664,7 +678,88 @@ def getProps_route():
 	if not alt:
 		teamTotals(date, schedule)
 		write_csvs(props)
+		h2h(props)
 	return jsonify(props)
+
+def h2h(props):
+	with open(f"{prefix}static/nbaprops/h2h.json") as fh:
+		h2h = json.load(fh)
+
+	out = ""
+	for game in h2h:
+		out += "\n"+game.upper()+"\n"
+		for prop in h2h[game]:
+			tabLen = 1
+			out += "\t"*tabLen+prop+"\n"
+			tabLen += 1
+
+			for matchup in h2h[game][prop]:
+				odds = h2h[game][prop][matchup].split(",")
+				arrs = []
+				players = matchup.split(" v ")
+				arrs = [p for p in props if p["player"].lower() in players and p["propType"] == prop]
+				if len(arrs) < 2:
+					#print(arrs)
+					continue
+
+				if players[0] != arrs[0]["player"].lower():
+					arrs[0], arrs[1] = arrs[1], arrs[0]
+
+				straightOver = straightTotal = 0
+				for num1, num2 in zip(arrs[0]["lastAll"].split(","), arrs[1]["lastAll"].split(",")):
+					if int(num1) == int(num2):
+						continue
+					elif int(num1) > int(num2):
+						straightOver += 1
+					straightTotal += 1
+				if straightTotal:
+					straightOver = round(straightOver * 100 / straightTotal)
+
+				allPairsOver = allPairsTotal = 0
+				for num1 in arrs[0]["lastAll"].split(","):
+					for num2 in arrs[1]["lastAll"].split(","):
+						if int(num1) == int(num2):
+							continue
+						elif int(num1) > int(num2):
+							allPairsOver += 1
+						allPairsTotal += 1
+				if allPairsTotal:
+					allPairsOver = round(allPairsOver * 100 / allPairsTotal)
+
+				straightOverPerMin = straightTotalPerMin = 0
+				for num1, num2 in zip(arrs[0]["lastAllPerMin"].split(","), arrs[1]["lastAllPerMin"].split(",")):
+					if float(num1) == float(num2):
+						continue
+					elif float(num1) > float(num2):
+						straightOverPerMin += 1
+					straightTotalPerMin += 1
+				if straightTotalPerMin:
+					straightOverPerMin = round(straightOverPerMin * 100 / straightTotalPerMin)
+
+				allPairsOverPerMin = allPairsTotalPerMin = 0
+				for num1 in arrs[0]["lastAllPerMin"].split(","):
+					for num2 in arrs[1]["lastAllPerMin"].split(","):
+						if float(num1) == float(num2):
+							continue
+						elif float(num1) > float(num2):
+							allPairsOverPerMin += 1
+						allPairsTotalPerMin += 1
+				if allPairsTotalPerMin:
+					allPairsOverPerMin = round(allPairsOverPerMin * 100 / allPairsTotalPerMin)
+
+				out += "\t"*tabLen+f"Straight up: {straightOver}% / PM: {straightOverPerMin}%\n"
+				out += "\t"*tabLen+f"All Pairs: {allPairsOver}% / PM: {allPairsOverPerMin}%\n"
+				data = arrs[0]
+				for player, odds in zip(players, odds):
+					out += "\t"*tabLen+f"{player.title()} {data['line']}{prop} ({odds}):\n"
+					out += "\t"*(tabLen+1)+f"{data['lastAll']}\n"
+					data = arrs[1]
+				out += "\t"*tabLen+"-----\n"
+
+
+
+	with open(f"{prefix}static/nbaprops/h2h.txt", "w") as fh:
+		fh.write(out)
 
 def write_csvs(props):
 	csvs = {}
@@ -777,7 +872,8 @@ def convertRankingsProp(prop):
 
 @nbaprops_blueprint.route('/nbaprops')
 def props_route():
-	prop = alt = date = teams = ""
+	spread = line = 0
+	prop = alt = date = teams = players = ""
 	if request.args.get("prop"):
 		prop = request.args.get("prop").replace(" ", "+")
 	if request.args.get("alt"):
@@ -786,7 +882,13 @@ def props_route():
 		date = request.args.get("date")
 	if request.args.get("teams"):
 		teams = request.args.get("teams")
-	return render_template("nbaprops.html", prop=prop, alt=alt, date=date, teams=teams)
+	if request.args.get("players"):
+		players = request.args.get("players")
+	if request.args.get("line"):
+		line = request.args.get("line")
+	if request.args.get("spread"):
+		spread = request.args.get("spread")
+	return render_template("nbaprops.html", prop=prop, alt=alt, date=date, teams=teams, players=players, line=line, spread=spread)
 
 def zeroProps():
 	with open(f"{prefix}static/nbaprops/customProps.json") as fh:
@@ -797,7 +899,58 @@ def zeroProps():
 				data[team][player][prop]["odds"] = ["-0"]*len(data[team][player][prop]["odds"])
 	with open(f"{prefix}static/nbaprops/customProps.json", "w") as fh:
 		json.dump(data, fh, indent=4)
-	
+
+def convertDKTeam(team):
+	if team == "was":
+		return "wsh"
+	elif team == "pho":
+		return "phx"
+	return team
+
+def writeH2H():
+	ids = {
+		"pts": 12186,
+		"reb": 12185,
+		"ast": 12184,
+		"3ptm": 12315
+	}
+
+	h2h = {}
+	for prop in ids:
+		time.sleep(0.5)
+		url = f"https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/42648/categories/1206/subcategories/{ids[prop]}?format=json"
+		outfile = "out2"
+		call(["curl", "-k", url, "-o", outfile])
+
+		with open("out2") as fh:
+			data = json.load(fh)
+
+		events = {}
+		for event in data["eventGroup"]["events"]:
+			game = convertDKTeam(event["teamShortName1"].lower()) + " @ " + convertDKTeam(event["teamShortName2"].lower())
+			if game not in h2h:
+				h2h[game] = {}
+			events[event["eventId"]] = game
+
+		for catRow in data["eventGroup"]["offerCategories"]:
+			if not catRow["name"].lower().startswith("h2h"):
+				continue
+			for cRow in catRow["offerSubcategoryDescriptors"]:
+				if cRow["subcategoryId"] == ids[prop]:
+					for offerRow in cRow["offerSubcategory"]["offers"]:
+						for row in offerRow:
+							game = events[row["eventId"]]
+							player1 = row["outcomes"][0]["label"].lower().replace(".", "").replace("'", "")
+							odds1 = row["outcomes"][0]["oddsAmerican"]
+							player2 = row["outcomes"][1]["label"].lower().replace(".", "").replace("'", "")
+							odds2 = row["outcomes"][1]["oddsAmerican"]
+
+							if prop not in h2h[game]:
+								h2h[game][prop] = {}
+							h2h[game][prop][f"{player1} v {player2}"] = ",".join([odds1, odds2])
+
+	with open(f"{prefix}static/nbaprops/h2h.json", "w") as fh:
+		json.dump(h2h, fh, indent=4)
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
@@ -806,6 +959,7 @@ if __name__ == "__main__":
 	parser.add_argument("--zero", help="Zero CustomProp Odds", action="store_true")
 	parser.add_argument("--lineups", help="Lineups", action="store_true")
 	parser.add_argument("--skip-lineups", help="Skip Lineups", action="store_true")
+	parser.add_argument("--h2h", help="H2H", action="store_true")
 	parser.add_argument("-w", "--week", help="Week", type=int)
 
 	args = parser.parse_args()
@@ -819,6 +973,9 @@ if __name__ == "__main__":
 		if not args.skip_lineups:
 			writeLineups()
 		writeProps(date)
+		writeH2H()
+	elif args.h2h:
+		writeH2H()
 	elif args.lineups:
 		writeLineups()
 	elif args.zero:

@@ -39,6 +39,9 @@ def write_stats(date, teamArg=""):
 	with open(f"{prefix}static/ncaabreference/playerIds.json") as fh:
 		playerIds = json.load(fh)
 
+	with open(f"{prefix}static/ncaabreference/roster.json") as fh:
+		roster = json.load(fh)
+
 	if date not in boxscores:
 		print("No games found for this date")
 		exit()
@@ -76,6 +79,8 @@ def write_stats(date, teamArg=""):
 			team = teamRow["team"]["abbreviation"].lower()
 			if team not in playerIds:
 				playerIds[team] = {}
+			if team not in roster:
+				roster[team] = {}
 			headers = [h.lower() for h in teamRow["statistics"][0]["names"]]
 
 			for playerRow in teamRow["statistics"][0]["athletes"]:
@@ -87,6 +92,7 @@ def write_stats(date, teamArg=""):
 
 				playerIds[team][player] = playerId
 				allStats[team][player] = {}
+				roster[team][player] = pos
 
 				for header, stat in zip(headers, playerRow["stats"]):
 					if "-" in stat:
@@ -106,6 +112,9 @@ def write_stats(date, teamArg=""):
 
 	with open(f"{prefix}static/ncaabreference/playerIds.json", "w") as fh:
 		json.dump(playerIds, fh, indent=4)
+
+	with open(f"{prefix}static/ncaabreference/roster.json", "w") as fh:
+		json.dump(roster, fh, indent=4)
 
 def write_totals():
 	totals = {}
@@ -197,8 +206,76 @@ def write_averages():
 		with open(f"{prefix}static/ncaabreference/averages.json", "w") as fh:
 			json.dump(averages, fh, indent=4)
 
-		with open(f"{prefix}static/ncaabreference/lastYearStats.json", "w") as fh:
-			json.dump(lastYearStats, fh, indent=4)
+		with open(f"{prefix}static/ncaabreference/{team}/lastYearStats.json", "w") as fh:
+			json.dump(lastYearStats[team], fh, indent=4)
+
+def writeTeamId(teams, team):
+	time.sleep(0.4)
+	url = f"https://site.web.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams?region=us&lang=en&contentorigin=espn&limit=400"
+	outfile = "out"
+	call(["curl", "-k", url, "-o", outfile])
+
+	with open("out") as fh:
+		data = json.load(fh)
+
+	for t in data["sports"][0]["leagues"][0]["teams"]:
+		if t["team"]["abbreviation"].lower() == team:
+			teams[team] = {
+				"display": t["team"]["displayName"],
+				"id": t["team"]["id"]
+			}
+			break
+
+def writeRosters():
+	with open(f"{prefix}static/ncaabreference/teams.json") as fh:
+		teams = json.load(fh)
+	with open(f"{prefix}static/ncaabreference/playerIds.json") as fh:
+		playerIds = json.load(fh)
+	with open(f"{prefix}static/ncaabreference/roster.json") as fh:
+		roster = json.load(fh)
+
+	for team in os.listdir(f"{prefix}static/ncaabreference/"):
+		if team.endswith(".json"):
+			continue
+
+		if team in roster:
+			#pass
+			continue
+
+		roster[team] = {}
+		if team not in teams:
+			writeTeamId(teams, team)
+		if team not in teams:
+			continue
+		teamId = teams[team]["id"]
+
+		if team not in playerIds:
+			playerIds[team] = {}
+
+		time.sleep(0.5)
+		url = f"https://www.espn.com/mens-college-basketball/team/roster/_/id/{teamId}/"
+		outfile = "out"
+		call(["curl", "-k", url, "-o", outfile])
+		soup = BS(open(outfile, 'rb').read(), "lxml")
+
+		if not soup.find("table"):
+			continue
+
+		for row in soup.find("table").findAll("tr")[1:]:
+			nameLink = row.findAll("td")[1].find("a").get("href").split("/")
+			fullName = nameLink[-1].replace("-", " ")
+			playerId = int(nameLink[-2])
+			playerIds[team][fullName] = playerId
+			roster[team][fullName] = row.findAll("td")[2].text.strip()
+
+	with open(f"{prefix}static/ncaabreference/playerIds.json", "w") as fh:
+		json.dump(playerIds, fh, indent=4)
+
+	with open(f"{prefix}static/ncaabreference/roster.json", "w") as fh:
+		json.dump(roster, fh, indent=4)
+
+	with open(f"{prefix}static/ncaabreference/teams.json", "w") as fh:
+		json.dump(teams, fh, indent=4)
 
 def writeMissingTeamStats(teamArg):
 	date = datetime.datetime.now()
@@ -217,8 +294,11 @@ def writeMissingTeamStats(teamArg):
 		schedule = json.load(fh)
 	
 	for team in teamArg.lower().split(","):
+		if team not in teams:
+			writeTeamId(teams, team)
 		teamId = teams[team]["id"]
 
+		time.sleep(0.4)
 		url = f"https://site.web.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/{teamId}/schedule?region=us&lang=en&seasontype=2"
 		outfile = "out"
 		call(["curl", "-k", url, "-o", outfile])
@@ -229,7 +309,7 @@ def writeMissingTeamStats(teamArg):
 		for row in data["events"]:
 			dt = datetime.datetime.strptime(row["date"],"%Y-%m-%dT%H:%MZ") - datetime.timedelta(hours=5)
 			date = str(dt)[:10]
-			if datetime.datetime.strptime(date, "%Y-%m-%d") > datetime.datetime.now():
+			if datetime.datetime.strptime(date, "%Y-%m-%d") > datetime.datetime.strptime(str(datetime.datetime.now())[:10], "%Y-%m-%d"):
 				continue
 			game = row["shortName"].lower()
 
@@ -244,10 +324,15 @@ def writeMissingTeamStats(teamArg):
 				boxscores[date][game] = row["id"]
 				for teamRow in row["competitions"][0]["competitors"]:
 					t = teamRow["team"]["abbreviation"].lower()
+					if "score" not in teamRow:
+						continue
 					scores[date][t] = teamRow["score"]["value"]
 
 	with open(f"{prefix}static/ncaabreference/scores.json", "w") as fh:
 		json.dump(scores, fh, indent=4)
+
+	with open(f"{prefix}static/ncaabreference/teams.json", "w") as fh:
+		json.dump(teams, fh, indent=4)
 
 	with open(f"{prefix}static/ncaabreference/boxscores.json", "w") as fh:
 		json.dump(boxscores, fh, indent=4)
@@ -346,6 +431,7 @@ if __name__ == "__main__":
 	parser.add_argument("-d", "--date", help="Date")
 	parser.add_argument("-s", "--start", help="Start Week", type=int)
 	parser.add_argument("-t", "--teams", help="Teams")
+	parser.add_argument("--roster", help="Roster", action="store_true")
 	parser.add_argument("--schedule", help="Schedule", action="store_true")
 	parser.add_argument("-e", "--end", help="End Week", type=int)
 	parser.add_argument("-w", "--week", help="Week", type=int)
@@ -363,6 +449,8 @@ if __name__ == "__main__":
 	#writePlayerIds()
 	if args.averages:
 		write_averages()
+	elif args.roster:
+		writeRosters()
 	elif args.schedule:
 		write_schedule(date)
 	elif args.teams:
