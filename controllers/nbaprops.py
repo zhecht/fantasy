@@ -244,79 +244,78 @@ def writeLineups():
 	with open(f"{prefix}static/nbaprops/csvs/lineups.csv", "w") as fh:
 		fh.write(out)
 
-
 def writeProps(date):
-	actionNetworkBookIds = {
-		68: "draftkings",
-		69: "fanduel"
+	ids = {
+		"pts": 4991,
+		"reb": 4992,
+		"ast": 5000,
+		"pts+reb+ast": 5001,
+		"pts+reb": 9976,
+		"pts+ast": 9973,
+		"reb+ast": 9974,
+		"stl+blk": 9975,
+		"3ptm": 6209,
+		"blk": 7346,
+		"stl": 9971,
+		"to": 7965,
+		"pts-1q": 12408,
+		"reb-1q": 12409,
+		"ast-1q": 12410
 	}
-	propMap = {
-		"3ptm": "core_bet_type_21_3fgm",
-		"reb": "core_bet_type_23_rebounds",
-		"stl": "core_bet_type_24_steals",
-		"blk": "core_bet_type_25_blocks",
-		"ast": "core_bet_type_26_assists",
-		"pts": "core_bet_type_27_points",
-		"pts+reb+ast": "core_bet_type_85_points_rebounds_assists",
-		"pts+reb": "core_bet_type_86_points_rebounds",
-		"pts+ast": "core_bet_type_87_points_assists",
-		"reb+ast": "core_bet_type_88_rebounds_assists",
-		"stl+blk": "core_bet_type_89_steals_blocks"
-	}
+
 	props = {}
-	optionTypes = {}
-	for prop in ["pts", "ast", "reb", "blk", "stl", "pts+ast", "pts+reb", "pts+reb+ast", "reb+ast", "stl+blk", "3ptm"]:
+	for prop in ids:
+		time.sleep(0.5)
+		url = f"https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/42648/categories/583/subcategories/{ids[prop]}?format=json"
+		outfile = "out"
+		call(["curl", "-k", url, "-o", outfile])
 
-		path = f"{prefix}static/nbaprops/{prop}.json"
-		url = f"https://api.actionnetwork.com/web/v1/leagues/4/props/{propMap[prop]}?bookIds=69,68&date={date.replace('-', '')}"
-		time.sleep(0.4)
-		os.system(f"curl -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0' -k \"{url}\" -o {path}")
+		with open("out") as fh:
+			data = json.load(fh)
 
-		with open(path) as fh:
-			j = json.load(fh)
-
-		with open(path, "w") as fh:
-			json.dump(j, fh, indent=4)
-
-		if "markets" not in j:
+		events = {}
+		if "eventGroup" not in data:
 			continue
-		market = j["markets"][0]
+		for event in data["eventGroup"]["events"]:
+			if "teamShortName1" not in event:
+				game = convertDKTeam(event["teamName1"].lower()) + " @ " + convertDKTeam(event["teamName2"].lower())
+			else:
+				game = convertDKTeam(event["teamShortName1"].lower()) + " @ " + convertDKTeam(event["teamShortName2"].lower())
+			if game not in props:
+				props[game] = {}
+			events[event["eventId"]] = game
 
-		for option in market["rules"]["options"]:
-			optionTypes[int(option)] = market["rules"]["options"][option]["option_type"].lower()
-
-		teamIds = {}
-		for row in market["teams"]:
-			teamIds[row["id"]] = row["abbr"].lower()
-
-		playerIds = {}
-		for row in market["players"]:
-			playerIds[row["id"]] = row["full_name"].lower()
-
-		books = market["books"]
-		for bookData in books:
-			bookId = bookData["book_id"]
-			if bookId not in actionNetworkBookIds:
+		for catRow in data["eventGroup"]["offerCategories"]:
+			if not catRow["name"].lower() == "player props":
 				continue
-			for oddData in bookData["odds"]:
-				player = playerIds[oddData["player_id"]]
-				team = teamIds[oddData["team_id"]]
-				overUnder = optionTypes[oddData["option_type_id"]]
-				book = actionNetworkBookIds[bookId]
+			for cRow in catRow["offerSubcategoryDescriptors"]:
+				if cRow["subcategoryId"] != ids[prop]:
+					continue
+				for offerRow in cRow["offerSubcategory"]["offers"]:
+					for row in offerRow:
+						game = events[row["eventId"]]
+						player = row["outcomes"][0]["participant"].lower().replace(".", "").replace("'", "").replace("-", " ")
+						if player == "nicolas claxton":
+							player = "nic claxton"
+						elif player == "marvin bagley":
+							player = "marvin bagley iii"
+						odds = ["",""]
+						line = row["outcomes"][0]["line"]
+						for outcome in row["outcomes"]:
+							if outcome["label"].lower() == "over":
+								odds[0] = outcome["oddsAmerican"]
+							else:
+								odds[1] = outcome["oddsAmerican"]
 
-				if team not in props:
-					props[team] = {}
-				if player not in props[team]:
-					props[team][player] = {}
-				if prop not in props[team][player]:
-					props[team][player][prop] = {}
-				if book not in props[team][player][prop]:
-					props[team][player][prop][book] = {}
-				props[team][player][prop][book][overUnder] = f"{overUnder[0]}{oddData['value']} ({oddData['money']})"
-				if "line" not in props[team][player][prop]:
-					props[team][player][prop]["line"] = f"o{oddData['value']}"
-				elif oddData['value'] < float(props[team][player][prop]["line"][1:]):
-					props[team][player][prop]["line"] = f"o{oddData['value']}"
+						if player not in props[game]:
+							props[game][player] = {}
+						if prop not in props[game][player]:
+							props[game][player][prop] = {}
+						props[game][player][prop] = {
+							"line": line,
+							"over": odds[0],
+							"under": odds[1]
+						}
 
 	with open(f"{prefix}static/nbaprops/dates/{date}.json", "w") as fh:
 		json.dump(props, fh, indent=4)
@@ -366,13 +365,13 @@ def getOppOvers(schedule, roster):
 def getProps_route():
 	res = []
 
-	teams = request.args.get("teams") or ""
-	if teams:
-		teams = teams.lower().split(",")
+	teamsArg = request.args.get("teams") or ""
+	if teamsArg:
+		teamsArg = teamsArg.lower().split(",")
 	alt = request.args.get("alt") or ""
-	players = request.args.get("players") or []
-	if players:
-		playes = players.split(",")
+	playersArg = request.args.get("players") or []
+	if playersArg:
+		playersArg = playersArg.split(",")
 
 	date = datetime.now()
 	date = str(date)[:10]
@@ -398,34 +397,38 @@ def getProps_route():
 	#propData = customPropData(propData)
 
 	props = []
-	for team in propData:
-		espnTeam = fixNBATeam(team)
-		opp = game = ""
-		if date in schedule:
-			for t in schedule[date]:
-				game = t
-				t = t.split(" @ ")
-				if espnTeam in t:
-					if t.index(espnTeam) == 0:
-						opp = t[1]
-					else:
-						opp = t[0]
-					break
+	for game in propData:
+		for propName in propData[game]:
+			name = propName
 
-		if teams and team not in teams:
-			continue
+			team = opp = ""
+			gameSp = game.split(" @ ")
+			team1, team2 = gameSp[0], gameSp[1]
+			if name in stats[team1]:
+				team = team1
+				opp = team2
+			elif name in stats[team2]:
+				team = team2
+				opp = team1
+			else:
+				print(game, name)
+				continue
 
-		for propName in propData[team]:
-			name = propName.replace("-", " ").replace(".", "").replace("'", "")
+			if teamsArg and team not in teamsArg:
+				continue
 
-			if players and name not in players:
+			if playersArg and name not in playersArg:
 				continue
 
 			avgMin = 0
-			if espnTeam in stats and name in stats[espnTeam] and stats[espnTeam][name]["gamesPlayed"]:
-				avgMin = int(stats[espnTeam][name]["min"] / stats[espnTeam][name]["gamesPlayed"])
-			for prop in propData[team][propName]:
-				line = propData[team][propName][prop]["line"]
+			if team in stats and name in stats[team] and stats[team][name]["gamesPlayed"]:
+				avgMin = int(stats[team][name]["min"] / stats[team][name]["gamesPlayed"])
+			for prop in propData[game][propName]:
+
+				if prop == "to" or "-1q" in prop:
+					continue
+
+				line = propData[game][propName][prop]["line"]
 				avg = "-"
 
 				if "+" in prop:
@@ -435,33 +438,17 @@ def getProps_route():
 					#continue
 					pass
 
-				if espnTeam in stats and name in stats[espnTeam] and stats[espnTeam][name]["gamesPlayed"]:
+				if team in stats and name in stats[team] and stats[team][name]["gamesPlayed"]:
 					val = 0
 					if "+" in prop:
 						for p in prop.split("+"):
-							val += stats[espnTeam][name][p]
-					elif prop in stats[espnTeam][name]:
-						val = stats[espnTeam][name][prop]
-					avg = round(val / stats[espnTeam][name]["gamesPlayed"], 1)
-				# get best odds
-				overOdds = underOdds = float('-inf')
-				for book in propData[team][propName][prop]:
-					if book == "line" or not propData[team][propName][prop][book]["over"]:
-						continue
+							val += stats[team][name][p]
+					elif prop in stats[team][name]:
+						val = stats[team][name][prop]
+					avg = round(val / stats[team][name]["gamesPlayed"], 1)
 
-					line = propData[team][propName][prop]["line"][1:]
-					over = propData[team][propName][prop][book]["over"]
-					overLine = over.split(" ")[0][1:]
-					overOdd = int(over.split(" ")[1][1:-1])
-					if overLine == line and overOdd > overOdds:
-						overOdds = overOdd
-
-					under = propData[team][propName][prop][book].get("under", 0)
-					if under:
-						underLine = under.split(" ")[0][1:]
-						underOdd = int(under.split(" ")[1][1:-1])
-						if underLine == line and underOdd > underOdds:
-							underOdds = underOdd
+				overOdds = propData[game][propName][prop]["over"]
+				underOdds = propData[game][propName][prop]["under"]
 
 				try:
 					line = float(line)
@@ -505,26 +492,15 @@ def getProps_route():
 					if line < 0:
 						line = 0
 
-				if overOdds == float('-inf'):
-					continue
-					pass
-					
-				overOdds = str(overOdds)
-				underOdds = str(underOdds)
-				if not overOdds.startswith("-"):
-					overOdds = "+"+overOdds
-				if not underOdds.startswith("-"):
-					underOdds = "+"+underOdds
-
 				lastAvg = lastAvgMin = 0
 				proj = 0
-				if name in averages[espnTeam] and averages[espnTeam][name]:
-					lastAvgMin = averages[espnTeam][name]["min"]
+				if name in averages[team] and averages[team][name]:
+					lastAvgMin = averages[team][name]["min"]
 					if "+" in prop:
 						for p in prop.split("+"):
-							lastAvg += averages[espnTeam][name][p]
-					elif prop in averages[espnTeam][name]:
-						lastAvg = averages[espnTeam][name][prop]
+							lastAvg += averages[team][name][p]
+					elif prop in averages[team][name]:
+						lastAvg = averages[team][name][prop]
 					proj = lastAvg / lastAvgMin
 					lastAvg = round(lastAvg, 1)
 
@@ -535,17 +511,17 @@ def getProps_route():
 					diff = round((lastAvg / float(line) - 1), 2)
 
 				lastTotalOver = lastTotalGames = 0
-				if line and avgMin and name in lastYearStats[espnTeam] and lastYearStats[espnTeam][name]:
-					for dt in lastYearStats[espnTeam][name]:
-						minutes = lastYearStats[espnTeam][name][dt]["min"]
+				if line and avgMin and name in lastYearStats[team] and lastYearStats[team][name]:
+					for dt in lastYearStats[team][name]:
+						minutes = lastYearStats[team][name][dt]["min"]
 						if minutes > 0:
 							lastTotalGames += 1
 							if "+" in prop:
 								val = 0.0
 								for p in prop.split("+"):
-									val += lastYearStats[espnTeam][name][dt][p]
+									val += lastYearStats[team][name][dt][p]
 							else:
-								val = lastYearStats[espnTeam][name][dt][prop]
+								val = lastYearStats[team][name][dt][prop]
 							valPerMin = float(val / minutes)
 							linePerMin = float(line) / avgMin
 							if valPerMin > linePerMin:
@@ -559,7 +535,7 @@ def getProps_route():
 				lastAllPerMin = []
 				hit = False
 				if line and avgMin:
-					files = sorted(glob.glob(f"{prefix}static/basketballreference/{espnTeam}/*.json"), key=lambda k: datetime.strptime(k.split("/")[-1].replace(".json", ""), "%Y-%m-%d"), reverse=True)
+					files = sorted(glob.glob(f"{prefix}static/basketballreference/{team}/*.json"), key=lambda k: datetime.strptime(k.split("/")[-1].replace(".json", ""), "%Y-%m-%d"), reverse=True)
 					for file in files:
 						chkDate = file.split("/")[-1].replace(".json","")
 						with open(file) as fh:
@@ -617,7 +593,7 @@ def getProps_route():
 					else:
 						diffAbs = diffAvg
 
-				pos = roster[espnTeam][name]
+				pos = roster[team][name]
 
 				oppRank = ""
 				rankingsPos = pos
@@ -647,7 +623,7 @@ def getProps_route():
 				props.append({
 					"game": game,
 					"player": name.title(),
-					"team": espnTeam.upper(),
+					"team": team.upper(),
 					"opponent": opp,
 					"hit": hit,
 					"position": pos,
@@ -675,10 +651,9 @@ def getProps_route():
 					"underOdds": underOdds
 				})
 
-	if not alt:
+	if not alt and not playersArg:
 		teamTotals(date, schedule)
 		write_csvs(props)
-		h2h(props)
 	return jsonify(props)
 
 def h2h(props):
@@ -870,26 +845,6 @@ def convertRankingsProp(prop):
 		return "fgpg"
 	return prop[0]+"pg"
 
-@nbaprops_blueprint.route('/nbaprops')
-def props_route():
-	spread = line = 0
-	prop = alt = date = teams = players = ""
-	if request.args.get("prop"):
-		prop = request.args.get("prop").replace(" ", "+")
-	if request.args.get("alt"):
-		alt = request.args.get("alt")
-	if request.args.get("date"):
-		date = request.args.get("date")
-	if request.args.get("teams"):
-		teams = request.args.get("teams")
-	if request.args.get("players"):
-		players = request.args.get("players")
-	if request.args.get("line"):
-		line = request.args.get("line")
-	if request.args.get("spread"):
-		spread = request.args.get("spread")
-	return render_template("nbaprops.html", prop=prop, alt=alt, date=date, teams=teams, players=players, line=line, spread=spread)
-
 def zeroProps():
 	with open(f"{prefix}static/nbaprops/customProps.json") as fh:
 		data = json.load(fh)
@@ -905,6 +860,12 @@ def convertDKTeam(team):
 		return "wsh"
 	elif team == "pho":
 		return "phx"
+	elif team == "uta":
+		return "utah"
+	elif team == "sas":
+		return "sa"
+	elif team == "nyk":
+		return "ny"
 	return team
 
 def writeH2H():
@@ -953,6 +914,129 @@ def writeH2H():
 
 	with open(f"{prefix}static/nbaprops/h2h.json", "w") as fh:
 		json.dump(h2h, fh, indent=4)
+
+
+@nbaprops_blueprint.route('/nbaprops')
+def props_route():
+	spread = line = 0
+	prop = alt = date = teams = players = ""
+	if request.args.get("prop"):
+		prop = request.args.get("prop").replace(" ", "+")
+	if request.args.get("alt"):
+		alt = request.args.get("alt")
+	if request.args.get("date"):
+		date = request.args.get("date")
+	if request.args.get("teams"):
+		teams = request.args.get("teams")
+	if request.args.get("players"):
+		players = request.args.get("players")
+	if request.args.get("line"):
+		line = request.args.get("line")
+	if request.args.get("spread"):
+		spread = request.args.get("spread")
+	return render_template("nbaprops.html", prop=prop, alt=alt, date=date, teams=teams, players=players, line=line, spread=spread)
+
+@nbaprops_blueprint.route('/getH2HNBAProps')
+def getH2HProps_route():
+	res = []
+
+	teamsArg = request.args.get("teams") or ""
+	if teamsArg:
+		teamsArg = teamsArg.lower().split(",")
+	playersArg = request.args.get("players") or []
+	if playersArg:
+		playersArg = players.split(",")
+
+	date = datetime.now()
+	date = str(date)[:10]
+
+	with open(f"{prefix}static/nbaprops/dates/{date}.json") as fh:
+		propData = json.load(fh)
+	with open(f"{prefix}static/basketballreference/totals.json") as fh:
+		stats = json.load(fh)
+	with open(f"{prefix}static/basketballreference/rankings.json") as fh:
+		rankings = json.load(fh)
+	with open(f"{prefix}static/basketballreference/schedule.json") as fh:
+		schedule = json.load(fh)
+	with open(f"{prefix}static/basketballreference/roster.json") as fh:
+		roster = json.load(fh)
+	with open(f"{prefix}static/nbaprops/h2h.json") as fh:
+		h2h = json.load(fh)
+
+	res = []
+	playerStats = {}
+	for game in h2h:
+		teams = game.split(" @ ")
+		for team in teams:
+			if team not in playerStats:
+				playerStats[team] = {}
+			for file in glob.glob(f"{prefix}static/basketballreference/{team}/*.json"):
+				dt = file.split("/")[-1][:-5]
+				if dt not in playerStats[team]:
+					with open(file) as fh:
+						playerStats[team][dt] = json.load(fh)
+		for prop in h2h[game]:
+			for matchup in h2h[game][prop]:
+				odds = h2h[game][prop][matchup].split(",")
+				players = matchup.split(" v ")
+
+				arrs = [[], []]
+				lines = [0,0]
+				for pIdx, player in enumerate(players):
+					team = game.split(" @ ")[pIdx]
+					if game in propData and player in propData[game]:
+						lines[pIdx] = propData[game][player][prop]["line"]
+					for dt in sorted(playerStats[team], key=lambda k: datetime.strptime(k, "%Y-%m-%d"), reverse=True):
+						if player in playerStats[team][dt] and playerStats[team][dt][player].get("min", 0) > 0:
+							arrs[pIdx].append(playerStats[team][dt][player][prop])
+
+
+				straightOver = straightTotal = 0
+				for num1, num2 in zip(arrs[0], arrs[1]):
+					if num1 == num2:
+						continue
+					elif num1 > num2:
+						straightOver += 1
+					straightTotal += 1
+				if straightTotal:
+					straightOver = round(straightOver * 100 / straightTotal)
+
+				allPairsOver = allPairsTotal = 0
+				for num1 in arrs[0]:
+					for num2 in arrs[1]:
+						if num1 == num2:
+							continue
+						elif num1 > num2:
+							allPairsOver += 1
+						allPairsTotal += 1
+				if allPairsTotal:
+					allPairsOver = round(allPairsOver * 100 / allPairsTotal)
+
+				res.append({
+					"game": game,
+					"prop": prop,
+					"matchup": f"{players[0].title()} ({odds[0]}) v {players[1].title()} ({odds[1]})",
+					"player1": players[0].split(" ")[1].title(),
+					"line1": lines[0],
+					"log1": ",".join([str(x) for x in arrs[0]]),
+					"player2": players[1].split(" ")[1].title(),
+					"line2": lines[1],
+					"log2": ",".join([str(x) for x in arrs[1]]),
+					"straightOver": straightOver,
+					"allPairsOver": allPairsOver
+				})
+
+	return jsonify(res)
+
+
+@nbaprops_blueprint.route('/h2hnba')
+def h2hprops_route():
+	teams = players = ""
+	if request.args.get("teams"):
+		teams = request.args.get("teams")
+	if request.args.get("players"):
+		players = request.args.get("players")
+	return render_template("h2hnba.html", teams=teams, players=players)
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()

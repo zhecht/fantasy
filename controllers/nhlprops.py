@@ -57,6 +57,8 @@ def getProps_route():
 		lastYearStats = json.load(fh)
 	with open(f"{prefix}static/hockeyreference/schedule.json") as fh:
 		schedule = json.load(fh)
+	with open(f"{prefix}static/nhlprops/lines.json") as fh:
+		gameLines = json.load(fh)
 
 	props = []
 	for game in propData:
@@ -219,6 +221,13 @@ def getProps_route():
 							oppOver += 1
 					oppOver = round(oppOver * 100 / oppOverTot)
 
+				gameLine = ""
+				if game in gameLines:
+					gameOdds = gameLines[game]["moneyline"]["odds"].split(",")
+					if team == game.split(" @ ")[0]:
+						gameLine = gameOdds[0]
+					else:
+						gameLine = gameOdds[1]
 
 				props.append({
 					"player": player.title(),
@@ -236,17 +245,22 @@ def getProps_route():
 					"proj": proj,
 					"lastAvgMin": lastAvgMin,
 					"oppOver": oppOver,
+					"gameLine": gameLine,
 					"winLossSplits": winLoss,
 					"ptsPerGame": round((rankings[team]["tot"]["G"] / rankings[team]["tot"]["GP"]) + rankings[team]["tot"]["A/GP"], 1),
 					"ptsPerGameLast5": round((rankings[team]["last5"]["G"] / rankings[team]["last5"]["GP"]) + rankings[team]["last5"]["A/GP"], 1),
+					"savesPerGame": round(rankings[team]["tot"]["SA/GP"]-rankings[team]["tot"]["GA"]/rankings[team]["tot"]["GP"], 1),
+					"savesPerGameLast3": round(rankings[team]["last3"]["SA/GP"]-rankings[team]["last3"]["GA"]/rankings[team]["last3"]["GP"], 1),
+					"savesPerGameLast5": round(rankings[team]["last5"]["SA/GP"]-rankings[team]["last5"]["GA"]/rankings[team]["last5"]["GP"], 1),
 					"shotsPerGame": round(rankings[team]["tot"]["S/GP"], 1),
 					"shotsPerGameLast5": round(rankings[team]["last5"]["S/GP"], 1),
 					"shotsAgainstPerGame": round(rankings[team]["tot"]["SA/GP"], 1),
 					"shotsAgainstPerGameLast5": round(rankings[team]["last5"]["SA/GP"], 1),
 					"oppPtsPerGame": round((rankings[opp]["tot"]["GA"] / rankings[opp]["tot"]["GP"]) + (rankings[opp]["tot"]["OPP A"] / rankings[opp]["tot"]["GP"]), 1),
 					"oppPtsPerGameLast5": round((rankings[opp]["last5"]["GA"] / rankings[opp]["last5"]["GP"]) + (rankings[opp]["last5"]["OPP A"] / rankings[opp]["last5"]["GP"]), 1),
-					"oppShotsPerGame": round(rankings[opp]["tot"]["S/GP"], 1),
-					"oppShotsPerGameLast5": round(rankings[opp]["last5"]["S/GP"], 1),
+					"oppSavesAgainstPerGame": round(rankings[opp]["tot"]["S/GP"]-rankings[opp]["tot"]["G"]/rankings[opp]["tot"]["GP"], 1),
+					"oppSavesAgainstPerGameLast3": round(rankings[opp]["last3"]["S/GP"]-rankings[opp]["last3"]["G"]/rankings[opp]["last3"]["GP"], 1),
+					"oppSavesAgainstPerGameLast5": round(rankings[opp]["last5"]["S/GP"]-rankings[opp]["last5"]["G"]/rankings[opp]["last5"]["GP"], 1),
 					"oppShotsAgainstPerGame": round(rankings[opp]["tot"]["SA/GP"], 1),
 					"oppShotsAgainstPerGameLast5": round(rankings[opp]["last5"]["SA/GP"], 1),
 					"totalOver": totalOver,
@@ -406,6 +420,63 @@ def convertDKTeam(team):
 		return "wsh"
 	return team
 
+def writeGameLines(date):
+	with open(f"{prefix}static/nhlprops/lines.json") as fh:
+		lines = json.load(fh)
+
+	url = "https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/42133?format=json"
+	outfile = "out"
+	call(["curl", "-k", url, "-o", outfile])
+
+	with open("out") as fh:
+		data = json.load(fh)
+
+	events = {}
+	lines = {}
+	displayTeams = {}
+	if "eventGroup" not in data:
+		return
+	for event in data["eventGroup"]["events"]:
+		displayTeams[event["teamName1"].lower()] = event["teamShortName1"].lower()
+		displayTeams[event["teamName2"].lower()] = event["teamShortName2"].lower()
+		game = convertDKTeam(event["teamShortName1"].lower()) + " @ " + convertDKTeam(event["teamShortName2"].lower())
+		if game not in lines:
+			lines[game] = {}
+		events[event["eventId"]] = game
+
+	for catRow in data["eventGroup"]["offerCategories"]:
+		if catRow["name"].lower() != "game lines":
+			continue
+		for cRow in catRow["offerSubcategoryDescriptors"]:
+			if cRow["name"].lower() != "game":
+				continue
+			for offerRow in cRow["offerSubcategory"]["offers"]:
+				for row in offerRow:
+					game = events[row["eventId"]]
+					gameType = row["label"].lower().split(" ")[-1]
+
+					switchOdds = False
+					team1 = ""
+					if gameType != "total":
+						outcomeTeam1 = row["outcomes"][0]["label"].lower()
+						team1 = displayTeams[outcomeTeam1]
+						if team1 != game.split(" @ ")[0]:
+							switchOdds = True
+
+					odds = [row["outcomes"][0]["oddsAmerican"], row["outcomes"][1]["oddsAmerican"]]
+					if switchOdds:
+						odds[0], odds[1] = odds[1], odds[0]
+
+					line = row["outcomes"][0].get("line", 0)
+					lines[game][gameType] = {
+						"line": line,
+						"odds": ",".join(odds)
+					}
+
+	with open(f"{prefix}static/nhlprops/lines.json", "w") as fh:
+		json.dump(lines, fh, indent=4)
+
+
 def writeGoalieProps(date):
 
 	url = "https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/42133/categories/1064?format=json"
@@ -540,6 +611,7 @@ def goalieLines(props):
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-c", "--cron", action="store_true", help="Start Cron Job")
+	parser.add_argument("--lines", action="store_true", help="Game Lines")
 	parser.add_argument("-d", "--date", help="Date")
 	parser.add_argument("-w", "--week", help="Week", type=int)
 
@@ -550,6 +622,9 @@ if __name__ == "__main__":
 		date = datetime.now()
 		date = str(date)[:10]
 
-	if args.cron:
+	if args.lines:
+		writeGameLines(date)
+	elif args.cron:
 		writeProps(date)
 		writeGoalieProps(date)
+		#writeGameLines(date)

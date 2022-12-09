@@ -206,8 +206,8 @@ def writeRankings():
 	baseurl = f"https://www.statmuse.com/nhl/ask/"
 
 	rankings = {}
-	shortIds = ["tot", "last5", "tot", "last5"]
-	urls = ["nhl+team+goals+%2B+assists+per+game+this+year", "nhl+team+goals+%2B+assists+per+game+last+5+games", "nhl-team-goals-allowed-plus-assists-allowed-per-game-this-year", "nhl-team-goals-allowed-plus-assists-allowed-per-game-last-5-games"]
+	shortIds = ["tot", "last3", "last5", "tot", "last3", "last5"]
+	urls = ["nhl+team+goals+%2B+assists+per+game+this+year", "nhl+team+goals+%2B+assists+per+game+last+3+games", "nhl+team+goals+%2B+assists+per+game+last+5+games", "nhl-team-goals-allowed-plus-assists-allowed-per-game-this-year", "nhl-team-goals-allowed-plus-assists-allowed-per-game-last-3-games", "nhl-team-goals-allowed-plus-assists-allowed-per-game-last-5-games"]
 	for timePeriod, url in zip(shortIds, urls):
 		outfile = "out2"
 		time.sleep(0.3)

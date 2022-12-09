@@ -208,16 +208,19 @@
                         {title: "Hit", field: "hit", formatter:"tickCross", width: 60, hozAlign: "center"},
 						{title: "Player", field: "player", headerFilter: "input"},
 						{title: "Avg Min", field: "avgMin", hozAlign: "center", width: 70},
+						{title: "Puck Line", field: "gameLine",  hozAlign: "center", width: 70},
 						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
 						{title: "PTS/G", field: "ptsPerGame", hozAlign: "center", width: 70},
 						{title: "L5 PTS/G", field: "ptsPerGameLast5", hozAlign: "center", width: 70},
 						{title: "S/G", field: "shotsPerGame", hozAlign: "center", width: 70},
 						{title: "L5 S/G", field: "shotsPerGameLast5", hozAlign: "center", width: 70},
-						{title: "SA/G", field: "shotsAgainstPerGame", hozAlign: "center", width: 70, formatter: colorFormatter},
-						{title: "L5 SA/G", field: "shotsAgainstPerGameLast5", hozAlign: "center", width: 70, formatter: colorFormatter},
+						{title: "SV/G", field: "savesPerGame", hozAlign: "center", width: 70, formatter: colorFormatter},
+						{title: "L5 SV/G", field: "savesPerGameLast5", hozAlign: "center", width: 70, formatter: colorFormatter},
+						{title: "L3 SV/G", field: "savesPerGameLast3", hozAlign: "center", width: 70, formatter: colorFormatter},
 						{title: "Opp", field: "opponent", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
-						{title: "Opp S/G", field: "oppShotsPerGame", hozAlign: "center", width: 70, formatter: colorFormatter},
-						{title: "L5 Opp S/G", field: "oppShotsPerGameLast5", hozAlign: "center", width: 70, formatter: colorFormatter},
+						{title: "Opp Saves_A/G", field: "oppSavesAgainstPerGame", hozAlign: "center", width: 70, formatter: colorFormatter},
+						{title: "L5 Opp Saves_A/G", field: "oppSavesAgainstPerGameLast5", hozAlign: "center", width: 70, formatter: colorFormatter},
+						{title: "L3 Opp Saves_A/G", field: "oppSavesAgainstPerGameLast3", hozAlign: "center", width: 70, formatter: colorFormatter},
 						{title: "Opp SA/G", field: "oppShotsAgainstPerGame", hozAlign: "center", width: 70},
 						{title: "L5 Opp SA/G", field: "oppShotsAgainstPerGameLast5", hozAlign: "center", width: 70},
 						{title: "Opp PTS/G", field: "oppPtsPerGame", hozAlign: "center", width: 70},
@@ -227,11 +230,6 @@
 						{title: "Line", field: "line", hozAlign: "center"},
 						{title: "SZN AVG", field: "avg", hozAlign: "center", width: 80, formatter: colorFormatter},
 						{title: "W-L Splits", field: "winLossSplits", hozAlign: "center", width: 150},
-						//{title: "Proj", field: "proj", hozAlign: "center", width: 80},
-						/*
-						{title: "", field: "diffAvg", hozAlign: "center", visible: true},
-						{title: "", field: "diff", hozAlign: "center", visible: true},
-						*/
 						{title: "", field: "diffAbs", hozAlign: "center", visible: false},
 						{title: "Total Over", field: "totalOver", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
 						{title: "L5 Total Over", field: "totalOverLast5", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
@@ -264,10 +262,12 @@
 		{% endif %}
 		{% if prop != "sv" %}
 			<script>
-				TABLE.getColumn("shotsAgainstPerGame").hide();
-				TABLE.getColumn("shotsAgainstPerGameLast5").hide();
-				TABLE.getColumn("oppShotsPerGame").hide();
-				TABLE.getColumn("oppShotsPerGameLast5").hide();
+				TABLE.getColumn("savesPerGame").hide();
+				TABLE.getColumn("savesPerGameLast3").hide();
+				TABLE.getColumn("savesPerGameLast5").hide();
+				TABLE.getColumn("oppSavesAgainstPerGame").hide();
+				TABLE.getColumn("oppSavesAgainstPerGameLast3").hide();
+				TABLE.getColumn("oppSavesAgainstPerGameLast5").hide();
 				TABLE.getColumn("oppOver").hide();
 			</script>
 		{% endif %}
