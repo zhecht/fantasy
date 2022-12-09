@@ -157,8 +157,11 @@ def write_averages():
 	for team in ids:
 		if team not in averages:
 			averages[team] = {}
-		if team not in lastYearStats:
-			lastYearStats[team] = {}
+
+		lastYearStats[team] = {}
+		if os.path.exists(f"{prefix}static/ncaabreference/{team}/lastYearStats.json"):
+			with open(f"{prefix}static/ncaabreference/{team}/lastYearStats.json") as fh:
+				lastYearStats[team] = json.load(fh)
 
 		for player in ids[team]:
 			pId = ids[team][player]
@@ -170,7 +173,7 @@ def write_averages():
 			averages[team][player] = {}
 			lastYearStats[team][player] = {}
 
-			time.sleep(0.175)
+			time.sleep(0.25)
 			url = f"https://www.espn.com/mens-college-basketball/player/gamelog/_/id/{pId}/type/mens-college-basketball/year/2022"
 			outfile = "out"
 			call(["curl", "-k", url, "-o", outfile])
@@ -364,7 +367,7 @@ def write_schedule(date):
 		scores = json.load(fh)
 
 	#time.sleep(0.4)
-	url = f"https://site.web.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?region=us&lang=en&contentorigin=espn&limit=300&dates={date.replace('-','')}&tz=America/New_York"
+	url = f"https://site.web.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?region=us&lang=en&contentorigin=espn&limit=300&dates={date.replace('-','')}&seasontype=2&groups=50&tz=America/New_York"
 	outfile = "out"
 	call(["curl", "-k", url, "-o", outfile])
 

@@ -359,11 +359,12 @@ def write_csvs(props):
 
 	# add top 4 to reddit
 	for prop in ["sog", "pts"]:
-		rows = sorted(splitProps[prop], key=lambda k: (k["totalOverLast5"], k["totalOver"]), reverse=True)
-		for row in rows[:4]:
-			overOdds = row["overOdds"]
-			underOdds = row["underOdds"]
-			reddit += "\n" + "|".join([row["player"], row["team"], row["propType"], str(row["line"]), str(row["avg"]), f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
+		if prop in splitProps:
+			rows = sorted(splitProps[prop], key=lambda k: (k["totalOverLast5"], k["totalOver"]), reverse=True)
+			for row in rows[:4]:
+				overOdds = row["overOdds"]
+				underOdds = row["underOdds"]
+				reddit += "\n" + "|".join([row["player"], row["team"], row["propType"], str(row["line"]), str(row["avg"]), f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
 		reddit += "\n-|-|-|-|-|-|-|-|-|-|-"
 
 	with open(f"{prefix}static/nhlprops/csvs/reddit", "w") as fh:
@@ -401,6 +402,8 @@ def props_route():
 	return render_template("nhlprops.html", prop=prop, alt=alt, date=date, teams=teams)
 
 def convertDKTeam(team):
+	if team == "was":
+		return "wsh"
 	return team
 
 def writeGoalieProps(date):
@@ -466,11 +469,11 @@ def writeProps(date):
 	props = {}
 	for catId, subCatId, prop in zip(catIds, subCatIds, propNames):
 		time.sleep(0.5)
-		outfile = "out"
+		outfile = "out2"
 		url = f"https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/42133/categories/{catId}/subcategories/{subCatId}?format=json"
 		call(["curl", "-k", url, "-o", outfile])
 
-		with open("out") as fh:
+		with open(outfile) as fh:
 			data = json.load(fh)
 
 		events = {}

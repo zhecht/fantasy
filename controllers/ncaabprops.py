@@ -80,6 +80,8 @@ def getProps_route():
 
 	date = datetime.now()
 	date = str(date)[:10]
+	if request.args.get("date"):
+		date = request.args.get("date")
 
 	with open(f"{prefix}static/ncaabprops/dates/{date}.json") as fh:
 		propData = json.load(fh)
@@ -91,6 +93,8 @@ def getProps_route():
 		averages = json.load(fh)
 	with open(f"{prefix}static/ncaabreference/schedule.json") as fh:
 		schedule = json.load(fh)
+	with open(f"{prefix}static/ncaabreference/teams.json") as fh:
+		teamIds = json.load(fh)
 
 	#propData = customPropData(propData)
 	#teamTotals(date, schedule)
@@ -149,9 +153,11 @@ def getProps_route():
 
 				totalOverPerMin = totalOver = totalOverLast5 = totalGames = 0
 				last5 = []
+				hit = False
 				if line and avgMin:
 					files = sorted(glob.glob(f"{prefix}static/ncaabreference/{team}/*-*-*.json"), key=lambda k: datetime.strptime(k.split("/")[-1].replace(".json", ""), "%Y-%m-%d"), reverse=True)
 					for file in files:
+						chkDate = file.split("/")[-1].replace(".json","")
 						with open(file) as fh:
 							gameStats = json.load(fh)
 						if name in gameStats:
@@ -165,15 +171,24 @@ def getProps_route():
 								else:
 									val = gameStats[name][prop]
 
+								if val > float(line):
+									if chkDate == date:
+										hit = True
+
 								if len(last5) < 7:
-									last5.append(str(int(val)))
+									v = str(int(val))
+									if chkDate == date:
+										v = f"'{v}'"
+										last5.append(v)
+										continue
+									last5.append(v)
 								valPerMin = float(val / minutes)
 								linePerMin = float(line) / avgMin
 								#if valPerMin > linePerMin:
 								if val > float(line):
 									totalOver += 1
 									if len(last5) <= 5:
-										totalOverLast5 += 1 
+										totalOverLast5 += 1
 				if totalGames:
 					totalOver = round((totalOver / totalGames) * 100)
 					last5Size = len(last5) if len(last5) < 5 else 5
@@ -205,11 +220,13 @@ def getProps_route():
 				props.append({
 					"player": name.title(),
 					"team": team.upper(),
+					"display": teamIds[team]["display"].lower().replace(" ", "-"),
 					"pos": pos,
 					"opponent": opp.upper(),
 					"propType": prop,
 					"line": line or "-",
 					"avg": avg,
+					"hit": hit,
 					"avgMin": avgMin,
 					"totalOver": totalOver,
 					"lastTotalOver": lastTotalOver,
@@ -223,11 +240,6 @@ def getProps_route():
 	writeCsvs(props)
 
 	return jsonify(props)
-
-@ncaabprops_blueprint.route('/ncaabprops')
-def props_route():
-	teams = request.args.get("teams") or ""
-	return render_template("ncaabprops.html", teams=teams)
 
 
 def writeCsvs(props):
@@ -389,3 +401,45 @@ if __name__ == "__main__":
 
 	if args.cron:
 		writeProps(date)
+
+
+	if 0:
+		with open(f"static/ncaabprops/dates/{date}.json") as fh:
+			props = json.load(fh)
+
+		with open(f"static/ncaabreference/schedule.json") as fh:
+			schedule = json.load(fh)
+
+		games = [game for game in schedule[date]]
+		newProps = {}
+		for team in props:
+			game = [g for g in games if team in g.split(" @ ")][0]
+			if game not in newProps:
+				newProps[game] = {}
+
+			for player in props[team]:
+				if player not in newProps[game]:
+					newProps[game][player] = {}
+				for prop in props[team][player]:
+					over = props[team][player][prop]["draftkings"]["over"].split(" ")[-1][1:-1]
+					if int(over) > 0:
+						over = f"+{over}"
+					under = props[team][player][prop]["draftkings"]["under"].split(" ")[-1][1:-1]
+					if int(under) > 0:
+						under = f"+{under}"
+					newProps[game][player][prop] = {
+						"line": float(props[team][player][prop]["line"][1:]),
+						"over": over,
+						"under": under
+					}
+
+		with open(f"static/ncaabprops/dates/{date}.json", "w") as fh:
+			json.dump(newProps, fh, indent=4)
+
+
+@ncaabprops_blueprint.route('/ncaabprops')
+def props_route():
+	teams = request.args.get("teams") or ""
+	date = request.args.get("date") or ""
+	prop = request.args.get("prop") or ""
+	return render_template("ncaabprops.html", teams=teams, date=date, prop=prop)

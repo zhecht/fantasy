@@ -55,9 +55,10 @@ def write_stats(date):
 			if home not in allStats:
 				allStats[home] = {}
 
+			time.sleep(0.4)
 			link = boxscores[date][game].replace("game?gameId=", "boxscore/_/gameId/")
 			url = f"https://www.espn.com{link}"
-			outfile = "out"
+			outfile = "out2"
 			call(["curl", "-k", url, "-o", outfile])
 			soup = BS(open(outfile, 'rb').read(), "lxml")
 
@@ -208,7 +209,7 @@ def writeRankings():
 	shortIds = ["tot", "last5", "tot", "last5"]
 	urls = ["nhl+team+goals+%2B+assists+per+game+this+year", "nhl+team+goals+%2B+assists+per+game+last+5+games", "nhl-team-goals-allowed-plus-assists-allowed-per-game-this-year", "nhl-team-goals-allowed-plus-assists-allowed-per-game-last-5-games"]
 	for timePeriod, url in zip(shortIds, urls):
-		outfile = "out"
+		outfile = "out2"
 		time.sleep(0.3)
 		call(["curl", "-k", baseurl+url, "-o", outfile])
 		soup = BS(open(outfile, 'rb').read(), "lxml")
@@ -260,7 +261,7 @@ def write_averages():
 
 			time.sleep(0.175)
 			url = f"https://www.espn.com/nhl/player/gamelog/_/id/{pId}/type/nhl/year/2022"
-			outfile = "out"
+			outfile = "out2"
 			call(["curl", "-k", url, "-o", outfile])
 			soup = BS(open(outfile, 'rb').read(), "lxml")
 
@@ -311,7 +312,7 @@ def write_averages():
 
 def write_schedule(date):
 	url = f"https://www.espn.com/nhl/schedule/_/date/{date.replace('-', '')}"
-	outfile = "out"
+	outfile = "out2"
 	call(["curl", "-k", url, "-o", outfile])
 	soup = BS(open(outfile, 'rb').read(), "lxml")
 

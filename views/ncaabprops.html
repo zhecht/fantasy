@@ -102,7 +102,10 @@
 
 			const teamFormatter = function(cell, params, rendered) {
 				const div = document.createElement("div");
-				div.className = cell.getValue().toLowerCase();
+				const data = cell.getRow().getData();
+				div.classList.add(cell.getValue().toLowerCase());
+				div.classList.add(data.display);
+				div.classList.add(data.display.split("-").splice(0, data.display.split("-").length-1).join("-"));
 				div.innerText = cell.getValue().toUpperCase();
 				return div;
 			}
@@ -119,7 +122,7 @@
 				TABLE = new Tabulator("#propsTable", {
 					tooltipsHeader: true,
 					ajaxURL: "/getNCAABProps",
-					ajaxParams:{teams: "{{teams}}"},
+					ajaxParams:{teams: "{{teams}}", date: "{{date}}"},
 					//responsiveLayout:"collapse",
 					//layout: "fitDataFill",
 					//layout: window.innerWidth <= 450 ? "fitData" : "fitColumns",
@@ -136,6 +139,7 @@
 						{formatter:"rowSelection", hozAlign:"center", headerSort:false, cellClick:function(e, cell){
 							cell.getRow().toggleSelect();
 						}},
+						{title: "Hit", field: "hit", formatter:"tickCross", width: 60, hozAlign: "center"},
 						{title: "Player", field: "player", headerFilter: "input"},
 						{title: "Pos", field: "pos", hozAlign: "center", width: 50},
 						{title: "Avg Min", field: "avgMin", hozAlign: "center", width: 70},
@@ -155,12 +159,17 @@
 			}
 
 			renderTable();
-
-			TABLE.setFilter([
-				//{field:"propType", type:"=", value:"reb"},
-			]);
 		</script>
-
+		{% if prop != "" %}
+			<script>
+				TABLE.setFilter([{field:"propType", type:"=", value:"{{prop}}"}]);
+			</script>
+		{% endif %}
+		{% if date == "" %}
+			<script>
+				TABLE.getColumn("hit").hide();
+			</script>
+		{% endif %}
 	</body>
 
 </html>
