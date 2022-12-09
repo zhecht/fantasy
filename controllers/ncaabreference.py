@@ -427,9 +427,59 @@ def writePlayerIds():
 		with open(f"{prefix}static/ncaabreference/playerIds.json", "w") as fh:
 			json.dump(playerIds, fh, indent=4)
 
+def writeColors():
+
+	with open(f"{prefix}static/ncaabreference/teams.json") as fh:
+		teams = json.load(fh)
+
+	displayTeams = {teams[team]["display"].lower(): team for team in teams}
+
+	url = "https://teamcolorcodes.com/ncaa-color-codes/"
+	outfile = "out"
+	call(["curl", "-k", url, "-o", outfile])
+	soup = BS(open(outfile, 'rb').read(), "lxml")
+
+	colors = {}
+	css = ""
+	for link in [a.get("href") for a in soup.findAll("a", class_="team-button")]:
+		time.sleep(0.4)
+		outfile = "out"
+		call(["curl", "-k", link, "-o", outfile])
+		soup = BS(open(outfile, 'rb').read(), "lxml")
+
+		for teamLink in soup.findAll("a", class_="team-button"):
+			team = teamLink.text.lower().replace("'", "").replace(".", "").replace(")", "").replace("(", "").replace("&", "")
+			styles = {}
+			for style in teamLink.get("style").split(";"):
+				k,v = style.strip().split(":")
+				styles[k] = v
+
+			if "color" not in styles:
+				styles["color"] = "#fff"
+
+			if team in displayTeams:
+				team = displayTeams[team]
+			elif team[:4] in teams:
+				team = team[:4]
+			colors[team] = {
+				"color": styles["color"],
+				"background-color": styles["background-color"]
+			}
+			css += f".{team.replace(' ', '-')} {{\n"
+			css += f"\tcolor: {styles['color']};\n"
+			css += f"\tbackground-color: {styles['background-color']};\n"
+			css += f"}}\n\n"
+
+	with open(f"{prefix}static/ncaabreference/colors.json", "w") as fh:
+		json.dump(colors, fh, indent=4)
+
+	with open(f"{prefix}static/css/ncaabteams.css", "w") as fh:
+		fh.write(css)
+
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
 	parser.add_argument("--averages", help="Last Yr Averages", action="store_true")
+	parser.add_argument("--colors", help="Colors", action="store_true")
 	parser.add_argument("-c", "--cron", action="store_true", help="Start Cron Job")
 	parser.add_argument("-d", "--date", help="Date")
 	parser.add_argument("-s", "--start", help="Start Week", type=int)
@@ -452,6 +502,8 @@ if __name__ == "__main__":
 	#writePlayerIds()
 	if args.averages:
 		write_averages()
+	elif args.colors:
+		writeColors()
 	elif args.roster:
 		writeRosters()
 	elif args.schedule:

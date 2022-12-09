@@ -22,9 +22,6 @@ if os.path.exists("/home/zhecht/fantasy"):
 	# if on linux aka prod
 	prefix = "/home/zhecht/fantasy/"
 
-def fixNBATeam(team):
-	return team
-
 def convertProp(prop):
 	if prop == "sog":
 		return "s"
@@ -61,78 +58,55 @@ def getProps_route():
 	with open(f"{prefix}static/hockeyreference/schedule.json") as fh:
 		schedule = json.load(fh)
 
-	fixLines(propData)
-
 	props = []
-	for team in propData:
-		espnTeam = fixNBATeam(team)
-
-		opp = ""
-		if date in schedule:
-			for t in schedule[date]:
-				t = t.split(" @ ")
-				if espnTeam in t:
-					if t.index(espnTeam) == 0:
-						opp = t[1]
-					else:
-						opp = t[0]
-
-		if teams and team not in teams:
-			continue
-
-		for propName in propData[team]:
-			shortFirstName = propName.split(" ")[0][0]
-			restName = " ".join(propName.title().split(" ")[1:])
+	for game in propData:
+		for player in propData[game]:
+			shortFirstName = player.split(" ")[0][0]
+			restName = " ".join(player.title().split(" ")[1:])
 			name = f"{shortFirstName.upper()}. {restName.replace('-', ' ')}"
+
+			team = opp = ""
+			gameSp = game.split(" @ ")
+			team1, team2 = gameSp[0], gameSp[1]
+			if name in stats[team1]:
+				team = team1
+				opp = team2
+			elif name in stats[team2]:
+				team = team2
+				opp = team1
+			else:
+				continue
+
+			if teams and team not in teams:
+				continue
+
 			avgMin = 0
-			if espnTeam in stats and name in stats[espnTeam] and stats[espnTeam][name]["gamesPlayed"]:
-				avgMin = int(stats[espnTeam][name]["toi"] / stats[espnTeam][name]["gamesPlayed"])
-			for prop in propData[team][propName]:
+			if team in stats and name in stats[team] and stats[team][name]["gamesPlayed"]:
+				avgMin = int(stats[team][name]["toi"] / stats[team][name]["gamesPlayed"])
+
+			for prop in propData[game][player]:
 				convertedProp = convertProp(prop)
-				line = propData[team][propName][prop]["line"]
+				line = propData[game][player][prop]["line"]
 				avg = 0
 
-				if espnTeam in stats and name in stats[espnTeam] and stats[espnTeam][name]["gamesPlayed"]:
+				if team in stats and name in stats[team] and stats[team][name]["gamesPlayed"]:
 					val = 0
 					if convertedProp == "pts":
-						val = stats[espnTeam][name]["g"] + stats[espnTeam][name]["a"]
-					elif convertedProp in stats[espnTeam][name]:
-						val = stats[espnTeam][name][convertedProp]
-					avg = round(val / stats[espnTeam][name]["gamesPlayed"], 2)
-				# get best odds
-				overOdds = underOdds = float('-inf')
-				for book in propData[team][propName][prop]:
-					if book == "line" or not propData[team][propName][prop][book]["over"]:
-						continue
+						val = stats[team][name]["g"] + stats[team][name]["a"]
+					elif convertedProp in stats[team][name]:
+						val = stats[team][name][convertedProp]
+					avg = round(val / stats[team][name]["gamesPlayed"], 2)
 
-					line = propData[team][propName][prop]["line"][1:]
-					over = propData[team][propName][prop][book]["over"]
-					overLine = over.split(" ")[0][1:]
-					overOdd = int(over.split(" ")[1][1:-1])
-					if overLine == line and overOdd > overOdds:
-						overOdds = overOdd
-
-					under = propData[team][propName][prop][book]["under"]
-					if under:
-						underLine = under.split(" ")[0][1:]
-						underOdd = int(under.split(" ")[1][1:-1])
-						if underLine == line and underOdd > underOdds:
-							underOdds = underOdd
-
-				overOdds = str(overOdds)
-				underOdds = str(underOdds)
-				if not overOdds.startswith("-"):
-					overOdds = "+"+overOdds
-				if not underOdds.startswith("-"):
-					underOdds = "+"+underOdds
+				overOdds = propData[game][player][prop]["over"]
+				underOdds = propData[game][player][prop]["under"]
 
 				lastAvg = lastAvgMin = 0
 				proj = 0
-				if name in averages[espnTeam] and averages[espnTeam][name]:
-					lastAvgMin = averages[espnTeam][name]["toi/g"]
-					if convertedProp in averages[espnTeam][name]:
-						lastAvg = averages[espnTeam][name][convertedProp]
-					lastAvg = lastAvg / averages[espnTeam][name]["gamesPlayed"]
+				if name in averages[team] and averages[team][name]:
+					lastAvgMin = averages[team][name]["toi/g"]
+					if convertedProp in averages[team][name]:
+						lastAvg = averages[team][name][convertedProp]
+					lastAvg = lastAvg / averages[team][name]["gamesPlayed"]
 					proj = lastAvg / lastAvgMin
 					lastAvg = round(lastAvg, 2)
 
@@ -143,12 +117,12 @@ def getProps_route():
 					diff = round((lastAvg / float(line) - 1), 2)
 
 				lastTotalOver = lastTotalGames = 0
-				if line and avgMin and name in lastYearStats[espnTeam] and lastYearStats[espnTeam][name]:
-					for d in lastYearStats[espnTeam][name]:
-						minutes = lastYearStats[espnTeam][name][d]["toi/g"]
-						if minutes > 0 and convertedProp in lastYearStats[espnTeam][name][d]:
+				if line and avgMin and name in lastYearStats[team] and lastYearStats[team][name]:
+					for d in lastYearStats[team][name]:
+						minutes = lastYearStats[team][name][d]["toi/g"]
+						if minutes > 0 and convertedProp in lastYearStats[team][name][d]:
 							lastTotalGames += 1
-							val = lastYearStats[espnTeam][name][d][convertedProp]
+							val = lastYearStats[team][name][d][convertedProp]
 							valPerMin = float(val / minutes)
 							linePerMin = float(line) / avgMin
 							if valPerMin > linePerMin:
@@ -161,7 +135,7 @@ def getProps_route():
 				last5 = []
 				hit = False
 				if line and avgMin:
-					files = sorted(glob.glob(f"{prefix}static/hockeyreference/{espnTeam}/*.json"), key=lambda k: datetime.strptime(k.split("/")[-1].replace(".json", ""), "%Y-%m-%d"), reverse=True)
+					files = sorted(glob.glob(f"{prefix}static/hockeyreference/{team}/*.json"), key=lambda k: datetime.strptime(k.split("/")[-1].replace(".json", ""), "%Y-%m-%d"), reverse=True)
 					for file in files:
 						chkDate = file.split("/")[-1].replace(".json","")
 						with open(file) as fh:
@@ -177,10 +151,10 @@ def getProps_route():
 									val = gameStats[name][convertedProp]
 
 								pastOpp = ""
-								for game in schedule[chkDate]:
-									gameSp = game.split(" @ ")
-									if espnTeam in gameSp:
-										pastOpp = gameSp[0] if espnTeam == gameSp[1] else gameSp[1]
+								for g in schedule[chkDate]:
+									gameSp = g.split(" @ ")
+									if team in gameSp:
+										pastOpp = gameSp[0] if team == gameSp[1] else gameSp[1]
 										break
 
 								if chkDate == date:
@@ -195,7 +169,7 @@ def getProps_route():
 										continue
 									last5.append(v)
 
-								teamScore = scores[chkDate][espnTeam]
+								teamScore = scores[chkDate][team]
 								oppScore = scores[chkDate][pastOpp]
 								if teamScore > oppScore:
 									winLossSplits[0].append(val)
@@ -233,22 +207,22 @@ def getProps_route():
 
 				oppOver = oppOverTot = 0
 				if prop == "sv":
-					files = sorted(glob.glob(f"{prefix}static/hockeyreference/{espnTeam}/*.json"))
+					files = sorted(glob.glob(f"{prefix}static/hockeyreference/{team}/*.json"))
 					for file in files:
 						with open(file) as fh:
 							gameStats = json.load(fh)
 						oppOverTot += 1
 						totSaves = 0
-						for player in gameStats:
-							totSaves += gameStats[player].get("sv", 0)
+						for p in gameStats:
+							totSaves += gameStats[p].get("sv", 0)
 						if totSaves > float(line):
 							oppOver += 1
 					oppOver = round(oppOver * 100 / oppOverTot)
 
 
 				props.append({
-					"player": propName.title(),
-					"team": espnTeam.upper(),
+					"player": player.title(),
+					"team": team.upper(),
 					"opponent": opp,
 					"propType": prop,
 					"line": line or "-",
@@ -263,12 +237,12 @@ def getProps_route():
 					"lastAvgMin": lastAvgMin,
 					"oppOver": oppOver,
 					"winLossSplits": winLoss,
-					"ptsPerGame": round((rankings[espnTeam]["tot"]["G"] / rankings[espnTeam]["tot"]["GP"]) + rankings[espnTeam]["tot"]["A/GP"], 1),
-					"ptsPerGameLast5": round((rankings[espnTeam]["last5"]["G"] / rankings[espnTeam]["last5"]["GP"]) + rankings[espnTeam]["last5"]["A/GP"], 1),
-					"shotsPerGame": round(rankings[espnTeam]["tot"]["S/GP"], 1),
-					"shotsPerGameLast5": round(rankings[espnTeam]["last5"]["S/GP"], 1),
-					"shotsAgainstPerGame": round(rankings[espnTeam]["tot"]["SA/GP"], 1),
-					"shotsAgainstPerGameLast5": round(rankings[espnTeam]["last5"]["SA/GP"], 1),
+					"ptsPerGame": round((rankings[team]["tot"]["G"] / rankings[team]["tot"]["GP"]) + rankings[team]["tot"]["A/GP"], 1),
+					"ptsPerGameLast5": round((rankings[team]["last5"]["G"] / rankings[team]["last5"]["GP"]) + rankings[team]["last5"]["A/GP"], 1),
+					"shotsPerGame": round(rankings[team]["tot"]["S/GP"], 1),
+					"shotsPerGameLast5": round(rankings[team]["last5"]["S/GP"], 1),
+					"shotsAgainstPerGame": round(rankings[team]["tot"]["SA/GP"], 1),
+					"shotsAgainstPerGameLast5": round(rankings[team]["last5"]["SA/GP"], 1),
 					"oppPtsPerGame": round((rankings[opp]["tot"]["GA"] / rankings[opp]["tot"]["GP"]) + (rankings[opp]["tot"]["OPP A"] / rankings[opp]["tot"]["GP"]), 1),
 					"oppPtsPerGameLast5": round((rankings[opp]["last5"]["GA"] / rankings[opp]["last5"]["GP"]) + (rankings[opp]["last5"]["OPP A"] / rankings[opp]["last5"]["GP"]), 1),
 					"oppShotsPerGame": round(rankings[opp]["tot"]["S/GP"], 1),
@@ -426,96 +400,138 @@ def props_route():
 		teams = request.args.get("teams")
 	return render_template("nhlprops.html", prop=prop, alt=alt, date=date, teams=teams)
 
-def writeProps(date):
-	actionNetworkBookIds = {
-		68: "draftkings",
-		69: "fanduel"
-	}
+def convertDKTeam(team):
+	return team
+
+def writeGoalieProps(date):
+
+	url = "https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/42133/categories/1064?format=json"
+	outfile = "out"
+	call(["curl", "-k", url, "-o", outfile])
+
+	with open("out") as fh:
+		data = json.load(fh)
+
+	with open(f"{prefix}static/nhlprops/dates/{date}.json") as fh:
+		props = json.load(fh)
+
+	events = {}
 	
-	optionTypes = {}
-	propMap = {
-		"sog": "core_bet_type_31_shots_on_goal",
-		"pts": "core_bet_type_280_points",
-	}
-	props = {}
-	for prop in ["sog", "pts"]:
+	prop = "sv"
+	if "eventGroup" not in data:
+		return
+	for event in data["eventGroup"]["events"]:
+		if "teamShortName1" not in event:
+			game = convertDKTeam(event["teamName1"].lower()) + " @ " + convertDKTeam(event["teamName2"].lower())
+		else:
+			game = convertDKTeam(event["teamShortName1"].lower()) + " @ " + convertDKTeam(event["teamShortName2"].lower())
+		if game not in props:
+			props[game] = {}
+		events[event["eventId"]] = game
 
-		path = f"{prefix}static/nhlprops/{prop}.json"
-		url = f"https://api.actionnetwork.com/web/v1/leagues/3/props/{propMap[prop]}?bookIds=69,68&date={date.replace('-', '')}"
-		time.sleep(0.5)
-		os.system(f"curl -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0' -k \"{url}\" -o {path}")
-
-		with open(path) as fh:
-			j = json.load(fh)
-
-		if "markets" not in j:
+	for catRow in data["eventGroup"]["offerCategories"]:
+		if not catRow["name"].lower() == "goalie props":
 			continue
-		market = j["markets"][0]
-
-		for option in market["rules"]["options"]:
-			optionTypes[int(option)] = market["rules"]["options"][option]["option_type"].lower()
-
-		teamIds = {}
-		for row in market["teams"]:
-			teamIds[row["id"]] = row["abbr"].lower()
-
-		playerIds = {}
-		for row in market["players"]:
-			playerIds[row["id"]] = row["full_name"].lower()
-
-		books = market["books"]
-		for bookData in books:
-			bookId = bookData["book_id"]
-			if bookId not in actionNetworkBookIds:
+		for cRow in catRow["offerSubcategoryDescriptors"]:
+			if cRow["name"].lower() != "saves":
 				continue
-			for oddData in bookData["odds"]:
-				player = playerIds[oddData["player_id"]]
-				team = teamIds[oddData["team_id"]]
-				overUnder = optionTypes[oddData["option_type_id"]]
-				book = actionNetworkBookIds[bookId]
+			for offerRow in cRow["offerSubcategory"]["offers"]:
+				for row in offerRow:
+					game = events[row["eventId"]]
+					player = " ".join(row["label"].lower().replace(".", "").replace("'", "").split(" ")[:-1])
+					odds = ["",""]
+					line = row["outcomes"][0]["line"]
+					for outcome in row["outcomes"]:
+						if outcome["label"].lower() == "over":
+							odds[0] = outcome["oddsAmerican"]
+						else:
+							odds[1] = outcome["oddsAmerican"]
 
-				if team not in props:
-					props[team] = {}
-				if player not in props[team]:
-					props[team][player] = {}
-				if prop not in props[team][player]:
-					props[team][player][prop] = {}
-				if book not in props[team][player][prop]:
-					props[team][player][prop][book] = {}
-				props[team][player][prop][book][overUnder] = f"{overUnder[0]}{oddData['value']} ({oddData['money']})"
-				if "line" not in props[team][player][prop]:
-					props[team][player][prop]["line"] = f"o{oddData['value']}"
+					if player not in props[game]:
+						props[game][player] = {}
+					if prop not in props[game][player]:
+						props[game][player][prop] = {}
+					props[game][player][prop] = {
+						"line": line,
+						"over": odds[0],
+						"under": odds[1]
+					}
 	with open(f"{prefix}static/nhlprops/dates/{date}.json", "w") as fh:
 		json.dump(props, fh, indent=4)
 
-def fixLines(props):
-	rows = [
-		"wsh\tcharlie lindgren\t27.5\t-130,-110\tsv",
-		"phi\tcarter hart\t27.5\t-120,-120\tsv",
-		"buf\tukko luukkonen\t28.5\t-115,-125\tsv",
-		"cbj\tjoonas korpisalo\t30.5\t-125,-115\tsv",
-		"cgy\tdan vladar\t26.5\t-110,-130\tsv",
-		"min\tmarc fleury\t29.5\t-120,-120\tsv",
-		"bos\tlinus ullmark\t26.5\t-115,-125\tsv",
-		"col\talexandar georgiev\t29.5\t-115,-125\tsv",
-		"ari\tconnor ingram\t30.5\t-115,-125\tsv",
-		"edm\tstuart skinner\t24.5\t-125,-115\tsv",
-		"nyr\tigor shesterkin\t28.5\t-120,-120\tsv",
-		"vgk\tlogan thompson\t27.5\t-125,-115\tsv",
-		"sj\tkaapo kahkonen\t28.5\t-110,-130\tsv",
-	]
-	for row in rows:
-		data = row.split("\t")
-		odds = data[3].split(",")
-		props[data[0]][data[1]] = {
-			data[4]: {
-				"draftkings": {
-					"over": f"o{data[2]} ({odds[0]})",
-					"under": f"u{data[2]} ({odds[1]})"
-				},
-				"line": "o"+data[2]
+def writeProps(date):
+	propNames = ["sog", "pts", "ast"]
+	catIds = [1189,550,550]
+	subCatIds = [12040,5586,5587]
+	props = {}
+	for catId, subCatId, prop in zip(catIds, subCatIds, propNames):
+		time.sleep(0.5)
+		outfile = "out"
+		url = f"https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/42133/categories/{catId}/subcategories/{subCatId}?format=json"
+		call(["curl", "-k", url, "-o", outfile])
+
+		with open("out") as fh:
+			data = json.load(fh)
+
+		events = {}
+		if "eventGroup" not in data:
+			continue
+		for event in data["eventGroup"]["events"]:
+			if "teamShortName1" not in event:
+				game = convertDKTeam(event["teamName1"].lower()) + " @ " + convertDKTeam(event["teamName2"].lower())
+			else:
+				game = convertDKTeam(event["teamShortName1"].lower()) + " @ " + convertDKTeam(event["teamShortName2"].lower())
+			if game not in props:
+				props[game] = {}
+			events[event["eventId"]] = game
+
+		for catRow in data["eventGroup"]["offerCategories"]:
+			if catRow["offerCategoryId"] != catId:
+				continue
+			for cRow in catRow["offerSubcategoryDescriptors"]:
+				if cRow["subcategoryId"] != subCatId:
+					continue
+				for offerRow in cRow["offerSubcategory"]["offers"]:
+					for row in offerRow:
+						game = events[row["eventId"]]
+						odds = ["",""]
+						line = row["outcomes"][0]["line"]
+						player = ""
+						for outcome in row["outcomes"]:
+							if outcome["label"].lower() == "over":
+								odds[0] = outcome["oddsAmerican"]
+								player = outcome["participant"].lower().replace(".", "").replace("'", "")
+							else:
+								odds[1] = outcome["oddsAmerican"]
+
+						if player not in props[game]:
+							props[game][player] = {}
+						if prop not in props[game][player]:
+							props[game][player][prop] = {}
+						props[game][player][prop] = {
+							"line": line,
+							"over": odds[0],
+							"under": odds[1]
+						}
+
+	with open(f"{prefix}static/nhlprops/dates/{date}.json", "w") as fh:
+		json.dump(props, fh, indent=4)
+
+def goalieLines(props):
+	with open(f"{prefix}static/nhlprops/goalieProps.json") as fh:
+		goalieProps = json.load(fh)
+
+	for game in goalieProps:
+		if game not in props:
+			props[game] = {}
+		for player in goalieProps[game]:
+			props[game][player] = {
+				"sv": {
+					"line": goalieProps[game][player]["sv"]["line"],
+					"over": goalieProps[game][player]["sv"]["over"],
+					"under": goalieProps[game][player]["sv"]["under"],
+				}
 			}
-		}
 	pass
 
 if __name__ == "__main__":
@@ -533,3 +549,4 @@ if __name__ == "__main__":
 
 	if args.cron:
 		writeProps(date)
+		writeGoalieProps(date)

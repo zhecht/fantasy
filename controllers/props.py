@@ -430,6 +430,57 @@ def getProps_ATTD_route():
 
 	return jsonify(res)
 
+def writeCsvs(props):
+	csvs = {}
+	splitProps = {"full": []}
+	headers = "\t".join(["NAME","TEAM","OPP","RANK","PROP","LINE","SZN AVG","% OVER","L3 % OVER","LAST GAMES ➡️","LAST YR % OVER","OVER", "UNDER"])
+	reddit = "|".join(headers.split("\t"))
+	reddit += "\n:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--"
+
+	for row in props:
+		if row["propType"] not in splitProps:
+			splitProps[row["propType"]] = []
+		splitProps[row["propType"]].append(row)
+		splitProps["full"].append(row)
+
+	# add full rows
+	csvs["full_name"] = headers
+	rows = sorted(splitProps["full"], key=lambda k: (k["player"], -k["totalOverLast3"], -k["totalOver"]))
+	for row in rows:
+		overOdds = row["overOdds"]
+		underOdds = row["underOdds"]
+		if underOdds == '-inf':
+			underOdds = 0
+		if int(overOdds) > 0:
+			overOdds = "'"+overOdds
+		if int(underOdds) > 0:
+			underOdds = "'"+underOdds
+		csvs["full_name"] += "\n" + "\t".join([row["player"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), f"{row['totalOver']}%", f"{row['totalOverLast3']}%", row["last5"], f"{row['lastTotalOver']}%", overOdds, underOdds])
+		#except:
+		#	pass
+
+	csvs["full_hit"] = headers
+	rows = sorted(splitProps["full"], key=lambda k: (k["totalOverLast3"], k["totalOver"]), reverse=True)
+	for row in rows:
+		overOdds = row["overOdds"]
+		underOdds = row["underOdds"]
+		if underOdds == '-inf':
+			underOdds = 0
+		if int(overOdds) > 0:
+			overOdds = "'"+overOdds
+		if int(underOdds) > 0:
+			underOdds = "'"+underOdds
+		try:
+			csvs["full_hit"] += "\n" + "\t".join([row["player"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), f"{row['totalOver']}%", f"{row['totalOverLast3']}%", row["last5"], f"{row['lastTotalOver']}%", overOdds, underOdds])
+		except:
+			pass
+
+	for prop in csvs:
+		if prop == "full":
+			continue
+		with open(f"{prefix}static/props/csvs/{prop}.csv", "w") as fh:
+			fh.write(csvs[prop])
+
 def getLongestRanks():
 	with open(f"{prefix}static/profootballreference/schedule.json") as fh:
 		schedule = json.load(fh)
@@ -447,6 +498,8 @@ def getLongestRanks():
 					ranks[team] = {}
 				if wk not in ranks[team]:
 					ranks[team][wk] = {}
+				if "RB" not in longestRanks[opp][wk]:
+					print(opp,wk)
 				for pos in longestRanks[opp][wk]:
 					ranks[team][wk][pos] = {
 						"pass_long": max(longestRanks[opp][wk][pos]["pass_long"] or [0]),
@@ -770,7 +823,8 @@ def getProps_route():
 				"pos": pos,
 				"lastAvg": lastAvg,
 				"avg": avg,
-				"last5": last5,
+				"last5": ",".join([str(int(x)) for x in last5]),
+				"lastAll": ",".join([str(int(x)) for x in last5]),
 				"diff": diff,
 				"totalOver": totalOver,
 				"totalOverLast3": totalOverLast3,
@@ -783,7 +837,188 @@ def getProps_route():
 			})
 
 	teamTotals(schedule)
+	writeCsvs(res)
+	h2h(res)
 	return jsonify(res)
+
+def convertDKTeam(team):
+	return team
+
+def h2h(props):
+	with open(f"{prefix}static/props/h2h.json") as fh:
+		h2h = json.load(fh)
+
+	out = ""
+	for game in h2h:
+		out += "\n"+game.upper()+"\n"
+		for prop in h2h[game]:
+			tabLen = 1
+			out += "\t"*tabLen+prop+"\n"
+			tabLen += 1
+			propKey = "_".join(prop.replace("_yds", "_yd").split("_")[:-1])
+			h2hType = prop.split("_")[-1]
+
+			for matchup in h2h[game][prop]:
+				odds = h2h[game][prop][matchup]["odds"].split(",")
+				line = h2h[game][prop][matchup]["line"]
+				arrs = []
+				players = matchup.split(" v ")
+				arrs = [p for p in props if p["player"].lower() in players and p["propType"] == propKey]
+				if len(arrs) < 2:
+					#print(arrs)
+					continue
+
+				if players[0] != arrs[0]["player"].lower():
+					arrs[0], arrs[1] = arrs[1], arrs[0]
+
+				straightOver = straightTotal = 0
+				spread = 0
+				if h2hType == "spread":
+					spread = line
+				for num1, num2 in zip(arrs[0]["lastAll"].split(","), arrs[1]["lastAll"].split(",")):
+					if h2hType == "total":
+						if int(num1)+int(num2) > line:
+							straightOver += 1
+					else:
+						if int(num1) == int(num2):
+							continue
+						elif int(num1)+spread > int(num2):
+							straightOver += 1
+					straightTotal += 1
+				if straightTotal:
+					straightOver = round(straightOver * 100 / straightTotal)
+
+				allPairsOver = allPairsTotal = 0
+				for num1 in arrs[0]["lastAll"].split(","):
+					for num2 in arrs[1]["lastAll"].split(","):
+						if h2hType == "total":
+							if int(num1)+int(num2) > line:
+								allPairsOver += 1
+						else:
+							if int(num1) == int(num2):
+								continue
+							elif int(num1)+spread > int(num2):
+								allPairsOver += 1
+						allPairsTotal += 1
+				if allPairsTotal:
+					allPairsOver = round(allPairsOver * 100 / allPairsTotal)
+
+				out += "\t"*tabLen+f"Straight up: {straightOver}%\n"
+				out += "\t"*tabLen+f"All Pairs: {allPairsOver}%\n"
+				data = arrs[0]
+				for player, odds in zip(players, odds):
+					out += "\t"*tabLen+f"{player.title()} {data['line']}{propKey} ({odds}):\n"
+					out += "\t"*(tabLen+1)+f"{data['lastAll']}\n"
+					data = arrs[1]
+				if line:
+					out += "\t"*tabLen+f"Line: {line}\n"
+				out += "\t"*tabLen+"-----\n"
+
+
+
+	with open(f"{prefix}static/props/h2h.txt", "w") as fh:
+		fh.write(out)
+
+def writeH2H():
+	url = f"https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/88808/categories/1185?format=json"
+	outfile = "out"
+	call(["curl", "-k", url, "-o", outfile])
+
+	with open("out") as fh:
+		data = json.load(fh)
+
+	h2h = {}
+	events = {}
+	subIds = []
+	if "eventGroup" not in data:
+		return
+	for event in data["eventGroup"]["events"]:
+		game = convertDKTeam(event["teamShortName1"].lower()) + " @ " + convertDKTeam(event["teamShortName2"].lower())
+		if game not in h2h:
+			h2h[game] = {}
+		events[event["eventId"]] = game
+
+	for catRow in data["eventGroup"]["offerCategories"]:
+		if not catRow["name"].lower().startswith("h2h"):
+			continue
+		for cRow in catRow["offerSubcategoryDescriptors"]:
+			prop = "_".join(cRow["name"].lower().split(" ")[:-1])
+			if "offerSubcategory" not in cRow:
+				subIds.append(cRow["subcategoryId"])
+				continue
+			for offerRow in cRow["offerSubcategory"]["offers"]:
+				for row in offerRow:
+					game = events[row["eventId"]]
+					h2hType = row["label"].lower().split(" ")[-1]
+					player1 = row["outcomes"][0]["label"].lower().replace(".", "").replace("'", "")
+					odds1 = row["outcomes"][0]["oddsAmerican"]
+					line = ""
+					if "line" in row["outcomes"][0]:
+						line = row["outcomes"][0]["line"]
+					player2 = row["outcomes"][1]["label"].lower().replace(".", "").replace("'", "")
+					odds2 = row["outcomes"][1]["oddsAmerican"]
+
+					h2hProp = prop+"_"+h2hType
+					if h2hProp not in h2h[game]:
+						h2h[game][h2hProp] = {}
+					h2h[game][h2hProp][f"{player1} v {player2}"] = {
+						"line": line,
+						"odds": ",".join([odds1, odds2])
+					}
+
+	for subCatId in subIds:
+		time.sleep(0.4)
+		url = f"https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/88808/categories/1185/subcategories/{subCatId}?format=json"
+		outfile = "out"
+		call(["curl", "-k", url, "-o", outfile])
+
+		with open("out") as fh:
+			data = json.load(fh)
+
+		events = {}
+		if "eventGroup" not in data:
+			continue
+		for event in data["eventGroup"]["events"]:
+			game = convertDKTeam(event["teamShortName1"].lower()) + " @ " + convertDKTeam(event["teamShortName2"].lower())
+			if game not in h2h:
+				h2h[game] = {}
+			events[event["eventId"]] = game
+
+		for catRow in data["eventGroup"]["offerCategories"]:
+			if not catRow["name"].lower().startswith("h2h"):
+				continue
+			for cRow in catRow["offerSubcategoryDescriptors"]:
+				prop = "_".join(cRow["name"].lower().split(" ")[:-1])
+				if "offerSubcategory" not in cRow:
+					continue
+
+				for offerRow in cRow["offerSubcategory"]["offers"]:
+					for row in offerRow:
+						game = events[row["eventId"]]
+						h2hType = row["label"].lower().split(" ")[-1]
+						player1 = row["outcomes"][0]["label"].lower().replace(".", "").replace("'", "")
+						odds1 = row["outcomes"][0]["oddsAmerican"]
+						line = ""
+						if "line" in row["outcomes"][0]:
+							line = row["outcomes"][0]["line"]
+						player2 = row["outcomes"][1]["label"].lower().replace(".", "").replace("'", "")
+						odds2 = row["outcomes"][1]["oddsAmerican"]
+
+						if player1 == "over":
+							ps = row["label"].lower().split(" - ")[0].split(" & ")
+							player1 = ps[0]
+							player2 = ps[1]
+
+						h2hProp = prop+"_"+h2hType
+						if h2hProp not in h2h[game]:
+							h2h[game][h2hProp] = {}
+						h2h[game][h2hProp][f"{player1} v {player2}"] = {
+							"line": line,
+							"odds": ",".join([odds1, odds2])
+						}
+
+	with open(f"{prefix}static/props/h2h.json", "w") as fh:
+		json.dump(h2h, fh, indent=4)
 
 def writeLongestProps(week):
 	actionNetworkBookIds = {
@@ -850,6 +1085,22 @@ def writeLongestProps(week):
 
 	with open(f"{prefix}static/props/longest.json", "w") as fh:
 		json.dump(props, fh, indent=4)
+
+def addNumSuffix(val):
+	if val == "":
+		return ""
+	a = val % 10;
+	b = val % 100;
+	if val == 0:
+		return ""
+	if a == 1 and b != 11:
+		return f"{val}st"
+	elif a == 2 and b != 12:
+		return f"{val}nd"
+	elif a == 3 and b != 13:
+		return f"{val}rd"
+	else:
+		return f"{val}th"
 
 def getTeamTds(schedule):
 	teamTds = {}
@@ -1162,6 +1413,7 @@ def writeProps():
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-c", "--cron", action="store_true", help="Start Cron Job")
+	parser.add_argument("--h2h", action="store_true", help="H2H")
 	parser.add_argument("-w", "--week", help="Week", type=int)
 
 	args = parser.parse_args()
@@ -1169,8 +1421,11 @@ if __name__ == "__main__":
 
 	if args.week:
 		week = args.week
+	elif args.h2h:
+		writeH2H()
 	if args.cron:
 		writeProps()
 		writeDefProps(week)
 		writeActionNetworkProps(week)
 		writeLongestProps(week)
+		writeH2H()

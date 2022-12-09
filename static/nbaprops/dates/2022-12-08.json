@@ -1,26 +1,565 @@
 {
-    "hou": {
-        "eric gordon": {
+    "den": {
+        "aaron gordon": {
             "pts": {
                 "draftkings": {
-                    "under": "u12.5 (-130)",
-                    "over": "o12.5 (100)"
+                    "under": "u16.5 (-120)",
+                    "over": "o16.5 (-110)"
                 },
-                "line": "o12.5"
+                "line": "o16.5",
+                "fanduel": {
+                    "under": "u16.5 (-112)",
+                    "over": "o16.5 (-108)"
+                }
             },
             "ast": {
                 "draftkings": {
-                    "under": "u2.5 (-175)",
-                    "over": "o2.5 (140)"
+                    "under": "u1.5 (130)",
+                    "over": "o1.5 (-160)"
                 },
-                "line": "o2.5"
+                "line": "o1.5",
+                "fanduel": {
+                    "under": "u1.5 (132)",
+                    "over": "o1.5 (-162)"
+                }
             },
             "reb": {
                 "draftkings": {
-                    "under": "u1.5 (120)",
-                    "over": "o1.5 (-150)"
+                    "under": "u6.5 (-105)",
+                    "over": "o6.5 (-125)"
+                },
+                "line": "o6.5",
+                "fanduel": {
+                    "under": "u6.5 (-106)",
+                    "over": "o6.5 (-114)"
+                }
+            },
+            "blk": {
+                "draftkings": {
+                    "under": "u0.5 (100)",
+                    "over": "o0.5 (-130)"
+                },
+                "line": "o0.5"
+            },
+            "stl": {
+                "draftkings": {
+                    "under": "u0.5 (-105)",
+                    "over": "o0.5 (-125)"
+                },
+                "line": "o0.5"
+            },
+            "pts+ast": {
+                "fanduel": {
+                    "under": "u18.5 (-113)",
+                    "over": "o18.5 (-113)"
+                },
+                "line": "o18.5"
+            },
+            "pts+reb": {
+                "fanduel": {
+                    "under": "u23.5 (-118)",
+                    "over": "o23.5 (-108)"
+                },
+                "line": "o23.5"
+            },
+            "pts+reb+ast": {
+                "fanduel": {
+                    "under": "u25.5 (-115)",
+                    "over": "o25.5 (-111)"
+                },
+                "line": "o25.5"
+            },
+            "reb+ast": {
+                "draftkings": {
+                    "under": "u8.5 (-110)",
+                    "over": "o8.5 (-120)"
+                },
+                "line": "o8.5",
+                "fanduel": {
+                    "under": "u8.5 (-108)",
+                    "over": "o8.5 (-118)"
+                }
+            },
+            "stl+blk": {
+                "draftkings": {
+                    "under": "u1.5 (-140)",
+                    "over": "o1.5 (110)"
                 },
                 "line": "o1.5"
+            },
+            "3ptm": {
+                "draftkings": {
+                    "under": "u1.5 (-230)",
+                    "over": "o1.5 (185)"
+                },
+                "line": "o1.5",
+                "fanduel": {
+                    "under": "u1.5 (-240)",
+                    "over": "o1.5 (182)"
+                }
+            }
+        },
+        "jamal murray": {
+            "pts": {
+                "draftkings": {
+                    "under": "u19.5 (-120)",
+                    "over": "o19.5 (-110)"
+                },
+                "line": "o19.5",
+                "fanduel": {
+                    "under": "u19.5 (-122)",
+                    "over": "o19.5 (100)"
+                }
+            },
+            "ast": {
+                "draftkings": {
+                    "under": "u4.5 (125)",
+                    "over": "o4.5 (-155)"
+                },
+                "line": "o4.5",
+                "fanduel": {
+                    "under": "u4.5 (120)",
+                    "over": "o4.5 (-148)"
+                }
+            },
+            "reb": {
+                "draftkings": {
+                    "under": "u3.5 (125)",
+                    "over": "o3.5 (-155)"
+                },
+                "line": "o3.5",
+                "fanduel": {
+                    "under": "u3.5 (120)",
+                    "over": "o3.5 (-148)"
+                }
+            },
+            "blk": {
+                "draftkings": {
+                    "under": "u0.5 (-475)",
+                    "over": "o0.5 (350)"
+                },
+                "line": "o0.5"
+            },
+            "stl": {
+                "draftkings": {
+                    "under": "u0.5 (170)",
+                    "over": "o0.5 (-210)"
+                },
+                "line": "o0.5"
+            },
+            "pts+ast": {
+                "fanduel": {
+                    "under": "u24.5 (-118)",
+                    "over": "o24.5 (-108)"
+                },
+                "line": "o24.5"
+            },
+            "pts+reb": {
+                "fanduel": {
+                    "under": "u23.5 (-118)",
+                    "over": "o23.5 (-108)"
+                },
+                "line": "o23.5"
+            },
+            "pts+reb+ast": {
+                "fanduel": {
+                    "under": "u28.5 (-113)",
+                    "over": "o28.5 (-113)"
+                },
+                "line": "o28.5"
+            },
+            "reb+ast": {
+                "draftkings": {
+                    "under": "u9.5 (-125)",
+                    "over": "o9.5 (-105)"
+                },
+                "line": "o9.5",
+                "fanduel": {
+                    "under": "u9.5 (-138)",
+                    "over": "o9.5 (108)"
+                }
+            },
+            "stl+blk": {
+                "draftkings": {
+                    "under": "u1.5 (-190)",
+                    "over": "o1.5 (155)"
+                },
+                "line": "o1.5"
+            },
+            "3ptm": {
+                "draftkings": {
+                    "under": "u2.5 (-150)",
+                    "over": "o2.5 (120)"
+                },
+                "line": "o2.5",
+                "fanduel": {
+                    "over": "o2.5 (132)",
+                    "under": "u2.5 (-170)"
+                }
+            }
+        },
+        "nikola jokic": {
+            "pts": {
+                "draftkings": {
+                    "under": "u23.5 (-115)",
+                    "over": "o23.5 (-115)"
+                },
+                "line": "o23.5",
+                "fanduel": {
+                    "under": "u23.5 (-108)",
+                    "over": "o23.5 (-112)"
+                }
+            },
+            "ast": {
+                "draftkings": {
+                    "under": "u8.5 (-140)",
+                    "over": "o8.5 (110)"
+                },
+                "line": "o8.5",
+                "fanduel": {
+                    "under": "u8.5 (-115)",
+                    "over": "o8.5 (-105)"
+                }
+            },
+            "reb": {
+                "draftkings": {
+                    "under": "u11.5 (-130)",
+                    "over": "o11.5 (100)"
+                },
+                "line": "o10.5",
+                "fanduel": {
+                    "under": "u10.5 (108)",
+                    "over": "o10.5 (-132)"
+                }
+            },
+            "blk": {
+                "draftkings": {
+                    "under": "u0.5 (120)",
+                    "over": "o0.5 (-150)"
+                },
+                "line": "o0.5"
+            },
+            "stl": {
+                "draftkings": {
+                    "under": "u1.5 (-190)",
+                    "over": "o1.5 (155)"
+                },
+                "line": "o1.5"
+            },
+            "pts+ast": {
+                "draftkings": {
+                    "under": "u31.5 (-110)",
+                    "over": "o31.5 (-120)"
+                },
+                "line": "o31.5",
+                "fanduel": {
+                    "under": "u32.5 (-120)",
+                    "over": "o32.5 (-106)"
+                }
+            },
+            "pts+reb": {
+                "draftkings": {
+                    "under": "u34.5 (-105)",
+                    "over": "o34.5 (-125)"
+                },
+                "line": "o34.5",
+                "fanduel": {
+                    "under": "u34.5 (-104)",
+                    "over": "o34.5 (-122)"
+                }
+            },
+            "pts+reb+ast": {
+                "draftkings": {
+                    "under": "u43.5 (-120)",
+                    "over": "o43.5 (-110)"
+                },
+                "line": "o43.5",
+                "fanduel": {
+                    "under": "u43.5 (-113)",
+                    "over": "o43.5 (-113)"
+                }
+            },
+            "reb+ast": {
+                "draftkings": {
+                    "under": "u19.5 (-115)",
+                    "over": "o19.5 (-115)"
+                },
+                "line": "o19.5",
+                "fanduel": {
+                    "under": "u19.5 (-111)",
+                    "over": "o19.5 (-115)"
+                }
+            },
+            "stl+blk": {
+                "draftkings": {
+                    "under": "u1.5 (150)",
+                    "over": "o1.5 (-185)"
+                },
+                "line": "o1.5"
+            },
+            "3ptm": {
+                "draftkings": {
+                    "under": "u0.5 (120)",
+                    "over": "o0.5 (-150)"
+                },
+                "line": "o0.5",
+                "fanduel": {
+                    "under": "u0.5 (114)",
+                    "over": "o0.5 (-146)"
+                }
+            }
+        },
+        "bones hyland": {
+            "pts": {
+                "draftkings": {
+                    "under": "u13.5 (-110)",
+                    "over": "o13.5 (-120)"
+                },
+                "line": "o13.5",
+                "fanduel": {
+                    "under": "u13.5 (-106)",
+                    "over": "o13.5 (-114)"
+                }
+            },
+            "ast": {
+                "draftkings": {
+                    "under": "u3.5 (-135)",
+                    "over": "o3.5 (105)"
+                },
+                "line": "o3.5",
+                "fanduel": {
+                    "under": "u3.5 (-142)",
+                    "over": "o3.5 (116)"
+                }
+            },
+            "reb": {
+                "draftkings": {
+                    "under": "u2.5 (-145)",
+                    "over": "o2.5 (115)"
+                },
+                "line": "o2.5",
+                "fanduel": {
+                    "under": "u2.5 (-132)",
+                    "over": "o2.5 (108)"
+                }
+            },
+            "blk": {
+                "draftkings": {
+                    "under": "u0.5 (-450)",
+                    "over": "o0.5 (340)"
+                },
+                "line": "o0.5"
+            },
+            "stl": {
+                "draftkings": {
+                    "under": "u0.5 (100)",
+                    "over": "o0.5 (-130)"
+                },
+                "line": "o0.5"
+            },
+            "pts+ast": {
+                "draftkings": {
+                    "under": "u17.5 (-120)",
+                    "over": "o17.5 (-110)"
+                },
+                "line": "o17.5",
+                "fanduel": {
+                    "under": "u17.5 (-128)",
+                    "over": "o17.5 (100)"
+                }
+            },
+            "pts+reb": {
+                "draftkings": {
+                    "under": "u16.5 (-120)",
+                    "over": "o16.5 (-110)"
+                },
+                "line": "o16.5",
+                "fanduel": {
+                    "under": "u16.5 (-120)",
+                    "over": "o16.5 (-106)"
+                }
+            },
+            "pts+reb+ast": {
+                "draftkings": {
+                    "under": "u19.5 (-110)",
+                    "over": "o19.5 (-120)"
+                },
+                "line": "o19.5",
+                "fanduel": {
+                    "under": "u19.5 (-111)",
+                    "over": "o19.5 (-115)"
+                }
+            },
+            "reb+ast": {
+                "draftkings": {
+                    "under": "u5.5 (100)",
+                    "over": "o5.5 (-130)"
+                },
+                "line": "o5.5",
+                "fanduel": {
+                    "under": "u5.5 (100)",
+                    "over": "o5.5 (-128)"
+                }
+            },
+            "stl+blk": {
+                "draftkings": {
+                    "under": "u0.5 (155)",
+                    "over": "o0.5 (-190)"
+                },
+                "line": "o0.5"
+            },
+            "3ptm": {
+                "draftkings": {
+                    "under": "u2.5 (-130)",
+                    "over": "o2.5 (100)"
+                },
+                "line": "o2.5",
+                "fanduel": {
+                    "under": "u2.5 (-138)",
+                    "over": "o2.5 (108)"
+                }
+            }
+        },
+        "bruce brown": {
+            "pts": {
+                "draftkings": {
+                    "under": "u12.5 (-125)",
+                    "over": "o12.5 (-105)"
+                },
+                "line": "o11.5",
+                "fanduel": {
+                    "under": "u11.5 (102)",
+                    "over": "o11.5 (-124)"
+                }
+            },
+            "ast": {
+                "draftkings": {
+                    "under": "u3.5 (110)",
+                    "over": "o3.5 (-140)"
+                },
+                "line": "o3.5",
+                "fanduel": {
+                    "under": "u3.5 (110)",
+                    "over": "o3.5 (-134)"
+                }
+            },
+            "reb": {
+                "draftkings": {
+                    "under": "u5.5 (-155)",
+                    "over": "o5.5 (125)"
+                },
+                "line": "o4.5",
+                "fanduel": {
+                    "under": "u4.5 (118)",
+                    "over": "o4.5 (-144)"
+                }
+            },
+            "blk": {
+                "draftkings": {
+                    "under": "u0.5 (-140)",
+                    "over": "o0.5 (110)"
+                },
+                "line": "o0.5"
+            },
+            "stl": {
+                "draftkings": {
+                    "under": "u1.5 (-195)",
+                    "over": "o1.5 (160)"
+                },
+                "line": "o1.5"
+            },
+            "pts+ast": {
+                "draftkings": {
+                    "under": "u16.5 (-125)",
+                    "over": "o16.5 (-105)"
+                },
+                "line": "o15.5",
+                "fanduel": {
+                    "under": "u15.5 (-102)",
+                    "over": "o15.5 (-125)"
+                }
+            },
+            "pts+reb": {
+                "draftkings": {
+                    "under": "u17.5 (-120)",
+                    "over": "o17.5 (-110)"
+                },
+                "line": "o17.5",
+                "fanduel": {
+                    "under": "u17.5 (-125)",
+                    "over": "o17.5 (-102)"
+                }
+            },
+            "pts+reb+ast": {
+                "draftkings": {
+                    "under": "u21.5 (-120)",
+                    "over": "o21.5 (-110)"
+                },
+                "line": "o21.5",
+                "fanduel": {
+                    "under": "u21.5 (-125)",
+                    "over": "o21.5 (-102)"
+                }
+            },
+            "reb+ast": {
+                "draftkings": {
+                    "under": "u9.5 (-130)",
+                    "over": "o9.5 (100)"
+                },
+                "line": "o8.5",
+                "fanduel": {
+                    "under": "u8.5 (108)",
+                    "over": "o8.5 (-138)"
+                }
+            },
+            "stl+blk": {
+                "draftkings": {
+                    "under": "u1.5 (110)",
+                    "over": "o1.5 (-140)"
+                },
+                "line": "o1.5"
+            },
+            "3ptm": {
+                "draftkings": {
+                    "under": "u1.5 (-165)",
+                    "over": "o1.5 (135)"
+                },
+                "line": "o1.5",
+                "fanduel": {
+                    "under": "u1.5 (-178)",
+                    "over": "o1.5 (138)"
+                }
+            }
+        },
+        "kentavious caldwell-pope": {
+            "pts": {
+                "draftkings": {
+                    "under": "u9.5 (100)",
+                    "over": "o9.5 (-130)"
+                },
+                "line": "o9.5",
+                "fanduel": {
+                    "under": "u9.5 (-105)",
+                    "over": "o9.5 (-115)"
+                }
+            },
+            "ast": {
+                "draftkings": {
+                    "under": "u1.5 (-140)",
+                    "over": "o1.5 (110)"
+                },
+                "line": "o1.5"
+            },
+            "reb": {
+                "draftkings": {
+                    "under": "u2.5 (-140)",
+                    "over": "o2.5 (110)"
+                },
+                "line": "o2.5",
+                "fanduel": {
+                    "under": "u2.5 (-130)",
+                    "over": "o2.5 (106)"
+                }
             },
             "blk": {
                 "draftkings": {
@@ -31,112 +570,64 @@
             },
             "stl": {
                 "draftkings": {
-                    "under": "u0.5 (-115)",
-                    "over": "o0.5 (-115)"
+                    "under": "u0.5 (145)",
+                    "over": "o0.5 (-180)"
                 },
                 "line": "o0.5"
             },
             "pts+ast": {
                 "draftkings": {
-                    "under": "u14.5 (-120)",
-                    "over": "o14.5 (-110)"
+                    "under": "u11.5 (-115)",
+                    "over": "o11.5 (-115)"
                 },
-                "line": "o14.5"
+                "line": "o11.5"
             },
             "pts+reb": {
+                "draftkings": {
+                    "under": "u12.5 (-115)",
+                    "over": "o12.5 (-115)"
+                },
+                "line": "o12.5",
+                "fanduel": {
+                    "under": "u12.5 (-118)",
+                    "over": "o12.5 (-108)"
+                }
+            },
+            "pts+reb+ast": {
                 "draftkings": {
                     "under": "u13.5 (-105)",
                     "over": "o13.5 (-125)"
                 },
                 "line": "o13.5"
             },
-            "pts+reb+ast": {
-                "draftkings": {
-                    "under": "u16.5 (-125)",
-                    "over": "o16.5 (-105)"
-                },
-                "line": "o16.5"
-            },
             "reb+ast": {
                 "draftkings": {
-                    "under": "u4.5 (-160)",
-                    "over": "o4.5 (130)"
+                    "under": "u3.5 (115)",
+                    "over": "o3.5 (-145)"
                 },
-                "line": "o4.5"
+                "line": "o3.5"
             },
             "stl+blk": {
                 "draftkings": {
-                    "under": "u0.5 (160)",
-                    "over": "o0.5 (-195)"
-                },
-                "line": "o0.5"
-            },
-            "3ptm": {
-                "draftkings": {
-                    "under": "u1.5 (120)",
-                    "over": "o1.5 (-150)"
-                },
-                "line": "o1.5"
-            }
-        },
-        "alperen sengun": {
-            "pts": {
-                "draftkings": {
-                    "under": "u14.5 (-120)",
-                    "over": "o14.5 (-110)"
-                },
-                "line": "o14.5"
-            },
-            "ast": {
-                "draftkings": {
-                    "under": "u2.5 (-140)",
-                    "over": "o2.5 (110)"
-                },
-                "line": "o2.5"
-            },
-            "reb": {
-                "draftkings": {
-                    "under": "u8.5 (105)",
-                    "over": "o8.5 (-135)"
-                },
-                "line": "o8.5"
-            },
-            "blk": {
-                "draftkings": {
-                    "under": "u0.5 (155)",
-                    "over": "o0.5 (-190)"
-                },
-                "line": "o0.5"
-            },
-            "stl": {
-                "draftkings": {
-                    "under": "u0.5 (105)",
-                    "over": "o0.5 (-135)"
-                },
-                "line": "o0.5"
-            },
-            "reb+ast": {
-                "draftkings": {
-                    "under": "u11.5 (-120)",
-                    "over": "o11.5 (-110)"
-                },
-                "line": "o11.5"
-            },
-            "stl+blk": {
-                "draftkings": {
-                    "under": "u1.5 (100)",
-                    "over": "o1.5 (-130)"
+                    "under": "u1.5 (-195)",
+                    "over": "o1.5 (160)"
                 },
                 "line": "o1.5"
             },
             "3ptm": {
                 "draftkings": {
-                    "under": "u0.5 (-475)",
-                    "over": "o0.5 (350)"
+                    "under": "u1.5 (115)",
+                    "over": "o1.5 (-145)"
                 },
-                "line": "o0.5"
+                "line": "o1.5",
+                "fanduel": {
+                    "under": "u1.5 (-104)",
+                    "over": "o1.5 (-122)"
+                }
             }
-        },
+        }
+    },
+    "hou": {
         "kevin porter jr.": {
             "pts": {
                 "draftkings": {
@@ -188,27 +679,221 @@
                 "line": "o1.5"
             }
         },
-        "jabari smith jr.": {
+        "eric gordon": {
             "pts": {
                 "draftkings": {
-                    "under": "u12.5 (-110)",
-                    "over": "o12.5 (-120)"
+                    "under": "u12.5 (-125)",
+                    "over": "o12.5 (-105)"
                 },
-                "line": "o12.5"
+                "line": "o12.5",
+                "fanduel": {
+                    "under": "u12.5 (-118)",
+                    "over": "o12.5 (-104)"
+                }
             },
             "ast": {
                 "draftkings": {
-                    "under": "u0.5 (145)",
-                    "over": "o0.5 (-180)"
+                    "under": "u2.5 (-120)",
+                    "over": "o2.5 (-110)"
+                },
+                "line": "o2.5",
+                "fanduel": {
+                    "under": "u2.5 (-110)",
+                    "over": "o2.5 (-110)"
+                }
+            },
+            "reb": {
+                "draftkings": {
+                    "under": "u1.5 (120)",
+                    "over": "o1.5 (-150)"
+                },
+                "line": "o1.5"
+            },
+            "blk": {
+                "draftkings": {
+                    "under": "u0.5 (-335)",
+                    "over": "o0.5 (260)"
+                },
+                "line": "o0.5"
+            },
+            "stl": {
+                "draftkings": {
+                    "under": "u0.5 (-110)",
+                    "over": "o0.5 (-120)"
+                },
+                "line": "o0.5"
+            },
+            "pts+ast": {
+                "draftkings": {
+                    "under": "u14.5 (-105)",
+                    "over": "o14.5 (-125)"
+                },
+                "line": "o14.5",
+                "fanduel": {
+                    "under": "u14.5 (102)",
+                    "over": "o14.5 (-130)"
+                }
+            },
+            "pts+reb": {
+                "draftkings": {
+                    "under": "u14.5 (-125)",
+                    "over": "o14.5 (-105)"
+                },
+                "line": "o14.5"
+            },
+            "pts+reb+ast": {
+                "draftkings": {
+                    "under": "u16.5 (-110)",
+                    "over": "o16.5 (-120)"
+                },
+                "line": "o16.5"
+            },
+            "reb+ast": {
+                "draftkings": {
+                    "under": "u4.5 (-125)",
+                    "over": "o4.5 (-105)"
+                },
+                "line": "o4.5"
+            },
+            "stl+blk": {
+                "draftkings": {
+                    "under": "u0.5 (160)",
+                    "over": "o0.5 (-195)"
+                },
+                "line": "o0.5"
+            },
+            "3ptm": {
+                "draftkings": {
+                    "under": "u1.5 (125)",
+                    "over": "o1.5 (-155)"
+                },
+                "line": "o1.5",
+                "fanduel": {
+                    "under": "u1.5 (126)",
+                    "over": "o1.5 (-162)"
+                }
+            }
+        },
+        "alperen sengun": {
+            "pts": {
+                "draftkings": {
+                    "under": "u14.5 (-115)",
+                    "over": "o14.5 (-115)"
+                },
+                "line": "o14.5",
+                "fanduel": {
+                    "under": "u14.5 (-104)",
+                    "over": "o14.5 (-118)"
+                }
+            },
+            "ast": {
+                "draftkings": {
+                    "under": "u2.5 (-105)",
+                    "over": "o2.5 (-125)"
+                },
+                "line": "o2.5"
+            },
+            "reb": {
+                "draftkings": {
+                    "under": "u8.5 (105)",
+                    "over": "o8.5 (-135)"
+                },
+                "line": "o8.5",
+                "fanduel": {
+                    "under": "u8.5 (-104)",
+                    "over": "o8.5 (-118)"
+                }
+            },
+            "blk": {
+                "draftkings": {
+                    "under": "u0.5 (155)",
+                    "over": "o0.5 (-190)"
+                },
+                "line": "o0.5"
+            },
+            "stl": {
+                "draftkings": {
+                    "under": "u0.5 (110)",
+                    "over": "o0.5 (-140)"
+                },
+                "line": "o0.5"
+            },
+            "pts+ast": {
+                "draftkings": {
+                    "under": "u17.5 (-120)",
+                    "over": "o17.5 (-110)"
+                },
+                "line": "o17.5"
+            },
+            "pts+reb": {
+                "draftkings": {
+                    "under": "u23.5 (-115)",
+                    "over": "o23.5 (-115)"
+                },
+                "line": "o23.5",
+                "fanduel": {
+                    "under": "u23.5 (-106)",
+                    "over": "o23.5 (-120)"
+                }
+            },
+            "pts+reb+ast": {
+                "draftkings": {
+                    "under": "u26.5 (-120)",
+                    "over": "o26.5 (-110)"
+                },
+                "line": "o26.5"
+            },
+            "reb+ast": {
+                "draftkings": {
+                    "under": "u11.5 (-110)",
+                    "over": "o11.5 (-120)"
+                },
+                "line": "o11.5"
+            },
+            "stl+blk": {
+                "draftkings": {
+                    "under": "u1.5 (105)",
+                    "over": "o1.5 (-135)"
+                },
+                "line": "o1.5"
+            },
+            "3ptm": {
+                "draftkings": {
+                    "under": "u0.5 (-475)",
+                    "over": "o0.5 (350)"
+                },
+                "line": "o0.5"
+            }
+        },
+        "jabari smith jr.": {
+            "pts": {
+                "draftkings": {
+                    "under": "u13.5 (-125)",
+                    "over": "o13.5 (-105)"
+                },
+                "line": "o13.5",
+                "fanduel": {
+                    "under": "u13.5 (-122)",
+                    "over": "o13.5 (100)"
+                }
+            },
+            "ast": {
+                "draftkings": {
+                    "under": "u0.5 (160)",
+                    "over": "o0.5 (-195)"
                 },
                 "line": "o0.5"
             },
             "reb": {
                 "draftkings": {
-                    "under": "u6.5 (110)",
-                    "over": "o6.5 (-140)"
+                    "under": "u6.5 (115)",
+                    "over": "o6.5 (-145)"
                 },
-                "line": "o6.5"
+                "line": "o6.5",
+                "fanduel": {
+                    "under": "u6.5 (116)",
+                    "over": "o6.5 (-142)"
+                }
             },
             "blk": {
                 "draftkings": {
@@ -226,29 +911,33 @@
             },
             "pts+ast": {
                 "draftkings": {
-                    "under": "u13.5 (-110)",
-                    "over": "o13.5 (-120)"
+                    "under": "u14.5 (-125)",
+                    "over": "o14.5 (-105)"
                 },
-                "line": "o13.5"
+                "line": "o14.5"
             },
             "pts+reb": {
                 "draftkings": {
-                    "under": "u19.5 (-110)",
-                    "over": "o19.5 (-120)"
+                    "under": "u20.5 (-120)",
+                    "over": "o20.5 (-110)"
                 },
-                "line": "o19.5"
+                "line": "o20.5",
+                "fanduel": {
+                    "under": "u20.5 (-113)",
+                    "over": "o20.5 (-113)"
+                }
             },
             "pts+reb+ast": {
                 "draftkings": {
-                    "under": "u20.5 (-110)",
-                    "over": "o20.5 (-120)"
+                    "under": "u21.5 (-120)",
+                    "over": "o21.5 (-110)"
                 },
-                "line": "o20.5"
+                "line": "o21.5"
             },
             "reb+ast": {
                 "draftkings": {
-                    "under": "u8.5 (-140)",
-                    "over": "o8.5 (110)"
+                    "under": "u8.5 (-130)",
+                    "over": "o8.5 (100)"
                 },
                 "line": "o8.5"
             },
@@ -261,26 +950,49 @@
             },
             "3ptm": {
                 "draftkings": {
-                    "under": "u2.5 (-145)",
-                    "over": "o2.5 (115)"
+                    "under": "u2.5 (-140)",
+                    "over": "o2.5 (110)"
                 },
-                "line": "o2.5"
+                "line": "o2.5",
+                "fanduel": {
+                    "under": "u2.5 (-146)",
+                    "over": "o2.5 (114)"
+                }
             }
         },
         "jalen green": {
+            "pts": {
+                "draftkings": {
+                    "under": "u22.5 (-105)",
+                    "over": "o22.5 (-125)"
+                },
+                "line": "o22.5",
+                "fanduel": {
+                    "under": "u23.5 (-122)",
+                    "over": "o23.5 (100)"
+                }
+            },
             "ast": {
                 "draftkings": {
-                    "under": "u3.5 (135)",
-                    "over": "o3.5 (-165)"
+                    "under": "u4.5 (-130)",
+                    "over": "o4.5 (100)"
                 },
-                "line": "o3.5"
+                "line": "o4.5",
+                "fanduel": {
+                    "under": "u4.5 (-118)",
+                    "over": "o4.5 (-104)"
+                }
             },
             "reb": {
                 "draftkings": {
                     "under": "u3.5 (110)",
                     "over": "o3.5 (-140)"
                 },
-                "line": "o3.5"
+                "line": "o3.5",
+                "fanduel": {
+                    "under": "u3.5 (110)",
+                    "over": "o3.5 (-134)"
+                }
             },
             "blk": {
                 "draftkings": {
@@ -291,17 +1003,54 @@
             },
             "stl": {
                 "draftkings": {
-                    "under": "u0.5 (140)",
-                    "over": "o0.5 (-175)"
+                    "under": "u0.5 (135)",
+                    "over": "o0.5 (-165)"
                 },
                 "line": "o0.5"
             },
+            "pts+ast": {
+                "draftkings": {
+                    "under": "u27.5 (-115)",
+                    "over": "o27.5 (-115)"
+                },
+                "line": "o27.5",
+                "fanduel": {
+                    "under": "u27.5 (-108)",
+                    "over": "o27.5 (-118)"
+                }
+            },
+            "pts+reb": {
+                "draftkings": {
+                    "under": "u26.5 (-105)",
+                    "over": "o26.5 (-125)"
+                },
+                "line": "o26.5",
+                "fanduel": {
+                    "under": "u27.5 (-122)",
+                    "over": "o27.5 (-104)"
+                }
+            },
+            "pts+reb+ast": {
+                "draftkings": {
+                    "under": "u31.5 (-115)",
+                    "over": "o31.5 (-115)"
+                },
+                "line": "o31.5",
+                "fanduel": {
+                    "over": "o31.5 (-120)",
+                    "under": "u31.5 (-108)"
+                }
+            },
             "reb+ast": {
                 "draftkings": {
-                    "under": "u7.5 (110)",
-                    "over": "o7.5 (-140)"
+                    "under": "u8.5 (-130)",
+                    "over": "o8.5 (100)"
                 },
-                "line": "o7.5"
+                "line": "o8.5",
+                "fanduel": {
+                    "under": "u8.5 (-118)",
+                    "over": "o8.5 (-108)"
+                }
             },
             "stl+blk": {
                 "draftkings": {
@@ -312,24 +1061,349 @@
             },
             "3ptm": {
                 "draftkings": {
-                    "under": "u2.5 (-145)",
-                    "over": "o2.5 (115)"
+                    "under": "u2.5 (-140)",
+                    "over": "o2.5 (110)"
                 },
-                "line": "o2.5"
+                "line": "o2.5",
+                "fanduel": {
+                    "under": "u2.5 (-146)",
+                    "over": "o2.5 (114)"
+                }
             }
         }
     },
     "por": {
+        "anfernee simons": {
+            "pts": {
+                "draftkings": {
+                    "under": "u22.5 (-115)",
+                    "over": "o22.5 (-115)"
+                },
+                "line": "o22.5",
+                "fanduel": {
+                    "under": "u22.5 (-114)",
+                    "over": "o22.5 (-106)"
+                }
+            },
+            "ast": {
+                "draftkings": {
+                    "under": "u4.5 (-150)",
+                    "over": "o4.5 (120)"
+                },
+                "line": "o4.5",
+                "fanduel": {
+                    "under": "u4.5 (-142)",
+                    "over": "o4.5 (116)"
+                }
+            },
+            "reb": {
+                "draftkings": {
+                    "under": "u2.5 (110)",
+                    "over": "o2.5 (-140)"
+                },
+                "line": "o2.5",
+                "fanduel": {
+                    "under": "u2.5 (106)",
+                    "over": "o2.5 (-130)"
+                }
+            },
+            "blk": {
+                "draftkings": {
+                    "under": "u0.5 (-570)",
+                    "over": "o0.5 (410)"
+                },
+                "line": "o0.5"
+            },
+            "stl": {
+                "draftkings": {
+                    "under": "u0.5 (115)",
+                    "over": "o0.5 (-145)"
+                },
+                "line": "o0.5"
+            },
+            "pts+ast": {
+                "draftkings": {
+                    "under": "u26.5 (-110)",
+                    "over": "o26.5 (-120)"
+                },
+                "line": "o26.5",
+                "fanduel": {
+                    "under": "u26.5 (-104)",
+                    "over": "o26.5 (-122)"
+                }
+            },
+            "pts+reb": {
+                "draftkings": {
+                    "under": "u25.5 (-120)",
+                    "over": "o25.5 (-110)"
+                },
+                "line": "o25.5",
+                "fanduel": {
+                    "under": "u25.5 (-120)",
+                    "over": "o25.5 (-106)"
+                }
+            },
+            "pts+reb+ast": {
+                "draftkings": {
+                    "under": "u29.5 (-110)",
+                    "over": "o29.5 (-120)"
+                },
+                "line": "o29.5",
+                "fanduel": {
+                    "under": "u29.5 (-108)",
+                    "over": "o29.5 (-118)"
+                }
+            },
+            "reb+ast": {
+                "draftkings": {
+                    "under": "u7.5 (-145)",
+                    "over": "o7.5 (115)"
+                },
+                "line": "o7.5",
+                "fanduel": {
+                    "under": "u7.5 (-146)",
+                    "over": "o7.5 (114)"
+                }
+            },
+            "stl+blk": {
+                "draftkings": {
+                    "under": "u0.5 (160)",
+                    "over": "o0.5 (-195)"
+                },
+                "line": "o0.5"
+            },
+            "3ptm": {
+                "draftkings": {
+                    "under": "u3.5 (105)",
+                    "over": "o3.5 (-135)"
+                },
+                "line": "o3.5",
+                "fanduel": {
+                    "under": "u3.5 (102)",
+                    "over": "o3.5 (-130)"
+                }
+            }
+        },
+        "damian lillard": {
+            "pts": {
+                "draftkings": {
+                    "under": "u24.5 (-110)",
+                    "over": "o24.5 (-120)"
+                },
+                "line": "o24.5",
+                "fanduel": {
+                    "under": "u24.5 (-102)",
+                    "over": "o24.5 (-118)"
+                }
+            },
+            "ast": {
+                "draftkings": {
+                    "under": "u6.5 (105)",
+                    "over": "o6.5 (-135)"
+                },
+                "line": "o6.5",
+                "fanduel": {
+                    "under": "u7.5 (-134)",
+                    "over": "o7.5 (110)"
+                }
+            },
+            "reb": {
+                "draftkings": {
+                    "under": "u3.5 (115)",
+                    "over": "o3.5 (-145)"
+                },
+                "line": "o3.5",
+                "fanduel": {
+                    "under": "u3.5 (116)",
+                    "over": "o3.5 (-142)"
+                }
+            },
+            "blk": {
+                "draftkings": {
+                    "under": "u0.5 (-265)",
+                    "over": "o0.5 (210)"
+                },
+                "line": "o0.5"
+            },
+            "stl": {
+                "draftkings": {
+                    "under": "u0.5 (-115)",
+                    "over": "o0.5 (-115)"
+                },
+                "line": "o0.5"
+            },
+            "pts+ast": {
+                "draftkings": {
+                    "under": "u31.5 (-110)",
+                    "over": "o31.5 (-120)"
+                },
+                "line": "o31.5",
+                "fanduel": {
+                    "under": "u32.5 (-120)",
+                    "over": "o32.5 (-106)"
+                }
+            },
+            "pts+reb": {
+                "draftkings": {
+                    "under": "u28.5 (-110)",
+                    "over": "o28.5 (-120)"
+                },
+                "line": "o28.5",
+                "fanduel": {
+                    "under": "u29.5 (-125)",
+                    "over": "o29.5 (-102)"
+                }
+            },
+            "pts+reb+ast": {
+                "draftkings": {
+                    "under": "u35.5 (-110)",
+                    "over": "o35.5 (-120)"
+                },
+                "line": "o35.5",
+                "fanduel": {
+                    "under": "u36.5 (-113)",
+                    "over": "o36.5 (-113)"
+                }
+            },
+            "reb+ast": {
+                "draftkings": {
+                    "under": "u10.5 (100)",
+                    "over": "o10.5 (-130)"
+                },
+                "line": "o10.5",
+                "fanduel": {
+                    "under": "u11.5 (-122)",
+                    "over": "o11.5 (-104)"
+                }
+            },
+            "stl+blk": {
+                "draftkings": {
+                    "under": "u0.5 (165)",
+                    "over": "o0.5 (-205)"
+                },
+                "line": "o0.5"
+            },
+            "3ptm": {
+                "draftkings": {
+                    "under": "u3.5 (-175)",
+                    "over": "o3.5 (140)"
+                },
+                "line": "o3.5",
+                "fanduel": {
+                    "under": "u3.5 (-154)",
+                    "over": "o3.5 (120)"
+                }
+            }
+        },
+        "josh hart": {
+            "pts": {
+                "draftkings": {
+                    "under": "u9.5 (-105)",
+                    "over": "o9.5 (-125)"
+                },
+                "line": "o9.5",
+                "fanduel": {
+                    "under": "u9.5 (-102)",
+                    "over": "o9.5 (-120)"
+                }
+            },
+            "ast": {
+                "draftkings": {
+                    "under": "u3.5 (-125)",
+                    "over": "o3.5 (-105)"
+                },
+                "line": "o3.5",
+                "fanduel": {
+                    "under": "u3.5 (100)",
+                    "over": "o3.5 (-122)"
+                }
+            },
+            "reb": {
+                "draftkings": {
+                    "under": "u7.5 (-150)",
+                    "over": "o7.5 (120)"
+                },
+                "line": "o7.5",
+                "fanduel": {
+                    "under": "u7.5 (-142)",
+                    "over": "o7.5 (116)"
+                }
+            },
+            "blk": {
+                "draftkings": {
+                    "under": "u0.5 (-440)",
+                    "over": "o0.5 (330)"
+                },
+                "line": "o0.5"
+            },
+            "stl": {
+                "draftkings": {
+                    "under": "u1.5 (-175)",
+                    "over": "o1.5 (140)"
+                },
+                "line": "o1.5"
+            },
+            "pts+ast": {
+                "fanduel": {
+                    "under": "u13.5 (-104)",
+                    "over": "o13.5 (-122)"
+                },
+                "line": "o13.5"
+            },
+            "pts+reb": {
+                "fanduel": {
+                    "under": "u17.5 (-125)",
+                    "over": "o17.5 (-102)"
+                },
+                "line": "o17.5"
+            },
+            "pts+reb+ast": {
+                "fanduel": {
+                    "under": "u20.5 (100)",
+                    "over": "o20.5 (-128)"
+                },
+                "line": "o20.5"
+            },
+            "reb+ast": {
+                "draftkings": {
+                    "under": "u10.5 (-110)",
+                    "over": "o10.5 (-120)"
+                },
+                "line": "o10.5",
+                "fanduel": {
+                    "under": "u10.5 (104)",
+                    "over": "o10.5 (-132)"
+                }
+            },
+            "stl+blk": {
+                "draftkings": {
+                    "under": "u1.5 (-135)",
+                    "over": "o1.5 (105)"
+                },
+                "line": "o1.5"
+            },
+            "3ptm": {
+                "draftkings": {
+                    "under": "u0.5 (100)",
+                    "over": "o0.5 (-130)"
+                },
+                "line": "o0.5",
+                "fanduel": {
+                    "under": "u0.5 (-104)",
+                    "over": "o0.5 (-122)"
+                }
+            }
+        },
         "jerami grant": {
             "pts": {
                 "draftkings": {
-                    "over": "o20.5 (-125)",
-                    "under": "u20.5 (-105)"
+                    "under": "u20.5 (-115)",
+                    "over": "o20.5 (-115)"
                 },
                 "line": "o20.5",
                 "fanduel": {
-                    "under": "u20.5 (-106)",
-                    "over": "o20.5 (-120)"
+                    "under": "u20.5 (-110)",
+                    "over": "o20.5 (-110)"
                 }
             },
             "ast": {
@@ -339,16 +1413,16 @@
                 },
                 "line": "o2.5",
                 "fanduel": {
-                    "under": "u2.5 (-130)",
-                    "over": "o2.5 (102)"
+                    "under": "u2.5 (-134)",
+                    "over": "o2.5 (110)"
                 }
             },
             "reb": {
                 "fanduel": {
-                    "under": "u3.5 (124)",
-                    "over": "o3.5 (-160)"
+                    "under": "u4.5 (-150)",
+                    "over": "o4.5 (122)"
                 },
-                "line": "o3.5"
+                "line": "o4.5"
             },
             "blk": {
                 "draftkings": {
@@ -364,12 +1438,38 @@
                 },
                 "line": "o0.5"
             },
-            "pts+reb+ast": {
-                "fanduel": {
-                    "under": "u27.5 (-106)",
-                    "over": "o27.5 (-120)"
+            "pts+ast": {
+                "draftkings": {
+                    "under": "u23.5 (-120)",
+                    "over": "o23.5 (-110)"
                 },
-                "line": "o27.5"
+                "line": "o23.5",
+                "fanduel": {
+                    "under": "u23.5 (-122)",
+                    "over": "o23.5 (-104)"
+                }
+            },
+            "pts+reb": {
+                "draftkings": {
+                    "under": "u24.5 (-110)",
+                    "over": "o24.5 (-120)"
+                },
+                "line": "o24.5",
+                "fanduel": {
+                    "under": "u24.5 (-104)",
+                    "over": "o24.5 (-122)"
+                }
+            },
+            "pts+reb+ast": {
+                "draftkings": {
+                    "under": "u27.5 (-120)",
+                    "over": "o27.5 (-110)"
+                },
+                "line": "o27.5",
+                "fanduel": {
+                    "under": "u27.5 (-115)",
+                    "over": "o27.5 (-111)"
+                }
             },
             "reb+ast": {
                 "draftkings": {
@@ -396,272 +1496,66 @@
                 },
                 "line": "o2.5",
                 "fanduel": {
-                    "under": "u2.5 (-174)",
-                    "over": "o2.5 (136)"
+                    "under": "u2.5 (-142)",
+                    "over": "o2.5 (112)"
                 }
             }
         },
-        "anfernee simons": {
+        "justise winslow": {
             "pts": {
                 "draftkings": {
-                    "under": "u22.5 (-115)",
-                    "over": "o22.5 (-115)"
+                    "under": "u6.5 (-135)",
+                    "over": "o6.5 (105)"
                 },
-                "line": "o22.5",
+                "line": "o5.5",
                 "fanduel": {
-                    "under": "u22.5 (-115)",
-                    "over": "o22.5 (-111)"
+                    "under": "u5.5 (104)",
+                    "over": "o5.5 (-128)"
                 }
             },
             "ast": {
                 "draftkings": {
-                    "under": "u4.5 (-150)",
-                    "over": "o4.5 (120)"
+                    "under": "u2.5 (-105)",
+                    "over": "o2.5 (-125)"
+                },
+                "line": "o2.5"
+            },
+            "reb": {
+                "draftkings": {
+                    "under": "u4.5 (-125)",
+                    "over": "o4.5 (-105)"
                 },
                 "line": "o4.5",
                 "fanduel": {
-                    "under": "u4.5 (-160)",
-                    "over": "o4.5 (124)"
-                }
-            },
-            "reb": {
-                "draftkings": {
-                    "under": "u2.5 (110)",
-                    "over": "o2.5 (-140)"
-                },
-                "line": "o2.5",
-                "fanduel": {
-                    "under": "u2.5 (116)",
-                    "over": "o2.5 (-148)"
+                    "under": "u4.5 (-104)",
+                    "over": "o4.5 (-118)"
                 }
             },
             "blk": {
                 "draftkings": {
-                    "under": "u0.5 (-570)",
-                    "over": "o0.5 (410)"
+                    "under": "u0.5 (-205)",
+                    "over": "o0.5 (165)"
                 },
                 "line": "o0.5"
             },
             "stl": {
                 "draftkings": {
-                    "under": "u0.5 (115)",
-                    "over": "o0.5 (-145)"
+                    "under": "u0.5 (140)",
+                    "over": "o0.5 (-175)"
                 },
                 "line": "o0.5"
             },
             "pts+ast": {
                 "draftkings": {
-                    "under": "u26.5 (-110)",
-                    "over": "o26.5 (-120)"
+                    "under": "u8.5 (100)",
+                    "over": "o8.5 (-130)"
                 },
-                "line": "o26.5"
+                "line": "o8.5"
             },
             "pts+reb": {
                 "draftkings": {
-                    "under": "u25.5 (-120)",
-                    "over": "o25.5 (-110)"
-                },
-                "line": "o25.5"
-            },
-            "pts+reb+ast": {
-                "draftkings": {
-                    "under": "u29.5 (-110)",
-                    "over": "o29.5 (-120)"
-                },
-                "line": "o29.5"
-            },
-            "reb+ast": {
-                "draftkings": {
-                    "under": "u7.5 (-145)",
-                    "over": "o7.5 (115)"
-                },
-                "line": "o7.5",
-                "fanduel": {
-                    "under": "u7.5 (-138)",
-                    "over": "o7.5 (108)"
-                }
-            },
-            "stl+blk": {
-                "draftkings": {
-                    "under": "u0.5 (160)",
-                    "over": "o0.5 (-195)"
-                },
-                "line": "o0.5"
-            },
-            "3ptm": {
-                "draftkings": {
-                    "under": "u3.5 (105)",
-                    "over": "o3.5 (-135)"
-                },
-                "line": "o3.5",
-                "fanduel": {
-                    "under": "u3.5 (108)",
-                    "over": "o3.5 (-138)"
-                }
-            }
-        },
-        "damian lillard": {
-            "pts": {
-                "draftkings": {
-                    "under": "u24.5 (-110)",
-                    "over": "o24.5 (-120)"
-                },
-                "line": "o24.5",
-                "fanduel": {
-                    "under": "u24.5 (-104)",
-                    "over": "o24.5 (-120)"
-                }
-            },
-            "ast": {
-                "draftkings": {
-                    "under": "u6.5 (105)",
-                    "over": "o6.5 (-135)"
-                },
-                "line": "o6.5",
-                "fanduel": {
-                    "under": "u6.5 (102)",
-                    "over": "o6.5 (-130)"
-                }
-            },
-            "reb": {
-                "draftkings": {
-                    "under": "u3.5 (115)",
-                    "over": "o3.5 (-145)"
-                },
-                "line": "o3.5",
-                "fanduel": {
-                    "under": "u3.5 (106)",
-                    "over": "o3.5 (-132)"
-                }
-            },
-            "blk": {
-                "draftkings": {
-                    "under": "u0.5 (-265)",
-                    "over": "o0.5 (210)"
-                },
-                "line": "o0.5"
-            },
-            "stl": {
-                "draftkings": {
-                    "under": "u0.5 (-115)",
-                    "over": "o0.5 (-115)"
-                },
-                "line": "o0.5"
-            },
-            "pts+ast": {
-                "draftkings": {
-                    "under": "u31.5 (-110)",
-                    "over": "o31.5 (-120)"
-                },
-                "line": "o31.5"
-            },
-            "pts+reb": {
-                "draftkings": {
-                    "under": "u28.5 (-110)",
-                    "over": "o28.5 (-120)"
-                },
-                "line": "o28.5",
-                "fanduel": {
-                    "under": "u28.5 (-106)",
-                    "over": "o28.5 (-120)"
-                }
-            },
-            "pts+reb+ast": {
-                "draftkings": {
-                    "under": "u35.5 (-110)",
-                    "over": "o35.5 (-120)"
-                },
-                "line": "o35.5",
-                "fanduel": {
-                    "under": "u35.5 (-108)",
-                    "over": "o35.5 (-118)"
-                }
-            },
-            "reb+ast": {
-                "draftkings": {
-                    "under": "u10.5 (100)",
-                    "over": "o10.5 (-130)"
-                },
-                "line": "o10.5",
-                "fanduel": {
-                    "under": "u10.5 (-102)",
-                    "over": "o10.5 (-125)"
-                }
-            },
-            "stl+blk": {
-                "draftkings": {
-                    "under": "u0.5 (165)",
-                    "over": "o0.5 (-205)"
-                },
-                "line": "o0.5"
-            },
-            "3ptm": {
-                "draftkings": {
-                    "under": "u3.5 (-175)",
-                    "over": "o3.5 (140)"
-                },
-                "line": "o3.5",
-                "fanduel": {
-                    "under": "u3.5 (-164)",
-                    "over": "o3.5 (128)"
-                }
-            }
-        },
-        "josh hart": {
-            "pts": {
-                "draftkings": {
-                    "under": "u9.5 (-105)",
-                    "over": "o9.5 (-125)"
-                },
-                "line": "o9.5",
-                "fanduel": {
-                    "under": "u9.5 (-106)",
-                    "over": "o9.5 (-120)"
-                }
-            },
-            "ast": {
-                "draftkings": {
-                    "under": "u3.5 (-125)",
-                    "over": "o3.5 (-105)"
-                },
-                "line": "o3.5",
-                "fanduel": {
-                    "under": "u3.5 (-115)",
-                    "over": "o3.5 (-111)"
-                }
-            },
-            "reb": {
-                "fanduel": {
-                    "under": "u7.5 (-142)",
-                    "over": "o7.5 (112)"
-                },
-                "line": "o7.5"
-            },
-            "blk": {
-                "draftkings": {
-                    "under": "u0.5 (-440)",
-                    "over": "o0.5 (330)"
-                },
-                "line": "o0.5"
-            },
-            "stl": {
-                "draftkings": {
-                    "under": "u1.5 (-175)",
-                    "over": "o1.5 (140)"
-                },
-                "line": "o1.5"
-            },
-            "pts+reb": {
-                "fanduel": {
-                    "under": "u17.5 (-128)",
-                    "over": "o17.5 (100)"
-                },
-                "line": "o17.5"
-            },
-            "reb+ast": {
-                "draftkings": {
-                    "under": "u10.5 (-110)",
-                    "over": "o10.5 (-120)"
+                    "under": "u10.5 (-120)",
+                    "over": "o10.5 (-110)"
                 },
                 "line": "o10.5",
                 "fanduel": {
@@ -669,30 +1563,40 @@
                     "over": "o10.5 (-122)"
                 }
             },
+            "pts+reb+ast": {
+                "draftkings": {
+                    "under": "u13.5 (-125)",
+                    "over": "o13.5 (-105)"
+                },
+                "line": "o13.5"
+            },
+            "reb+ast": {
+                "draftkings": {
+                    "under": "u7.5 (-135)",
+                    "over": "o7.5 (105)"
+                },
+                "line": "o7.5"
+            },
             "stl+blk": {
                 "draftkings": {
-                    "under": "u1.5 (-135)",
-                    "over": "o1.5 (105)"
+                    "under": "u1.5 (-165)",
+                    "over": "o1.5 (135)"
                 },
                 "line": "o1.5"
             },
             "3ptm": {
                 "draftkings": {
-                    "under": "u0.5 (100)",
-                    "over": "o0.5 (-130)"
+                    "under": "u0.5 (-255)",
+                    "over": "o0.5 (205)"
                 },
-                "line": "o0.5",
-                "fanduel": {
-                    "under": "u0.5 (-108)",
-                    "over": "o0.5 (-120)"
-                }
+                "line": "o0.5"
             }
         },
         "jusuf nurkic": {
             "pts": {
                 "fanduel": {
-                    "under": "u14.5 (-125)",
-                    "over": "o14.5 (-102)"
+                    "under": "u14.5 (-128)",
+                    "over": "o14.5 (104)"
                 },
                 "line": "o14.5"
             },
@@ -703,16 +1607,20 @@
                 },
                 "line": "o2.5",
                 "fanduel": {
-                    "under": "u2.5 (-132)",
-                    "over": "o2.5 (104)"
+                    "under": "u2.5 (-134)",
+                    "over": "o2.5 (110)"
                 }
             },
             "reb": {
-                "fanduel": {
-                    "under": "u9.5 (-104)",
-                    "over": "o9.5 (-122)"
+                "draftkings": {
+                    "under": "u9.5 (-120)",
+                    "over": "o9.5 (-110)"
                 },
-                "line": "o9.5"
+                "line": "o9.5",
+                "fanduel": {
+                    "under": "u9.5 (-108)",
+                    "over": "o9.5 (-112)"
+                }
             },
             "blk": {
                 "draftkings": {
@@ -733,35 +1641,43 @@
                     "under": "u16.5 (-115)",
                     "over": "o16.5 (-115)"
                 },
-                "line": "o16.5"
+                "line": "o16.5",
+                "fanduel": {
+                    "under": "u16.5 (-113)",
+                    "over": "o16.5 (-113)"
+                }
             },
             "pts+reb": {
                 "draftkings": {
-                    "under": "u23.5 (-120)",
-                    "over": "o23.5 (-110)"
+                    "under": "u23.5 (-115)",
+                    "over": "o23.5 (-115)"
                 },
-                "line": "o23.5"
+                "line": "o23.5",
+                "fanduel": {
+                    "under": "u23.5 (-108)",
+                    "over": "o23.5 (-118)"
+                }
             },
             "pts+reb+ast": {
                 "draftkings": {
-                    "under": "u25.5 (-110)",
-                    "over": "o25.5 (-120)"
+                    "under": "u25.5 (-105)",
+                    "over": "o25.5 (-125)"
                 },
                 "line": "o25.5",
                 "fanduel": {
-                    "over": "o26.5 (-115)",
-                    "under": "u26.5 (-113)"
+                    "under": "u26.5 (-118)",
+                    "over": "o26.5 (-108)"
                 }
             },
             "reb+ast": {
                 "draftkings": {
-                    "under": "u11.5 (100)",
-                    "over": "o11.5 (-130)"
+                    "under": "u11.5 (-105)",
+                    "over": "o11.5 (-125)"
                 },
                 "line": "o11.5",
                 "fanduel": {
-                    "under": "u12.5 (-132)",
-                    "over": "o12.5 (104)"
+                    "under": "u11.5 (106)",
+                    "over": "o11.5 (-136)"
                 }
             },
             "stl+blk": {
@@ -780,45 +1696,125 @@
             }
         }
     },
-    "den": {
-        "aaron gordon": {
+    "lac": {
+        "ivica zubac": {
             "pts": {
                 "draftkings": {
-                    "under": "u16.5 (-120)",
-                    "over": "o16.5 (-110)"
+                    "under": "u9.5 (-115)",
+                    "over": "o9.5 (-115)"
                 },
-                "line": "o16.5",
+                "line": "o9.5",
                 "fanduel": {
-                    "under": "u16.5 (-115)",
-                    "over": "o16.5 (-111)"
+                    "under": "u9.5 (-108)",
+                    "over": "o9.5 (-112)"
                 }
             },
             "ast": {
                 "draftkings": {
-                    "under": "u1.5 (130)",
-                    "over": "o1.5 (-160)"
+                    "under": "u1.5 (-210)",
+                    "over": "o1.5 (170)"
                 },
-                "line": "o1.5",
-                "fanduel": {
-                    "under": "u2.5 (-186)",
-                    "over": "o2.5 (144)"
-                }
+                "line": "o1.5"
             },
             "reb": {
                 "draftkings": {
-                    "under": "u6.5 (-105)",
-                    "over": "o6.5 (-125)"
+                    "under": "u10.5 (-115)",
+                    "over": "o10.5 (-115)"
                 },
-                "line": "o6.5",
+                "line": "o10.5",
                 "fanduel": {
-                    "under": "u6.5 (-108)",
-                    "over": "o6.5 (-118)"
+                    "under": "u10.5 (-122)",
+                    "over": "o10.5 (100)"
                 }
             },
             "blk": {
                 "draftkings": {
-                    "under": "u0.5 (100)",
-                    "over": "o0.5 (-130)"
+                    "under": "u1.5 (-185)",
+                    "over": "o1.5 (150)"
+                },
+                "line": "o1.5"
+            },
+            "stl": {
+                "draftkings": {
+                    "under": "u0.5 (-210)",
+                    "over": "o0.5 (170)"
+                },
+                "line": "o0.5"
+            },
+            "pts+ast": {
+                "draftkings": {
+                    "under": "u10.5 (-115)",
+                    "over": "o10.5 (-115)"
+                },
+                "line": "o10.5"
+            },
+            "pts+reb": {
+                "draftkings": {
+                    "under": "u20.5 (-120)",
+                    "over": "o20.5 (-110)"
+                },
+                "line": "o20.5",
+                "fanduel": {
+                    "under": "u20.5 (-122)",
+                    "over": "o20.5 (-104)"
+                }
+            },
+            "pts+reb+ast": {
+                "draftkings": {
+                    "under": "u21.5 (-120)",
+                    "over": "o21.5 (-110)"
+                },
+                "line": "o21.5"
+            },
+            "reb+ast": {
+                "draftkings": {
+                    "under": "u11.5 (100)",
+                    "over": "o11.5 (-130)"
+                },
+                "line": "o11.5"
+            },
+            "stl+blk": {
+                "draftkings": {
+                    "under": "u1.5 (-110)",
+                    "over": "o1.5 (-120)"
+                },
+                "line": "o1.5"
+            }
+        },
+        "marcus morris sr.": {
+            "pts": {
+                "draftkings": {
+                    "under": "u13.5 (-120)",
+                    "over": "o13.5 (-110)"
+                },
+                "line": "o13.5",
+                "fanduel": {
+                    "under": "u13.5 (-106)",
+                    "over": "o13.5 (-114)"
+                }
+            },
+            "ast": {
+                "draftkings": {
+                    "under": "u1.5 (-155)",
+                    "over": "o1.5 (125)"
+                },
+                "line": "o1.5"
+            },
+            "reb": {
+                "draftkings": {
+                    "under": "u3.5 (125)",
+                    "over": "o3.5 (-155)"
+                },
+                "line": "o3.5",
+                "fanduel": {
+                    "under": "u3.5 (124)",
+                    "over": "o3.5 (-152)"
+                }
+            },
+            "blk": {
+                "draftkings": {
+                    "under": "u0.5 (-360)",
+                    "over": "o0.5 (280)"
                 },
                 "line": "o0.5"
             },
@@ -829,16 +1825,609 @@
                 },
                 "line": "o0.5"
             },
+            "pts+ast": {
+                "draftkings": {
+                    "under": "u14.5 (-105)",
+                    "over": "o14.5 (-125)"
+                },
+                "line": "o14.5"
+            },
+            "pts+reb": {
+                "draftkings": {
+                    "under": "u17.5 (-115)",
+                    "over": "o17.5 (-115)"
+                },
+                "line": "o17.5",
+                "fanduel": {
+                    "under": "u17.5 (-102)",
+                    "over": "o17.5 (-125)"
+                }
+            },
+            "pts+reb+ast": {
+                "draftkings": {
+                    "under": "u18.5 (-105)",
+                    "over": "o18.5 (-125)"
+                },
+                "line": "o18.5"
+            },
             "reb+ast": {
                 "draftkings": {
-                    "under": "u8.5 (-110)",
-                    "over": "o8.5 (-120)"
+                    "under": "u5.5 (-115)",
+                    "over": "o5.5 (-115)"
                 },
-                "line": "o8.5",
+                "line": "o5.5"
+            },
+            "stl+blk": {
+                "draftkings": {
+                    "under": "u0.5 (155)",
+                    "over": "o0.5 (-190)"
+                },
+                "line": "o0.5"
+            },
+            "3ptm": {
+                "draftkings": {
+                    "under": "u1.5 (-105)",
+                    "over": "o1.5 (-125)"
+                },
+                "line": "o1.5",
                 "fanduel": {
-                    "under": "u8.5 (104)",
-                    "over": "o8.5 (-132)"
+                    "under": "u1.5 (-102)",
+                    "over": "o1.5 (-125)"
                 }
+            }
+        },
+        "john wall": {
+            "pts": {
+                "draftkings": {
+                    "under": "u13.5 (-125)",
+                    "over": "o13.5 (-105)"
+                },
+                "line": "o12.5",
+                "fanduel": {
+                    "under": "u12.5 (102)",
+                    "over": "o12.5 (-124)"
+                }
+            },
+            "ast": {
+                "draftkings": {
+                    "under": "u5.5 (-150)",
+                    "over": "o5.5 (120)"
+                },
+                "line": "o5.5",
+                "fanduel": {
+                    "under": "u5.5 (-134)",
+                    "over": "o5.5 (110)"
+                }
+            },
+            "reb": {
+                "draftkings": {
+                    "under": "u2.5 (-120)",
+                    "over": "o2.5 (-110)"
+                },
+                "line": "o2.5"
+            },
+            "blk": {
+                "draftkings": {
+                    "under": "u0.5 (-335)",
+                    "over": "o0.5 (260)"
+                },
+                "line": "o0.5"
+            },
+            "stl": {
+                "draftkings": {
+                    "under": "u0.5 (130)",
+                    "over": "o0.5 (-160)"
+                },
+                "line": "o0.5"
+            },
+            "pts+ast": {
+                "draftkings": {
+                    "under": "u18.5 (-120)",
+                    "over": "o18.5 (-110)"
+                },
+                "line": "o18.5",
+                "fanduel": {
+                    "under": "u18.5 (-113)",
+                    "over": "o18.5 (-113)"
+                }
+            },
+            "pts+reb": {
+                "draftkings": {
+                    "under": "u15.5 (-105)",
+                    "over": "o15.5 (-125)"
+                },
+                "line": "o15.5"
+            },
+            "pts+reb+ast": {
+                "draftkings": {
+                    "under": "u20.5 (-105)",
+                    "over": "o20.5 (-125)"
+                },
+                "line": "o20.5"
+            },
+            "reb+ast": {
+                "draftkings": {
+                    "under": "u7.5 (100)",
+                    "over": "o7.5 (-130)"
+                },
+                "line": "o7.5"
+            },
+            "stl+blk": {
+                "draftkings": {
+                    "under": "u1.5 (-220)",
+                    "over": "o1.5 (180)"
+                },
+                "line": "o1.5"
+            },
+            "3ptm": {
+                "draftkings": {
+                    "under": "u0.5 (190)",
+                    "over": "o0.5 (-235)"
+                },
+                "line": "o0.5",
+                "fanduel": {
+                    "under": "u0.5 (176)",
+                    "over": "o0.5 (-230)"
+                }
+            }
+        },
+        "reggie jackson": {
+            "pts": {
+                "draftkings": {
+                    "under": "u13.5 (-125)",
+                    "over": "o13.5 (-105)"
+                },
+                "line": "o12.5",
+                "fanduel": {
+                    "under": "u12.5 (-108)",
+                    "over": "o12.5 (-112)"
+                }
+            },
+            "ast": {
+                "draftkings": {
+                    "under": "u4.5 (-140)",
+                    "over": "o4.5 (110)"
+                },
+                "line": "o3.5",
+                "fanduel": {
+                    "under": "u3.5 (128)",
+                    "over": "o3.5 (-158)"
+                }
+            },
+            "reb": {
+                "draftkings": {
+                    "under": "u2.5 (-120)",
+                    "over": "o2.5 (-110)"
+                },
+                "line": "o2.5",
+                "fanduel": {
+                    "under": "u2.5 (-122)",
+                    "over": "o2.5 (100)"
+                }
+            },
+            "blk": {
+                "draftkings": {
+                    "under": "u0.5 (-600)",
+                    "over": "o0.5 (430)"
+                },
+                "line": "o0.5"
+            },
+            "stl": {
+                "draftkings": {
+                    "under": "u0.5 (-120)",
+                    "over": "o0.5 (-110)"
+                },
+                "line": "o0.5"
+            },
+            "pts+ast": {
+                "draftkings": {
+                    "under": "u18.5 (-150)",
+                    "over": "o18.5 (120)"
+                },
+                "line": "o16.5",
+                "fanduel": {
+                    "under": "u16.5 (-108)",
+                    "over": "o16.5 (-118)"
+                }
+            },
+            "pts+reb": {
+                "draftkings": {
+                    "under": "u16.5 (-135)",
+                    "over": "o16.5 (105)"
+                },
+                "line": "o15.5",
+                "fanduel": {
+                    "under": "u15.5 (-120)",
+                    "over": "o15.5 (-106)"
+                }
+            },
+            "pts+reb+ast": {
+                "draftkings": {
+                    "under": "u20.5 (-135)",
+                    "over": "o20.5 (105)"
+                },
+                "line": "o19.5",
+                "fanduel": {
+                    "under": "u19.5 (-115)",
+                    "over": "o19.5 (-111)"
+                }
+            },
+            "reb+ast": {
+                "draftkings": {
+                    "under": "u6.5 (100)",
+                    "over": "o6.5 (-130)"
+                },
+                "line": "o6.5",
+                "fanduel": {
+                    "under": "u6.5 (-111)",
+                    "over": "o6.5 (-115)"
+                }
+            },
+            "stl+blk": {
+                "draftkings": {
+                    "under": "u0.5 (120)",
+                    "over": "o0.5 (-150)"
+                },
+                "line": "o0.5"
+            },
+            "3ptm": {
+                "draftkings": {
+                    "under": "u1.5 (-105)",
+                    "over": "o1.5 (-125)"
+                },
+                "line": "o1.5",
+                "fanduel": {
+                    "under": "u1.5 (102)",
+                    "over": "o1.5 (-130)"
+                }
+            }
+        },
+        "paul george": {
+            "pts": {
+                "draftkings": {
+                    "under": "u22.5 (-125)",
+                    "over": "o22.5 (-105)"
+                },
+                "line": "o22.5",
+                "fanduel": {
+                    "under": "u22.5 (-114)",
+                    "over": "o22.5 (-106)"
+                }
+            },
+            "ast": {
+                "draftkings": {
+                    "under": "u4.5 (-115)",
+                    "over": "o4.5 (-115)"
+                },
+                "line": "o4.5",
+                "fanduel": {
+                    "under": "u4.5 (-128)",
+                    "over": "o4.5 (104)"
+                }
+            },
+            "reb": {
+                "draftkings": {
+                    "under": "u5.5 (-135)",
+                    "over": "o5.5 (105)"
+                },
+                "line": "o5.5",
+                "fanduel": {
+                    "under": "u5.5 (-115)",
+                    "over": "o5.5 (-105)"
+                }
+            },
+            "blk": {
+                "draftkings": {
+                    "under": "u0.5 (-250)",
+                    "over": "o0.5 (200)"
+                },
+                "line": "o0.5"
+            },
+            "stl": {
+                "draftkings": {
+                    "under": "u1.5 (-165)",
+                    "over": "o1.5 (135)"
+                },
+                "line": "o1.5"
+            },
+            "pts+ast": {
+                "draftkings": {
+                    "under": "u26.5 (-110)",
+                    "over": "o26.5 (-120)"
+                },
+                "line": "o26.5",
+                "fanduel": {
+                    "under": "u26.5 (-104)",
+                    "over": "o26.5 (-122)"
+                }
+            },
+            "pts+reb": {
+                "draftkings": {
+                    "under": "u27.5 (-110)",
+                    "over": "o27.5 (-120)"
+                },
+                "line": "o27.5",
+                "fanduel": {
+                    "under": "u28.5 (-122)",
+                    "over": "o28.5 (-104)"
+                }
+            },
+            "pts+reb+ast": {
+                "draftkings": {
+                    "under": "u32.5 (-125)",
+                    "over": "o32.5 (-105)"
+                },
+                "line": "o32.5",
+                "fanduel": {
+                    "under": "u32.5 (-111)",
+                    "over": "o32.5 (-115)"
+                }
+            },
+            "reb+ast": {
+                "draftkings": {
+                    "under": "u9.5 (110)",
+                    "over": "o9.5 (-140)"
+                },
+                "line": "o9.5",
+                "fanduel": {
+                    "under": "u9.5 (106)",
+                    "over": "o9.5 (-136)"
+                }
+            },
+            "stl+blk": {
+                "draftkings": {
+                    "under": "u1.5 (-105)",
+                    "over": "o1.5 (-125)"
+                },
+                "line": "o1.5"
+            },
+            "3ptm": {
+                "draftkings": {
+                    "under": "u2.5 (-120)",
+                    "over": "o2.5 (-110)"
+                },
+                "line": "o2.5",
+                "fanduel": {
+                    "under": "u2.5 (-106)",
+                    "over": "o2.5 (-120)"
+                }
+            }
+        },
+        "kawhi leonard": {
+            "pts": {
+                "fanduel": {
+                    "under": "u14.5 (-104)",
+                    "over": "o14.5 (-122)"
+                },
+                "line": "o14.5"
+            },
+            "ast": {
+                "fanduel": {
+                    "under": "u3.5 (-142)",
+                    "over": "o3.5 (112)"
+                },
+                "line": "o3.5"
+            },
+            "reb": {
+                "fanduel": {
+                    "under": "u5.5 (-154)",
+                    "over": "o5.5 (120)"
+                },
+                "line": "o5.5"
+            },
+            "pts+ast": {
+                "fanduel": {
+                    "under": "u18.5 (-122)",
+                    "over": "o18.5 (-104)"
+                },
+                "line": "o18.5"
+            },
+            "pts+reb": {
+                "fanduel": {
+                    "under": "u20.5 (-125)",
+                    "over": "o20.5 (-102)"
+                },
+                "line": "o20.5"
+            },
+            "pts+reb+ast": {
+                "fanduel": {
+                    "under": "u23.5 (-113)",
+                    "over": "o23.5 (-113)"
+                },
+                "line": "o23.5"
+            },
+            "reb+ast": {
+                "fanduel": {
+                    "under": "u8.5 (-115)",
+                    "over": "o8.5 (-111)"
+                },
+                "line": "o8.5"
+            },
+            "3ptm": {
+                "fanduel": {
+                    "under": "u1.5 (-158)",
+                    "over": "o1.5 (124)"
+                },
+                "line": "o1.5"
+            }
+        }
+    },
+    "mia": {
+        "bam adebayo": {
+            "pts": {
+                "draftkings": {
+                    "under": "u20.5 (-145)",
+                    "over": "o20.5 (115)"
+                },
+                "line": "o19.5",
+                "fanduel": {
+                    "under": "u19.5 (-108)",
+                    "over": "o19.5 (-112)"
+                }
+            },
+            "ast": {
+                "draftkings": {
+                    "under": "u4.5 (-150)",
+                    "over": "o4.5 (120)"
+                },
+                "line": "o4.5",
+                "fanduel": {
+                    "under": "u4.5 (-160)",
+                    "over": "o4.5 (130)"
+                }
+            },
+            "reb": {
+                "draftkings": {
+                    "under": "u9.5 (-130)",
+                    "over": "o9.5 (100)"
+                },
+                "line": "o9.5",
+                "fanduel": {
+                    "under": "u9.5 (-124)",
+                    "over": "o9.5 (102)"
+                }
+            },
+            "blk": {
+                "draftkings": {
+                    "under": "u0.5 (115)",
+                    "over": "o0.5 (-145)"
+                },
+                "line": "o0.5"
+            },
+            "stl": {
+                "draftkings": {
+                    "under": "u1.5 (-235)",
+                    "over": "o1.5 (190)"
+                },
+                "line": "o1.5"
+            },
+            "pts+ast": {
+                "draftkings": {
+                    "under": "u24.5 (-115)",
+                    "over": "o24.5 (-115)"
+                },
+                "line": "o23.5",
+                "fanduel": {
+                    "under": "u23.5 (-104)",
+                    "over": "o23.5 (-122)"
+                }
+            },
+            "pts+reb": {
+                "draftkings": {
+                    "under": "u29.5 (-110)",
+                    "over": "o29.5 (-120)"
+                },
+                "line": "o29.5",
+                "fanduel": {
+                    "under": "u29.5 (-125)",
+                    "over": "o29.5 (-102)"
+                }
+            },
+            "pts+reb+ast": {
+                "draftkings": {
+                    "under": "u33.5 (-105)",
+                    "over": "o33.5 (-125)"
+                },
+                "line": "o33.5",
+                "fanduel": {
+                    "under": "u33.5 (-120)",
+                    "over": "o33.5 (-106)"
+                }
+            },
+            "reb+ast": {
+                "draftkings": {
+                    "under": "u13.5 (-115)",
+                    "over": "o13.5 (-115)"
+                },
+                "line": "o13.5",
+                "fanduel": {
+                    "under": "u13.5 (-120)",
+                    "over": "o13.5 (-106)"
+                }
+            },
+            "stl+blk": {
+                "draftkings": {
+                    "under": "u1.5 (130)",
+                    "over": "o1.5 (-160)"
+                },
+                "line": "o1.5"
+            }
+        },
+        "caleb martin": {
+            "pts": {
+                "draftkings": {
+                    "under": "u10.5 (-110)",
+                    "over": "o10.5 (-120)"
+                },
+                "line": "o10.5",
+                "fanduel": {
+                    "under": "u10.5 (-108)",
+                    "over": "o10.5 (-112)"
+                }
+            },
+            "ast": {
+                "draftkings": {
+                    "under": "u1.5 (140)",
+                    "over": "o1.5 (-175)"
+                },
+                "line": "o1.5"
+            },
+            "reb": {
+                "draftkings": {
+                    "under": "u4.5 (-120)",
+                    "over": "o4.5 (-110)"
+                },
+                "line": "o4.5",
+                "fanduel": {
+                    "under": "u4.5 (-128)",
+                    "over": "o4.5 (104)"
+                }
+            },
+            "blk": {
+                "draftkings": {
+                    "under": "u0.5 (-285)",
+                    "over": "o0.5 (225)"
+                },
+                "line": "o0.5"
+            },
+            "stl": {
+                "draftkings": {
+                    "under": "u1.5 (-220)",
+                    "over": "o1.5 (180)"
+                },
+                "line": "o1.5"
+            },
+            "pts+ast": {
+                "draftkings": {
+                    "under": "u12.5 (-110)",
+                    "over": "o12.5 (-120)"
+                },
+                "line": "o12.5"
+            },
+            "pts+reb": {
+                "draftkings": {
+                    "under": "u15.5 (-120)",
+                    "over": "o15.5 (-110)"
+                },
+                "line": "o15.5",
+                "fanduel": {
+                    "under": "u15.5 (-122)",
+                    "over": "o15.5 (-104)"
+                }
+            },
+            "pts+reb+ast": {
+                "draftkings": {
+                    "under": "u17.5 (-115)",
+                    "over": "o17.5 (-115)"
+                },
+                "line": "o17.5"
+            },
+            "reb+ast": {
+                "draftkings": {
+                    "under": "u6.5 (-115)",
+                    "over": "o6.5 (-115)"
+                },
+                "line": "o6.5"
             },
             "stl+blk": {
                 "draftkings": {
@@ -849,282 +2438,337 @@
             },
             "3ptm": {
                 "draftkings": {
-                    "under": "u1.5 (-230)",
-                    "over": "o1.5 (185)"
+                    "under": "u1.5 (-140)",
+                    "over": "o1.5 (110)"
                 },
                 "line": "o1.5",
                 "fanduel": {
-                    "under": "u1.5 (-225)",
-                    "over": "o1.5 (172)"
+                    "under": "u1.5 (-146)",
+                    "over": "o1.5 (114)"
                 }
             }
         },
-        "jamal murray": {
+        "kyle lowry": {
             "pts": {
                 "draftkings": {
-                    "under": "u19.5 (-120)",
-                    "over": "o19.5 (-110)"
+                    "under": "u12.5 (-105)",
+                    "over": "o12.5 (-125)"
                 },
-                "line": "o19.5",
+                "line": "o12.5",
                 "fanduel": {
-                    "under": "u19.5 (-120)",
-                    "over": "o19.5 (-106)"
+                    "under": "u12.5 (-104)",
+                    "over": "o12.5 (-122)"
                 }
             },
             "ast": {
                 "draftkings": {
-                    "under": "u4.5 (125)",
-                    "over": "o4.5 (-155)"
+                    "under": "u5.5 (-110)",
+                    "over": "o5.5 (-120)"
                 },
-                "line": "o4.5",
+                "line": "o5.5",
                 "fanduel": {
-                    "under": "u4.5 (124)",
-                    "over": "o4.5 (-158)"
+                    "under": "u5.5 (104)",
+                    "over": "o5.5 (-132)"
                 }
             },
             "reb": {
-                "draftkings": {
-                    "under": "u3.5 (125)",
-                    "over": "o3.5 (-155)"
-                },
-                "line": "o3.5",
                 "fanduel": {
-                    "under": "u3.5 (122)",
-                    "over": "o3.5 (-156)"
-                }
+                    "over": "o4.5 (104)",
+                    "under": "u4.5 (-132)"
+                },
+                "line": "o4.5"
             },
             "blk": {
                 "draftkings": {
-                    "under": "u0.5 (-475)",
-                    "over": "o0.5 (350)"
+                    "under": "u0.5 (-240)",
+                    "over": "o0.5 (195)"
                 },
                 "line": "o0.5"
             },
             "stl": {
                 "draftkings": {
-                    "under": "u0.5 (170)",
-                    "over": "o0.5 (-210)"
-                },
-                "line": "o0.5"
-            },
-            "reb+ast": {
-                "draftkings": {
-                    "under": "u9.5 (-125)",
-                    "over": "o9.5 (-105)"
-                },
-                "line": "o9.5",
-                "fanduel": {
-                    "under": "u9.5 (-132)",
-                    "over": "o9.5 (104)"
-                }
-            },
-            "stl+blk": {
-                "draftkings": {
-                    "under": "u1.5 (-190)",
-                    "over": "o1.5 (155)"
-                },
-                "line": "o1.5"
-            },
-            "3ptm": {
-                "draftkings": {
-                    "under": "u2.5 (-150)",
-                    "over": "o2.5 (120)"
-                },
-                "line": "o2.5",
-                "fanduel": {
-                    "under": "u2.5 (-162)",
-                    "over": "o2.5 (126)"
-                }
-            }
-        },
-        "nikola jokic": {
-            "pts": {
-                "draftkings": {
-                    "under": "u23.5 (-115)",
-                    "over": "o23.5 (-115)"
-                },
-                "line": "o23.5",
-                "fanduel": {
-                    "under": "u23.5 (-115)",
-                    "over": "o23.5 (-108)"
-                }
-            },
-            "ast": {
-                "draftkings": {
-                    "under": "u8.5 (-140)",
-                    "over": "o8.5 (110)"
-                },
-                "line": "o8.5",
-                "fanduel": {
-                    "under": "u8.5 (-136)",
-                    "over": "o8.5 (106)"
-                }
-            },
-            "reb": {
-                "draftkings": {
-                    "under": "u11.5 (-130)",
-                    "over": "o11.5 (100)"
-                },
-                "line": "o10.5",
-                "fanduel": {
-                    "under": "u10.5 (106)",
-                    "over": "o10.5 (-136)"
-                }
-            },
-            "blk": {
-                "draftkings": {
-                    "under": "u0.5 (120)",
-                    "over": "o0.5 (-150)"
-                },
-                "line": "o0.5"
-            },
-            "stl": {
-                "draftkings": {
-                    "under": "u1.5 (-190)",
-                    "over": "o1.5 (155)"
+                    "under": "u1.5 (-220)",
+                    "over": "o1.5 (180)"
                 },
                 "line": "o1.5"
             },
             "pts+ast": {
-                "draftkings": {
-                    "under": "u31.5 (-110)",
-                    "over": "o31.5 (-120)"
+                "fanduel": {
+                    "under": "u18.5 (-106)",
+                    "over": "o18.5 (-120)"
                 },
-                "line": "o31.5"
+                "line": "o18.5"
+            },
+            "pts+reb": {
+                "fanduel": {
+                    "under": "u17.5 (-115)",
+                    "over": "o17.5 (-111)"
+                },
+                "line": "o17.5"
+            },
+            "pts+reb+ast": {
+                "fanduel": {
+                    "under": "u23.5 (-115)",
+                    "over": "o23.5 (-111)"
+                },
+                "line": "o23.5"
+            },
+            "reb+ast": {
+                "fanduel": {
+                    "under": "u10.5 (-125)",
+                    "over": "o10.5 (-102)"
+                },
+                "line": "o10.5"
+            },
+            "3ptm": {
+                "fanduel": {
+                    "under": "u1.5 (146)",
+                    "over": "o1.5 (-188)"
+                },
+                "line": "o1.5"
+            }
+        },
+        "tyler herro": {
+            "pts": {
+                "draftkings": {
+                    "under": "u20.5 (-105)",
+                    "over": "o20.5 (-125)"
+                },
+                "line": "o20.5",
+                "fanduel": {
+                    "under": "u21.5 (-122)",
+                    "over": "o21.5 (100)"
+                }
+            },
+            "ast": {
+                "draftkings": {
+                    "under": "u5.5 (-125)",
+                    "over": "o5.5 (-105)"
+                },
+                "line": "o5.5",
+                "fanduel": {
+                    "under": "u5.5 (-130)",
+                    "over": "o5.5 (106)"
+                }
+            },
+            "reb": {
+                "draftkings": {
+                    "under": "u6.5 (-135)",
+                    "over": "o6.5 (105)"
+                },
+                "line": "o6.5",
+                "fanduel": {
+                    "under": "u6.5 (-128)",
+                    "over": "o6.5 (104)"
+                }
+            },
+            "blk": {
+                "draftkings": {
+                    "under": "u0.5 (-235)",
+                    "over": "o0.5 (190)"
+                },
+                "line": "o0.5"
+            },
+            "stl": {
+                "draftkings": {
+                    "under": "u0.5 (140)",
+                    "over": "o0.5 (-175)"
+                },
+                "line": "o0.5"
+            },
+            "pts+ast": {
+                "draftkings": {
+                    "under": "u26.5 (-115)",
+                    "over": "o26.5 (-115)"
+                },
+                "line": "o26.5",
+                "fanduel": {
+                    "under": "u26.5 (-118)",
+                    "over": "o26.5 (-108)"
+                }
             },
             "pts+reb": {
                 "draftkings": {
-                    "under": "u34.5 (-105)",
-                    "over": "o34.5 (-125)"
+                    "under": "u27.5 (-120)",
+                    "over": "o27.5 (-110)"
                 },
-                "line": "o34.5",
+                "line": "o27.5",
                 "fanduel": {
-                    "under": "u34.5 (-111)",
-                    "over": "o34.5 (-115)"
+                    "under": "u27.5 (-113)",
+                    "over": "o27.5 (-113)"
                 }
             },
             "pts+reb+ast": {
                 "draftkings": {
-                    "under": "u43.5 (-120)",
-                    "over": "o43.5 (-110)"
+                    "under": "u32.5 (-110)",
+                    "over": "o32.5 (-120)"
                 },
-                "line": "o42.5",
+                "line": "o32.5",
                 "fanduel": {
-                    "under": "u42.5 (-104)",
-                    "over": "o42.5 (-122)"
+                    "under": "u33.5 (-122)",
+                    "over": "o33.5 (-104)"
                 }
             },
             "reb+ast": {
                 "draftkings": {
-                    "under": "u19.5 (-115)",
-                    "over": "o19.5 (-115)"
+                    "under": "u11.5 (100)",
+                    "over": "o11.5 (-130)"
                 },
-                "line": "o19.5",
+                "line": "o11.5",
                 "fanduel": {
-                    "under": "u19.5 (-118)",
-                    "over": "o19.5 (-108)"
+                    "under": "u11.5 (-104)",
+                    "over": "o11.5 (-122)"
                 }
             },
             "stl+blk": {
                 "draftkings": {
-                    "under": "u1.5 (150)",
-                    "over": "o1.5 (-185)"
+                    "under": "u1.5 (-175)",
+                    "over": "o1.5 (140)"
                 },
                 "line": "o1.5"
             },
             "3ptm": {
                 "draftkings": {
+                    "under": "u2.5 (-115)",
+                    "over": "o2.5 (-115)"
+                },
+                "line": "o2.5",
+                "fanduel": {
+                    "under": "u2.5 (100)",
+                    "over": "o2.5 (-128)"
+                }
+            }
+        },
+        "max strus": {
+            "pts": {
+                "draftkings": {
+                    "under": "u12.5 (110)",
+                    "over": "o12.5 (-140)"
+                },
+                "line": "o12.5",
+                "fanduel": {
+                    "under": "u13.5 (-122)",
+                    "over": "o13.5 (100)"
+                }
+            },
+            "ast": {
+                "draftkings": {
+                    "under": "u1.5 (155)",
+                    "over": "o1.5 (-190)"
+                },
+                "line": "o1.5"
+            },
+            "reb": {
+                "draftkings": {
+                    "under": "u3.5 (-130)",
+                    "over": "o3.5 (100)"
+                },
+                "line": "o3.5",
+                "fanduel": {
+                    "under": "u3.5 (-128)",
+                    "over": "o3.5 (104)"
+                }
+            },
+            "blk": {
+                "draftkings": {
+                    "under": "u0.5 (-280)",
+                    "over": "o0.5 (220)"
+                },
+                "line": "o0.5"
+            },
+            "stl": {
+                "draftkings": {
                     "under": "u0.5 (120)",
                     "over": "o0.5 (-150)"
                 },
-                "line": "o0.5",
+                "line": "o0.5"
+            },
+            "pts+ast": {
+                "draftkings": {
+                    "under": "u14.5 (110)",
+                    "over": "o14.5 (-140)"
+                },
+                "line": "o14.5"
+            },
+            "pts+reb": {
+                "draftkings": {
+                    "under": "u16.5 (-125)",
+                    "over": "o16.5 (-105)"
+                },
+                "line": "o16.5",
                 "fanduel": {
-                    "under": "u0.5 (124)",
-                    "over": "o0.5 (-160)"
+                    "under": "u16.5 (-111)",
+                    "over": "o16.5 (-115)"
+                }
+            },
+            "pts+reb+ast": {
+                "draftkings": {
+                    "under": "u18.5 (-120)",
+                    "over": "o18.5 (-110)"
+                },
+                "line": "o18.5"
+            },
+            "reb+ast": {
+                "draftkings": {
+                    "under": "u5.5 (-125)",
+                    "over": "o5.5 (-105)"
+                },
+                "line": "o5.5"
+            },
+            "stl+blk": {
+                "draftkings": {
+                    "under": "u1.5 (-220)",
+                    "over": "o1.5 (180)"
+                },
+                "line": "o1.5"
+            },
+            "3ptm": {
+                "draftkings": {
+                    "under": "u2.5 (-110)",
+                    "over": "o2.5 (-120)"
+                },
+                "line": "o2.5",
+                "fanduel": {
+                    "under": "u2.5 (-104)",
+                    "over": "o2.5 (-122)"
                 }
             }
         }
     },
     "sas": {
-        "keldon johnson": {
-            "pts": {
-                "draftkings": {
-                    "under": "u24.5 (-115)",
-                    "over": "o24.5 (-115)"
-                },
-                "line": "o24.5"
-            },
-            "ast": {
-                "draftkings": {
-                    "under": "u3.5 (-140)",
-                    "over": "o3.5 (110)"
-                },
-                "line": "o3.5"
-            },
-            "reb": {
-                "draftkings": {
-                    "under": "u6.5 (-140)",
-                    "over": "o6.5 (110)"
-                },
-                "line": "o6.5"
-            },
-            "blk": {
-                "draftkings": {
-                    "under": "u0.5 (-440)",
-                    "over": "o0.5 (330)"
-                },
-                "line": "o0.5"
-            },
-            "stl": {
-                "draftkings": {
-                    "under": "u0.5 (160)",
-                    "over": "o0.5 (-195)"
-                },
-                "line": "o0.5"
-            },
-            "reb+ast": {
-                "draftkings": {
-                    "under": "u9.5 (-110)",
-                    "over": "o9.5 (-120)"
-                },
-                "line": "o9.5"
-            },
-            "stl+blk": {
-                "draftkings": {
-                    "under": "u1.5 (-205)",
-                    "over": "o1.5 (165)"
-                },
-                "line": "o1.5"
-            },
-            "3ptm": {
-                "draftkings": {
-                    "under": "u3.5 (-150)",
-                    "over": "o3.5 (120)"
-                },
-                "line": "o3.5"
-            }
-        },
         "tre jones": {
             "pts": {
                 "draftkings": {
-                    "under": "u13.5 (-110)",
-                    "over": "o13.5 (-120)"
+                    "under": "u14.5 (100)",
+                    "over": "o14.5 (-130)"
                 },
-                "line": "o13.5"
+                "line": "o14.5",
+                "fanduel": {
+                    "under": "u15.5 (-108)",
+                    "over": "o15.5 (-112)"
+                }
             },
             "ast": {
                 "draftkings": {
                     "under": "u7.5 (-105)",
                     "over": "o7.5 (-125)"
                 },
-                "line": "o7.5"
+                "line": "o7.5",
+                "fanduel": {
+                    "under": "u7.5 (112)",
+                    "over": "o7.5 (-140)"
+                }
             },
             "reb": {
                 "draftkings": {
-                    "under": "u3.5 (-110)",
-                    "over": "o3.5 (-120)"
+                    "under": "u3.5 (100)",
+                    "over": "o3.5 (-130)"
                 },
-                "line": "o3.5"
+                "line": "o3.5",
+                "fanduel": {
+                    "under": "u3.5 (100)",
+                    "over": "o3.5 (-122)"
+                }
             },
             "blk": {
                 "draftkings": {
@@ -1140,12 +2784,49 @@
                 },
                 "line": "o1.5"
             },
+            "pts+ast": {
+                "draftkings": {
+                    "under": "u22.5 (115)",
+                    "over": "o22.5 (-145)"
+                },
+                "line": "o22.5",
+                "fanduel": {
+                    "under": "u23.5 (-108)",
+                    "over": "o23.5 (-118)"
+                }
+            },
+            "pts+reb": {
+                "draftkings": {
+                    "under": "u18.5 (-125)",
+                    "over": "o18.5 (-105)"
+                },
+                "line": "o18.5",
+                "fanduel": {
+                    "under": "u19.5 (-115)",
+                    "over": "o19.5 (-111)"
+                }
+            },
+            "pts+reb+ast": {
+                "draftkings": {
+                    "under": "u26.5 (-125)",
+                    "over": "o26.5 (-105)"
+                },
+                "line": "o26.5",
+                "fanduel": {
+                    "under": "u27.5 (-120)",
+                    "over": "o27.5 (-106)"
+                }
+            },
             "reb+ast": {
                 "draftkings": {
-                    "under": "u11.5 (-115)",
-                    "over": "o11.5 (-115)"
+                    "under": "u11.5 (-105)",
+                    "over": "o11.5 (-125)"
                 },
-                "line": "o11.5"
+                "line": "o11.5",
+                "fanduel": {
+                    "under": "u11.5 (-102)",
+                    "over": "o11.5 (-125)"
+                }
             },
             "stl+blk": {
                 "draftkings": {
@@ -1158,6 +2839,224 @@
                 "draftkings": {
                     "under": "u0.5 (130)",
                     "over": "o0.5 (-160)"
+                },
+                "line": "o0.5"
+            }
+        },
+        "keldon johnson": {
+            "pts": {
+                "draftkings": {
+                    "under": "u24.5 (-115)",
+                    "over": "o24.5 (-115)"
+                },
+                "line": "o23.5",
+                "fanduel": {
+                    "under": "u23.5 (100)",
+                    "over": "o23.5 (-122)"
+                }
+            },
+            "ast": {
+                "draftkings": {
+                    "under": "u3.5 (-140)",
+                    "over": "o3.5 (110)"
+                },
+                "line": "o3.5",
+                "fanduel": {
+                    "under": "u3.5 (-148)",
+                    "over": "o3.5 (120)"
+                }
+            },
+            "reb": {
+                "draftkings": {
+                    "under": "u6.5 (-140)",
+                    "over": "o6.5 (110)"
+                },
+                "line": "o5.5",
+                "fanduel": {
+                    "under": "u5.5 (104)",
+                    "over": "o5.5 (-128)"
+                }
+            },
+            "blk": {
+                "draftkings": {
+                    "under": "u0.5 (-440)",
+                    "over": "o0.5 (330)"
+                },
+                "line": "o0.5"
+            },
+            "stl": {
+                "draftkings": {
+                    "under": "u0.5 (160)",
+                    "over": "o0.5 (-195)"
+                },
+                "line": "o0.5"
+            },
+            "pts+ast": {
+                "draftkings": {
+                    "under": "u27.5 (-105)",
+                    "over": "o27.5 (-125)"
+                },
+                "line": "o27.5",
+                "fanduel": {
+                    "under": "u27.5 (-115)",
+                    "over": "o27.5 (-111)"
+                }
+            },
+            "pts+reb": {
+                "draftkings": {
+                    "under": "u30.5 (-115)",
+                    "over": "o30.5 (-115)"
+                },
+                "line": "o30.5",
+                "fanduel": {
+                    "under": "u30.5 (-122)",
+                    "over": "o30.5 (-104)"
+                }
+            },
+            "pts+reb+ast": {
+                "draftkings": {
+                    "under": "u33.5 (-105)",
+                    "over": "o33.5 (-125)"
+                },
+                "line": "o33.5",
+                "fanduel": {
+                    "under": "u33.5 (-113)",
+                    "over": "o33.5 (-113)"
+                }
+            },
+            "reb+ast": {
+                "draftkings": {
+                    "under": "u9.5 (-110)",
+                    "over": "o9.5 (-120)"
+                },
+                "line": "o9.5",
+                "fanduel": {
+                    "under": "u9.5 (-130)",
+                    "over": "o9.5 (102)"
+                }
+            },
+            "stl+blk": {
+                "draftkings": {
+                    "under": "u1.5 (-205)",
+                    "over": "o1.5 (165)"
+                },
+                "line": "o1.5"
+            },
+            "3ptm": {
+                "draftkings": {
+                    "under": "u3.5 (-150)",
+                    "over": "o3.5 (120)"
+                },
+                "line": "o3.5",
+                "fanduel": {
+                    "under": "u3.5 (-154)",
+                    "over": "o3.5 (120)"
+                }
+            }
+        },
+        "zach collins": {
+            "pts": {
+                "draftkings": {
+                    "under": "u11.5 (-110)",
+                    "over": "o11.5 (-120)"
+                },
+                "line": "o11.5",
+                "fanduel": {
+                    "under": "u11.5 (-112)",
+                    "over": "o11.5 (-108)"
+                }
+            },
+            "ast": {
+                "draftkings": {
+                    "under": "u2.5 (140)",
+                    "over": "o2.5 (-175)"
+                },
+                "line": "o2.5",
+                "fanduel": {
+                    "under": "u3.5 (-148)",
+                    "over": "o3.5 (120)"
+                }
+            },
+            "reb": {
+                "draftkings": {
+                    "under": "u7.5 (-135)",
+                    "over": "o7.5 (105)"
+                },
+                "line": "o6.5",
+                "fanduel": {
+                    "under": "u6.5 (112)",
+                    "over": "o6.5 (-138)"
+                }
+            },
+            "blk": {
+                "draftkings": {
+                    "under": "u0.5 (180)",
+                    "over": "o0.5 (-220)"
+                },
+                "line": "o0.5"
+            },
+            "stl": {
+                "draftkings": {
+                    "under": "u0.5 (105)",
+                    "over": "o0.5 (-135)"
+                },
+                "line": "o0.5"
+            },
+            "pts+ast": {
+                "draftkings": {
+                    "under": "u14.5 (-105)",
+                    "over": "o14.5 (-125)"
+                },
+                "line": "o14.5",
+                "fanduel": {
+                    "under": "u14.5 (-102)",
+                    "over": "o14.5 (-125)"
+                }
+            },
+            "pts+reb": {
+                "draftkings": {
+                    "under": "u19.5 (-125)",
+                    "over": "o19.5 (-105)"
+                },
+                "line": "o18.5",
+                "fanduel": {
+                    "under": "u18.5 (-106)",
+                    "over": "o18.5 (-120)"
+                }
+            },
+            "pts+reb+ast": {
+                "draftkings": {
+                    "under": "u22.5 (-120)",
+                    "over": "o22.5 (-110)"
+                },
+                "line": "o22.5",
+                "fanduel": {
+                    "under": "u22.5 (-122)",
+                    "over": "o22.5 (-104)"
+                }
+            },
+            "reb+ast": {
+                "draftkings": {
+                    "under": "u10.5 (-125)",
+                    "over": "o10.5 (-105)"
+                },
+                "line": "o10.5",
+                "fanduel": {
+                    "under": "u10.5 (-125)",
+                    "over": "o10.5 (-102)"
+                }
+            },
+            "stl+blk": {
+                "draftkings": {
+                    "under": "u1.5 (115)",
+                    "over": "o1.5 (-145)"
+                },
+                "line": "o1.5"
+            },
+            "3ptm": {
+                "draftkings": {
+                    "under": "u0.5 (125)",
+                    "over": "o0.5 (-155)"
                 },
                 "line": "o0.5"
             }

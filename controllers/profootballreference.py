@@ -837,93 +837,91 @@ def write_stats(week):
 		if home not in allStats:
 			allStats[home] = {}
 
-		link = boxscores[week][game].replace("game?gameId=", "boxscore/_/gameId/")
-		url = f"https://www.espn.com{link}"
+
+		gameId = boxscores[week][game].split("/")[-1].split("=")[-1]
+		url = f"https://site.web.api.espn.com/apis/site/v2/sports/football/nfl/summary?region=us&lang=en&contentorigin=espn&event={gameId}"
 		outfile = "out"
-		time.sleep(0.2)
+		time.sleep(0.3)
 		call(["curl", "-k", url, "-o", outfile])
-		soup = BS(open(outfile, 'rb').read(), "lxml")
 
-		playerList = []
-		team = away
-		tables = soup.findAll("table")[1:-2]
-		for idx, table in enumerate(tables):
-			if idx % 2 == 0:
-				team = away
-			else:
-				team = home
+		with open("out") as fh:
+			data = json.load(fh)
 
+		if "code" in data and data["code"] == 400:
+			continue
+
+		if "players" not in data["boxscore"]:
+			continue
+		for teamRow in data["boxscore"]["players"]:
+			team = teamRow["team"]["abbreviation"].lower()
 			if team not in playerIds:
 				playerIds[team] = {}
 
-			title = table.findPrevious("div", class_="team-name").text.strip().split(" ")[-1].lower()
-			shortHeader = ""
-			if title == "receiving":
-				shortHeader = "rec"
-			elif title == "defensive":
-				shortHeader = "def"
-			elif title == "interceptions":
-				shortHeader = "def_int"
-			elif title in ["returns", "punting", "fumbles"]:
-				shortHeader = title
-			else:
-				shortHeader = title[:4]
+			for statRow in teamRow["statistics"]:
+				title = statRow["name"]
+				shortHeader = ""
+				if title == "receiving":
+					shortHeader = "rec"
+				elif title == "defensive":
+					shortHeader = "def"
+				elif title == "interceptions":
+					shortHeader = "def_int"
+				elif title in ["puntReturns", "kickReturns", "punting", "fumbles"]:
+					shortHeader = title
+				else:
+					shortHeader = title[:4]
 
-			cutoff = 2 if title == "defensive" else 1
-			for row in table.findAll("tr")[cutoff:-1]:
-				try:
-					nameLink = row.find("a").get("href").split("/")
-				except:
-					continue
-				player = nameLink[-1].replace("-", " ")
-				playerId = int(nameLink[-2])
-				playerIds[team][player] = playerId
+				headers = [h.lower() for h in statRow["labels"]]
 
-				if player not in allStats[team]:
-					allStats[team][player] = {}
+				for playerRow in statRow["athletes"]:
+					player = playerRow["athlete"]["displayName"].lower().replace("'", "").replace(".", "")
+					playerId = int(playerRow["athlete"]["id"])
 
-				for td in row.findAll("td")[1:]:
-					header = "_".join(td.get("class"))
-					if header == "car":
-						header = "rush_att"
-					elif header == "rec":
-						if shortHeader == "fumbles":
-							header = "fumbles_recovered"
+					playerIds[team][player] = playerId
+					if player not in allStats[team]:
+						allStats[team][player] = {}
+
+					for header, stat in zip(headers, playerRow["stats"]):
+						if header == "car":
+							header = "rush_att"
+						elif header == "rec":
+							if shortHeader == "fumbles":
+								header = "fumbles_recovered"
+							else:
+								header = "rec"
+						elif header == "fum":
+							header = "fumbles"
+						elif header == "lost":
+							header = "fumbles_lost"
+						elif header == "tot":
+							header = "tackles_combined"
+						elif header == "solo":
+							header = "tackles_solo"
+						elif shortHeader == "def" and header == "td":
+							header = "def_td"
+						elif shortHeader == "def_int" and header == "int":
+							header = "def_int"
+						elif shortHeader in ["pass", "rush", "rec", "def_int", "returns"]:
+							header = f"{shortHeader}_{header}"
+
+						if header == "pass_c/att":
+							made, att = map(int, stat.split("/"))
+							allStats[team][player]["pass_cmp"] = made
+							allStats[team][player]["pass_att"] = att
+						elif header in ["xp", "fg"]:
+							made, att = map(int, stat.split("/"))
+							allStats[team][player][header+"m"] = made
+							allStats[team][player][header+"a"] = att
+						elif header == "pass_sacks":
+							made, att = map(int, stat.split("-"))
+							allStats[team][player]["pass_sacks"] = made
 						else:
-							header = "rec"
-					elif header == "fum":
-						header = "fumbles"
-					elif header == "lost":
-						header = "fumbles_lost"
-					elif header == "tot":
-						header = "tackles_combined"
-					elif header == "solo":
-						header = "tackles_solo"
-					elif shortHeader == "def" and header == "td":
-						header = "def_td"
-					elif shortHeader == "def_int" and header == "int":
-						header = "def_int"
-					elif shortHeader in ["pass", "rush", "rec", "def_int", "returns"]:
-						header = f"{shortHeader}_{header}"
-
-					if header == "pass_c-att":
-						made, att = map(int, td.text.strip().split("/"))
-						allStats[team][player]["pass_cmp"] = made
-						allStats[team][player]["pass_att"] = att
-					elif header in ["xp", "fg"]:
-						made, att = map(int, td.text.strip().split("/"))
-						allStats[team][player][header+"m"] = made
-						allStats[team][player][header+"a"] = att
-					elif header == "pass_sacks":
-						made, att = map(int, td.text.strip().split("-"))
-						allStats[team][player]["pass_sacks"] = made
-					else:
-						val = td.text.strip()
-						try:
-							val = float(val)
-						except:
-							val = 0.0
-						allStats[team][player][header] = val
+							val = stat
+							try:
+								val = float(val)
+							except:
+								val = 0.0
+							allStats[team][player][header] = val
 
 	for team in allStats:
 		if not os.path.isdir(f"{prefix}static/profootballreference/{team}"):
@@ -939,6 +937,8 @@ def write_stats(week):
 def writeQBLongest(week):
 	with open(f"{prefix}static/profootballreference/roster.json") as fh:
 		roster = json.load(fh)
+	with open(f"{prefix}static/nfl_trades.json") as fh:
+		nfl_trades = json.load(fh)
 
 	longestRanks = {}
 	for team in os.listdir(f"{prefix}static/profootballreference/"):
@@ -956,10 +956,17 @@ def writeQBLongest(week):
 			longestRec = passAtt = 0
 			qb = ""
 			for player in stats:
-				try:
-					pos = roster[team][player]
-				except:
-					continue
+				if player in nfl_trades:
+					try:
+						pos = roster[nfl_trades[player]["team"]][player]
+					except:
+						continue
+				else:
+					try:
+						currStats = stats
+						pos = roster[team][player]
+					except:
+						continue
 				if pos not in ["QB","WR","TE","RB"]:
 					continue
 				if pos not in longestRanks[team][wk]:
@@ -978,6 +985,11 @@ def writeQBLongest(week):
 				longestRec = max(longestRec, stats[player].get("rec_long", 0))
 			if qb:
 				stats[qb]["pass_long"] = longestRec
+				if not longestRanks[team][wk]["QB"][
+				"pass_long"] or longestRec > max(longestRanks[team][wk]["QB"][
+				"pass_long"]):
+					longestRanks[team][wk]["QB"][
+				"pass_long"].append(longestRec)
 
 			with open(file, "w") as fh:
 				json.dump(stats, fh, indent=4)
@@ -1194,6 +1206,7 @@ if __name__ == "__main__":
 	parser.add_argument("-schedule", "--schedule", help="Print Schedule", action="store_true")
 	parser.add_argument("--rankings", help="Rankings", action="store_true")
 	parser.add_argument("--roster", help="Roster", action="store_true")
+	parser.add_argument("--stats", help="Stats", action="store_true")
 	parser.add_argument("-s", "--start", help="Start Week", type=int)
 	parser.add_argument("-e", "--end", help="End Week", type=int)
 	parser.add_argument("-t", "--team", help="Get Team")
@@ -1215,6 +1228,9 @@ if __name__ == "__main__":
 		writeAverages()
 	elif args.schedule:
 		writeSchedule(curr_week)
+	elif args.stats:
+		write_stats(curr_week)
+		writeQBLongest(curr_week)
 	elif args.ranks:
 		get_total_ranks(curr_week, settings)
 	elif args.team and args.pos:
@@ -1237,7 +1253,10 @@ if __name__ == "__main__":
 		# only needs to be run once in a while
 		write_rankings()
 		writeSchedule(curr_week)
+		writeSchedule(curr_week+1)
 		write_stats(curr_week)
 		writeQBLongest(curr_week)
 
+	#write_stats(curr_week)
+	#writeSchedule(curr_week+1)
 	#writeQBLongest(curr_week)
