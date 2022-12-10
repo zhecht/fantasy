@@ -175,7 +175,7 @@ def write_averages():
 
 			time.sleep(0.25)
 			url = f"https://www.espn.com/mens-college-basketball/player/gamelog/_/id/{pId}/type/mens-college-basketball/year/2022"
-			outfile = "out"
+			outfile = "out3"
 			call(["curl", "-k", url, "-o", outfile])
 			soup = BS(open(outfile, 'rb').read(), "lxml")
 

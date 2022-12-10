@@ -70,6 +70,41 @@ def teamTotals(today, schedule):
 def customPropData(propData):
 	pass
 
+def getOppOvers(schedule, roster):
+	overs = {}
+	for team in roster:
+		files = sorted(glob.glob(f"{prefix}static/ncaabreference/{team}/*-*-*.json"), key=lambda k: datetime.strptime(k.split("/")[-1].replace(".json", ""), "%Y-%m-%d"), reverse=True)
+		for file in files:
+			chkDate = file.split("/")[-1].replace(".json","")
+			opp = ""
+			for game in schedule[chkDate]:
+				if team in game.split(" @ "):
+					opp = [t for t in game.split(" @ ") if t != team][0]
+			if opp not in overs:
+				overs[opp] = {}
+
+			with open(file) as fh:
+				gameStats = json.load(fh)
+			for player in gameStats:
+				if player not in roster[team] or gameStats[player].get("min", 0) < 25:
+					continue
+
+				pos = roster[team][player]
+				if pos not in overs[opp]:
+					overs[opp][pos] = {}
+				for prop in ["pts", "ast", "reb", "pts+reb+ast", "3ptm"]:
+					if prop not in overs[opp][pos]:
+						overs[opp][pos][prop] = []
+					if "+" in prop or prop in gameStats[player]:
+						val = 0.0
+						if "+" in prop:
+							for p in prop.split("+"):
+								val += gameStats[player][p]
+						else:
+							val = gameStats[player][prop]
+						val = val / gameStats[player]["min"]
+						overs[opp][pos][prop].append(val)
+	return overs
 
 @ncaabprops_blueprint.route('/getNCAABProps')
 def getProps_route():
@@ -99,6 +134,8 @@ def getProps_route():
 
 	#propData = customPropData(propData)
 	#teamTotals(date, schedule)
+
+	oppOvers = getOppOvers(schedule, roster)
 
 	props = []
 	for game in propData:
@@ -218,6 +255,17 @@ def getProps_route():
 				if team in roster and name in roster[team]:
 					pos = roster[team][name]
 
+				oppOver = 0
+				overPos = pos
+				if overPos == "C" and overPos not in oppOvers[opp]:
+					overPos = "F"
+				overList = oppOvers[opp][overPos][prop]
+				linePerMin = 0
+				if avgMin:
+					linePerMin = line / avgMin
+				if overList:
+					oppOver = round(len([x for x in overList if x > linePerMin]) * 100 / len(overList))
+
 				props.append({
 					"player": name.title(),
 					"team": team.upper(),
@@ -229,6 +277,7 @@ def getProps_route():
 					"avg": avg,
 					"hit": hit,
 					"avgMin": avgMin,
+					"oppOver": oppOver,
 					"totalOver": totalOver,
 					"lastTotalOver": lastTotalOver,
 					"totalOverLast5": totalOverLast5,
@@ -296,7 +345,9 @@ def writeCsvs(props):
 			fh.write(csvs[prop])
 
 def convertDKTeam(team):
-	if team == "michigan":
+	if team == "bsu":
+		return "bois"
+	elif team == "michigan":
 		return "mich"
 	elif team == "minnesota":
 		return "minn"
@@ -314,6 +365,10 @@ def convertDKTeam(team):
 		return "mia"
 	elif team == "s clara":
 		return "scu"
+	elif team == "valpo":
+		return "val"
+	elif team == "drake":
+		return "drke"
 	return team.replace("'", "")
 
 def writeProps(date):
@@ -326,6 +381,10 @@ def writeProps(date):
 	}
 
 	props = {}
+	if os.path.exists(f"{prefix}static/ncaabprops/dates/{date}.json"):
+		with open(f"{prefix}static/ncaabprops/dates/{date}.json") as fh:
+			props = json.load(fh)
+
 	for prop in ids:
 		time.sleep(0.5)
 		url = f"https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/92483/categories/583/subcategories/{ids[prop]}?format=json"

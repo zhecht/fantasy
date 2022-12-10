@@ -60,6 +60,8 @@ def getProps_route():
 	with open(f"{prefix}static/nhlprops/lines.json") as fh:
 		gameLines = json.load(fh)
 
+	goalieLines(propData)
+
 	props = []
 	for game in propData:
 		for player in propData[game]:
@@ -171,14 +173,19 @@ def getProps_route():
 										continue
 									last5.append(v)
 
+								valPerMin = float(val / minutes)
 								teamScore = scores[chkDate][team]
 								oppScore = scores[chkDate][pastOpp]
+								winLossVal = valPerMin
+								if prop == "sv":
+									winLossVal *= 60
+								else:
+									winLossVal *= avgMin
 								if teamScore > oppScore:
-									winLossSplits[0].append(val)
+									winLossSplits[0].append(winLossVal)
 								elif teamScore < oppScore:
-									winLossSplits[1].append(val)
+									winLossSplits[1].append(winLossVal)
 
-								valPerMin = float(val / minutes)
 								linePerMin = float(line) / avgMin
 								if float(val) > float(line):
 									totalOver += 1
@@ -537,7 +544,12 @@ def writeProps(date):
 	propNames = ["sog", "pts", "ast"]
 	catIds = [1189,550,550]
 	subCatIds = [12040,5586,5587]
+
 	props = {}
+	if os.path.exists(f"{prefix}static/nhlprops/dates/{date}.json"):
+		with open(f"{prefix}static/nhlprops/dates/{date}.json") as fh:
+			props = json.load(fh)
+
 	for catId, subCatId, prop in zip(catIds, subCatIds, propNames):
 		time.sleep(0.5)
 		outfile = "out2"
