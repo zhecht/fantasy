@@ -122,7 +122,7 @@ def write_totals():
 		if team not in totals:
 			totals[team] = {}
 
-		for file in glob(f"{prefix}static/ncaabreference/{team}/*.json"):
+		for file in glob(f"{prefix}static/ncaabreference/{team}/*-*-*.json"):
 			with open(file) as fh:
 				stats = json.load(fh)
 			for player in stats:
@@ -488,6 +488,7 @@ if __name__ == "__main__":
 	parser.add_argument("-s", "--start", help="Start Week", type=int)
 	parser.add_argument("-t", "--teams", help="Teams")
 	parser.add_argument("--roster", help="Roster", action="store_true")
+	parser.add_argument("--totals", help="Totals", action="store_true")
 	parser.add_argument("--schedule", help="Schedule", action="store_true")
 	parser.add_argument("-e", "--end", help="End Week", type=int)
 	parser.add_argument("-w", "--week", help="Week", type=int)
@@ -513,21 +514,8 @@ if __name__ == "__main__":
 		write_schedule(date)
 	elif args.teams:
 		writeMissingTeamStats(args.teams)
+	elif args.totals:
+		write_totals()
 	elif args.cron:
 		write_schedule(date)
 		write_stats(date)
-
-
-	for team in os.listdir(f"{prefix}static/ncaabreference/"):
-		if team.endswith(".json"):
-			continue
-		for file in glob(f"{prefix}static/ncaabreference/{team}/*.json"):
-			with open(file) as fh:
-				stats = json.load(fh)
-
-			newStats = {}
-			for name in stats:
-				newStats[name.replace(".", "").replace("-", " ").replace("'", "")] = stats[name]
-
-			with open(file, "w") as fh:
-				json.dump(newStats, fh, indent=4)
