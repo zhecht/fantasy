@@ -162,7 +162,7 @@ def getProps_route():
 						with open(file) as fh:
 							gameStats = json.load(fh)
 						if name in gameStats:
-							minutes = gameStats[name]["min"]
+							minutes = gameStats[name].get("min", 0)
 							if minutes > 0:
 								totalGames += 1
 								val = 0.0
@@ -306,7 +306,15 @@ def convertDKTeam(team):
 		return "miz"
 	elif team == "ind":
 		return "iu"
-	return team
+	elif team == "g'town":
+		return "gtwn"
+	elif team == "nc st":
+		return "ncst"
+	elif team == "mia fl":
+		return "mia"
+	elif team == "s clara":
+		return "scu"
+	return team.replace("'", "")
 
 def writeProps(date):
 	ids = {

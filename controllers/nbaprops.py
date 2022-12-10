@@ -4,6 +4,7 @@ from subprocess import call
 from bs4 import BeautifulSoup as BS
 from sys import platform
 from datetime import datetime
+from datetime import timedelta
 
 from itertools import zip_longest
 import argparse
@@ -277,6 +278,10 @@ def writeProps(date):
 		if "eventGroup" not in data:
 			continue
 		for event in data["eventGroup"]["events"]:
+			start = f"{event['startDate'].split('T')[0]}T{':'.join(event['startDate'].split('T')[1].split(':')[:2])}Z"
+			startDt = datetime.strptime(start, "%Y-%m-%dT%H:%MZ") - timedelta(hours=5)
+			if startDt.day != int(date[-2:]):
+				continue
 			if "teamShortName1" not in event:
 				game = convertDKTeam(event["teamName1"].lower()) + " @ " + convertDKTeam(event["teamName2"].lower())
 			else:
