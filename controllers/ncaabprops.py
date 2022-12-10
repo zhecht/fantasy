@@ -362,10 +362,11 @@ def writeProps(date):
 						if row["eventId"] not in events:
 							continue
 						game = events[row["eventId"]]
-						player = " ".join(row["label"].lower().replace(".", "").replace("'", "").split(" ")[:-1])
+						player = row["label"].lower().replace(".", "").replace("'", "").replace(" "+cRow["offerSubcategory"]["name"].lower(), "").replace(" points + assists + rebounds", "").replace(" three pointers made", "").replace("-", " ")
 						odds = ["",""]
 						line = row["outcomes"][0]["line"]
 						for outcome in row["outcomes"]:
+
 							if outcome["label"].lower() == "over":
 								odds[0] = outcome["oddsAmerican"]
 							else:

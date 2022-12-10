@@ -86,7 +86,7 @@ def write_stats(date, teamArg=""):
 			for playerRow in teamRow["statistics"][0]["athletes"]:
 				if playerRow["didNotPlay"]:
 					continue
-				player = playerRow["athlete"]["displayName"].lower()
+				player = playerRow["athlete"]["displayName"].lower().replace(".", "").replace("'", "").replace("-", " ")
 				playerId = int(playerRow["athlete"]["id"])
 				pos = playerRow["athlete"]["position"]["abbreviation"]
 
@@ -516,3 +516,18 @@ if __name__ == "__main__":
 	elif args.cron:
 		write_schedule(date)
 		write_stats(date)
+
+
+	for team in os.listdir(f"{prefix}static/ncaabreference/"):
+		if team.endswith(".json"):
+			continue
+		for file in glob(f"{prefix}static/ncaabreference/{team}/*.json"):
+			with open(file) as fh:
+				stats = json.load(fh)
+
+			newStats = {}
+			for name in stats:
+				newStats[name.replace(".", "").replace("-", " ").replace("'", "")] = stats[name]
+
+			with open(file, "w") as fh:
+				json.dump(newStats, fh, indent=4)
