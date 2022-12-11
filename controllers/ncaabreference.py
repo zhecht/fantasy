@@ -59,7 +59,7 @@ def write_stats(date, teamArg=""):
 			allStats[home] = {}
 
 		gameId = boxscores[date][game].split("/")[-1]
-		time.sleep(0.5)
+		time.sleep(0.3)
 		url = f"https://site.web.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?region=us&lang=en&contentorigin=espn&event={gameId}"
 		outfile = "out"
 		call(["curl", "-k", url, "-o", outfile])
@@ -96,7 +96,10 @@ def write_stats(date, teamArg=""):
 
 				for header, stat in zip(headers, playerRow["stats"]):
 					if "-" in stat:
-						made, att = map(int, stat.split("-"))
+						try:
+							made, att = map(int, stat.split("-"))
+						except:
+							made = att = 0
 						allStats[team][player][header+"m"] = made
 						allStats[team][player][header+"a"] = att
 					else:
@@ -216,7 +219,7 @@ def write_averages():
 			json.dump(lastYearStats[team], fh, indent=4)
 
 def writeTeamId(teams, team):
-	time.sleep(0.4)
+	time.sleep(0.3)
 	url = f"https://site.web.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams?region=us&lang=en&contentorigin=espn&limit=400"
 	outfile = "out"
 	call(["curl", "-k", url, "-o", outfile])

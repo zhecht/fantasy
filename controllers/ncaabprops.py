@@ -361,6 +361,8 @@ def convertDKTeam(team):
 		return "gtwn"
 	elif team == "nc st":
 		return "ncst"
+	elif team == "mary":
+		return "md"
 	elif team == "mia fl":
 		return "mia"
 	elif team == "s clara":
@@ -369,6 +371,8 @@ def convertDKTeam(team):
 		return "val"
 	elif team == "drake":
 		return "drke"
+	elif team == "wis":
+		return "wisc"
 	return team.replace("'", "")
 
 def writeProps(date):

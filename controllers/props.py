@@ -657,8 +657,8 @@ def getProps_route():
 	if players:
 		players = players.split(",")
 
-	with open(f"{prefix}static/props.json") as fh:
-		propData = json.load(fh)
+	with open(f"{prefix}static/props/dates/wk{CURR_WEEK+1}.json") as fh:
+		props = json.load(fh)
 	with open(f"{prefix}static/profootballreference/rankings.json") as fh:
 		rankings = json.load(fh)
 	with open(f"{prefix}static/profootballreference/totals.json") as fh:
@@ -671,170 +671,167 @@ def getProps_route():
 		roster = json.load(fh)
 	with open(f"{prefix}static/profootballreference/schedule.json") as fh:
 		schedule = json.load(fh)
+	with open(f"{prefix}static/profootballreference/scores.json") as fh:
+		scores = json.load(fh)
+	with open(f"{prefix}static/props/lines.json") as fh:
+		gameLines = json.load(fh)
 
-	translations = {}
-	for team in roster:
-		for player in roster[team]:
-			first = player[0].upper()
-			rest = " ".join(player.title().split(" ")[1:])
-			n = f"{first}. {rest}"
-			translations[f"{n} {team}"] = player
-			if n.split(" ")[-1].lower() in ["i", "ii", "iii", "iv", "v"]:
-				n = " ".join(n.split(" ")[:-1])
-				translations[f"{n} {team}"] = player
-	#customPropData(propData)
-	player = ""
+	for game in props:
+		for player in props[game]:
 
-	for nameRow in propData:
-		name = " ".join(nameRow.split(" ")[:-1])
-		team = nameRow.split(" ")[-1]
-		espnTeam = getYahooTeam(team.lower())
-		opp = get_opponents(espnTeam)[CURR_WEEK]
+			team = opp = ""
+			gameSp = game.split(" @ ")
+			team1, team2 = gameSp[0], gameSp[1]
+			if player in totals[team1]:
+				team = team1
+				opp = team2
+			elif player in totals[team2]:
+				team = team2
+				opp = team1
+			else:
+				continue
 
-		if team == "team":
-			continue
-
-		if teams and team not in teams:
-			continue
-
-		name = name.replace("-", " ")
-		if name == "T. Etienne":
-			name = "T. Etienne Jr"
-		elif name == "D. Henderson":
-			name = "D. Henderson Jr"
-		elif name == "A. St. Brown":
-			name = "A. Ra St Brown"
-
-		pos = "-"
-		playerStats = {}
-		totGames = 0
-
-		if name+" "+espnTeam not in translations:
-			#print(name)
-			player = name
-		else:
-			player = translations[name+" "+espnTeam]
-			player = player.replace(".", "")
-			if player == "jameson williams" and espnTeam == "det":
-				player = "jamaal williams"
-			elif player == "marcus jones":
-				player = "mac jones"
+			if teams and team not in teams:
+				continue
 
 			if players and player not in players:
 				continue
 
-			for file in os.listdir(f"{prefix}static/profootballreference/{espnTeam}/"):
-				with open(f"{prefix}static/profootballreference/{espnTeam}/{file}") as fh:
+			playerStats = {}
+			for file in glob.glob(f"{prefix}static/profootballreference/{team}/*"):
+				with open(file) as fh:
 					gameStats = json.load(fh)
 				wk = file.split("/")[-1][:-5]
 				if player in gameStats:
 					playerStats[wk] = gameStats[player]
+
 			totGames = checkTrades(player, team.lower(),playerStats, totals)
 
-		for typ in propData[nameRow]:
-			if propArg and typ != propArg:
-				continue
-			overOdds = propData[nameRow][typ]["sideOneOdds"]
-			underOdds = propData[nameRow][typ]["sideTwoOdds"]
-			if not overOdds.startswith("-"):
-				overOdds = "+"+overOdds
-			if not underOdds.startswith("-"):
-				underOdds = "+"+underOdds
+			for prop in props[game][player]:
+				if propArg and prop != propArg:
+					continue
 
-			line = propData[nameRow][typ]["line"]
-			if line:
-				pass
-				#diff = abs(proj - float(line))
+				overOdds = props[game][player][prop]["over"]
+				underOdds = props[game][player][prop]["under"]
+				line = props[game][player][prop]["line"]
 
-			lastTotalOver = lastTotalGames = 0
-			if line and player in lastYearStats[espnTeam] and lastYearStats[espnTeam][player]:
-				for dt in lastYearStats[espnTeam][player]:
-					lastTotalGames += 1
+				lastTotalOver = lastTotalGames = 0
+				if lastYearStats[team].get(player, {}):
+					for dt in lastYearStats[team][player]:
+						lastTotalGames += 1
+						val = 0
+						if prop == "rush+rec_yds":
+							val = lastYearStats[team][player][dt].get("rush_yds", 0) + lastYearStats[team][player][dt].get("rec_yds", 0)
+						else:
+							if prop in lastYearStats[team][player][dt]:
+								val = lastYearStats[team][player][dt][prop]
+						if val > line:
+							lastTotalOver += 1
+				if lastTotalGames:
+					lastTotalOver = round((lastTotalOver / lastTotalGames) * 100)
+
+				winLossSplits = [[],[]]
+				last5 = []
+				tot = totalOver = totalOverLast3 = 0
+				for wk in sorted(playerStats.keys(), key=lambda k: int(k[2:]), reverse=True):
 					val = 0
-					if typ == "rush_recv_yd":
-						val = lastYearStats[espnTeam][player][dt].get("rush_yds", 0) + lastYearStats[espnTeam][player][dt].get("rec_yds", 0)
+					if prop == "rush+rec_yds":
+						val = playerStats[wk].get("rush_yds", 0) + playerStats[wk].get("rec_yds", 0)
 					else:
-						t = typ.replace("comp", "cmp").replace("_yd", "_yds").replace("recv_rec", "rec").replace("recv_", "rec_")
-						if t in lastYearStats[espnTeam][player][dt]:
-							val = lastYearStats[espnTeam][player][dt][t]
-					if val > float(line):
-						lastTotalOver += 1
-			if lastTotalGames:
-				lastTotalOver = round((lastTotalOver / lastTotalGames) * 100)
+						val = playerStats[wk].get(prop, 0)
 
-			last5 = []
-			tot = totalOver = totalOverLast3 = 0
-			for wk in sorted(playerStats.keys(), key=lambda k: int(k[2:]), reverse=True):
-				if typ == "rush_recv_yd":
-					val = playerStats[wk].get("rush_yds", 0) + playerStats[wk].get("rec_yds", 0)
-					last5.append(val)
+					pastOpp = ""
+					for g in schedule[wk]:
+						gameSp = g.split(" @ ")
+						if team in gameSp:
+							pastOpp = gameSp[0] if team == gameSp[1] else gameSp[1]
+							break
+					teamScore = scores[wk][team]
+					oppScore = scores[wk][pastOpp]
+
+					if teamScore > oppScore:
+						winLossSplits[0].append(val)
+					elif teamScore < oppScore:
+						winLossSplits[1].append(val)
+					else:
+						winLossSplits[0].append(val)
+						winLossSplits[1].append(val)
 					tot += val
-					if val > float(line):
-						totalOver += 1
-						if len(last5) <= 3:
-							totalOverLast3 += 1
-				else:
-					t = typ.replace("comp", "cmp").replace("_yd", "_yds").replace("recv_rec", "rec").replace("recv_", "rec_")
-					val = playerStats[wk].get(t, 0)
-					tot += val
 					last5.append(val)
-					if val > float(line):
+					if val > line:
 						totalOver += 1
 						if len(last5) <= 3:
 							totalOverLast3 += 1
 
-			diff = 0
-			if line and totGames:
-				avg = tot / totGames
-				diff = round((avg / float(line) - 1), 2)
-			if totalOver and totGames:
-				totalOver = round((totalOver / totGames) * 100)
-				last5Size = len(last5) if len(last5) < 3 else 3
-				totalOverLast3 = round((totalOverLast3 / last5Size) * 100)
+				winSplitAvg = lossSplitAvg = 0
+				if len(winLossSplits[0]):
+					winSplitAvg = round(sum(winLossSplits[0]) / len(winLossSplits[0]),2)
+				if len(winLossSplits[1]):
+					lossSplitAvg = round(sum(winLossSplits[1]) / len(winLossSplits[1]),2)
+				winLoss = f"{winSplitAvg} - {lossSplitAvg}"
 
-			avg = 0
-			if totGames:
-				avg = round(tot / totGames, 1)
+				diff = 0
+				if totGames:
+					avg = tot / totGames
 
-			lastAvg = 0
-			if player in averages[espnTeam] and averages[espnTeam][player]:
-				if typ == "rush_recv_yd":
-					if "rush_yds" in averages[espnTeam][player] and "rec_yds" in averages[espnTeam][player]:
-						lastAvg = averages[espnTeam][player]["rush_yds"] + averages[espnTeam][player]["rec_yds"]
-				else:
-					t = typ.replace("comp", "cmp").replace("_yd", "_yds").replace("recv_rec", "rec").replace("recv_", "rec_")
-					if t in averages[espnTeam][player]:
-						lastAvg = averages[espnTeam][player][t]
-				lastAvg = round(lastAvg, 1)
+				if totalOver and totGames:
+					totalOver = round((totalOver / totGames) * 100)
+					last5Size = len(last5) if len(last5) < 3 else 3
+					totalOverLast3 = round((totalOverLast3 / last5Size) * 100)
 
-			oppRank = ""
-			oppRankVal = ""
-			rankingsProp = convertRankingsProp(typ)
-			if opp != "BYE" and "o"+rankingsProp in rankings[opp]:
-				oppRankVal = str(rankings[opp]["o"+rankingsProp]["season"])
-				oppRank = rankings[opp]['o'+rankingsProp]['rank']
-			#print(player)
-			res.append({
-				"player": player.title(),
-				"team": espnTeam.upper(),
-				"opponent": opp.upper(),
-				"oppRank": oppRank,
-				"hit": True,
-				"pos": pos,
-				"lastAvg": lastAvg,
-				"avg": avg,
-				"last5": ",".join([str(int(x)) for x in last5]),
-				"lastAll": ",".join([str(int(x)) for x in last5]),
-				"diff": diff,
-				"totalOver": totalOver,
-				"totalOverLast3": totalOverLast3,
-				"lastTotalOver": lastTotalOver,
-				"propType": typ,
-				"line": line or "-",
-				"overOdds": overOdds,
-				"underOdds": underOdds,
-				"stats": playerStats
-			})
+				avg = 0
+				if totGames:
+					avg = round(tot / totGames, 1)
+
+				lastAvg = 0
+				if player in averages[team] and averages[team][player]:
+					if prop == "rush+rec_yds":
+						if "rush_yds" in averages[team][player] and "rec_yds" in averages[team][player]:
+							lastAvg = averages[team][player]["rush_yds"] + averages[team][player]["rec_yds"]
+					else:
+						lastAvg = averages[team][player].get(prop, 0)
+					lastAvg = round(lastAvg, 1)
+
+				oppRank = ""
+				oppRankVal = ""
+				rankingsProp = convertRankingsProp(prop)
+				if opp != "BYE" and "o"+rankingsProp in rankings[opp]:
+					oppRankVal = str(rankings[opp]["o"+rankingsProp]["season"])
+					oppRank = rankings[opp]['o'+rankingsProp]['rank']
+
+				gameLine = ""
+				if game in gameLines:
+					gameOdds = gameLines[game]["moneyline"]["odds"].split(",")
+					if team == game.split(" @ ")[0]:
+						gameLine = gameOdds[0]
+					else:
+						gameLine = gameOdds[1]
+
+				pos = roster[team].get(player, "")
+
+				res.append({
+					"player": player.title(),
+					"team": team.upper(),
+					"opponent": opp.upper(),
+					"oppRank": oppRank,
+					"hit": True,
+					"pos": pos,
+					"lastAvg": lastAvg,
+					"gameLine": gameLine,
+					"avg": avg,
+					"last5": ",".join([str(int(x)) for x in last5]),
+					"lastAll": ",".join([str(int(x)) for x in last5]),
+					"diff": diff,
+					"totalOver": totalOver,
+					"totalOverLast3": totalOverLast3,
+					"lastTotalOver": lastTotalOver,
+					"propType": prop,
+					"winLossSplits": winLoss,
+					"line": line or "-",
+					"overOdds": overOdds,
+					"underOdds": underOdds,
+					"stats": playerStats
+				})
 
 	teamTotals(schedule)
 	writeCsvs(res)
@@ -1020,72 +1017,6 @@ def writeH2H():
 	with open(f"{prefix}static/props/h2h.json", "w") as fh:
 		json.dump(h2h, fh, indent=4)
 
-def writeLongestProps(week):
-	actionNetworkBookIds = {
-		68: "draftkings",
-		69: "fanduel",
-		1599: "betmgm"
-	}
-	prop = ""
-	props = {}
-	optionTypes = {}
-
-	date = datetime.now()
-	date = str(date)[:10]
-
-	apis = ["core_bet_type_58_longest_rush", "core_bet_type_59_longest_reception", "core_bet_type_60_longest_completion"]
-	for api, prop in zip(apis, ["rush_long", "rec_long", "pass_long"]):
-		path = f"out"
-		url = f"https://api.actionnetwork.com/web/v1/leagues/1/props/{api}?bookIds=69,68,1599&date={date.replace('-', '')}"
-		os.system(f"curl -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0' -k \"{url}\" -o {path}")
-		time.sleep(0.4)
-
-		with open(path) as fh:
-			j = json.load(fh)
-
-		if "markets" not in j:
-			return
-		market = j["markets"][0]
-
-		for option in market["rules"]["options"]:
-			optionTypes[int(option)] = market["rules"]["options"][option]["option_type"].lower()
-
-		teamIds = {}
-		for row in market["teams"]:
-			teamIds[row["id"]] = row["abbr"].lower()
-
-		playerIds = {}
-		for row in market["players"]:
-			playerIds[row["id"]] = row["full_name"].lower().replace(".", "").replace("-", " ").replace("'", "")
-
-		books = market["books"]
-		for bookData in books:
-			bookId = bookData["book_id"]
-			if bookId not in actionNetworkBookIds:
-				continue
-			for oddData in bookData["odds"]:
-				player = playerIds[oddData["player_id"]]
-				team = teamIds[oddData["team_id"]]
-				overUnder = optionTypes[oddData["option_type_id"]]
-				book = actionNetworkBookIds[bookId]
-
-				if team not in props:
-					props[team] = {}
-				if player not in props[team]:
-					props[team][player] = {}
-				if prop not in props[team][player]:
-					props[team][player][prop] = {}
-				if book not in props[team][player][prop]:
-					props[team][player][prop][book] = {}
-				props[team][player][prop][book][overUnder] = f"{overUnder[0]}{oddData['value']} ({oddData['money']})"
-				if "line" not in props[team][player][prop]:
-					props[team][player][prop]["line"] = f"o{oddData['value']}"
-				elif oddData['value'] < float(props[team][player][prop]["line"][1:]):
-					props[team][player][prop]["line"] = f"o{oddData['value']}"
-
-	with open(f"{prefix}static/props/longest.json", "w") as fh:
-		json.dump(props, fh, indent=4)
-
 def addNumSuffix(val):
 	if val == "":
 		return ""
@@ -1193,11 +1124,11 @@ def teamTotals(schedule):
 def convertRankingsProp(prop):
 	if "+" in prop:
 		return prop
-	elif prop in ["pass_comp", "recv_rec"]:
+	elif prop in ["pass_cmp", "rec_rec"]:
 		return "cmppg"
-	elif prop in ["pass_yd", "recv_yd"]:
+	elif prop in ["pass_yds", "rec_yds"]:
 		return "paydpg"
-	elif prop in ["rush_yd"]:
+	elif prop in ["rush_yds"]:
 		return "ydpra"
 	elif prop in ["rush_att"]:
 		return "ruattpg"
@@ -1375,7 +1306,61 @@ def writeActionNetworkProps(week):
 def fixLines(propData):
 	pass
 
-def writeProps():
+def writeGameLines():
+	with open(f"{prefix}static/props/lines.json") as fh:
+		lines = json.load(fh)
+
+	url = "https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/88808/categories/492/subcategories/4518?format=json"
+	outfile = "out"
+	call(["curl", "-k", url, "-o", outfile])
+
+	with open("out") as fh:
+		data = json.load(fh)
+
+	events = {}
+	lines = {}
+	if "eventGroup" not in data:
+		return
+	for event in data["eventGroup"]["events"]:
+		game = convertDKTeam(event["teamShortName1"].lower()) + " @ " + convertDKTeam(event["teamShortName2"].lower())
+		if game not in lines:
+			lines[game] = {}
+		events[event["eventId"]] = game
+
+	for catRow in data["eventGroup"]["offerCategories"]:
+		if catRow["name"].lower() != "game lines":
+			continue
+		for cRow in catRow["offerSubcategoryDescriptors"]:
+			if cRow["name"].lower() != "game":
+				continue
+			for offerRow in cRow["offerSubcategory"]["offers"]:
+				for row in offerRow:
+					game = events[row["eventId"]]
+					gameType = row["label"].lower()
+
+					switchOdds = False
+					team1 = ""
+					if gameType != "total":
+						team1 = row["outcomes"][0]["label"].lower().split(" ")[0]
+						if team1 in ["ny", "la"]:
+							team1 = row["outcomes"][0]["label"].lower().replace(" ", "")[:3]
+						if team1 != game.split(" @ ")[0]:
+							switchOdds = True
+
+					odds = [row["outcomes"][0]["oddsAmerican"], row["outcomes"][1]["oddsAmerican"]]
+					if switchOdds:
+						odds[0], odds[1] = odds[1], odds[0]
+
+					line = row["outcomes"][0].get("line", 0)
+					lines[game][gameType] = {
+						"line": line,
+						"odds": ",".join(odds)
+					}
+
+	with open(f"{prefix}static/props/lines.json", "w") as fh:
+		json.dump(lines, fh, indent=4)
+
+def writePFFProps():
 	with open(f"{prefix}static/props/wk{CURR_WEEK+1}.csv") as fh:
 		lines = [line.strip() for line in fh.readlines() if line.strip()]
 
@@ -1408,12 +1393,120 @@ def writeProps():
 	with open(f"{prefix}static/props.json", "w") as fh:
 			json.dump(props, fh, indent=4)
 
+def convertDKProp(mainCat, prop):
+	prop = prop.replace("tds", "td").replace("completions", "cmp").replace("attempts", "att").replace("interceptions", "int").replace(" + ", "+").replace("receptions", "rec")
+	if prop == "interceptions":
+		if mainCat == "pass":
+			return "pass_int"
+	elif prop.startswith("longest"):
+		prop = prop.replace("completion", "rec").replace("longest", "long").split(" ")[::-1]
+		return "_".join(prop)
+	elif prop == "tackles+ast":
+		prop = "tackles_combined"
+	elif prop == "fg made":
+		prop = "fgm"
+	elif prop == "pat made":
+		prop = "pat"
 
+	return "_".join(prop.split(" "))
+
+def writeProps(curr_week):
+	wk = f"wk{curr_week+1}"
+
+	props = {}
+	if os.path.exists(f"{prefix}static/props/dates/{wk}.json"):
+		with open(f"{prefix}static/props/dates/{wk}.json") as fh:
+			props = json.load(fh)
+
+	mainCats = {
+		"pass": 1000,
+		"rush/rec": 1001,
+		"dst": 1002
+	}
+
+	for mainCat in mainCats:
+		time.sleep(0.4)
+		url = f"https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/88808/categories/{mainCats[mainCat]}?format=json"
+		outfile = "out"
+		call(["curl", "-k", url, "-o", outfile])
+
+		with open("out") as fh:
+			data = json.load(fh)
+
+		events = {}
+		if "eventGroup" not in data:
+			continue
+		for event in data["eventGroup"]["events"]:
+			start = f"{event['startDate'].split('T')[0]}T{':'.join(event['startDate'].split('T')[1].split(':')[:2])}Z"
+			#startDt = datetime.strptime(start, "%Y-%m-%dT%H:%MZ") - timedelta(hours=5)
+			#if startDt.day != int(date[-2:]):
+			#	continue
+			if "teamShortName1" not in event:
+				game = convertDKTeam(event["teamName1"].lower()) + " @ " + convertDKTeam(event["teamName2"].lower())
+			else:
+				game = convertDKTeam(event["teamShortName1"].lower()) + " @ " + convertDKTeam(event["teamShortName2"].lower())
+			if game not in props:
+				props[game] = {}
+			events[event["eventId"]] = game
+
+		subCats = {}
+		for catRow in data["eventGroup"]["offerCategories"]:
+			if catRow["offerCategoryId"] != mainCats[mainCat]:
+				continue
+			for cRow in catRow["offerSubcategoryDescriptors"]:
+				if cRow["name"].startswith("Alt") or cRow["name"].endswith("H2H"):
+					continue
+				prop = convertDKProp(mainCat, cRow["name"].lower())
+				subCats[prop] = cRow["subcategoryId"]
+
+		for prop in subCats:
+			time.sleep(0.4)
+			url = f"https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/88808/categories/{mainCats[mainCat]}/subcategories/{subCats[prop]}?format=json"
+			outfile = "out"
+			call(["curl", "-k", url, "-o", outfile])
+
+			with open("out") as fh:
+				data = json.load(fh)
+
+			for catRow in data["eventGroup"]["offerCategories"]:
+				if "offerSubcategoryDescriptors" not in catRow:
+					continue
+				for cRow in catRow["offerSubcategoryDescriptors"]:
+					if "offerSubcategory" not in cRow:
+						continue
+					for offerRow in cRow["offerSubcategory"]["offers"]:
+						for row in offerRow:
+							try:
+								game = events[row["eventId"]]
+							except:
+								continue
+							player = row["outcomes"][0]["participant"].lower().replace(".", "").replace("'", "").replace("-", " ")
+							odds = ["",""]
+							line = row["outcomes"][0]["line"]
+							for outcome in row["outcomes"]:
+								if outcome["label"].lower() == "over":
+									odds[0] = outcome["oddsAmerican"]
+								else:
+									odds[1] = outcome["oddsAmerican"]
+
+							if player not in props[game]:
+								props[game][player] = {}
+							if prop not in props[game][player]:
+								props[game][player][prop] = {}
+							props[game][player][prop] = {
+								"line": line,
+								"over": odds[0],
+								"under": odds[1]
+							}
+
+	with open(f"{prefix}static/props/dates/{wk}.json", "w") as fh:
+		json.dump(props, fh, indent=4)
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-c", "--cron", action="store_true", help="Start Cron Job")
 	parser.add_argument("--h2h", action="store_true", help="H2H")
+	parser.add_argument("--lines", action="store_true", help="Lines")
 	parser.add_argument("-w", "--week", help="Week", type=int)
 
 	args = parser.parse_args()
@@ -1421,11 +1514,13 @@ if __name__ == "__main__":
 
 	if args.week:
 		week = args.week
-	elif args.h2h:
+
+
+	if args.h2h:
 		writeH2H()
-	if args.cron:
-		writeProps()
-		writeDefProps(week)
+	elif args.lines:
+		writeGameLines()
+	elif args.cron:
+		writeProps(week)
 		writeActionNetworkProps(week)
-		writeLongestProps(week)
 		writeH2H()

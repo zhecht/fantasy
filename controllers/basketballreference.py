@@ -384,6 +384,7 @@ def write_roster():
 			continue
 
 		roster[team] = {}
+		time.sleep(0.2)
 		url = f"https://www.espn.com/nba/team/roster/_/name/{team}/"
 		outfile = "out"
 		call(["curl", "-k", url, "-o", outfile])

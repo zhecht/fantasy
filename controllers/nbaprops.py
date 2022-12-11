@@ -265,6 +265,10 @@ def writeProps(date):
 	}
 
 	props = {}
+	if os.path.exists(f"{prefix}static/nbaprops/dates/{date}.json"):
+		with open(f"{prefix}static/nbaprops/dates/{date}.json") as fh:
+			props = json.load(fh)
+
 	for prop in ids:
 		time.sleep(0.5)
 		url = f"https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/42648/categories/583/subcategories/{ids[prop]}?format=json"
@@ -298,7 +302,10 @@ def writeProps(date):
 					continue
 				for offerRow in cRow["offerSubcategory"]["offers"]:
 					for row in offerRow:
-						game = events[row["eventId"]]
+						try:
+							game = events[row["eventId"]]
+						except:
+							continue
 						player = row["outcomes"][0]["participant"].lower().replace(".", "").replace("'", "").replace("-", " ")
 						if player == "nicolas claxton":
 							player = "nic claxton"
