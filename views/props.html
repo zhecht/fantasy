@@ -270,16 +270,6 @@
 				return prop;
 			}
 
-			function convertType(type) {
-				if (type == "pass_comp") return "pass_cmp";
-				else if (type == "recv_rec") return "rec";
-				else if (type == "recv_yd") return "rec_yds";
-				else if (type == "pass_comp") return "pass_cmp";
-				else if (type == "pass_yd") return "pass_yds";
-				else if (type == "rush_yd") return "rush_yds";
-				return type;
-			}
-
 			const avgFormatter = function(cell, params, rendered) {
 				const data = cell.getRow().getData();
 				const stats = data.stats;
@@ -293,8 +283,8 @@
 							if (propType == "rush_recv_yd") {
 								avg += stats[wk].rush_yds + stats[wk].rec_yds;
 							} else {
-								if (stats[wk][convertType(propType)]) {
-									avg += stats[wk][convertType(propType)];
+								if (stats[wk][propType]) {
+									avg += stats[wk][propType];
 								}
 							}
 						}
@@ -322,7 +312,7 @@
 							if (propType == "rush_recv_yd") {
 								val = stats[wk].rush_yds + stats[wk].rec_yds;
 							} else {
-								val = stats[wk][convertType(propType)];
+								val = stats[wk][propType];
 							}
 							if (val >= parseFloat(data.line)) {
 								gamesOver += 1;
@@ -347,7 +337,7 @@
 					if (propType == "rush_recv_yd") {
 						val = stats["wk"+CURR_WEEK].rush_yds + stats["wk"+CURR_WEEK].rec_yds;
 					} else {
-						val = stats["wk"+CURR_WEEK][convertType(propType)];
+						val = stats["wk"+CURR_WEEK][propType];
 					}
 					if (val >= parseFloat(data.line)) {
 						return "<div class='positive'>Yes</div>";
@@ -374,7 +364,7 @@
 					if (propType == "rush_recv_yd") {
 						scored = stats["wk"+(CURR_WEEK+1)].rush_yds + stats["wk"+(CURR_WEEK+1)].rec_yds;
 					} else {
-						scored = stats["wk"+(CURR_WEEK+1)][convertType(propType)];
+						scored = stats["wk"+(CURR_WEEK+1)][propType];
 					}
 					if (!scored) {
 						scored = 0;

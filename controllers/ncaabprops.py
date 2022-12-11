@@ -355,6 +355,8 @@ def convertDKTeam(team):
 		return "jvst"
 	elif team == "mizz":
 		return "miz"
+	elif team == "miss st":
+		return "mvsu"
 	elif team == "ind":
 		return "iu"
 	elif team == "g'town":
@@ -365,6 +367,8 @@ def convertDKTeam(team):
 		return "md"
 	elif team == "mia fl":
 		return "mia"
+	elif team == "ok st":
+		return "okst"
 	elif team == "s clara":
 		return "scu"
 	elif team == "valpo":

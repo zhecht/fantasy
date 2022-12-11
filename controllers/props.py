@@ -746,6 +746,9 @@ def getProps_route():
 						if team in gameSp:
 							pastOpp = gameSp[0] if team == gameSp[1] else gameSp[1]
 							break
+
+					if get_opponents(team)[int(wk[2:])-1] == "BYE":
+						continue
 					teamScore = scores[wk][team]
 					oppScore = scores[wk][pastOpp]
 
@@ -940,6 +943,7 @@ def writeH2H():
 			continue
 		for cRow in catRow["offerSubcategoryDescriptors"]:
 			prop = "_".join(cRow["name"].lower().split(" ")[:-1])
+			prop = prop.replace("tds", "td").replace("completions", "cmp").replace("receptions", "rec").replace("targets", "rec_tgts")
 			if "offerSubcategory" not in cRow:
 				subIds.append(cRow["subcategoryId"])
 				continue
@@ -947,20 +951,26 @@ def writeH2H():
 				for row in offerRow:
 					game = events[row["eventId"]]
 					h2hType = row["label"].lower().split(" ")[-1]
-					player1 = row["outcomes"][0]["label"].lower().replace(".", "").replace("'", "")
+					matchup = row["label"].lower().split("_")[0].split(" - ")[0].replace("&", "v").replace(".", "").replace("'", "").replace("-", " ")
+					player1 = row["outcomes"][0]["label"].lower().replace(".", "").replace("'", "").replace("-", " ")
 					odds1 = row["outcomes"][0]["oddsAmerican"]
 					line = ""
 					if "line" in row["outcomes"][0]:
 						line = row["outcomes"][0]["line"]
-					player2 = row["outcomes"][1]["label"].lower().replace(".", "").replace("'", "")
+					player2 = row["outcomes"][1]["label"].lower().replace(".", "").replace("'", "").replace("-", " ")
 					odds2 = row["outcomes"][1]["oddsAmerican"]
+
+					odds = [odds1,odds2]
+					if player1 != "over":
+						if player1 != matchup.split(" v ")[0]:
+							odds[0], odds[1] = odds[1], odds[0]
 
 					h2hProp = prop+"_"+h2hType
 					if h2hProp not in h2h[game]:
 						h2h[game][h2hProp] = {}
-					h2h[game][h2hProp][f"{player1} v {player2}"] = {
+					h2h[game][h2hProp][matchup] = {
 						"line": line,
-						"odds": ",".join([odds1, odds2])
+						"odds": ",".join(odds)
 					}
 
 	for subCatId in subIds:
@@ -1124,7 +1134,7 @@ def teamTotals(schedule):
 def convertRankingsProp(prop):
 	if "+" in prop:
 		return prop
-	elif prop in ["pass_cmp", "rec_rec"]:
+	elif prop in ["pass_cmp", "rec"]:
 		return "cmppg"
 	elif prop in ["pass_yds", "rec_yds"]:
 		return "paydpg"
@@ -1138,6 +1148,8 @@ def convertRankingsProp(prop):
 		return "patdpg"
 	elif prop == "pass_int":
 		return "intpg"
+	elif prop == "tackles_combined":
+		return "tpg"
 	#return prop[0]+"pg"
 	return prop
 
@@ -1454,7 +1466,7 @@ def writeProps(curr_week):
 			if catRow["offerCategoryId"] != mainCats[mainCat]:
 				continue
 			for cRow in catRow["offerSubcategoryDescriptors"]:
-				if cRow["name"].startswith("Alt") or cRow["name"].endswith("H2H"):
+				if cRow["name"].startswith("Alt") or cRow["name"].endswith("H2H") or cRow["name"].startswith("Race to") or cRow["name"].endswith("Leaders"):
 					continue
 				prop = convertDKProp(mainCat, cRow["name"].lower())
 				subCats[prop] = cRow["subcategoryId"]
@@ -1463,6 +1475,7 @@ def writeProps(curr_week):
 			time.sleep(0.4)
 			url = f"https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/88808/categories/{mainCats[mainCat]}/subcategories/{subCats[prop]}?format=json"
 			outfile = "out"
+			#print(url)
 			call(["curl", "-k", url, "-o", outfile])
 
 			with open("out") as fh:
@@ -1501,6 +1514,128 @@ def writeProps(curr_week):
 
 	with open(f"{prefix}static/props/dates/{wk}.json", "w") as fh:
 		json.dump(props, fh, indent=4)
+
+@props_blueprint.route('/getH2HNFLProps')
+def getH2HProps_route():
+	res = []
+
+	teamsArg = request.args.get("teams") or ""
+	if teamsArg:
+		teamsArg = teamsArg.lower().split(",")
+	playersArg = request.args.get("players") or []
+	if playersArg:
+		playersArg = players.split(",")
+
+	date = datetime.now()
+	date = str(date)[:10]
+
+	wkStr = f"wk{CURR_WEEK+1}"
+	with open(f"{prefix}static/props/dates/{wkStr}.json") as fh:
+		propData = json.load(fh)
+	with open(f"{prefix}static/profootballreference/totals.json") as fh:
+		stats = json.load(fh)
+	with open(f"{prefix}static/profootballreference/rankings.json") as fh:
+		rankings = json.load(fh)
+	with open(f"{prefix}static/profootballreference/schedule.json") as fh:
+		schedule = json.load(fh)
+	with open(f"{prefix}static/profootballreference/roster.json") as fh:
+		roster = json.load(fh)
+	with open(f"{prefix}static/props/h2h.json") as fh:
+		h2h = json.load(fh)
+
+	res = []
+	playerStats = {}
+	for game in h2h:
+		teams = game.split(" @ ")
+		for team in teams:
+			if team not in playerStats:
+				playerStats[team] = {}
+			for file in glob.glob(f"{prefix}static/profootballreference/{team}/*.json"):
+				wk = file.split("/")[-1][:-5]
+				if wk not in playerStats[team]:
+					with open(file) as fh:
+						playerStats[team][wk] = json.load(fh)
+		for propKey in h2h[game]:
+			h2hType = propKey.split("_")[-1]
+			prop = propKey.replace("_"+h2hType, "")
+			prop = prop.replace("tds", "td")
+			if prop.startswith("td") or "+" in prop or "fgs" in prop:
+				continue
+			for matchup in h2h[game][propKey]:
+				odds = h2h[game][propKey][matchup]["odds"].split(",")
+				players = matchup.replace("'", "").replace(".", "").replace("-", " ").split(" v ")
+				line = h2h[game][propKey][matchup]["line"] or 0
+
+				arrs = [[], []]
+				lines = [0,0]
+				for pIdx, player in enumerate(players):
+					if player == "gabriel davis":
+						player = "gabe davis"
+					team = game.split(" @ ")[pIdx]
+					if player not in roster[team]:
+						team = game.split(" @ ")[0] if pIdx == 1 else game.split(" @ ")[1]
+					if game in propData and player in propData[game]:
+						if prop in propData[game][player]:
+							lines[pIdx] = propData[game][player][prop]["line"]
+					for wk in sorted(playerStats[team], key=lambda k: int(k[2:]), reverse=True):
+						if player in playerStats[team][wk] and prop in playerStats[team][wk][player]:
+							arrs[pIdx].append(int(playerStats[team][wk][player][prop]))
+
+				straightOver = straightTotal = 0
+				for num1, num2 in zip(arrs[0], arrs[1]):
+					if h2hType == "total":
+						if num1+num2 > line:
+							straightOver += 1
+					else:
+						if num1 == num2:
+							continue
+						elif num1+line > num2:
+							straightOver += 1
+					straightTotal += 1
+				if straightTotal:
+					straightOver = round(straightOver * 100 / straightTotal)
+
+				allPairsOver = allPairsTotal = 0
+				for num1 in arrs[0]:
+					for num2 in arrs[1]:
+						if h2hType == "total":
+							if num1+num2 > line:
+								allPairsOver += 1
+						else:
+							if num1 == num2:
+								continue
+							elif num1+line > num2:
+								allPairsOver += 1
+						allPairsTotal += 1
+				if allPairsTotal:
+					allPairsOver = round(allPairsOver * 100 / allPairsTotal)
+
+				res.append({
+					"game": game,
+					"prop": prop,
+					"type": h2hType,
+					"line": line or "-",
+					"matchup": f"{players[0].title()} ({odds[0]}) v {players[1].title()} ({odds[1]})",
+					"player1": players[0].split(" ")[1].title(),
+					"line1": lines[0],
+					"log1": ",".join([str(x) for x in arrs[0]]),
+					"player2": players[1].split(" ")[1].title(),
+					"line2": lines[1],
+					"log2": ",".join([str(x) for x in arrs[1]]),
+					"straightOver": straightOver,
+					"allPairsOver": allPairsOver
+				})
+
+	return jsonify(res)
+
+@props_blueprint.route('/h2hnfl')
+def h2hprops_route():
+	teams = players = ""
+	if request.args.get("teams"):
+		teams = request.args.get("teams")
+	if request.args.get("players"):
+		players = request.args.get("players")
+	return render_template("h2hnfl.html", teams=teams, players=players)
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
