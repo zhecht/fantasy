@@ -59,8 +59,26 @@ def getProps_route():
 		schedule = json.load(fh)
 	with open(f"{prefix}static/nhlprops/lines.json") as fh:
 		gameLines = json.load(fh)
+	with open(f"{prefix}static/nhlprops/goalies.json") as fh:
+		goalies = json.load(fh)
+	with open(f"{prefix}static/nhlprops/expected.json") as fh:
+		expected = json.load(fh)
 
 	goalieLines(propData)
+	allGoalies = {}
+	for game in propData:
+		teamSp = game.split(" @ ")
+		for player in propData[game]:
+			if "sv" not in propData[game][player]:
+				continue
+			shortFirstName = player.split(" ")[0][0]
+			restName = " ".join(player.title().split(" ")[1:])
+			name = f"{shortFirstName.upper()}. {restName.replace('-', ' ')}"
+			if name in stats[teamSp[0]]:
+				team = teamSp[0]
+			else:
+				team = teamSp[1]
+			allGoalies[team] = player
 
 	props = []
 	for game in propData:
@@ -236,10 +254,32 @@ def getProps_route():
 					else:
 						gameLine = gameOdds[1]
 
+				savesAboveExp = gsaa = "-"
+				if prop == "sv":
+					p = player.replace("-", " ")
+					if p not in expected:
+						continue
+					savesAboveExp = round((float(expected[p]["xgoals"])-float(expected[p]["goals"]))*60*60 / float(expected[p]["icetime"]), 3)
+					try:
+						gsaa = float(goalies[team][p]["gsaa"])
+					except:
+						gsaa = "-"
+				else:
+					if opp in allGoalies:
+						goalie = allGoalies[opp]
+						if goalie in expected:
+							savesAboveExp = round((float(expected[goalie]["xgoals"])-float(expected[goalie]["goals"]))*60*60 / float(expected[goalie]["icetime"]), 3)
+						else:
+							savesAboveExp = "-"
+						try:
+							gsaa = float(goalies[opp][goalie]["gsaa"])
+						except:
+							gsaa = "-"
+
 				props.append({
 					"player": player.title(),
 					"team": team.upper(),
-					"opponent": opp,
+					"opponent": opp.upper(),
 					"propType": prop,
 					"line": line or "-",
 					"avg": avg,
@@ -254,9 +294,12 @@ def getProps_route():
 					"oppOver": oppOver,
 					"gameLine": gameLine,
 					"winLossSplits": winLoss,
+					"savesAboveExp": savesAboveExp,
+					"gsaa": gsaa,
 					"ptsPerGame": round((rankings[team]["tot"]["G"] / rankings[team]["tot"]["GP"]) + rankings[team]["tot"]["A/GP"], 1),
 					"ptsPerGameLast5": round((rankings[team]["last5"]["G"] / rankings[team]["last5"]["GP"]) + rankings[team]["last5"]["A/GP"], 1),
 					"savesPerGame": round(rankings[team]["tot"]["SA/GP"]-rankings[team]["tot"]["GA"]/rankings[team]["tot"]["GP"], 1),
+					"savesPerGameLast1": round(rankings[team]["last1"]["SA"]-rankings[team]["last1"]["GA"], 1),
 					"savesPerGameLast3": round(rankings[team]["last3"]["SA/GP"]-rankings[team]["last3"]["GA"]/rankings[team]["last3"]["GP"], 1),
 					"savesPerGameLast5": round(rankings[team]["last5"]["SA/GP"]-rankings[team]["last5"]["GA"]/rankings[team]["last5"]["GP"], 1),
 					"shotsPerGame": round(rankings[team]["tot"]["S/GP"], 1),
@@ -266,6 +309,7 @@ def getProps_route():
 					"oppPtsPerGame": round((rankings[opp]["tot"]["GA"] / rankings[opp]["tot"]["GP"]) + (rankings[opp]["tot"]["OPP A"] / rankings[opp]["tot"]["GP"]), 1),
 					"oppPtsPerGameLast5": round((rankings[opp]["last5"]["GA"] / rankings[opp]["last5"]["GP"]) + (rankings[opp]["last5"]["OPP A"] / rankings[opp]["last5"]["GP"]), 1),
 					"oppSavesAgainstPerGame": round(rankings[opp]["tot"]["S/GP"]-rankings[opp]["tot"]["G"]/rankings[opp]["tot"]["GP"], 1),
+					"oppSavesAgainstPerGameLast1": round(rankings[opp]["last1"]["S"], 1),
 					"oppSavesAgainstPerGameLast3": round(rankings[opp]["last3"]["S/GP"]-rankings[opp]["last3"]["G"]/rankings[opp]["last3"]["GP"], 1),
 					"oppSavesAgainstPerGameLast5": round(rankings[opp]["last5"]["S/GP"]-rankings[opp]["last5"]["G"]/rankings[opp]["last5"]["GP"], 1),
 					"oppShotsAgainstPerGame": round(rankings[opp]["tot"]["SA/GP"], 1),
@@ -620,10 +664,78 @@ def goalieLines(props):
 			}
 	pass
 
+def writeGoalieStats():
+	url = "https://www.hockey-reference.com/leagues/NHL_2023_goalies.html"
+	outfile = "out"
+	call(["curl", "-k", url, "-o", outfile])
+	soup = BS(open(outfile, 'rb').read(), "lxml")
+
+	rows = soup.findAll("tr")
+	headers = []
+	for header in rows[1].findAll("th")[1:]:
+		headers.append(header.text.lower())
+
+	stats = {}
+	for tr in rows[2:]:
+		if "thead" in tr.get("class", []):
+			continue
+		rowStats = {}
+		for hdr, td in zip(headers, tr.findAll("td")):
+			val = td.text
+			if "." in val:
+				val = float(val)
+			else:
+				try:
+					val = int(val)
+				except:
+					pass
+			rowStats[hdr] = val
+
+		player = rowStats["player"].lower().replace("-", " ")
+		team = rowStats["tm"].lower()
+		if team == "lak":
+			team = "la"
+		elif team == "sjs":
+			team = "sj"
+		elif team == "njd":
+			team = "nj"
+		elif team == "veg":
+			team = "vgk"
+
+		if team not in stats:
+			stats[team] = {}
+
+		stats[team][player] = rowStats
+
+	with open(f"{prefix}static/nhlprops/goalies.json", "w") as fh:
+		json.dump(stats, fh, indent=4)
+
+def writeExpectations():
+	url = "https://www.moneypuck.com/moneypuck/playerData/seasonSummary/2022/regular/goalies.csv"
+	outfile = f"{prefix}static/nhlprops/goalies.csv"
+
+	goalies = {}
+	lines = open(outfile).readlines()
+	headers = []
+	for header in lines[0].split(","):
+		headers.append(header.lower())
+
+	for line in lines[1:]:
+		data = {}
+		for header, val in zip(headers,line.replace("\n", "").split(",")):
+			data[header] = val
+		if data["situation"] != "all":
+			continue
+		goalies[data["name"].lower().replace("-", " ")] = data
+
+	with open(f"{prefix}static/nhlprops/expected.json", "w") as fh:
+		json.dump(goalies, fh, indent=4)
+
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-c", "--cron", action="store_true", help="Start Cron Job")
 	parser.add_argument("--lines", action="store_true", help="Game Lines")
+	parser.add_argument("--goalies", action="store_true", help="Goalie Stats")
 	parser.add_argument("-d", "--date", help="Date")
 	parser.add_argument("-w", "--week", help="Week", type=int)
 
@@ -636,7 +748,13 @@ if __name__ == "__main__":
 
 	if args.lines:
 		writeGameLines(date)
+		writeExpectations()
+	elif args.goalies:
+		writeExpectations()
+		writeGoalieStats()
 	elif args.cron:
 		writeProps(date)
 		writeGoalieProps(date)
+		writeGoalieStats()
+		writeExpectations()
 		#writeGameLines(date)

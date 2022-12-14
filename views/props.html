@@ -255,17 +255,16 @@
 			}
 
 			function parseProp(prop) {
-				if (prop == "recv_yd") return "REC YDs";
-				else if (prop == "recv_rec") return "RECs";
+				if (prop == "rec_yds") return "REC YDs";
 				else if (prop == "rush_att") return "RUSHs";
-				else if (prop == "rush_recv_yd") return "RUSH+REC YDs";
-				else if (prop == "rush_yd") return "RUSH YDs";
+				else if (prop == "rush_+_rec_yds") return "RUSH+REC YDs";
+				else if (prop == "rush_yds") return "RUSH YDs";
 				else if (prop == "pass_att") return "ATTEMPS";
-				else if (prop == "pass_comp") return "COMPs";
+				else if (prop == "pass_cmp") return "COMPs";
 				else if (prop == "pass_int") return "INTs";
 				else if (prop == "pass_td") return "PASS TDs";
-				else if (prop == "pass_yd") return "PASS YDs";
-				else if (prop == "recv_rec") return "REC";
+				else if (prop == "pass_yds") return "PASS YDs";
+				else if (prop == "rec") return "REC";
 				else if (prop == "tackles_combined") return "TACKLES";
 				return prop;
 			}

@@ -1170,8 +1170,8 @@ def convertTeamRankingsTeam(team):
 
 def write_rankings():
 	baseUrl = "https://www.teamrankings.com/nfl/stat/"
-	pages = ["plays-per-game", "opponent-plays-per-game", "tackles-per-game", "opponent-tackles-per-game", "points-per-game", "opponent-points-per-game", "1st-half-points-per-game", "opponent-1st-half-points-per-game", "qb-sacked-per-game", "sacks-per-game", "opponent-yards-per-rush-attempt", "opponent-yards-per-completion", "opponent-rushing-attempts-per-game", "opponent-pass-attempts-per-game", "opponent-passing-yards-per-game", "opponent-completions-per-game", "opponent-passing-touchdowns-per-game", "interceptions-per-game"]
-	ids = ["playspg", "oplayspg", "tpg", "otpg", "ppg", "oppg", "1hppg", "o1hppg", "qbspg", "spg", "oydpra", "oydpc", "oruattpg", "opaattpg", "opaydpg", "ocmppg", "opatdpg", "ointpg"]
+	pages = ["plays-per-game", "opponent-plays-per-game", "tackles-per-game", "opponent-tackles-per-game", "points-per-game", "opponent-points-per-game", "1st-half-points-per-game", "opponent-1st-half-points-per-game", "qb-sacked-per-game", "sacks-per-game", "opponent-yards-per-rush-attempt", "opponent-yards-per-completion", "opponent-rushing-attempts-per-game", "opponent-rushing-yards-per-game", "opponent-pass-attempts-per-game", "opponent-passing-yards-per-game", "opponent-completions-per-game", "opponent-passing-touchdowns-per-game", "interceptions-per-game"]
+	ids = ["playspg", "oplayspg", "tpg", "otpg", "ppg", "oppg", "1hppg", "o1hppg", "qbspg", "spg", "oydpra", "oydpc", "oruattpg", "oruydpg", "opaattpg", "opaydpg", "ocmppg", "opatdpg", "ointpg"]
 
 	rankings = {}
 	for idx, page in enumerate(pages):

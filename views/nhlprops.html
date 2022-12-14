@@ -45,6 +45,7 @@
 			<button onclick="print();">PRINT</button>
             <button onclick="print('csv');">PRINT CSV</button>
             <button onclick="calculateParlayOdds();">Parlay Odds</button>
+            <button onclick="printExcerpt();">EXCERPT</button>
 		</div>
 		<script>
 			let TABLE;
@@ -88,6 +89,58 @@
 				TABLE.getColumn("winLossSplits").hide();
 
             }
+
+            function printExcerpt() {
+				let rows = TABLE.getSelectedRows();
+                if (rows.length == 0) {
+                    rows = TABLE.getRows("active");
+                }
+                let s = "";
+                for (row of rows) {
+                    const data = row.getData();
+                	let last = data.player.split(" ");
+                	last = last[last.length-1];
+                    const overLine = Math.round(data.line);
+                    const svPerGm = [];
+                    for (val of [data.savesPerGame, data.savesPerGameLast5, data.savesPerGameLast3, data.savesPerGameLast1]) {
+                    	if (val >= data.line) {
+                    		svPerGm.push("**"+val+"**");
+                    	} else {
+                    		svPerGm.push(val);
+                    	}
+                    }
+                    const oppSvAgainstPerGm = [];
+                    for (val of [data.oppSavesAgainstPerGame, data.oppSavesAgainstPerGameLast5, data.oppSavesAgainstPerGameLast3, data.oppSavesAgainstPerGameLast1]) {
+                    	if (val >= data.line) {
+                    		oppSvAgainstPerGm.push("**"+val+"**");
+                    	} else {
+                    		oppSvAgainstPerGm.push(val);
+                    	}
+                    }
+                    let avg = data.avg;
+                    if (avg >= data.line) {
+                    	avg = "**"+avg+"**";
+                    }
+                    let winSplits = parseFloat(data.winLossSplits.split(" - ")[0]);
+                    let lossSplits = parseFloat(data.winLossSplits.split(" - ")[1]);
+                    if (winSplits >= data.line) {
+                    	winSplits = "**"+winSplits+"**";
+                    }
+                    if (lossSplits >= data.line) {
+                    	lossSplits = "**"+lossSplits+"**";
+                    }
+                    s += data.team+" "+data.player+"\n";
+                    s += "> "+data.team+" sv/gm (szn, L5, L3, L1): "+[svPerGm].join(", ")+"  \n";
+                    s += "> "+data.opponent+" sv against/gm: "+[oppSvAgainstPerGm].join(", ")+"  \n";
+                    s += "> Avg: "+avg+". W-L splits: "+winSplits+" - "+lossSplits+". "+data.team+" ML odds: "+data.gameLine+"  \n";
+                    s += "> "+last+" has had "+overLine+"+ saves in "+data.totalOver+"% of games this season and "+data.lastTotalOver+"% of games last season  \n";
+                    s += "> Goalies playing "+data.opponent+" have had "+overLine+"+ saves in "+data.oppOver+"% of games this year  \n";
+                    s += "> Goals Saved Above Average: "+data.gsaa+"  \n";
+                    s += "> Saves Above Expected Per 60: "+data.savesAboveExp+"  \n";
+                    s += "\n\n";
+                }
+                alert(s);
+			}
 
             function calculateParlayOdds() {
 				const rows = TABLE.getSelectedRows();
@@ -201,6 +254,45 @@
 						{column: "totalOverLast5", dir: "desc"},
 						//{column: "team", dir: "asc"},
 					],
+					rowFormatter:function(row){
+						return;
+						//create and style holder elements
+						var holderEl = document.createElement("div");
+						var tableEl = document.createElement("div");
+
+						holderEl.style.boxSizing = "border-box";
+						holderEl.style.padding = "5px 0px 5px 10px";
+						holderEl.style.borderTop = "1px solid #333";
+						holderEl.style.borderBotom = "1px solid #333";
+						holderEl.style.display = "flex";
+						holderEl.style["justify-content"] = "right";
+
+
+						tableEl.style.border = "1px solid #333";
+
+						holderEl.appendChild(tableEl);
+
+						row.getElement().appendChild(holderEl);
+
+						var subTable = new Tabulator(tableEl, {
+							data: [row.getData()],
+							columns:[
+								{title: "Total Over", field: "totalOver", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
+								{title: "L5 Total Over", field: "totalOverLast5", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
+								{title: "SZN AVG", field: "avg", hozAlign: "center", width: 80, formatter: colorFormatter},
+								{title: "Puck Line", field: "gameLine",  hozAlign: "center", width: 70},
+								{title: "W-L Splits", field: "winLossSplits", hozAlign: "center", width: 150},
+								{title: "Line", field: "line", hozAlign: "center", visible: false},
+								{title: "Last", field: "last5", hozAlign: "center"},
+								{title: "Last YR AVG", field: "lastAvg", hozAlign: "center", width: 80, formatter: colorFormatter},
+								{title: "Last YR Total Over", field: "lastTotalOver", width: 80, hozAlign: "center", formatter: percentFormatter},
+								//{title: "Games Over", field: "over", formatter: overFormatter, hozAlign: "center"},
+								//{title: "Last Game", field: "lastOver", formatter: lastOverFormatter, hozAlign: "center"},
+								{title: "Over", field: "overOdds", hozAlign: "center", sorter: "number"},
+								{title: "Under", field: "underOdds", hozAlign: "center", sorter: "number"},
+							]
+						})
+					},
 					columns: [
                         {formatter:"rowSelection", hozAlign:"center", headerSort:false, cellClick:function(e, cell){
                             cell.getRow().toggleSelect();
@@ -217,10 +309,12 @@
 						{title: "SV/G", field: "savesPerGame", hozAlign: "center", width: 70, formatter: colorFormatter},
 						{title: "L5 SV/G", field: "savesPerGameLast5", hozAlign: "center", width: 70, formatter: colorFormatter},
 						{title: "L3 SV/G", field: "savesPerGameLast3", hozAlign: "center", width: 70, formatter: colorFormatter},
+						{title: "L1 SV/G", field: "savesPerGameLast1", hozAlign: "center", width: 70, formatter: colorFormatter},
 						{title: "Opp", field: "opponent", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
 						{title: "Opp Saves_A/G", field: "oppSavesAgainstPerGame", hozAlign: "center", width: 70, formatter: colorFormatter},
 						{title: "L5 Opp Saves_A/G", field: "oppSavesAgainstPerGameLast5", hozAlign: "center", width: 70, formatter: colorFormatter},
 						{title: "L3 Opp Saves_A/G", field: "oppSavesAgainstPerGameLast3", hozAlign: "center", width: 70, formatter: colorFormatter},
+						{title: "L1 Opp Saves_A/G", field: "oppSavesAgainstPerGameLast1", hozAlign: "center", width: 70, formatter: colorFormatter},
 						{title: "Opp SA/G", field: "oppShotsAgainstPerGame", hozAlign: "center", width: 70},
 						{title: "L5 Opp SA/G", field: "oppShotsAgainstPerGameLast5", hozAlign: "center", width: 70},
 						{title: "Opp PTS/G", field: "oppPtsPerGame", hozAlign: "center", width: 70},
@@ -229,17 +323,16 @@
 						{title: "Prop", field: "propType", formatter: propFormatter, hozAlign: "center"},
 						{title: "Line", field: "line", hozAlign: "center"},
 						{title: "SZN AVG", field: "avg", hozAlign: "center", width: 80, formatter: colorFormatter},
-						{title: "W-L Splits", field: "winLossSplits", hozAlign: "center", width: 150},
-						{title: "", field: "diffAbs", hozAlign: "center", visible: false},
-						{title: "Total Over", field: "totalOver", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
-						{title: "L5 Total Over", field: "totalOverLast5", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
-						{title: "Last", field: "last5", hozAlign: "center"},
-						{title: "Last YR AVG", field: "lastAvg", hozAlign: "center", width: 80, formatter: colorFormatter},
-						{title: "Last YR Total Over", field: "lastTotalOver", width: 80, hozAlign: "center", formatter: percentFormatter},
-						//{title: "Games Over", field: "over", formatter: overFormatter, hozAlign: "center"},
-						//{title: "Last Game", field: "lastOver", formatter: lastOverFormatter, hozAlign: "center"},
-						{title: "Over", field: "overOdds", hozAlign: "center", sorter: "number"},
-						{title: "Under", field: "underOdds", hozAlign: "center", sorter: "number"},
+						{title: "GSAA", field: "gsaa", hozAlign: "center", width: 80, visible: true},
+						{title: "Sv Above Exp", field: "savesAboveExp", hozAlign: "center", width: 80, visible: true},
+						{title: "W-L Splits", field: "winLossSplits", hozAlign: "center", width: 150, visible: true},
+						{title: "Total Over", field: "totalOver", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number", visible: true},
+						{title: "L5 Total Over", field: "totalOverLast5", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number", visible: true},
+						{title: "Last", field: "last5", hozAlign: "center", visible: true},
+						{title: "Last YR AVG", field: "lastAvg", hozAlign: "center", width: 80, formatter: colorFormatter, visible: true},
+						{title: "Last YR Total Over", field: "lastTotalOver", width: 80, hozAlign: "center", formatter: percentFormatter, visible: true},
+						{title: "Over", field: "overOdds", hozAlign: "center", sorter: "number", visible: true},
+						{title: "Under", field: "underOdds", hozAlign: "center", sorter: "number", visible: true},
 					]
 				})
 			}
@@ -263,12 +356,20 @@
 		{% if prop != "sv" %}
 			<script>
 				TABLE.getColumn("savesPerGame").hide();
+				TABLE.getColumn("savesPerGameLast1").hide();
 				TABLE.getColumn("savesPerGameLast3").hide();
 				TABLE.getColumn("savesPerGameLast5").hide();
 				TABLE.getColumn("oppSavesAgainstPerGame").hide();
+				TABLE.getColumn("oppSavesAgainstPerGameLast1").hide();
 				TABLE.getColumn("oppSavesAgainstPerGameLast3").hide();
 				TABLE.getColumn("oppSavesAgainstPerGameLast5").hide();
+				//TABLE.getColumn("savesAboveExp").hide();
+				//TABLE.getColumn("gsaa").hide();
 				TABLE.getColumn("oppOver").hide();
+			</script>
+		{% else %}
+			<script>
+				TABLE.getColumn("propType").hide();
 			</script>
 		{% endif %}
 		{% if prop != "pts" %}

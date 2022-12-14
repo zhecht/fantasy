@@ -345,8 +345,16 @@ def writeCsvs(props):
 			fh.write(csvs[prop])
 
 def convertDKTeam(team):
-	if team == "bsu":
+	if team == "tx a&m-cc":
+		return "amcc"
+	elif team == "az st":
+		return "asu"
+	elif team == "bsu":
 		return "bois"
+	elif team == "cal poly":
+		return "cp"
+	elif team == "furm":
+		return "fur"
 	elif team == "michigan":
 		return "mich"
 	elif team == "minnesota":
@@ -357,6 +365,8 @@ def convertDKTeam(team):
 		return "miz"
 	elif team == "miss st":
 		return "mvsu"
+	elif team == "nc cent":
+		return "nccu"
 	elif team == "ind":
 		return "iu"
 	elif team == "g'town":

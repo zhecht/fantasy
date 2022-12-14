@@ -21,11 +21,6 @@
                 "over": "-125",
                 "under": "+105"
             },
-            "int": {
-                "line": 0.5,
-                "over": "+115",
-                "under": "-155"
-            },
             "rec_long": {
                 "line": 37.5,
                 "over": "-115",
@@ -37,9 +32,9 @@
                 "under": "-115"
             },
             "rush_yds": {
-                "line": 3.5,
-                "over": "-110",
-                "under": "-120"
+                "line": 7.5,
+                "over": "-155",
+                "under": "+115"
             }
         },
         "kirk cousins": {
@@ -63,11 +58,6 @@
                 "over": "-110",
                 "under": "-120"
             },
-            "int": {
-                "line": 0.5,
-                "over": "+100",
-                "under": "-130"
-            },
             "rec_long": {
                 "line": 38.5,
                 "over": "-120",
@@ -79,33 +69,33 @@
                 "under": "-115"
             },
             "rush_yds": {
-                "line": 2.5,
-                "over": "-105",
-                "under": "-125"
+                "line": 0.5,
+                "over": "+900",
+                "under": "-3000"
             }
         },
         "dandre swift": {
             "rush_yds": {
-                "line": 31.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 21.5,
+                "over": "+105",
+                "under": "-135"
             },
             "rec_yds": {
-                "line": 22.5,
-                "over": "-125",
-                "under": "-105"
+                "line": 18.5,
+                "over": "+750",
+                "under": "-2000"
             },
             "rush+rec_yds": {
-                "line": 58.5,
-                "over": "-130",
-                "under": "-105"
+                "line": 39.5,
+                "over": "-120",
+                "under": "-110"
             },
             "rush_long": {
                 "line": 11.5,
                 "over": "-120",
                 "under": "-110"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 12.5,
                 "over": "-105",
                 "under": "-125"
@@ -113,36 +103,36 @@
         },
         "dalvin cook": {
             "rush_yds": {
-                "line": 73.5,
-                "over": "-125",
-                "under": "-105"
+                "line": 23.5,
+                "over": "+290",
+                "under": "-450"
             },
             "rec_yds": {
-                "line": 15.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 13.5,
+                "over": "+175",
+                "under": "-240"
             },
             "rec": {
-                "line": 2.5,
-                "over": "+100",
-                "under": "-130"
+                "line": 1.5,
+                "over": "+150",
+                "under": "-200"
             },
             "rush+rec_yds": {
-                "line": 93.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 36.5,
+                "over": "-105",
+                "under": "-125"
             },
             "rush_att": {
-                "line": 17.5,
-                "over": "-110",
-                "under": "-120"
+                "line": 15.5,
+                "over": "+225",
+                "under": "-320"
             },
             "rush_long": {
                 "line": 16.5,
                 "over": "-105",
                 "under": "-125"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 9.5,
                 "over": "-125",
                 "under": "-105"
@@ -150,40 +140,50 @@
         },
         "jamaal williams": {
             "rush_yds": {
-                "line": 47.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 34.5,
+                "over": "-110",
+                "under": "-120"
+            },
+            "rush_td": {
+                "line": 0.5,
+                "over": "+600",
+                "under": "-1200"
             }
         },
         "adam thielen": {
             "rec_yds": {
-                "line": 51.5,
-                "over": "-115",
+                "line": 48.5,
+                "over": "-120",
                 "under": "-115"
             },
             "rec": {
                 "line": 4.5,
-                "over": "+105",
-                "under": "-150"
+                "over": "-140",
+                "under": "+105"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 20.5,
                 "over": "-120",
                 "under": "-110"
+            },
+            "rec_td": {
+                "line": 1.5,
+                "over": "+900",
+                "under": "-3000"
             }
         },
         "amon ra st brown": {
             "rec_yds": {
-                "line": 81.5,
-                "over": "-125",
-                "under": "-110"
+                "line": 64.5,
+                "over": "+300",
+                "under": "-450"
             },
             "rec": {
-                "line": 6.5,
-                "over": "-150",
-                "under": "+120"
+                "line": 5.5,
+                "over": "+295",
+                "under": "-450"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 24.5,
                 "over": "-115",
                 "under": "-115"
@@ -191,16 +191,16 @@
         },
         "brock wright": {
             "rec_yds": {
-                "line": 13.5,
-                "over": "-120",
-                "under": "-110"
+                "line": 0.5,
+                "over": "+1000",
+                "under": "-6000"
             },
             "rec": {
-                "line": 1.5,
-                "over": "-120",
-                "under": "-110"
+                "line": 0.5,
+                "over": "+1000",
+                "under": "-5000"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 10.5,
                 "over": "-105",
                 "under": "-125"
@@ -208,40 +208,45 @@
         },
         "johnny mundt": {
             "rec_yds": {
-                "line": 4.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 0.5,
+                "over": "+700",
+                "under": "-1800"
             }
         },
         "justin jefferson": {
             "rec_yds": {
-                "line": 95.5,
-                "over": "-120",
-                "under": "-110"
+                "line": 187.5,
+                "over": "-115",
+                "under": "-115"
             },
             "rec": {
-                "line": 6.5,
-                "over": "-150",
-                "under": "+115"
+                "line": 10.5,
+                "over": "+135",
+                "under": "-185"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 29.5,
                 "over": "-110",
                 "under": "-120"
+            },
+            "rec_td": {
+                "line": 0.5,
+                "over": "+600",
+                "under": "-1200"
             }
         },
         "kj osborn": {
             "rec_yds": {
                 "line": 23.5,
-                "over": "-115",
-                "under": "-115"
+                "over": "+160",
+                "under": "-215"
             },
             "rec": {
-                "line": 2.5,
-                "over": "+145",
-                "under": "-195"
+                "line": 4.5,
+                "over": "+155",
+                "under": "-210"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 14.5,
                 "over": "-120",
                 "under": "-110"
@@ -249,19 +254,24 @@
         },
         "tj hockenson": {
             "rec_yds": {
-                "line": 48.5,
-                "over": "-120",
-                "under": "-110"
+                "line": 72.5,
+                "over": "-110",
+                "under": "-120"
             },
             "rec": {
-                "line": 4.5,
-                "over": "-140",
-                "under": "+105"
+                "line": 6.5,
+                "over": "-170",
+                "under": "+125"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 18.5,
                 "over": "-120",
                 "under": "-110"
+            },
+            "rec_td": {
+                "line": 0.5,
+                "over": "+850",
+                "under": "-3000"
             }
         },
         "danielle hunter": {
@@ -333,6 +343,30 @@
                 "over": "+110",
                 "under": "-145"
             }
+        },
+        "dj chark jr": {
+            "rec_yds": {
+                "line": 94.5,
+                "over": "+800",
+                "under": "-2500"
+            },
+            "rec": {
+                "line": 6.5,
+                "over": "+800",
+                "under": "-2500"
+            }
+        },
+        "josh reynolds": {
+            "rec_yds": {
+                "line": 51.5,
+                "over": "+750",
+                "under": "-2000"
+            },
+            "rec": {
+                "line": 5.5,
+                "over": "+750",
+                "under": "-2000"
+            }
         }
     },
     "cle @ cin": {
@@ -357,11 +391,6 @@
                 "over": "-125",
                 "under": "-105"
             },
-            "int": {
-                "line": 0.5,
-                "over": "-140",
-                "under": "+105"
-            },
             "rec_long": {
                 "line": 37.5,
                 "over": "-110",
@@ -373,7 +402,7 @@
                 "under": "-115"
             },
             "rush_yds": {
-                "line": 23.5,
+                "line": 29.5,
                 "over": "-120",
                 "under": "-110"
             },
@@ -381,6 +410,11 @@
                 "line": 11.5,
                 "over": "+100",
                 "under": "-130"
+            },
+            "rush_td": {
+                "line": 0.5,
+                "over": "+950",
+                "under": "-4000"
             }
         },
         "joe burrow": {
@@ -404,11 +438,6 @@
                 "over": "-110",
                 "under": "-120"
             },
-            "int": {
-                "line": 0.5,
-                "over": "-125",
-                "under": "-105"
-            },
             "rec_long": {
                 "line": 38.5,
                 "over": "-120",
@@ -420,9 +449,9 @@
                 "under": "-115"
             },
             "rush_yds": {
-                "line": 15.5,
-                "over": "-105",
-                "under": "-125"
+                "line": 12.5,
+                "over": "-130",
+                "under": "-105"
             },
             "rush_long": {
                 "line": 9.5,
@@ -432,68 +461,73 @@
         },
         "joe mixon": {
             "rush_yds": {
-                "line": 58.5,
-                "over": "-115",
-                "under": "-115"
-            },
-            "rec_yds": {
-                "line": 24.5,
-                "over": "-115",
+                "line": 85.5,
+                "over": "-110",
                 "under": "-120"
             },
+            "rec_yds": {
+                "line": 10.5,
+                "over": "+340",
+                "under": "-525"
+            },
             "rec": {
-                "line": 3.5,
+                "line": 2.5,
+                "over": "+300",
+                "under": "-475"
+            },
+            "rush+rec_yds": {
+                "line": 96.5,
                 "over": "-120",
                 "under": "-110"
             },
-            "rush+rec_yds": {
-                "line": 86.5,
-                "over": "-115",
-                "under": "-115"
-            },
             "rush_att": {
-                "line": 14.5,
-                "over": "-110",
-                "under": "-120"
+                "line": 12.5,
+                "over": "+120",
+                "under": "-155"
             },
             "rush_long": {
                 "line": 13.5,
                 "over": "-115",
                 "under": "-115"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 12.5,
                 "over": "-110",
                 "under": "-120"
+            },
+            "rush_td": {
+                "line": 0.5,
+                "over": "+700",
+                "under": "-1800"
             }
         },
         "kareem hunt": {
             "rush_yds": {
-                "line": 27.5,
-                "over": "-105",
-                "under": "-125"
+                "line": 7.5,
+                "over": "-110",
+                "under": "-120"
             },
             "rec_yds": {
-                "line": 11.5,
-                "over": "-120",
-                "under": "-110"
+                "line": 2.5,
+                "over": "+110",
+                "under": "-145"
             },
             "rec": {
                 "line": 1.5,
-                "over": "-155",
-                "under": "+115"
+                "over": "-110",
+                "under": "-120"
             },
             "rush+rec_yds": {
-                "line": 42.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 14.5,
+                "over": "-110",
+                "under": "-120"
             },
             "rush_long": {
                 "line": 10.5,
                 "over": "-120",
                 "under": "-110"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 8.5,
                 "over": "-120",
                 "under": "-110"
@@ -501,94 +535,119 @@
         },
         "nick chubb": {
             "rush_yds": {
-                "line": 71.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 36.5,
+                "over": "-125",
+                "under": "-105"
             },
             "rec_yds": {
-                "line": 7.5,
+                "line": 14.5,
+                "over": "+295",
+                "under": "-450"
+            },
+            "rush+rec_yds": {
+                "line": 52.5,
                 "over": "-120",
                 "under": "-110"
             },
-            "rush+rec_yds": {
-                "line": 83.5,
-                "over": "-115",
-                "under": "-115"
-            },
             "rush_att": {
-                "line": 15.5,
-                "over": "-110",
-                "under": "-115"
+                "line": 14.5,
+                "over": "+135",
+                "under": "-180"
+            },
+            "rush_td": {
+                "line": 0.5,
+                "over": "+800",
+                "under": "-2000"
             }
         },
         "samaje perine": {
             "rush_yds": {
-                "line": 20.5,
+                "line": 25.5,
                 "over": "-110",
                 "under": "-120"
             },
             "rec_yds": {
-                "line": 10.5,
-                "over": "-120",
-                "under": "-110"
+                "line": 2.5,
+                "over": "+650",
+                "under": "-1400"
+            },
+            "rush+rec_yds": {
+                "line": 28.5,
+                "over": "-110",
+                "under": "-120"
             }
         },
         "amari cooper": {
             "rec_yds": {
-                "line": 57.5,
-                "over": "-105",
-                "under": "-125"
-            },
-            "rec": {
-                "line": 4.5,
-                "over": "+120",
-                "under": "-160"
-            },
-            "reception_long": {
-                "line": 22.5,
-                "over": "-115",
-                "under": "-115"
-            }
-        },
-        "donovan peoples jones": {
-            "rec_yds": {
-                "line": 52.5,
+                "line": 53.5,
                 "over": "-115",
                 "under": "-115"
             },
             "rec": {
                 "line": 3.5,
-                "over": "-115",
-                "under": "-120"
+                "over": "+165",
+                "under": "-230"
             },
-            "reception_long": {
-                "line": 23.5,
-                "over": "-110",
-                "under": "-120"
+            "rec_long": {
+                "line": 22.5,
+                "over": "-115",
+                "under": "-115"
+            },
+            "rec_td": {
+                "line": 0.5,
+                "over": "+600",
+                "under": "-1400"
             }
         },
-        "harrison bryant": {
+        "donovan peoples jones": {
             "rec_yds": {
-                "line": 14.5,
-                "over": "+100",
-                "under": "-135"
-            }
-        },
-        "jamarr chase": {
-            "rec_yds": {
-                "line": 81.5,
+                "line": 96.5,
                 "over": "-115",
                 "under": "-115"
             },
             "rec": {
-                "line": 6.5,
-                "over": "+105",
-                "under": "-140"
+                "line": 7.5,
+                "over": "-220",
+                "under": "+160"
             },
-            "reception_long": {
+            "rec_long": {
+                "line": 23.5,
+                "over": "-110",
+                "under": "-120"
+            },
+            "rec_td": {
+                "line": 0.5,
+                "over": "+650",
+                "under": "-1400"
+            }
+        },
+        "harrison bryant": {
+            "rec_yds": {
+                "line": 8.5,
+                "over": "+205",
+                "under": "-290"
+            }
+        },
+        "jamarr chase": {
+            "rec_yds": {
+                "line": 119.5,
+                "over": "+115",
+                "under": "-155"
+            },
+            "rec": {
+                "line": 10.5,
+                "over": "+110",
+                "under": "-150"
+            },
+            "rec_long": {
                 "line": 26.5,
                 "over": "-120",
                 "under": "-110"
+            },
+            "rec_td": {
+                "line": 1.5,
+                "over": "+1100",
+                "under": "-6000"
             }
         },
         "tee higgins": {
@@ -602,7 +661,7 @@
                 "over": "+115",
                 "under": "-150"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 24.5,
                 "over": "-120",
                 "under": "-110"
@@ -610,16 +669,16 @@
         },
         "tyler boyd": {
             "rec_yds": {
-                "line": 40.5,
-                "over": "-125",
-                "under": "-105"
+                "line": 0.5,
+                "over": "+380",
+                "under": "-600"
             },
             "rec": {
-                "line": 3.5,
-                "over": "-130",
-                "under": "+100"
+                "line": 0.5,
+                "over": "+370",
+                "under": "-600"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 17.5,
                 "over": "-125",
                 "under": "-105"
@@ -634,14 +693,14 @@
         },
         "myles garrett": {
             "sacks": {
-                "line": 0.25,
-                "over": "-175",
-                "under": "+130"
+                "line": 2.25,
+                "over": "+850",
+                "under": "-2500"
             },
             "tackles_combined": {
-                "line": 3.5,
-                "over": "+110",
-                "under": "-150"
+                "line": 4.5,
+                "over": "+145",
+                "under": "-195"
             }
         },
         "sam hubbard": {
@@ -653,51 +712,51 @@
         },
         "trey hendrickson": {
             "sacks": {
-                "line": 0.75,
-                "over": "-110",
-                "under": "-120"
+                "line": 0.25,
+                "over": "+320",
+                "under": "-500"
             }
         },
         "germaine pratt": {
             "tackles_combined": {
-                "line": 6.5,
-                "over": "-155",
-                "under": "+115"
+                "line": 5.5,
+                "over": "+170",
+                "under": "-230"
             }
         },
         "grant delpit": {
             "tackles_combined": {
-                "line": 5.5,
-                "over": "-150",
-                "under": "+110"
+                "line": 3.5,
+                "over": "-155",
+                "under": "+120"
             }
         },
         "jeremiah owusu koramoah": {
             "tackles_combined": {
-                "line": 8.5,
-                "over": "+105",
-                "under": "-135"
+                "line": 6.5,
+                "over": "+155",
+                "under": "-210"
             }
         },
         "jessie bates": {
             "tackles_combined": {
-                "line": 4.5,
-                "over": "-120",
-                "under": "-110"
+                "line": 2.5,
+                "over": "-180",
+                "under": "+135"
             }
         },
         "logan wilson": {
             "tackles_combined": {
-                "line": 6.5,
-                "over": "-155",
-                "under": "+115"
+                "line": 15.5,
+                "over": "+155",
+                "under": "-215"
             }
         },
         "vonn bell": {
             "tackles_combined": {
-                "line": 4.5,
-                "over": "-120",
-                "under": "-110"
+                "line": 6.5,
+                "over": "-155",
+                "under": "+120"
             }
         },
         "cade york": {
@@ -707,9 +766,9 @@
                 "under": "-160"
             },
             "kicking_pts": {
-                "line": 6.5,
-                "over": "-105",
-                "under": "-130"
+                "line": 4.5,
+                "over": "-150",
+                "under": "+110"
             },
             "pat": {
                 "line": 2.5,
@@ -724,9 +783,9 @@
                 "under": "-110"
             },
             "kicking_pts": {
-                "line": 7.5,
-                "over": "-110",
-                "under": "-120"
+                "line": 5.5,
+                "over": "+135",
+                "under": "-180"
             },
             "pat": {
                 "line": 2.5,
@@ -737,18 +796,23 @@
         "david bell": {
             "rec_yds": {
                 "line": 21.5,
-                "over": "-115",
-                "under": "-115"
+                "over": "+100",
+                "under": "-135"
             },
             "rec": {
-                "line": 1.5,
-                "over": "-195",
-                "under": "+145"
+                "line": 2.5,
+                "over": "-105",
+                "under": "-130"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 14.5,
                 "over": "-110",
                 "under": "-120"
+            },
+            "rec_td": {
+                "line": 0.5,
+                "over": "+1100",
+                "under": "-8000"
             }
         },
         "david njoku": {
@@ -762,7 +826,7 @@
                 "over": "+130",
                 "under": "-175"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 16.5,
                 "over": "-120",
                 "under": "-110"
@@ -791,11 +855,6 @@
                 "over": "-125",
                 "under": "-105"
             },
-            "int": {
-                "line": 0.5,
-                "over": "-135",
-                "under": "+105"
-            },
             "rec_long": {
                 "line": 36.5,
                 "over": "-115",
@@ -807,14 +866,14 @@
                 "under": "-115"
             },
             "rush_yds": {
-                "line": 43.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 46.5,
+                "over": "-160",
+                "under": "+120"
             },
             "rush_att": {
-                "line": 7.5,
-                "over": "-125",
-                "under": "-105"
+                "line": 9.5,
+                "over": "-200",
+                "under": "+150"
             },
             "rush_long": {
                 "line": 15.5,
@@ -843,11 +902,6 @@
                 "over": "-110",
                 "under": "-120"
             },
-            "int": {
-                "line": 1.5,
-                "over": "+160",
-                "under": "-220"
-            },
             "rec_long": {
                 "line": 34.5,
                 "over": "-120",
@@ -866,29 +920,29 @@
         },
         "devin singletary": {
             "rush_yds": {
-                "line": 41.5,
+                "line": 38.5,
                 "over": "-110",
                 "under": "-120"
             },
             "rec_yds": {
-                "line": 8.5,
-                "over": "+100",
-                "under": "-130"
+                "line": 4.5,
+                "over": "+950",
+                "under": "-3500"
             },
             "rec": {
                 "line": 1.5,
-                "over": "-110",
-                "under": "-120"
+                "over": "+850",
+                "under": "-3000"
             },
             "rush+rec_yds": {
-                "line": 52.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 42.5,
+                "over": "-120",
+                "under": "-110"
             },
             "rush_att": {
-                "line": 10.5,
-                "over": "+110",
-                "under": "-145"
+                "line": 7.5,
+                "over": "-110",
+                "under": "-120"
             },
             "rush_long": {
                 "line": 12.5,
@@ -898,41 +952,46 @@
         },
         "james cook": {
             "rush_yds": {
-                "line": 34.5,
-                "over": "-125",
-                "under": "-110"
-            },
-            "rec_yds": {
-                "line": 13.5,
+                "line": 12.5,
                 "over": "-120",
                 "under": "-110"
             },
+            "rec_yds": {
+                "line": 9.5,
+                "over": "+700",
+                "under": "-1800"
+            },
             "rush+rec_yds": {
-                "line": 52.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 22.5,
+                "over": "-110",
+                "under": "-120"
+            },
+            "rush_td": {
+                "line": 0.5,
+                "over": "+1200",
+                "under": "-20000"
             }
         },
         "michael carter": {
             "rush_yds": {
-                "line": 21.5,
-                "over": "-110",
-                "under": "-120"
+                "line": 0.5,
+                "over": "+310",
+                "under": "-475"
             },
             "rec_yds": {
                 "line": 10.5,
-                "over": "-135",
-                "under": "+100"
+                "over": "+215",
+                "under": "-300"
             },
             "rush+rec_yds": {
-                "line": 32.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 10.5,
+                "over": "+115",
+                "under": "-155"
             },
             "rec": {
-                "line": 1.5,
-                "over": "-155",
-                "under": "+115"
+                "line": 2.5,
+                "over": "+185",
+                "under": "-260"
             }
         },
         "zonovan knight": {
@@ -961,7 +1020,7 @@
                 "over": "-115",
                 "under": "-115"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 11.5,
                 "over": "-110",
                 "under": "-120"
@@ -969,45 +1028,50 @@
         },
         "cj uzomah": {
             "rec_yds": {
-                "line": 8.5,
-                "over": "-120",
-                "under": "-110"
+                "line": 7.5,
+                "over": "+310",
+                "under": "-475"
             },
             "rec": {
                 "line": 1.5,
-                "over": "+145",
-                "under": "-195"
+                "over": "+295",
+                "under": "-450"
             }
         },
         "corey davis": {
             "rec_yds": {
-                "line": 37.5,
-                "over": "-105",
-                "under": "-125"
+                "line": 31.5,
+                "over": "-115",
+                "under": "-115"
             },
             "rec": {
-                "line": 3.5,
-                "over": "+135",
-                "under": "-180"
+                "line": 2.5,
+                "over": "-110",
+                "under": "-120"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 18.5,
                 "over": "-115",
                 "under": "-115"
+            },
+            "rec_td": {
+                "line": 0.5,
+                "over": "+600",
+                "under": "-1400"
             }
         },
         "dawson knox": {
             "rec_yds": {
-                "line": 27.5,
-                "over": "-110",
-                "under": "-120"
+                "line": 41.5,
+                "over": "+550",
+                "under": "-1100"
             },
             "rec": {
-                "line": 2.5,
-                "over": "-140",
-                "under": "+105"
+                "line": 4.5,
+                "over": "+550",
+                "under": "-1000"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 15.5,
                 "over": "-105",
                 "under": "-125"
@@ -1015,33 +1079,38 @@
         },
         "elijah moore": {
             "rec_yds": {
-                "line": 24.5,
-                "over": "-120",
-                "under": "-110"
+                "line": 42.5,
+                "over": "-110",
+                "under": "-120"
             },
             "rec": {
-                "line": 2.5,
-                "over": "+120",
-                "under": "-160"
+                "line": 4.5,
+                "over": "-160",
+                "under": "+120"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 15.5,
                 "over": "-110",
                 "under": "-120"
+            },
+            "rec_td": {
+                "line": 0.5,
+                "over": "+900",
+                "under": "-3000"
             }
         },
         "gabriel davis": {
             "rec_yds": {
-                "line": 46.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 31.5,
+                "over": "+475",
+                "under": "-900"
             },
             "rec": {
                 "line": 3.5,
-                "over": "+110",
-                "under": "-145"
+                "over": "+475",
+                "under": "-900"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 21.5,
                 "over": "-115",
                 "under": "-115"
@@ -1049,33 +1118,38 @@
         },
         "garrett wilson": {
             "rec_yds": {
-                "line": 62.5,
+                "line": 61.5,
                 "over": "-115",
                 "under": "-115"
             },
             "rec": {
-                "line": 4.5,
-                "over": "-155",
-                "under": "+115"
+                "line": 5.5,
+                "over": "+125",
+                "under": "-170"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 22.5,
                 "over": "-115",
                 "under": "-115"
+            },
+            "rec_td": {
+                "line": 0.5,
+                "over": "+600",
+                "under": "-1200"
             }
         },
         "isaiah mckenzie": {
             "rec_yds": {
-                "line": 30.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 21.5,
+                "over": "+500",
+                "under": "-900"
             },
             "rec": {
                 "line": 3.5,
-                "over": "+145",
-                "under": "-195"
+                "over": "+475",
+                "under": "-800"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 15.5,
                 "over": "-125",
                 "under": "-105"
@@ -1083,16 +1157,16 @@
         },
         "stefon diggs": {
             "rec_yds": {
-                "line": 75.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 36.5,
+                "over": "+275",
+                "under": "-400"
             },
             "rec": {
-                "line": 6.5,
-                "over": "+105",
-                "under": "-140"
+                "line": 2.5,
+                "over": "+270",
+                "under": "-400"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 24.5,
                 "over": "-115",
                 "under": "-115"
@@ -1100,16 +1174,16 @@
         },
         "tyler conklin": {
             "rec_yds": {
-                "line": 23.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 17.5,
+                "over": "+115",
+                "under": "-150"
             },
             "rec": {
-                "line": 2.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 3.5,
+                "over": "+110",
+                "under": "-145"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 13.5,
                 "over": "-105",
                 "under": "-125"
@@ -1124,21 +1198,21 @@
         },
         "ed oliver": {
             "sacks": {
-                "line": 0.75,
-                "over": "+210",
-                "under": "-295"
+                "line": 0.25,
+                "over": "+750",
+                "under": "-1800"
             },
             "tackles_combined": {
-                "line": 2.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 4.5,
+                "over": "+210",
+                "under": "-295"
             }
         },
         "greg rousseau": {
             "sacks": {
-                "line": 0.75,
-                "over": "+140",
-                "under": "-190"
+                "line": 2.25,
+                "over": "+550",
+                "under": "-1100"
             }
         },
         "john franklin myers": {
@@ -1157,64 +1231,64 @@
         },
         "shaq lawson": {
             "sacks": {
-                "line": 0.75,
-                "over": "+235",
-                "under": "-340"
+                "line": 1.25,
+                "over": "+750",
+                "under": "-2000"
             }
         },
         "ahmad gardner": {
             "tackles_combined": {
-                "line": 3.5,
-                "over": "-135",
-                "under": "+105"
+                "line": 4.5,
+                "over": "+190",
+                "under": "-260"
             }
         },
         "cj mosley": {
             "tackles_combined": {
                 "line": 8.5,
-                "over": "-140",
-                "under": "+105"
+                "over": "-165",
+                "under": "+125"
             }
         },
         "dj reed jr": {
             "tackles_combined": {
-                "line": 4.5,
-                "over": "-135",
-                "under": "+100"
+                "line": 3.5,
+                "over": "+135",
+                "under": "-185"
             }
         },
         "damar hamlin": {
             "tackles_combined": {
-                "line": 5.5,
-                "over": "-130",
-                "under": "-105"
+                "line": 3.5,
+                "over": "-150",
+                "under": "+115"
             }
         },
         "jordan poyer": {
             "tackles_combined": {
                 "line": 5.5,
-                "over": "+110",
-                "under": "-145"
+                "over": "-135",
+                "under": "+100"
             }
         },
         "jordan whitehead": {
             "tackles_combined": {
-                "line": 5.5,
-                "over": "-140",
-                "under": "+105"
+                "line": 3.5,
+                "over": "+105",
+                "under": "-140"
             }
         },
         "lamarcus joyner": {
             "tackles_combined": {
                 "line": 4.5,
-                "over": "-125",
-                "under": "-105"
+                "over": "+145",
+                "under": "-195"
             }
         },
         "taron johnson": {
             "tackles_combined": {
-                "line": 4.5,
-                "over": "-110",
+                "line": 5.5,
+                "over": "-105",
                 "under": "-125"
             }
         },
@@ -1225,9 +1299,9 @@
                 "under": "-180"
             },
             "kicking_pts": {
-                "line": 5.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 1.5,
+                "over": "+390",
+                "under": "-650"
             },
             "pat": {
                 "line": 1.5,
@@ -1242,9 +1316,9 @@
                 "under": "-110"
             },
             "kicking_pts": {
-                "line": 7.5,
-                "over": "-105",
-                "under": "-130"
+                "line": 8.5,
+                "over": "+180",
+                "under": "-250"
             },
             "pat": {
                 "line": 2.5,
@@ -1274,11 +1348,6 @@
                 "line": 30.5,
                 "over": "-115",
                 "under": "-115"
-            },
-            "int": {
-                "line": 0.5,
-                "over": "-110",
-                "under": "-120"
             },
             "rec_long": {
                 "line": 31.5,
@@ -1316,11 +1385,6 @@
                 "line": 29.5,
                 "over": "+100",
                 "under": "-130"
-            },
-            "int": {
-                "line": 0.5,
-                "over": "+155",
-                "under": "-205"
             },
             "rec_long": {
                 "line": 36.5,
@@ -1386,7 +1450,7 @@
                 "over": "+120",
                 "under": "-160"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 25.5,
                 "over": "-120",
                 "under": "-110"
@@ -1403,7 +1467,7 @@
                 "over": "-175",
                 "under": "+130"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 14.5,
                 "over": "+100",
                 "under": "-135"
@@ -1420,7 +1484,7 @@
                 "over": "-125",
                 "under": "-105"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 19.5,
                 "over": "-135",
                 "under": "+100"
@@ -1437,7 +1501,7 @@
                 "over": "-125",
                 "under": "-105"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 21.5,
                 "over": "-120",
                 "under": "-110"
@@ -1454,7 +1518,7 @@
                 "over": "-140",
                 "under": "+105"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 15.5,
                 "over": "-120",
                 "under": "-110"
@@ -1466,7 +1530,7 @@
                 "over": "-120",
                 "under": "-110"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 7.5,
                 "over": "-125",
                 "under": "-105"
@@ -1483,7 +1547,7 @@
                 "over": "+115",
                 "under": "-150"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 16.5,
                 "over": "-120",
                 "under": "-110"
@@ -1491,65 +1555,65 @@
         },
         "haason reddick": {
             "sacks": {
-                "line": 0.25,
-                "over": "-175",
-                "under": "+130"
+                "line": 1.25,
+                "over": "+400",
+                "under": "-700"
             }
         },
         "javon hargrave": {
             "sacks": {
-                "line": 0.75,
-                "over": "+125",
-                "under": "-165"
+                "line": 0.25,
+                "over": "+550",
+                "under": "-1200"
             }
         },
         "josh sweat": {
             "sacks": {
-                "line": 0.75,
-                "over": "+165",
-                "under": "-225"
+                "line": 1.25,
+                "over": "+600",
+                "under": "-1200"
             }
         },
         "dexter lawrence ii": {
             "tackles_combined": {
-                "line": 5.5,
-                "over": "+115",
-                "under": "-155"
+                "line": 1.5,
+                "over": "+190",
+                "under": "-265"
             }
         },
         "james bradberry": {
             "tackles_combined": {
-                "line": 2.5,
-                "over": "-165",
-                "under": "+125"
+                "line": 3.5,
+                "over": "+155",
+                "under": "-210"
             }
         },
         "jaylon smith": {
             "tackles_combined": {
-                "line": 5.5,
-                "over": "-125",
-                "under": "-110"
+                "line": 9.5,
+                "over": "+220",
+                "under": "-310"
             }
         },
         "julian love": {
             "tackles_combined": {
-                "line": 6.5,
-                "over": "-170",
-                "under": "+125"
+                "line": 9.5,
+                "over": "+145",
+                "under": "-200"
             }
         },
         "marcus epps": {
             "tackles_combined": {
-                "line": 4.5,
-                "over": "-155",
-                "under": "+115"
+                "line": 8.5,
+                "over": "+105",
+                "under": "-140"
             }
         },
         "tj edwards": {
             "tackles_combined": {
-                "line": 7.5,
-                "over": "-150",
-                "under": "+110"
+                "line": 6.5,
+                "over": "-120",
+                "under": "-110"
             }
         },
         "graham gano": {
@@ -1559,9 +1623,9 @@
                 "under": "-170"
             },
             "kicking_pts": {
-                "line": 5.5,
-                "over": "-110",
-                "under": "-120"
+                "line": 2.5,
+                "over": "+370",
+                "under": "-600"
             },
             "pat": {
                 "line": 1.5,
@@ -1576,9 +1640,9 @@
                 "under": "-125"
             },
             "kicking_pts": {
-                "line": 6.5,
-                "over": "-140",
-                "under": "+105"
+                "line": 11.5,
+                "over": "+450",
+                "under": "-800"
             },
             "pat": {
                 "line": 2.5,
@@ -1612,10 +1676,31 @@
                 "over": "-115",
                 "under": "-115"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 8.5,
                 "over": "-105",
                 "under": "-130"
+            }
+        },
+        "dane belton": {
+            "tackles_combined": {
+                "line": 0.5,
+                "over": "+850",
+                "under": "-3000"
+            }
+        },
+        "kyzir white": {
+            "tackles_combined": {
+                "line": 2.5,
+                "over": "-110",
+                "under": "-120"
+            }
+        },
+        "reed blankenship": {
+            "tackles_combined": {
+                "line": 3.5,
+                "over": "+170",
+                "under": "-235"
             }
         }
     },
@@ -1631,57 +1716,62 @@
                 "over": "-125",
                 "under": "-105"
             },
-            "int": {
-                "line": 0.5,
-                "over": "+110",
-                "under": "-145"
-            },
             "pass+rush_yds": {
                 "line": 212.5,
                 "over": "-115",
                 "under": "-115"
             },
             "rush_yds": {
-                "line": 10.5,
-                "over": "-110",
-                "under": "-120"
+                "line": 0.5,
+                "over": "+310",
+                "under": "-475"
             }
         },
         "derrick henry": {
             "rush_yds": {
-                "line": 90.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 135.5,
+                "over": "-110",
+                "under": "-120"
             },
             "rec_yds": {
-                "line": 12.5,
-                "over": "-120",
-                "under": "-110"
+                "line": 20.5,
+                "over": "-110",
+                "under": "-120"
             },
             "rec": {
-                "line": 2.5,
-                "over": "+145",
-                "under": "-200"
+                "line": 1.5,
+                "over": "-220",
+                "under": "+165"
             },
             "rush+rec_yds": {
-                "line": 107.5,
+                "line": 158.5,
                 "over": "-115",
                 "under": "-115"
             },
             "rush_att": {
-                "line": 23.5,
-                "over": "-125",
-                "under": "-110"
+                "line": 19.5,
+                "over": "+115",
+                "under": "-155"
             },
             "rush_long": {
                 "line": 15.5,
                 "over": "-125",
                 "under": "-105"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 9.5,
                 "over": "+100",
                 "under": "-130"
+            },
+            "rush_td": {
+                "line": 1.5,
+                "over": "+390",
+                "under": "-650"
+            },
+            "rec_td": {
+                "line": 0.5,
+                "over": "+950",
+                "under": "-4000"
             }
         },
         "austin hooper": {
@@ -1692,59 +1782,79 @@
             },
             "rec": {
                 "line": 2.5,
-                "over": "-105",
-                "under": "-130"
+                "over": "-140",
+                "under": "+105"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 13.5,
                 "over": "-105",
                 "under": "-125"
+            },
+            "rec_td": {
+                "line": 0.5,
+                "over": "+900",
+                "under": "-3000"
             }
         },
         "chigoziem okonkwo": {
             "rec_yds": {
-                "line": 34.5,
+                "line": 31.5,
                 "over": "-115",
                 "under": "-115"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 16.5,
                 "over": "-135",
                 "under": "+100"
+            },
+            "rec_td": {
+                "line": 1.5,
+                "over": "+600",
+                "under": "-1200"
             }
         },
         "nick westbrook ikhine": {
             "rec_yds": {
-                "line": 29.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 20.5,
+                "over": "-120",
+                "under": "-110"
             },
             "rec": {
-                "line": 2.5,
-                "over": "+115",
-                "under": "-155"
+                "line": 1.5,
+                "over": "-205",
+                "under": "+150"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 17.5,
                 "over": "-120",
                 "under": "-110"
+            },
+            "rec_td": {
+                "line": 0.5,
+                "over": "+750",
+                "under": "-1800"
             }
         },
         "robert woods": {
             "rec_yds": {
-                "line": 37.5,
+                "line": 54.5,
                 "over": "-115",
                 "under": "-115"
             },
             "rec": {
-                "line": 3.5,
-                "over": "+105",
-                "under": "-140"
+                "line": 5.5,
+                "over": "+155",
+                "under": "-215"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 17.5,
                 "over": "-120",
                 "under": "-110"
+            },
+            "rec_td": {
+                "line": 0.5,
+                "over": "+600",
+                "under": "-1200"
             }
         },
         "trevor lawrence": {
@@ -1768,11 +1878,6 @@
                 "over": "-105",
                 "under": "-125"
             },
-            "int": {
-                "line": 0.5,
-                "over": "-110",
-                "under": "-120"
-            },
             "rec_long": {
                 "line": 36.5,
                 "over": "-110",
@@ -1784,9 +1889,9 @@
                 "under": "-115"
             },
             "rush_yds": {
-                "line": 11.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 0.5,
+                "over": "+100",
+                "under": "-135"
             },
             "rush_long": {
                 "line": 8.5,
@@ -1796,53 +1901,58 @@
         },
         "travis etienne": {
             "rush_yds": {
-                "line": 58.5,
-                "over": "+100",
-                "under": "-130"
-            },
-            "rec_yds": {
-                "line": 16.5,
-                "over": "-115",
-                "under": "-115"
-            },
-            "rec": {
-                "line": 2.5,
-                "over": "-115",
-                "under": "-115"
-            },
-            "rush+rec_yds": {
-                "line": 79.5,
+                "line": 31.5,
                 "over": "-120",
                 "under": "-110"
             },
+            "rec_yds": {
+                "line": 0.5,
+                "over": "+450",
+                "under": "-800"
+            },
+            "rec": {
+                "line": 0.5,
+                "over": "+400",
+                "under": "-650"
+            },
+            "rush+rec_yds": {
+                "line": 33.5,
+                "over": "-110",
+                "under": "-120"
+            },
             "rush_att": {
-                "line": 14.5,
-                "over": "-125",
-                "under": "-105"
+                "line": 16.5,
+                "over": "-170",
+                "under": "+130"
             },
             "rush_long": {
                 "line": 14.5,
                 "over": "-125",
                 "under": "-105"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 10.5,
                 "over": "-115",
                 "under": "-115"
+            },
+            "rush_td": {
+                "line": 0.5,
+                "over": "+750",
+                "under": "-1800"
             }
         },
         "christian kirk": {
             "rec_yds": {
-                "line": 57.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 45.5,
+                "over": "+290",
+                "under": "-425"
             },
             "rec": {
-                "line": 4.5,
-                "over": "-140",
-                "under": "+105"
+                "line": 5.5,
+                "over": "+280",
+                "under": "-425"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 21.5,
                 "over": "-110",
                 "under": "-120"
@@ -1850,16 +1960,16 @@
         },
         "evan engram": {
             "rec_yds": {
-                "line": 30.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 162.5,
+                "over": "+320",
+                "under": "-500"
             },
             "rec": {
-                "line": 3.5,
-                "over": "+135",
-                "under": "-180"
+                "line": 11.5,
+                "over": "+310",
+                "under": "-475"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 15.5,
                 "over": "-120",
                 "under": "-110"
@@ -1867,16 +1977,16 @@
         },
         "marvin jones jr": {
             "rec_yds": {
-                "line": 31.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 22.5,
+                "over": "+550",
+                "under": "-1000"
             },
             "rec": {
-                "line": 2.5,
-                "over": "-105",
-                "under": "-125"
+                "line": 1.5,
+                "over": "+500",
+                "under": "-1000"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 17.5,
                 "over": "-110",
                 "under": "-120"
@@ -1884,16 +1994,16 @@
         },
         "zay jones": {
             "rec_yds": {
-                "line": 44.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 77.5,
+                "over": "+300",
+                "under": "-450"
             },
             "rec": {
-                "line": 3.5,
-                "over": "-160",
-                "under": "+120"
+                "line": 8.5,
+                "over": "+295",
+                "under": "-450"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 18.5,
                 "over": "-120",
                 "under": "-110"
@@ -1912,11 +2022,6 @@
                 "over": "-115",
                 "under": "-115"
             },
-            "int": {
-                "line": 0.5,
-                "over": "+115",
-                "under": "-150"
-            },
             "rec_long": {
                 "line": 35.5,
                 "over": "-110",
@@ -1929,8 +2034,8 @@
             },
             "rush_yds": {
                 "line": 9.5,
-                "over": "-105",
-                "under": "-125"
+                "over": "+195",
+                "under": "-275"
             },
             "pass_cmp": {
                 "line": 20.5,
@@ -1953,11 +2058,6 @@
                 "line": 190.5,
                 "over": "-110",
                 "under": "-120"
-            },
-            "int": {
-                "line": 0.5,
-                "over": "-230",
-                "under": "+170"
             },
             "pass+rush_yds": {
                 "line": 199.5,
@@ -1982,34 +2082,39 @@
         },
         "dameon pierce": {
             "rush_yds": {
-                "line": 62.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 82.5,
+                "over": "-105",
+                "under": "-125"
             },
             "rec_yds": {
-                "line": 16.5,
-                "over": "-105",
-                "under": "-130"
+                "line": 0.5,
+                "over": "+290",
+                "under": "-425"
             },
             "rush+rec_yds": {
-                "line": 83.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 84.5,
+                "over": "-105",
+                "under": "-125"
             },
             "rush_long": {
                 "line": 15.5,
                 "over": "-105",
                 "under": "-125"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 9.5,
                 "over": "-120",
                 "under": "-110"
             },
             "rec": {
-                "line": 2.5,
-                "over": "-140",
-                "under": "+105"
+                "line": 0.5,
+                "over": "+255",
+                "under": "-380"
+            },
+            "rush_td": {
+                "line": 1.5,
+                "over": "+1100",
+                "under": "-10000"
             }
         },
         "ezekiel elliott": {
@@ -2019,29 +2124,39 @@
                 "under": "-110"
             },
             "rush+rec_yds": {
-                "line": 77.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 79.5,
+                "over": "-110",
+                "under": "-125"
             },
             "rush_long": {
                 "line": 15.5,
                 "over": "-105",
                 "under": "-125"
+            },
+            "rush_td": {
+                "line": 0.5,
+                "over": "+700",
+                "under": "-1600"
+            },
+            "rec_yds": {
+                "line": 13.5,
+                "over": "+290",
+                "under": "-425"
             }
         },
         "tony pollard": {
             "rush_yds": {
-                "line": 67.5,
-                "over": "-130",
-                "under": "+100"
+                "line": 46.5,
+                "over": "-110",
+                "under": "-120"
             },
             "rec_yds": {
-                "line": 15.5,
-                "over": "-120",
-                "under": "-110"
+                "line": 23.5,
+                "over": "-110",
+                "under": "-120"
             },
             "rush+rec_yds": {
-                "line": 87.5,
+                "line": 74.5,
                 "over": "-115",
                 "under": "-115"
             },
@@ -2050,61 +2165,76 @@
                 "over": "-130",
                 "under": "+100"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 10.5,
                 "over": "-105",
                 "under": "-125"
+            },
+            "rush_td": {
+                "line": 1.5,
+                "over": "+700",
+                "under": "-1800"
             }
         },
         "ceedee lamb": {
             "rec_yds": {
-                "line": 70.5,
-                "over": "-110",
-                "under": "-120"
+                "line": 40.5,
+                "over": "-115",
+                "under": "-115"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 24.5,
                 "over": "-115",
                 "under": "-115"
             },
             "rec": {
-                "line": 5.5,
-                "over": "+100",
-                "under": "-135"
+                "line": 4.5,
+                "over": "+105",
+                "under": "-140"
+            },
+            "rec_td": {
+                "line": 0.5,
+                "over": "+600",
+                "under": "-1200"
             }
         },
         "chris moore": {
             "rec_yds": {
-                "line": 32.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 89.5,
+                "over": "+165",
+                "under": "-225"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 16.5,
                 "over": "-115",
                 "under": "-115"
             },
             "rec": {
-                "line": 3.5,
-                "over": "+125",
-                "under": "-165"
+                "line": 8.5,
+                "over": "+150",
+                "under": "-205"
             }
         },
         "dalton schultz": {
             "rec_yds": {
-                "line": 32.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 42.5,
+                "over": "-120",
+                "under": "-110"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 15.5,
                 "over": "-120",
                 "under": "-110"
             },
             "rec": {
                 "line": 3.5,
-                "over": "-105",
-                "under": "-130"
+                "over": "-210",
+                "under": "+155"
+            },
+            "rec_td": {
+                "line": 0.5,
+                "over": "+850",
+                "under": "-3000"
             }
         },
         "michael gallup": {
@@ -2113,41 +2243,46 @@
                 "over": "-115",
                 "under": "-115"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 19.5,
                 "over": "-110",
                 "under": "-120"
             },
             "rec": {
-                "line": 3.5,
-                "over": "+115",
-                "under": "-150"
+                "line": 2.5,
+                "over": "-120",
+                "under": "-110"
+            },
+            "rec_td": {
+                "line": 0.5,
+                "over": "+1100",
+                "under": "-8000"
             }
         },
         "phillip dorsett": {
             "rec_yds": {
-                "line": 31.5,
-                "over": "-110",
-                "under": "-120"
+                "line": 18.5,
+                "over": "+215",
+                "under": "-300"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 16.5,
                 "over": "-120",
                 "under": "-110"
             },
             "rec": {
                 "line": 2.5,
-                "over": "-125",
-                "under": "-105"
+                "over": "+210",
+                "under": "-295"
             }
         },
         "jordan akins": {
             "rec_yds": {
-                "line": 19.5,
-                "over": "-120",
-                "under": "-110"
+                "line": 5.5,
+                "over": "+265",
+                "under": "-390"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 12.5,
                 "over": "-115",
                 "under": "-115"
@@ -2175,11 +2310,6 @@
                 "line": 31.5,
                 "over": "-105",
                 "under": "-130"
-            },
-            "int": {
-                "line": 0.5,
-                "over": "-110",
-                "under": "-120"
             },
             "rec_long": {
                 "line": 33.5,
@@ -2217,11 +2347,6 @@
                 "line": 16.5,
                 "over": "-145",
                 "under": "+110"
-            },
-            "int": {
-                "line": 0.5,
-                "over": "-135",
-                "under": "+100"
             },
             "rec_long": {
                 "line": 33.5,
@@ -2306,7 +2431,7 @@
                 "over": "-115",
                 "under": "-115"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 16.5,
                 "over": "-120",
                 "under": "-110"
@@ -2323,7 +2448,7 @@
                 "over": "+100",
                 "under": "-130"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 14.5,
                 "over": "-110",
                 "under": "-120"
@@ -2340,7 +2465,7 @@
                 "over": "-135",
                 "under": "+105"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 18.5,
                 "over": "-110",
                 "under": "-120"
@@ -2357,7 +2482,7 @@
                 "over": "+105",
                 "under": "-140"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 19.5,
                 "over": "-115",
                 "under": "-115"
@@ -2374,7 +2499,7 @@
                 "over": "+125",
                 "under": "-165"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 17.5,
                 "over": "-105",
                 "under": "-125"
@@ -2393,7 +2518,7 @@
                 "over": "-130",
                 "under": "+100"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 21.5,
                 "over": "-125",
                 "under": "-105"
@@ -2501,26 +2626,21 @@
         "patrick mahomes": {
             "pass_td": {
                 "line": 2.5,
-                "over": "+155",
-                "under": "-210"
+                "over": "+150",
+                "under": "-200"
             },
             "pass_yds": {
-                "line": 270.5,
-                "over": "-110",
-                "under": "-120"
+                "line": 269.5,
+                "over": "-115",
+                "under": "-115"
             },
             "pass_cmp": {
                 "line": 24.5,
-                "over": "+105",
+                "over": "+100",
                 "under": "-135"
             },
             "pass_att": {
                 "line": 36.5,
-                "over": "-115",
-                "under": "-115"
-            },
-            "int": {
-                "line": 0.5,
                 "over": "-110",
                 "under": "-120"
             },
@@ -2549,27 +2669,22 @@
             "pass_td": {
                 "line": 0.5,
                 "over": "-260",
-                "under": "+185"
+                "under": "+190"
             },
             "pass_yds": {
-                "line": 222.5,
+                "line": 219.5,
                 "over": "-115",
                 "under": "-115"
             },
             "pass_cmp": {
-                "line": 19.5,
-                "over": "-110",
-                "under": "-120"
+                "line": 18.5,
+                "over": "-135",
+                "under": "+100"
             },
             "pass_att": {
                 "line": 32.5,
-                "over": "-125",
-                "under": "-105"
-            },
-            "int": {
-                "line": 0.5,
-                "over": "+100",
-                "under": "-135"
+                "over": "-130",
+                "under": "+100"
             },
             "rec_long": {
                 "line": 36.5,
@@ -2577,7 +2692,7 @@
                 "under": "-110"
             },
             "pass+rush_yds": {
-                "line": 233.5,
+                "line": 230.5,
                 "over": "-115",
                 "under": "-115"
             },
@@ -2620,7 +2735,7 @@
                 "over": "-125",
                 "under": "-110"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 9.5,
                 "over": "-115",
                 "under": "-115"
@@ -2657,7 +2772,7 @@
                 "over": "-115",
                 "under": "-115"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 9.5,
                 "over": "-125",
                 "under": "-105"
@@ -2686,7 +2801,7 @@
                 "over": "-115",
                 "under": "-115"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 18.5,
                 "over": "-110",
                 "under": "-120"
@@ -2698,7 +2813,7 @@
                 "over": "-125",
                 "under": "-105"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 23.5,
                 "over": "-120",
                 "under": "-110"
@@ -2715,7 +2830,7 @@
                 "over": "-115",
                 "under": "-115"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 18.5,
                 "over": "-125",
                 "under": "-105"
@@ -2734,7 +2849,7 @@
                 "over": "+115",
                 "under": "-150"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 18.5,
                 "over": "-120",
                 "under": "-110"
@@ -2751,7 +2866,7 @@
                 "over": "-155",
                 "under": "+115"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 19.5,
                 "over": "-110",
                 "under": "-120"
@@ -2782,7 +2897,7 @@
                 "over": "-105",
                 "under": "-125"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 22.5,
                 "over": "-120",
                 "under": "-110"
@@ -2791,43 +2906,43 @@
         "chris jones (kc)": {
             "sacks": {
                 "line": 0.25,
-                "over": "-175",
-                "under": "+130"
+                "over": "-165",
+                "under": "+125"
             }
         },
         "frank clark": {
             "sacks": {
                 "line": 0.25,
-                "over": "-140",
-                "under": "+105"
+                "over": "-150",
+                "under": "+110"
             }
         },
         "alex singleton": {
             "tackles_combined": {
                 "line": 9.5,
-                "over": "+110",
-                "under": "-150"
+                "over": "+100",
+                "under": "-135"
             }
         },
         "josey jewell": {
             "tackles_combined": {
                 "line": 9.5,
-                "over": "-115",
-                "under": "-110"
+                "over": "-110",
+                "under": "-115"
             }
         },
         "justin reid": {
             "tackles_combined": {
                 "line": 3.5,
-                "over": "-135",
+                "over": "-130",
                 "under": "+100"
             }
         },
         "justin simmons": {
             "tackles_combined": {
                 "line": 4.5,
-                "over": "-140",
-                "under": "+105"
+                "over": "-135",
+                "under": "+100"
             }
         },
         "kareem jackson": {
@@ -2840,22 +2955,22 @@
         "ljarius sneed": {
             "tackles_combined": {
                 "line": 5.5,
-                "over": "-125",
-                "under": "-110"
+                "over": "-145",
+                "under": "+110"
             }
         },
         "nick bolton": {
             "tackles_combined": {
-                "line": 9.5,
-                "over": "+100",
-                "under": "-135"
+                "line": 8.5,
+                "over": "-160",
+                "under": "+120"
             }
         },
         "willie gay jr": {
             "tackles_combined": {
                 "line": 5.5,
                 "over": "-130",
-                "under": "+100"
+                "under": "-105"
             }
         },
         "harrison butker": {
@@ -2866,8 +2981,8 @@
             },
             "kicking_pts": {
                 "line": 8.5,
-                "over": "+100",
-                "under": "-135"
+                "over": "-105",
+                "under": "-125"
             },
             "pat": {
                 "line": 2.5,
@@ -2878,8 +2993,8 @@
         "brandon mcmanus": {
             "pat": {
                 "line": 1.5,
-                "over": "-105",
-                "under": "-125"
+                "over": "+100",
+                "under": "-130"
             }
         }
     },
@@ -2887,18 +3002,13 @@
         "geno smith": {
             "pass_td": {
                 "line": 1.5,
-                "over": "-215",
-                "under": "+160"
+                "over": "-190",
+                "under": "+140"
             },
             "pass_yds": {
-                "line": 267.5,
+                "line": 266.5,
                 "over": "-115",
-                "under": "-125"
-            },
-            "int": {
-                "line": 0.5,
-                "over": "+105",
-                "under": "-135"
+                "under": "-115"
             },
             "rec_long": {
                 "line": 36.5,
@@ -2906,7 +3016,7 @@
                 "under": "-120"
             },
             "pass+rush_yds": {
-                "line": 290.5,
+                "line": 288.5,
                 "over": "-115",
                 "under": "-115"
             },
@@ -2919,28 +3029,48 @@
                 "line": 11.5,
                 "over": "-120",
                 "under": "-110"
+            },
+            "pass_cmp": {
+                "line": 23.5,
+                "over": "-115",
+                "under": "-115"
+            },
+            "pass_att": {
+                "line": 34.5,
+                "over": "-125",
+                "under": "-105"
             }
         },
         "sam darnold": {
             "pass_td": {
                 "line": 0.5,
-                "over": "-250",
-                "under": "+180"
+                "over": "-255",
+                "under": "+185"
             },
             "pass_yds": {
-                "line": 185.5,
-                "over": "-125",
-                "under": "-105"
-            },
-            "int": {
-                "line": 0.5,
-                "over": "-140",
-                "under": "+105"
+                "line": 190.5,
+                "over": "-115",
+                "under": "-115"
             },
             "rec_long": {
-                "line": 31.5,
+                "line": 32.5,
                 "over": "-110",
                 "under": "-120"
+            },
+            "pass_cmp": {
+                "line": 18.5,
+                "over": "+100",
+                "under": "-130"
+            },
+            "pass_att": {
+                "line": 29.5,
+                "over": "-110",
+                "under": "-125"
+            },
+            "pass+rush_yds": {
+                "line": 206.5,
+                "over": "-115",
+                "under": "-115"
             }
         },
         "donta foreman": {
@@ -2961,7 +3091,7 @@
                 "over": "-110",
                 "under": "-120"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 20.5,
                 "over": "-115",
                 "under": "-115"
@@ -2973,7 +3103,7 @@
                 "over": "-115",
                 "under": "-115"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 22.5,
                 "over": "-115",
                 "under": "-115"
@@ -2985,7 +3115,7 @@
                 "over": "-110",
                 "under": "-120"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 14.5,
                 "over": "-125",
                 "under": "-105"
@@ -2997,7 +3127,7 @@
                 "over": "-115",
                 "under": "-115"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 23.5,
                 "over": "-115",
                 "under": "-115"
@@ -3009,7 +3139,7 @@
                 "over": "-115",
                 "under": "-115"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 18.5,
                 "over": "-105",
                 "under": "-125"
@@ -3021,22 +3151,17 @@
             "pass_td": {
                 "line": 1.5,
                 "over": "+195",
-                "under": "-275"
+                "under": "-270"
             },
             "pass_yds": {
-                "line": 203.5,
-                "over": "-115",
-                "under": "-115"
+                "line": 206.5,
+                "over": "-105",
+                "under": "-125"
             },
             "pass_att": {
-                "line": 29.5,
-                "over": "-165",
-                "under": "+125"
-            },
-            "int": {
-                "line": 0.5,
-                "over": "-125",
-                "under": "-105"
+                "line": 30.5,
+                "over": "+100",
+                "under": "-130"
             },
             "rec_long": {
                 "line": 32.5,
@@ -3044,7 +3169,7 @@
                 "under": "-120"
             },
             "pass+rush_yds": {
-                "line": 215.5,
+                "line": 218.5,
                 "over": "-115",
                 "under": "-115"
             },
@@ -3058,27 +3183,22 @@
             "pass_td": {
                 "line": 1.5,
                 "over": "+110",
-                "under": "-145"
+                "under": "-150"
             },
             "pass_yds": {
-                "line": 254.5,
-                "over": "-110",
-                "under": "-120"
-            },
-            "pass_cmp": {
-                "line": 24.5,
+                "line": 257.5,
                 "over": "-115",
                 "under": "-115"
             },
-            "pass_att": {
-                "line": 36.5,
-                "over": "-130",
-                "under": "-105"
+            "pass_cmp": {
+                "line": 24.5,
+                "over": "-135",
+                "under": "+100"
             },
-            "int": {
-                "line": 0.5,
-                "over": "+110",
-                "under": "-145"
+            "pass_att": {
+                "line": 37.5,
+                "over": "-125",
+                "under": "-110"
             },
             "rec_long": {
                 "line": 35.5,
@@ -3117,7 +3237,7 @@
                 "over": "-125",
                 "under": "-105"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 14.5,
                 "over": "-115",
                 "under": "-115"
@@ -3139,7 +3259,7 @@
                 "over": "+120",
                 "under": "-155"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 17.5,
                 "over": "-125",
                 "under": "-105"
@@ -3156,7 +3276,7 @@
                 "over": "-125",
                 "under": "-105"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 18.5,
                 "over": "-120",
                 "under": "-110"
@@ -3173,7 +3293,7 @@
                 "over": "+115",
                 "under": "-155"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 11.5,
                 "over": "-105",
                 "under": "-125"
@@ -3197,7 +3317,7 @@
                 "over": "-150",
                 "under": "+120"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 20.5,
                 "over": "-105",
                 "under": "-125"
@@ -3214,7 +3334,7 @@
                 "over": "-180",
                 "under": "+135"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 15.5,
                 "over": "-120",
                 "under": "-110"
@@ -3231,7 +3351,7 @@
                 "over": "-195",
                 "under": "+140"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 13.5,
                 "over": "-125",
                 "under": "-105"
@@ -3260,7 +3380,7 @@
                 "over": "-170",
                 "under": "+130"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 21.5,
                 "over": "-115",
                 "under": "-115"
@@ -3297,7 +3417,7 @@
                 "over": "-115",
                 "under": "-115"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 11.5,
                 "over": "-125",
                 "under": "-105"
@@ -3308,28 +3428,23 @@
         "justin herbert": {
             "pass_td": {
                 "line": 1.5,
-                "over": "-180",
-                "under": "+135"
+                "over": "-200",
+                "under": "+150"
             },
             "pass_yds": {
-                "line": 295.5,
-                "over": "+100",
-                "under": "-130"
+                "line": 299.5,
+                "over": "-115",
+                "under": "-115"
             },
             "pass_cmp": {
                 "line": 27.5,
-                "over": "-125",
-                "under": "-105"
+                "over": "-135",
+                "under": "+100"
             },
             "pass_att": {
                 "line": 40.5,
                 "over": "-105",
                 "under": "-125"
-            },
-            "int": {
-                "line": 0.5,
-                "over": "+100",
-                "under": "-130"
             },
             "rec_long": {
                 "line": 38.5,
@@ -3337,18 +3452,18 @@
                 "under": "-115"
             },
             "pass+rush_yds": {
-                "line": 314.5,
+                "line": 318.5,
                 "over": "-115",
                 "under": "-115"
             },
             "rush_yds": {
                 "line": 15.5,
-                "over": "-105",
-                "under": "-125"
+                "over": "+105",
+                "under": "-130"
             },
             "rush_long": {
                 "line": 9.5,
-                "over": "+100",
+                "over": "-105",
                 "under": "-130"
             }
         },
@@ -3359,39 +3474,34 @@
                 "under": "+155"
             },
             "pass_yds": {
-                "line": 284.5,
+                "line": 291.5,
                 "over": "-115",
                 "under": "-115"
             },
             "pass_cmp": {
                 "line": 23.5,
-                "over": "-105",
-                "under": "-125"
+                "over": "-115",
+                "under": "-115"
             },
             "pass_att": {
-                "line": 35.5,
-                "over": "-125",
-                "under": "-105"
-            },
-            "int": {
-                "line": 0.5,
-                "over": "-110",
-                "under": "-120"
+                "line": 36.5,
+                "over": "-115",
+                "under": "-115"
             },
             "rec_long": {
-                "line": 39.5,
-                "over": "-120",
-                "under": "-110"
+                "line": 40.5,
+                "over": "-115",
+                "under": "-115"
             },
             "pass+rush_yds": {
-                "line": 292.5,
+                "line": 300.5,
                 "over": "-115",
                 "under": "-115"
             },
             "rush_yds": {
-                "line": 4.5,
-                "over": "+100",
-                "under": "-130"
+                "line": 5.5,
+                "over": "-110",
+                "under": "-120"
             }
         },
         "austin ekeler": {
@@ -3402,75 +3512,75 @@
             },
             "rec": {
                 "line": 5.5,
-                "over": "-145",
-                "under": "+110"
+                "over": "-135",
+                "under": "+105"
             },
             "rush+rec_yds": {
-                "line": 92.5,
+                "line": 91.5,
                 "over": "-115",
                 "under": "-115"
             },
             "rush_att": {
                 "line": 11.5,
-                "over": "-120",
-                "under": "-110"
+                "over": "-150",
+                "under": "+110"
             },
             "rush_long": {
                 "line": 12.5,
                 "over": "-125",
                 "under": "-105"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 15.5,
-                "over": "-125",
-                "under": "-105"
+                "over": "-115",
+                "under": "-115"
             }
         },
         "jeff wilson jr": {
             "rush_yds": {
-                "line": 43.5,
-                "over": "-110",
-                "under": "-120"
+                "line": 44.5,
+                "over": "-115",
+                "under": "-115"
             },
             "rec_yds": {
                 "line": 11.5,
-                "over": "-110",
-                "under": "-120"
-            },
-            "rush+rec_yds": {
-                "line": 58.5,
-                "over": "-115",
-                "under": "-115"
-            },
-            "rec": {
-                "line": 1.5,
-                "over": "-140",
-                "under": "+105"
-            },
-            "rush_long": {
-                "line": 12.5,
-                "over": "-120",
-                "under": "-110"
-            },
-            "reception_long": {
-                "line": 8.5,
-                "over": "-115",
-                "under": "-115"
-            }
-        },
-        "raheem mostert": {
-            "rush_yds": {
-                "line": 47.5,
-                "over": "-115",
-                "under": "-115"
-            },
-            "rec_yds": {
-                "line": 7.5,
                 "over": "-120",
                 "under": "-110"
             },
             "rush+rec_yds": {
                 "line": 59.5,
+                "over": "-115",
+                "under": "-115"
+            },
+            "rec": {
+                "line": 1.5,
+                "over": "-150",
+                "under": "+110"
+            },
+            "rush_long": {
+                "line": 12.5,
+                "over": "-120",
+                "under": "-110"
+            },
+            "rec_long": {
+                "line": 8.5,
+                "over": "-120",
+                "under": "-110"
+            }
+        },
+        "raheem mostert": {
+            "rush_yds": {
+                "line": 46.5,
+                "over": "-115",
+                "under": "-115"
+            },
+            "rec_yds": {
+                "line": 8.5,
+                "over": "-115",
+                "under": "-115"
+            },
+            "rush+rec_yds": {
+                "line": 58.5,
                 "over": "-115",
                 "under": "-115"
             },
@@ -3480,25 +3590,25 @@
                 "under": "+140"
             },
             "rush_long": {
-                "line": 13.5,
-                "over": "+100",
-                "under": "-130"
+                "line": 12.5,
+                "over": "-130",
+                "under": "+100"
             }
         },
         "jaylen waddle": {
             "rec_yds": {
-                "line": 68.5,
-                "over": "-125",
-                "under": "-105"
+                "line": 70.5,
+                "over": "-115",
+                "under": "-115"
             },
             "rec": {
                 "line": 5.5,
                 "over": "+105",
                 "under": "-140"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 24.5,
-                "over": "-120",
+                "over": "-125",
                 "under": "-110"
             }
         },
@@ -3510,47 +3620,129 @@
             },
             "rec": {
                 "line": 1.5,
-                "over": "-155",
-                "under": "+120"
+                "over": "-150",
+                "under": "+115"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 13.5,
-                "over": "-110",
-                "under": "-120"
+                "over": "-115",
+                "under": "-115"
             }
         },
         "tyreek hill": {
             "rec_yds": {
-                "line": 98.5,
+                "line": 100.5,
                 "over": "-115",
                 "under": "-115"
             },
             "rec": {
                 "line": 7.5,
-                "over": "-115",
-                "under": "-115"
+                "over": "-130",
+                "under": "-105"
             },
-            "reception_long": {
-                "line": 30.5,
-                "over": "-110",
-                "under": "-120"
+            "rec_long": {
+                "line": 29.5,
+                "over": "-120",
+                "under": "-110"
             }
         },
         "trent sherfield": {
             "rec_yds": {
-                "line": 30.5,
-                "over": "-120",
-                "under": "-110"
+                "line": 32.5,
+                "over": "-115",
+                "under": "-115"
             },
             "rec": {
                 "line": 2.5,
+                "over": "-120",
+                "under": "-110"
+            },
+            "rec_long": {
+                "line": 17.5,
+                "over": "-120",
+                "under": "-110"
+            }
+        },
+        "gerald everett": {
+            "rec_yds": {
+                "line": 33.5,
+                "over": "-115",
+                "under": "-115"
+            },
+            "rec": {
+                "line": 3.5,
+                "over": "+100",
+                "under": "-130"
+            },
+            "rec_long": {
+                "line": 15.5,
+                "over": "-120",
+                "under": "-110"
+            }
+        },
+        "josh palmer": {
+            "rec_yds": {
+                "line": 47.5,
                 "over": "-110",
                 "under": "-120"
             },
-            "reception_long": {
-                "line": 17.5,
-                "over": "-110",
-                "under": "-120"
+            "rec": {
+                "line": 4.5,
+                "over": "+120",
+                "under": "-160"
+            },
+            "rec_long": {
+                "line": 19.5,
+                "over": "-115",
+                "under": "-115"
+            }
+        },
+        "keenan allen": {
+            "rec_yds": {
+                "line": 64.5,
+                "over": "-115",
+                "under": "-115"
+            },
+            "rec": {
+                "line": 5.5,
+                "over": "-125",
+                "under": "-105"
+            },
+            "rec_long": {
+                "line": 22.5,
+                "over": "-105",
+                "under": "-125"
+            }
+        },
+        "mike williams": {
+            "rec_yds": {
+                "line": 47.5,
+                "over": "-105",
+                "under": "-125"
+            },
+            "rec": {
+                "line": 3.5,
+                "over": "-135",
+                "under": "+100"
+            },
+            "rec_long": {
+                "line": 20.5,
+                "over": "-120",
+                "under": "-110"
+            }
+        },
+        "drue tranquill": {
+            "tackles_combined": {
+                "line": 8.5,
+                "over": "+100",
+                "under": "-130"
+            }
+        },
+        "jevon holland": {
+            "tackles_combined": {
+                "line": 5.5,
+                "over": "-130",
+                "under": "-105"
             }
         }
     },
@@ -3558,13 +3750,13 @@
         "kyler murray": {
             "pass_td": {
                 "line": 1.5,
-                "over": "+120",
-                "under": "-160"
+                "over": "+110",
+                "under": "-145"
             },
             "pass_yds": {
                 "line": 238.5,
-                "over": "-115",
-                "under": "-115"
+                "over": "-105",
+                "under": "-125"
             },
             "pass_cmp": {
                 "line": 22.5,
@@ -3573,13 +3765,8 @@
             },
             "pass_att": {
                 "line": 34.5,
-                "over": "-105",
+                "over": "+100",
                 "under": "-130"
-            },
-            "int": {
-                "line": 0.5,
-                "over": "-135",
-                "under": "+100"
             },
             "rec_long": {
                 "line": 35.5,
@@ -3587,31 +3774,41 @@
                 "under": "-115"
             },
             "pass+rush_yds": {
-                "line": 280.5,
+                "line": 281.5,
                 "over": "-115",
                 "under": "-115"
             },
             "rush_yds": {
-                "line": 35.5,
-                "over": "-120",
-                "under": "-110"
+                "line": 36.5,
+                "over": "-125",
+                "under": "-105"
             },
             "rush_long": {
                 "line": 14.5,
-                "over": "-110",
-                "under": "-120"
+                "over": "-115",
+                "under": "-115"
+            },
+            "pass_int": {
+                "line": 0.5,
+                "over": "-145",
+                "under": "+110"
+            },
+            "pass_long": {
+                "line": 35.5,
+                "over": "-120",
+                "under": "-110"
             }
         },
         "mac jones": {
             "pass_td": {
                 "line": 1.5,
-                "over": "+140",
-                "under": "-185"
+                "over": "+130",
+                "under": "-175"
             },
-            "int": {
+            "pass_int": {
                 "line": 0.5,
-                "over": "+100",
-                "under": "-130"
+                "over": "-105",
+                "under": "-125"
             }
         },
         "james conner": {
@@ -3621,66 +3818,71 @@
                 "under": "-130"
             },
             "rec_yds": {
-                "line": 18.5,
+                "line": 19.5,
                 "over": "-115",
                 "under": "-115"
             },
             "rec": {
-                "line": 2.5,
-                "over": "-180",
-                "under": "+135"
+                "line": 3.5,
+                "over": "+130",
+                "under": "-170"
             },
             "rush+rec_yds": {
-                "line": 83.5,
+                "line": 84.5,
                 "over": "-115",
                 "under": "-115"
             },
             "rush_long": {
                 "line": 12.5,
-                "over": "-130",
-                "under": "+100"
-            },
-            "reception_long": {
-                "line": 10.5,
                 "over": "-125",
                 "under": "-105"
+            },
+            "rec_long": {
+                "line": 11.5,
+                "over": "-105",
+                "under": "-125"
+            },
+            "rush_att": {
+                "line": 15.5,
+                "over": "-120",
+                "under": "-110"
             }
         },
         "rhamondre stevenson": {
             "rush_yds": {
-                "line": 77.5,
-                "over": "+100",
-                "under": "-130"
+                "line": 76.5,
+                "over": "-115",
+                "under": "-115"
             },
             "rec_yds": {
-                "line": 33.5,
+                "line": 38.5,
                 "over": "-115",
                 "under": "-115"
             },
             "rec": {
-                "line": 4.5,
-                "over": "-145",
-                "under": "+110"
+                "line": 5.5,
+                "over": "+100",
+                "under": "-135"
             },
             "rush+rec_yds": {
-                "line": 115.5,
-                "over": "-125",
-                "under": "-105"
+                "line": 120.5,
+                "over": "-115",
+                "under": "-115"
             },
             "rush_att": {
-                "line": 17.5,
+                "line": 18.5,
                 "over": "-130",
                 "under": "+100"
             },
             "rush_long": {
                 "line": 17.5,
-                "over": "-125",
-                "under": "-105"
+                "over": "-120",
+                "under": "-110"
             },
-            "reception_long": {
-                "line": 13.5,
-                "over": "-125",
-                "under": "-105"
+            "rec_long": {
+                "line": 14.5,
+                "over": "-120",
+                "under": "-110"
             }
         },
         "deandre hopkins": {
@@ -3691,10 +3893,10 @@
             },
             "rec": {
                 "line": 6.5,
-                "over": "-105",
-                "under": "-125"
+                "over": "+110",
+                "under": "-145"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 23.5,
                 "over": "-120",
                 "under": "-110"
@@ -3705,44 +3907,253 @@
                 "line": 39.5,
                 "over": "-115",
                 "under": "-115"
+            },
+            "rec": {
+                "line": 2.5,
+                "over": "-180",
+                "under": "+135"
             }
         },
         "hunter henry": {
             "rec_yds": {
-                "line": 30.5,
-                "over": "-110",
-                "under": "-120"
+                "line": 29.5,
+                "over": "-125",
+                "under": "-105"
             },
-            "reception_long": {
+            "rec_long": {
                 "line": 15.5,
                 "over": "-115",
                 "under": "-115"
+            },
+            "rec": {
+                "line": 2.5,
+                "over": "-135",
+                "under": "+100"
             }
         },
         "jonnu smith": {
             "rec_yds": {
-                "line": 12.5,
-                "over": "-120",
-                "under": "-110"
+                "line": 14.5,
+                "over": "-110",
+                "under": "-120"
+            },
+            "rec": {
+                "line": 1.5,
+                "over": "-130",
+                "under": "+100"
             }
         },
         "nelson agholor": {
             "rec_yds": {
-                "line": 29.5,
-                "over": "-120",
-                "under": "-115"
+                "line": 32.5,
+                "over": "-125",
+                "under": "-105"
             },
-            "reception_long": {
-                "line": 16.5,
+            "rec_long": {
+                "line": 17.5,
                 "over": "-120",
                 "under": "-110"
             }
         },
         "tyquan thornton": {
             "rec_yds": {
-                "line": 23.5,
+                "line": 22.5,
+                "over": "-120",
+                "under": "-110"
+            },
+            "rec": {
+                "line": 2.5,
+                "over": "+130",
+                "under": "-170"
+            },
+            "rec_long": {
+                "line": 13.5,
+                "over": "-125",
+                "under": "-110"
+            }
+        },
+        "greg dortch": {
+            "rec_yds": {
+                "line": 21.5,
+                "over": "-120",
+                "under": "-110"
+            },
+            "rec": {
+                "line": 2.5,
+                "over": "-135",
+                "under": "+100"
+            },
+            "rec_long": {
+                "line": 12.5,
+                "over": "-115",
+                "under": "-115"
+            }
+        },
+        "kendrick bourne": {
+            "rec_yds": {
+                "line": 20.5,
+                "over": "-115",
+                "under": "-115"
+            },
+            "rec": {
+                "line": 1.5,
+                "over": "-195",
+                "under": "+145"
+            },
+            "rec_long": {
+                "line": 13.5,
                 "over": "-110",
                 "under": "-120"
+            }
+        },
+        "marquise brown": {
+            "rec_yds": {
+                "line": 54.5,
+                "over": "-115",
+                "under": "-115"
+            },
+            "rec": {
+                "line": 4.5,
+                "over": "-145",
+                "under": "+110"
+            },
+            "rec_long": {
+                "line": 21.5,
+                "over": "-110",
+                "under": "-120"
+            }
+        },
+        "trey mcbride": {
+            "rec_yds": {
+                "line": 14.5,
+                "over": "-115",
+                "under": "-115"
+            },
+            "rec": {
+                "line": 1.5,
+                "over": "-150",
+                "under": "+110"
+            },
+            "rec_long": {
+                "line": 9.5,
+                "over": "-120",
+                "under": "-110"
+            }
+        },
+        "jj watt": {
+            "sacks": {
+                "line": 0.75,
+                "over": "+100",
+                "under": "-135"
+            }
+        },
+        "matt judon": {
+            "sacks": {
+                "line": 0.25,
+                "over": "-160",
+                "under": "+130"
+            },
+            "tackles_combined": {
+                "line": 3.5,
+                "over": "-120",
+                "under": "-110"
+            }
+        },
+        "zach allen": {
+            "sacks": {
+                "line": 0.75,
+                "over": "+135",
+                "under": "-180"
+            }
+        },
+        "budda baker": {
+            "tackles_combined": {
+                "line": 6.5,
+                "over": "-125",
+                "under": "-105"
+            }
+        },
+        "deatrich wise jr": {
+            "tackles_combined": {
+                "line": 3.5,
+                "over": "+105",
+                "under": "-140"
+            }
+        },
+        "devin mccourty": {
+            "tackles_combined": {
+                "line": 4.5,
+                "over": "-110",
+                "under": "-120"
+            }
+        },
+        "isaiah simmons": {
+            "tackles_combined": {
+                "line": 5.5,
+                "over": "+100",
+                "under": "-130"
+            }
+        },
+        "jawhaun bentley": {
+            "tackles_combined": {
+                "line": 6.5,
+                "over": "+105",
+                "under": "-135"
+            }
+        },
+        "jalen thompson": {
+            "tackles_combined": {
+                "line": 4.5,
+                "over": "-120",
+                "under": "-110"
+            }
+        },
+        "marco wilson": {
+            "tackles_combined": {
+                "line": 4.5,
+                "over": "+110",
+                "under": "-150"
+            }
+        },
+        "zaven collins": {
+            "tackles_combined": {
+                "line": 5.5,
+                "over": "+110",
+                "under": "-145"
+            }
+        },
+        "matt prater": {
+            "fgm": {
+                "line": 1.5,
+                "over": "+105",
+                "under": "-135"
+            },
+            "kicking_pts": {
+                "line": 6.5,
+                "over": "-105",
+                "under": "-125"
+            },
+            "pat": {
+                "line": 1.5,
+                "over": "-210",
+                "under": "+155"
+            }
+        },
+        "nick folk": {
+            "fgm": {
+                "line": 1.5,
+                "over": "-150",
+                "under": "+110"
+            },
+            "kicking_pts": {
+                "line": 7.5,
+                "over": "+100",
+                "under": "-130"
+            },
+            "pat": {
+                "line": 2.5,
+                "over": "+145",
+                "under": "-195"
             }
         }
     }

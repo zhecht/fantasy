@@ -136,7 +136,7 @@ def tacklesAnalysis():
 	print(res["rav"])
 
 
-def getDefPropsData(teams):
+def getDefPropsData(teamsArg):
 	pastPropData = {}
 	if 0:
 		for file in glob.glob(f"{prefix}static/props/wk*_def.json"):
@@ -178,7 +178,7 @@ def getDefPropsData(teams):
 			for prop in propData[team][name]:
 				espnTeam = team
 
-				if teams and team not in teams:
+				if teamsArg and team.lower() not in teamsArg:
 					continue
 
 				opponents = get_opponents(espnTeam)
@@ -433,7 +433,7 @@ def getProps_ATTD_route():
 def writeCsvs(props):
 	csvs = {}
 	splitProps = {"full": []}
-	headers = "\t".join(["NAME","TEAM","OPP","RANK","PROP","LINE","SZN AVG","% OVER","L3 % OVER","LAST GAMES ➡️","LAST YR % OVER","OVER", "UNDER"])
+	headers = "\t".join(["NAME","TEAM","OPP","OPP RANK","PROP","LINE","SZN AVG","% OVER","L3 % OVER","LAST GAMES ➡️","LAST YR % OVER","OVER", "UNDER"])
 	reddit = "|".join(headers.split("\t"))
 	reddit += "\n:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--"
 
@@ -650,9 +650,9 @@ def getProps_route():
 	res = []
 
 	propArg = request.args.get("prop") or ""
-	teams = request.args.get("teams") or ""
-	if teams:
-		teams = teams.upper().split(",")
+	teamsArg = request.args.get("teams") or ""
+	if teamsArg:
+		teamsArg = teamsArg.lower().split(",")
 	players = request.args.get("players") or []
 	if players:
 		players = players.split(",")
@@ -691,7 +691,7 @@ def getProps_route():
 			else:
 				continue
 
-			if teams and team not in teams:
+			if teamsArg and team not in teamsArg:
 				continue
 
 			if players and player not in players:
@@ -838,7 +838,7 @@ def getProps_route():
 
 	teamTotals(schedule)
 	writeCsvs(res)
-	h2h(res)
+	#h2h(res)
 	return jsonify(res)
 
 def convertDKTeam(team):
@@ -956,21 +956,20 @@ def writeH2H():
 					odds1 = row["outcomes"][0]["oddsAmerican"]
 					line = ""
 					if "line" in row["outcomes"][0]:
-						line = row["outcomes"][0]["line"]
+						if player1 != matchup.split(" v ")[0]:
+							line = row["outcomes"][1]["line"]
+						else:
+							line = row["outcomes"][0]["line"]
 					player2 = row["outcomes"][1]["label"].lower().replace(".", "").replace("'", "").replace("-", " ")
 					odds2 = row["outcomes"][1]["oddsAmerican"]
-
-					odds = [odds1,odds2]
-					if player1 != "over":
-						if player1 != matchup.split(" v ")[0]:
-							odds[0], odds[1] = odds[1], odds[0]
 
 					h2hProp = prop+"_"+h2hType
 					if h2hProp not in h2h[game]:
 						h2h[game][h2hProp] = {}
 					h2h[game][h2hProp][matchup] = {
 						"line": line,
-						"odds": ",".join(odds)
+						player1: odds1,
+						player2: odds2,
 					}
 
 	for subCatId in subIds:
@@ -1003,14 +1002,19 @@ def writeH2H():
 					for row in offerRow:
 						game = events[row["eventId"]]
 						h2hType = row["label"].lower().split(" ")[-1]
-						player1 = row["outcomes"][0]["label"].lower().replace(".", "").replace("'", "")
+						matchup = row["label"].lower().split("_")[0].split(" - ")[0].replace("&", "v").replace(".", "").replace("'", "").replace("-", " ")
+						player1 = row["outcomes"][0]["label"].lower().replace(".", "").replace("'", "").replace("-", " ")
 						odds1 = row["outcomes"][0]["oddsAmerican"]
 						line = ""
 						if "line" in row["outcomes"][0]:
-							line = row["outcomes"][0]["line"]
-						player2 = row["outcomes"][1]["label"].lower().replace(".", "").replace("'", "")
+							if player1 != matchup.split(" v ")[0]:
+								line = row["outcomes"][1]["line"]
+							else:
+								line = row["outcomes"][0]["line"]
+						player2 = row["outcomes"][1]["label"].lower().replace(".", "").replace("'", "").replace("-", " ")
 						odds2 = row["outcomes"][1]["oddsAmerican"]
 
+						odds = [odds1,odds2]
 						if player1 == "over":
 							ps = row["label"].lower().split(" - ")[0].split(" & ")
 							player1 = ps[0]
@@ -1019,9 +1023,10 @@ def writeH2H():
 						h2hProp = prop+"_"+h2hType
 						if h2hProp not in h2h[game]:
 							h2h[game][h2hProp] = {}
-						h2h[game][h2hProp][f"{player1} v {player2}"] = {
+						h2h[game][h2hProp][matchup] = {
 							"line": line,
-							"odds": ",".join([odds1, odds2])
+							player1: odds1,
+							player2: odds2,
 						}
 
 	with open(f"{prefix}static/props/h2h.json", "w") as fh:
@@ -1406,13 +1411,16 @@ def writePFFProps():
 			json.dump(props, fh, indent=4)
 
 def convertDKProp(mainCat, prop):
-	prop = prop.replace("tds", "td").replace("completions", "cmp").replace("attempts", "att").replace("interceptions", "int").replace(" + ", "+").replace("receptions", "rec")
-	if prop == "interceptions":
+	prop = prop.replace("tds", "td").replace("completions", "cmp").replace("attempts", "att").replace("interceptions", "int").replace(" + ", "+").replace("receptions", "rec").replace("reception", "rec")
+	if prop == "int":
 		if mainCat == "pass":
 			return "pass_int"
 	elif prop.startswith("longest"):
 		prop = prop.replace("completion", "rec").replace("longest", "long").split(" ")[::-1]
-		return "_".join(prop)
+		prop = "_".join(prop)
+		if mainCat == "pass" and prop.startswith("rec"):
+			return "pass_long"
+		return prop
 	elif prop == "tackles+ast":
 		prop = "tackles_combined"
 	elif prop == "fg made":
@@ -1466,7 +1474,7 @@ def writeProps(curr_week):
 			if catRow["offerCategoryId"] != mainCats[mainCat]:
 				continue
 			for cRow in catRow["offerSubcategoryDescriptors"]:
-				if cRow["name"].startswith("Alt") or cRow["name"].endswith("H2H") or cRow["name"].startswith("Race to") or cRow["name"].endswith("Leaders"):
+				if cRow["name"].startswith("Alt") or cRow["name"].startswith("Flash") or cRow["name"].endswith("H2H") or cRow["name"].startswith("Race to") or cRow["name"].endswith("Leaders") or "live" in cRow["name"].lower() or cRow["name"].lower() == "next play":
 					continue
 				prop = convertDKProp(mainCat, cRow["name"].lower())
 				subCats[prop] = cRow["subcategoryId"]
@@ -1492,6 +1500,9 @@ def writeProps(curr_week):
 							try:
 								game = events[row["eventId"]]
 							except:
+								continue
+							#print(row)
+							if prop == "tackles_combined" and "participant" not in row["outcomes"][0]:
 								continue
 							player = row["outcomes"][0]["participant"].lower().replace(".", "").replace("'", "").replace("-", " ")
 							odds = ["",""]
@@ -1562,18 +1573,19 @@ def getH2HProps_route():
 			if prop.startswith("td") or "+" in prop or "fgs" in prop:
 				continue
 			for matchup in h2h[game][propKey]:
-				odds = h2h[game][propKey][matchup]["odds"].split(",")
 				players = matchup.replace("'", "").replace(".", "").replace("-", " ").split(" v ")
 				line = h2h[game][propKey][matchup]["line"] or 0
 
 				arrs = [[], []]
 				lines = [0,0]
+				playerTeams = ["", ""]
 				for pIdx, player in enumerate(players):
 					if player == "gabriel davis":
 						player = "gabe davis"
 					team = game.split(" @ ")[pIdx]
 					if player not in roster[team]:
 						team = game.split(" @ ")[0] if pIdx == 1 else game.split(" @ ")[1]
+					playerTeams[pIdx] = team
 					if game in propData and player in propData[game]:
 						if prop in propData[game][player]:
 							lines[pIdx] = propData[game][player][prop]["line"]
@@ -1610,16 +1622,38 @@ def getH2HProps_route():
 				if allPairsTotal:
 					allPairsOver = round(allPairsOver * 100 / allPairsTotal)
 
+				if "over" in h2h[game][propKey][matchup]:
+					odds1 = h2h[game][propKey][matchup]["over"]
+					odds2 = h2h[game][propKey][matchup]["under"]
+				else:
+					odds1 = h2h[game][propKey][matchup][players[0]]
+					odds2 = h2h[game][propKey][matchup][players[1]]
+
+				team1, team2 = playerTeams[0], playerTeams[1]
+				ranks = ["", ""]
+				rankingsProp = convertRankingsProp(prop)
+				if "o"+rankingsProp in rankings[team1]:
+					ranks[0] = rankings[team1]['o'+rankingsProp]['rank']
+				if "o"+rankingsProp in rankings[team2]:
+					ranks[1] = rankings[team2]['o'+rankingsProp]['rank']
+
+				#print(team2, prop, ranks[1])
 				res.append({
 					"game": game,
 					"prop": prop,
 					"type": h2hType,
-					"line": line or "-",
-					"matchup": f"{players[0].title()} ({odds[0]}) v {players[1].title()} ({odds[1]})",
+					"line": line or "ML",
 					"player1": players[0].split(" ")[1].title(),
+					"team1": team1,
+					"rank1": ranks[0],
+					"matchup": matchup,
+					"odds1": odds1,
 					"line1": lines[0],
 					"log1": ",".join([str(x) for x in arrs[0]]),
 					"player2": players[1].split(" ")[1].title(),
+					"team2": team2,
+					"rank2": ranks[1],
+					"odds2": odds2,
 					"line2": lines[1],
 					"log2": ",".join([str(x) for x in arrs[1]]),
 					"straightOver": straightOver,

@@ -256,7 +256,7 @@
 				const field = cell.getField();
 				const val = cell.getValue();
 				const suffix = addNumSuffix(val);
-				if (field == "oppRank") {
+				if (field == "oppRank" || field == "rank1" || field == "rank2") {
 					if (val >= 20) {
 						return "<div class='positive'>"+suffix+"</div>";
 					} else if (val <= 10) {
@@ -303,12 +303,19 @@
 						{title: "Prop", field: "prop", hozAlign: "center", width: 70},
 						{title: "Matchup", field: "matchup", headerFilter: "input"},
 						//{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
+						{title: "Odds 1", field: "odds1", width: 80, hozAlign: "center", sorter: "number"},
+						{title: "Odds 2", field: "odds2", width: 80, hozAlign: "center", sorter: "number"},
+						{title: "All Pairs Odds", field: "allPairsOdds", width: 80, hozAlign: "center", sorter: "number"},
 						{title: "Straight Up Over", field: "straightOver", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
 						{title: "All Pairs Over", field: "allPairsOver", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
 						{title: "Player 1", field: "player1", width: 100, hozAlign: "center"},
+						{title: "Opp1", field: "team2", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
+						{title: "Opp Rank 1", field: "rank2", hozAlign: "center", formatter: rankFormatter, width: 70},
 						{title: "Line 1", field: "line1", width: 70, hozAlign: "center"},
 						{title: "Log 1", field: "log1", width: 120, hozAlign: "center"},
 						{title: "Player 2", field: "player2", width: 100, hozAlign: "center"},
+						{title: "Opp2", field: "team1", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
+						{title: "Opp Rank 2", field: "rank1", hozAlign: "center", formatter: rankFormatter, width: 70},
 						{title: "Line 2", field: "line2", width: 70, hozAlign: "center"},
 						{title: "Log 2", field: "log2", width: 120, hozAlign: "center"},
 					]

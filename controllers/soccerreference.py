@@ -111,6 +111,15 @@ def writeCSV():
 						score = 3
 					elif team == "spain":
 						oppScore = 3
+				elif date == "2022-12-09":
+					if team == "croatia":
+						score = 4
+					elif team == "brazil":
+						oppScore = 4
+					elif team == "netherlands":
+						oppScore = 4
+					elif team == "argentina":
+						score = 4
 
 				if score == oppScore:
 					totals[team]["t"] += 1

@@ -702,7 +702,7 @@ def h2h(props):
 				if straightTotal:
 					straightOver = round(straightOver * 100 / straightTotal)
 
-				allPairsOver = allPairsTotal = 0
+				allPairsOver = allPairsTotal = allPairsOdds = 0
 				for num1 in arrs[0]["lastAll"].split(","):
 					for num2 in arrs[1]["lastAll"].split(","):
 						if int(num1) == int(num2):
@@ -712,6 +712,7 @@ def h2h(props):
 						allPairsTotal += 1
 				if allPairsTotal:
 					allPairsOver = round(allPairsOver * 100 / allPairsTotal)
+					allPairsOdds = (100*allPairsOver) / (-100+allPairsOver)
 
 				straightOverPerMin = straightTotalPerMin = 0
 				for num1, num2 in zip(arrs[0]["lastAllPerMin"].split(","), arrs[1]["lastAllPerMin"].split(",")):
@@ -814,7 +815,7 @@ def write_csvs(props):
 	# add top 4 to reddit
 	for prop in ["pts", "reb", "ast"]:
 		rows = sorted(splitProps[prop], key=lambda k: (k["totalOverLast5"], k["totalOver"]), reverse=True)
-		for row in rows[:4]:
+		for row in rows[:3]:
 			overOdds = row["overOdds"]
 			underOdds = row["underOdds"]
 			try:
@@ -915,9 +916,9 @@ def writeH2H():
 					for offerRow in cRow["offerSubcategory"]["offers"]:
 						for row in offerRow:
 							game = events[row["eventId"]]
-							player1 = row["outcomes"][0]["label"].lower().replace(".", "").replace("'", "")
+							player1 = row["outcomes"][0]["label"].lower().replace(".", "").replace("'", "").replace("-", " ")
 							odds1 = row["outcomes"][0]["oddsAmerican"]
-							player2 = row["outcomes"][1]["label"].lower().replace(".", "").replace("'", "")
+							player2 = row["outcomes"][1]["label"].lower().replace(".", "").replace("'", "").replace("-", " ")
 							odds2 = row["outcomes"][1]["oddsAmerican"]
 
 							if prop not in h2h[game]:
@@ -994,10 +995,12 @@ def getH2HProps_route():
 
 				arrs = [[], []]
 				lines = [0,0]
+				playerTeams = ["", ""]
 				for pIdx, player in enumerate(players):
 					team = game.split(" @ ")[pIdx]
 					if game in propData and player in propData[game]:
 						lines[pIdx] = propData[game][player][prop]["line"]
+					playerTeams[pIdx] = team
 					for dt in sorted(playerStats[team], key=lambda k: datetime.strptime(k, "%Y-%m-%d"), reverse=True):
 						if player in playerStats[team][dt] and playerStats[team][dt][player].get("min", 0) > 0:
 							arrs[pIdx].append(playerStats[team][dt][player][prop])
@@ -1013,7 +1016,7 @@ def getH2HProps_route():
 				if straightTotal:
 					straightOver = round(straightOver * 100 / straightTotal)
 
-				allPairsOver = allPairsTotal = 0
+				allPairsOver = allPairsTotal = allPairsOdds = 0
 				for num1 in arrs[0]:
 					for num2 in arrs[1]:
 						if num1 == num2:
@@ -1023,22 +1026,59 @@ def getH2HProps_route():
 						allPairsTotal += 1
 				if allPairsTotal:
 					allPairsOver = round(allPairsOver * 100 / allPairsTotal)
+					allPairsOdds = round((100*allPairsOver) / (-100+allPairsOver))
+					if allPairsOver < 50:
+						allPairsOdds = round((100*(100-allPairsOver)) / (-100+(100-allPairsOver)))
+
+				team1, team2 = playerTeams[0], playerTeams[1]
+				teamRank1 = teamRank2 = ""
+				rankingsPos1 = roster[team1][players[0]]
+				rankingsPos2 = roster[team2][players[1]]
+				if rankingsPos1 == "F":
+					rankingsPos1 = "PF"
+				elif rankingsPos1 == "G":
+					rankingsPos1 = "SG"
+				if rankingsPos2 == "F":
+					rankingsPos2 = "PF"
+				elif rankingsPos2 == "G":
+					rankingsPos2 = "SG"
+
+				if rankingsPos2 in rankings[team1] and prop in rankings[team1][rankingsPos2]:
+					teamRank1 = rankings[team1][rankingsPos2][prop+"_rank"]
+				if rankingsPos1 in rankings[team2] and prop in rankings[team2][rankingsPos1]:
+					teamRank2 = rankings[team2][rankingsPos1][prop+"_rank"]
+
+				if players[1] == "kevin porter jr" and prop == "pts":
+					print(team1,team2,teamRank1,teamRank2)
 
 				res.append({
 					"game": game,
 					"prop": prop,
-					"matchup": f"{players[0].title()} ({odds[0]}) v {players[1].title()} ({odds[1]})",
+					"matchup": matchup,
 					"player1": players[0].split(" ")[1].title(),
+					"team1": team1,
+					"rank1": teamRank1,
 					"line1": lines[0],
+					"odds1": odds[0],
 					"log1": ",".join([str(x) for x in arrs[0]]),
 					"player2": players[1].split(" ")[1].title(),
+					"team2": team2,
+					"rank2": teamRank2,
 					"line2": lines[1],
+					"odds2": odds[1],
 					"log2": ",".join([str(x) for x in arrs[1]]),
 					"straightOver": straightOver,
-					"allPairsOver": allPairsOver
+					"allPairsOver": allPairsOver,
+					"allPairsOdds": allPairsOdds
 				})
 
 	return jsonify(res)
+
+def writeAlts():
+	url = "https://sportsbook.draftkings.com/event/sac-kings-%40-phi-76ers/28083724?subcategory=player-props&sgpmode=true"
+	outfile = "out2"
+	#call(["curl", "-k", url, "-o", outfile])
+	soup = BS(open(outfile, 'rb').read(), "lxml")
 
 
 @nbaprops_blueprint.route('/h2hnba')
@@ -1054,6 +1094,7 @@ if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-c", "--cron", action="store_true", help="Start Cron Job")
 	parser.add_argument("-d", "--date", help="Date")
+	parser.add_argument("--alts", help="Alts", action="store_true")
 	parser.add_argument("--zero", help="Zero CustomProp Odds", action="store_true")
 	parser.add_argument("--lineups", help="Lineups", action="store_true")
 	parser.add_argument("--skip-lineups", help="Skip Lineups", action="store_true")
@@ -1072,6 +1113,8 @@ if __name__ == "__main__":
 			writeLineups()
 		writeProps(date)
 		writeH2H()
+	elif args.alts:
+		writeAlts()
 	elif args.h2h:
 		writeH2H()
 	elif args.lineups:

@@ -1,225 +1,31 @@
 
-MIN @ DET
-	pass_yds_total
-	pass_yds_moneyline
-	pass_yds_spread
-	pass_tds_total
-	pass_tds_moneyline
-	pass_tds_spread
-	rush_yds_total
-	rush_yds_moneyline
-	rush_yds_spread
-	rec_yds_total
-	rec_yds_moneyline
-	rec_yds_spread
-	tds_total
-	tds_moneyline
-	tds_spread
-	rush_+_rec_yds_total
-	rush_+_rec_yds_moneyline
-	rush_+_rec_yds_spread
-	pass_completions_total
-	pass_completions_spread
-	pass_completions_moneyline
-	fgs_moneyline
-	fgs_spread
-
-CLE @ CIN
-	pass_yds_total
-	pass_yds_moneyline
-	pass_yds_spread
-	pass_tds_total
-	pass_tds_moneyline
-	pass_tds_spread
-	rush_yds_total
-	rush_yds_moneyline
-	rush_yds_spread
-	tds_total
-	tds_moneyline
-	tds_spread
-	rush_+_rec_yds_total
-	rush_+_rec_yds_moneyline
-	rush_+_rec_yds_spread
-	pass_completions_total
-	pass_completions_spread
-	pass_completions_moneyline
-	fgs_moneyline
-	fgs_spread
-
-NYJ @ BUF
-	pass_yds_total
-	pass_yds_moneyline
-	pass_yds_spread
-	pass_tds_total
-	pass_tds_moneyline
-	pass_tds_spread
-	rec_yds_total
-	rec_yds_moneyline
-	rec_yds_spread
-	tds_total
-	tds_moneyline
-	tds_spread
-	receptions_total
-	receptions_moneyline
-	receptions_spread
-	rush_+_rec_yds_total
-	rush_+_rec_yds_moneyline
-	rush_+_rec_yds_spread
-	pass_completions_total
-	pass_completions_spread
-	pass_completions_moneyline
-	fgs_moneyline
-	fgs_spread
-
-PHI @ NYG
-	pass_yds_total
-	pass_yds_moneyline
-	pass_yds_spread
-	pass_tds_total
-	pass_tds_moneyline
-	pass_tds_spread
-	rec_yds_total
-	rec_yds_moneyline
-	rec_yds_spread
-	tds_total
-	tds_moneyline
-	tds_spread
-	rush_+_rec_yds_total
-	rush_+_rec_yds_moneyline
-	rush_+_rec_yds_spread
-	fgs_moneyline
-	fgs_spread
-
-JAX @ TEN
-	pass_yds_total
-	pass_yds_moneyline
-	pass_yds_spread
-	pass_tds_total
-	pass_tds_moneyline
-	pass_tds_spread
-
-HOU @ DAL
-	pass_yds_total
-	pass_yds_moneyline
-	pass_yds_spread
-	pass_tds_total
-	pass_tds_moneyline
-	pass_tds_spread
-	rush_yds_total
-	rush_yds_moneyline
-	rush_yds_spread
-	tds_total
-	tds_moneyline
-	tds_spread
-	rush_+_rec_yds_total
-	rush_+_rec_yds_moneyline
-	rush_+_rec_yds_spread
-	fgs_moneyline
-	fgs_spread
-
-BAL @ PIT
-	pass_yds_total
-	pass_yds_moneyline
-	pass_yds_spread
-	pass_tds_total
-	pass_tds_moneyline
-	pass_tds_spread
-	rec_yds_total
-	rec_yds_moneyline
-	rec_yds_spread
-	tds_total
-	tds_moneyline
-	tds_spread
-
-KC @ DEN
-	pass_yds_total
-	pass_yds_moneyline
-	pass_yds_spread
-	pass_tds_total
-	pass_tds_moneyline
-	pass_tds_spread
-	rush_yds_total
-	rush_yds_moneyline
-	rush_yds_spread
-	rec_yds_total
-	rec_yds_moneyline
-	rec_yds_spread
-	tds_total
-	tds_moneyline
-	tds_spread
-	rush_+_rec_yds_total
-	rush_+_rec_yds_moneyline
-	rush_+_rec_yds_spread
-	fgs_moneyline
-	fgs_spread
-
-CAR @ SEA
-	pass_yds_total
-	pass_yds_moneyline
-	pass_yds_spread
-	pass_tds_total
-	pass_tds_moneyline
-	pass_tds_spread
-	rec_yds_total
-	rec_yds_moneyline
-	rec_yds_spread
-	tds_total
-	tds_moneyline
-	tds_spread
-	receptions_total
-	receptions_moneyline
-	receptions_spread
-	rush_+_rec_yds_total
-	rush_+_rec_yds_moneyline
-	rush_+_rec_yds_spread
-	targets_moneyline
-	targets_spread
-	fgs_moneyline
-	fgs_spread
-
-TB @ SF
-	pass_yds_total
-	pass_yds_moneyline
-	pass_yds_spread
-	pass_tds_total
-	pass_tds_moneyline
-	pass_tds_spread
-	rec_yds_total
-	rec_yds_moneyline
-	rec_yds_spread
-	tds_total
-	tds_moneyline
-	tds_spread
-	rush_+_rec_yds_total
-	rush_+_rec_yds_moneyline
-	rush_+_rec_yds_spread
-	fgs_moneyline
-	fgs_spread
-
-MIA @ LAC
-	pass_yds_total
-	pass_yds_moneyline
-	pass_yds_spread
-	pass_tds_total
-	pass_tds_moneyline
-	pass_tds_spread
-	rush_yds_total
-	rush_yds_moneyline
-	rush_yds_spread
-	rec_yds_total
-	rec_yds_moneyline
-	rec_yds_spread
-	tds_total
-	tds_moneyline
-	tds_spread
-	rush_+_rec_yds_total
-	rush_+_rec_yds_moneyline
-	rush_+_rec_yds_spread
-
 NE @ ARI
-	pass_tds_total
-	pass_tds_moneyline
-	pass_tds_spread
+	pass_td_total
+		Straight up: 33%
+		All Pairs: 40%
+		Kyler Murray 1.5pass_td (-180):
+			2,2,3,1,0,1,2,0,1,2
+		Mac Jones 1.5pass_td (+135):
+			1,2,0,1,1,0,0,1,1
+		Line: 2.5
+		-----
+	pass_td_moneyline
+		Straight up: 67%
+		All Pairs: 77%
+		Kyler Murray 1.5pass_td (-140):
+			2,2,3,1,0,1,2,0,1,2
+		Mac Jones 1.5pass_td (+105):
+			1,2,0,1,1,0,0,1,1
+		-----
+	pass_td_spread
+		Straight up: 67%
+		All Pairs: 77%
+		Kyler Murray 1.5pass_td (+130):
+			2,2,3,1,0,1,2,0,1,2
+		Mac Jones 1.5pass_td (-175):
+			1,2,0,1,1,0,0,1,1
+		Line: -0.5
+		-----
 	rush_yds_total
 	rush_yds_moneyline
 	rush_yds_spread

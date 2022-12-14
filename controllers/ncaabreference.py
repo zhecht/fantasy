@@ -261,7 +261,7 @@ def writeRosters():
 		if team not in playerIds:
 			playerIds[team] = {}
 
-		time.sleep(0.5)
+		time.sleep(0.3)
 		url = f"https://www.espn.com/mens-college-basketball/team/roster/_/id/{teamId}/"
 		outfile = "out"
 		call(["curl", "-k", url, "-o", outfile])
@@ -307,7 +307,7 @@ def writeMissingTeamStats(teamArg):
 			writeTeamId(teams, team)
 		teamId = teams[team]["id"]
 
-		time.sleep(0.4)
+		time.sleep(0.3)
 		url = f"https://site.web.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/{teamId}/schedule?region=us&lang=en&seasontype=2"
 		outfile = "out"
 		call(["curl", "-k", url, "-o", outfile])
@@ -448,7 +448,7 @@ def writeColors():
 	colors = {}
 	css = ""
 	for link in [a.get("href") for a in soup.findAll("a", class_="team-button")]:
-		time.sleep(0.4)
+		time.sleep(0.3)
 		outfile = "out"
 		call(["curl", "-k", link, "-o", outfile])
 		soup = BS(open(outfile, 'rb').read(), "lxml")
