@@ -404,6 +404,10 @@ def getProps_route():
 		schedule = json.load(fh)
 	with open(f"{prefix}static/basketballreference/roster.json") as fh:
 		roster = json.load(fh)
+	with open(f"{prefix}static/basketballreference/scores.json") as fh:
+		scores = json.load(fh)
+	with open(f"{prefix}static/nbaprops/lines/{date}.json") as fh:
+		gameLines = json.load(fh)
 
 	oppOvers = getOppOvers(schedule, roster)
 	#propData = customPropData(propData)
@@ -545,6 +549,8 @@ def getProps_route():
 				last5 = []
 				lastAll = []
 				lastAllPerMin = []
+				winLossSplits = [[],[]]
+				awayHomeSplits = [[],[]]
 				hit = False
 				if line and avgMin:
 					files = sorted(glob.glob(f"{prefix}static/basketballreference/{team}/*.json"), key=lambda k: datetime.strptime(k.split("/")[-1].replace(".json", ""), "%Y-%m-%d"), reverse=True)
@@ -563,6 +569,18 @@ def getProps_route():
 								else:
 									val = gameStats[name][prop]
 
+								pastOpp = ""
+								teamIsAway = False
+								for g in schedule[chkDate]:
+									gameSp = g.split(" @ ")
+									if team in gameSp:
+										if team == gameSp[0]:
+											teamIsAway = True
+											pastOpp = gameSp[1]
+										else:
+											pastOpp = gameSp[0]
+										break
+
 								if chkDate == date:
 									if alt.endswith("over") and val > float(line):
 										hit = True
@@ -579,6 +597,19 @@ def getProps_route():
 										last5.append(v)
 										continue
 									last5.append(v)
+
+								teamScore = scores[chkDate][team]
+								oppScore = scores[chkDate][pastOpp]
+
+								if teamScore > oppScore:
+									winLossSplits[0].append(val)
+								elif teamScore < oppScore:
+									winLossSplits[1].append(val)
+
+								if teamIsAway:
+									awayHomeSplits[0].append(val)
+								else:
+									awayHomeSplits[1].append(val)
 
 								valPerMin = float(val / minutes)
 								linePerMin = float(line) / avgMin
@@ -632,12 +663,38 @@ def getProps_route():
 				if not line:
 					continue
 
+				gameLine = ""
+				if game in gameLines:
+					gameOdds = gameLines[game]["moneyline"]["odds"].split(",")
+					if team == game.split(" @ ")[0]:
+						gameLine = gameOdds[0]
+					else:
+						gameLine = gameOdds[1]
+
+				winSplitAvg = lossSplitAvg = 0
+				if len(winLossSplits[0]):
+					winSplitAvg = round(sum(winLossSplits[0]) / len(winLossSplits[0]),2)
+				if len(winLossSplits[1]):
+					lossSplitAvg = round(sum(winLossSplits[1]) / len(winLossSplits[1]),2)
+				winLossSplits = f"{winSplitAvg} - {lossSplitAvg}"
+
+				awaySplitAvg = homeSplitAvg = 0
+				if len(awayHomeSplits[0]):
+					awaySplitAvg = round(sum(awayHomeSplits[0]) / len(awayHomeSplits[0]),2)
+				if len(awayHomeSplits[1]):
+					homeSplitAvg = round(sum(awayHomeSplits[1]) / len(awayHomeSplits[1]),2)
+				awayHomeSplits = f"{awaySplitAvg} - {homeSplitAvg}"
+
 				props.append({
 					"game": game,
 					"player": name.title(),
 					"team": team.upper(),
 					"opponent": opp,
 					"hit": hit,
+					"gameLine": gameLine,
+					"awayHome": "A" if team == game.split(" @ ")[0] else "H",
+					"awayHomeSplits": awayHomeSplits,
+					"winLossSplits": winLossSplits,
 					"position": pos,
 					"propType": prop,
 					"line": line or "-",
@@ -752,9 +809,9 @@ def h2h(props):
 def write_csvs(props):
 	csvs = {}
 	splitProps = {"full": []}
-	headers = "\t".join(["NAME","POS","MIN","TEAM","OPP","OPP RANK","PROP","LINE","SZN AVG","% OVER","L5 % OVER","LAST 7 GAMES ➡️","LAST YR % OVER","OVER", "UNDER"])
+	headers = "\t".join(["NAME","POS","MIN","ML","A/H","TEAM","OPP","OPP RANK","PROP","LINE","SZN AVG","W-L Splits","A-H Splits","% OVER","L5 % OVER","LAST 7 GAMES ➡️","LAST YR % OVER","OVER", "UNDER"])
 	reddit = "|".join(headers.split("\t"))
-	reddit += "\n:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--"
+	reddit += "\n:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--"
 
 	for row in props:
 		if row["propType"] not in splitProps:
@@ -768,14 +825,17 @@ def write_csvs(props):
 		for row in rows:
 			overOdds = row["overOdds"]
 			underOdds = row["underOdds"]
+			gameLine = row["gameLine"]
 			if underOdds == '-inf':
 				underOdds = 0
 			if int(overOdds) > 0:
 				overOdds = "'"+overOdds
 			if int(underOdds) > 0:
 				underOdds = "'"+underOdds
+			if int(gameLine) > 0:
+				gameLine = "'"+gameLine
 			try:
-				csvs[prop] += "\n" + "\t".join([row["player"], row["position"], str(row["avgMin"]), row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
+				csvs[prop] += "\n" + "\t".join([row["player"], row["position"], str(row["avgMin"]), gameLine, row["awayHome"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), row["winLossSplits"], row["awayHomeSplits"], f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
 			except:
 				pass
 
@@ -785,14 +845,17 @@ def write_csvs(props):
 	for row in rows:
 		overOdds = row["overOdds"]
 		underOdds = row["underOdds"]
+		gameLine = row["gameLine"]
 		if underOdds == '-inf':
 			underOdds = 0
 		if int(overOdds) > 0:
 			overOdds = "'"+overOdds
 		if int(underOdds) > 0:
 			underOdds = "'"+underOdds
+		if int(gameLine) > 0:
+			gameLine = "'"+gameLine
 		try:
-			csvs["full_name"] += "\n" + "\t".join([row["player"], row["position"], str(row["avgMin"]), row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
+			csvs["full_name"] += "\n" + "\t".join([row["player"], row["position"], str(row["avgMin"]), gameLine, row["awayHome"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), row["winLossSplits"], row["awayHomeSplits"], f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
 		except:
 			pass
 
@@ -801,14 +864,17 @@ def write_csvs(props):
 	for row in rows:
 		overOdds = row["overOdds"]
 		underOdds = row["underOdds"]
+		gameLine = row["gameLine"]
 		if underOdds == '-inf':
 			underOdds = 0
 		if int(overOdds) > 0:
 			overOdds = "'"+overOdds
 		if int(underOdds) > 0:
 			underOdds = "'"+underOdds
+		if int(gameLine) > 0:
+			gameLine = "'"+gameLine
 		try:
-			csvs["full_hit"] += "\n" + "\t".join([row["player"], row["position"], str(row["avgMin"]), row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
+			csvs["full_hit"] += "\n" + "\t".join([row["player"], row["position"], str(row["avgMin"]), gameLine, row["awayHome"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), row["winLossSplits"], row["awayHomeSplits"], f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
 		except:
 			pass
 
@@ -818,11 +884,12 @@ def write_csvs(props):
 		for row in rows[:3]:
 			overOdds = row["overOdds"]
 			underOdds = row["underOdds"]
+			gameLine = row["gameLine"]
 			try:
-				reddit += "\n" + "|".join([row["player"], row["position"], str(row["avgMin"]), row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
+				reddit += "\n" + "|".join([row["player"], row["position"], str(row["avgMin"]), gameLine, row["awayHome"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), row["winLossSplits"], row["awayHomeSplits"], f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
 			except:
 				pass
-		reddit += "\n-|-|-|-|-|-|-|-|-|-|-|-|-|-|-"
+		reddit += "\n-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-"
 
 	with open(f"{prefix}static/nbaprops/csvs/reddit", "w") as fh:
 		fh.write(reddit)
@@ -1006,6 +1073,7 @@ def writeH2H():
 	}
 
 	h2h = {}
+
 	for prop in ids:
 		time.sleep(0.3)
 		url = f"https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/42648/categories/1206/subcategories/{ids[prop]}?format=json"
@@ -1356,6 +1424,7 @@ if __name__ == "__main__":
 		writeProps(date)
 		writeTeamProps()
 		writeH2H()
+		writeGameLines(date)
 	elif args.alts:
 		writeAlts()
 	elif args.h2h:

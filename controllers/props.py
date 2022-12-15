@@ -433,9 +433,9 @@ def getProps_ATTD_route():
 def writeCsvs(props):
 	csvs = {}
 	splitProps = {"full": []}
-	headers = "\t".join(["NAME","TEAM","OPP","OPP RANK","PROP","LINE","SZN AVG","% OVER","L3 % OVER","LAST GAMES ➡️","LAST YR % OVER","OVER", "UNDER"])
+	headers = "\t".join(["NAME","ML","A/H","TEAM","OPP","OPP RANK","PROP","LINE","SZN AVG","W-L Splits","A-H Splits","% OVER","L3 % OVER","LAST GAMES ➡️","LAST YR % OVER","OVER","UNDER"])
 	reddit = "|".join(headers.split("\t"))
-	reddit += "\n:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--"
+	reddit += "\n:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--"
 
 	for row in props:
 		if row["propType"] not in splitProps:
@@ -449,13 +449,16 @@ def writeCsvs(props):
 	for row in rows:
 		overOdds = row["overOdds"]
 		underOdds = row["underOdds"]
+		gameLine = row["gameLine"]
 		if underOdds == '-inf':
 			underOdds = 0
 		if int(overOdds) > 0:
 			overOdds = "'"+overOdds
 		if int(underOdds) > 0:
 			underOdds = "'"+underOdds
-		csvs["full_name"] += "\n" + "\t".join([row["player"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), f"{row['totalOver']}%", f"{row['totalOverLast3']}%", row["last5"], f"{row['lastTotalOver']}%", overOdds, underOdds])
+		if int(gameLine) > 0:
+			gameLine = "'"+gameLine
+		csvs["full_name"] += "\n" + "\t".join([row["player"], gameLine, row["awayHome"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), row["winLossSplits"], row["awayHomeSplits"], f"{row['totalOver']}%", f"{row['totalOverLast3']}%", row["last5"], f"{row['lastTotalOver']}%", overOdds, underOdds])
 		#except:
 		#	pass
 
@@ -464,14 +467,17 @@ def writeCsvs(props):
 	for row in rows:
 		overOdds = row["overOdds"]
 		underOdds = row["underOdds"]
+		gameLine = row["gameLine"]
 		if underOdds == '-inf':
 			underOdds = 0
 		if int(overOdds) > 0:
 			overOdds = "'"+overOdds
 		if int(underOdds) > 0:
 			underOdds = "'"+underOdds
+		if int(gameLine) > 0:
+			gameLine = "'"+gameLine
 		try:
-			csvs["full_hit"] += "\n" + "\t".join([row["player"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), f"{row['totalOver']}%", f"{row['totalOverLast3']}%", row["last5"], f"{row['lastTotalOver']}%", overOdds, underOdds])
+			csvs["full_hit"] += "\n" + "\t".join([row["player"], gameLine, row["awayHome"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), row["winLossSplits"], row["awayHomeSplits"], f"{row['totalOver']}%", f"{row['totalOverLast3']}%", row["last5"], f"{row['lastTotalOver']}%", overOdds, underOdds])
 		except:
 			pass
 
@@ -710,6 +716,10 @@ def getProps_route():
 			for prop in props[game][player]:
 				if propArg and prop != propArg:
 					continue
+				if prop in ["kicking_pts", "pat", "rush+rec_yds"]:
+					continue
+				if "long" in prop:
+					continue
 
 				overOdds = props[game][player][prop]["over"]
 				underOdds = props[game][player][prop]["under"]
@@ -731,6 +741,7 @@ def getProps_route():
 					lastTotalOver = round((lastTotalOver / lastTotalGames) * 100)
 
 				winLossSplits = [[],[]]
+				awayHomeSplits = [[],[]]
 				last5 = []
 				tot = totalOver = totalOverLast3 = 0
 				for wk in sorted(playerStats.keys(), key=lambda k: int(k[2:]), reverse=True):
@@ -741,14 +752,25 @@ def getProps_route():
 						val = playerStats[wk].get(prop, 0)
 
 					pastOpp = ""
+					teamIsAway = False
 					for g in schedule[wk]:
 						gameSp = g.split(" @ ")
 						if team in gameSp:
-							pastOpp = gameSp[0] if team == gameSp[1] else gameSp[1]
+							if team == gameSp[0]:
+								teamIsAway = True
+								pastOpp = gameSp[1]
+							else:
+								pastOpp = gameSp[0]
 							break
 
 					if get_opponents(team)[int(wk[2:])-1] == "BYE":
 						continue
+
+					if teamIsAway:
+						awayHomeSplits[0].append(val)
+					else:
+						awayHomeSplits[1].append(val)
+
 					teamScore = scores[wk][team]
 					oppScore = scores[wk][pastOpp]
 
@@ -771,7 +793,14 @@ def getProps_route():
 					winSplitAvg = round(sum(winLossSplits[0]) / len(winLossSplits[0]),2)
 				if len(winLossSplits[1]):
 					lossSplitAvg = round(sum(winLossSplits[1]) / len(winLossSplits[1]),2)
-				winLoss = f"{winSplitAvg} - {lossSplitAvg}"
+				winLossSplits = f"{winSplitAvg} - {lossSplitAvg}"
+
+				awaySplitAvg = homeSplitAvg = 0
+				if len(awayHomeSplits[0]):
+					awaySplitAvg = round(sum(awayHomeSplits[0]) / len(awayHomeSplits[0]),2)
+				if len(awayHomeSplits[1]):
+					homeSplitAvg = round(sum(awayHomeSplits[1]) / len(awayHomeSplits[1]),2)
+				awayHomeSplits = f"{awaySplitAvg} - {homeSplitAvg}"
 
 				diff = 0
 				if totGames:
@@ -816,6 +845,7 @@ def getProps_route():
 					"player": player.title(),
 					"team": team.upper(),
 					"opponent": opp.upper(),
+					"awayHome": "A" if team == game.split(" @ ")[0] else "H",
 					"oppRank": oppRank,
 					"hit": True,
 					"pos": pos,
@@ -829,8 +859,10 @@ def getProps_route():
 					"totalOverLast3": totalOverLast3,
 					"lastTotalOver": lastTotalOver,
 					"propType": prop,
-					"winLossSplits": winLoss,
+					"winLossSplits": winLossSplits,
+					"awayHomeSplits": awayHomeSplits,
 					"line": line or "-",
+					"overUnderOdds": f"{overOdds},{underOdds}",
 					"overOdds": overOdds,
 					"underOdds": underOdds,
 					"stats": playerStats
@@ -920,6 +952,7 @@ def h2h(props):
 		fh.write(out)
 
 def writeH2H():
+	time.sleep(0.3)
 	url = f"https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/88808/categories/1185?format=json"
 	outfile = "out"
 	call(["curl", "-k", url, "-o", outfile])
@@ -1279,6 +1312,7 @@ def writeActionNetworkProps(week):
 	date = datetime.now()
 	date = str(date)[:10]
 
+	time.sleep(0.3)
 	path = f"out"
 	url = f"https://api.actionnetwork.com/web/v1/leagues/1/props/core_bet_type_62_anytime_touchdown_scorer?bookIds=69,68,1599&date={date.replace('-', '')}"
 	os.system(f"curl -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0' -k \"{url}\" -o {path}")
@@ -1308,6 +1342,8 @@ def writeActionNetworkProps(week):
 			continue
 		for oddData in bookData["odds"]:
 			player = playerIds[oddData["player_id"]]
+			if player == "ken walker iii":
+				player = "kenneth walker iii"
 			team = teamIds[oddData["team_id"]]
 			book = actionNetworkBookIds[bookId]
 
@@ -1671,6 +1707,73 @@ def h2hprops_route():
 		players = request.args.get("players")
 	return render_template("h2hnfl.html", teams=teams, players=players)
 
+def writeLongestProps(week):
+	actionNetworkBookIds = {
+		68: "draftkings",
+		69: "fanduel",
+		1599: "betmgm"
+	}
+	prop = ""
+	props = {}
+	optionTypes = {}
+
+	date = datetime.now()
+	date = str(date)[:10]
+
+	apis = ["core_bet_type_58_longest_rush", "core_bet_type_59_longest_reception", "core_bet_type_60_longest_completion"]
+	for api, prop in zip(apis, ["rush_long", "rec_long", "pass_long"]):
+		time.sleep(0.3)
+		path = f"out"
+		url = f"https://api.actionnetwork.com/web/v1/leagues/1/props/{api}?bookIds=69,68,1599&date={date.replace('-', '')}"
+		os.system(f"curl -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0' -k \"{url}\" -o {path}")
+		time.sleep(0.4)
+
+		with open(path) as fh:
+			j = json.load(fh)
+
+		if "markets" not in j:
+			return
+		market = j["markets"][0]
+
+		for option in market["rules"]["options"]:
+			optionTypes[int(option)] = market["rules"]["options"][option]["option_type"].lower()
+
+		teamIds = {}
+		for row in market["teams"]:
+			teamIds[row["id"]] = row["abbr"].lower()
+
+		playerIds = {}
+		for row in market["players"]:
+			playerIds[row["id"]] = row["full_name"].lower().replace(".", "").replace("-", " ").replace("'", "")
+
+		books = market["books"]
+		for bookData in books:
+			bookId = bookData["book_id"]
+			if bookId not in actionNetworkBookIds:
+				continue
+			for oddData in bookData["odds"]:
+				player = playerIds[oddData["player_id"]]
+				team = teamIds[oddData["team_id"]]
+				overUnder = optionTypes[oddData["option_type_id"]]
+				book = actionNetworkBookIds[bookId]
+
+				if team not in props:
+					props[team] = {}
+				if player not in props[team]:
+					props[team][player] = {}
+				if prop not in props[team][player]:
+					props[team][player][prop] = {}
+				if book not in props[team][player][prop]:
+					props[team][player][prop][book] = {}
+				props[team][player][prop][book][overUnder] = f"{overUnder[0]}{oddData['value']} ({oddData['money']})"
+				if "line" not in props[team][player][prop]:
+					props[team][player][prop]["line"] = f"o{oddData['value']}"
+				elif oddData['value'] < float(props[team][player][prop]["line"][1:]):
+					props[team][player][prop]["line"] = f"o{oddData['value']}"
+
+	with open(f"{prefix}static/props/longest.json", "w") as fh:
+		json.dump(props, fh, indent=4)
+
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-c", "--cron", action="store_true", help="Start Cron Job")
@@ -1692,4 +1795,5 @@ if __name__ == "__main__":
 	elif args.cron:
 		writeProps(week)
 		writeActionNetworkProps(week)
+		writeLongestProps(week)
 		writeH2H()

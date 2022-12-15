@@ -245,11 +245,21 @@
 				} else {
 					val1 = "<div class='negative'>"+val1+"</div>";
 				}
+				if (cell.getField() == "awayHomeSplits" && data.awayHome == "A") {
+					val1 = "<div style='text-decoration:underline;'>"+val1+"</div>";
+				} else if (cell.getField() == "winLossSplits" && parseInt(data.gameLine) < 0) {
+					val1 = "<div style='text-decoration:underline;'>"+val1+"</div>";
+				}
 				let val2 = vals[1];
 				if (parseFloat(val2) >= parseFloat(data.line)) {
 					val2 = "<div class='positive'>"+val2+"</div>";
 				} else {
 					val2 = "<div class='negative'>"+val2+"</div>";
+				}
+				if (cell.getField() == "awayHomeSplits" && data.awayHome == "H") {
+					val2 = "<div style='text-decoration:underline;'>"+val2+"</div>";
+				} else if (cell.getField() == "winLossSplits" && parseInt(data.gameLine) > 0) {
+					val2 = "<div style='text-decoration:underline;'>"+val2+"</div>";
 				}
 				return "<div style='display:flex;justify-content:center;'>"+val1+"<div style='padding: 0 5px;'> - </div>"+val2+"</div>";
 			}
@@ -323,22 +333,20 @@
 						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
 						//{title: "PTS/G", field: "ptsPerGame", hozAlign: "center", width: 70},
 						//{title: "L5 PTS/G", field: "ptsPerGameLast5", hozAlign: "center", width: 70},
-						{title: "S/G", field: "shotsPerGame", hozAlign: "center", width: 70},
-						{title: "L5 S/G", field: "shotsPerGameLast5", hozAlign: "center", width: 70},
-						{title: "SV/G", field: "savesPer60", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number"},
-						{title: "L5 SV/G", field: "savesPer60Last5", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number"},
-						{title: "L3 SV/G", field: "savesPer60Last3", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number"},
-						{title: "L1 SV/G", field: "savesPer60Last1", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number"},
+						{title: "S/G", field: "shotsPerGame", hozAlign: "center", width: 70, visible: false},
+						{title: "L5 S/G", field: "shotsPerGameLast5", hozAlign: "center", width: 70, visible: false},
+						{title: "SV/G", field: "savesPer60", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number", visible: false},
+						{title: "L5 SV/G", field: "savesPer60Last5", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number", visible: false},
+						{title: "L3 SV/G", field: "savesPer60Last3", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number", visible: false},
+						{title: "L1 SV/G", field: "savesPer60Last1", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number", visible: false},
 						{title: "Opp", field: "opponent", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
-						{title: "Opp Saves_A/G", field: "oppSavesAgainstPer60", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number"},
-						{title: "L5 Opp Saves_A/G", field: "oppSavesAgainstPer60Last5", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number"},
-						{title: "L3 Opp Saves_A/G", field: "oppSavesAgainstPer60Last3", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number"},
-						{title: "L1 Opp Saves_A/G", field: "oppSavesAgainstPer60Last1", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number"},
-						{title: "Opp SA/G", field: "oppShotsAgainstPerGame", hozAlign: "center", width: 70},
-						{title: "L5 Opp SA/G", field: "oppShotsAgainstPerGameLast5", hozAlign: "center", width: 70},
-						//{title: "Opp PTS/G", field: "oppPtsPerGame", hozAlign: "center", width: 70},
-						//{title: "L5 Opp PTS/G", field: "oppPtsPerGameLast5", hozAlign: "center", width: 70},
-						{title: "Opp % Over", field: "oppOver", hozAlign: "center", width: 70, formatter: percentFormatter},
+						{title: "Opp Saves_A/G", field: "oppSavesAgainstPer60", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number", visible: false},
+						{title: "L5 Opp Saves_A/G", field: "oppSavesAgainstPer60Last5", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number", visible: false},
+						{title: "L3 Opp Saves_A/G", field: "oppSavesAgainstPer60Last3", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number", visible: false},
+						{title: "L1 Opp Saves_A/G", field: "oppSavesAgainstPer60Last1", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number", visible: false},
+						{title: "Opp SA/G", field: "oppShotsAgainstPerGame", hozAlign: "center", width: 70, visible: false},
+						{title: "L5 Opp SA/G", field: "oppShotsAgainstPerGameLast5", hozAlign: "center", width: 70, visible: false},
+						{title: "Opp % Over", field: "oppOver", hozAlign: "center", width: 70, formatter: percentFormatter, visible: false},
 						{title: "Prop", field: "propType", formatter: propFormatter, hozAlign: "center"},
 						{title: "Line", field: "line", hozAlign: "center"},
 						{title: "SZN AVG", field: "avg", hozAlign: "center", width: 80, formatter: colorFormatter},
@@ -373,39 +381,19 @@
 				TABLE.setFilter([{field:"propType", type:"=", value:"{{prop}}"}]);
 			</script>
 		{% endif %}
-		{% if prop != "sv" %}
+		{% if prop == "sv" %}
 			<script>
-				TABLE.getColumn("savesPerGame").hide();
-				TABLE.getColumn("savesPerGameLast1").hide();
-				TABLE.getColumn("savesPerGameLast3").hide();
-				TABLE.getColumn("savesPerGameLast5").hide();
-				TABLE.getColumn("oppSavesAgainstPerGame").hide();
-				TABLE.getColumn("oppSavesAgainstPerGameLast1").hide();
-				TABLE.getColumn("oppSavesAgainstPerGameLast3").hide();
-				TABLE.getColumn("oppSavesAgainstPerGameLast5").hide();
-				//TABLE.getColumn("savesAboveExp").hide();
-				//TABLE.getColumn("gsaa").hide();
-				TABLE.getColumn("oppOver").hide();
-			</script>
-		{% else %}
-			<script>
+				TABLE.getColumn("savesPer60").show();
+				TABLE.getColumn("savesPer60Last1").show();
+				TABLE.getColumn("savesPer60Last3").show();
+				TABLE.getColumn("savesPer60Last5").show();
+				TABLE.getColumn("oppSavesAgainstPer60").show();
+				TABLE.getColumn("oppSavesAgainstPer60Last1").show();
+				TABLE.getColumn("oppSavesAgainstPer60Last3").show();
+				TABLE.getColumn("oppSavesAgainstPer60Last5").show();
+				TABLE.getColumn("oppOver").show();
+
 				TABLE.getColumn("propType").hide();
-			</script>
-		{% endif %}
-		{% if prop != "pts" %}
-			<script>
-				TABLE.getColumn("ptsPerGame").hide();
-				TABLE.getColumn("ptsPerGameLast5").hide();
-				TABLE.getColumn("oppPtsPerGame").hide();
-				TABLE.getColumn("oppPtsPerGameLast5").hide();
-			</script>
-		{% endif %}
-		{% if prop != "sog" %}
-			<script>
-				TABLE.getColumn("shotsPerGame").hide();
-				TABLE.getColumn("shotsPerGameLast5").hide();
-				TABLE.getColumn("oppShotsAgainstPerGame").hide();
-				TABLE.getColumn("oppShotsAgainstPerGameLast5").hide();
 			</script>
 		{% endif %}
 		{% if date == "" %}

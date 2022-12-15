@@ -419,6 +419,7 @@ if __name__ == "__main__":
 	parser.add_argument("--rankings", help="Rankings", action="store_true")
 	parser.add_argument("--schedule", help="Schedule", action="store_true")
 	parser.add_argument("--totals", help="Totals", action="store_true")
+	parser.add_argument("--stats", help="Stats", action="store_true")
 	parser.add_argument("--ttoi", help="Team TTOI", action="store_true")
 	parser.add_argument("-e", "--end", help="End Week", type=int)
 	parser.add_argument("-w", "--week", help="Week", type=int)
@@ -443,6 +444,8 @@ if __name__ == "__main__":
 		writeTeamTTOI()
 	elif args.averages:
 		write_averages()
+	elif args.stats:
+		write_stats(date)
 	elif args.cron:
 		write_schedule(date)
 		write_stats(date)

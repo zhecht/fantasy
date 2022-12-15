@@ -299,9 +299,6 @@ def getProps_route():
 						except:
 							gsaa = "-"
 
-				if player == "cam talbot":
-					print(team,rankings[team]["tot"]["SV/GP"], (rankings[team]["tot"]["SV/GP"]*ttoi[team]["ttoi"])/(60*rankings[team]["tot"]["GP"]))
-
 				props.append({
 					"player": player.title(),
 					"team": team.upper(),
@@ -421,7 +418,7 @@ def teamTotals():
 def write_csvs(props):
 	csvs = {}
 	splitProps = {"full": []}
-	headers = "\t".join(["NAME","TEAM","PROP","LINE","SZN AVG","% OVER","L5 % OVER","LAST 10 GAMES","LAST YR % OVER","OVER", "UNDER"])
+	headers = "\t".join(["NAME","TEAM","ML","A/H","PROP","LINE","SZN AVG","W-L Splits","A-H Splits","% OVER","L5 % OVER","LAST 10 GAMES","LAST YR % OVER","OVER","UNDER"])
 	reddit = "|".join(headers.split("\t"))
 	reddit += "\n:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--"
 

@@ -277,6 +277,34 @@
 				}
 			}
 
+			const splitsFormatter = function(cell, params, rendered) {
+				const data = cell.getRow().getData();
+				const vals = cell.getValue().split(" - ");
+				let val1 = vals[0];
+				if (parseFloat(val1) >= parseFloat(data.line)) {
+					val1 = "<div class='positive'>"+val1+"</div>";
+				} else {
+					val1 = "<div class='negative'>"+val1+"</div>";
+				}
+				if (cell.getField() == "awayHomeSplits" && data.awayHome == "A") {
+					val1 = "<div style='text-decoration:underline;'>"+val1+"</div>";
+				} else if (cell.getField() == "winLossSplits" && parseInt(data.gameLine) < 0) {
+					val1 = "<div style='text-decoration:underline;'>"+val1+"</div>";
+				}
+				let val2 = vals[1];
+				if (parseFloat(val2) >= parseFloat(data.line)) {
+					val2 = "<div class='positive'>"+val2+"</div>";
+				} else {
+					val2 = "<div class='negative'>"+val2+"</div>";
+				}
+				if (cell.getField() == "awayHomeSplits" && data.awayHome == "H") {
+					val2 = "<div style='text-decoration:underline;'>"+val2+"</div>";
+				} else if (cell.getField() == "winLossSplits" && parseInt(data.gameLine) > 0) {
+					val2 = "<div style='text-decoration:underline;'>"+val2+"</div>";
+				}
+				return "<div style='display:flex;justify-content:center;'>"+val1+"<div style='padding: 0 5px;'> - </div>"+val2+"</div>";
+			}
+
 			
 
 			function renderTable() {
@@ -306,7 +334,7 @@
 						{title: "Player", field: "player", headerFilter: "input"},
 						{title: "Pos", field: "position", hozAlign: "center", width: 50},
 						{title: "Avg Min", field: "avgMin", hozAlign: "center", width: 70},
-						{title: "Last YR Avg Min", field: "lastAvgMin", hozAlign: "center", width: 70},
+						//{title: "Last YR Avg Min", field: "lastAvgMin", hozAlign: "center", width: 70},
 						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
 						{title: "Opp", field: "opponent", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
 						{title: "Opp Rank", field: "oppRank", hozAlign: "center", formatter: rankFormatter, width: 70},
@@ -314,9 +342,9 @@
 						{title: "Prop", field: "propType", hozAlign: "center"},
 						{title: "Line", field: "line", hozAlign: "center"},
 						{title: "SZN AVG", field: "avg", hozAlign: "center", width: 80, formatter: colorFormatter},
-						//{title: "Variance", field: "avgVariance", hozAlign: "center", width: 80},
-						{title: "", field: "diffAbs", hozAlign: "center", visible: false},
-						{title: "Total Over", field: "totalOver", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
+						{title: "W-L Splits", field: "winLossSplits", hozAlign: "center", visible: true, formatter:splitsFormatter},
+						{title: "A-H Splits", field: "awayHomeSplits", hozAlign: "center", visible: true, formatter:splitsFormatter},
+						//{title: "Total Over", field: "totalOver", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
 						{title: "Total Over Per Min", field: "totalOverPerMin", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
 						{title: "L5 Total Over", field: "totalOverLast5", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
 						{title: "Last", field: "last5", hozAlign: "center"},
