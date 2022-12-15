@@ -385,6 +385,10 @@ def convertDKTeam(team):
 		return "val"
 	elif team == "drake":
 		return "drke"
+	elif team == "scar":
+		return "sc"
+	elif team == "uc riv":
+		return "ucr"
 	elif team == "wis":
 		return "wisc"
 	return team.replace("'", "")

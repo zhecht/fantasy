@@ -207,7 +207,7 @@ def writeRankings():
 
 	rankings = {}
 	shortIds = ["tot", "last1", "last3", "last5", "tot", "last1", "last3", "last5"]
-	urls = ["nhl+team+goals+%2B+assists+per+game+this+year", "nhl+team+goals+%2B+assists+per+game+last+1+games", "nhl+team+goals+%2B+assists+per+game+last+3+games", "nhl+team+goals+%2B+assists+per+game+last+5+games", "nhl-team-goals-allowed-plus-assists-allowed-per-game-this-year", "nhl-team-goals-allowed-plus-assists-allowed-per-game-last-1-games", "nhl-team-goals-allowed-plus-assists-allowed-per-game-last-3-games", "nhl-team-goals-allowed-plus-assists-allowed-per-game-last-5-games"]
+	urls = ["nhl-team-saves-per-game-this-season", "nhl-team-saves-per-game-last-1-games", "nhl-team-saves-per-game-last-3-games", "nhl-team-saves-per-game-last-5-games", "nhl-team-saves-allowed-per-game-this-season", "nhl-team-saves-allowed-per-game-last-1-games", "nhl-team-saves-allowed-per-game-last-3-games", "nhl-team-saves-allowed-per-game-last-5-games"]
 	for timePeriod, url in zip(shortIds, urls):
 		outfile = "out2"
 		time.sleep(0.3)
@@ -232,6 +232,52 @@ def writeRankings():
 
 	with open(f"{prefix}static/hockeyreference/rankings.json", "w") as fh:
 		json.dump(rankings, fh, indent=4)
+
+def writeTeamTTOI():
+	with open(f"{prefix}static/hockeyreference/schedule.json") as fh:
+		schedule = json.load(fh)
+
+	teamTTOI = {}
+	for team in os.listdir(f"{prefix}static/hockeyreference/"):
+		if team.endswith(".json"):
+			continue
+
+		if team not in teamTTOI:
+			teamTTOI[team] = {"ttoi": [], "oppTTOI": []}
+
+		files = sorted(glob(f"{prefix}static/hockeyreference/{team}/*-*-*.json"), key=lambda k: datetime.datetime.strptime(k.split("/")[-1][:-5], "%Y-%m-%d"), reverse=True)
+		for file in files:
+			date = file.split("/")[-1][:-5]
+			games = schedule[date]
+			gameSp = [g.split(" @ ") for g in games if team in g.split(" @ ")][0]
+			opp = gameSp[0] if team == gameSp[1] else gameSp[1]
+			if opp not in teamTTOI:
+				teamTTOI[opp] = {"ttoi": [], "oppTTOI": []}
+			with open(file) as fh:
+				stats = json.load(fh)
+			toi = 0
+			for player in stats:
+				if stats[player].get("sv", 0) > 0:
+					toi += stats[player]["toi"]
+			teamTTOI[opp]["oppTTOI"].append(toi)
+			teamTTOI[team]["ttoi"].append(toi)
+
+	res = {}
+	for team in teamTTOI:
+		res[team] = {
+			"ttoi": sum(teamTTOI[team]["ttoi"]),
+			"ttoiL5": sum(teamTTOI[team]["ttoi"][:5]),
+			"ttoiL3": sum(teamTTOI[team]["ttoi"][:3]),
+			"ttoiL1": sum(teamTTOI[team]["ttoi"][:1]),
+			"oppTTOI": sum(teamTTOI[team]["oppTTOI"]),
+			"oppTTOIL5": sum(teamTTOI[team]["oppTTOI"][:5]),
+			"oppTTOIL3": sum(teamTTOI[team]["oppTTOI"][:3]),
+			"oppTTOIL1": sum(teamTTOI[team]["oppTTOI"][:1]),
+		}
+
+	with open(f"{prefix}static/hockeyreference/ttoi.json", "w") as fh:
+		json.dump(res, fh, indent=4)
+
 
 def write_averages():
 	with open(f"{prefix}static/hockeyreference/playerIds.json") as fh:
@@ -373,6 +419,7 @@ if __name__ == "__main__":
 	parser.add_argument("--rankings", help="Rankings", action="store_true")
 	parser.add_argument("--schedule", help="Schedule", action="store_true")
 	parser.add_argument("--totals", help="Totals", action="store_true")
+	parser.add_argument("--ttoi", help="Team TTOI", action="store_true")
 	parser.add_argument("-e", "--end", help="End Week", type=int)
 	parser.add_argument("-w", "--week", help="Week", type=int)
 
@@ -392,9 +439,12 @@ if __name__ == "__main__":
 		write_totals()
 	elif args.rankings:
 		writeRankings()
+	elif args.ttoi:
+		writeTeamTTOI()
 	elif args.averages:
 		write_averages()
 	elif args.cron:
 		write_schedule(date)
 		write_stats(date)
 		writeRankings()
+		writeTeamTTOI()

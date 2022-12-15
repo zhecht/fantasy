@@ -854,7 +854,7 @@ def convertRankingsProp(prop):
 		return "3pt%"
 	elif prop in ["blk", "stl"]:
 		return prop+"pg"
-	elif prop == "pts":
+	elif prop in ["pts", "fgm"]:
 		return "fgpg"
 	return prop[0]+"pg"
 
@@ -869,29 +869,145 @@ def zeroProps():
 		json.dump(data, fh, indent=4)
 
 def convertDKTeam(team):
-	if team == "was":
+	if team.startswith("was"):
 		return "wsh"
-	elif team == "pho":
+	elif team.startswith("pho"):
 		return "phx"
-	elif team == "uta":
+	elif team.startswith("uta"):
 		return "utah"
-	elif team == "sas":
+	elif team.startswith("sas"):
 		return "sa"
-	elif team == "nyk":
+	elif team.startswith("nyk"):
 		return "ny"
-	return team
+	elif team.startswith("la lakers"):
+		return "lal"
+	elif team.startswith("la clippers"):
+		return "lac"
+	return team.split(" ")[0]
+
+def writeTeamProps():
+	url = f"https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/42648/categories/523?format=json"
+	outfile = "out"
+	call(["curl", "-k", url, "-o", outfile])
+
+	with open("out") as fh:
+		data = json.load(fh)
+
+	teamProps = {}
+	events = {}
+	if "eventGroup" not in data:
+		return
+	for event in data["eventGroup"]["events"]:
+		if "teamShortName1" not in event:
+			game = convertDKTeam(event["teamName1"].lower()) + " @ " + convertDKTeam(event["teamName2"].lower())
+		else:
+			game = convertDKTeam(event["teamShortName1"].lower()) + " @ " + convertDKTeam(event["teamShortName2"].lower())
+		if game not in teamProps:
+			teamProps[game] = {}
+		events[event["eventId"]] = game
+
+	for catRow in data["eventGroup"]["offerCategories"]:
+		if catRow["offerCategoryId"] != 523:
+			continue
+		for cRow in catRow["offerSubcategoryDescriptors"]:
+			if cRow["subcategoryId"] != 4609:
+				continue
+			for offerRow in cRow["offerSubcategory"]["offers"]:
+				for row in offerRow:
+					game = events[row["eventId"]]
+					team = convertDKTeam(row["label"].lower())
+					odds1 = row["outcomes"][0]["oddsAmerican"]
+					odds2 = row["outcomes"][1]["oddsAmerican"]
+					if row["outcomes"][0]["label"].lower() == "under":
+						odds1, odds2 = odds2, odds1
+
+					teamProps[game][team] = {
+						"line": row["outcomes"][0]["line"],
+						"odds": ",".join([odds1, odds2])
+					}
+
+	with open(f"{prefix}static/nbaprops/teamProps.json", "w") as fh:
+		json.dump(teamProps, fh, indent=4)
+
+def writeGameLines(date):
+	lines = {}
+	if os.path.exists(f"{prefix}static/nbaprops/lines/{date}.json"):
+		with open(f"{prefix}static/nbaprops/lines/{date}.json") as fh:
+			lines = json.load(fh)
+
+	time.sleep(0.3)
+	url = "https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/42648/categories/487/subcategories/4511?format=json"
+	outfile = "out"
+	call(["curl", "-k", url, "-o", outfile])
+
+	with open("out") as fh:
+		data = json.load(fh)
+
+	events = {}
+	lines = {}
+	displayTeams = {}
+	if "eventGroup" not in data:
+		return
+	for event in data["eventGroup"]["events"]:
+		displayTeams[event["teamName1"].lower()] = event["teamShortName1"].lower()
+		displayTeams[event["teamName2"].lower()] = event["teamShortName2"].lower()
+		if "teamShortName1" not in event:
+			game = convertDKTeam(event["teamName1"].lower()) + " @ " + convertDKTeam(event["teamName2"].lower())
+		else:
+			game = convertDKTeam(event["teamShortName1"].lower()) + " @ " + convertDKTeam(event["teamShortName2"].lower())
+		if game not in lines:
+			lines[game] = {}
+		events[event["eventId"]] = game
+
+	for catRow in data["eventGroup"]["offerCategories"]:
+		if catRow["name"].lower() != "game lines":
+			continue
+		for cRow in catRow["offerSubcategoryDescriptors"]:
+			if cRow["name"].lower() != "game":
+				continue
+			for offerRow in cRow["offerSubcategory"]["offers"]:
+				for row in offerRow:
+					game = events[row["eventId"]]
+					try:
+						gameType = row["label"].lower().split(" ")[-1]
+					except:
+						continue
+
+					switchOdds = False
+					team1 = ""
+					if gameType != "total":
+						outcomeTeam1 = row["outcomes"][0]["label"].lower()
+						team1 = displayTeams[outcomeTeam1]
+						if team1 != game.split(" @ ")[0]:
+							switchOdds = True
+
+					odds = [row["outcomes"][0]["oddsAmerican"], row["outcomes"][1]["oddsAmerican"]]
+					if switchOdds:
+						odds[0], odds[1] = odds[1], odds[0]
+
+					line = row["outcomes"][0].get("line", 0)
+					lines[game][gameType] = {
+						"line": line,
+						"odds": ",".join(odds)
+					}
+
+	with open(f"{prefix}static/nbaprops/lines/{date}.json", "w") as fh:
+		json.dump(lines, fh, indent=4)
 
 def writeH2H():
 	ids = {
 		"pts": 12186,
 		"reb": 12185,
 		"ast": 12184,
-		"3ptm": 12315
+		"3ptm": 12315,
+		"fgm": 12316,
+		"blk": 12317,
+		"to": 12333
 	}
 
 	h2h = {}
 	for prop in ids:
-		time.sleep(0.5)
+		time.sleep(0.3)
 		url = f"https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/42648/categories/1206/subcategories/{ids[prop]}?format=json"
 		outfile = "out"
 		call(["curl", "-k", url, "-o", outfile])
@@ -999,7 +1115,10 @@ def getH2HProps_route():
 				for pIdx, player in enumerate(players):
 					team = game.split(" @ ")[pIdx]
 					if game in propData and player in propData[game]:
-						lines[pIdx] = propData[game][player][prop]["line"]
+						try:
+							lines[pIdx] = propData[game][player][prop]["line"]
+						except:
+							pass
 					playerTeams[pIdx] = team
 					for dt in sorted(playerStats[team], key=lambda k: datetime.strptime(k, "%Y-%m-%d"), reverse=True):
 						if player in playerStats[team][dt] and playerStats[team][dt][player].get("min", 0) > 0:
@@ -1042,14 +1161,14 @@ def getH2HProps_route():
 					rankingsPos2 = "PF"
 				elif rankingsPos2 == "G":
 					rankingsPos2 = "SG"
+				rankingsProp = prop
+				if rankingsProp == "fgm":
+					rankingsProp = "pts"
 
-				if rankingsPos2 in rankings[team1] and prop in rankings[team1][rankingsPos2]:
-					teamRank1 = rankings[team1][rankingsPos2][prop+"_rank"]
-				if rankingsPos1 in rankings[team2] and prop in rankings[team2][rankingsPos1]:
-					teamRank2 = rankings[team2][rankingsPos1][prop+"_rank"]
-
-				if players[1] == "kevin porter jr" and prop == "pts":
-					print(team1,team2,teamRank1,teamRank2)
+				if rankingsPos2 in rankings[team1] and rankingsProp in rankings[team1][rankingsPos2]:
+					teamRank1 = rankings[team1][rankingsPos2][rankingsProp+"_rank"]
+				if rankingsPos1 in rankings[team2] and rankingsProp in rankings[team2][rankingsPos1]:
+					teamRank2 = rankings[team2][rankingsPos1][rankingsProp+"_rank"]
 
 				res.append({
 					"game": game,
@@ -1090,6 +1209,127 @@ def h2hprops_route():
 		players = request.args.get("players")
 	return render_template("h2hnba.html", teams=teams, players=players)
 
+def getAvgSplits(schedule, scores):
+	avgSplits = {}
+	for dt in sorted(scores, key=lambda k: datetime.strptime(k, "%Y-%m-%d"), reverse=True):
+		for team in scores[dt]:
+			currTeams = [g.split(" @ ") for g in schedule[dt] if team in g.split(" @ ")][0]
+			currOpp = currTeams[0] if team == currTeams[1] else currTeams[1]
+
+			if team not in avgSplits:
+				avgSplits[team] = {"lastAll": [], "oppLastAll": [], "winLoss": [[], []], "awayHome": [[], []]}
+			if currOpp not in avgSplits:
+				avgSplits[currOpp] = {"lastAll": [], "oppLastAll": [], "winLoss": [[], []], "awayHome": [[], []]}
+
+			score = scores[dt][team]
+			oppScore = scores[dt][currOpp]
+
+			avgSplits[currTeams[0]]["awayHome"][0].append(scores[dt][currTeams[0]])
+			avgSplits[currTeams[1]]["awayHome"][1].append(scores[dt][currTeams[1]])
+
+			avgSplits[team]["lastAll"].append(score)
+			avgSplits[team]["oppLastAll"].append(oppScore)
+			avgSplits[currOpp]["lastAll"].append(oppScore)
+			avgSplits[currOpp]["oppLastAll"].append(score)
+
+			if score > oppScore:
+				avgSplits[team]["winLoss"][0].append(score)
+				avgSplits[currOpp]["winLoss"][1].append(oppScore)
+			else:
+				avgSplits[team]["winLoss"][1].append(score)
+				avgSplits[currOpp]["winLoss"][0].append(oppScore)
+	return avgSplits
+
+@nbaprops_blueprint.route('/getNBATeamProps')
+def getNBATeam_route():
+	res = []
+
+	teamsArg = request.args.get("teams") or ""
+	if teamsArg:
+		teamsArg = teamsArg.lower().split(",")
+
+	date = datetime.now()
+	date = str(date)[:10]
+	if request.args.get("date"):
+		date = request.args.get("date")
+
+	with open(f"{prefix}static/basketballreference/scores.json") as fh:
+		scores = json.load(fh)
+	with open(f"{prefix}static/basketballreference/schedule.json") as fh:
+		schedule = json.load(fh)
+	with open(f"{prefix}static/nbaprops/teamProps.json") as fh:
+		teamProps = json.load(fh)
+	with open(f"{prefix}static/nbaprops/lines/{date}.json") as fh:
+		gameLines = json.load(fh)
+
+	avgSplits = getAvgSplits(schedule, scores)
+
+	res = []
+	for game in teamProps:
+		gameSp = game.split(" @ ")
+		for team in teamProps[game]:
+			opp = gameSp[0] if team == gameSp[1] else gameSp[1]
+			line = teamProps[game][team]["line"]
+			odds = teamProps[game][team]["odds"].split(",")
+
+			lastAll = avgSplits[team]["lastAll"]
+			oppLastAll = avgSplits[opp]["oppLastAll"]
+			winSplitAvg = lossSplitAvg = 0
+			winLossSplits = avgSplits[team]["winLoss"]
+			if len(winLossSplits[0]):
+				winSplitAvg = round(sum(winLossSplits[0]) / len(winLossSplits[0]),2)
+			if len(winLossSplits[1]):
+				lossSplitAvg = round(sum(winLossSplits[1]) / len(winLossSplits[1]),2)
+			winLoss = f"{winSplitAvg} - {lossSplitAvg}"
+
+			awaySplitAvg = homeSplitAvg = 0
+			awayHomeSplits = avgSplits[team]["awayHome"]
+			if len(awayHomeSplits[0]):
+				awaySplitAvg = round(sum(awayHomeSplits[0]) / len(awayHomeSplits[0]),2)
+			if len(awayHomeSplits[1]):
+				homeSplitAvg = round(sum(awayHomeSplits[1]) / len(awayHomeSplits[1]),2)
+			awayHome = f"{awaySplitAvg} - {homeSplitAvg}"
+
+			gameLine = ""
+			if game in gameLines:
+				gameOdds = gameLines[game]["moneyline"]["odds"].split(",")
+				if team == game.split(" @ ")[0]:
+					gameLine = gameOdds[0]
+				else:
+					gameLine = gameOdds[1]
+
+			res.append({
+				"team": team,
+				"ppg": round(sum(lastAll) / len(lastAll), 1),
+				"ppgL10": round(sum(lastAll[:10]) / len(lastAll[:10]), 1),
+				"ppgL5": round(sum(lastAll[:5]) / len(lastAll[:5]), 1),
+				"ppgL1": round(sum(lastAll[:1]) / len(lastAll[:1]), 1),
+				"oppPPGA": round(sum(oppLastAll) / len(oppLastAll), 1),
+				"oppPPGAL10": round(sum(oppLastAll[:10]) / len(oppLastAll[:10]), 1),
+				"oppPPGAL5": round(sum(oppLastAll[:5]) / len(oppLastAll[:5]), 1),
+				"oppPPGAL1": round(sum(oppLastAll[:1]) / len(oppLastAll[:1]), 1),
+				"opp": opp,
+				"line": line,
+				"game": game,
+				"over": odds[0],
+				"under": odds[1],
+				"ML": gameLine,
+				"last10": ",".join([str(x) for x in lastAll[:10]]),
+				"winLossSplits": winLoss,
+				"awayHomeSplits": awayHome,
+				"totalOver": round(len([x for x in lastAll if x > line]) * 100 / len(lastAll)),
+				"oppTotalOver": round(len([x for x in oppLastAll if x > line]) * 100 / len(oppLastAll)),
+			})
+
+	return jsonify(res)
+
+@nbaprops_blueprint.route('/teamsnba')
+def teamsnba_route():
+	teams = players = ""
+	if request.args.get("teams"):
+		teams = request.args.get("teams")
+	return render_template("teamsnba.html", teams=teams)
+
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-c", "--cron", action="store_true", help="Start Cron Job")
@@ -1097,6 +1337,8 @@ if __name__ == "__main__":
 	parser.add_argument("--alts", help="Alts", action="store_true")
 	parser.add_argument("--zero", help="Zero CustomProp Odds", action="store_true")
 	parser.add_argument("--lineups", help="Lineups", action="store_true")
+	parser.add_argument("--lines", action="store_true", help="Game Lines")
+	parser.add_argument("--teamProps", help="Team Props", action="store_true")
 	parser.add_argument("--skip-lineups", help="Skip Lineups", action="store_true")
 	parser.add_argument("--h2h", help="H2H", action="store_true")
 	parser.add_argument("-w", "--week", help="Week", type=int)
@@ -1112,11 +1354,16 @@ if __name__ == "__main__":
 		if not args.skip_lineups:
 			writeLineups()
 		writeProps(date)
+		writeTeamProps()
 		writeH2H()
 	elif args.alts:
 		writeAlts()
 	elif args.h2h:
 		writeH2H()
+	elif args.lines:
+		writeGameLines(date)
+	elif args.teamProps:
+		writeTeamProps()
 	elif args.lineups:
 		writeLineups()
 	elif args.zero:

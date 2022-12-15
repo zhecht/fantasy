@@ -57,6 +57,8 @@ def getProps_route():
 		lastYearStats = json.load(fh)
 	with open(f"{prefix}static/hockeyreference/schedule.json") as fh:
 		schedule = json.load(fh)
+	with open(f"{prefix}static/hockeyreference/ttoi.json") as fh:
+		ttoi = json.load(fh)
 	with open(f"{prefix}static/nhlprops/lines.json") as fh:
 		gameLines = json.load(fh)
 	with open(f"{prefix}static/nhlprops/goalies.json") as fh:
@@ -65,6 +67,7 @@ def getProps_route():
 		expected = json.load(fh)
 
 	goalieLines(propData)
+
 	allGoalies = {}
 	for game in propData:
 		teamSp = game.split(" @ ")
@@ -153,6 +156,7 @@ def getProps_route():
 					lastTotalOver = round((lastTotalOver / lastTotalGames) * 100)
 
 				winLossSplits = [[],[]]
+				awayHomeSplits = [[],[]]
 				totalOver = totalOverLast5 = totalGames = 0
 				last5 = []
 				hit = False
@@ -162,6 +166,7 @@ def getProps_route():
 						chkDate = file.split("/")[-1].replace(".json","")
 						with open(file) as fh:
 							gameStats = json.load(fh)
+
 						if name in gameStats:
 							minutes = gameStats[name]["toi"]
 							if minutes > 0:
@@ -173,10 +178,15 @@ def getProps_route():
 									val = gameStats[name][convertedProp]
 
 								pastOpp = ""
+								teamIsAway = False
 								for g in schedule[chkDate]:
 									gameSp = g.split(" @ ")
 									if team in gameSp:
-										pastOpp = gameSp[0] if team == gameSp[1] else gameSp[1]
+										if team == gameSp[0]:
+											teamIsAway = True
+											pastOpp = gameSp[1]
+										else:
+											pastOpp = gameSp[0]
 										break
 
 								if chkDate == date:
@@ -199,6 +209,12 @@ def getProps_route():
 									winLossVal *= 60
 								else:
 									winLossVal *= avgMin
+
+								if teamIsAway:
+									awayHomeSplits[0].append(val)
+								else:
+									awayHomeSplits[1].append(val)
+
 								if teamScore > oppScore:
 									winLossSplits[0].append(winLossVal)
 								elif teamScore < oppScore:
@@ -231,6 +247,13 @@ def getProps_route():
 				if len(winLossSplits[1]):
 					lossSplitAvg = round(sum(winLossSplits[1]) / len(winLossSplits[1]),2)
 				winLoss = f"{winSplitAvg} - {lossSplitAvg}"
+
+				awaySplitAvg = homeSplitAvg = 0
+				if len(awayHomeSplits[0]):
+					awaySplitAvg = round(sum(awayHomeSplits[0]) / len(awayHomeSplits[0]),2)
+				if len(awayHomeSplits[1]):
+					homeSplitAvg = round(sum(awayHomeSplits[1]) / len(awayHomeSplits[1]),2)
+				awayHome = f"{awaySplitAvg} - {homeSplitAvg}"
 
 				oppOver = oppOverTot = 0
 				if prop == "sv":
@@ -276,6 +299,9 @@ def getProps_route():
 						except:
 							gsaa = "-"
 
+				if player == "cam talbot":
+					print(team,rankings[team]["tot"]["SV/GP"], (rankings[team]["tot"]["SV/GP"]*ttoi[team]["ttoi"])/(60*rankings[team]["tot"]["GP"]))
+
 				props.append({
 					"player": player.title(),
 					"team": team.upper(),
@@ -294,24 +320,34 @@ def getProps_route():
 					"oppOver": oppOver,
 					"gameLine": gameLine,
 					"winLossSplits": winLoss,
+					"awayHome": "A" if team == game.split(" @ ")[0] else "H",
+					"awayHomeSplits": awayHome,
 					"savesAboveExp": savesAboveExp,
 					"gsaa": gsaa,
-					"ptsPerGame": round((rankings[team]["tot"]["G"] / rankings[team]["tot"]["GP"]) + rankings[team]["tot"]["A/GP"], 1),
-					"ptsPerGameLast5": round((rankings[team]["last5"]["G"] / rankings[team]["last5"]["GP"]) + rankings[team]["last5"]["A/GP"], 1),
-					"savesPerGame": round(rankings[team]["tot"]["SA/GP"]-rankings[team]["tot"]["GA"]/rankings[team]["tot"]["GP"], 1),
-					"savesPerGameLast1": round(rankings[team]["last1"]["SA"]-rankings[team]["last1"]["GA"], 1),
-					"savesPerGameLast3": round(rankings[team]["last3"]["SA/GP"]-rankings[team]["last3"]["GA"]/rankings[team]["last3"]["GP"], 1),
-					"savesPerGameLast5": round(rankings[team]["last5"]["SA/GP"]-rankings[team]["last5"]["GA"]/rankings[team]["last5"]["GP"], 1),
+					#"ptsPerGame": round((rankings[team]["tot"]["G"] / rankings[team]["tot"]["GP"]) + rankings[team]["tot"]["A/GP"], 1),
+					#"ptsPerGameLast5": round((rankings[team]["last5"]["G"] / rankings[team]["last5"]["GP"]) + rankings[team]["last5"]["A/GP"], 1),
+					"savesPerGame": round(rankings[team]["tot"]["SV/GP"], 1),
+					"savesPerGameLast1": round(rankings[team]["last1"]["SV/GP"], 1),
+					"savesPerGameLast3": round(rankings[team]["last3"]["SV/GP"], 1),
+					"savesPerGameLast5": round(rankings[team]["last5"]["SV/GP"], 1),
+					"savesPer60": round((rankings[team]["tot"]["SV/GP"]*ttoi[team]["ttoi"])/(60*rankings[team]["tot"]["GP"]), 1),
+					"savesPer60Last1": round((rankings[team]["last1"]["SV/GP"]*ttoi[team]["ttoiL1"])/(60*rankings[team]["last1"]["GP"]), 1),
+					"savesPer60Last3": round((rankings[team]["last3"]["SV/GP"]*ttoi[team]["ttoiL3"])/(60*rankings[team]["last3"]["GP"]), 1),
+					"savesPer60Last5": round((rankings[team]["last5"]["SV/GP"]*ttoi[team]["ttoiL5"])/(60*rankings[team]["last5"]["GP"]), 1),
 					"shotsPerGame": round(rankings[team]["tot"]["S/GP"], 1),
 					"shotsPerGameLast5": round(rankings[team]["last5"]["S/GP"], 1),
 					"shotsAgainstPerGame": round(rankings[team]["tot"]["SA/GP"], 1),
 					"shotsAgainstPerGameLast5": round(rankings[team]["last5"]["SA/GP"], 1),
-					"oppPtsPerGame": round((rankings[opp]["tot"]["GA"] / rankings[opp]["tot"]["GP"]) + (rankings[opp]["tot"]["OPP A"] / rankings[opp]["tot"]["GP"]), 1),
-					"oppPtsPerGameLast5": round((rankings[opp]["last5"]["GA"] / rankings[opp]["last5"]["GP"]) + (rankings[opp]["last5"]["OPP A"] / rankings[opp]["last5"]["GP"]), 1),
-					"oppSavesAgainstPerGame": round(rankings[opp]["tot"]["S/GP"]-rankings[opp]["tot"]["G"]/rankings[opp]["tot"]["GP"], 1),
-					"oppSavesAgainstPerGameLast1": round(rankings[opp]["last1"]["S"], 1),
-					"oppSavesAgainstPerGameLast3": round(rankings[opp]["last3"]["S/GP"]-rankings[opp]["last3"]["G"]/rankings[opp]["last3"]["GP"], 1),
-					"oppSavesAgainstPerGameLast5": round(rankings[opp]["last5"]["S/GP"]-rankings[opp]["last5"]["G"]/rankings[opp]["last5"]["GP"], 1),
+					#"oppPtsPerGame": round((rankings[opp]["tot"]["GA"] / rankings[opp]["tot"]["GP"]) + (rankings[opp]["tot"]["OPP A"] / rankings[opp]["tot"]["GP"]), 1),
+					#"oppPtsPerGameLast5": round((rankings[opp]["last5"]["GA"] / rankings[opp]["last5"]["GP"]) + (rankings[opp]["last5"]["OPP A"] / rankings[opp]["last5"]["GP"]), 1),
+					"oppSavesAgainstPerGame": round(rankings[opp]["tot"]["OPP SV/GP"], 1),
+					"oppSavesAgainstPerGameLast1": round(rankings[opp]["last1"]["OPP SV/GP"], 1),
+					"oppSavesAgainstPerGameLast3": round(rankings[opp]["last3"]["OPP SV/GP"], 1),
+					"oppSavesAgainstPerGameLast5": round(rankings[opp]["last5"]["OPP SV/GP"], 1),
+					"oppSavesAgainstPer60": round((rankings[opp]["tot"]["OPP SV/GP"]*ttoi[opp]["oppTTOI"])/(60*rankings[opp]["tot"]["GP"]), 1),
+					"oppSavesAgainstPer60Last1": round((rankings[opp]["last1"]["OPP SV/GP"]*ttoi[opp]["oppTTOIL1"])/(60*rankings[opp]["last1"]["GP"]), 1),
+					"oppSavesAgainstPer60Last3": round((rankings[opp]["last3"]["OPP SV/GP"]*ttoi[opp]["oppTTOIL3"])/(60*rankings[opp]["last3"]["GP"]), 1),
+					"oppSavesAgainstPer60Last5": round((rankings[opp]["last5"]["OPP SV/GP"]*ttoi[opp]["oppTTOIL5"])/(60*rankings[opp]["last5"]["GP"]), 1),
 					"oppShotsAgainstPerGame": round(rankings[opp]["tot"]["SA/GP"], 1),
 					"oppShotsAgainstPerGameLast5": round(rankings[opp]["last5"]["SA/GP"], 1),
 					"totalOver": totalOver,
@@ -325,6 +361,7 @@ def getProps_route():
 	teamTotals()
 	write_csvs(props)
 	return jsonify(props)
+
 
 def teamTotals():
 	today = datetime.now()
@@ -475,6 +512,7 @@ def writeGameLines(date):
 	with open(f"{prefix}static/nhlprops/lines.json") as fh:
 		lines = json.load(fh)
 
+	time.sleep(0.3)
 	url = "https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/42133?format=json"
 	outfile = "out"
 	call(["curl", "-k", url, "-o", outfile])
@@ -530,6 +568,7 @@ def writeGameLines(date):
 
 def writeGoalieProps(date):
 
+	time.sleep(0.3)
 	url = "https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/42133/categories/1064?format=json"
 	outfile = "out"
 	call(["curl", "-k", url, "-o", outfile])
