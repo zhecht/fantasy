@@ -367,6 +367,8 @@ def convertDKTeam(team):
 		return "mvsu"
 	elif team == "nc cent":
 		return "nccu"
+	elif team == "or st":
+		return "orst"
 	elif team == "ind":
 		return "iu"
 	elif team == "g'town":
@@ -395,11 +397,11 @@ def convertDKTeam(team):
 
 def writeProps(date):
 	ids = {
-		"pts": 4991,
-		"reb": 4992,
-		"ast": 5000,
-		"pts+reb+ast": 5001,
-		"3ptm": 6209
+		"pts": [1215, 12488],
+		"reb": [1216, 12492],
+		"ast": [1217, 12495],
+		"pts+reb+ast": [583, 5001],
+		"3ptm": [1218, 12497]
 	}
 
 	props = {}
@@ -408,8 +410,8 @@ def writeProps(date):
 			props = json.load(fh)
 
 	for prop in ids:
-		time.sleep(0.5)
-		url = f"https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/92483/categories/583/subcategories/{ids[prop]}?format=json"
+		time.sleep(0.4)
+		url = f"https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/92483/categories/{ids[prop][0]}/subcategories/{ids[prop][1]}?format=json"
 		outfile = "out"
 		call(["curl", "-k", url, "-o", outfile])
 
@@ -433,10 +435,10 @@ def writeProps(date):
 			events[event["eventId"]] = game
 
 		for catRow in data["eventGroup"]["offerCategories"]:
-			if not catRow["name"].lower() == "player props":
+			if catRow["offerCategoryId"] != ids[prop][0]:
 				continue
 			for cRow in catRow["offerSubcategoryDescriptors"]:
-				if cRow["subcategoryId"] != ids[prop]:
+				if cRow["subcategoryId"] != ids[prop][1]:
 					continue
 				for offerRow in cRow["offerSubcategory"]["offers"]:
 					for row in offerRow:
@@ -483,6 +485,13 @@ def writeTranslations(date):
 
 	with open(f"{prefix}static/ncaabreference/translations.json", "w") as fh:
 		json.dump(translations, fh, indent=4)
+
+@ncaabprops_blueprint.route('/ncaabprops')
+def props_route():
+	teams = request.args.get("teams") or ""
+	date = request.args.get("date") or ""
+	prop = request.args.get("prop") or ""
+	return render_template("ncaabprops.html", teams=teams, date=date, prop=prop)
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
@@ -536,11 +545,3 @@ if __name__ == "__main__":
 
 		with open(f"static/ncaabprops/dates/{date}.json", "w") as fh:
 			json.dump(newProps, fh, indent=4)
-
-
-@ncaabprops_blueprint.route('/ncaabprops')
-def props_route():
-	teams = request.args.get("teams") or ""
-	date = request.args.get("date") or ""
-	prop = request.args.get("prop") or ""
-	return render_template("ncaabprops.html", teams=teams, date=date, prop=prop)

@@ -102,7 +102,7 @@
                 	last = last[last.length-1];
                     const overLine = Math.round(data.line);
                     const svPerGm = [];
-                    for (val of [data.savesPerGame, data.savesPerGameLast5, data.savesPerGameLast3, data.savesPerGameLast1]) {
+                    for (val of [data.savesPer60, data.savesPer60Last5, data.savesPer60Last3, data.savesPer60Last1]) {
                     	if (val >= data.line) {
                     		svPerGm.push("**"+val+"**");
                     	} else {
@@ -110,7 +110,7 @@
                     	}
                     }
                     const oppSvAgainstPerGm = [];
-                    for (val of [data.oppSavesAgainstPerGame, data.oppSavesAgainstPerGameLast5, data.oppSavesAgainstPerGameLast3, data.oppSavesAgainstPerGameLast1]) {
+                    for (val of [data.oppSavesAgainstPer60, data.oppSavesAgainstPer60Last5, data.oppSavesAgainstPer60Last3, data.oppSavesAgainstPer60Last1]) {
                     	if (val >= data.line) {
                     		oppSvAgainstPerGm.push("**"+val+"**");
                     	} else {
@@ -130,13 +130,13 @@
                     	lossSplits = "**"+lossSplits+"**";
                     }
                     s += data.team+" "+data.player+"\n";
-                    s += "> "+data.team+" sv/gm (szn, L5, L3, L1): "+[svPerGm].join(", ")+"  \n";
-                    s += "> "+data.opponent+" sv against/gm: "+[oppSvAgainstPerGm].join(", ")+"  \n";
+                    s += "> "+data.team+" sv/60m (szn, L5, L3, L1): "+[svPerGm].join(", ")+"  \n";
+                    s += "> "+data.opponent+" sv against/60m: "+[oppSvAgainstPerGm].join(", ")+"  \n";
                     s += "> Avg: "+avg+". W-L splits: "+winSplits+" - "+lossSplits+". "+data.team+" ML odds: "+data.gameLine+"  \n";
                     s += "> "+last+" has had "+overLine+"+ saves in "+data.totalOver+"% of games this season and "+data.lastTotalOver+"% of games last season  \n";
                     s += "> Goalies playing "+data.opponent+" have had "+overLine+"+ saves in "+data.oppOver+"% of games this year  \n";
                     s += "> Goals Saved Above Average: "+data.gsaa+"  \n";
-                    s += "> Saves Above Expected Per 60: "+data.savesAboveExp+"  \n";
+                    s += "> Saves Above Expected Per 60m: "+data.savesAboveExp+"  \n";
                     s += "\n\n";
                 }
                 alert(s);
@@ -268,7 +268,7 @@
 				TABLE = new Tabulator("#propsTable", {
 					tooltipsHeader: true,
 					ajaxURL: "/getNHLProps",
-					ajaxParams:{alt: "{{alt}}", date: "{{date}}", teams: "{{teams}}"},
+					ajaxParams:{alt: "{{alt}}", date: "{{date}}", teams: "{{teams}}", players: "{{players}}"},
 					//responsiveLayout:"collapse",
 					//layout: "fitDataFill",
 					//layout: window.innerWidth <= 450 ? "fitData" : "fitColumns",
@@ -329,17 +329,21 @@
 						{title: "Player", field: "player", headerFilter: "input"},
 						{title: "Avg Min", field: "avgMin", hozAlign: "center", width: 70},
 						{title: "ML", field: "gameLine",  hozAlign: "center", width: 70},
-						{title: "A/H", field: "awayHome",  hozAlign: "center", width: 50},
+						{title: "A/H", field: "awayHome",  hozAlign: "center", width: 50, visible: false},
 						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
 						//{title: "PTS/G", field: "ptsPerGame", hozAlign: "center", width: 70},
 						//{title: "L5 PTS/G", field: "ptsPerGameLast5", hozAlign: "center", width: 70},
 						{title: "S/G", field: "shotsPerGame", hozAlign: "center", width: 70, visible: false},
 						{title: "L5 S/G", field: "shotsPerGameLast5", hozAlign: "center", width: 70, visible: false},
+						{title: "Proj", field: "savesProj", formatter: colorFormatter, hozAlign: "center", width: 70, sorter:"number", visible: false},
+						{title: "Proj L5", field: "savesProjLast5", formatter: colorFormatter, hozAlign: "center", width: 70, sorter:"number", visible: false},
 						{title: "SV/G", field: "savesPer60", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number", visible: false},
 						{title: "L5 SV/G", field: "savesPer60Last5", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number", visible: false},
 						{title: "L3 SV/G", field: "savesPer60Last3", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number", visible: false},
 						{title: "L1 SV/G", field: "savesPer60Last1", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number", visible: false},
 						{title: "Opp", field: "opponent", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
+						{title: "Proj", field: "oppSavesAgainstProj", formatter: colorFormatter, hozAlign: "center", width: 70, sorter:"number", visible: false},
+						{title: "ProjL5", field: "oppSavesAgainstProjLast5", formatter: colorFormatter, hozAlign: "center", width: 70, sorter:"number", visible: false},
 						{title: "Opp Saves_A/G", field: "oppSavesAgainstPer60", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number", visible: false},
 						{title: "L5 Opp Saves_A/G", field: "oppSavesAgainstPer60Last5", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number", visible: false},
 						{title: "L3 Opp Saves_A/G", field: "oppSavesAgainstPer60Last3", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number", visible: false},
@@ -383,6 +387,10 @@
 		{% endif %}
 		{% if prop == "sv" %}
 			<script>
+				TABLE.getColumn("savesProj").show();
+				TABLE.getColumn("savesProjLast5").show();
+				TABLE.getColumn("oppSavesAgainstProj").show();
+				TABLE.getColumn("oppSavesAgainstProjLast5").show();
 				TABLE.getColumn("savesPer60").show();
 				TABLE.getColumn("savesPer60Last1").show();
 				TABLE.getColumn("savesPer60Last3").show();
@@ -396,6 +404,19 @@
 				TABLE.getColumn("propType").hide();
 			</script>
 		{% endif %}
+		<script>
+			const bets = "{{bets}}".split(",");
+
+			setTimeout(function() {
+				let rows = TABLE.getRows("active");
+				for (row of rows) {
+					const data = row.getData();
+					if (bets.indexOf(data.player.toLowerCase()) >= 0) {
+						row.select();
+					}
+				}
+			}, 7000);
+		</script>
 		{% if date == "" %}
 			<script>
 				TABLE.getColumn("hit").hide();

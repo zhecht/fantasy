@@ -247,21 +247,18 @@ def writeLineups():
 
 def writeProps(date):
 	ids = {
-		"pts": 4991,
-		"reb": 4992,
-		"ast": 5000,
-		"pts+reb+ast": 5001,
-		"pts+reb": 9976,
-		"pts+ast": 9973,
-		"reb+ast": 9974,
-		"stl+blk": 9975,
-		"3ptm": 6209,
-		"blk": 7346,
-		"stl": 9971,
-		"to": 7965,
-		"pts-1q": 12408,
-		"reb-1q": 12409,
-		"ast-1q": 12410
+		"pts": [1215, 12488],
+		"reb": [1216, 12492],
+		"ast": [1217, 12495],
+		"pts+reb+ast": [583, 5001],
+		"pts+reb": [583, 9976],
+		"pts+ast": [583, 9973],
+		"reb+ast": [583, 9974],
+		"stl+blk": [1219, 12502],
+		"3ptm": [1218, 12497],
+		"blk": [1219, 12499],
+		"stl": [1219, 12500],
+		"to": [1220, 12504]
 	}
 
 	props = {}
@@ -271,7 +268,7 @@ def writeProps(date):
 
 	for prop in ids:
 		time.sleep(0.5)
-		url = f"https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/42648/categories/583/subcategories/{ids[prop]}?format=json"
+		url = f"https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/42648/categories/{ids[prop][0]}/subcategories/{ids[prop][1]}?format=json"
 		outfile = "out"
 		call(["curl", "-k", url, "-o", outfile])
 
@@ -295,10 +292,10 @@ def writeProps(date):
 			events[event["eventId"]] = game
 
 		for catRow in data["eventGroup"]["offerCategories"]:
-			if not catRow["name"].lower() == "player props":
+			if catRow["offerCategoryId"] != ids[prop][0]:
 				continue
 			for cRow in catRow["offerSubcategoryDescriptors"]:
-				if cRow["subcategoryId"] != ids[prop]:
+				if cRow["subcategoryId"] != ids[prop][1]:
 					continue
 				for offerRow in cRow["offerSubcategory"]["offers"]:
 					for row in offerRow:
@@ -311,6 +308,8 @@ def writeProps(date):
 							player = "nic claxton"
 						elif player == "marvin bagley":
 							player = "marvin bagley iii"
+						elif player == "jabari smith":
+							player = "jabari smith jr"
 						odds = ["",""]
 						line = row["outcomes"][0]["line"]
 						for outcome in row["outcomes"]:
@@ -1016,8 +1015,8 @@ def writeGameLines(date):
 	if "eventGroup" not in data:
 		return
 	for event in data["eventGroup"]["events"]:
-		displayTeams[event["teamName1"].lower()] = event["teamShortName1"].lower()
-		displayTeams[event["teamName2"].lower()] = event["teamShortName2"].lower()
+		displayTeams[event["teamName1"].lower()] = event.get("teamShortName1", "").lower()
+		displayTeams[event["teamName2"].lower()] = event.get("teamShortName2", "").lower()
 		if "teamShortName1" not in event:
 			game = convertDKTeam(event["teamName1"].lower()) + " @ " + convertDKTeam(event["teamName2"].lower())
 		else:
@@ -1063,20 +1062,19 @@ def writeGameLines(date):
 
 def writeH2H():
 	ids = {
-		"pts": 12186,
-		"reb": 12185,
-		"ast": 12184,
-		"3ptm": 12315,
-		"fgm": 12316,
-		"blk": 12317,
-		"to": 12333
+		"pts": [1215, 12491],
+		"reb": [1216, 12493],
+		"ast": [1217, 12496],
+		"3ptm": [1218, 12498],
+		"fgm": [1221, 12586],
+		"to": [1220, 12505]
 	}
 
 	h2h = {}
 
 	for prop in ids:
 		time.sleep(0.3)
-		url = f"https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/42648/categories/1206/subcategories/{ids[prop]}?format=json"
+		url = f"https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/42648/categories/{ids[prop][0]}/subcategories/{ids[prop][1]}?format=json"
 		outfile = "out"
 		call(["curl", "-k", url, "-o", outfile])
 
@@ -1087,20 +1085,26 @@ def writeH2H():
 		if "eventGroup" not in data:
 			continue
 		for event in data["eventGroup"]["events"]:
-			game = convertDKTeam(event["teamShortName1"].lower()) + " @ " + convertDKTeam(event["teamShortName2"].lower())
+			if "teamShortName1" not in event:
+				game = convertDKTeam(event["teamName1"].lower()) + " @ " + convertDKTeam(event["teamName2"].lower())
+			else:
+				game = convertDKTeam(event["teamShortName1"].lower()) + " @ " + convertDKTeam(event["teamShortName2"].lower())
 			if game not in h2h:
 				h2h[game] = {}
 			events[event["eventId"]] = game
 
 		for catRow in data["eventGroup"]["offerCategories"]:
-			if not catRow["name"].lower().startswith("h2h"):
+			if catRow["offerCategoryId"] != ids[prop][0]:
 				continue
 			for cRow in catRow["offerSubcategoryDescriptors"]:
-				if cRow["subcategoryId"] == ids[prop]:
+				if cRow["subcategoryId"] == ids[prop][1]:
 					for offerRow in cRow["offerSubcategory"]["offers"]:
 						for row in offerRow:
 							game = events[row["eventId"]]
-							player1 = row["outcomes"][0]["label"].lower().replace(".", "").replace("'", "").replace("-", " ")
+							try:
+								player1 = row["outcomes"][0]["label"].lower().replace(".", "").replace("'", "").replace("-", " ")
+							except:
+								continue
 							odds1 = row["outcomes"][0]["oddsAmerican"]
 							player2 = row["outcomes"][1]["label"].lower().replace(".", "").replace("'", "").replace("-", " ")
 							odds2 = row["outcomes"][1]["oddsAmerican"]
