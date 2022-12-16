@@ -82,6 +82,11 @@ def getSplits(rankings, schedule, ttoi, dateArg):
 			for player in oppStats:
 				oppSavesAgainst += oppStats[player].get("sv", 0)
 			
+			if saves == 0:
+				print(team,date,saves)
+			if oppSavesAgainst == 0:
+				print(opp,date,oppSavesAgainst)
+
 			oppSvAgainstPer60 = splits[opp]["oppSavesAgainstPer60"]
 			savesAboveAvg.append((saves / oppSvAgainstPer60) - 1)
 
@@ -272,7 +277,7 @@ def getProps_route():
 								if float(val) > float(line):
 									if chkDate != date:
 										totalOver += 1
-										if len(last5) <= 5:
+										if len(last5) < 5:
 											totalOverLast5 += 1
 
 								if len(last5) < 10:
@@ -459,7 +464,7 @@ def props_route():
 	if request.args.get("players"):
 		players = request.args.get("players")
 
-	bets = ",".join(["logan thompson", "stuart skinner", "alexandar georgiev", "pyotr kochetkov", "juuse saros", "daniil tarasov", "sergei bobrovsky", "jordan binnington", "jake oettinger", "igor shesterkin", "carter hart", "charlie lindgren", "linus ullmark"])
+	bets = ",".join(["ilya sorokin", "jacob markstrom"])
 	return render_template("nhlprops.html", prop=prop, alt=alt, date=date, teams=teams, bets=bets, players=players)
 
 def teamTotals():

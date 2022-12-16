@@ -390,6 +390,8 @@ def write_schedule(date):
 			homeTeam = tds[1].findAll("a")[-1].get("href").split("/")[-2]
 			boxscore = tds[2].find("a").get("href")
 			score = tds[2].find("a").text.strip()
+			if score.lower() == "postponed":
+				continue
 			if ", " in score and os.path.exists(f"{prefix}static/hockeyreference/{awayTeam}/{date}.json"):
 				scoreSp = score.replace(" (SO)", "").replace(" (OT)", "").split(", ")
 				if awayTeam == scoreSp[0].split(" ")[0].lower():

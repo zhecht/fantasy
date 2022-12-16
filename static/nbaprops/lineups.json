@@ -1,89 +1,485 @@
 {
-    "mia": {
+    "sac": {
         "starters": {
-            "tyler herro": {
+            "deaaron fox": {
                 "pos": "PG",
                 "inj": "-",
-                "avgMin": 34,
-                "ppg": 20.2,
-                "apg": 4.2,
-                "rpg": 6.3
-            },
-            "max strus": {
-                "pos": "SG",
-                "inj": "-",
                 "avgMin": 31,
-                "ppg": 13.5,
-                "apg": 1.6,
-                "rpg": 3.4
+                "ppg": 22.5,
+                "apg": 5.6,
+                "rpg": 5.0
             },
-            "caleb martin": {
+            "kevin huerter": {
+                "pos": "SG",
+                "inj": "GTD",
+                "avgMin": 31,
+                "ppg": 15.3,
+                "apg": 3.2,
+                "rpg": 3.2
+            },
+            "harrison barnes": {
                 "pos": "SF",
                 "inj": "-",
-                "avgMin": 32,
-                "ppg": 11.0,
-                "apg": 2.0,
-                "rpg": 4.8
+                "avgMin": 31,
+                "ppg": 13.7,
+                "apg": 1.9,
+                "rpg": 5.3
             },
-            "jimmy butler": {
+            "keegan murray": {
                 "pos": "PF",
                 "inj": "-",
-                "avgMin": 35,
-                "ppg": 21.7,
-                "apg": 5.9,
-                "rpg": 6.7
+                "avgMin": 28,
+                "ppg": 11.6,
+                "apg": 0.8,
+                "rpg": 4.0
             },
-            "udonis haslem": {
+            "domantas sabonis": {
                 "pos": "C",
                 "inj": "-",
-                "avgMin": 5,
-                "ppg": 0.8,
-                "apg": 0.0,
-                "rpg": 1.0
+                "avgMin": 32,
+                "ppg": 17.5,
+                "apg": 6.4,
+                "rpg": 11.6
             }
         },
         "injuries": {
-            "bam adebayo": {
+            "kevin huerter": {
+                "pos": "G",
+                "inj": "GTD",
+                "avgMin": 31,
+                "ppg": 15.3,
+                "apg": 3.2,
+                "rpg": 3.2
+            },
+            "alex len": {
                 "pos": "C",
                 "inj": "OUT",
-                "avgMin": 34,
-                "ppg": 20.6,
-                "apg": 3.3,
-                "rpg": 9.7
-            },
-            "dewayne dedmon": {
-                "pos": "C",
-                "inj": "OUT",
-                "avgMin": 12,
-                "ppg": 6.6,
-                "apg": 0.6,
-                "rpg": 3.8
-            },
-            "kyle lowry": {
-                "pos": "G",
-                "inj": "OUT",
-                "avgMin": 36,
-                "ppg": 14.0,
-                "apg": 5.9,
-                "rpg": 4.7
-            },
-            "victor oladipo": {
-                "pos": "G",
-                "inj": "OUT",
-                "avgMin": 22,
-                "ppg": 8.6,
-                "apg": 2.8,
-                "rpg": 3.0
-            },
-            "gabe vincent": {
-                "pos": "G",
-                "inj": "OUT",
+                "avgMin": 3,
+                "ppg": 1.4,
+                "apg": 0.2,
+                "rpg": 1.1
+            }
+        }
+    },
+    "det": {
+        "starters": {
+            "killian hayes": {
+                "pos": "PG",
+                "inj": "-",
                 "avgMin": 24,
-                "ppg": 8.8,
-                "apg": 2.9,
+                "ppg": 8.7,
+                "apg": 5.2,
+                "rpg": 2.8
+            },
+            "jaden ivey": {
+                "pos": "SG",
+                "inj": "-",
+                "avgMin": 30,
+                "ppg": 15.2,
+                "apg": 4.0,
+                "rpg": 4.4
+            },
+            "bojan bogdanovic": {
+                "pos": "SF",
+                "inj": "-",
+                "avgMin": 31,
+                "ppg": 21.1,
+                "apg": 2.4,
+                "rpg": 3.7
+            },
+            "isaiah stewart": {
+                "pos": "PF",
+                "inj": "-",
+                "avgMin": 28,
+                "ppg": 12.0,
+                "apg": 1.2,
+                "rpg": 8.7
+            },
+            "jalen duren": {
+                "pos": "C",
+                "inj": "-",
+                "avgMin": 22,
+                "ppg": 6.6,
+                "apg": 0.7,
+                "rpg": 7.7
+            }
+        },
+        "injuries": {
+            "isaiah livers": {
+                "pos": "F",
+                "inj": "OUT",
+                "avgMin": 19,
+                "ppg": 5.8,
+                "apg": 0.6,
+                "rpg": 2.3
+            }
+        }
+    },
+    "atl": {
+        "starters": {
+            "trae young": {
+                "pos": "PG",
+                "inj": "-",
+                "avgMin": 35,
+                "ppg": 26.8,
+                "apg": 9.9,
+                "rpg": 2.8
+            },
+            "aj griffin": {
+                "pos": "SG",
+                "inj": "-",
+                "avgMin": 21,
+                "ppg": 10.3,
+                "apg": 0.9,
                 "rpg": 2.1
             },
-            "omer yurtseven": {
+            "deandre hunter": {
+                "pos": "SF",
+                "inj": "-",
+                "avgMin": 30,
+                "ppg": 15.5,
+                "apg": 1.2,
+                "rpg": 3.9
+            },
+            "jalen johnson": {
+                "pos": "PF",
+                "inj": "-",
+                "avgMin": 16,
+                "ppg": 5.0,
+                "apg": 1.1,
+                "rpg": 3.7
+            },
+            "onyeka okongwu": {
+                "pos": "C",
+                "inj": "-",
+                "avgMin": 20,
+                "ppg": 8.1,
+                "apg": 0.9,
+                "rpg": 6.5
+            }
+        },
+        "injuries": {
+            "clint capela": {
+                "pos": "C",
+                "inj": "OUT",
+                "avgMin": 27,
+                "ppg": 12.1,
+                "apg": 0.8,
+                "rpg": 12.0
+            },
+            "john collins": {
+                "pos": "F",
+                "inj": "OUT",
+                "avgMin": 31,
+                "ppg": 12.3,
+                "apg": 1.3,
+                "rpg": 7.5
+            },
+            "dejounte murray": {
+                "pos": "G",
+                "inj": "OUT",
+                "avgMin": 35,
+                "ppg": 20.8,
+                "apg": 6.2,
+                "rpg": 5.4
+            }
+        }
+    },
+    "cha": {
+        "starters": {
+            "lamelo ball": {
+                "pos": "PG",
+                "inj": "-",
+                "avgMin": 33,
+                "ppg": 20.2,
+                "apg": 8.0,
+                "rpg": 3.0
+            },
+            "terry rozier": {
+                "pos": "SG",
+                "inj": "-",
+                "avgMin": 37,
+                "ppg": 22.4,
+                "apg": 5.5,
+                "rpg": 4.8
+            },
+            "kelly oubre": {
+                "pos": "SF",
+                "inj": "-",
+                "avgMin": 0,
+                "ppg": 0,
+                "apg": 0,
+                "rpg": 0
+            },
+            "pj washington": {
+                "pos": "PF",
+                "inj": "-",
+                "avgMin": 31,
+                "ppg": 15.0,
+                "apg": 2.4,
+                "rpg": 4.7
+            },
+            "mason plumlee": {
+                "pos": "C",
+                "inj": "-",
+                "avgMin": 28,
+                "ppg": 9.6,
+                "apg": 4.1,
+                "rpg": 9.6
+            }
+        },
+        "injuries": {
+            "gordon hayward": {
+                "pos": "F",
+                "inj": "GTD",
+                "avgMin": 32,
+                "ppg": 16.3,
+                "apg": 4.3,
+                "rpg": 4.3
+            },
+            "cody martin": {
+                "pos": "G",
+                "inj": "OUT",
+                "avgMin": 1,
+                "ppg": 0.0,
+                "apg": 0.0,
+                "rpg": 0.0
+            },
+            "dennis smith": {
+                "pos": "G",
+                "inj": "OUT",
+                "avgMin": 0,
+                "ppg": 0,
+                "apg": 0,
+                "rpg": 0
+            },
+            "mark williams": {
+                "pos": "C",
+                "inj": "OUT",
+                "avgMin": 4,
+                "ppg": 3.7,
+                "apg": 0.0,
+                "rpg": 2.7
+            }
+        }
+    },
+    "orl": {
+        "starters": {
+            "markelle fultz": {
+                "pos": "PG",
+                "inj": "-",
+                "avgMin": 25,
+                "ppg": 10.5,
+                "apg": 4.8,
+                "rpg": 3.2
+            },
+            "franz wagner": {
+                "pos": "SG",
+                "inj": "-",
+                "avgMin": 33,
+                "ppg": 19.9,
+                "apg": 3.6,
+                "rpg": 4.1
+            },
+            "paolo banchero": {
+                "pos": "SF",
+                "inj": "-",
+                "avgMin": 34,
+                "ppg": 21.7,
+                "apg": 3.9,
+                "rpg": 6.9
+            },
+            "bol bol": {
+                "pos": "PF",
+                "inj": "-",
+                "avgMin": 26,
+                "ppg": 12.7,
+                "apg": 1.2,
+                "rpg": 7.4
+            },
+            "moritz wagner": {
+                "pos": "C",
+                "inj": "-",
+                "avgMin": 26,
+                "ppg": 11.3,
+                "apg": 2.2,
+                "rpg": 6.5
+            }
+        },
+        "injuries": {
+            "wendell carter jr": {
+                "pos": "C",
+                "inj": "OUT",
+                "avgMin": 32,
+                "ppg": 16.6,
+                "apg": 3.3,
+                "rpg": 9.1
+            },
+            "gary harris": {
+                "pos": "G",
+                "inj": "OUT",
+                "avgMin": 26,
+                "ppg": 10.3,
+                "apg": 2.0,
+                "rpg": 2.7
+            },
+            "jonathan isaac": {
+                "pos": "F",
+                "inj": "OUT",
+                "avgMin": 0,
+                "ppg": 0,
+                "apg": 0,
+                "rpg": 0
+            },
+            "chuma okeke": {
+                "pos": "F",
+                "inj": "OUT",
+                "avgMin": 21,
+                "ppg": 5.4,
+                "apg": 1.4,
+                "rpg": 4.2
+            },
+            "jalen suggs": {
+                "pos": "G",
+                "inj": "OUT",
+                "avgMin": 28,
+                "ppg": 12.4,
+                "apg": 5.4,
+                "rpg": 3.2
+            }
+        }
+    },
+    "bos": {
+        "starters": {
+            "marcus smart": {
+                "pos": "PG",
+                "inj": "GTD",
+                "avgMin": 33,
+                "ppg": 11.7,
+                "apg": 7.2,
+                "rpg": 3.2
+            },
+            "derrick white": {
+                "pos": "SG",
+                "inj": "-",
+                "avgMin": 25,
+                "ppg": 10.2,
+                "apg": 3.1,
+                "rpg": 2.8
+            },
+            "jaylen brown": {
+                "pos": "SF",
+                "inj": "-",
+                "avgMin": 35,
+                "ppg": 26.6,
+                "apg": 3.6,
+                "rpg": 7.3
+            },
+            "jayson tatum": {
+                "pos": "PF",
+                "inj": "-",
+                "avgMin": 37,
+                "ppg": 30.2,
+                "apg": 4.1,
+                "rpg": 8.2
+            },
+            "al horford": {
+                "pos": "C",
+                "inj": "-",
+                "avgMin": 31,
+                "ppg": 10.2,
+                "apg": 2.8,
+                "rpg": 6.2
+            }
+        },
+        "injuries": {
+            "robert williams": {
+                "pos": "C",
+                "inj": "GTD",
+                "avgMin": 0,
+                "ppg": 0,
+                "apg": 0,
+                "rpg": 0
+            },
+            "marcus smart": {
+                "pos": "G",
+                "inj": "GTD",
+                "avgMin": 33,
+                "ppg": 11.7,
+                "apg": 7.2,
+                "rpg": 3.2
+            },
+            "danilo gallinari": {
+                "pos": "F",
+                "inj": "OUT",
+                "avgMin": 0,
+                "ppg": 0,
+                "apg": 0,
+                "rpg": 0
+            }
+        }
+    },
+    "ind": {
+        "starters": {
+            "tyrese haliburton": {
+                "pos": "PG",
+                "inj": "-",
+                "avgMin": 33,
+                "ppg": 19.8,
+                "apg": 10.6,
+                "rpg": 4.3
+            },
+            "andrew nembhard": {
+                "pos": "SG",
+                "inj": "-",
+                "avgMin": 25,
+                "ppg": 8.9,
+                "apg": 4.0,
+                "rpg": 3.0
+            },
+            "buddy hield": {
+                "pos": "SF",
+                "inj": "-",
+                "avgMin": 32,
+                "ppg": 17.7,
+                "apg": 2.6,
+                "rpg": 4.8
+            },
+            "aaron nesmith": {
+                "pos": "PF",
+                "inj": "-",
+                "avgMin": 21,
+                "ppg": 8.0,
+                "apg": 1.1,
+                "rpg": 3.2
+            },
+            "myles turner": {
+                "pos": "C",
+                "inj": "-",
+                "avgMin": 29,
+                "ppg": 17.6,
+                "apg": 1.5,
+                "rpg": 7.7
+            }
+        },
+        "injuries": {
+            "chris duarte": {
+                "pos": "G",
+                "inj": "GTD",
+                "avgMin": 19,
+                "ppg": 8.9,
+                "apg": 1.0,
+                "rpg": 2.1
+            },
+            "kendall brown": {
+                "pos": "F",
+                "inj": "OUT",
+                "avgMin": 6,
+                "ppg": 1.5,
+                "apg": 0.5,
+                "rpg": 1.0
+            },
+            "daniel theis": {
                 "pos": "C",
                 "inj": "OUT",
                 "avgMin": 0,
@@ -93,401 +489,479 @@
             }
         }
     },
-    "hou": {
+    "cle": {
         "starters": {
-            "kevin porter jr": {
+            "darius garland": {
                 "pos": "PG",
                 "inj": "-",
-                "avgMin": 34,
-                "ppg": 18.7,
-                "apg": 5.7,
-                "rpg": 5.5
+                "avgMin": 35,
+                "ppg": 21.0,
+                "apg": 7.8,
+                "rpg": 2.4
             },
-            "jalen green": {
+            "donovan mitchell": {
                 "pos": "SG",
                 "inj": "-",
-                "avgMin": 34,
-                "ppg": 21.8,
-                "apg": 3.9,
-                "rpg": 4.1
+                "avgMin": 36,
+                "ppg": 29.2,
+                "apg": 4.7,
+                "rpg": 4.0
             },
-            "eric gordon": {
+            "lamar stevens": {
                 "pos": "SF",
                 "inj": "-",
-                "avgMin": 29,
-                "ppg": 12.1,
-                "apg": 2.5,
-                "rpg": 2.0
+                "avgMin": 25,
+                "ppg": 7.9,
+                "apg": 0.5,
+                "rpg": 4.5
             },
-            "jabari smith jr": {
+            "evan mobley": {
                 "pos": "PF",
                 "inj": "-",
-                "avgMin": 30,
-                "ppg": 12.1,
-                "apg": 0.7,
-                "rpg": 7.1
+                "avgMin": 34,
+                "ppg": 15.0,
+                "apg": 2.7,
+                "rpg": 9.4
             },
-            "alperen sengun": {
+            "jarrett allen": {
                 "pos": "C",
                 "inj": "-",
-                "avgMin": 26,
-                "ppg": 14.4,
-                "apg": 2.2,
-                "rpg": 9.0
+                "avgMin": 32,
+                "ppg": 14.2,
+                "apg": 1.4,
+                "rpg": 10.3
             }
         },
         "injuries": {
-            "jaesean tate": {
+            "ricky rubio": {
+                "pos": "G",
+                "inj": "OUT",
+                "avgMin": 0,
+                "ppg": 0,
+                "apg": 0,
+                "rpg": 0
+            },
+            "dean wade": {
                 "pos": "F",
                 "inj": "OUT",
-                "avgMin": 22,
-                "ppg": 8.3,
-                "apg": 3.3,
-                "rpg": 4.3
+                "avgMin": 24,
+                "ppg": 6.4,
+                "apg": 1.0,
+                "rpg": 4.1
+            },
+            "dylan windler": {
+                "pos": "G",
+                "inj": "OUT",
+                "avgMin": 0,
+                "ppg": 0,
+                "apg": 0,
+                "rpg": 0
             }
         }
     },
-    "mil": {
+    "gs": {
         "starters": {
-            "jevon carter": {
+            "donte divincenzo": {
                 "pos": "PG",
                 "inj": "-",
-                "avgMin": 26,
-                "ppg": 8.0,
-                "apg": 3.4,
-                "rpg": 2.8
+                "avgMin": 19,
+                "ppg": 6.0,
+                "apg": 2.4,
+                "rpg": 4.0
             },
-            "grayson allen": {
+            "jordan poole": {
                 "pos": "SG",
                 "inj": "-",
-                "avgMin": 27,
-                "ppg": 11.1,
-                "apg": 2.6,
-                "rpg": 3.6
+                "avgMin": 28,
+                "ppg": 17.9,
+                "apg": 4.6,
+                "rpg": 2.2
             },
-            "khris middleton": {
+            "klay thompson": {
                 "pos": "SF",
-                "inj": "-",
-                "avgMin": 24,
-                "ppg": 12.5,
-                "apg": 4.3,
-                "rpg": 2.7
+                "inj": "GTD",
+                "avgMin": 30,
+                "ppg": 18.7,
+                "apg": 2.4,
+                "rpg": 3.4
             },
-            "giannis antetokounmpo": {
+            "jonathan kuminga": {
                 "pos": "PF",
                 "inj": "-",
-                "avgMin": 33,
-                "ppg": 31.1,
-                "apg": 5.3,
-                "rpg": 11.3
+                "avgMin": 17,
+                "ppg": 7.4,
+                "apg": 1.2,
+                "rpg": 3.2
             },
-            "brook lopez": {
+            "kevon looney": {
                 "pos": "C",
                 "inj": "-",
-                "avgMin": 31,
-                "ppg": 14.3,
-                "apg": 1.2,
-                "rpg": 5.9
+                "avgMin": 22,
+                "ppg": 6.3,
+                "apg": 2.7,
+                "rpg": 7.6
             }
         },
         "injuries": {
-            "jrue holiday": {
+            "klay thompson": {
                 "pos": "G",
+                "inj": "GTD",
+                "avgMin": 30,
+                "ppg": 18.7,
+                "apg": 2.4,
+                "rpg": 3.4
+            },
+            "stephen curry": {
+                "pos": "G",
+                "inj": "OUT",
+                "avgMin": 34,
+                "ppg": 30.0,
+                "apg": 6.8,
+                "rpg": 6.6
+            },
+            "draymond green": {
+                "pos": "F",
+                "inj": "OUT",
+                "avgMin": 30,
+                "ppg": 8.1,
+                "apg": 6.7,
+                "rpg": 6.0
+            },
+            "andre iguodala": {
+                "pos": "F",
+                "inj": "OUT",
+                "avgMin": 0,
+                "ppg": 0,
+                "apg": 0,
+                "rpg": 0
+            },
+            "andrew wiggins": {
+                "pos": "F",
                 "inj": "OUT",
                 "avgMin": 32,
                 "ppg": 19.1,
-                "apg": 7.4,
-                "rpg": 5.3
-            },
-            "serge ibaka": {
-                "pos": "C",
-                "inj": "OUT",
-                "avgMin": 11,
-                "ppg": 4.3,
-                "apg": 0.3,
-                "rpg": 2.9
-            },
-            "joe ingles": {
-                "pos": "F",
-                "inj": "OUT",
-                "avgMin": 0,
-                "ppg": 0,
-                "apg": 0,
-                "rpg": 0
-            }
-        }
-    },
-    "mem": {
-        "starters": {
-            "ja morant": {
-                "pos": "PG",
-                "inj": "-",
-                "avgMin": 33,
-                "ppg": 27.7,
-                "apg": 7.8,
-                "rpg": 6.6
-            },
-            "dillon brooks": {
-                "pos": "SG",
-                "inj": "-",
-                "avgMin": 31,
-                "ppg": 17.7,
-                "apg": 3.0,
-                "rpg": 3.7
-            },
-            "john konchar": {
-                "pos": "SF",
-                "inj": "-",
-                "avgMin": 27,
-                "ppg": 8.4,
-                "apg": 1.5,
-                "rpg": 6.3
-            },
-            "jaren jackson jr": {
-                "pos": "PF",
-                "inj": "-",
-                "avgMin": 26,
-                "ppg": 18.4,
-                "apg": 0.4,
-                "rpg": 6.2
-            },
-            "steven adams": {
-                "pos": "C",
-                "inj": "-",
-                "avgMin": 26,
-                "ppg": 8.0,
-                "apg": 2.3,
-                "rpg": 10.5
-            }
-        },
-        "injuries": {
-            "desmond bane": {
-                "pos": "G",
-                "inj": "OUT",
-                "avgMin": 33,
-                "ppg": 24.7,
-                "apg": 4.8,
-                "rpg": 4.9
-            },
-            "danny green": {
-                "pos": "G",
-                "inj": "OUT",
-                "avgMin": 0,
-                "ppg": 0,
-                "apg": 0,
-                "rpg": 0
-            }
-        }
-    },
-    "no": {
-        "starters": {
-            "cj mccollum": {
-                "pos": "PG",
-                "inj": "-",
-                "avgMin": 34,
-                "ppg": 17.3,
-                "apg": 5.7,
-                "rpg": 4.9
-            },
-            "trey murphy": {
-                "pos": "SG",
-                "inj": "-",
-                "avgMin": 0,
-                "ppg": 0,
-                "apg": 0,
-                "rpg": 0
-            },
-            "herbert jones": {
-                "pos": "SF",
-                "inj": "-",
-                "avgMin": 27,
-                "ppg": 10.3,
-                "apg": 2.1,
-                "rpg": 3.5
-            },
-            "zion williamson": {
-                "pos": "PF",
-                "inj": "-",
-                "avgMin": 32,
-                "ppg": 25.0,
-                "apg": 4.3,
-                "rpg": 7.3
-            },
-            "jonas valanciunas": {
-                "pos": "C",
-                "inj": "-",
-                "avgMin": 23,
-                "ppg": 13.2,
-                "apg": 1.8,
-                "rpg": 9.1
-            }
-        },
-        "injuries": {
-            "jose alvarado": {
-                "pos": "G",
-                "inj": "OUT",
-                "avgMin": 20,
-                "ppg": 9.5,
-                "apg": 3.2,
-                "rpg": 2.2
-            },
-            "brandon ingram": {
-                "pos": "F",
-                "inj": "OUT",
-                "avgMin": 32,
-                "ppg": 20.8,
-                "apg": 4.7,
+                "apg": 2.2,
                 "rpg": 5.1
-            },
-            "ej liddell": {
-                "pos": "F",
-                "inj": "OUT",
-                "avgMin": 0,
-                "ppg": 0,
-                "apg": 0,
-                "rpg": 0
             }
         }
     },
-    "utah": {
+    "phi": {
         "starters": {
-            "mike conley": {
+            "james harden": {
                 "pos": "PG",
+                "inj": "-",
+                "avgMin": 37,
+                "ppg": 22.1,
+                "apg": 10.8,
+                "rpg": 6.7
+            },
+            "deanthony melton": {
+                "pos": "SG",
                 "inj": "-",
                 "avgMin": 29,
-                "ppg": 10.4,
-                "apg": 7.7,
-                "rpg": 2.2
+                "ppg": 11.9,
+                "apg": 3.2,
+                "rpg": 4.4
             },
-            "jordan clarkson": {
-                "pos": "SG",
-                "inj": "-",
-                "avgMin": 32,
-                "ppg": 19.5,
-                "apg": 4.8,
-                "rpg": 3.8
-            },
-            "lauri markkanen": {
+            "tobias harris": {
                 "pos": "SF",
                 "inj": "-",
-                "avgMin": 33,
-                "ppg": 22.1,
-                "apg": 2.2,
-                "rpg": 8.6
+                "avgMin": 34,
+                "ppg": 17.0,
+                "apg": 3.0,
+                "rpg": 6.4
             },
-            "jarred vanderbilt": {
+            "pj tucker": {
                 "pos": "PF",
                 "inj": "-",
-                "avgMin": 24,
-                "ppg": 8.8,
-                "apg": 2.8,
-                "rpg": 8.2
+                "avgMin": 28,
+                "ppg": 3.5,
+                "apg": 1.0,
+                "rpg": 4.3
             },
-            "kelly olynyk": {
+            "joel embiid": {
                 "pos": "C",
                 "inj": "-",
-                "avgMin": 28,
-                "ppg": 12.9,
-                "apg": 3.3,
-                "rpg": 5.0
+                "avgMin": 35,
+                "ppg": 33.3,
+                "apg": 4.7,
+                "rpg": 9.7
             }
         },
         "injuries": {
-            "simone fontecchio": {
+            "danuel house jr": {
                 "pos": "F",
-                "inj": "OUT",
-                "avgMin": 10,
-                "ppg": 5.1,
-                "apg": 0.5,
+                "inj": "GTD",
+                "avgMin": 18,
+                "ppg": 4.9,
+                "apg": 0.8,
+                "rpg": 2.0
+            },
+            "furkan korkmaz": {
+                "pos": "G",
+                "inj": "GTD",
+                "avgMin": 12,
+                "ppg": 4.8,
+                "apg": 0.9,
                 "rpg": 1.4
             },
-            "collin sexton": {
+            "tyrese maxey": {
                 "pos": "G",
                 "inj": "OUT",
-                "avgMin": 24,
-                "ppg": 14.3,
-                "apg": 3.0,
-                "rpg": 2.4
+                "avgMin": 36,
+                "ppg": 22.9,
+                "apg": 4.4,
+                "rpg": 3.5
             }
         }
     },
-    "phx": {
+    "bkn": {
         "starters": {
-            "chris paul": {
+            "kyrie irving": {
                 "pos": "PG",
                 "inj": "-",
-                "avgMin": 30,
-                "ppg": 10.4,
-                "apg": 8.8,
-                "rpg": 4.7
-            },
-            "devin booker": {
-                "pos": "SG",
-                "inj": "-",
-                "avgMin": 35,
-                "ppg": 27.4,
-                "apg": 5.8,
+                "avgMin": 36,
+                "ppg": 25.2,
+                "apg": 4.5,
                 "rpg": 4.8
             },
-            "mikal bridges": {
+            "joe harris": {
+                "pos": "SG",
+                "inj": "-",
+                "avgMin": 26,
+                "ppg": 8.7,
+                "apg": 1.7,
+                "rpg": 3.0
+            },
+            "kevin durant": {
                 "pos": "SF",
                 "inj": "-",
                 "avgMin": 36,
-                "ppg": 15.9,
-                "apg": 3.2,
-                "rpg": 5.0
+                "ppg": 30.0,
+                "apg": 5.5,
+                "rpg": 6.7
             },
-            "torrey craig": {
+            "ben simmons": {
                 "pos": "PF",
                 "inj": "-",
-                "avgMin": 24,
-                "ppg": 8.2,
-                "apg": 1.5,
-                "rpg": 5.2
+                "avgMin": 27,
+                "ppg": 8.3,
+                "apg": 5.8,
+                "rpg": 6.7
             },
-            "bismack biyombo": {
+            "nic claxton": {
                 "pos": "C",
                 "inj": "-",
-                "avgMin": 12,
-                "ppg": 3.4,
-                "apg": 0.9,
-                "rpg": 3.6
+                "avgMin": 27,
+                "ppg": 11.7,
+                "apg": 1.2,
+                "rpg": 8.7
             }
         },
         "injuries": {
-            "deandre ayton": {
-                "pos": "C",
-                "inj": "OUT",
-                "avgMin": 28,
-                "ppg": 17.0,
-                "apg": 2.2,
-                "rpg": 9.5
+            "seth curry": {
+                "pos": "G",
+                "inj": "GTD",
+                "avgMin": 23,
+                "ppg": 9.3,
+                "apg": 2.3,
+                "rpg": 2.3
             },
-            "jae crowder": {
-                "pos": "F",
-                "inj": "OUT",
-                "avgMin": 0,
-                "ppg": 0,
-                "apg": 0,
-                "rpg": 0
-            },
-            "cameron johnson": {
-                "pos": "F",
-                "inj": "OUT",
-                "avgMin": 25,
-                "ppg": 13.0,
-                "apg": 1.8,
-                "rpg": 3.4
-            },
-            "cameron payne": {
+            "patty mills": {
                 "pos": "G",
                 "inj": "OUT",
-                "avgMin": 24,
-                "ppg": 12.7,
-                "apg": 5.3,
-                "rpg": 2.4
+                "avgMin": 12,
+                "ppg": 5.5,
+                "apg": 1.3,
+                "rpg": 1.0
+            }
+        }
+    },
+    "tor": {
+        "starters": {
+            "fred vanvleet": {
+                "pos": "PG",
+                "inj": "-",
+                "avgMin": 36,
+                "ppg": 18.0,
+                "apg": 6.4,
+                "rpg": 3.7
             },
-            "duane washington": {
+            "gary trent jr": {
+                "pos": "SG",
+                "inj": "-",
+                "avgMin": 31,
+                "ppg": 16.9,
+                "apg": 1.4,
+                "rpg": 2.0
+            },
+            "scottie barnes": {
+                "pos": "SF",
+                "inj": "-",
+                "avgMin": 33,
+                "ppg": 14.4,
+                "apg": 4.8,
+                "rpg": 7.0
+            },
+            "pascal siakam": {
+                "pos": "PF",
+                "inj": "-",
+                "avgMin": 35,
+                "ppg": 24.6,
+                "apg": 7.0,
+                "rpg": 8.5
+            },
+            "thaddeus young": {
+                "pos": "C",
+                "inj": "-",
+                "avgMin": 17,
+                "ppg": 5.1,
+                "apg": 1.9,
+                "rpg": 3.8
+            }
+        },
+        "injuries": {
+            "precious achiuwa": {
+                "pos": "C",
+                "inj": "OUT",
+                "avgMin": 20,
+                "ppg": 8.8,
+                "apg": 1.3,
+                "rpg": 7.0
+            },
+            "og anunoby": {
+                "pos": "F",
+                "inj": "OUT",
+                "avgMin": 36,
+                "ppg": 19.0,
+                "apg": 2.1,
+                "rpg": 5.8
+            },
+            "otto porter jr": {
+                "pos": "F",
+                "inj": "OUT",
+                "avgMin": 18,
+                "ppg": 5.5,
+                "apg": 1.0,
+                "rpg": 2.4
+            }
+        }
+    },
+    "ny": {
+        "starters": {
+            "jalen brunson": {
+                "pos": "PG",
+                "inj": "-",
+                "avgMin": 31,
+                "ppg": 20.4,
+                "apg": 6.3,
+                "rpg": 3.3
+            },
+            "quentin grimes": {
+                "pos": "SG",
+                "inj": "-",
+                "avgMin": 24,
+                "ppg": 7.4,
+                "apg": 1.7,
+                "rpg": 3.3
+            },
+            "rj barrett": {
+                "pos": "SF",
+                "inj": "-",
+                "avgMin": 34,
+                "ppg": 19.0,
+                "apg": 3.0,
+                "rpg": 5.6
+            },
+            "julius randle": {
+                "pos": "PF",
+                "inj": "-",
+                "avgMin": 33,
+                "ppg": 22.6,
+                "apg": 3.6,
+                "rpg": 8.9
+            },
+            "mitchell robinson": {
+                "pos": "C",
+                "inj": "-",
+                "avgMin": 24,
+                "ppg": 7.3,
+                "apg": 0.8,
+                "rpg": 8.2
+            }
+        },
+        "injuries": {
+            "ryan arcidiacono": {
+                "pos": "G",
+                "inj": "GTD",
+                "avgMin": 2,
+                "ppg": 0.0,
+                "apg": 0.3,
+                "rpg": 0.3
+            },
+            "obi toppin": {
+                "pos": "F",
+                "inj": "OUT",
+                "avgMin": 17,
+                "ppg": 7.7,
+                "apg": 1.0,
+                "rpg": 3.8
+            }
+        }
+    },
+    "chi": {
+        "starters": {
+            "alex caruso": {
+                "pos": "PG",
+                "inj": "-",
+                "avgMin": 25,
+                "ppg": 5.2,
+                "apg": 3.8,
+                "rpg": 2.7
+            },
+            "zach lavine": {
+                "pos": "SG",
+                "inj": "-",
+                "avgMin": 34,
+                "ppg": 22.0,
+                "apg": 4.1,
+                "rpg": 4.6
+            },
+            "demar derozan": {
+                "pos": "SF",
+                "inj": "-",
+                "avgMin": 35,
+                "ppg": 26.2,
+                "apg": 4.7,
+                "rpg": 5.0
+            },
+            "patrick williams": {
+                "pos": "PF",
+                "inj": "-",
+                "avgMin": 26,
+                "ppg": 9.5,
+                "apg": 1.0,
+                "rpg": 3.9
+            },
+            "nikola vucevic": {
+                "pos": "C",
+                "inj": "-",
+                "avgMin": 32,
+                "ppg": 16.3,
+                "apg": 2.9,
+                "rpg": 10.6
+            }
+        },
+        "injuries": {
+            "ayo dosunmu": {
+                "pos": "G",
+                "inj": "GTD",
+                "avgMin": 27,
+                "ppg": 10.2,
+                "apg": 2.8,
+                "rpg": 3.3
+            },
+            "lonzo ball": {
                 "pos": "G",
                 "inj": "OUT",
                 "avgMin": 0,
@@ -497,97 +971,455 @@
             }
         }
     },
-    "lac": {
+    "min": {
         "starters": {
-            "john wall": {
+            "dangelo russell": {
                 "pos": "PG",
-                "inj": "-",
-                "avgMin": 22,
-                "ppg": 12.3,
-                "apg": 5.6,
-                "rpg": 2.6
+                "inj": "GTD",
+                "avgMin": 31,
+                "ppg": 16.6,
+                "apg": 6.4,
+                "rpg": 3.1
             },
-            "terance mann": {
+            "anthony edwards": {
                 "pos": "SG",
                 "inj": "-",
-                "avgMin": 21,
-                "ppg": 8.2,
-                "apg": 1.8,
-                "rpg": 3.8
+                "avgMin": 36,
+                "ppg": 22.5,
+                "apg": 4.0,
+                "rpg": 5.6
             },
-            "amir coffey": {
+            "jaden mcdaniels": {
                 "pos": "SF",
                 "inj": "-",
-                "avgMin": 14,
-                "ppg": 3.6,
-                "apg": 1.2,
-                "rpg": 1.1
+                "avgMin": 29,
+                "ppg": 10.6,
+                "apg": 1.4,
+                "rpg": 3.2
             },
-            "marcus morris sr": {
+            "kyle anderson": {
                 "pos": "PF",
                 "inj": "-",
-                "avgMin": 30,
-                "ppg": 13.6,
-                "apg": 1.7,
-                "rpg": 4.9
+                "avgMin": 24,
+                "ppg": 7.6,
+                "apg": 3.5,
+                "rpg": 4.3
             },
-            "moses brown": {
+            "rudy gobert": {
                 "pos": "C",
-                "inj": "-",
-                "avgMin": 6,
-                "ppg": 3.9,
-                "apg": 0.1,
-                "rpg": 2.7
+                "inj": "GTD",
+                "avgMin": 31,
+                "ppg": 14.1,
+                "apg": 0.9,
+                "rpg": 12.2
             }
         },
         "injuries": {
-            "paul george": {
+            "rudy gobert": {
+                "pos": "C",
+                "inj": "GTD",
+                "avgMin": 31,
+                "ppg": 14.1,
+                "apg": 0.9,
+                "rpg": 12.2
+            },
+            "dangelo russell": {
+                "pos": "G",
+                "inj": "GTD",
+                "avgMin": 31,
+                "ppg": 16.6,
+                "apg": 6.4,
+                "rpg": 3.1
+            },
+            "jordan mclaughlin": {
                 "pos": "G",
                 "inj": "OUT",
-                "avgMin": 34,
-                "ppg": 23.5,
-                "apg": 4.9,
-                "rpg": 6.3
+                "avgMin": 16,
+                "ppg": 4.1,
+                "apg": 3.6,
+                "rpg": 1.7
             },
-            "reggie jackson": {
-                "pos": "G",
+            "taurean prince": {
+                "pos": "F",
                 "inj": "OUT",
-                "avgMin": 29,
-                "ppg": 12.4,
-                "apg": 4.0,
-                "rpg": 2.6
+                "avgMin": 19,
+                "ppg": 7.9,
+                "apg": 1.2,
+                "rpg": 2.5
             },
-            "luke kennard": {
-                "pos": "G",
+            "karl anthony towns": {
+                "pos": "C",
+                "inj": "OUT",
+                "avgMin": 33,
+                "ppg": 20.8,
+                "apg": 5.3,
+                "rpg": 8.2
+            }
+        }
+    },
+    "okc": {
+        "starters": {
+            "josh giddey": {
+                "pos": "PG",
+                "inj": "-",
+                "avgMin": 30,
+                "ppg": 14.8,
+                "apg": 5.4,
+                "rpg": 7.9
+            },
+            "shai gilgeous alexander": {
+                "pos": "SG",
+                "inj": "-",
+                "avgMin": 35,
+                "ppg": 31.0,
+                "apg": 5.8,
+                "rpg": 4.6
+            },
+            "luguentz dort": {
+                "pos": "SF",
+                "inj": "-",
+                "avgMin": 30,
+                "ppg": 14.0,
+                "apg": 2.4,
+                "rpg": 4.5
+            },
+            "jalen williams": {
+                "pos": "PF",
+                "inj": "-",
+                "avgMin": 26,
+                "ppg": 11.0,
+                "apg": 2.6,
+                "rpg": 3.2
+            },
+            "darius bazley": {
+                "pos": "C",
+                "inj": "-",
+                "avgMin": 17,
+                "ppg": 5.9,
+                "apg": 1.0,
+                "rpg": 3.9
+            }
+        },
+        "injuries": {
+            "kenrich williams": {
+                "pos": "F",
+                "inj": "GTD",
+                "avgMin": 20,
+                "ppg": 6.6,
+                "apg": 1.4,
+                "rpg": 3.8
+            },
+            "ousmane dieng": {
+                "pos": "F",
+                "inj": "OUT",
+                "avgMin": 15,
+                "ppg": 4.4,
+                "apg": 1.4,
+                "rpg": 2.9
+            },
+            "jeremiah robinson earl": {
+                "pos": "C",
                 "inj": "OUT",
                 "avgMin": 21,
                 "ppg": 8.5,
-                "apg": 0.9,
-                "rpg": 2.6
+                "apg": 1.0,
+                "rpg": 5.0
+            }
+        }
+    },
+    "por": {
+        "starters": {
+            "damian lillard": {
+                "pos": "PG",
+                "inj": "-",
+                "avgMin": 35,
+                "ppg": 28.8,
+                "apg": 7.1,
+                "rpg": 4.1
             },
-            "kawhi leonard": {
+            "anfernee simons": {
+                "pos": "SG",
+                "inj": "-",
+                "avgMin": 36,
+                "ppg": 23.7,
+                "apg": 4.5,
+                "rpg": 3.1
+            },
+            "josh hart": {
+                "pos": "SF",
+                "inj": "GTD",
+                "avgMin": 35,
+                "ppg": 9.5,
+                "apg": 4.0,
+                "rpg": 8.3
+            },
+            "jerami grant": {
+                "pos": "PF",
+                "inj": "-",
+                "avgMin": 36,
+                "ppg": 22.4,
+                "apg": 2.7,
+                "rpg": 4.1
+            },
+            "jusuf nurkic": {
+                "pos": "C",
+                "inj": "-",
+                "avgMin": 29,
+                "ppg": 14.5,
+                "apg": 2.9,
+                "rpg": 10.3
+            }
+        },
+        "injuries": {
+            "drew eubanks": {
+                "pos": "C",
+                "inj": "GTD",
+                "avgMin": 17,
+                "ppg": 5.8,
+                "apg": 0.8,
+                "rpg": 4.0
+            },
+            "josh hart": {
+                "pos": "F",
+                "inj": "GTD",
+                "avgMin": 35,
+                "ppg": 9.5,
+                "apg": 4.0,
+                "rpg": 8.3
+            },
+            "trendon watford": {
+                "pos": "F",
+                "inj": "GTD",
+                "avgMin": 17,
+                "ppg": 5.1,
+                "apg": 1.6,
+                "rpg": 3.8
+            },
+            "nassir little": {
                 "pos": "F",
                 "inj": "OUT",
-                "avgMin": 26,
-                "ppg": 13.7,
-                "apg": 3.5,
-                "rpg": 5.8
+                "avgMin": 15,
+                "ppg": 5.5,
+                "apg": 0.9,
+                "rpg": 2.4
             },
-            "norman powell": {
+            "gary payton": {
                 "pos": "G",
                 "inj": "OUT",
-                "avgMin": 25,
-                "ppg": 14.8,
-                "apg": 1.5,
-                "rpg": 2.9
+                "avgMin": 0,
+                "ppg": 0,
+                "apg": 0,
+                "rpg": 0
+            }
+        }
+    },
+    "dal": {
+        "starters": {
+            "luka doncic": {
+                "pos": "PG",
+                "inj": "-",
+                "avgMin": 36,
+                "ppg": 33.0,
+                "apg": 8.7,
+                "rpg": 8.4
             },
-            "ivica zubac": {
+            "spencer dinwiddie": {
+                "pos": "SG",
+                "inj": "-",
+                "avgMin": 31,
+                "ppg": 16.6,
+                "apg": 5.3,
+                "rpg": 3.4
+            },
+            "tim hardaway": {
+                "pos": "SF",
+                "inj": "-",
+                "avgMin": 0,
+                "ppg": 0,
+                "apg": 0,
+                "rpg": 0
+            },
+            "dorian finney smith": {
+                "pos": "PF",
+                "inj": "-",
+                "avgMin": 31,
+                "ppg": 8.4,
+                "apg": 1.1,
+                "rpg": 4.0
+            },
+            "dwight powell": {
                 "pos": "C",
+                "inj": "-",
+                "avgMin": 17,
+                "ppg": 5.7,
+                "apg": 0.5,
+                "rpg": 3.5
+            }
+        },
+        "injuries": {
+            "davis bertans": {
+                "pos": "F",
+                "inj": "GTD",
+                "avgMin": 7,
+                "ppg": 3.3,
+                "apg": 0.4,
+                "rpg": 0.7
+            },
+            "josh green": {
+                "pos": "F",
+                "inj": "OUT",
+                "avgMin": 20,
+                "ppg": 7.0,
+                "apg": 1.2,
+                "rpg": 2.3
+            },
+            "maxi kleber": {
+                "pos": "F",
+                "inj": "OUT",
+                "avgMin": 25,
+                "ppg": 6.2,
+                "apg": 1.0,
+                "rpg": 3.5
+            }
+        }
+    },
+    "den": {
+        "starters": {
+            "jamal murray": {
+                "pos": "PG",
+                "inj": "-",
+                "avgMin": 30,
+                "ppg": 17.7,
+                "apg": 5.1,
+                "rpg": 3.7
+            },
+            "kentavious caldwell pope": {
+                "pos": "SG",
+                "inj": "-",
+                "avgMin": 31,
+                "ppg": 11.0,
+                "apg": 2.2,
+                "rpg": 3.1
+            },
+            "bruce brown": {
+                "pos": "SF",
+                "inj": "-",
+                "avgMin": 29,
+                "ppg": 11.0,
+                "apg": 4.3,
+                "rpg": 4.4
+            },
+            "aaron gordon": {
+                "pos": "PF",
+                "inj": "-",
+                "avgMin": 29,
+                "ppg": 16.9,
+                "apg": 2.2,
+                "rpg": 6.4
+            },
+            "nikola jokic": {
+                "pos": "C",
+                "inj": "-",
+                "avgMin": 32,
+                "ppg": 24.6,
+                "apg": 9.0,
+                "rpg": 10.2
+            }
+        },
+        "injuries": {
+            "collin gillespie": {
+                "pos": "G",
+                "inj": "OUT",
+                "avgMin": 0,
+                "ppg": 0,
+                "apg": 0,
+                "rpg": 0
+            },
+            "michael porter jr": {
+                "pos": "F",
                 "inj": "OUT",
                 "avgMin": 29,
-                "ppg": 10.1,
-                "apg": 1.1,
-                "rpg": 10.8
+                "ppg": 16.4,
+                "apg": 1.2,
+                "rpg": 6.0
+            }
+        }
+    },
+    "lal": {
+        "starters": {
+            "dennis schroder": {
+                "pos": "PG",
+                "inj": "-",
+                "avgMin": 25,
+                "ppg": 8.3,
+                "apg": 3.5,
+                "rpg": 1.8
+            },
+            "patrick beverley": {
+                "pos": "SG",
+                "inj": "-",
+                "avgMin": 26,
+                "ppg": 4.6,
+                "apg": 2.4,
+                "rpg": 3.7
+            },
+            "lonnie walker iv": {
+                "pos": "SF",
+                "inj": "-",
+                "avgMin": 30,
+                "ppg": 15.7,
+                "apg": 1.5,
+                "rpg": 2.3
+            },
+            "lebron james": {
+                "pos": "PF",
+                "inj": "GTD",
+                "avgMin": 36,
+                "ppg": 26.5,
+                "apg": 6.5,
+                "rpg": 8.6
+            },
+            "anthony davis": {
+                "pos": "C",
+                "inj": "GTD",
+                "avgMin": 34,
+                "ppg": 28.1,
+                "apg": 2.7,
+                "rpg": 12.4
+            }
+        },
+        "injuries": {
+            "anthony davis": {
+                "pos": "C",
+                "inj": "GTD",
+                "avgMin": 34,
+                "ppg": 28.1,
+                "apg": 2.7,
+                "rpg": 12.4
+            },
+            "lebron james": {
+                "pos": "F",
+                "inj": "GTD",
+                "avgMin": 36,
+                "ppg": 26.5,
+                "apg": 6.5,
+                "rpg": 8.6
+            },
+            "wenyen gabriel": {
+                "pos": "F",
+                "inj": "OUT",
+                "avgMin": 13,
+                "ppg": 5.1,
+                "apg": 0.7,
+                "rpg": 3.6
+            },
+            "juan toscano anderson": {
+                "pos": "F",
+                "inj": "OUT",
+                "avgMin": 10,
+                "ppg": 2.2,
+                "apg": 0.6,
+                "rpg": 1.8
             }
         }
     }

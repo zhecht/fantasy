@@ -808,7 +808,7 @@ def h2h(props):
 def write_csvs(props):
 	csvs = {}
 	splitProps = {"full": []}
-	headers = "\t".join(["NAME","POS","MIN","ML","A/H","TEAM","OPP","OPP RANK","PROP","LINE","SZN AVG","W-L Splits","A-H Splits","% OVER","L5 % OVER","LAST 7 GAMES ➡️","LAST YR % OVER","OVER", "UNDER"])
+	headers = "\t".join(["NAME","POS","AVG MIN","ML","A/H","TEAM","OPP","OPP RANK","PROP","LINE","SZN AVG","W-L Splits","A-H Splits","% OVER","L5 % OVER","LAST 7 GAMES ➡️","LAST YR % OVER","OVER", "UNDER"])
 	reddit = "|".join(headers.split("\t"))
 	reddit += "\n:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--"
 
@@ -1062,12 +1062,12 @@ def writeGameLines(date):
 
 def writeH2H():
 	ids = {
-		"pts": [1215, 12491],
-		"reb": [1216, 12493],
-		"ast": [1217, 12496],
-		"3ptm": [1218, 12498],
-		"fgm": [1221, 12586],
-		"to": [1220, 12505]
+		"pts": [1215, 12512],
+		"reb": [1216, 12513],
+		"ast": [1217, 12514],
+		"3ptm": [1218, 12515],
+		"fgm": [1221, 12516],
+		"to": [1220, 12517]
 	}
 
 	h2h = {}
