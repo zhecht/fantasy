@@ -337,6 +337,7 @@
 						{title: "L5 S/G", field: "shotsPerGameLast5", hozAlign: "center", width: 70, visible: false},
 						{title: "Proj", field: "savesProj", formatter: colorFormatter, hozAlign: "center", width: 70, sorter:"number", visible: false},
 						{title: "Proj L5", field: "savesProjLast5", formatter: colorFormatter, hozAlign: "center", width: 70, sorter:"number", visible: false},
+						{title: "Proj L3", field: "savesProjLast3", formatter: colorFormatter, hozAlign: "center", width: 70, sorter:"number", visible: false},
 						{title: "SV/G", field: "savesPer60", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number", visible: false},
 						{title: "L5 SV/G", field: "savesPer60Last5", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number", visible: false},
 						{title: "L3 SV/G", field: "savesPer60Last3", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number", visible: false},
@@ -344,6 +345,7 @@
 						{title: "Opp", field: "opponent", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
 						{title: "Proj", field: "oppSavesAgainstProj", formatter: colorFormatter, hozAlign: "center", width: 70, sorter:"number", visible: false},
 						{title: "ProjL5", field: "oppSavesAgainstProjLast5", formatter: colorFormatter, hozAlign: "center", width: 70, sorter:"number", visible: false},
+						{title: "ProjL3", field: "oppSavesAgainstProjLast3", formatter: colorFormatter, hozAlign: "center", width: 70, sorter:"number", visible: false},
 						{title: "Opp Saves_A/G", field: "oppSavesAgainstPer60", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number", visible: false},
 						{title: "L5 Opp Saves_A/G", field: "oppSavesAgainstPer60Last5", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number", visible: false},
 						{title: "L3 Opp Saves_A/G", field: "oppSavesAgainstPer60Last3", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number", visible: false},
@@ -389,8 +391,10 @@
 			<script>
 				TABLE.getColumn("savesProj").show();
 				TABLE.getColumn("savesProjLast5").show();
+				TABLE.getColumn("savesProjLast3").show();
 				TABLE.getColumn("oppSavesAgainstProj").show();
 				TABLE.getColumn("oppSavesAgainstProjLast5").show();
+				TABLE.getColumn("oppSavesAgainstProjLast3").show();
 				TABLE.getColumn("savesPer60").show();
 				TABLE.getColumn("savesPer60Last1").show();
 				TABLE.getColumn("savesPer60Last3").show();

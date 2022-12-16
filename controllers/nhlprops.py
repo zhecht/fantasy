@@ -29,7 +29,7 @@ def convertProp(prop):
 		return "g"
 	return prop
 
-def getSplits(rankings, schedule, ttoi):
+def getSplits(rankings, schedule, ttoi, dateArg):
 	splits = {}
 	for team in rankings:
 		splits[team] = {}
@@ -53,7 +53,7 @@ def getSplits(rankings, schedule, ttoi):
 	for team in splits:
 		opps = {}
 		for date in sorted(schedule, key=lambda k: datetime.strptime(k, "%Y-%m-%d"), reverse=True):
-			if date == today or datetime.strptime(date, "%Y-%m-%d") > datetime.now():
+			if date == dateArg or datetime.strptime(date, "%Y-%m-%d") > datetime.strptime(dateArg, "%Y-%m-%d"):
 				continue
 			for game in schedule[date]:
 				gameSp = game.split(" @ ")
@@ -91,8 +91,10 @@ def getSplits(rankings, schedule, ttoi):
 
 		splits[team]["savesAboveAvg"] = round(sum(savesAboveAvg) / len(savesAboveAvg), 3)
 		splits[team]["savesAboveAvgLast5"] = round(sum(savesAboveAvg[:5]) / len(savesAboveAvg[:5]), 3)
+		splits[team]["savesAboveAvgLast3"] = round(sum(savesAboveAvg[:3]) / len(savesAboveAvg[:3]), 3)
 		splits[team]["oppSavesAgainstAboveAvg"] = round(sum(oppSavesAgainstAboveAvg) / len(oppSavesAgainstAboveAvg), 3)
 		splits[team]["oppSavesAgainstAboveAvgLast5"] = round(sum(oppSavesAgainstAboveAvg[:5]) / len(oppSavesAgainstAboveAvg[:5]), 3)
+		splits[team]["oppSavesAgainstAboveAvgLast3"] = round(sum(oppSavesAgainstAboveAvg[:3]) / len(oppSavesAgainstAboveAvg[:3]), 3)
 	return splits
 
 
@@ -138,7 +140,7 @@ def getProps_route():
 		expected = json.load(fh)
 
 	goalieLines(propData)
-	splits = getSplits(rankings, schedule, ttoi)
+	splits = getSplits(rankings, schedule, ttoi, date)
 
 	allGoalies = {}
 	for game in propData:
@@ -245,7 +247,6 @@ def getProps_route():
 						if name in gameStats:
 							minutes = gameStats[name]["toi"]
 							if minutes > 0:
-								totalGames += 1
 								val = 0.0
 								if convertedProp == "pts":
 									val = gameStats[name]["a"] + gameStats[name]["g"]
@@ -268,6 +269,12 @@ def getProps_route():
 									if val > float(line):
 										hit = True
 
+								if float(val) > float(line):
+									if chkDate != date:
+										totalOver += 1
+										if len(last5) <= 5:
+											totalOverLast5 += 1
+
 								if len(last5) < 10:
 									v = str(int(val))
 									if chkDate == date:
@@ -276,6 +283,10 @@ def getProps_route():
 										continue
 									last5.append(v)
 
+								if chkDate == date or datetime.strptime(chkDate, "%Y-%m-%d") > datetime.strptime(date, "%Y-%m-%d"):
+									continue
+
+								totalGames += 1
 								valPerMin = float(val / minutes)
 								teamScore = scores[chkDate][team]
 								oppScore = scores[chkDate][pastOpp]
@@ -296,15 +307,13 @@ def getProps_route():
 									winLossSplits[1].append(winLossVal)
 
 								linePerMin = float(line) / avgMin
-								if float(val) > float(line):
-									totalOver += 1
-									if len(last5) <= 5:
-										totalOverLast5 += 1
 								#if valPerMin > linePerMin:
 								#	totalOver += 1 
 				if totalGames:
 					totalOver = round((totalOver / totalGames) * 100)
-					last5Size = len(last5) if len(last5) < 5 else 5
+					
+					realLast5 = [x for x in last5 if "'" not in x]
+					last5Size = len(realLast5) if len(realLast5) < 5 else 5
 					if last5Size:
 						totalOverLast5 = round((totalOverLast5 / last5Size) * 100)
 
@@ -420,8 +429,10 @@ def getProps_route():
 					"oppShotsAgainstPerGameLast5": round(rankings[opp]["last5"]["SA/GP"], 1),
 					"savesProj": round(splits[team]["savesPer60"]+splits[team]["savesPer60"]*splits[opp]["oppSavesAgainstAboveAvg"], 1),
 					"savesProjLast5": round(splits[team]["savesPer60Last5"]+splits[team]["savesPer60Last5"]*splits[opp]["oppSavesAgainstAboveAvgLast5"], 1),
+					"savesProjLast3": round(splits[team]["savesPer60Last3"]+splits[team]["savesPer60Last3"]*splits[opp]["oppSavesAgainstAboveAvgLast3"], 1),
 					"oppSavesAgainstProj": round(splits[opp]["oppSavesAgainstPer60"]+splits[opp]["oppSavesAgainstPer60"]*splits[team]["savesAboveAvg"], 1),
 					"oppSavesAgainstProjLast5": round(splits[opp]["oppSavesAgainstPer60Last5"]+splits[opp]["oppSavesAgainstPer60Last5"]*splits[team]["savesAboveAvgLast5"], 1),
+					"oppSavesAgainstProjLast3": round(splits[opp]["oppSavesAgainstPer60Last3"]+splits[opp]["oppSavesAgainstPer60Last3"]*splits[team]["savesAboveAvgLast3"], 1),
 					"totalOver": totalOver,
 					"totalOverLast5": totalOverLast5,
 					"lastTotalOver": lastTotalOver,
