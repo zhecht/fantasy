@@ -443,6 +443,22 @@ def writeCsvs(props):
 		splitProps[row["propType"]].append(row)
 		splitProps["full"].append(row)
 
+	csvs["tackles_combined"] = headers
+	rows = sorted(splitProps["tackles_combined"], key=lambda k: (k["player"], -k["totalOverLast3"], -k["totalOver"]))
+	for row in rows:
+		overOdds = row["overOdds"]
+		underOdds = row["underOdds"]
+		gameLine = row["gameLine"]
+		if underOdds == '-inf':
+			underOdds = 0
+		if int(overOdds) > 0:
+			overOdds = "'"+overOdds
+		if int(underOdds) > 0:
+			underOdds = "'"+underOdds
+		if int(gameLine) > 0:
+			gameLine = "'"+gameLine
+		csvs["tackles_combined"] += "\n" + "\t".join([str(x) for x in [row["player"], gameLine, row["awayHome"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), "TACKLES", row["line"], row["avg"], row["winLossSplits"], row["awayHomeSplits"], f"{row['totalOver']}%", f"{row['totalOverLast3']}%", row["last5"], f"{row['lastTotalOver']}%", overOdds, underOdds]])
+
 	# add full rows
 	csvs["full_name"] = headers
 	rows = sorted(splitProps["full"], key=lambda k: (k["player"], -k["totalOverLast3"], -k["totalOver"]))
@@ -458,7 +474,7 @@ def writeCsvs(props):
 			underOdds = "'"+underOdds
 		if int(gameLine) > 0:
 			gameLine = "'"+gameLine
-		csvs["full_name"] += "\n" + "\t".join([row["player"], gameLine, row["awayHome"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), row["winLossSplits"], row["awayHomeSplits"], f"{row['totalOver']}%", f"{row['totalOverLast3']}%", row["last5"], f"{row['lastTotalOver']}%", overOdds, underOdds])
+		csvs["full_name"] += "\n" + "\t".join([str(x) for x in [row["player"], gameLine, row["awayHome"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], row["line"], row["avg"], row["winLossSplits"], row["awayHomeSplits"], f"{row['totalOver']}%", f"{row['totalOverLast3']}%", row["last5"], f"{row['lastTotalOver']}%", overOdds, underOdds]])
 		#except:
 		#	pass
 
@@ -477,7 +493,7 @@ def writeCsvs(props):
 		if int(gameLine) > 0:
 			gameLine = "'"+gameLine
 		try:
-			csvs["full_hit"] += "\n" + "\t".join([row["player"], gameLine, row["awayHome"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), row["winLossSplits"], row["awayHomeSplits"], f"{row['totalOver']}%", f"{row['totalOverLast3']}%", row["last5"], f"{row['lastTotalOver']}%", overOdds, underOdds])
+			csvs["full_hit"] += "\n" + "\t".join([str(x) for x in [row["player"], gameLine, row["awayHome"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), row["winLossSplits"], row["awayHomeSplits"], f"{row['totalOver']}%", f"{row['totalOverLast3']}%", row["last5"], f"{row['lastTotalOver']}%", overOdds, underOdds]])
 		except:
 			pass
 
@@ -598,9 +614,12 @@ def getProps_longest_route():
 				oppOverList = []
 				if pos != "-":
 					for wk in sorted(longestRanks[opp], key=lambda k: int(k.replace("wk", "")), reverse=True):
-						if longestRanks[opp][wk][pos][prop] > line:
+						if pos in longestRanks[opp][wk] and longestRanks[opp][wk][pos][prop] > line:
 							oppOver += 1
-						oppOverList.append(longestRanks[opp][wk][pos][prop])
+						try:
+							oppOverList.append(longestRanks[opp][wk][pos][prop])
+						except:
+							oppOverList.append(0)
 						oppOverTot += 1
 
 				if oppOverTot:
@@ -831,7 +850,7 @@ def getProps_route():
 					oppRankVal = str(rankings[opp]["o"+rankingsProp]["season"])
 					oppRank = rankings[opp]['o'+rankingsProp]['rank']
 
-				gameLine = ""
+				gameLine = 0
 				if game in gameLines:
 					gameOdds = gameLines[game]["moneyline"]["odds"].split(",")
 					if team == game.split(" @ ")[0]:
@@ -874,7 +893,11 @@ def getProps_route():
 	return jsonify(res)
 
 def convertDKTeam(team):
-	return team
+	if team.startswith("gb"):
+		return "gb"
+	elif team == "was":
+		return "wsh"
+	return team.replace(" ", "")[:3]
 
 def h2h(props):
 	with open(f"{prefix}static/props/h2h.json") as fh:
@@ -966,7 +989,10 @@ def writeH2H():
 	if "eventGroup" not in data:
 		return
 	for event in data["eventGroup"]["events"]:
-		game = convertDKTeam(event["teamShortName1"].lower()) + " @ " + convertDKTeam(event["teamShortName2"].lower())
+		try:
+			game = convertDKTeam(event["teamShortName1"].lower()) + " @ " + convertDKTeam(event["teamShortName2"].lower())
+		except:
+			game = convertDKTeam(event["teamName1"].lower()) + " @ " + convertDKTeam(event["teamName2"].lower())
 		if game not in h2h:
 			h2h[game] = {}
 		events[event["eventId"]] = game
@@ -1018,7 +1044,10 @@ def writeH2H():
 		if "eventGroup" not in data:
 			continue
 		for event in data["eventGroup"]["events"]:
-			game = convertDKTeam(event["teamShortName1"].lower()) + " @ " + convertDKTeam(event["teamShortName2"].lower())
+			try:
+				game = convertDKTeam(event["teamShortName1"].lower()) + " @ " + convertDKTeam(event["teamShortName2"].lower())
+			except:
+				game = convertDKTeam(event["teamName1"].lower()) + " @ " + convertDKTeam(event["teamName2"].lower())
 			if game not in h2h:
 				h2h[game] = {}
 			events[event["eventId"]] = game
@@ -1050,8 +1079,8 @@ def writeH2H():
 						odds = [odds1,odds2]
 						if player1 == "over":
 							ps = row["label"].lower().split(" - ")[0].split(" & ")
-							player1 = ps[0]
-							player2 = ps[1]
+							player1 = ps[0].replace(".", "").replace("'", "").replace("-", " ")
+							player2 = ps[1].replace(".", "").replace("'", "").replace("-", " ")
 
 						h2hProp = prop+"_"+h2hType
 						if h2hProp not in h2h[game]:
@@ -1375,7 +1404,10 @@ def writeGameLines():
 	if "eventGroup" not in data:
 		return
 	for event in data["eventGroup"]["events"]:
-		game = convertDKTeam(event["teamShortName1"].lower()) + " @ " + convertDKTeam(event["teamShortName2"].lower())
+		try:
+			game = convertDKTeam(event["teamShortName1"].lower()) + " @ " + convertDKTeam(event["teamShortName2"].lower())
+		except:
+			continue
 		if game not in lines:
 			lines[game] = {}
 		events[event["eventId"]] = game
@@ -1388,6 +1420,8 @@ def writeGameLines():
 				continue
 			for offerRow in cRow["offerSubcategory"]["offers"]:
 				for row in offerRow:
+					if row["eventId"] not in events:
+						continue
 					game = events[row["eventId"]]
 					gameType = row["label"].lower()
 
@@ -1538,7 +1572,7 @@ def writeProps(curr_week):
 							except:
 								continue
 							#print(row)
-							if prop == "tackles_combined" and "participant" not in row["outcomes"][0]:
+							if "participant" not in row["outcomes"][0]:
 								continue
 							player = row["outcomes"][0]["participant"].lower().replace(".", "").replace("'", "").replace("-", " ")
 							odds = ["",""]
@@ -1594,6 +1628,12 @@ def getH2HProps_route():
 	playerStats = {}
 	for game in h2h:
 		teams = game.split(" @ ")
+
+		if teamsArg and teams[0] not in teamsArg:
+			continue
+		if teamsArg and teams[1] not in teamsArg:
+			continue
+
 		for team in teams:
 			if team not in playerStats:
 				playerStats[team] = {}
@@ -1643,7 +1683,7 @@ def getH2HProps_route():
 				if straightTotal:
 					straightOver = round(straightOver * 100 / straightTotal)
 
-				allPairsOver = allPairsTotal = 0
+				allPairsOver = allPairsTotal = allPairsOdds = 0
 				for num1 in arrs[0]:
 					for num2 in arrs[1]:
 						if h2hType == "total":
@@ -1657,6 +1697,12 @@ def getH2HProps_route():
 						allPairsTotal += 1
 				if allPairsTotal:
 					allPairsOver = round(allPairsOver * 100 / allPairsTotal)
+					if allPairsOver == 100:
+						allPairsOdds = -100000
+					else:
+						allPairsOdds = round((100*allPairsOver) / (-100+allPairsOver))
+						if allPairsOver and allPairsOver < 50:
+							allPairsOdds = round((100*(100-allPairsOver)) / (-100+(100-allPairsOver)))
 
 				if "over" in h2h[game][propKey][matchup]:
 					odds1 = h2h[game][propKey][matchup]["over"]
@@ -1693,7 +1739,8 @@ def getH2HProps_route():
 					"line2": lines[1],
 					"log2": ",".join([str(x) for x in arrs[1]]),
 					"straightOver": straightOver,
-					"allPairsOver": allPairsOver
+					"allPairsOver": allPairsOver,
+					"allPairsOdds": allPairsOdds
 				})
 
 	return jsonify(res)

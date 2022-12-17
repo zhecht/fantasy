@@ -131,6 +131,10 @@ def getProps_route():
 		schedule = json.load(fh)
 	with open(f"{prefix}static/ncaabreference/teams.json") as fh:
 		teamIds = json.load(fh)
+	with open(f"{prefix}static/ncaabreference/scores.json") as fh:
+		scores = json.load(fh)
+	with open(f"{prefix}static/ncaabprops/lines/{date}.json") as fh:
+		gameLines = json.load(fh)
 
 	#propData = customPropData(propData)
 	#teamTotals(date, schedule)
@@ -191,6 +195,8 @@ def getProps_route():
 
 				totalOverPerMin = totalOver = totalOverLast5 = totalGames = 0
 				last5 = []
+				winLossSplits = [[],[]]
+				awayHomeSplits = [[],[]]
 				hit = False
 				if line and avgMin:
 					files = sorted(glob.glob(f"{prefix}static/ncaabreference/{team}/*-*-*.json"), key=lambda k: datetime.strptime(k.split("/")[-1].replace(".json", ""), "%Y-%m-%d"), reverse=True)
@@ -209,6 +215,18 @@ def getProps_route():
 								else:
 									val = gameStats[name][prop]
 
+								pastOpp = ""
+								teamIsAway = False
+								for g in schedule[chkDate]:
+									gameSp = g.split(" @ ")
+									if team in gameSp:
+										if team == gameSp[0]:
+											teamIsAway = True
+											pastOpp = gameSp[1]
+										else:
+											pastOpp = gameSp[0]
+										break
+
 								if val > float(line):
 									if chkDate == date:
 										hit = True
@@ -220,6 +238,20 @@ def getProps_route():
 										last5.append(v)
 										continue
 									last5.append(v)
+
+								teamScore = scores[chkDate][team]
+								oppScore = scores[chkDate][pastOpp]
+
+								if teamScore > oppScore:
+									winLossSplits[0].append(val)
+								elif teamScore < oppScore:
+									winLossSplits[1].append(val)
+
+								if teamIsAway:
+									awayHomeSplits[0].append(val)
+								else:
+									awayHomeSplits[1].append(val)
+
 								valPerMin = float(val / minutes)
 								linePerMin = float(line) / avgMin
 								#if valPerMin > linePerMin:
@@ -266,11 +298,37 @@ def getProps_route():
 				if overList:
 					oppOver = round(len([x for x in overList if x > linePerMin]) * 100 / len(overList))
 
+				winSplitAvg = lossSplitAvg = 0
+				if len(winLossSplits[0]):
+					winSplitAvg = round(sum(winLossSplits[0]) / len(winLossSplits[0]),2)
+				if len(winLossSplits[1]):
+					lossSplitAvg = round(sum(winLossSplits[1]) / len(winLossSplits[1]),2)
+				winLossSplits = f"{winSplitAvg} - {lossSplitAvg}"
+
+				awaySplitAvg = homeSplitAvg = 0
+				if len(awayHomeSplits[0]):
+					awaySplitAvg = round(sum(awayHomeSplits[0]) / len(awayHomeSplits[0]),2)
+				if len(awayHomeSplits[1]):
+					homeSplitAvg = round(sum(awayHomeSplits[1]) / len(awayHomeSplits[1]),2)
+				awayHomeSplits = f"{awaySplitAvg} - {homeSplitAvg}"
+
+				gameLine = ""
+				if game in gameLines:
+					gameOdds = gameLines[game]["moneyline"]["odds"].split(",")
+					if team == game.split(" @ ")[0]:
+						gameLine = gameOdds[0]
+					else:
+						gameLine = gameOdds[1]
+
 				props.append({
 					"player": name.title(),
 					"team": team.upper(),
 					"display": teamIds[team]["display"].lower().replace(" ", "-"),
 					"pos": pos,
+					"gameLine": gameLine,
+					"awayHome": "A" if team == game.split(" @ ")[0] else "H",
+					"awayHomeSplits": awayHomeSplits,
+					"winLossSplits": winLossSplits,
 					"opponent": opp.upper(),
 					"propType": prop,
 					"line": line or "-",
@@ -295,9 +353,9 @@ def getProps_route():
 def writeCsvs(props):
 	csvs = {}
 	splitProps = {"full": []}
-	headers = "\t".join(["NAME","POS","TEAM","OPP","PROP","LINE","SZN AVG","% OVER","L5 % OVER","LAST 7 GAMES ➡️","OVER", "UNDER"])
+	headers = "\t".join(["NAME","POS","TEAM","OPP","PROP","LINE","SZN AVG","W-L Splits","A-H Splits","% OVER","L5 % OVER","LAST 7 GAMES ➡️","OVER", "UNDER"])
 	reddit = "|".join(headers.split("\t"))
-	reddit += "\n:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--"
+	reddit += "\n:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--"
 
 	for row in props:
 		if row["propType"] not in splitProps:
@@ -318,7 +376,7 @@ def writeCsvs(props):
 		if int(underOdds) > 0:
 			underOdds = "'"+underOdds
 		try:
-			csvs["full_name"] += "\n" + "\t".join([row["player"], row["pos"], row["team"], row["opponent"].upper(), row["propType"], str(row["line"]), str(row["avg"]), f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], overOdds, underOdds])
+			csvs["full_name"] += "\n" + "\t".join([row["player"], row["pos"], row["team"], row["opponent"].upper(), row["propType"], str(row["line"]), str(row["avg"]), row["winLossSplits"], row["awayHomeSplits"], f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], overOdds, underOdds])
 		except:
 			pass
 
@@ -334,7 +392,7 @@ def writeCsvs(props):
 		if int(underOdds) > 0:
 			underOdds = "'"+underOdds
 		try:
-			csvs["full_hit"] += "\n" + "\t".join([row["player"], row["pos"], row["team"], row["opponent"].upper(), row["propType"], str(row["line"]), str(row["avg"]), f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], overOdds, underOdds])
+			csvs["full_hit"] += "\n" + "\t".join([row["player"], row["pos"], row["team"], row["opponent"].upper(), row["propType"], str(row["line"]), str(row["avg"]), row["winLossSplits"], row["awayHomeSplits"], f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], overOdds, underOdds])
 		except:
 			pass
 
@@ -343,6 +401,67 @@ def writeCsvs(props):
 			continue
 		with open(f"{prefix}static/ncaabprops/csvs/{prop}.csv", "w") as fh:
 			fh.write(csvs[prop])
+
+def writeGameLines(date):
+	lines = {}
+	if os.path.exists(f"{prefix}static/ncaabprops/lines/{date}.json"):
+		with open(f"{prefix}static/ncaabprops/lines/{date}.json") as fh:
+			lines = json.load(fh)
+
+	time.sleep(0.3)
+	url = "https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/92483?format=json"
+	outfile = "out"
+	call(["curl", "-k", url, "-o", outfile])
+
+	with open("out") as fh:
+		data = json.load(fh)
+
+	events = {}
+	lines = {}
+	displayTeams = {}
+	if "eventGroup" not in data:
+		return
+	for event in data["eventGroup"]["events"]:
+		displayTeams[event["teamName1"].lower()] = event["teamShortName1"].lower()
+		displayTeams[event["teamName2"].lower()] = event["teamShortName2"].lower()
+		game = convertDKTeam(event["teamShortName1"].lower()) + " @ " + convertDKTeam(event["teamShortName2"].lower())
+		if game not in lines:
+			lines[game] = {}
+		events[event["eventId"]] = game
+
+	for catRow in data["eventGroup"]["offerCategories"]:
+		if catRow["name"].lower() != "game lines":
+			continue
+		for cRow in catRow["offerSubcategoryDescriptors"]:
+			if cRow["name"].lower() != "game":
+				continue
+			for offerRow in cRow["offerSubcategory"]["offers"]:
+				for row in offerRow:
+					game = events[row["eventId"]]
+					try:
+						gameType = row["label"].lower().split(" ")[-1]
+					except:
+						continue
+
+					switchOdds = False
+					team1 = ""
+					if gameType != "total":
+						team1 = convertDKTeam(row["outcomes"][0]["label"].lower())
+						if team1 != game.split(" @ ")[0]:
+							switchOdds = True
+
+					odds = [row["outcomes"][0]["oddsAmerican"], row["outcomes"][1]["oddsAmerican"]]
+					if switchOdds:
+						odds[0], odds[1] = odds[1], odds[0]
+
+					line = row["outcomes"][0].get("line", 0)
+					lines[game][gameType] = {
+						"line": line,
+						"odds": ",".join(odds)
+					}
+
+	with open(f"{prefix}static/ncaabprops/lines/{date}.json", "w") as fh:
+		json.dump(lines, fh, indent=4)
 
 def convertDKTeam(team):
 	if team == "tx a&m-cc":
@@ -367,6 +486,8 @@ def convertDKTeam(team):
 		return "mvsu"
 	elif team == "nc cent":
 		return "nccu"
+	elif team == "nw":
+		return "nu"
 	elif team == "or st":
 		return "orst"
 	elif team == "ind":
@@ -381,18 +502,30 @@ def convertDKTeam(team):
 		return "mia"
 	elif team == "ok st":
 		return "okst"
+	elif team == "pacif":
+		return "pac"
 	elif team == "s clara":
 		return "scu"
 	elif team == "valpo":
 		return "val"
 	elif team == "drake":
 		return "drke"
+	elif team == "san fran":
+		return "sf"
 	elif team == "scar":
 		return "sc"
+	elif team == "st. joe":
+		return "joes"
+	elif team == "tamu":
+		return "ta&m"
 	elif team == "uc riv":
 		return "ucr"
+	elif team == "uconn":
+		return "conn"
 	elif team == "wis":
 		return "wisc"
+	elif team == "wich st":
+		return "wich"
 	return team.replace("'", "")
 
 def writeProps(date):
@@ -497,6 +630,7 @@ if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-c", "--cron", action="store_true", help="Start Cron Job")
 	parser.add_argument("-d", "--date", help="Date")
+	parser.add_argument("--lines", action="store_true", help="Game Lines")
 	parser.add_argument("--zero", help="Zero CustomProp Odds", action="store_true")
 	parser.add_argument("-w", "--week", help="Week", type=int)
 
@@ -511,37 +645,6 @@ if __name__ == "__main__":
 
 	if args.cron:
 		writeProps(date)
-
-
-	if 0:
-		with open(f"static/ncaabprops/dates/{date}.json") as fh:
-			props = json.load(fh)
-
-		with open(f"static/ncaabreference/schedule.json") as fh:
-			schedule = json.load(fh)
-
-		games = [game for game in schedule[date]]
-		newProps = {}
-		for team in props:
-			game = [g for g in games if team in g.split(" @ ")][0]
-			if game not in newProps:
-				newProps[game] = {}
-
-			for player in props[team]:
-				if player not in newProps[game]:
-					newProps[game][player] = {}
-				for prop in props[team][player]:
-					over = props[team][player][prop]["draftkings"]["over"].split(" ")[-1][1:-1]
-					if int(over) > 0:
-						over = f"+{over}"
-					under = props[team][player][prop]["draftkings"]["under"].split(" ")[-1][1:-1]
-					if int(under) > 0:
-						under = f"+{under}"
-					newProps[game][player][prop] = {
-						"line": float(props[team][player][prop]["line"][1:]),
-						"over": over,
-						"under": under
-					}
-
-		with open(f"static/ncaabprops/dates/{date}.json", "w") as fh:
-			json.dump(newProps, fh, indent=4)
+		writeGameLines(date)
+	elif args.lines:
+		writeGameLines(date)

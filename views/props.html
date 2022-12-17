@@ -442,7 +442,7 @@
 							cell.getRow().toggleSelect();
 						}},
 						{title: "Player", field: "player", headerFilter: "input"},
-						{title: "O/U Odds", field: "overUnderOdds", hozAlign: "center"},
+						//{title: "O/U Odds", field: "overUnderOdds", hozAlign: "center"},
 						{title: "ML", field: "gameLine",  hozAlign: "center", width: 70},
 						{title: "A/H", field: "awayHome",  hozAlign: "center", width: 50},
 						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
@@ -458,6 +458,8 @@
 						{title: "Last", field: "last5", hozAlign: "center", width:250},
 						{title: "Last YR AVG", field: "lastAvg", hozAlign: "center", width: 80, formatter: colorFormatter},
 						{title: "Last YR Total Over", field: "lastTotalOver", width: 80, hozAlign: "center", formatter: percentFormatter},
+						{title: "Over", field: "overOdds", hozAlign: "center"},
+						{title: "Under", field: "underOdds", hozAlign: "center"},
 					]
 				})
 			}

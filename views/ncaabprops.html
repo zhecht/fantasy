@@ -53,10 +53,10 @@
 				let s = "";
 				const joinChar = (output == "csv") ? "\t" : "|";
 				//s += ["NAME","TEAM","PROP","LINE","SZN AVG","% OVER","LAST 7 GAMES","LAST YR % OVER","OVER", "UNDER"].join(joinChar);
-				s += ["NAME","POS","TEAM","OPP","PROP","LINE","SZN AVG","% OVER","L5 % OVER","LAST 7 GAMES ➡️","OVER","UNDER"].join(joinChar);
+				s += ["NAME","POS","TEAM","OPP","PROP","LINE","SZN AVG","W-L Splits","A-H Splits","% OVER","L5 % OVER","LAST 7 GAMES ➡️","OVER","UNDER"].join(joinChar);
 				s += "\n";
                 if (output != "csv") {
-                    s += ":--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--\n";
+                    s += ":--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--\n";
                 }
 				let rows = TABLE.getSelectedRows();
                 if (rows.length == 0) {
@@ -74,7 +74,7 @@
 							underOdds = "'"+underOdds;
 						}
 					}
-					s += [data.player, data.pos, data.team, data.opponent, data.propType, data.line, data.avg, data.totalOver+"%", data.totalOverLast5+"%", data.last5, overOdds, underOdds].join(joinChar);
+					s += [data.player, data.pos, data.team, data.opponent, data.propType, data.line, data.avg, data.winLossSplits, data.awayHomeSplits, data.totalOver+"%", data.totalOverLast5+"%", data.last5, overOdds, underOdds].join(joinChar);
 					s += "\n";
 				}
 				console.log(s);
@@ -118,6 +118,34 @@
 				return "<div class='negative'>"+cell.getValue()+"</div>";
 			}
 
+			const splitsFormatter = function(cell, params, rendered) {
+				const data = cell.getRow().getData();
+				const vals = cell.getValue().split(" - ");
+				let val1 = vals[0];
+				if (parseFloat(val1) >= parseFloat(data.line)) {
+					val1 = "<div class='positive'>"+val1+"</div>";
+				} else {
+					val1 = "<div class='negative'>"+val1+"</div>";
+				}
+				if (cell.getField() == "awayHomeSplits" && data.awayHome == "A") {
+					val1 = "<div style='text-decoration:underline;'>"+val1+"</div>";
+				} else if (cell.getField() == "winLossSplits" && parseInt(data.gameLine) < 0) {
+					val1 = "<div style='text-decoration:underline;'>"+val1+"</div>";
+				}
+				let val2 = vals[1];
+				if (parseFloat(val2) >= parseFloat(data.line)) {
+					val2 = "<div class='positive'>"+val2+"</div>";
+				} else {
+					val2 = "<div class='negative'>"+val2+"</div>";
+				}
+				if (cell.getField() == "awayHomeSplits" && data.awayHome == "H") {
+					val2 = "<div style='text-decoration:underline;'>"+val2+"</div>";
+				} else if (cell.getField() == "winLossSplits" && parseInt(data.gameLine) > 0) {
+					val2 = "<div style='text-decoration:underline;'>"+val2+"</div>";
+				}
+				return "<div style='display:flex;justify-content:center;'>"+val1+"<div style='padding: 0 5px;'> - </div>"+val2+"</div>";
+			}
+
 			function renderTable() {
 				TABLE = new Tabulator("#propsTable", {
 					tooltipsHeader: true,
@@ -143,12 +171,16 @@
 						{title: "Player", field: "player", headerFilter: "input"},
 						{title: "Pos", field: "pos", hozAlign: "center", width: 50},
 						{title: "Avg Min", field: "avgMin", hozAlign: "center", width: 70},
+						//{title: "A/H", field: "awayHome", hozAlign: "center", width: 50},
+						{title: "ML", field: "gameLine", hozAlign: "center", width: 70},
 						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
 						{title: "Opp", field: "opponent", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
 						{title: "Opp % Over", field: "oppOver", hozAlign: "center", formatter: percentFormatter, width: 70},
 						{title: "Prop", field: "propType", hozAlign: "center"},
 						{title: "Line", field: "line", hozAlign: "center"},
 						{title: "SZN AVG", field: "avg", hozAlign: "center", width: 80, formatter: colorFormatter},
+						{title: "W-L Splits", field: "winLossSplits", hozAlign: "center", visible: true, formatter:splitsFormatter},
+						{title: "A-H Splits", field: "awayHomeSplits", hozAlign: "center", visible: true, formatter:splitsFormatter},
 						{title: "Total Over", field: "totalOver", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
 						{title: "L5 % Over", field: "totalOverLast5", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
 						{title: "Last", field: "last5", hozAlign: "center"},

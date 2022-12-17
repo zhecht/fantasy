@@ -137,7 +137,7 @@ def getProps_route():
 		schedule = json.load(fh)
 	with open(f"{prefix}static/hockeyreference/ttoi.json") as fh:
 		ttoi = json.load(fh)
-	with open(f"{prefix}static/nhlprops/lines.json") as fh:
+	with open(f"{prefix}static/nhlprops/lines/{date}.json") as fh:
 		gameLines = json.load(fh)
 	with open(f"{prefix}static/nhlprops/goalies.json") as fh:
 		goalies = json.load(fh)
@@ -447,7 +447,7 @@ def getProps_route():
 				})
 
 	teamTotals()
-	write_csvs(props)
+	writeCsvs(props)
 	return jsonify(props)
 
 @nhlprops_blueprint.route('/nhlprops')
@@ -464,7 +464,7 @@ def props_route():
 	if request.args.get("players"):
 		players = request.args.get("players")
 
-	bets = ",".join(["ilya sorokin", "jacob markstrom"])
+	bets = ",".join(["daniil tarasov", "jeremy swayman", "cam talbot", "ville husso", "spencer martin", "pheonix copley", "juuse saros", "connor ingram", "sergei bobrovsky", "lukas dostal", "stuart skinner"])
 	return render_template("nhlprops.html", prop=prop, alt=alt, date=date, teams=teams, bets=bets, players=players)
 
 def teamTotals():
@@ -522,7 +522,7 @@ def teamTotals():
 		fh.write(out)
 
 
-def write_csvs(props):
+def writeCsvs(props):
 	csvs = {}
 	splitProps = {"full": []}
 	headers = "\t".join(["NAME","TEAM","ML","A/H","PROP","LINE","SZN AVG","W-L Splits","A-H Splits","% OVER","L5 % OVER","LAST 10 GAMES","LAST YR % OVER","OVER","UNDER"])
@@ -607,8 +607,10 @@ def convertDKTeam(team):
 	return team
 
 def writeGameLines(date):
-	with open(f"{prefix}static/nhlprops/lines.json") as fh:
-		lines = json.load(fh)
+	lines = {}
+	if os.path.exists(f"{prefix}static/nhlprops/lines/{date}.json"):
+		with open(f"{prefix}static/nhlprops/lines/{date}.json") as fh:
+			lines = json.load(fh)
 
 	time.sleep(0.3)
 	url = "https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/42133?format=json"
@@ -660,7 +662,7 @@ def writeGameLines(date):
 						"odds": ",".join(odds)
 					}
 
-	with open(f"{prefix}static/nhlprops/lines.json", "w") as fh:
+	with open(f"{prefix}static/nhlprops/lines/{date}.json", "w") as fh:
 		json.dump(lines, fh, indent=4)
 
 
