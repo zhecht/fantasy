@@ -447,21 +447,23 @@ def writeCsvs(props):
 		splitProps[row["propType"]].append(row)
 		splitProps["full"].append(row)
 
-	csvs["tackles_combined"] = headers
-	rows = sorted(splitProps["tackles_combined"], key=lambda k: (k["player"], -k["totalOverLast3"], -k["totalOver"]))
-	for row in rows:
-		overOdds = row["overOdds"]
-		underOdds = row["underOdds"]
-		gameLine = row["gameLine"]
-		if underOdds == '-inf':
-			underOdds = 0
-		if int(overOdds) > 0:
-			overOdds = "'"+overOdds
-		if int(underOdds) > 0:
-			underOdds = "'"+underOdds
-		if int(gameLine) > 0:
-			gameLine = "'"+gameLine
-		csvs["tackles_combined"] += "\n" + "\t".join([str(x) for x in [row["player"], gameLine, row["awayHome"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), "TACKLES", row["line"], row["avg"], row["winLossSplits"], row["awayHomeSplits"], f"{row['totalOver']}%", f"{row['totalOverLast3']}%", row["last5"], f"{row['lastTotalOver']}%", overOdds, underOdds]])
+
+	if "tackles_combined" in splitProps:
+		csvs["tackles_combined"] = headers
+		rows = sorted(splitProps["tackles_combined"], key=lambda k: (k["player"], -k["totalOverLast3"], -k["totalOver"]))
+		for row in rows:
+			overOdds = row["overOdds"]
+			underOdds = row["underOdds"]
+			gameLine = row["gameLine"]
+			if underOdds == '-inf':
+				underOdds = 0
+			if int(overOdds) > 0:
+				overOdds = "'"+overOdds
+			if int(underOdds) > 0:
+				underOdds = "'"+underOdds
+			if int(gameLine) > 0:
+				gameLine = "'"+gameLine
+			csvs["tackles_combined"] += "\n" + "\t".join([str(x) for x in [row["player"], gameLine, row["awayHome"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), "TACKLES", row["line"], row["avg"], row["winLossSplits"], row["awayHomeSplits"], f"{row['totalOver']}%", f"{row['totalOverLast3']}%", row["last5"], f"{row['lastTotalOver']}%", overOdds, underOdds]])
 
 	# add full rows
 	csvs["full_name"] = headers

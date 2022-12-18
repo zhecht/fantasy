@@ -899,4 +899,4 @@ if __name__ == "__main__":
 		writeGoalieProps(date)
 		writeGoalieStats()
 		writeExpectations()
-		#writeGameLines(date)
+		writeGameLines(date)

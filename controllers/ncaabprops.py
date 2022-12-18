@@ -313,7 +313,7 @@ def getProps_route():
 				awayHomeSplits = f"{awaySplitAvg} - {homeSplitAvg}"
 
 				gameLine = ""
-				if game in gameLines:
+				if game in gameLines and "moneyline" in gameLines[game]:
 					gameOdds = gameLines[game]["moneyline"]["odds"].split(",")
 					if team == game.split(" @ ")[0]:
 						gameLine = gameOdds[0]
@@ -446,8 +446,9 @@ def writeGameLines(date):
 					switchOdds = False
 					team1 = ""
 					if gameType != "total":
-						team1 = convertDKTeam(row["outcomes"][0]["label"].lower())
-						if team1 != convertDKTeam(game.split(" @ ")[0]):
+						outcomeTeam1 = row["outcomes"][0]["label"].lower()
+						team1 = convertDKTeam(displayTeams[outcomeTeam1])
+						if team1 != game.split(" @ ")[0]:
 							switchOdds = True
 
 					odds = [row["outcomes"][0]["oddsAmerican"], row["outcomes"][1]["oddsAmerican"]]
@@ -500,6 +501,8 @@ def convertDKTeam(team):
 		return "md"
 	elif team == "mia fl":
 		return "mia"
+	elif team == "no co":
+		return "unco"
 	elif team == "ok st":
 		return "okst"
 	elif team == "pacif":
