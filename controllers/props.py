@@ -355,6 +355,10 @@ def getProps_ATTD_route():
 
 		if teams and team.upper() not in teams:
 			continue
+
+		if team in ["cle", "bal", "ind", "min", "buf", "mia", "sea", "sf"]:
+			continue
+
 		teamStats = {}
 		opp = get_opponents(team)[CURR_WEEK]
 		for file in glob.glob(f"{prefix}static/profootballreference/{team}/*.json"):
@@ -556,6 +560,9 @@ def getProps_longest_route():
 		if teams and team.upper() not in teams:
 			continue
 
+		if team in ["cle", "bal", "ind", "min", "buf", "mia", "sea", "sf"]:
+			continue
+
 		teamStats = {}
 		opp = get_opponents(team)[CURR_WEEK]
 		for file in glob.glob(f"{prefix}static/profootballreference/{team}/*.json"):
@@ -719,6 +726,9 @@ def getProps_route():
 			if teamsArg and team not in teamsArg:
 				continue
 
+			if team in ["cle", "bal", "ind", "min", "buf", "mia", "sea", "sf"]:
+				continue
+
 			if players and player not in players:
 				continue
 
@@ -735,7 +745,7 @@ def getProps_route():
 			for prop in props[game][player]:
 				if propArg and prop != propArg:
 					continue
-				if prop in ["kicking_pts", "pat", "rush+rec_yds"]:
+				if prop in ["kicking_pts", "pat", "rush+rec_yds", "pass+rush_yds"]:
 					continue
 				if "long" in prop:
 					continue
@@ -1057,6 +1067,8 @@ def writeH2H():
 				continue
 			for cRow in catRow["offerSubcategoryDescriptors"]:
 				prop = "_".join(cRow["name"].lower().split(" ")[:-1])
+				if prop == "pass_completions":
+					prop = "pass_cmp"
 				if "offerSubcategory" not in cRow:
 					continue
 
@@ -1658,6 +1670,8 @@ def getH2HProps_route():
 				for pIdx, player in enumerate(players):
 					if player == "gabriel davis":
 						player = "gabe davis"
+					elif player == "travis etienne":
+						player = "travis etienne jr"
 					team = game.split(" @ ")[pIdx]
 					if player not in roster[team]:
 						team = game.split(" @ ")[0] if pIdx == 1 else game.split(" @ ")[1]

@@ -137,8 +137,11 @@ def getProps_route():
 		schedule = json.load(fh)
 	with open(f"{prefix}static/hockeyreference/ttoi.json") as fh:
 		ttoi = json.load(fh)
-	with open(f"{prefix}static/nhlprops/lines/{date}.json") as fh:
-		gameLines = json.load(fh)
+
+	gameLines = {}
+	if os.path.exists(f"{prefix}static/nhlprops/lines/{date}.json"):
+		with open(f"{prefix}static/nhlprops/lines/{date}.json") as fh:
+			gameLines = json.load(fh)
 	with open(f"{prefix}static/nhlprops/goalies.json") as fh:
 		goalies = json.load(fh)
 	with open(f"{prefix}static/nhlprops/expected.json") as fh:
@@ -464,7 +467,7 @@ def props_route():
 	if request.args.get("players"):
 		players = request.args.get("players")
 
-	bets = ",".join(["daniil tarasov", "jeremy swayman", "cam talbot", "ville husso", "spencer martin", "pheonix copley", "juuse saros", "connor ingram", "sergei bobrovsky", "lukas dostal", "stuart skinner"])
+	bets = ",".join(["daniil tarasov", "jeremy swayman", "cam talbot", "ville husso", "spencer martin", "pheonix copley", "juuse saros", "connor ingram", "sergei bobrovsky", "lukas dostal", "stuart skinner", "jaroslav halak", "ilya samsonov", "andrei vasilevskiy", "james reimer", "akira schmid"])
 	return render_template("nhlprops.html", prop=prop, alt=alt, date=date, teams=teams, bets=bets, players=players)
 
 def teamTotals():

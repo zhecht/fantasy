@@ -278,8 +278,8 @@
 						return "<a href='https://www.espn.com/nfl/team/depth/_/name/"+value+"' target='_blank'>"+value+"</a>" + "<span style='color:black; margin-left:10px;'>(" + count + " "+playerTxt+")</span>";
 					},
 					initialSort: [
-						{column: "totalOver", dir: "desc"},
 						{column: "totalOverLast5", dir: "desc"},
+						{column: "totalOver", dir: "desc"},
 						//{column: "team", dir: "asc"},
 					],
 					rowFormatter:function(row){
@@ -356,8 +356,8 @@
 						{title: "Prop", field: "propType", formatter: propFormatter, hozAlign: "center"},
 						{title: "Line", field: "line", hozAlign: "center"},
 						{title: "SZN AVG", field: "avg", hozAlign: "center", width: 80, formatter: colorFormatter},
-						{title: "GSAA", field: "gsaa", hozAlign: "center", width: 80, visible: true},
-						{title: "Sv Above Exp", field: "savesAboveExp", hozAlign: "center", width: 80, visible: true},
+						{title: "GSAA", field: "gsaa", hozAlign: "center", width: 80, visible: true, sorter: "number"},
+						{title: "Sv Above Exp", field: "savesAboveExp", hozAlign: "center", width: 80, visible: true, sorter: "number"},
 						{title: "W-L Splits", field: "winLossSplits", hozAlign: "center", visible: true, formatter:splitsFormatter},
 						{title: "A-H Splits", field: "awayHomeSplits", hozAlign: "center", visible: true, formatter:splitsFormatter},
 						{title: "Total Over", field: "totalOver", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number", visible: true},
@@ -416,10 +416,10 @@
 				for (row of rows) {
 					const data = row.getData();
 					if (bets.indexOf(data.player.toLowerCase()) >= 0) {
-						row.select();
+						//row.select();
 					}
 				}
-			}, 7000);
+			}, 7500);
 		</script>
 		{% if date == "" %}
 			<script>

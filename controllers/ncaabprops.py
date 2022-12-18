@@ -447,7 +447,7 @@ def writeGameLines(date):
 					team1 = ""
 					if gameType != "total":
 						team1 = convertDKTeam(row["outcomes"][0]["label"].lower())
-						if team1 != game.split(" @ ")[0]:
+						if team1 != convertDKTeam(game.split(" @ ")[0]):
 							switchOdds = True
 
 					odds = [row["outcomes"][0]["oddsAmerican"], row["outcomes"][1]["oddsAmerican"]]
@@ -520,6 +520,8 @@ def convertDKTeam(team):
 		return "ta&m"
 	elif team == "uc riv":
 		return "ucr"
+	elif team == "uw-gb" or team == "green bay":
+		return "gb"
 	elif team == "uconn":
 		return "conn"
 	elif team == "wis":
