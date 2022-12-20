@@ -312,7 +312,7 @@ def getProps_route():
 					homeSplitAvg = round(sum(awayHomeSplits[1]) / len(awayHomeSplits[1]),2)
 				awayHomeSplits = f"{awaySplitAvg} - {homeSplitAvg}"
 
-				gameLine = ""
+				gameLine = 0
 				if game in gameLines and "moneyline" in gameLines[game]:
 					gameOdds = gameLines[game]["moneyline"]["odds"].split(",")
 					if team == game.split(" @ ")[0]:
@@ -353,9 +353,9 @@ def getProps_route():
 def writeCsvs(props):
 	csvs = {}
 	splitProps = {"full": []}
-	headers = "\t".join(["NAME","POS","TEAM","OPP","PROP","LINE","SZN AVG","W-L Splits","A-H Splits","% OVER","L5 % OVER","LAST 7 GAMES ➡️","OVER", "UNDER"])
+	headers = "\t".join(["NAME","POS","ML","A/H","TEAM","OPP","PROP","LINE","SZN AVG","W-L Splits","A-H Splits","% OVER","L5 % OVER","LAST 7 GAMES ➡️","OVER", "UNDER"])
 	reddit = "|".join(headers.split("\t"))
-	reddit += "\n:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--"
+	reddit += "\n:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--"
 
 	for row in props:
 		if row["propType"] not in splitProps:
@@ -369,14 +369,17 @@ def writeCsvs(props):
 	for row in rows:
 		overOdds = row["overOdds"]
 		underOdds = row["underOdds"]
+		gameLine = row["gameLine"]
 		if underOdds == '-inf':
 			underOdds = 0
 		if int(overOdds) > 0:
 			overOdds = "'"+overOdds
 		if int(underOdds) > 0:
 			underOdds = "'"+underOdds
+		if int(gameLine) > 0:
+			gameLine = "'"+gameLine
 		try:
-			csvs["full_name"] += "\n" + "\t".join([row["player"], row["pos"], row["team"], row["opponent"].upper(), row["propType"], str(row["line"]), str(row["avg"]), row["winLossSplits"], row["awayHomeSplits"], f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], overOdds, underOdds])
+			csvs["full_name"] += "\n" + "\t".join([str(x) for x in [row["player"], row["pos"], gameLine, row["awayHome"], row["team"], row["opponent"].upper(), row["propType"], row["line"], row["avg"], row["winLossSplits"], row["awayHomeSplits"], f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], overOdds, underOdds]])
 		except:
 			pass
 
@@ -385,14 +388,17 @@ def writeCsvs(props):
 	for row in rows:
 		overOdds = row["overOdds"]
 		underOdds = row["underOdds"]
+		gameLine = row["gameLine"]
 		if underOdds == '-inf':
 			underOdds = 0
 		if int(overOdds) > 0:
 			overOdds = "'"+overOdds
 		if int(underOdds) > 0:
 			underOdds = "'"+underOdds
+		if int(gameLine) > 0:
+			gameLine = "'"+gameLine
 		try:
-			csvs["full_hit"] += "\n" + "\t".join([row["player"], row["pos"], row["team"], row["opponent"].upper(), row["propType"], str(row["line"]), str(row["avg"]), row["winLossSplits"], row["awayHomeSplits"], f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], overOdds, underOdds])
+			csvs["full_hit"] += "\n" + "\t".join([str(x) for x in [row["player"], row["pos"], gameLine, row["awayHome"], row["team"], row["opponent"].upper(), row["propType"], str(row["line"]), str(row["avg"]), row["winLossSplits"], row["awayHomeSplits"], f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], overOdds, underOdds]])
 		except:
 			pass
 
@@ -501,6 +507,8 @@ def convertDKTeam(team):
 		return "md"
 	elif team == "mia fl":
 		return "mia"
+	elif team == "no ala":
+		return "una"
 	elif team == "no co":
 		return "unco"
 	elif team == "ok st":
@@ -523,15 +531,19 @@ def convertDKTeam(team):
 		return "ta&m"
 	elif team == "uc riv":
 		return "ucr"
+	elif team == "ut val":
+		return "uvu"
 	elif team == "uw-gb" or team == "green bay":
 		return "gb"
 	elif team == "uconn":
 		return "conn"
 	elif team == "wis":
 		return "wisc"
+	elif team == "woff":
+		return "wof"
 	elif team == "wich st":
 		return "wich"
-	return team.replace("'", "")
+	return team.replace(" ", "").replace("'", "")
 
 def writeProps(date):
 	ids = {

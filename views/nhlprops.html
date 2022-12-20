@@ -162,6 +162,8 @@
                     s += data.team+" "+data.player+"\n";
                     s += "> "+data.team+" sv/60m (szn, L5, L3, L1): "+[svPerGm].join(", ")+"  \n";
                     s += "> "+data.opponent+" sv against/60m: "+[oppSvAgainstPerGm].join(", ")+"  \n";
+                    s += "> "+data.team+" Scoring Chances Against (szn, L10, L5, L3): "+data.scoringAgainst+"  \n";
+                    s += "> "+data.opponent+" Scoring Chances: "+data.oppScoring+"  \n";
                     s += "> Avg: "+avg+". W-L splits: "+winSplits+" - "+lossSplits+". "+data.team+" ML odds: "+data.gameLine+"  \n";
                     s += "> "+last+" has had "+overLine+"+ saves in "+data.totalOver+"% of games this season and "+data.lastTotalOver+"% of games last season  \n";
                     s += "> Goalies playing "+data.opponent+" have had "+overLine+"+ saves in "+data.oppOver+"% of games this year  \n";
@@ -317,12 +319,26 @@
 			function collapseFormatter(data) {
 				//data - an array of objects containing the column title and value for each cell
 				let table = document.createElement("table");
+				table.style.width = "100%";
+				const html = {};
+				for (col of data) {
+					console.log(col.title, col.value, col.value.indexOf(" // "));
+					if (col.value.indexOf(" // ") >= 0 || col.value.indexOf(" &#x2F;&#x2F; ") >= 0) {
+						html[col.title] = "<td><strong>"+col.title+"</strong></td><td>"+col.value+"</td>";
+					} else {
+						let row = document.createElement("tr");
+						row.innerHTML = "<td><strong>"+col.title+"</strong></td><td>"+col.value+"</td>";
+						table.appendChild(row);
+					}
+				}
 
-				data.forEach(function(col){
-					let row = document.createElement("tr");
-					row.innerHTML = "<td><strong>"+col.title+"</strong></td><td>"+col.value+"</td>";
-					table.appendChild(row);
-				});
+				for (title in html) {
+					if (title.toLowerCase().substr(0,3) != "opp") {
+						let row = document.createElement("tr");
+						row.innerHTML = html[title]+html["Opp "+title];
+						table.appendChild(row);
+					}
+				}
 
 				return Object.keys(data).length ? table : "";
 			}
@@ -396,18 +412,22 @@
 						{title: "Last YR AVG", field: "lastAvg", hozAlign: "center", width: 80, formatter: colorFormatter, visible: true},
 						{title: "Last YR Total Over", field: "lastTotalOver", width: 80, hozAlign: "center", formatter: percentFormatter, visible: true},
 						{title: "Over/Under", field: "overUnder", hozAlign: "center", sorter: "number", visible: true},
-						{title: "Corsi (szn, L10, L5)", field: "corsi", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
-						{title: "Fenwick (szn, L10, L5)", field: "fenwick", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
-						{title: "Shots (szn, L10, L5)", field: "shots", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
-						{title: "Corsi Against (szn, L10, L5)", field: "corsiAgainst", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
-						{title: "Fenwick Against (szn, L10, L5)", field: "fenwickAgainst", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
-						{title: "Shots Against (szn, L10, L5)", field: "shotsAgainst", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
-						{title: "Opp Corsi (szn, L10, L5)", field: "oppCorsi", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
-						{title: "Opp Fenwick (szn, L10, L5)", field: "oppFenwick", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
-						{title: "Opp Shots (szn, L10, L5)", field: "oppShots", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
-						{title: "Opp Corsi Against (szn, L10, L5)", field: "oppCorsiAgainst", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
-						{title: "Opp Fenwick Against (szn, L10, L5)", field: "oppFenwickAgainst", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
-						{title: "Opp Shots Against (szn, L10, L5)", field: "oppShotsAgainst", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
+						{title: "Corsi (A/10/5/3)", field: "corsi", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
+						{title: "Fenwick", field: "fenwick", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
+						{title: "Shots", field: "shots", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
+						{title: "Scoring", field: "scoring", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
+						{title: "Corsi Against", field: "corsiAgainst", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
+						{title: "Fenwick Against", field: "fenwickAgainst", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
+						{title: "Shots Against", field: "shotsAgainst", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
+						{title: "Scoring Against", field: "scoringAgainst", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
+						{title: "Opp Corsi (A/10/5/3)", field: "oppCorsi", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
+						{title: "Opp Fenwick", field: "oppFenwick", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
+						{title: "Opp Shots", field: "oppShots", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
+						{title: "Opp Scoring", field: "oppScoring", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
+						{title: "Opp Corsi Against", field: "oppCorsiAgainst", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
+						{title: "Opp Fenwick Against", field: "oppFenwickAgainst", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
+						{title: "Opp Shots Against", field: "oppShotsAgainst", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
+						{title: "Opp Scoring Against", field: "oppScoringAgainst", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
 						//{title: "Over", field: "overOdds", hozAlign: "center", sorter: "number", visible: true},
 						//{title: "Under", field: "underOdds", hozAlign: "center", sorter: "number", visible: true},
 					]

@@ -53,10 +53,10 @@
 				let s = "";
 				const joinChar = (output == "csv") ? "\t" : "|";
 				//s += ["NAME","TEAM","PROP","LINE","SZN AVG","% OVER","LAST 7 GAMES","LAST YR % OVER","OVER", "UNDER"].join(joinChar);
-				s += ["NAME","POS","TEAM","OPP","PROP","LINE","SZN AVG","W-L Splits","A-H Splits","% OVER","L5 % OVER","LAST 7 GAMES ➡️","OVER","UNDER"].join(joinChar);
+				s += ["NAME","POS","ML","A/H","TEAM","OPP","PROP","LINE","SZN AVG","W-L Splits","A-H Splits","% OVER","L5 % OVER","LAST 7 GAMES ➡️","OVER","UNDER"].join(joinChar);
 				s += "\n";
                 if (output != "csv") {
-                    s += ":--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--\n";
+                    s += ":--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--\n";
                 }
 				let rows = TABLE.getSelectedRows();
                 if (rows.length == 0) {
@@ -66,6 +66,7 @@
 					const data = row.getData();
 					let overOdds = data.overOdds;
 					let underOdds = data.underOdds;
+					let gameLine = data.gameLine;
 					if (output == "csv") {
 						if (parseInt(overOdds) > 0) {
 							overOdds = "'"+overOdds;
@@ -73,8 +74,11 @@
 						if (parseInt(underOdds) > 0) {
 							underOdds = "'"+underOdds;
 						}
+						if (parseInt(gameLine) > 0) {
+							gameLine = "'"+gameLine;
+						}
 					}
-					s += [data.player, data.pos, data.team, data.opponent, data.propType, data.line, data.avg, data.winLossSplits, data.awayHomeSplits, data.totalOver+"%", data.totalOverLast5+"%", data.last5, overOdds, underOdds].join(joinChar);
+					s += [data.player, data.pos, gameLine, data.awayHome, data.team, data.opponent, data.propType, data.line, data.avg, data.winLossSplits, data.awayHomeSplits, data.totalOver+"%", data.totalOverLast5+"%", data.last5, overOdds, underOdds].join(joinChar);
 					s += "\n";
 				}
 				console.log(s);

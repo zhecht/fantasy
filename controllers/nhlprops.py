@@ -110,8 +110,28 @@ def getOpportunitySplits(opportunities):
 		oppSplits[team] = {}
 		for period in opportunities[team]:
 			oppSplits[team][period] = opportunities[team][period]
-			for stat in ["cf", "ca", "ff", "fa", "sf", "sa"]:
+			for stat in ["cf", "ca", "ff", "fa", "sf", "sa", "scf", "sca"]:
 				oppSplits[team][period][stat+"Per60"] = round(opportunities[team][period][stat]/opportunities[team][period]["toi"]*60, 1)
+
+		formats = {
+			"cf": "corsi",
+			"ff": "fenwick",
+			"sf": "shots",
+			"scf": "scoring",
+			"ca": "corsiAgainst",
+			"fa": "fenwickAgainst",
+			"sa": "shotsAgainst",
+			"sca": "scoringAgainst"
+		}
+
+		for stat in formats:
+			display = []
+			for period in ["tot", "last10", "last5", "last3"]:
+				pct = oppSplits[team][period][stat.replace('a','f')+'%']
+				if "Against" in formats[stat]:
+					pct = 100-pct
+				display.append(f"{round(pct, 1)}% ({oppSplits[team][period][stat+'Per60']})")
+			oppSplits[team][formats[stat]] = " // ".join(display)
 	return oppSplits
 
 @nhlprops_blueprint.route('/getNHLProps')
@@ -405,20 +425,6 @@ def getProps_route():
 						except:
 							gsaa = "-"
 
-				corsi = f"{round(opportunitySplits[team]['tot']['cf%'], 1)}% ({opportunitySplits[team]['tot']['cfPer60']}) // {round(opportunitySplits[team]['last10']['cf%'], 1)}% ({opportunitySplits[team]['last10']['cfPer60']}) // {round(opportunitySplits[team]['last5']['cf%'], 1)}% ({opportunitySplits[team]['last5']['cfPer60']})"
-				fenwick = f"{round(opportunitySplits[team]['tot']['ff%'], 1)}% ({opportunitySplits[team]['tot']['ffPer60']}) // {round(opportunitySplits[team]['last10']['ff%'], 1)}% ({opportunitySplits[team]['last10']['ffPer60']}) // {round(opportunitySplits[team]['last5']['ff%'], 1)}% ({opportunitySplits[team]['last5']['ffPer60']})"
-				shots = f"{round(opportunitySplits[team]['tot']['sf%'], 1)}% ({opportunitySplits[team]['tot']['sfPer60']}) // {round(opportunitySplits[team]['last10']['sf%'], 1)}% ({opportunitySplits[team]['last10']['sfPer60']}) // {round(opportunitySplits[team]['last5']['sf%'], 1)}% ({opportunitySplits[team]['last5']['sfPer60']})"
-				corsiAgainst = f"{round(100-opportunitySplits[team]['tot']['cf%'], 1)}% ({opportunitySplits[team]['tot']['caPer60']}) // {round(100-opportunitySplits[team]['last10']['cf%'], 1)}% ({opportunitySplits[team]['last10']['caPer60']}) // {round(100-opportunitySplits[team]['last5']['cf%'], 1)}% ({opportunitySplits[team]['last5']['caPer60']})"
-				fenwickAgainst = f"{round(100-opportunitySplits[team]['tot']['ff%'], 1)}% ({opportunitySplits[team]['tot']['faPer60']}) // {round(100-opportunitySplits[team]['last10']['ff%'], 1)}% ({opportunitySplits[team]['last10']['faPer60']}) // {round(100-opportunitySplits[team]['last5']['ff%'], 1)}% ({opportunitySplits[team]['last5']['faPer60']})"
-				shotsAgainst = f"{round(100-opportunitySplits[team]['tot']['sf%'], 1)}% ({opportunitySplits[team]['tot']['saPer60']}) // {round(100-opportunitySplits[team]['last10']['sf%'], 1)}% ({opportunitySplits[team]['last10']['saPer60']}) // {round(100-opportunitySplits[team]['last5']['sf%'], 1)}% ({opportunitySplits[team]['last5']['saPer60']})"
-
-				oppCorsi = f"{round(opportunitySplits[opp]['tot']['cf%'], 1)}% ({opportunitySplits[opp]['tot']['cfPer60']}) // {round(opportunitySplits[opp]['last10']['cf%'], 1)}% ({opportunitySplits[opp]['last10']['cfPer60']}) // {round(opportunitySplits[opp]['last5']['cf%'], 1)}% ({opportunitySplits[opp]['last5']['cfPer60']})"
-				oppFenwick = f"{round(opportunitySplits[opp]['tot']['ff%'], 1)}% ({opportunitySplits[opp]['tot']['ffPer60']}) // {round(opportunitySplits[opp]['last10']['ff%'], 1)}% ({opportunitySplits[opp]['last10']['ffPer60']}) // {round(opportunitySplits[opp]['last5']['ff%'], 1)}% ({opportunitySplits[opp]['last5']['ffPer60']})"
-				oppShots = f"{round(opportunitySplits[opp]['tot']['sf%'], 1)}% ({opportunitySplits[opp]['tot']['sfPer60']}) // {round(opportunitySplits[opp]['last10']['sf%'], 1)}% ({opportunitySplits[opp]['last10']['sfPer60']}) // {round(opportunitySplits[opp]['last5']['sf%'], 1)}% ({opportunitySplits[opp]['last5']['sfPer60']})"
-				oppCorsiAgainst = f"{round(100-opportunitySplits[opp]['tot']['cf%'], 1)}% ({opportunitySplits[opp]['tot']['caPer60']}) // {round(100-opportunitySplits[opp]['last10']['cf%'], 1)}% ({opportunitySplits[opp]['last10']['caPer60']}) // {round(100-opportunitySplits[opp]['last5']['cf%'], 1)}% ({opportunitySplits[opp]['last5']['caPer60']})"
-				oppFenwickAgainst = f"{round(100-opportunitySplits[opp]['tot']['ff%'], 1)}% ({opportunitySplits[opp]['tot']['faPer60']}) // {round(100-opportunitySplits[opp]['last10']['ff%'], 1)}% ({opportunitySplits[opp]['last10']['faPer60']}) // {round(100-opportunitySplits[opp]['last5']['ff%'], 1)}% ({opportunitySplits[opp]['last5']['faPer60']})"
-				oppShotsAgainst = f"{round(100-opportunitySplits[opp]['tot']['sf%'], 1)}% ({opportunitySplits[opp]['tot']['saPer60']}) // {round(100-opportunitySplits[opp]['last10']['sf%'], 1)}% ({opportunitySplits[opp]['last10']['saPer60']}) // {round(100-opportunitySplits[opp]['last5']['sf%'], 1)}% ({opportunitySplits[opp]['last5']['saPer60']})"
-
 				props.append({
 					"player": player.title(),
 					"team": team.upper(),
@@ -441,18 +447,22 @@ def getProps_route():
 					"awayHomeSplits": awayHome,
 					"savesAboveExp": savesAboveExp,
 					"gsaa": gsaa,
-					"corsi": corsi,
-					"fenwick": fenwick,
-					"shots": shots,
-					"corsiAgainst": corsiAgainst,
-					"fenwickAgainst": fenwickAgainst,
-					"shotsAgainst": shotsAgainst,
-					"oppCorsi": oppCorsi,
-					"oppFenwick": oppFenwick,
-					"oppShots": oppShots,
-					"oppCorsiAgainst": oppCorsiAgainst,
-					"oppFenwickAgainst": oppFenwickAgainst,
-					"oppShotsAgainst": oppShotsAgainst,
+					"corsi": opportunitySplits[team]["corsi"],
+					"fenwick": opportunitySplits[team]["fenwick"],
+					"shots": opportunitySplits[team]["shots"],
+					"scoring": opportunitySplits[team]["scoring"],
+					"corsiAgainst": opportunitySplits[team]["corsiAgainst"],
+					"fenwickAgainst": opportunitySplits[team]["fenwickAgainst"],
+					"shotsAgainst": opportunitySplits[team]["shotsAgainst"],
+					"scoringAgainst": opportunitySplits[team]["scoringAgainst"],
+					"oppCorsi": opportunitySplits[opp]["corsi"],
+					"oppFenwick": opportunitySplits[opp]["fenwick"],
+					"oppShots": opportunitySplits[opp]["shots"],
+					"oppScoring": opportunitySplits[opp]["scoring"],
+					"oppCorsiAgainst": opportunitySplits[opp]["corsiAgainst"],
+					"oppFenwickAgainst": opportunitySplits[opp]["fenwickAgainst"],
+					"oppShotsAgainst": opportunitySplits[opp]["shotsAgainst"],
+					"oppScoringAgainst": opportunitySplits[opp]["scoringAgainst"],
 
 					"savesPerGame": round(rankings[team]["tot"]["SV/GP"], 1),
 					"savesPerGameLast1": round(rankings[team]["last1"]["SV/GP"], 1),
@@ -507,7 +517,7 @@ def props_route():
 	if request.args.get("players"):
 		players = request.args.get("players")
 
-	bets = ",".join(["linus ullmark", "ukko-pekka luukkonen", "ilya sorokin", "ville husso", "jack campbell", "spencer knight", "charlie lindgren", "alexandar georgiev", "juuse saros", "zach hyman", "brad marchand", "valeri nichushkin", "moritz seider", "clayton keller"])
+	bets = ",".join(["daniil tarasov", "lukas dostal", "david rittich", "igor shesterkin", "carter hart", "tristan jarry", "jake guentzel", "jaccob slavin", "brady tkachuk", "erik karlsson", "steven stamkos"])
 	return render_template("nhlprops.html", prop=prop, alt=alt, date=date, teams=teams, bets=bets, players=players)
 
 def teamTotals():
@@ -981,11 +991,14 @@ def writeOpportunities():
 
 	twoWeeksAgo = datetime.now() - timedelta(days=10)
 	twoWeeksAgo = str(twoWeeksAgo)[:10]
+	oneWeekAgo = datetime.now() - timedelta(days=6)
+	oneWeekAgo = str(oneWeekAgo)[:10]
 
 	baseUrl = "https://www.naturalstattrick.com/teamtable.php?fromseason=20222023&thruseason=20222023&stype=2&sit=all&score=all&rate=n&team=all&loc=B"
 	periods = {
 		"last10": "&gpf=10",
 		"last5": f"&fd={twoWeeksAgo}&td={date}",
+		"last3": f"&fd={oneWeekAgo}&td={date}",
 		"tot": ""
 	}
 
