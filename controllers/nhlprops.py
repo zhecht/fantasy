@@ -4,6 +4,7 @@ from subprocess import call
 from bs4 import BeautifulSoup as BS
 from sys import platform
 from datetime import datetime
+from datetime import timedelta
 
 import argparse
 import glob
@@ -102,7 +103,16 @@ def getSplits(rankings, schedule, ttoi, dateArg):
 		splits[team]["oppSavesAgainstAboveAvgLast3"] = round(sum(oppSavesAgainstAboveAvg[:3]) / len(oppSavesAgainstAboveAvg[:3]), 3)
 	return splits
 
+def getOpportunitySplits(opportunities):
+	oppSplits = {}
 
+	for team in opportunities:
+		oppSplits[team] = {}
+		for period in opportunities[team]:
+			oppSplits[team][period] = opportunities[team][period]
+			for stat in ["cf", "ca", "ff", "fa", "sf", "sa"]:
+				oppSplits[team][period][stat+"Per60"] = round(opportunities[team][period][stat]/opportunities[team][period]["toi"]*60, 1)
+	return oppSplits
 
 @nhlprops_blueprint.route('/getNHLProps')
 def getProps_route():
@@ -137,6 +147,10 @@ def getProps_route():
 		schedule = json.load(fh)
 	with open(f"{prefix}static/hockeyreference/ttoi.json") as fh:
 		ttoi = json.load(fh)
+	with open(f"{prefix}static/hockeyreference/opportunities.json") as fh:
+		opportunities = json.load(fh)
+
+	opportunitySplits = getOpportunitySplits(opportunities)
 
 	gameLines = {}
 	if os.path.exists(f"{prefix}static/nhlprops/lines/{date}.json"):
@@ -391,6 +405,20 @@ def getProps_route():
 						except:
 							gsaa = "-"
 
+				corsi = f"{round(opportunitySplits[team]['tot']['cf%'], 1)}% ({opportunitySplits[team]['tot']['cfPer60']}) // {round(opportunitySplits[team]['last10']['cf%'], 1)}% ({opportunitySplits[team]['last10']['cfPer60']}) // {round(opportunitySplits[team]['last5']['cf%'], 1)}% ({opportunitySplits[team]['last5']['cfPer60']})"
+				fenwick = f"{round(opportunitySplits[team]['tot']['ff%'], 1)}% ({opportunitySplits[team]['tot']['ffPer60']}) // {round(opportunitySplits[team]['last10']['ff%'], 1)}% ({opportunitySplits[team]['last10']['ffPer60']}) // {round(opportunitySplits[team]['last5']['ff%'], 1)}% ({opportunitySplits[team]['last5']['ffPer60']})"
+				shots = f"{round(opportunitySplits[team]['tot']['sf%'], 1)}% ({opportunitySplits[team]['tot']['sfPer60']}) // {round(opportunitySplits[team]['last10']['sf%'], 1)}% ({opportunitySplits[team]['last10']['sfPer60']}) // {round(opportunitySplits[team]['last5']['sf%'], 1)}% ({opportunitySplits[team]['last5']['sfPer60']})"
+				corsiAgainst = f"{round(100-opportunitySplits[team]['tot']['cf%'], 1)}% ({opportunitySplits[team]['tot']['caPer60']}) // {round(100-opportunitySplits[team]['last10']['cf%'], 1)}% ({opportunitySplits[team]['last10']['caPer60']}) // {round(100-opportunitySplits[team]['last5']['cf%'], 1)}% ({opportunitySplits[team]['last5']['caPer60']})"
+				fenwickAgainst = f"{round(100-opportunitySplits[team]['tot']['ff%'], 1)}% ({opportunitySplits[team]['tot']['faPer60']}) // {round(100-opportunitySplits[team]['last10']['ff%'], 1)}% ({opportunitySplits[team]['last10']['faPer60']}) // {round(100-opportunitySplits[team]['last5']['ff%'], 1)}% ({opportunitySplits[team]['last5']['faPer60']})"
+				shotsAgainst = f"{round(100-opportunitySplits[team]['tot']['sf%'], 1)}% ({opportunitySplits[team]['tot']['saPer60']}) // {round(100-opportunitySplits[team]['last10']['sf%'], 1)}% ({opportunitySplits[team]['last10']['saPer60']}) // {round(100-opportunitySplits[team]['last5']['sf%'], 1)}% ({opportunitySplits[team]['last5']['saPer60']})"
+
+				oppCorsi = f"{round(opportunitySplits[opp]['tot']['cf%'], 1)}% ({opportunitySplits[opp]['tot']['cfPer60']}) // {round(opportunitySplits[opp]['last10']['cf%'], 1)}% ({opportunitySplits[opp]['last10']['cfPer60']}) // {round(opportunitySplits[opp]['last5']['cf%'], 1)}% ({opportunitySplits[opp]['last5']['cfPer60']})"
+				oppFenwick = f"{round(opportunitySplits[opp]['tot']['ff%'], 1)}% ({opportunitySplits[opp]['tot']['ffPer60']}) // {round(opportunitySplits[opp]['last10']['ff%'], 1)}% ({opportunitySplits[opp]['last10']['ffPer60']}) // {round(opportunitySplits[opp]['last5']['ff%'], 1)}% ({opportunitySplits[opp]['last5']['ffPer60']})"
+				oppShots = f"{round(opportunitySplits[opp]['tot']['sf%'], 1)}% ({opportunitySplits[opp]['tot']['sfPer60']}) // {round(opportunitySplits[opp]['last10']['sf%'], 1)}% ({opportunitySplits[opp]['last10']['sfPer60']}) // {round(opportunitySplits[opp]['last5']['sf%'], 1)}% ({opportunitySplits[opp]['last5']['sfPer60']})"
+				oppCorsiAgainst = f"{round(100-opportunitySplits[opp]['tot']['cf%'], 1)}% ({opportunitySplits[opp]['tot']['caPer60']}) // {round(100-opportunitySplits[opp]['last10']['cf%'], 1)}% ({opportunitySplits[opp]['last10']['caPer60']}) // {round(100-opportunitySplits[opp]['last5']['cf%'], 1)}% ({opportunitySplits[opp]['last5']['caPer60']})"
+				oppFenwickAgainst = f"{round(100-opportunitySplits[opp]['tot']['ff%'], 1)}% ({opportunitySplits[opp]['tot']['faPer60']}) // {round(100-opportunitySplits[opp]['last10']['ff%'], 1)}% ({opportunitySplits[opp]['last10']['faPer60']}) // {round(100-opportunitySplits[opp]['last5']['ff%'], 1)}% ({opportunitySplits[opp]['last5']['faPer60']})"
+				oppShotsAgainst = f"{round(100-opportunitySplits[opp]['tot']['sf%'], 1)}% ({opportunitySplits[opp]['tot']['saPer60']}) // {round(100-opportunitySplits[opp]['last10']['sf%'], 1)}% ({opportunitySplits[opp]['last10']['saPer60']}) // {round(100-opportunitySplits[opp]['last5']['sf%'], 1)}% ({opportunitySplits[opp]['last5']['saPer60']})"
+
 				props.append({
 					"player": player.title(),
 					"team": team.upper(),
@@ -413,8 +441,19 @@ def getProps_route():
 					"awayHomeSplits": awayHome,
 					"savesAboveExp": savesAboveExp,
 					"gsaa": gsaa,
-					#"ptsPerGame": round((rankings[team]["tot"]["G"] / rankings[team]["tot"]["GP"]) + rankings[team]["tot"]["A/GP"], 1),
-					#"ptsPerGameLast5": round((rankings[team]["last5"]["G"] / rankings[team]["last5"]["GP"]) + rankings[team]["last5"]["A/GP"], 1),
+					"corsi": corsi,
+					"fenwick": fenwick,
+					"shots": shots,
+					"corsiAgainst": corsiAgainst,
+					"fenwickAgainst": fenwickAgainst,
+					"shotsAgainst": shotsAgainst,
+					"oppCorsi": oppCorsi,
+					"oppFenwick": oppFenwick,
+					"oppShots": oppShots,
+					"oppCorsiAgainst": oppCorsiAgainst,
+					"oppFenwickAgainst": oppFenwickAgainst,
+					"oppShotsAgainst": oppShotsAgainst,
+
 					"savesPerGame": round(rankings[team]["tot"]["SV/GP"], 1),
 					"savesPerGameLast1": round(rankings[team]["last1"]["SV/GP"], 1),
 					"savesPerGameLast3": round(rankings[team]["last3"]["SV/GP"], 1),
@@ -446,7 +485,8 @@ def getProps_route():
 					"lastTotalOver": lastTotalOver,
 					"last5": ",".join(last5),
 					"overOdds": overOdds,
-					"underOdds": underOdds
+					"underOdds": underOdds,
+					"overUnder": f"{overOdds} / {underOdds}"
 				})
 
 	teamTotals()
@@ -467,7 +507,7 @@ def props_route():
 	if request.args.get("players"):
 		players = request.args.get("players")
 
-	bets = ",".join(["daniil tarasov", "jeremy swayman", "cam talbot", "ville husso", "spencer martin", "pheonix copley", "juuse saros", "connor ingram", "sergei bobrovsky", "lukas dostal", "stuart skinner", "jaroslav halak", "ilya samsonov", "andrei vasilevskiy", "james reimer", "akira schmid"])
+	bets = ",".join(["linus ullmark", "ukko-pekka luukkonen", "ilya sorokin", "ville husso", "jack campbell", "spencer knight", "charlie lindgren", "alexandar georgiev", "juuse saros", "zach hyman", "brad marchand", "valeri nichushkin", "moritz seider", "clayton keller"])
 	return render_template("nhlprops.html", prop=prop, alt=alt, date=date, teams=teams, bets=bets, players=players)
 
 def teamTotals():
@@ -555,7 +595,10 @@ def writeCsvs(props):
 				underOdds = "'"+underOdds
 			if int(gameLine) > 0:
 				gameLine = "'"+gameLine
-			csvs[prop] += "\n" + "\t".join([str(x) for x in [row["player"], row["team"], gameLine, row["awayHome"], row["propType"], row["line"], row["avg"], row["winLossSplits"], row["awayHomeSplits"], f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds]])
+			avg = row["avg"]
+			#if avg >= row["line"]:
+			#	avg = f"**{avg}**"
+			csvs[prop] += "\n" + "\t".join([str(x) for x in [row["player"], row["team"], gameLine, row["awayHome"], row["propType"], row["line"], avg, row["winLossSplits"], row["awayHomeSplits"], f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds]])
 
 	# add full rows
 	csvs["full"] = headers
@@ -570,7 +613,10 @@ def writeCsvs(props):
 			underOdds = "'"+underOdds
 		if int(gameLine) > 0:
 			gameLine = "'"+gameLine
-		csvs["full"] += "\n" + "\t".join([str(x) for x in [row["player"], row["team"], gameLine, row["awayHome"], row["propType"], row["line"], row["avg"], row["winLossSplits"], row["awayHomeSplits"], f"{row['totalOver']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds]])
+		avg = row["avg"]
+		#if avg >= row["line"]:
+		#	avg = f"**{avg}**"
+		csvs["full"] += "\n" + "\t".join([str(x) for x in [row["player"], row["team"], gameLine, row["awayHome"], row["propType"], row["line"], avg, row["winLossSplits"], row["awayHomeSplits"], f"{row['totalOver']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds]])
 
 	# add top 4 to reddit
 	for prop in ["sog", "pts"]:
@@ -579,8 +625,31 @@ def writeCsvs(props):
 			for row in rows[:4]:
 				overOdds = row["overOdds"]
 				underOdds = row["underOdds"]
-				gameLine = row["gameLine"]
-				reddit += "\n" + "|".join([str(x) for x in [row["player"], row["team"], gameLine, row["awayHome"], row["propType"], row["line"], row["avg"], row["winLossSplits"], row["awayHomeSplits"], f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds]])
+				gameLine = int(row["gameLine"])
+				avg = row["avg"]
+				if avg >= row["line"]:
+					avg = f"**{avg}**"
+				winLossSplits = row["winLossSplits"].split(" - ")
+				if float(winLossSplits[0]) >= row["line"]:
+					winLossSplits[0] = f"**{winLossSplits[0]}**"
+				if float(winLossSplits[1]) >= row["line"]:
+					winLossSplits[1] = f"**{winLossSplits[1]}**"
+				if gameLine < 0:
+					winLossSplits[0] = f"'{winLossSplits[0]}'"
+				else:
+					winLossSplits[1] = f"'{winLossSplits[1]}'"
+				winLossSplits = " - ".join(winLossSplits)
+				awayHomeSplits = row["awayHomeSplits"].split(" - ")
+				if float(awayHomeSplits[0]) >= row["line"]:
+					awayHomeSplits[0] = f"**{awayHomeSplits[0]}**"
+				if float(awayHomeSplits[1]) >= row["line"]:
+					awayHomeSplits[1] = f"**{awayHomeSplits[1]}**"
+				if row["awayHome"] == "A":
+					awayHomeSplits[0] = f"'{awayHomeSplits[0]}'"
+				else:
+					awayHomeSplits[1] = f"'{awayHomeSplits[1]}'"
+				awayHomeSplits = " - ".join(awayHomeSplits)
+				reddit += "\n" + "|".join([str(x) for x in [row["player"], row["team"], row["gameLine"], row["awayHome"], row["propType"], row["line"], avg, winLossSplits, awayHomeSplits, f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds]])
 		reddit += "\n-|-|-|-|-|-|-|-|-|-|-|-|-|-|-"
 
 	with open(f"{prefix}static/nhlprops/csvs/reddit", "w") as fh:
@@ -873,11 +942,96 @@ def writeExpectations():
 	with open(f"{prefix}static/nhlprops/expected.json", "w") as fh:
 		json.dump(goalies, fh, indent=4)
 
+def convertNaturalStatTeam(team):
+	if team.startswith("columbus"):
+		return "cbj"
+	elif team.endswith("rangers"):
+		return "nyr"
+	elif team.endswith("islanders"):
+		return "nyi"
+	elif team.endswith("sharks"):
+		return "sj"
+	elif team.endswith("capitals"):
+		return "wsh"
+	elif team.endswith("predators"):
+		return "nsh"
+	elif team.endswith("knights"):
+		return "vgk"
+	elif team.endswith("lightning"):
+		return "tb"
+	elif team.endswith("kings"):
+		return "la"
+	elif team.endswith("canadiens"):
+		return "mtl"
+	elif team.endswith("panthers"):
+		return "fla"
+	elif team.endswith("jets"):
+		return "wpg"
+	elif team.endswith("devils"):
+		return "nj"
+	elif team.endswith("flames"):
+		return "cgy"
+
+	return team.replace(" ", "")[:3]
+
+def writeOpportunities():
+
+	date = datetime.now()
+	date = str(date)[:10]
+
+	twoWeeksAgo = datetime.now() - timedelta(days=10)
+	twoWeeksAgo = str(twoWeeksAgo)[:10]
+
+	baseUrl = "https://www.naturalstattrick.com/teamtable.php?fromseason=20222023&thruseason=20222023&stype=2&sit=all&score=all&rate=n&team=all&loc=B"
+	periods = {
+		"last10": "&gpf=10",
+		"last5": f"&fd={twoWeeksAgo}&td={date}",
+		"tot": ""
+	}
+
+	opps = {}
+
+	for period in periods:
+		url = f"{baseUrl}{periods[period]}"
+		outfile = "out"
+		time.sleep(0.3)
+		call(["curl", "-k", url, "-o", outfile])
+		soup = BS(open(outfile, 'rb').read(), "lxml")
+
+		headers = []
+		for th in soup.find("tr").findAll("th")[1:]:
+			headers.append(th.text.strip().lower().replace(" ", ""))
+
+		for row in soup.findAll("tr")[1:]:
+			rowStats = {}
+			for hdr, td in zip(headers, row.findAll("td")[1:]):
+				val = td.text
+				try:
+					if "." in val:
+						val = float(val)
+					else:
+						val = int(val)
+				except:
+					pass
+				rowStats[hdr] = val
+
+			team = convertNaturalStatTeam(rowStats["team"].lower())
+			rowStats["toi"] = int(rowStats["toi"].split(":")[0]) + (int(rowStats["toi"].split(":")[-1]) / 60)
+
+			if team not in opps:
+				opps[team] = {}
+			opps[team][period] = rowStats
+
+	with open(f"{prefix}static/hockeyreference/opportunities.json", "w") as fh:
+		json.dump(opps, fh, indent=4)
+
+
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-c", "--cron", action="store_true", help="Start Cron Job")
 	parser.add_argument("--lines", action="store_true", help="Game Lines")
 	parser.add_argument("--goalies", action="store_true", help="Goalie Stats")
+	parser.add_argument("--opp", action="store_true", help="Opportunities")
 	parser.add_argument("-d", "--date", help="Date")
 	parser.add_argument("-w", "--week", help="Week", type=int)
 
@@ -894,9 +1048,12 @@ if __name__ == "__main__":
 	elif args.goalies:
 		writeExpectations()
 		writeGoalieStats()
+	elif args.opp:
+		writeOpportunities()
 	elif args.cron:
 		writeProps(date)
 		writeGoalieProps(date)
 		writeGoalieStats()
 		writeExpectations()
 		writeGameLines(date)
+		writeOpportunities()

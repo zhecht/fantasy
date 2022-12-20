@@ -356,9 +356,6 @@ def getProps_ATTD_route():
 		if teams and team.upper() not in teams:
 			continue
 
-		if team in ["cle", "bal", "ind", "min", "buf", "mia", "sea", "sf"]:
-			continue
-
 		teamStats = {}
 		opp = get_opponents(team)[CURR_WEEK]
 		for file in glob.glob(f"{prefix}static/profootballreference/{team}/*.json"):
@@ -562,9 +559,6 @@ def getProps_longest_route():
 		if teams and team.upper() not in teams:
 			continue
 
-		if team in ["cle", "bal", "ind", "min", "buf", "mia", "sea", "sf"]:
-			continue
-
 		teamStats = {}
 		opp = get_opponents(team)[CURR_WEEK]
 		for file in glob.glob(f"{prefix}static/profootballreference/{team}/*.json"):
@@ -726,9 +720,6 @@ def getProps_route():
 				continue
 
 			if teamsArg and team not in teamsArg:
-				continue
-
-			if team in ["cle", "bal", "ind", "min", "buf", "mia", "sea", "sf"]:
 				continue
 
 			if players and player not in players:

@@ -266,10 +266,12 @@ def writeTeamTTOI():
 	for team in teamTTOI:
 		res[team] = {
 			"ttoi": sum(teamTTOI[team]["ttoi"]),
+			"ttoiL10": sum(teamTTOI[team]["ttoi"][:10]),
 			"ttoiL5": sum(teamTTOI[team]["ttoi"][:5]),
 			"ttoiL3": sum(teamTTOI[team]["ttoi"][:3]),
 			"ttoiL1": sum(teamTTOI[team]["ttoi"][:1]),
 			"oppTTOI": sum(teamTTOI[team]["oppTTOI"]),
+			"oppTTOIL10": sum(teamTTOI[team]["oppTTOI"][:10]),
 			"oppTTOIL5": sum(teamTTOI[team]["oppTTOI"][:5]),
 			"oppTTOIL3": sum(teamTTOI[team]["oppTTOI"][:3]),
 			"oppTTOIL1": sum(teamTTOI[team]["oppTTOI"][:1]),
