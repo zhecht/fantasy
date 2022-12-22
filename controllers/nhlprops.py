@@ -517,7 +517,7 @@ def props_route():
 	if request.args.get("players"):
 		players = request.args.get("players")
 
-	bets = ",".join(["steven stamkos", "valeri nichushkin", "jack hughes", "moritz seider", "andreas athanasiou", "josh anderson", "chandler stephenson", "ryan nugent-hopkins", "jake oettinger", "petr mrazek", "sergei bobrovsky", "ville husso", "alexandar georgiev", "stuart skinner", "marc-andre fleury", "juuse saros"])
+	bets = ",".join(["erik karlsson", "drake batherson", "jake guentzel", "artemi panarin", "noah cates", "ivan provorov", "quinn hughes", "tristan jarry", "filip gustavsson", "carter hart"])
 	return render_template("nhlprops.html", prop=prop, alt=alt, date=date, teams=teams, bets=bets, players=players)
 
 def teamTotals():

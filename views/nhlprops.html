@@ -160,10 +160,12 @@
                     	lossSplits = "**"+lossSplits+"**";
                     }
                     s += data.team+" "+data.player+"\n";
-                    s += "> "+data.team+" sv/60m (szn, L5, L3, L1): "+[svPerGm].join(", ")+"  \n";
+                    s += "> "+data.team+" sv/60m  -------- (szn, L5, L3, L1): "+[svPerGm].join(", ")+"  \n";
                     s += "> "+data.opponent+" sv against/60m (szn, L5, L3, L1): "+[oppSvAgainstPerGm].join(", ")+"  \n";
+                    s += "> "+data.team+" Shots/60m Against (szn, L10, L5, L3): "+data.shotsAgainst+"  \n";
+                    s += "> "+data.opponent+" Shots/60m ------ (szn, L10, L5, L3): "+data.oppShots+"  \n";
                     s += "> "+data.team+" Scoring Chances Against (szn, L10, L5, L3): "+data.scoringAgainst+"  \n";
-                    s += "> "+data.opponent+" Scoring Chances (szn, L10, L5, L3): "+data.oppScoring+"  \n";
+                    s += "> "+data.opponent+" Scoring Chances ------ (szn, L10, L5, L3): "+data.oppScoring+"  \n";
                     s += "> Avg: "+avg+". W-L splits: "+winSplits+" - "+lossSplits+". "+data.team+" ML odds: "+data.gameLine+"  \n";
                     s += "> "+last+" has had "+overLine+"+ saves in "+data.totalOver+"% of games this season and "+data.lastTotalOver+"% of games last season  \n";
                     s += "> Goalies playing "+data.opponent+" have had "+overLine+"+ saves in "+data.oppOver+"% of games this year  \n";

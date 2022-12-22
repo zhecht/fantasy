@@ -479,6 +479,8 @@ def convertDKTeam(team):
 		return "bois"
 	elif team == "cal poly":
 		return "cp"
+	elif team == "chi st":
+		return "chst"
 	elif team == "furm":
 		return "fur"
 	elif team == "michigan":
