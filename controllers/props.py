@@ -346,6 +346,8 @@ def getProps_ATTD_route():
 		averages = json.load(fh)
 	with open(f"{prefix}static/profootballreference/roster.json") as fh:
 		roster = json.load(fh)
+	with open(f"{prefix}static/profootballreference/totals.json") as fh:
+		totals = json.load(fh)
 	with open(f"{prefix}static/profootballreference/lastYearStats.json") as fh:
 		lastYearStats = json.load(fh)
 
@@ -375,18 +377,25 @@ def getProps_ATTD_route():
 			if dk_odds > 0:
 				dk_odds = f"+{dk_odds}"
 
+			playerStats = {}
+			for wk in teamStats:
+				for p in teamStats[wk]:
+					if p == player:
+						playerStats[wk] = teamStats[wk][p]
+
+			totGames = checkTrades(player, team,playerStats, totals)
+
 			pos = "-"
 			if team in roster and player in roster[team]:
 				pos = roster[team][player]
 
 			tds = []
 			last3 = []
-			for wk in sorted(teamStats.keys(), key=lambda k: int(k.replace("wk", "")), reverse=True):
-				if player in teamStats[wk]:
-					totTds = teamStats[wk][player].get("rush_td", 0) + teamStats[wk][player].get("rec_td", 0)
-					tds.append(int(totTds))
-					if len(last3) < 3:
-						last3.append(int(totTds))
+			for wk in sorted(playerStats.keys(), key=lambda k: int(k.replace("wk", "")), reverse=True):
+				totTds = playerStats[wk].get("rush_td", 0) + playerStats[wk].get("rec_td", 0)
+				tds.append(int(totTds))
+				if len(last3) < 3:
+					last3.append(int(totTds))
 
 			scored = [x for x in tds if x > 0]
 			avg = avgLast3 = totalOver = totalOverLast3 = 0
