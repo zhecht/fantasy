@@ -303,7 +303,10 @@ def writeProps(date):
 							game = events[row["eventId"]]
 						except:
 							continue
-						player = row["outcomes"][0]["participant"].lower().replace(".", "").replace("'", "").replace("-", " ")
+						try:
+							player = row["outcomes"][0]["participant"].lower().replace(".", "").replace("'", "").replace("-", " ")
+						except:
+							continue
 						if player == "nicolas claxton":
 							player = "nic claxton"
 						elif player == "marvin bagley":

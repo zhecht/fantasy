@@ -531,6 +531,8 @@ def convertDKTeam(team):
 		return "ta&m"
 	elif team == "uc riv":
 		return "ucr"
+	elif team == "uc dav":
+		return "ucd"
 	elif team == "ut val":
 		return "uvu"
 	elif team == "uw-gb" or team == "green bay":
