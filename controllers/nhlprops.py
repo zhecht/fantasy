@@ -151,6 +151,8 @@ def getProps_route():
 	if request.args.get("date"):
 		date = request.args.get("date")
 
+	yesterday = str(datetime.now() - timedelta(days=1))[:10]
+
 	with open(f"{prefix}static/nhlprops/dates/{date}.json") as fh:
 		propData = json.load(fh)
 	with open(f"{prefix}static/hockeyreference/rankings.json") as fh:
@@ -278,13 +280,16 @@ def getProps_route():
 				awayHomeSplits = [[],[]]
 				totalOver = totalOverLast5 = totalGames = 0
 				last5 = []
-				hit = False
+				hit = playedYesterday = False
 				if line and avgMin:
 					files = sorted(glob.glob(f"{prefix}static/hockeyreference/{team}/*.json"), key=lambda k: datetime.strptime(k.split("/")[-1].replace(".json", ""), "%Y-%m-%d"), reverse=True)
 					for file in files:
 						chkDate = file.split("/")[-1].replace(".json","")
 						with open(file) as fh:
 							gameStats = json.load(fh)
+
+						if chkDate == yesterday:
+							playedYesterday = True
 
 						if name in gameStats:
 							minutes = gameStats[name]["toi"]
@@ -383,17 +388,38 @@ def getProps_route():
 
 				oppOver = oppOverTot = 0
 				if prop == "sv":
+					for dt in schedule:
+						for g in schedule[dt]:
+							gameSp = g.split(" @ ")
+							if opp not in gameSp:
+								continue
+							t = gameSp[0] if opp == gameSp[1] else gameSp[1]
+							file = f"{prefix}static/hockeyreference/{t}/{dt}.json"
+							if not os.path.exists(file):
+								continue
+							with open(file) as fh:
+								gameStats = json.load(fh)
+							oppOverTot += 1
+							totSaves = 0
+							for p in gameStats:
+								totSaves += gameStats[p].get("sv", 0)
+							if totSaves > float(line):
+								oppOver += 1
+					oppOver = round(oppOver * 100 / oppOverTot)
+
+				teamOver = teamOverTot = 0
+				if prop == "sv":
 					files = sorted(glob.glob(f"{prefix}static/hockeyreference/{team}/*.json"))
 					for file in files:
 						with open(file) as fh:
 							gameStats = json.load(fh)
-						oppOverTot += 1
+						teamOverTot += 1
 						totSaves = 0
 						for p in gameStats:
 							totSaves += gameStats[p].get("sv", 0)
 						if totSaves > float(line):
-							oppOver += 1
-					oppOver = round(oppOver * 100 / oppOverTot)
+							teamOver += 1
+					teamOver = round(teamOver * 100 / teamOverTot)
 
 				gameLine = 0
 				if game in gameLines:
@@ -441,9 +467,11 @@ def getProps_route():
 					"proj": proj,
 					"lastAvgMin": lastAvgMin,
 					"oppOver": oppOver,
+					"teamOver": teamOver,
 					"gameLine": gameLine,
 					"winLossSplits": winLoss,
 					"awayHome": "A" if team == game.split(" @ ")[0] else "H",
+					"playedYesterday": "Y" if playedYesterday else "N",
 					"awayHomeSplits": awayHome,
 					"savesAboveExp": savesAboveExp,
 					"gsaa": gsaa,
@@ -499,8 +527,9 @@ def getProps_route():
 					"overUnder": f"{overOdds} / {underOdds}"
 				})
 
-	teamTotals()
-	writeCsvs(props)
+	if not request.args.get("date"):
+		teamTotals()
+		writeCsvs(props)
 	return jsonify(props)
 
 @nhlprops_blueprint.route('/nhlprops')
@@ -517,7 +546,7 @@ def props_route():
 	if request.args.get("players"):
 		players = request.args.get("players")
 
-	bets = ",".join(["erik karlsson", "drake batherson", "jake guentzel", "artemi panarin", "noah cates", "ivan provorov", "quinn hughes", "tristan jarry", "filip gustavsson", "carter hart"])
+	bets = ",".join(["valeri nichushkin", "brad marchand", "noah cates", "alex stalock", "josh anderson", "jack hughes", "linus ullmark", "noah cates", "ivan provorov", "daniil tarasov", "lukas dostal", "alexandar georgiev", "charlie lindgren", "ilya sorokin", "jordan binnington", "david rittich", "juuse saros"])
 	return render_template("nhlprops.html", prop=prop, alt=alt, date=date, teams=teams, bets=bets, players=players)
 
 def teamTotals():
@@ -724,7 +753,10 @@ def writeGameLines(date):
 			for offerRow in cRow["offerSubcategory"]["offers"]:
 				for row in offerRow:
 					game = events[row["eventId"]]
-					gameType = row["label"].lower().split(" ")[-1]
+					try:
+						gameType = row["label"].lower().split(" ")[-1]
+					except:
+						continue
 
 					switchOdds = False
 					team1 = ""
@@ -832,6 +864,8 @@ def writeProps(date):
 				game = convertDKTeam(event["teamName1"].lower()) + " @ " + convertDKTeam(event["teamName2"].lower())
 			else:
 				game = convertDKTeam(event["teamShortName1"].lower()) + " @ " + convertDKTeam(event["teamShortName2"].lower())
+			if "eventStatus" in event and "state" in event["eventStatus"] and event["eventStatus"]["state"] == "STARTED":
+				continue
 			if game not in props:
 				props[game] = {}
 			events[event["eventId"]] = game

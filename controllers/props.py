@@ -1021,7 +1021,10 @@ def writeH2H():
 			for offerRow in cRow["offerSubcategory"]["offers"]:
 				for row in offerRow:
 					game = events[row["eventId"]]
-					h2hType = row["label"].lower().split(" ")[-1]
+					try:
+						h2hType = row["label"].lower().split(" ")[-1]
+					except:
+						continue
 					matchup = row["label"].lower().split("_")[0].split(" - ")[0].replace("&", "v").replace(".", "").replace("'", "").replace("-", " ")
 					player1 = row["outcomes"][0]["label"].lower().replace(".", "").replace("'", "").replace("-", " ")
 					odds1 = row["outcomes"][0]["oddsAmerican"]
@@ -1077,7 +1080,10 @@ def writeH2H():
 				for offerRow in cRow["offerSubcategory"]["offers"]:
 					for row in offerRow:
 						game = events[row["eventId"]]
-						h2hType = row["label"].lower().split(" ")[-1]
+						try:
+							h2hType = row["label"].lower().split(" ")[-1]
+						except:
+							continue
 						matchup = row["label"].lower().split("_")[0].split(" - ")[0].replace("&", "v").replace(".", "").replace("'", "").replace("-", " ")
 						player1 = row["outcomes"][0]["label"].lower().replace(".", "").replace("'", "").replace("-", " ")
 						odds1 = row["outcomes"][0]["oddsAmerican"]
@@ -1549,6 +1555,8 @@ def writeProps(curr_week):
 				game = convertDKTeam(event["teamName1"].lower()) + " @ " + convertDKTeam(event["teamName2"].lower())
 			else:
 				game = convertDKTeam(event["teamShortName1"].lower()) + " @ " + convertDKTeam(event["teamShortName2"].lower())
+			if "eventStatus" in event and "state" in event["eventStatus"] and event["eventStatus"]["state"] == "STARTED":
+				continue
 			if game not in props:
 				props[game] = {}
 			events[event["eventId"]] = game

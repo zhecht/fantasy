@@ -324,8 +324,7 @@
 				table.style.width = "100%";
 				const html = {};
 				for (col of data) {
-					console.log(col.title, col.value, col.value.indexOf(" // "));
-					if (col.value.indexOf(" // ") >= 0 || col.value.indexOf(" &#x2F;&#x2F; ") >= 0) {
+					if ((col.value.indexOf(" // ") >= 0 || col.value.indexOf(" &#x2F;&#x2F; ") >= 0)) {
 						html[col.title] = "<td><strong>"+col.title+"</strong></td><td>"+col.value+"</td>";
 					} else {
 						let row = document.createElement("tr");
@@ -400,7 +399,8 @@
 						{title: "L1 Opp Saves_A/G", field: "oppSavesAgainstPer60Last1", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number", visible: false},
 						{title: "Opp SA/G", field: "oppShotsAgainstPerGame", hozAlign: "center", width: 70, visible: false},
 						{title: "L5 Opp SA/G", field: "oppShotsAgainstPerGameLast5", hozAlign: "center", width: 70, visible: false},
-						{title: "Opp % Over", field: "oppOver", hozAlign: "center", width: 70, formatter: percentFormatter, visible: false},
+						{title: "Team % Over", field: "teamOver", hozAlign: "center", width: 70, formatter: percentFormatter, visible: false},
+						{title: "% Over Against", field: "oppOver", hozAlign: "center", width: 70, formatter: percentFormatter, visible: false},
 						{title: "Prop", field: "propType", formatter: propFormatter, hozAlign: "center"},
 						{title: "Line", field: "line", hozAlign: "center"},
 						{title: "SZN AVG", field: "avg", hozAlign: "center", width: 80, formatter: colorFormatter},
@@ -413,6 +413,7 @@
 						{title: "Last", field: "last5", hozAlign: "center", visible: true},
 						{title: "Last YR AVG", field: "lastAvg", hozAlign: "center", width: 80, formatter: colorFormatter, visible: true},
 						{title: "Last YR Total Over", field: "lastTotalOver", width: 80, hozAlign: "center", formatter: percentFormatter, visible: true},
+						{title: "Played Yesterday", field: "playedYesterday", hozAlign: "center", width: 70, visible: false},
 						{title: "Over/Under", field: "overUnder", hozAlign: "center", sorter: "number", visible: true},
 						{title: "Corsi (A/10/5/3)", field: "corsi", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
 						{title: "Fenwick", field: "fenwick", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
@@ -468,7 +469,9 @@
 				TABLE.getColumn("oppSavesAgainstPer60Last1").show();
 				TABLE.getColumn("oppSavesAgainstPer60Last3").show();
 				TABLE.getColumn("oppSavesAgainstPer60Last5").show();
+				TABLE.getColumn("teamOver").show();
 				TABLE.getColumn("oppOver").show();
+				TABLE.getColumn("playedYesterday").show();
 
 				TABLE.getColumn("propType").hide();
 			</script>

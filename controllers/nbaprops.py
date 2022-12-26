@@ -283,6 +283,7 @@ def writeProps(date):
 			startDt = datetime.strptime(start, "%Y-%m-%dT%H:%MZ") - timedelta(hours=5)
 			if startDt.day != int(date[-2:]):
 				continue
+				pass
 			if "teamShortName1" not in event:
 				game = convertDKTeam(event["teamName1"].lower()) + " @ " + convertDKTeam(event["teamName2"].lower())
 			else:

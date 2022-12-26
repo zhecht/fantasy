@@ -242,7 +242,10 @@ def write_schedule(date):
 		scores = json.load(fh)
 
 	for table in soup.findAll("div", class_="ResponsiveTable"):
-		date = table.find("div", class_="Table__Title").text.strip()
+		try:
+			date = table.find("div", class_="Table__Title").text.strip()
+		except:
+			continue
 		date = str(datetime.datetime.strptime(date, "%A, %B %d, %Y"))[:10]
 		if date not in boxscores:
 			boxscores[date] = {}
