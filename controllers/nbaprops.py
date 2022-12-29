@@ -1089,12 +1089,13 @@ def writeGameLines(date):
 
 def writeH2H():
 	ids = {
-		"pts": [1215, 12512],
-		"reb": [1216, 12513],
-		"ast": [1217, 12514],
-		"3ptm": [1218, 12515],
-		"fgm": [1221, 12516],
-		"to": [1220, 12517]
+		"pts": [1206, 12526],
+		"reb": [1206, 12527],
+		"ast": [1206, 12530],
+		"3ptm": [1206, 12531],
+		"fgm": [1206, 12528],
+		"blk": [1206, 12532],
+		"to": [1206, 12529]
 	}
 
 	h2h = {}
@@ -1129,16 +1130,30 @@ def writeH2H():
 						for row in offerRow:
 							game = events[row["eventId"]]
 							try:
-								player1 = row["outcomes"][0]["label"].lower().replace(".", "").replace("'", "").replace("-", " ")
+								h2hType = row["label"].lower().split(" ")[-1]
 							except:
 								continue
+
+							matchup = row["label"].lower().split("_")[0].split(" - ")[0].replace("&", "v").replace(".", "").replace("'", "").replace("-", " ")
+							player1 = row["outcomes"][0]["label"].lower().replace(".", "").replace("'", "").replace("-", " ")
 							odds1 = row["outcomes"][0]["oddsAmerican"]
+							line = ""
+							if "line" in row["outcomes"][0]:
+								if player1 != matchup.split(" v ")[0]:
+									line = row["outcomes"][1]["line"]
+								else:
+									line = row["outcomes"][0]["line"]
 							player2 = row["outcomes"][1]["label"].lower().replace(".", "").replace("'", "").replace("-", " ")
 							odds2 = row["outcomes"][1]["oddsAmerican"]
 
-							if prop not in h2h[game]:
-								h2h[game][prop] = {}
-							h2h[game][prop][f"{player1} v {player2}"] = ",".join([odds1, odds2])
+							h2hProp = prop+"_"+h2hType
+							if h2hProp not in h2h[game]:
+								h2h[game][h2hProp] = {}
+							h2h[game][h2hProp][matchup] = {
+								"line": line,
+								player1: odds1,
+								player2: odds2,
+							}
 
 	with open(f"{prefix}static/nbaprops/h2h.json", "w") as fh:
 		json.dump(h2h, fh, indent=4)
@@ -1203,22 +1218,27 @@ def getH2HProps_route():
 				if dt not in playerStats[team]:
 					with open(file) as fh:
 						playerStats[team][dt] = json.load(fh)
-		for prop in h2h[game]:
-			for matchup in h2h[game][prop]:
-				odds = h2h[game][prop][matchup].split(",")
+
+		for propKey in h2h[game]:
+			h2hType = propKey.split("_")[-1]
+			prop = propKey.split("_")[0]
+			for matchup in h2h[game][propKey]:
 				players = matchup.split(" v ")
+				line = h2h[game][propKey][matchup]["line"] or 0
 
 				arrs = [[], []]
 				lines = [0,0]
 				playerTeams = ["", ""]
 				for pIdx, player in enumerate(players):
 					team = game.split(" @ ")[pIdx]
+					if player not in roster[team]:
+						team = game.split(" @ ")[0] if pIdx == 1 else game.split(" @ ")[1]
+					playerTeams[pIdx] = team
 					if game in propData and player in propData[game]:
 						try:
 							lines[pIdx] = propData[game][player][prop]["line"]
 						except:
 							pass
-					playerTeams[pIdx] = team
 					for dt in sorted(playerStats[team], key=lambda k: datetime.strptime(k, "%Y-%m-%d"), reverse=True):
 						if player in playerStats[team][dt] and playerStats[team][dt][player].get("min", 0) > 0:
 							arrs[pIdx].append(playerStats[team][dt][player][prop])
@@ -1226,10 +1246,14 @@ def getH2HProps_route():
 
 				straightOver = straightTotal = 0
 				for num1, num2 in zip(arrs[0], arrs[1]):
-					if num1 == num2:
-						continue
-					elif num1 > num2:
-						straightOver += 1
+					if h2hType == "total":
+						if num1+num2 > line:
+							straightOver += 1
+					else:
+						if num1 == num2:
+							continue
+						elif num1+line > num2:
+							straightOver += 1
 					straightTotal += 1
 				if straightTotal:
 					straightOver = round(straightOver * 100 / straightTotal)
@@ -1237,16 +1261,27 @@ def getH2HProps_route():
 				allPairsOver = allPairsTotal = allPairsOdds = 0
 				for num1 in arrs[0]:
 					for num2 in arrs[1]:
-						if num1 == num2:
-							continue
-						elif num1 > num2:
-							allPairsOver += 1
+						if h2hType == "total":
+							if num1+num2 > line:
+								allPairsOver += 1
+						else:
+							if num1 == num2:
+								continue
+							elif num1+line > num2:
+								allPairsOver += 1
 						allPairsTotal += 1
 				if allPairsTotal:
 					allPairsOver = round(allPairsOver * 100 / allPairsTotal)
 					allPairsOdds = round((100*allPairsOver) / (-100+allPairsOver))
 					if allPairsOver < 50:
 						allPairsOdds = round((100*(100-allPairsOver)) / (-100+(100-allPairsOver)))
+
+				if "over" in h2h[game][propKey][matchup]:
+					odds1 = h2h[game][propKey][matchup]["over"]
+					odds2 = h2h[game][propKey][matchup]["under"]
+				else:
+					odds1 = h2h[game][propKey][matchup][players[0]]
+					odds2 = h2h[game][propKey][matchup][players[1]]
 
 				team1, team2 = playerTeams[0], playerTeams[1]
 				teamRank1 = teamRank2 = ""
@@ -1272,18 +1307,20 @@ def getH2HProps_route():
 				res.append({
 					"game": game,
 					"prop": prop,
+					"type": h2hType,
 					"matchup": matchup,
+					"line": line,
 					"player1": players[0].split(" ")[1].title(),
 					"team1": team1,
 					"rank1": teamRank1,
 					"line1": lines[0],
-					"odds1": odds[0],
+					"odds1": odds1,
 					"log1": ",".join([str(x) for x in arrs[0]]),
 					"player2": players[1].split(" ")[1].title(),
 					"team2": team2,
 					"rank2": teamRank2,
 					"line2": lines[1],
-					"odds2": odds[1],
+					"odds2": odds2,
 					"log2": ",".join([str(x) for x in arrs[1]]),
 					"straightOver": straightOver,
 					"allPairsOver": allPairsOver,

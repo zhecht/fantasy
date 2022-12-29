@@ -127,6 +127,9 @@ def getOpportunitySplits(opportunities):
 		for stat in formats:
 			display = []
 			for period in ["tot", "last10", "last5", "last3"]:
+				if period not in oppSplits[team]:
+					#continue
+					pass
 				pct = oppSplits[team][period][stat.replace('a','f')+'%']
 				if "Against" in formats[stat]:
 					pct = 100-pct
@@ -171,6 +174,8 @@ def getProps_route():
 		ttoi = json.load(fh)
 	with open(f"{prefix}static/hockeyreference/opportunities.json") as fh:
 		opportunities = json.load(fh)
+	with open(f"{prefix}static/nhlprops/expectedGoalies.json") as fh:
+		expectedGoalies = json.load(fh)
 
 	opportunitySplits = getOpportunitySplits(opportunities)
 
@@ -450,6 +455,16 @@ def getProps_route():
 							gsaa = float(goalies[opp][goalie]["gsaa"])
 						except:
 							gsaa = "-"
+					elif opp in expectedGoalies:
+						goalie = expectedGoalies[opp]
+						if goalie in expected:
+							savesAboveExp = round((float(expected[goalie]["xgoals"])-float(expected[goalie]["goals"]))*60*60 / float(expected[goalie]["icetime"]), 3)
+						else:
+							savesAboveExp = "-"
+						try:
+							gsaa = float(goalies[opp][goalie]["gsaa"])
+						except:
+							gsaa = "-"
 
 				props.append({
 					"player": player.title(),
@@ -546,7 +561,7 @@ def props_route():
 	if request.args.get("players"):
 		players = request.args.get("players")
 
-	bets = ",".join(["valeri nichushkin", "brad marchand", "noah cates", "alex stalock", "josh anderson", "jack hughes", "linus ullmark", "noah cates", "ivan provorov", "daniil tarasov", "lukas dostal", "alexandar georgiev", "charlie lindgren", "ilya sorokin", "jordan binnington", "david rittich", "juuse saros"])
+	bets = ",".join([])
 	return render_template("nhlprops.html", prop=prop, alt=alt, date=date, teams=teams, bets=bets, players=players)
 
 def teamTotals():
@@ -1018,6 +1033,26 @@ def convertNaturalStatTeam(team):
 
 	return team.replace(" ", "")[:3]
 
+def writeExpectedGoalies(date):
+	url = f"https://www.rotowire.com/hockey/tables/projected-goalies.php?date={date}"
+	outfile = "out"
+	time.sleep(0.3)
+	call(["curl", "-k", url, "-o", outfile])
+	soup = BS(open(outfile, 'rb').read(), "lxml")
+
+	with open("out") as fh:
+		data = json.load(fh)
+
+	expected = {}
+	for row in data:
+		away = convertDKTeam(row["visitteam"].lower())
+		home = convertDKTeam(row["hometeam"].lower())
+		expected[away] = row["visitPlayer"].lower()
+		expected[home] = row["homePlayer"].lower()
+
+	with open(f"{prefix}static/nhlprops/expectedGoalies.json", "w") as fh:
+		json.dump(expected, fh, indent=4)
+
 def writeOpportunities():
 
 	date = datetime.now()
@@ -1027,6 +1062,10 @@ def writeOpportunities():
 	twoWeeksAgo = str(twoWeeksAgo)[:10]
 	oneWeekAgo = datetime.now() - timedelta(days=6)
 	oneWeekAgo = str(oneWeekAgo)[:10]
+
+	if date in ["2022-12-28"]:
+		oneWeekAgo = "2022-12-19"
+		twoWeeksAgo = "2022-12-15"
 
 	baseUrl = "https://www.naturalstattrick.com/teamtable.php?fromseason=20222023&thruseason=20222023&stype=2&sit=all&score=all&rate=n&team=all&loc=B"
 	periods = {
@@ -1095,6 +1134,7 @@ if __name__ == "__main__":
 	elif args.goalies:
 		writeExpectations()
 		writeGoalieStats()
+		writeExpectedGoalies(date)
 	elif args.opp:
 		writeOpportunities()
 	elif args.cron:
@@ -1104,3 +1144,4 @@ if __name__ == "__main__":
 		writeExpectations()
 		writeGameLines(date)
 		writeOpportunities()
+		writeExpectedGoalies(date)
