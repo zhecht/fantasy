@@ -413,17 +413,23 @@ def getProps_route():
 					oppOver = round(oppOver * 100 / oppOverTot)
 
 				teamOver = teamOverTot = 0
+				prevMatchup = []
 				if prop == "sv":
 					files = sorted(glob.glob(f"{prefix}static/hockeyreference/{team}/*.json"))
 					for file in files:
 						with open(file) as fh:
 							gameStats = json.load(fh)
+						chkDate = file.split("/")[-1].replace(".json","")
 						teamOverTot += 1
 						totSaves = 0
 						for p in gameStats:
 							totSaves += gameStats[p].get("sv", 0)
 						if totSaves > float(line):
 							teamOver += 1
+
+						g = [x for x in schedule[chkDate] if team in x.split(" @ ") and opp in x.split(" @ ")]
+						if chkDate != date and len(g):
+							prevMatchup.append(f"{chkDate} {g[0]} {totSaves} sv")
 					teamOver = round(teamOver * 100 / teamOverTot)
 
 				gameLine = 0
@@ -484,6 +490,7 @@ def getProps_route():
 					"oppOver": oppOver,
 					"teamOver": teamOver,
 					"gameLine": gameLine,
+					"prevMatchup": ", ".join(prevMatchup),
 					"winLossSplits": winLoss,
 					"awayHome": "A" if team == game.split(" @ ")[0] else "H",
 					"playedYesterday": "Y" if playedYesterday else "N",
@@ -755,6 +762,8 @@ def writeGameLines(date):
 		displayTeams[event["teamName1"].lower()] = event["teamShortName1"].lower()
 		displayTeams[event["teamName2"].lower()] = event["teamShortName2"].lower()
 		game = convertDKTeam(event["teamShortName1"].lower()) + " @ " + convertDKTeam(event["teamShortName2"].lower())
+		if "eventStatus" in event and "state" in event["eventStatus"] and event["eventStatus"]["state"] == "STARTED":
+			continue
 		if game not in lines:
 			lines[game] = {}
 		events[event["eventId"]] = game
@@ -1063,9 +1072,9 @@ def writeOpportunities():
 	oneWeekAgo = datetime.now() - timedelta(days=6)
 	oneWeekAgo = str(oneWeekAgo)[:10]
 
-	if date in ["2022-12-28"]:
-		oneWeekAgo = "2022-12-19"
-		twoWeeksAgo = "2022-12-15"
+	if date in ["2023-01-03"]:
+		oneWeekAgo = "2022-12-27"
+		twoWeeksAgo = "2022-12-21"
 
 	baseUrl = "https://www.naturalstattrick.com/teamtable.php?fromseason=20222023&thruseason=20222023&stype=2&sit=all&score=all&rate=n&team=all&loc=B"
 	periods = {

@@ -1682,6 +1682,8 @@ def getH2HProps_route():
 						player = "gabe davis"
 					elif player == "travis etienne":
 						player = "travis etienne jr"
+					elif player == "terrace marshall":
+						player = "terrace marshall jr"
 					team = game.split(" @ ")[pIdx]
 					if player not in roster[team]:
 						team = game.split(" @ ")[0] if pIdx == 1 else game.split(" @ ")[1]

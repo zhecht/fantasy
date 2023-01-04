@@ -517,6 +517,8 @@ def convertDKTeam(team):
 		return "okst"
 	elif team == "pacif":
 		return "pac"
+	elif team == "prvw":
+		return "pv"
 	elif team == "rider":
 		return "rid"
 	elif team == "s clara":

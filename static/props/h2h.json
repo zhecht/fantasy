@@ -1,200 +1,278 @@
 {
-    "dal @ ten": {
-        "td_spread": {
-            "treylon burks v michael gallup": {
-                "line": 0.5,
-                "michael gallup": "+330",
-                "treylon burks": "-475"
-            },
-            "robert woods v dalton schultz": {
-                "line": 0.5,
-                "robert woods": "-380",
-                "dalton schultz": "+275"
-            },
-            "robert woods v michael gallup": {
-                "line": 0.5,
-                "robert woods": "-450",
-                "michael gallup": "+320"
-            },
-            "treylon burks v ceedee lamb": {
-                "line": 0.5,
-                "ceedee lamb": "+130",
-                "treylon burks": "-165"
-            },
-            "treylon burks v dalton schultz": {
-                "line": 0.5,
-                "dalton schultz": "+280",
-                "treylon burks": "-390"
-            },
-            "robert woods v ceedee lamb": {
-                "line": 0.5,
-                "robert woods": "-155",
-                "ceedee lamb": "+125"
+    "buf @ cin": {
+        "pass_td_spread": {
+            "joe burrow v josh allen": {
+                "line": -0.5,
+                "josh allen": "-135",
+                "joe burrow": "+105"
             }
         },
-        "td_total": {
-            "treylon burks v michael gallup": {
-                "line": 0.5,
-                "over": "+160",
-                "under": "-210"
-            },
-            "robert woods v dalton schultz": {
-                "line": 0.5,
-                "over": "+155",
-                "under": "-200"
-            },
-            "robert woods v michael gallup": {
-                "line": 0.5,
-                "over": "+175",
-                "under": "-225"
-            },
-            "treylon burks v ceedee lamb": {
-                "line": 0.5,
-                "over": "-135",
+        "pass_td_total": {
+            "joe burrow v josh allen": {
+                "line": 3.5,
+                "over": "-140",
                 "under": "+105"
-            },
-            "treylon burks v dalton schultz": {
-                "line": 0.5,
-                "over": "+145",
-                "under": "-185"
-            },
-            "robert woods v ceedee lamb": {
-                "line": 0.5,
-                "over": "-130",
-                "under": "+100"
             }
         },
-        "td_moneyline": {
-            "treylon burks v michael gallup": {
+        "pass_td_moneyline": {
+            "joe burrow v josh allen": {
                 "line": "",
-                "michael gallup": "-205",
-                "treylon burks": "+160"
+                "josh allen": "+135",
+                "joe burrow": "-185"
+            }
+        },
+        "pass_yds_spread": {
+            "joe burrow v josh allen": {
+                "line": -33.5,
+                "josh allen": "-115",
+                "joe burrow": "-115"
+            }
+        },
+        "pass_yds_total": {
+            "joe burrow v josh allen": {
+                "line": 556.5,
+                "joe burrow": "-110",
+                "josh allen": "-120"
+            }
+        },
+        "pass_yds_moneyline": {
+            "joe burrow v josh allen": {
+                "line": "",
+                "josh allen": "+160",
+                "joe burrow": "-215"
+            }
+        },
+        "tds_spread": {
+            "joe mixon v devin singletary": {
+                "line": -0.5,
+                "devin singletary": "-235",
+                "joe mixon": "+180"
             },
-            "robert woods v dalton schultz": {
-                "line": "",
-                "robert woods": "+225",
-                "dalton schultz": "-300"
+            "jamarr chase v stefon diggs": {
+                "line": -0.5,
+                "stefon diggs": "-250",
+                "jamarr chase": "+190"
             },
-            "robert woods v michael gallup": {
-                "line": "",
-                "robert woods": "+195",
-                "michael gallup": "-255"
+            "jamarr chase v gabriel davis": {
+                "line": -0.5,
+                "gabriel davis": "-180",
+                "jamarr chase": "+140"
             },
-            "treylon burks v ceedee lamb": {
-                "line": "",
-                "ceedee lamb": "-650",
-                "treylon burks": "+425"
+            "joe mixon v stefon diggs": {
+                "line": 0.5,
+                "joe mixon": "-285",
+                "stefon diggs": "+215"
             },
-            "treylon burks v dalton schultz": {
-                "line": "",
-                "dalton schultz": "-245",
-                "treylon burks": "+185"
+            "jamarr chase v devin singletary": {
+                "line": -0.5,
+                "devin singletary": "-210",
+                "jamarr chase": "+160"
             },
-            "robert woods v ceedee lamb": {
+            "joe mixon v gabriel davis": {
+                "line": -0.5,
+                "joe mixon": "+160",
+                "gabriel davis": "-205"
+            }
+        },
+        "tds_total": {
+            "joe mixon v devin singletary": {
+                "line": 0.5,
+                "joe mixon": "-240",
+                "devin singletary": "+185"
+            },
+            "jamarr chase v stefon diggs": {
+                "line": 1.5,
+                "jamarr chase": "+155",
+                "stefon diggs": "-200"
+            },
+            "jamarr chase v gabriel davis": {
+                "line": 0.5,
+                "jamarr chase": "-215",
+                "gabriel davis": "+165"
+            },
+            "joe mixon v stefon diggs": {
+                "line": 1.5,
+                "joe mixon": "+170",
+                "stefon diggs": "-225"
+            },
+            "jamarr chase v devin singletary": {
+                "line": 1.5,
+                "jamarr chase": "+190",
+                "devin singletary": "-250"
+            },
+            "joe mixon v gabriel davis": {
+                "line": 0.5,
+                "joe mixon": "-190",
+                "gabriel davis": "+150"
+            }
+        },
+        "tds_moneyline": {
+            "joe mixon v devin singletary": {
                 "line": "",
-                "robert woods": "+500",
-                "ceedee lamb": "-800"
+                "devin singletary": "+120",
+                "joe mixon": "-155"
+            },
+            "jamarr chase v stefon diggs": {
+                "line": "",
+                "stefon diggs": "+105",
+                "jamarr chase": "-130"
+            },
+            "jamarr chase v gabriel davis": {
+                "line": "",
+                "gabriel davis": "+215",
+                "jamarr chase": "-285"
+            },
+            "joe mixon v stefon diggs": {
+                "line": "",
+                "joe mixon": "-110",
+                "stefon diggs": "-115"
+            },
+            "jamarr chase v devin singletary": {
+                "line": "",
+                "devin singletary": "+145",
+                "jamarr chase": "-185"
+            },
+            "joe mixon v gabriel davis": {
+                "line": "",
+                "joe mixon": "-235",
+                "gabriel davis": "+180"
             }
         },
         "rec_yds_spread": {
-            "robert woods v ceedee lamb": {
-                "line": 51.5,
-                "robert woods": "-115",
-                "ceedee lamb": "-115"
+            "jamarr chase v gabriel davis": {
+                "line": -38.5,
+                "gabriel davis": "-115",
+                "jamarr chase": "-115"
             },
-            "robert woods v michael gallup": {
-                "line": 13.5,
-                "robert woods": "-115",
-                "michael gallup": "-115"
-            },
-            "treylon burks v michael gallup": {
-                "line": 11.5,
-                "michael gallup": "-115",
-                "treylon burks": "-115"
-            },
-            "treylon burks v ceedee lamb": {
-                "line": 48.5,
-                "ceedee lamb": "-115",
-                "treylon burks": "-115"
+            "jamarr chase v stefon diggs": {
+                "line": -4.5,
+                "stefon diggs": "-115",
+                "jamarr chase": "-115"
             }
         },
         "rec_yds_total": {
-            "robert woods v ceedee lamb": {
-                "line": 105.5,
-                "robert woods": "-115",
-                "ceedee lamb": "-115"
+            "jamarr chase v gabriel davis": {
+                "line": 144.5,
+                "jamarr chase": "-105",
+                "gabriel davis": "-125"
             },
-            "robert woods v michael gallup": {
-                "line": 68.5,
-                "robert woods": "-105",
-                "michael gallup": "-125"
-            },
-            "treylon burks v michael gallup": {
-                "line": 70.5,
-                "treylon burks": "-105",
-                "michael gallup": "-125"
-            },
-            "treylon burks v ceedee lamb": {
-                "line": 107.5,
-                "treylon burks": "-115",
-                "ceedee lamb": "-115"
+            "jamarr chase v stefon diggs": {
+                "line": 178.5,
+                "jamarr chase": "-110",
+                "stefon diggs": "-120"
             }
         },
         "rec_yds_moneyline": {
-            "robert woods v ceedee lamb": {
+            "jamarr chase v gabriel davis": {
                 "line": "",
-                "robert woods": "+550",
-                "ceedee lamb": "-1100"
+                "gabriel davis": "+290",
+                "jamarr chase": "-425"
             },
-            "robert woods v michael gallup": {
+            "jamarr chase v stefon diggs": {
                 "line": "",
-                "robert woods": "+165",
-                "michael gallup": "-220"
-            },
-            "treylon burks v michael gallup": {
+                "stefon diggs": "+100",
+                "jamarr chase": "-135"
+            }
+        },
+        "rush_yds_spread": {
+            "joe mixon v devin singletary": {
+                "line": -7.5,
+                "devin singletary": "-115",
+                "joe mixon": "-115"
+            }
+        },
+        "rush_yds_total": {
+            "joe mixon v devin singletary": {
+                "line": 92.5,
+                "joe mixon": "-115",
+                "devin singletary": "-115"
+            }
+        },
+        "rush_yds_moneyline": {
+            "joe mixon v devin singletary": {
                 "line": "",
-                "michael gallup": "-200",
-                "treylon burks": "+145"
-            },
-            "treylon burks v ceedee lamb": {
-                "line": "",
-                "ceedee lamb": "-1000",
-                "treylon burks": "+500"
+                "devin singletary": "+120",
+                "joe mixon": "-160"
             }
         },
         "rush_+_rec_yds_spread": {
-            "treylon burks v ceedee lamb": {
-                "line": 51.5,
-                "ceedee lamb": "-115",
-                "treylon burks": "-115"
+            "joe mixon v stefon diggs": {
+                "line": 12.5,
+                "joe mixon": "-115",
+                "stefon diggs": "-115"
+            },
+            "jamarr chase v devin singletary": {
+                "line": -35.5,
+                "devin singletary": "-115",
+                "jamarr chase": "-115"
+            },
+            "joe mixon v devin singletary": {
+                "line": -15.5,
+                "devin singletary": "-115",
+                "joe mixon": "-115"
+            },
+            "jamarr chase v stefon diggs": {
+                "line": -7.5,
+                "stefon diggs": "-115",
+                "jamarr chase": "-115"
             }
         },
         "rush_+_rec_yds_total": {
-            "treylon burks v ceedee lamb": {
-                "line": 113.5,
-                "treylon burks": "-115",
-                "ceedee lamb": "-115"
+            "joe mixon v stefon diggs": {
+                "line": 159.5,
+                "joe mixon": "-115",
+                "stefon diggs": "-115"
+            },
+            "jamarr chase v devin singletary": {
+                "line": 151.5,
+                "jamarr chase": "-115",
+                "devin singletary": "-115"
+            },
+            "joe mixon v devin singletary": {
+                "line": 130.5,
+                "joe mixon": "-115",
+                "devin singletary": "-115"
+            },
+            "jamarr chase v stefon diggs": {
+                "line": 182.5,
+                "jamarr chase": "-105",
+                "stefon diggs": "-125"
             }
         },
         "rush_+_rec_yds_moneyline": {
-            "treylon burks v ceedee lamb": {
+            "joe mixon v stefon diggs": {
                 "line": "",
-                "ceedee lamb": "-1100",
-                "treylon burks": "+550"
+                "joe mixon": "+130",
+                "stefon diggs": "-175"
+            },
+            "jamarr chase v devin singletary": {
+                "line": "",
+                "devin singletary": "+260",
+                "jamarr chase": "-380"
+            },
+            "joe mixon v devin singletary": {
+                "line": "",
+                "devin singletary": "+145",
+                "joe mixon": "-195"
+            },
+            "jamarr chase v stefon diggs": {
+                "line": "",
+                "stefon diggs": "+110",
+                "jamarr chase": "-145"
             }
         },
         "fgs_spread": {
-            "randy bullock v brett maher": {
-                "line": 0.5,
-                "randy bullock": "-130",
-                "brett maher": "+100"
+            "evan mcpherson v tyler bass": {
+                "line": -0.5,
+                "tyler bass": "-185",
+                "evan mcpherson": "+140"
             }
         },
         "fgs_moneyline": {
-            "randy bullock v brett maher": {
+            "evan mcpherson v tyler bass": {
                 "line": "",
-                "randy bullock": "+135",
-                "brett maher": "-185"
+                "tyler bass": "-110",
+                "evan mcpherson": "-120"
             }
         }
     }

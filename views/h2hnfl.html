@@ -278,6 +278,16 @@
 				}
 			}
 
+			const allPairsFormatter = function(cell, params, rendered) {
+				const data = cell.getRow().getData();
+				let odds = data.allPairsOver >= 50 ? data.odds1 : data.odds2;
+				odds = parseInt(odds);
+				const allPairsOdds = parseInt(data.allPairsOdds);
+				if (Math.abs(allPairsOdds) - Math.abs(odds) >= 50) {
+					return "<div class='positive'>"+cell.getValue()+"</div>";
+				}
+				return cell.getValue();
+			}
 			
 
 			function renderTable() {
@@ -285,9 +295,8 @@
 					tooltipsHeader: true,
 					ajaxURL: "/getH2HNFLProps",
 					ajaxParams:{alt: "{{alt}}", date: "{{date}}", teams: "{{teams}}", players: "{{players}}"},
-					//responsiveLayout:"collapse",
-					//layout: "fitDataFill",
-					//layout: window.innerWidth <= 450 ? "fitData" : "fitColumns",
+					responsiveLayout:"collapse",
+					responsiveLayoutCollapseStartOpen: false,
 					
 					groupBy: "game",
 					initialSort: [
@@ -297,9 +306,7 @@
 						//{column: "team", dir: "asc"},
 					],
 					columns: [
-					/*
 						{formatter:"responsiveCollapse", width:30, minWidth:30, hozAlign:"center", resizable:false, headerSort:false},
-						*/
 						{formatter:"rowSelection", hozAlign:"center", headerSort:false, cellClick:function(e, cell){
 							cell.getRow().toggleSelect();
 						}},
@@ -309,19 +316,19 @@
 						{title: "Matchup", field: "matchup", headerFilter: "input"},
 						{title: "Odds1", field: "odds1", width: 80, hozAlign: "center", sorter: "number"},
 						{title: "Odds2", field: "odds2", width: 80, hozAlign: "center", sorter: "number"},
-						{title: "All Pairs Odds", field: "allPairsOdds", width: 80, hozAlign: "center", sorter: "number"},
+						{title: "All Pairs Odds", field: "allPairsOdds", width: 80, hozAlign: "center", sorter: "number", formatter: allPairsFormatter},
 						{title: "Straight Up Over", field: "straightOver", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
 						{title: "All Pairs Over", field: "allPairsOver", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
-						{title: "Player 1", field: "player1", width: 100, hozAlign: "center"},
-						{title: "Opp1", field: "team2", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
-						{title: "Opp Rank 1", field: "rank2", hozAlign: "center", formatter: rankFormatter, width: 70},
-						{title: "Line 1", field: "line1", width: 70, hozAlign: "center"},
-						{title: "Log 1", field: "log1", width: 120, hozAlign: "center"},
-						{title: "Player 2", field: "player2", width: 100, hozAlign: "center"},
-						{title: "Opp2", field: "team1", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
-						{title: "Opp Rank 2", field: "rank1", hozAlign: "center", formatter: rankFormatter, width: 70},
-						{title: "Line 2", field: "line2", width: 70, hozAlign: "center"},
-						{title: "Log 2", field: "log2", width: 120, hozAlign: "center"},
+						{title: "Player 1", field: "player1", width: 100, hozAlign: "center", responsive: 0},
+						{title: "Opp1", field: "team2", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}, responsive: 0},
+						{title: "Opp Rank 1", field: "rank2", hozAlign: "center", formatter: rankFormatter, width: 70, responsive: 0},
+						{title: "Line 1", field: "line1", width: 70, hozAlign: "center", responsive: 0},
+						{title: "Log 1", field: "log1", hozAlign: "center", responsive: 1},
+						{title: "Player 2", field: "player2", width: 100, hozAlign: "center", responsive: 0},
+						{title: "Opp2", field: "team1", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}, responsive: 0},
+						{title: "Opp Rank 2", field: "rank1", hozAlign: "center", formatter: rankFormatter, width: 70, responsive: 0},
+						{title: "Line 2", field: "line2", width: 70, hozAlign: "center", responsive: 0},
+						{title: "Log 2", field: "log2", hozAlign: "center", responsive: 1},
 					]
 				})
 			}

@@ -222,8 +222,11 @@ def writeLineups():
 			out += "\t".join(["-"]*len(headers))
 			out += f"\t{home.upper()} {starting.capitalize()}\t"
 			out += "\t".join(["-"]*(len(headers)-1)) + "\n"
-			zip1 = lineups[away][starting]
-			zip2 = lineups[home][starting]
+			try:
+				zip1 = lineups[away][starting]
+				zip2 = lineups[home][starting]
+			except:
+				continue
 			for awayPlayer, homePlayer in zip_longest(zip1, zip2):
 				if awayPlayer:
 					awayData = lineups[away][starting][awayPlayer]
@@ -1048,6 +1051,8 @@ def writeGameLines(date):
 			game = convertDKTeam(event["teamName1"].lower()) + " @ " + convertDKTeam(event["teamName2"].lower())
 		else:
 			game = convertDKTeam(event["teamShortName1"].lower()) + " @ " + convertDKTeam(event["teamShortName2"].lower())
+		if "eventStatus" in event and "state" in event["eventStatus"] and event["eventStatus"]["state"] == "STARTED":
+			continue
 		if game not in lines:
 			lines[game] = {}
 		events[event["eventId"]] = game
@@ -1226,13 +1231,17 @@ def getH2HProps_route():
 				players = matchup.split(" v ")
 				line = h2h[game][propKey][matchup]["line"] or 0
 
+				prevMatchup = [[], []]
 				arrs = [[], []]
 				lines = [0,0]
 				playerTeams = ["", ""]
 				for pIdx, player in enumerate(players):
-					team = game.split(" @ ")[pIdx]
+					gameSp = game.split(" @ ")
+					team = gameSp[pIdx]
+					currOpp = gameSp[0] if pIdx == 1 else gameSp[1]
 					if player not in roster[team]:
-						team = game.split(" @ ")[0] if pIdx == 1 else game.split(" @ ")[1]
+						team = gameSp[0] if pIdx == 1 else gameSp[1]
+						currOpp = gameSp[1] if pIdx == 1 else gameSp[0]
 					playerTeams[pIdx] = team
 					if game in propData and player in propData[game]:
 						try:
@@ -1242,6 +1251,9 @@ def getH2HProps_route():
 					for dt in sorted(playerStats[team], key=lambda k: datetime.strptime(k, "%Y-%m-%d"), reverse=True):
 						if player in playerStats[team][dt] and playerStats[team][dt][player].get("min", 0) > 0:
 							arrs[pIdx].append(playerStats[team][dt][player][prop])
+							g = [x for x in schedule[dt] if team in x.split(" @ ") and currOpp in x.split(" @ ")]
+							if dt != date and len(g):
+								prevMatchup[pIdx].append(f"{playerStats[team][dt][player][prop]} {prop}")
 
 
 				straightOver = straightTotal = 0
@@ -1324,7 +1336,9 @@ def getH2HProps_route():
 					"log2": ",".join([str(x) for x in arrs[1]]),
 					"straightOver": straightOver,
 					"allPairsOver": allPairsOver,
-					"allPairsOdds": allPairsOdds
+					"allPairsOdds": allPairsOdds,
+					"prevMatchup1": ", ".join(prevMatchup[0]),
+					"prevMatchup2": ", ".join(prevMatchup[1]),
 				})
 
 	return jsonify(res)

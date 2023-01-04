@@ -168,6 +168,7 @@
                     s += "> "+data.opponent+" Scoring Chances ------ (szn, L10, L5, L3): "+data.oppScoring+"  \n";
                     s += "> Avg: "+avg+". W-L splits: "+winSplits+" - "+lossSplits+". "+data.team+" ML odds: "+data.gameLine+"  \n";
                     s += "> "+last+" has had "+overLine+"+ saves in "+data.totalOver+"% of games this season and "+data.lastTotalOver+"% of games last season  \n";
+                    s += "> Goalies on "+data.team+" have had "+overLine+"+ saves in "+data.teamOver+"% of games this year  \n";
                     s += "> Goalies playing "+data.opponent+" have had "+overLine+"+ saves in "+data.oppOver+"% of games this year  \n";
                     s += "> Goals Saved Above Average: "+data.gsaa+"  \n";
                     s += "> Saves Above Expected Per 60m: "+data.savesAboveExp+"  \n";
@@ -324,6 +325,7 @@
 				table.style.width = "100%";
 				const html = {};
 				for (col of data) {
+					//console.log(col);
 					if ((col.value.indexOf(" // ") >= 0 || col.value.indexOf(" &#x2F;&#x2F; ") >= 0)) {
 						html[col.title] = "<td><strong>"+col.title+"</strong></td><td>"+col.value+"</td>";
 					} else {
@@ -377,7 +379,7 @@
 						{title: "Avg Min", field: "avgMin", hozAlign: "center", width: 70},
 						{title: "ML", field: "gameLine",  hozAlign: "center", width: 70},
 						{title: "A/H", field: "awayHome",  hozAlign: "center", width: 50, visible: false},
-						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
+						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}, responsive: 0},
 						//{title: "PTS/G", field: "ptsPerGame", hozAlign: "center", width: 70},
 						//{title: "L5 PTS/G", field: "ptsPerGameLast5", hozAlign: "center", width: 70},
 						{title: "S/G", field: "shotsPerGame", hozAlign: "center", width: 70, visible: false},
@@ -389,7 +391,7 @@
 						{title: "L5 SV/G", field: "savesPer60Last5", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number", visible: false},
 						{title: "L3 SV/G", field: "savesPer60Last3", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number", visible: false},
 						{title: "L1 SV/G", field: "savesPer60Last1", hozAlign: "center", width: 70, formatter: colorFormatter, sorter:"number", visible: false},
-						{title: "Opp", field: "opponent", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
+						{title: "Opp", field: "opponent", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}, responsive: 0},
 						{title: "Proj", field: "oppSavesAgainstProj", formatter: colorFormatter, hozAlign: "center", width: 70, sorter:"number", visible: false},
 						{title: "ProjL5", field: "oppSavesAgainstProjLast5", formatter: colorFormatter, hozAlign: "center", width: 70, sorter:"number", visible: false},
 						{title: "ProjL3", field: "oppSavesAgainstProjLast3", formatter: colorFormatter, hozAlign: "center", width: 70, sorter:"number", visible: false},
@@ -414,6 +416,7 @@
 						{title: "Last YR AVG", field: "lastAvg", hozAlign: "center", width: 80, formatter: colorFormatter, visible: true},
 						{title: "Last YR Total Over", field: "lastTotalOver", width: 80, hozAlign: "center", formatter: percentFormatter, visible: true},
 						{title: "Played Yesterday", field: "playedYesterday", hozAlign: "center", width: 70, visible: false},
+						{title: "Prev Matchup", field: "prevMatchup", hozAlign: "center", visible: false, responsive: 2},
 						{title: "Over/Under", field: "overUnder", hozAlign: "center", sorter: "number", visible: true},
 						{title: "Corsi (A/10/5/3)", field: "corsi", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
 						{title: "Fenwick", field: "fenwick", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
@@ -455,6 +458,7 @@
 		{% endif %}
 		{% if prop == "sv" %}
 			<script>
+				TABLE.getColumn("prevMatchup").show();
 				TABLE.getColumn("savesProj").show();
 				TABLE.getColumn("savesProjLast5").show();
 				TABLE.getColumn("savesProjLast3").show();
