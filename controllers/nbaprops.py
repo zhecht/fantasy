@@ -137,6 +137,10 @@ def convertRotoPlayer(player):
 		"gary trent": "gary trent jr",
 		"marcus morris": "marcus morris sr",
 		"wendell carter": "wendell carter jr",
+		"larry nance": "larry nance jr",
+		"kelly oubre": "kelly oubre jr",
+		"gary payton": "gary payton ii",
+		"trey murphy": "trey murphy iii",
 	}
 	return trans.get(player, player)
 
@@ -756,7 +760,7 @@ def h2h(props):
 					arrs[0], arrs[1] = arrs[1], arrs[0]
 
 				straightOver = straightTotal = 0
-				for num1, num2 in zip(arrs[0]["lastAll"].split(","), arrs[1]["lastAll"].split(",")):
+				for num1, num2 in zip(arrs[0]["lastAll"].split(",")[:10], arrs[1]["lastAll"].split(",")[:10]):
 					if int(num1) == int(num2):
 						continue
 					elif int(num1) > int(num2):
@@ -1100,7 +1104,7 @@ def writeH2H():
 		"3ptm": [1206, 12531],
 		"fgm": [1206, 12528],
 		"blk": [1206, 12532],
-		"to": [1206, 12529]
+		#"to": [1206, 12529]
 	}
 
 	h2h = {}
@@ -1256,7 +1260,7 @@ def getH2HProps_route():
 								prevMatchup[pIdx].append(f"{playerStats[team][dt][player][prop]} {prop}")
 
 
-				straightOver = straightTotal = 0
+				straightOverL7 = straightOver = straightTotal = 0
 				for num1, num2 in zip(arrs[0], arrs[1]):
 					if h2hType == "total":
 						if num1+num2 > line:
@@ -1267,8 +1271,11 @@ def getH2HProps_route():
 						elif num1+line > num2:
 							straightOver += 1
 					straightTotal += 1
+					if straightTotal == 7:
+						straightOverL7 = straightOver
 				if straightTotal:
 					straightOver = round(straightOver * 100 / straightTotal)
+					straightOverL7 = round(straightOverL7 * 100 / 7)
 
 				allPairsOver = allPairsTotal = allPairsOdds = 0
 				for num1 in arrs[0]:
@@ -1296,7 +1303,7 @@ def getH2HProps_route():
 					odds2 = h2h[game][propKey][matchup][players[1]]
 
 				team1, team2 = playerTeams[0], playerTeams[1]
-				teamRank1 = teamRank2 = ""
+				teamRank1 = teamRank2 = rankTotal1 = rankTotal2 = ""
 				rankingsPos1 = roster[team1][players[0]]
 				rankingsPos2 = roster[team2][players[1]]
 				if rankingsPos1 == "F":
@@ -1313,8 +1320,13 @@ def getH2HProps_route():
 
 				if rankingsPos2 in rankings[team1] and rankingsProp in rankings[team1][rankingsPos2]:
 					teamRank1 = rankings[team1][rankingsPos2][rankingsProp+"_rank"]
+					rankTotal1 = rankings[team1][rankingsPos2][rankingsProp]
 				if rankingsPos1 in rankings[team2] and rankingsProp in rankings[team2][rankingsPos1]:
 					teamRank2 = rankings[team2][rankingsPos1][rankingsProp+"_rank"]
+					rankTotal2 = rankings[team2][rankingsPos1][rankingsProp]
+
+				if line > 0 and h2hType == "spread":
+					line = f"+{line}"
 
 				res.append({
 					"game": game,
@@ -1328,13 +1340,18 @@ def getH2HProps_route():
 					"line1": lines[0],
 					"odds1": odds1,
 					"log1": ",".join([str(x) for x in arrs[0]]),
+					"pos1": rankingsPos1,
+					"rankTotal1": rankTotal1,
 					"player2": players[1].split(" ")[1].title(),
 					"team2": team2,
 					"rank2": teamRank2,
 					"line2": lines[1],
 					"odds2": odds2,
 					"log2": ",".join([str(x) for x in arrs[1]]),
+					"pos2": rankingsPos2,
+					"rankTotal2": rankTotal2,
 					"straightOver": straightOver,
+					"straightOverL7": straightOverL7,
 					"allPairsOver": allPairsOver,
 					"allPairsOdds": allPairsOdds,
 					"prevMatchup1": ", ".join(prevMatchup[0]),
@@ -1357,7 +1374,10 @@ def h2hprops_route():
 		teams = request.args.get("teams")
 	if request.args.get("players"):
 		players = request.args.get("players")
-	return render_template("h2hnba.html", teams=teams, players=players)
+
+	bets = []
+	bets = ",".join(bets)
+	return render_template("h2hnba.html", teams=teams, players=players, bets=bets)
 
 def getAvgSplits(schedule, scores):
 	avgSplits = {}

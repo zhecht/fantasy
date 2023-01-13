@@ -416,7 +416,7 @@
 						{title: "Last YR AVG", field: "lastAvg", hozAlign: "center", width: 80, formatter: colorFormatter, visible: true},
 						{title: "Last YR Total Over", field: "lastTotalOver", width: 80, hozAlign: "center", formatter: percentFormatter, visible: true},
 						{title: "Played Yesterday", field: "playedYesterday", hozAlign: "center", width: 70, visible: false},
-						{title: "Prev Matchup", field: "prevMatchup", hozAlign: "center", visible: false, responsive: 2},
+						{title: "Prev Matchup", field: "prevMatchup", hozAlign: "center", responsive: 2},
 						{title: "Over/Under", field: "overUnder", hozAlign: "center", sorter: "number", visible: true},
 						{title: "Corsi (A/10/5/3)", field: "corsi", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
 						{title: "Fenwick", field: "fenwick", width: 80, hozAlign: "center", sorter: "number", visible: true, responsive: 2},
@@ -458,7 +458,6 @@
 		{% endif %}
 		{% if prop == "sv" %}
 			<script>
-				TABLE.getColumn("prevMatchup").show();
 				TABLE.getColumn("savesProj").show();
 				TABLE.getColumn("savesProjLast5").show();
 				TABLE.getColumn("savesProjLast3").show();
@@ -485,6 +484,9 @@
 
 			setTimeout(function() {
 				let rows = TABLE.getRows("active");
+				if ("{{prop}}" != "pts") {
+					return;
+				}
 				for (row of rows) {
 					const data = row.getData();
 					if (bets.indexOf(data.player.toLowerCase()) >= 0) {

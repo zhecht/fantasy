@@ -45,6 +45,7 @@
 			<button onclick="print('csv');">PRINT CSV</button>
 			<button onclick="calculateParlayOdds();">Parlay Odds</button>
 			<button onclick="addLast();">Add</button>
+			<button onclick="printExcerpt();">EXCERPT</button>
 		</div>
 		<script>
 			let TABLE;
@@ -79,6 +80,53 @@
 					s += "\n";
 				}
 				console.log(s);
+			}
+
+			function printExcerpt() {
+				let rows = TABLE.getSelectedRows();
+                if (rows.length == 0) {
+                    rows = TABLE.getRows("active");
+                }
+                let s = "";
+                for (row of rows) {
+                    const data = row.getData();
+                	//let last = data.player.split(" ");
+                	//last = last[last.length-1];
+                    const overLine = Math.round(data.line);
+
+                   	s += "> "+data.matchup+"  \n";
+                   	if (data.type != "moneyline") {
+                   		s += "> Line: ";
+                   		let line = data.line;
+                   		if (data.allPairsOver < 50) {
+                   			s += data.player2;
+                   			line = parseFloat(data.line)*-1;
+                   		} else {
+                   			s += data.player1;
+                   		}
+                   		s += " "+line+" "+data.prop+"  \n";
+                   	} else {
+                   		s += "> Line: "+data.prop+" ML  \n";
+                   	}
+                   	s += "> "+data.pos1+" "+data.prop+" vs "+data.team2.toUpperCase()+": "+data.rankTotal2+" ("+addNumSuffix(data.rank2)+" hardest matchup)  \n";
+                   	s += "> "+data.pos2+" "+data.prop+" vs "+data.team1.toUpperCase()+": "+data.rankTotal1+" ("+addNumSuffix(data.rank1)+" hardest matchup)  \n";
+                   	s += "> "+data.player1+" Log: "+data.log1+"  \n";
+                    s += "> "+data.player2+" Log: "+data.log2+"  \n";
+                   	s += "> All Combinations: ";
+                   	let odds = data.odds1;
+                   	if (data.allPairsOver < 50) {
+                   		s += data.player2+" ";
+                   		s += (100-data.allPairsOver);
+                   		odds = data.odds2;
+                   	} else {
+                   		s += data.player1+" ";
+                   		s += data.allPairsOver;
+                   	}
+                   	s += "%  \n";
+                   	s += "> Implied Odds: "+data.allPairsOdds+" // Draftkings Odds: "+odds+"  \n";
+                    s += "\n\n";
+                }
+                alert(s);
 			}
 
 			function calculateParlayOdds() {
@@ -257,7 +305,7 @@
 				let odds = data.allPairsOver >= 50 ? data.odds1 : data.odds2;
 				odds = parseInt(odds);
 				const allPairsOdds = parseInt(data.allPairsOdds);
-				if (Math.abs(allPairsOdds) - Math.abs(odds) >= 50) {
+				if (Math.abs(allPairsOdds) - Math.abs(odds) >= 25) {
 					return "<div class='positive'>"+cell.getValue()+"</div>";
 				}
 				return cell.getValue();
@@ -316,6 +364,7 @@
 						{title: "Odds 2", field: "odds2", width: 80, hozAlign: "center", sorter: "number"},
 						{title: "All Pairs Odds", field: "allPairsOdds", width: 80, hozAlign: "center", sorter: "number", formatter: allPairsFormatter},
 						{title: "Straight Up Over", field: "straightOver", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
+						{title: "L7 Straight Up Over", field: "straightOverL7", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
 						{title: "All Pairs Over", field: "allPairsOver", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
 						{title: "Player 1", field: "player1", width: 100, hozAlign: "center"},
 						{title: "Opp1", field: "team2", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}, responsive: 0},

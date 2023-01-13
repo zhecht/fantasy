@@ -285,6 +285,7 @@ def getProps_route():
 				awayHomeSplits = [[],[]]
 				totalOver = totalOverLast5 = totalGames = 0
 				last5 = []
+				prevMatchup = []
 				hit = playedYesterday = False
 				if line and avgMin:
 					files = sorted(glob.glob(f"{prefix}static/hockeyreference/{team}/*.json"), key=lambda k: datetime.strptime(k.split("/")[-1].replace(".json", ""), "%Y-%m-%d"), reverse=True)
@@ -316,6 +317,9 @@ def getProps_route():
 										else:
 											pastOpp = gameSp[0]
 										break
+
+								if pastOpp == opp:
+									prevMatchup.append(f"{chkDate} {val} {prop}")
 
 								if chkDate == date:
 									if val > float(line):
@@ -413,9 +417,9 @@ def getProps_route():
 					oppOver = round(oppOver * 100 / oppOverTot)
 
 				teamOver = teamOverTot = 0
-				prevMatchup = []
 				if prop == "sv":
 					files = sorted(glob.glob(f"{prefix}static/hockeyreference/{team}/*.json"))
+					prevMatchup = []
 					for file in files:
 						with open(file) as fh:
 							gameStats = json.load(fh)
@@ -563,13 +567,245 @@ def props_route():
 		alt = request.args.get("alt")
 	if request.args.get("date"):
 		date = request.args.get("date")
+		if date == "yesterday":
+			date = str(datetime.now() - timedelta(days=1))[:10]
 	if request.args.get("teams"):
 		teams = request.args.get("teams")
 	if request.args.get("players"):
 		players = request.args.get("players")
 
-	bets = ",".join([])
+	# locks
+	bets = []
+	# meh
+	bets.extend([])
+	# goalies
+	bets.extend([])
+	bets = ",".join(bets)
 	return render_template("nhlprops.html", prop=prop, alt=alt, date=date, teams=teams, bets=bets, players=players)
+
+def getTotals(schedule, scores, lines):
+	totals = {}
+	dates = sorted(schedule.keys(), key=lambda k: datetime.strptime(k, "%Y-%m-%d"), reverse=True)
+	for date in dates:
+		for game in schedule[date]:
+			gameSp = game.split(" @ ")
+			for idx, team in enumerate(gameSp):
+				opp = gameSp[0] if idx == 1 else gameSp[1]
+
+				if date not in scores or team not in scores[date]:
+					continue
+
+				if team not in totals:
+					totals[team] = {"wins": 0, "loss": 0, "gpg": 0, "gpga": 0, "games": 0, "overs": [], "ttOvers": [], "opp_ttOvers": [], "gpgWins": 0, "gpgLoss": 0, "gpgaWins": 0, "gpgaLoss": 0}
+				totals[team]["games"] += 1
+				totals[team]["gpg"] += scores[date][team]
+				totals[team]["gpga"] += scores[date][opp]
+				if scores[date][team] > scores[date][opp]:
+					totals[team]["wins"] += 1
+					totals[team]["gpgWins"] += scores[date][team]
+					totals[team]["gpgaWins"] += scores[date][opp]
+				elif scores[date][team] < scores[date][opp]:
+					totals[team]["loss"] += 1
+					totals[team]["gpgLoss"] += scores[date][team]
+					totals[team]["gpgaLoss"] += scores[date][opp]
+				totals[team]["ttOvers"].append(str(scores[date][team]))
+				totals[team]["opp_ttOvers"].append(str(scores[date][opp]))
+				totals[team]["overs"].append(str(scores[date][team] + scores[date][opp]))
+	return totals
+
+@nhlprops_blueprint.route('/getNHLSlate')
+def getSlate_route():
+	res = []
+
+	teams = request.args.get("teams") or ""
+	if teams:
+		teams = teams.lower().split(",")
+
+	date = datetime.now()
+	date = str(date)[:10]
+	if request.args.get("date"):
+		date = request.args.get("date")
+
+	with open(f"{prefix}static/hockeyreference/rankings.json") as fh:
+		rankings = json.load(fh)
+	with open(f"{prefix}static/hockeyreference/scores.json") as fh:
+		scores = json.load(fh)
+	with open(f"{prefix}static/hockeyreference/schedule.json") as fh:
+		schedule = json.load(fh)
+	with open(f"{prefix}static/hockeyreference/ttoi.json") as fh:
+		ttoi = json.load(fh)
+	with open(f"{prefix}static/hockeyreference/opportunities.json") as fh:
+		opportunities = json.load(fh)
+	with open(f"{prefix}static/nhlprops/expectedGoalies.json") as fh:
+		expectedGoalies = json.load(fh)
+	with open(f"{prefix}static/nhlprops/goalies.json") as fh:
+		goalies = json.load(fh)
+	with open(f"{prefix}static/nhlprops/expected.json") as fh:
+		expected = json.load(fh)
+	with open(f"{prefix}static/nhlprops/lines/{date}.json") as fh:
+		gameLines = json.load(fh)
+
+
+	splits = getSplits(rankings, schedule, ttoi, date)
+	opportunitySplits = getOpportunitySplits(opportunities)
+	totals = getTotals(schedule, scores, gameLines)
+
+	for game in schedule[date]:
+		gameSp = game.split(" @ ")
+		isAway = True
+		for idx, team in enumerate(gameSp):
+			opp = gameSp[0] if idx == 1 else gameSp[1]
+			if idx == 1:
+				isAway = False
+
+			puckline = gameLines[game]["line"]["line"]
+			totalLine = gameLines[game]["total"]["line"]
+			if idx == 1:
+				puckline *= -1
+
+			if puckline > 0:
+				puckline = f"+{puckline}"
+
+			goalie = ""
+			savesAboveExp = gsaa = gaa = goalieRecord = "-"
+			if team in expectedGoalies:
+				goalie = expectedGoalies[team].replace("-", " ")
+				if goalie in expected:
+					savesAboveExp = round((float(expected[goalie]["xgoals"])-float(expected[goalie]["goals"]))*60*60 / float(expected[goalie]["icetime"]), 3)
+				else:
+					savesAboveExp = "-"
+				try:
+					gsaa = float(goalies[team][goalie]["gsaa"])
+				except:
+					gsaa = "-"
+				try:
+					gaa = float(goalies[team][goalie]["gaa"])
+				except:
+					gaa = "-"
+				goalieRecord = f"{goalies[team][goalie]['w']}-{goalies[team][goalie]['l']}"
+
+			goalieOvers = []
+			goalieWinLossSplits = [0,0]
+			if goalie:
+				goalieName = f"{goalie[0].upper()}. {goalie.split(' ')[-1].title()}"
+				files = sorted(glob.glob(f"{prefix}static/hockeyreference/{team}/*.json"), key=lambda k: datetime.strptime(k.split("/")[-1].replace(".json", ""), "%Y-%m-%d"), reverse=True)
+				for file in files:
+					chkDate = file.split("/")[-1].replace(".json","")
+					with open(file) as fh:
+						gameStats = json.load(fh)
+					currGame = [g for g in schedule[chkDate] if team in g.split(" @ ")][0]
+					away = currGame.split(" @ ")[0]
+					home = currGame.split(" @ ")[1]
+					if goalieName in gameStats:
+						minutes = gameStats[goalieName]["toi"]
+						score1 = scores[chkDate][away]
+						score2 = scores[chkDate][home]
+						if score1+score2 == totalLine:
+							continue
+						goalieOvers.append(score1+score2)
+						teamScore = score1 if team == away else score2
+						oppScore = score2 if team == away else score1
+						winLossIdx = 0 if teamScore > oppScore else 1
+						if (team == away and not isAway) or (team == home and isAway):
+							continue
+						if minutes < 40:
+							continue
+						goalieWinLossSplits[winLossIdx] += 1
+
+			goalieOver = ""
+			if goalieOvers:
+				goalieOver = f"{round(len([x for x in goalieOvers if x > totalLine]) * 100 / len(goalieOvers))}% // {round(len([x for x in goalieOvers[:10] if x > totalLine]) * 100 / len(goalieOvers[:10]))}% // {round(len([x for x in goalieOvers[:5] if x > totalLine]) * 100 / len(goalieOvers[:5]))}% // {round(len([x for x in goalieOvers[:3] if x > totalLine]) * 100 / len(goalieOvers[:3]))}%"
+
+			puckline = f"{puckline} ({gameLines[game]['line']['odds'].split(',')[idx]})"
+			moneyline = gameLines[game]["moneyline"]["odds"].split(",")[idx]
+			total = f"{'o' if idx == 0 else 'u'}{gameLines[game]['total']['line']} ({gameLines[game]['total']['odds'].split(',')[idx]})"
+
+			prevMatchup = []
+			for dt in schedule:
+				if dt == date or datetime.strptime(dt, "%Y-%m-%d") > datetime.strptime(date, "%Y-%m-%d"):
+					continue
+				for g in schedule[dt]:
+					gSp = g.split(" @ ")
+					if gSp[0] in scores[dt] and team in gSp and opp in gSp:
+						score1 = scores[dt][gSp[0]]
+						score2 = scores[dt][gSp[1]]
+						wonLost = "Won"
+						currGoalie = []
+						score = f"{score1}-{score2}"
+						file = f"{prefix}static/hockeyreference/{team}/{dt}.json"
+						with open(file) as fh:
+							gameStats = json.load(fh)
+						for p in gameStats:
+							if "sv" in gameStats[p]:
+								currGoalie.append(p)
+						if score2 > score1:
+							score = f"{score2}-{score1}"
+							if team == gSp[0]:
+								wonLost = "Lost"
+						elif team == gSp[1]:
+							wonLost = "Lost"
+						prevMatchup.append(f"{dt} {wonLost} {score} ({','.join(currGoalie)})")
+
+			teamOver = f"{round(len([x for x in totals[team]['overs'] if int(x) > totalLine]) * 100 / len(totals[team]['overs']))}% // {round(len([x for x in totals[team]['overs'][:10] if int(x) > totalLine]) * 100 / len(totals[team]['overs'][:10]))}% // {round(len([x for x in totals[team]['overs'][:5] if int(x) > totalLine]) * 100 / len(totals[team]['overs'][:5]))}% // {round(len([x for x in totals[team]['overs'][:3] if int(x) > totalLine]) * 100 / len(totals[team]['overs'][:3]))}%"
+
+			res.append({
+				"game": game,
+				"team": team,
+				"opp": opp,
+				"prevMatchup": ", ".join(prevMatchup),
+				"puckline": puckline,
+				"moneylineOdds": moneyline,
+				"total": total,
+				"gsaa": gsaa,
+				"gaa": gaa,
+				"savesAboveExp": savesAboveExp,
+				"goalie": goalie,
+				"goalieRecord": goalieRecord,
+				"goalieSplits": f"{goalieWinLossSplits[0]}-{goalieWinLossSplits[1]}",
+				"gpg": round(totals[team]["gpg"] / totals[team]["games"], 1),
+				"gpgSplits": f"{round(totals[team]['gpgWins'] / totals[team]['wins'], 1)} - {round(totals[team]['gpgLoss'] / totals[team]['loss'], 1)}",
+				"ttOvers": ",".join(totals[team]["ttOvers"][:20]),
+				"gpga": round(totals[team]["gpga"] / totals[team]["games"], 1),
+				"gpgaSplits": f"{round(totals[team]['gpgaWins'] / totals[team]['wins'], 1)} - {round(totals[team]['gpgaLoss'] / totals[team]['loss'], 1)}",
+				"opp_ttOvers": ",".join(totals[team]["opp_ttOvers"][:20]),
+				"oversAvg": round(sum([int(x) for x in totals[team]["overs"]]) / len(totals[team]["overs"]), 1),
+				"overs": totals[team]["overs"][:20],
+				"oversL10": totals[team]["overs"][:10],
+				"teamOver": teamOver,
+				"goalieOver": goalieOver,
+				"corsi": opportunitySplits[team]["corsi"],
+				"fenwick": opportunitySplits[team]["fenwick"],
+				"shots": opportunitySplits[team]["shots"],
+				"scoring": opportunitySplits[team]["scoring"],
+				"corsiAgainst": opportunitySplits[team]["corsiAgainst"],
+				"fenwickAgainst": opportunitySplits[team]["fenwickAgainst"],
+				"shotsAgainst": opportunitySplits[team]["shotsAgainst"],
+				"scoringAgainst": opportunitySplits[team]["scoringAgainst"],
+				"oppCorsi": opportunitySplits[opp]["corsi"],
+				"oppFenwick": opportunitySplits[opp]["fenwick"],
+				"oppShots": opportunitySplits[opp]["shots"],
+				"oppScoring": opportunitySplits[opp]["scoring"],
+				"oppCorsiAgainst": opportunitySplits[opp]["corsiAgainst"],
+				"oppFenwickAgainst": opportunitySplits[opp]["fenwickAgainst"],
+				"oppShotsAgainst": opportunitySplits[opp]["shotsAgainst"],
+				"oppScoringAgainst": opportunitySplits[opp]["scoringAgainst"],
+			})
+
+	return jsonify(res)
+
+@nhlprops_blueprint.route('/slatenhl')
+def slate_route():
+	prop = alt = date = teams = players = collapse = ""
+	if request.args.get("date"):
+		date = request.args.get("date")
+		if date == "yesterday":
+			date = str(datetime.now() - timedelta(days=1))[:10]
+	if request.args.get("teams"):
+		teams = request.args.get("teams")
+	if request.args.get("collapse"):
+		collapse = request.args.get("collapse")
+
+	return render_template("slatenhl.html", date=date, teams=teams, collapse=collapse)
 
 def teamTotals():
 	today = datetime.now()
@@ -579,6 +815,8 @@ def teamTotals():
 		schedule = json.load(fh)
 	with open(f"{prefix}static/hockeyreference/scores.json") as fh:
 		scores = json.load(fh)
+	with open(f"{prefix}static/nhlprops/lines/{today}.json") as fh:
+		lines = json.load(fh)
 
 	totals = {}
 	dates = sorted(schedule.keys(), key=lambda k: datetime.strptime(k, "%Y-%m-%d"), reverse=True)
@@ -600,9 +838,11 @@ def teamTotals():
 				totals[team]["opp_ttOvers"].append(str(scores[date][opp]))
 				totals[team]["overs"].append(str(scores[date][team] + scores[date][opp]))
 
-	out = "\t".join([x.upper() for x in ["team", "gpg", "tt overs", "gpga", "opp tt overs", "overs avg", "overs"]]) + "\n"
+	out = "\t".join([x.upper() for x in ["team", "gpg", "tt overs", "gpga", "opp tt overs", "overs avg", "overs", "line", f"% over", f"% over L5"]]) + "\n"
 	cutoff = 10
 	for game in schedule[today]:
+		totalLine = lines[game]["total"]["line"]
+		totalOdds = lines[game]["total"]["odds"].split(",")
 		away, home = map(str, game.split(" @ "))
 		gpg = round(totals[away]["gpg"] / totals[away]["games"], 1)
 		gpga = round(totals[away]["gpga"] / totals[away]["games"], 1)
@@ -610,8 +850,10 @@ def teamTotals():
 		oversAvg = round(sum([int(x) for x in totals[away]["overs"]]) / len(totals[away]["overs"]), 1)
 		ttOvers = ",".join(totals[away]["ttOvers"][:cutoff])
 		opp_ttOvers = ",".join(totals[away]["opp_ttOvers"][:cutoff])
+		totalOver = round(len([x for x in totals[away]["overs"] if int(x) > totalLine]) * 100 / len(totals[away]["overs"]))
+		totalOverLast5 = round(len([x for x in totals[away]["overs"][:5] if int(x) > totalLine]) * 100 / len(totals[away]["overs"][:5]))
 
-		out += "\t".join([away.upper(), str(gpg), ttOvers, str(gpga), opp_ttOvers, str(oversAvg), overs]) + "\n"
+		out += "\t".join([str(x) for x in [away.upper(), gpg, ttOvers, gpga, opp_ttOvers, oversAvg, overs, f"o{totalLine} ({totalOdds[0]})", f"{totalOver}%", f"{totalOverLast5}%"]]) + "\n"
 
 		gpg = round(totals[home]["gpg"] / totals[home]["games"], 1)
 		gpga = round(totals[home]["gpga"] / totals[home]["games"], 1)
@@ -619,8 +861,11 @@ def teamTotals():
 		oversAvg = round(sum([int(x) for x in totals[home]["overs"]]) / len(totals[home]["overs"]), 1)
 		ttOvers = ",".join(totals[home]["ttOvers"][:cutoff])
 		opp_ttOvers = ",".join(totals[home]["opp_ttOvers"][:cutoff])
-		out += "\t".join([home.upper(), str(gpg), ttOvers, str(gpga), opp_ttOvers, str(oversAvg), overs]) + "\n"
-		out += "\t".join(["-"]*7) + "\n"
+		totalOver = round(len([x for x in totals[home]["overs"] if int(x) > totalLine]) * 100 / len(totals[home]["overs"]))
+		totalOverLast5 = round(len([x for x in totals[home]["overs"][:5] if int(x) > totalLine]) * 100 / len(totals[home]["overs"][:5]))
+
+		out += "\t".join([home.upper(), str(gpg), ttOvers, str(gpga), opp_ttOvers, str(oversAvg), overs, f"u{totalLine} ({totalOdds[1]})", f"{totalOver}%", f"{totalOverLast5}%"]) + "\n"
+		out += "\t".join(["-"]*8) + "\n"
 
 	with open(f"{prefix}static/nhlprops/csvs/totals.csv", "w") as fh:
 		fh.write(out)
@@ -754,7 +999,6 @@ def writeGameLines(date):
 		data = json.load(fh)
 
 	events = {}
-	lines = {}
 	displayTeams = {}
 	if "eventGroup" not in data:
 		return
@@ -764,6 +1008,7 @@ def writeGameLines(date):
 		game = convertDKTeam(event["teamShortName1"].lower()) + " @ " + convertDKTeam(event["teamShortName2"].lower())
 		if "eventStatus" in event and "state" in event["eventStatus"] and event["eventStatus"]["state"] == "STARTED":
 			continue
+			pass
 		if game not in lines:
 			lines[game] = {}
 		events[event["eventId"]] = game
@@ -776,8 +1021,8 @@ def writeGameLines(date):
 				continue
 			for offerRow in cRow["offerSubcategory"]["offers"]:
 				for row in offerRow:
-					game = events[row["eventId"]]
 					try:
+						game = events[row["eventId"]]
 						gameType = row["label"].lower().split(" ")[-1]
 					except:
 						continue
@@ -971,6 +1216,8 @@ def writeGoalieStats():
 			rowStats[hdr] = val
 
 		player = rowStats["player"].lower().replace("-", " ")
+		if player == "daniel vladar":
+			player = "dan vladar"
 		team = rowStats["tm"].lower()
 		if team == "lak":
 			team = "la"
@@ -980,6 +1227,8 @@ def writeGoalieStats():
 			team = "nj"
 		elif team == "veg":
 			team = "vgk"
+		elif team == "tbl":
+			team = "tb"
 
 		if team not in stats:
 			stats[team] = {}
@@ -1072,9 +1321,9 @@ def writeOpportunities():
 	oneWeekAgo = datetime.now() - timedelta(days=6)
 	oneWeekAgo = str(oneWeekAgo)[:10]
 
-	if date in ["2023-01-03"]:
-		oneWeekAgo = "2022-12-27"
-		twoWeeksAgo = "2022-12-21"
+	if date in ["2023-01-12"]:
+		oneWeekAgo = "2023-01-06"
+		twoWeeksAgo = "2022-12-31"
 
 	baseUrl = "https://www.naturalstattrick.com/teamtable.php?fromseason=20222023&thruseason=20222023&stype=2&sit=all&score=all&rate=n&team=all&loc=B"
 	periods = {

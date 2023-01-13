@@ -276,7 +276,7 @@ def get_opponents(team):
 	with open("{}static/profootballreference/schedule.json".format(prefix)) as fh:
 		schedule = json.loads(fh.read())
 	opps = []
-	for i in range(1, 18):
+	for i in range(1, 19):
 		opp_team = "BYE"
 		if f"wk{i}" not in schedule:
 			continue
