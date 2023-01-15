@@ -1554,7 +1554,11 @@ def writeProps(curr_week):
 			if "teamShortName1" not in event:
 				game = convertDKTeam(event["teamName1"].lower()) + " @ " + convertDKTeam(event["teamName2"].lower())
 			else:
-				game = convertDKTeam(event["teamShortName1"].lower()) + " @ " + convertDKTeam(event["teamShortName2"].lower())
+				if "teamShortName2" not in event:
+					name2 = "tb"
+				else:
+					name2 = event["teamShortName2"].lower()
+				game = convertDKTeam(event["teamShortName1"].lower()) + " @ " + convertDKTeam(name2)
 			if "eventStatus" in event and "state" in event["eventStatus"] and event["eventStatus"]["state"] == "STARTED":
 				continue
 			if game not in props:

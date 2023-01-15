@@ -575,7 +575,7 @@ def props_route():
 		players = request.args.get("players")
 
 	# locks
-	bets = []
+	bets = ["josh anderson", "nikolaj ehlers", "martin necas"]
 	# meh
 	bets.extend([])
 	# goalies
@@ -682,7 +682,10 @@ def getSlate_route():
 					gaa = float(goalies[team][goalie]["gaa"])
 				except:
 					gaa = "-"
-				goalieRecord = f"{goalies[team][goalie]['w']}-{goalies[team][goalie]['l']}"
+				try:
+					goalieRecord = f"{goalies[team][goalie]['w']}-{goalies[team][goalie]['l']}"
+				except:
+					goalieRecord = ""
 
 			goalieOvers = []
 			goalieWinLossSplits = [0,0]
