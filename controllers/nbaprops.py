@@ -733,6 +733,8 @@ def getProps_route():
 	if not alt and not playersArg:
 		teamTotals(date, schedule)
 		write_csvs(props)
+	with open(f"{prefix}static/betting/nba.json", "w") as fh:
+		json.dump(props, fh, indent=4)
 	return jsonify(props)
 
 def h2h(props):
@@ -831,7 +833,7 @@ def write_csvs(props):
 
 	for prop in splitProps:
 		csvs[prop] = headers
-		rows = sorted(splitProps[prop], key=lambda k: (k["totalOverLast5"], k["totalOver"]), reverse=True)
+		rows = sorted(splitProps[prop], key=lambda k: (k["totalOver"], k["totalOverLast5"]), reverse=True)
 		for row in rows:
 			overOdds = row["overOdds"]
 			underOdds = row["underOdds"]
@@ -851,7 +853,7 @@ def write_csvs(props):
 
 	# add full rows
 	csvs["full_name"] = headers
-	rows = sorted(splitProps["full"], key=lambda k: (k["player"], -k["totalOverLast5"], -k["totalOver"]))
+	rows = sorted(splitProps["full"], key=lambda k: (k["player"], -k["totalOver"], -k["totalOverLast5"]))
 	for row in rows:
 		overOdds = row["overOdds"]
 		underOdds = row["underOdds"]
@@ -870,7 +872,7 @@ def write_csvs(props):
 			pass
 
 	csvs["full_hit"] = headers
-	rows = sorted(splitProps["full"], key=lambda k: (k["totalOverLast5"], k["totalOver"]), reverse=True)
+	rows = sorted(splitProps["full"], key=lambda k: (k["totalOver"], k["totalOverLast5"]), reverse=True)
 	for row in rows:
 		overOdds = row["overOdds"]
 		underOdds = row["underOdds"]
@@ -890,7 +892,7 @@ def write_csvs(props):
 
 	# add top 4 to reddit
 	for prop in ["pts", "reb", "ast"]:
-		rows = sorted(splitProps[prop], key=lambda k: (k["totalOverLast5"], k["totalOver"]), reverse=True)
+		rows = sorted(splitProps[prop], key=lambda k: (k["totalOver"], k["totalOverLast5"]), reverse=True)
 		for row in rows[:3]:
 			overOdds = row["overOdds"]
 			underOdds = row["underOdds"]

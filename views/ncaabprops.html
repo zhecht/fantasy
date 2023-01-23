@@ -164,8 +164,8 @@
 						return "<a href='https://www.espn.com/nfl/team/depth/_/name/"+value+"' target='_blank'>"+value+"</a>" + "<span style='color:black; margin-left:10px;'>(" + count + " "+playerTxt+")</span>";
 					},
 					initialSort: [
-						{column: "totalOver", dir: "desc"},
 						{column: "totalOverLast5", dir: "desc"},
+						{column: "totalOver", dir: "desc"},
 					],
 					columns: [
 						{formatter:"rowSelection", hozAlign:"center", headerSort:false, cellClick:function(e, cell){

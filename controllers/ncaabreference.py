@@ -59,7 +59,7 @@ def write_stats(date, teamArg=""):
 			allStats[home] = {}
 
 		gameId = boxscores[date][game].split("/")[-1]
-		time.sleep(0.3)
+		time.sleep(0.2)
 		url = f"https://site.web.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary?region=us&lang=en&contentorigin=espn&event={gameId}"
 		outfile = "out"
 		call(["curl", "-k", url, "-o", outfile])
@@ -307,7 +307,7 @@ def writeMissingTeamStats(teamArg):
 			writeTeamId(teams, team)
 		teamId = teams[team]["id"]
 
-		time.sleep(0.3)
+		time.sleep(0.2)
 		url = f"https://site.web.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/{teamId}/schedule?region=us&lang=en&seasontype=2"
 		outfile = "out"
 		call(["curl", "-k", url, "-o", outfile])

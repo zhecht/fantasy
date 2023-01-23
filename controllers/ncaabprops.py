@@ -365,7 +365,7 @@ def writeCsvs(props):
 
 	# add full rows
 	csvs["full_name"] = headers
-	rows = sorted(splitProps["full"], key=lambda k: (k["player"], -k["totalOverLast5"], -k["totalOver"]))
+	rows = sorted(splitProps["full"], key=lambda k: (k["player"], -k["totalOver"], -k["totalOverLast5"]))
 	for row in rows:
 		overOdds = row["overOdds"]
 		underOdds = row["underOdds"]
@@ -384,7 +384,7 @@ def writeCsvs(props):
 			pass
 
 	csvs["full_hit"] = headers
-	rows = sorted(splitProps["full"], key=lambda k: (k["totalOverLast5"], k["totalOver"]), reverse=True)
+	rows = sorted(splitProps["full"], key=lambda k: (k["totalOver"], k["totalOverLast5"]), reverse=True)
 	for row in rows:
 		overOdds = row["overOdds"]
 		underOdds = row["underOdds"]
@@ -414,7 +414,7 @@ def writeGameLines(date):
 		with open(f"{prefix}static/ncaabprops/lines/{date}.json") as fh:
 			lines = json.load(fh)
 
-	time.sleep(0.3)
+	time.sleep(0.2)
 	url = "https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/92483?format=json"
 	outfile = "out"
 	call(["curl", "-k", url, "-o", outfile])
@@ -535,6 +535,8 @@ def convertDKTeam(team):
 		return "sc"
 	elif team == "st. joe":
 		return "joes"
+	elif team == "tulane":
+		return "tuln"
 	elif team == "tamu":
 		return "ta&m"
 	elif team == "uc riv":

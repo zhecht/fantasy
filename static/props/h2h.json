@@ -1,317 +1,661 @@
 {
-    "dal @ tb": {
+    "cin @ buf": {
         "pass_yds_spread": {
-            "tom brady v dak prescott": {
-                "line": -27.5,
-                "tom brady": "-115",
-                "dak prescott": "-115"
+            "josh allen v joe burrow": {
+                "line": 9.5,
+                "josh allen": "-115",
+                "joe burrow": "-115"
             }
         },
         "pass_yds_total": {
-            "tom brady v dak prescott": {
-                "line": 525.5,
+            "josh allen v joe burrow": {
+                "line": 547.5,
                 "over": "-110",
                 "under": "-120"
             }
         },
         "pass_yds_moneyline": {
-            "tom brady v dak prescott": {
+            "josh allen v joe burrow": {
                 "line": "",
-                "tom brady": "-190",
-                "dak prescott": "+140"
+                "josh allen": "+105",
+                "joe burrow": "-135"
             }
         },
         "pass_tds_spread": {
-            "tom brady v dak prescott": {
+            "josh allen v joe burrow": {
                 "line": -0.5,
-                "tom brady": "+135",
-                "dak prescott": "-180"
+                "josh allen": "+120",
+                "joe burrow": "-155"
             }
         },
         "pass_tds_total": {
-            "tom brady v dak prescott": {
+            "josh allen v joe burrow": {
                 "line": 3.5,
-                "tom brady": "+135",
-                "dak prescott": "-180"
+                "josh allen": "-120",
+                "joe burrow": "-110"
             }
         },
         "pass_tds_moneyline": {
-            "tom brady v dak prescott": {
+            "josh allen v joe burrow": {
                 "line": "",
-                "tom brady": "-135",
-                "dak prescott": "+100"
+                "josh allen": "-155",
+                "joe burrow": "+115"
             }
         },
         "tds_spread": {
-            "chris godwin v michael gallup": {
+            "dawson knox v joe mixon": {
+                "line": 0.5,
+                "dawson knox": "-220",
+                "joe mixon": "+170"
+            },
+            "dawson knox v tee higgins": {
+                "line": 0.5,
+                "dawson knox": "-340",
+                "tee higgins": "+250"
+            },
+            "stefon diggs v tee higgins": {
                 "line": -0.5,
-                "michael gallup": "-260",
-                "chris godwin": "+195"
+                "stefon diggs": "+155",
+                "tee higgins": "-200"
             },
-            "cade otton v michael gallup": {
+            "gabriel davis v joe mixon": {
                 "line": 0.5,
-                "michael gallup": "+340",
-                "cade otton": "-500"
+                "joe mixon": "+190",
+                "gabriel davis": "-250"
             },
-            "chris godwin v dalton schultz": {
+            "gabriel davis v tee higgins": {
+                "line": 0.5,
+                "tee higgins": "+280",
+                "gabriel davis": "-390"
+            },
+            "stefon diggs v joe mixon": {
                 "line": -0.5,
-                "dalton schultz": "-270",
-                "chris godwin": "+205"
+                "joe mixon": "-240",
+                "stefon diggs": "+185"
             },
-            "mike evans v dalton schultz": {
+            "gabriel davis v jamarr chase": {
+                "line": 0.5,
+                "gabriel davis": "-250",
+                "jamarr chase": "+190"
+            },
+            "stefon diggs v jamarr chase": {
                 "line": -0.5,
-                "dalton schultz": "-310",
-                "mike evans": "+230"
+                "stefon diggs": "+190",
+                "jamarr chase": "-250"
             },
-            "cade otton v ceedee lamb": {
+            "dawson knox v jamarr chase": {
                 "line": 0.5,
-                "ceedee lamb": "+150",
-                "cade otton": "-195"
-            },
-            "mike evans v michael gallup": {
-                "line": -0.5,
-                "michael gallup": "-295",
-                "mike evans": "+220"
-            },
-            "cade otton v dalton schultz": {
-                "line": 0.5,
-                "dalton schultz": "+300",
-                "cade otton": "-425"
-            },
-            "mike evans v ceedee lamb": {
-                "line": 0.5,
-                "mike evans": "-270",
-                "ceedee lamb": "+205"
-            },
-            "chris godwin v ceedee lamb": {
-                "line": 0.5,
-                "chris godwin": "-290",
-                "ceedee lamb": "+215"
+                "dawson knox": "-215",
+                "jamarr chase": "+165"
             }
         },
         "tds_total": {
-            "chris godwin v michael gallup": {
+            "dawson knox v joe mixon": {
                 "line": 0.5,
-                "chris godwin": "-125",
-                "michael gallup": "+100"
+                "dawson knox": "-150",
+                "joe mixon": "+120"
             },
-            "cade otton v michael gallup": {
+            "dawson knox v tee higgins": {
                 "line": 0.5,
-                "cade otton": "+165",
-                "michael gallup": "-215"
+                "dawson knox": "-110",
+                "tee higgins": "-115"
             },
-            "chris godwin v dalton schultz": {
+            "stefon diggs v tee higgins": {
                 "line": 0.5,
-                "chris godwin": "-135",
-                "dalton schultz": "+105"
+                "stefon diggs": "-225",
+                "tee higgins": "+170"
             },
-            "mike evans v dalton schultz": {
+            "gabriel davis v joe mixon": {
                 "line": 0.5,
-                "mike evans": "-120",
-                "dalton schultz": "-105"
+                "gabriel davis": "-180",
+                "joe mixon": "+140"
             },
-            "cade otton v ceedee lamb": {
+            "gabriel davis v tee higgins": {
                 "line": 0.5,
-                "cade otton": "-120",
-                "ceedee lamb": "-105"
+                "gabriel davis": "-135",
+                "tee higgins": "+110"
             },
-            "mike evans v michael gallup": {
-                "line": 0.5,
-                "mike evans": "-115",
-                "michael gallup": "-110"
+            "stefon diggs v joe mixon": {
+                "line": 1.5,
+                "stefon diggs": "+180",
+                "joe mixon": "-230"
             },
-            "cade otton v dalton schultz": {
+            "gabriel davis v jamarr chase": {
                 "line": 0.5,
-                "cade otton": "+155",
-                "dalton schultz": "-195"
+                "gabriel davis": "-185",
+                "jamarr chase": "+145"
             },
-            "mike evans v ceedee lamb": {
-                "line": 0.5,
-                "mike evans": "-190",
-                "ceedee lamb": "+150"
+            "stefon diggs v jamarr chase": {
+                "line": 1.5,
+                "stefon diggs": "+175",
+                "jamarr chase": "-230"
             },
-            "chris godwin v ceedee lamb": {
+            "dawson knox v jamarr chase": {
                 "line": 0.5,
-                "chris godwin": "-210",
-                "ceedee lamb": "+165"
+                "dawson knox": "-150",
+                "jamarr chase": "+120"
             }
         },
         "tds_moneyline": {
-            "chris godwin v michael gallup": {
+            "dawson knox v joe mixon": {
                 "line": "",
-                "michael gallup": "+185",
-                "chris godwin": "-240"
+                "dawson knox": "+200",
+                "joe mixon": "-265"
             },
-            "cade otton v michael gallup": {
+            "dawson knox v tee higgins": {
                 "line": "",
-                "michael gallup": "-195",
-                "cade otton": "+150"
+                "dawson knox": "+135",
+                "tee higgins": "-170"
             },
-            "chris godwin v dalton schultz": {
+            "stefon diggs v tee higgins": {
                 "line": "",
-                "dalton schultz": "+160",
-                "chris godwin": "-210"
+                "stefon diggs": "-220",
+                "tee higgins": "+170"
             },
-            "mike evans v dalton schultz": {
+            "gabriel davis v joe mixon": {
                 "line": "",
-                "dalton schultz": "+140",
-                "mike evans": "-180"
+                "joe mixon": "-175",
+                "gabriel davis": "+140"
             },
-            "cade otton v ceedee lamb": {
+            "gabriel davis v tee higgins": {
                 "line": "",
-                "ceedee lamb": "-500",
-                "cade otton": "+350"
+                "tee higgins": "-115",
+                "gabriel davis": "-110"
             },
-            "mike evans v michael gallup": {
+            "stefon diggs v joe mixon": {
                 "line": "",
-                "michael gallup": "+160",
-                "mike evans": "-205"
+                "joe mixon": "+110",
+                "stefon diggs": "-140"
             },
-            "cade otton v dalton schultz": {
+            "gabriel davis v jamarr chase": {
                 "line": "",
-                "dalton schultz": "-220",
-                "cade otton": "+170"
+                "gabriel davis": "+140",
+                "jamarr chase": "-180"
             },
-            "mike evans v ceedee lamb": {
+            "stefon diggs v jamarr chase": {
                 "line": "",
-                "mike evans": "+120",
-                "ceedee lamb": "-155"
+                "stefon diggs": "-140",
+                "jamarr chase": "+110"
             },
-            "chris godwin v ceedee lamb": {
+            "dawson knox v jamarr chase": {
                 "line": "",
-                "chris godwin": "+105",
-                "ceedee lamb": "-130"
+                "dawson knox": "+205",
+                "jamarr chase": "-270"
+            }
+        },
+        "rush_yds_spread": {
+            "devin singletary v joe mixon": {
+                "line": 8.5,
+                "devin singletary": "-115",
+                "joe mixon": "-115"
+            }
+        },
+        "rush_yds_total": {
+            "devin singletary v joe mixon": {
+                "line": 88.5,
+                "devin singletary": "-115",
+                "joe mixon": "-115"
+            }
+        },
+        "rush_yds_moneyline": {
+            "devin singletary v joe mixon": {
+                "line": "",
+                "devin singletary": "+125",
+                "joe mixon": "-165"
             }
         },
         "rec_yds_spread": {
-            "cade otton v dalton schultz": {
-                "line": 16.5,
-                "dalton schultz": "-115",
-                "cade otton": "-115"
+            "stefon diggs v tee higgins": {
+                "line": -20.5,
+                "stefon diggs": "-115",
+                "tee higgins": "-115"
             },
-            "chris godwin v michael gallup": {
-                "line": -30.5,
-                "michael gallup": "-115",
-                "chris godwin": "-115"
+            "stefon diggs v jamarr chase": {
+                "line": -1.5,
+                "stefon diggs": "-115",
+                "jamarr chase": "-115"
             },
-            "mike evans v ceedee lamb": {
-                "line": 8.5,
-                "mike evans": "-115",
-                "ceedee lamb": "-115"
+            "gabriel davis v jamarr chase": {
+                "line": 28.5,
+                "gabriel davis": "-115",
+                "jamarr chase": "-115"
             },
-            "chris godwin v ceedee lamb": {
-                "line": 3.5,
-                "chris godwin": "-115",
-                "ceedee lamb": "-115"
-            },
-            "mike evans v michael gallup": {
-                "line": -25.5,
-                "michael gallup": "-115",
-                "mike evans": "-115"
+            "gabriel davis v tee higgins": {
+                "line": 10.5,
+                "tee higgins": "-115",
+                "gabriel davis": "-115"
             }
         },
         "rec_yds_total": {
-            "cade otton v dalton schultz": {
-                "line": 66.5,
-                "cade otton": "-115",
-                "dalton schultz": "-115"
+            "stefon diggs v tee higgins": {
+                "line": 147.5,
+                "stefon diggs": "+105",
+                "tee higgins": "-135"
             },
-            "chris godwin v michael gallup": {
-                "line": 117.5,
-                "chris godwin": "-110",
-                "michael gallup": "-120"
+            "stefon diggs v jamarr chase": {
+                "line": 166.5,
+                "stefon diggs": "-115",
+                "jamarr chase": "-115"
             },
-            "mike evans v ceedee lamb": {
-                "line": 149.5,
-                "mike evans": "-110",
-                "ceedee lamb": "-120"
+            "gabriel davis v jamarr chase": {
+                "line": 135.5,
+                "gabriel davis": "-115",
+                "jamarr chase": "-115"
             },
-            "chris godwin v ceedee lamb": {
-                "line": 154.5,
-                "chris godwin": "-110",
-                "ceedee lamb": "-120"
-            },
-            "mike evans v michael gallup": {
-                "line": 113.5,
-                "mike evans": "-110",
-                "michael gallup": "-125"
+            "gabriel davis v tee higgins": {
+                "line": 116.5,
+                "gabriel davis": "-115",
+                "tee higgins": "-115"
             }
         },
         "rec_yds_moneyline": {
-            "cade otton v dalton schultz": {
+            "stefon diggs v tee higgins": {
                 "line": "",
-                "dalton schultz": "-220",
-                "cade otton": "+160"
+                "stefon diggs": "-225",
+                "tee higgins": "+165"
             },
-            "chris godwin v michael gallup": {
+            "stefon diggs v jamarr chase": {
                 "line": "",
-                "michael gallup": "+255",
-                "chris godwin": "-370"
+                "stefon diggs": "-120",
+                "jamarr chase": "-110"
             },
-            "mike evans v ceedee lamb": {
+            "gabriel davis v jamarr chase": {
                 "line": "",
-                "mike evans": "+115",
-                "ceedee lamb": "-150"
+                "gabriel davis": "+210",
+                "jamarr chase": "-295"
             },
-            "chris godwin v ceedee lamb": {
+            "gabriel davis v tee higgins": {
                 "line": "",
-                "chris godwin": "+100",
-                "ceedee lamb": "-130"
-            },
-            "mike evans v michael gallup": {
-                "line": "",
-                "michael gallup": "+215",
-                "mike evans": "-300"
+                "tee higgins": "-165",
+                "gabriel davis": "+125"
             }
         },
         "rush_+_rec_yds_spread": {
-            "chris godwin v ezekiel elliott": {
-                "line": -17.5,
-                "ezekiel elliott": "-115",
-                "chris godwin": "-115"
+            "devin singletary v joe mixon": {
+                "line": 20.5,
+                "devin singletary": "-115",
+                "joe mixon": "-115"
             },
-            "chris godwin v ceedee lamb": {
-                "line": 4.5,
-                "chris godwin": "-115",
+            "gabriel davis v jamarr chase": {
+                "line": 31.5,
+                "gabriel davis": "-115",
+                "jamarr chase": "-115"
+            },
+            "gabriel davis v joe mixon": {
+                "line": 23.5,
+                "joe mixon": "-115",
+                "gabriel davis": "-115"
+            },
+            "devin singletary v jamarr chase": {
+                "line": 28.5,
+                "devin singletary": "-115",
+                "jamarr chase": "-115"
+            }
+        },
+        "rush_+_rec_yds_total": {
+            "devin singletary v joe mixon": {
+                "line": 133.5,
+                "devin singletary": "-115",
+                "joe mixon": "-115"
+            },
+            "gabriel davis v jamarr chase": {
+                "line": 138.5,
+                "gabriel davis": "-115",
+                "jamarr chase": "-115"
+            },
+            "gabriel davis v joe mixon": {
+                "line": 136.5,
+                "gabriel davis": "+105",
+                "joe mixon": "-140"
+            },
+            "devin singletary v jamarr chase": {
+                "line": 140.5,
+                "devin singletary": "-115",
+                "jamarr chase": "-115"
+            }
+        },
+        "rush_+_rec_yds_moneyline": {
+            "devin singletary v joe mixon": {
+                "line": "",
+                "devin singletary": "+175",
+                "joe mixon": "-240"
+            },
+            "gabriel davis v jamarr chase": {
+                "line": "",
+                "gabriel davis": "+225",
+                "jamarr chase": "-320"
+            },
+            "gabriel davis v joe mixon": {
+                "line": "",
+                "joe mixon": "-265",
+                "gabriel davis": "+190"
+            },
+            "devin singletary v jamarr chase": {
+                "line": "",
+                "devin singletary": "+220",
+                "jamarr chase": "-310"
+            }
+        },
+        "fgs_spread": {
+            "tyler bass v evan mcpherson": {
+                "line": -0.5,
+                "tyler bass": "+105",
+                "evan mcpherson": "-140"
+            }
+        },
+        "fgs_moneyline": {
+            "tyler bass v evan mcpherson": {
+                "line": "",
+                "tyler bass": "-165",
+                "evan mcpherson": "+125"
+            }
+        }
+    },
+    "dal @ sf": {
+        "pass_yds_spread": {
+            "brock purdy v dak prescott": {
+                "line": 10.5,
+                "dak prescott": "-115",
+                "brock purdy": "-115"
+            }
+        },
+        "pass_yds_total": {
+            "brock purdy v dak prescott": {
+                "line": 496.5,
+                "over": "-110",
+                "under": "-120"
+            }
+        },
+        "pass_yds_moneyline": {
+            "brock purdy v dak prescott": {
+                "line": "",
+                "dak prescott": "-140",
+                "brock purdy": "+105"
+            }
+        },
+        "pass_tds_spread": {
+            "brock purdy v dak prescott": {
+                "line": 0.5,
+                "dak prescott": "+135",
+                "brock purdy": "-180"
+            }
+        },
+        "pass_tds_total": {
+            "brock purdy v dak prescott": {
+                "line": 3.5,
+                "brock purdy": "+120",
+                "dak prescott": "-155"
+            }
+        },
+        "pass_tds_moneyline": {
+            "brock purdy v dak prescott": {
+                "line": "",
+                "dak prescott": "-135",
+                "brock purdy": "+105"
+            }
+        },
+        "tds_spread": {
+            "christian mccaffrey v ceedee lamb": {
+                "line": -0.5,
+                "christian mccaffrey": "+135",
+                "ceedee lamb": "-170"
+            },
+            "christian mccaffrey v dalton schultz": {
+                "line": -0.5,
+                "dalton schultz": "-125",
+                "christian mccaffrey": "+100"
+            },
+            "deebo samuel v dalton schultz": {
+                "line": -0.5,
+                "dalton schultz": "-310",
+                "deebo samuel": "+235"
+            },
+            "george kittle v dalton schultz": {
+                "line": -0.5,
+                "dalton schultz": "-390",
+                "george kittle": "+280"
+            },
+            "brandon aiyuk v dalton schultz": {
+                "line": -0.5,
+                "dalton schultz": "-450",
+                "brandon aiyuk": "+310"
+            },
+            "deebo samuel v ceedee lamb": {
+                "line": 0.5,
+                "deebo samuel": "-250",
+                "ceedee lamb": "+190"
+            },
+            "george kittle v ceedee lamb": {
+                "line": 0.5,
+                "george kittle": "-230",
+                "ceedee lamb": "+175"
+            },
+            "brandon aiyuk v ceedee lamb": {
+                "line": 0.5,
+                "brandon aiyuk": "-220",
+                "ceedee lamb": "+170"
+            }
+        },
+        "tds_total": {
+            "christian mccaffrey v ceedee lamb": {
+                "line": 1.5,
+                "christian mccaffrey": "+120",
+                "ceedee lamb": "-155"
+            },
+            "christian mccaffrey v dalton schultz": {
+                "line": 1.5,
+                "christian mccaffrey": "+175",
+                "dalton schultz": "-225"
+            },
+            "deebo samuel v dalton schultz": {
+                "line": 0.5,
+                "deebo samuel": "-140",
+                "dalton schultz": "+110"
+            },
+            "george kittle v dalton schultz": {
+                "line": 0.5,
+                "george kittle": "-125",
+                "dalton schultz": "-105"
+            },
+            "brandon aiyuk v dalton schultz": {
+                "line": 0.5,
+                "brandon aiyuk": "-115",
+                "dalton schultz": "-110"
+            },
+            "deebo samuel v ceedee lamb": {
+                "line": 0.5,
+                "deebo samuel": "-215",
+                "ceedee lamb": "+165"
+            },
+            "george kittle v ceedee lamb": {
+                "line": 0.5,
+                "george kittle": "-195",
+                "ceedee lamb": "+150"
+            },
+            "brandon aiyuk v ceedee lamb": {
+                "line": 0.5,
+                "brandon aiyuk": "-185",
+                "ceedee lamb": "+145"
+            }
+        },
+        "tds_moneyline": {
+            "christian mccaffrey v ceedee lamb": {
+                "line": "",
+                "christian mccaffrey": "-200",
+                "ceedee lamb": "+155"
+            },
+            "christian mccaffrey v dalton schultz": {
+                "line": "",
+                "dalton schultz": "+295",
+                "christian mccaffrey": "-425"
+            },
+            "deebo samuel v dalton schultz": {
+                "line": "",
+                "dalton schultz": "+120",
+                "deebo samuel": "-155"
+            },
+            "george kittle v dalton schultz": {
+                "line": "",
+                "dalton schultz": "+100",
+                "george kittle": "-130"
+            },
+            "brandon aiyuk v dalton schultz": {
+                "line": "",
+                "dalton schultz": "-105",
+                "brandon aiyuk": "-120"
+            },
+            "deebo samuel v ceedee lamb": {
+                "line": "",
+                "deebo samuel": "+125",
+                "ceedee lamb": "-160"
+            },
+            "george kittle v ceedee lamb": {
+                "line": "",
+                "george kittle": "+155",
+                "ceedee lamb": "-200"
+            },
+            "brandon aiyuk v ceedee lamb": {
+                "line": "",
+                "brandon aiyuk": "+170",
+                "ceedee lamb": "-220"
+            }
+        },
+        "rush_yds_spread": {
+            "christian mccaffrey v tony pollard": {
+                "line": -21.5,
+                "tony pollard": "-115",
+                "christian mccaffrey": "-115"
+            }
+        },
+        "rush_yds_total": {
+            "christian mccaffrey v tony pollard": {
+                "line": 112.5,
+                "christian mccaffrey": "-110",
+                "tony pollard": "-120"
+            }
+        },
+        "rush_yds_moneyline": {
+            "christian mccaffrey v tony pollard": {
+                "line": "",
+                "tony pollard": "+195",
+                "christian mccaffrey": "-275"
+            }
+        },
+        "rec_yds_spread": {
+            "deebo samuel v ceedee lamb": {
+                "line": 26.5,
+                "deebo samuel": "-115",
+                "ceedee lamb": "-115"
+            },
+            "brandon aiyuk v ceedee lamb": {
+                "line": 26.5,
+                "brandon aiyuk": "-115",
+                "ceedee lamb": "-115"
+            },
+            "george kittle v dalton schultz": {
+                "line": -8.5,
+                "dalton schultz": "-115",
+                "george kittle": "-115"
+            }
+        },
+        "rec_yds_total": {
+            "deebo samuel v ceedee lamb": {
+                "line": 132.5,
+                "deebo samuel": "-110",
+                "ceedee lamb": "-120"
+            },
+            "brandon aiyuk v ceedee lamb": {
+                "line": 132.5,
+                "brandon aiyuk": "-115",
+                "ceedee lamb": "-115"
+            },
+            "george kittle v dalton schultz": {
+                "line": 99.5,
+                "george kittle": "-105",
+                "dalton schultz": "-125"
+            }
+        },
+        "rec_yds_moneyline": {
+            "deebo samuel v ceedee lamb": {
+                "line": "",
+                "deebo samuel": "+205",
+                "ceedee lamb": "-290"
+            },
+            "brandon aiyuk v ceedee lamb": {
+                "line": "",
+                "brandon aiyuk": "+200",
+                "ceedee lamb": "-280"
+            },
+            "george kittle v dalton schultz": {
+                "line": "",
+                "dalton schultz": "+120",
+                "george kittle": "-160"
+            }
+        },
+        "rush_+_rec_yds_spread": {
+            "brandon aiyuk v ceedee lamb": {
+                "line": 28.5,
+                "brandon aiyuk": "-115",
+                "ceedee lamb": "-115"
+            },
+            "brandon aiyuk v tony pollard": {
+                "line": 16.5,
+                "tony pollard": "-115",
+                "brandon aiyuk": "-115"
+            },
+            "christian mccaffrey v tony pollard": {
+                "line": -35.5,
+                "tony pollard": "-115",
+                "christian mccaffrey": "-115"
+            },
+            "christian mccaffrey v ceedee lamb": {
+                "line": -22.5,
+                "christian mccaffrey": "-115",
                 "ceedee lamb": "-115"
             }
         },
         "rush_+_rec_yds_total": {
-            "chris godwin v ezekiel elliott": {
-                "line": 138.5,
-                "chris godwin": "+100",
-                "ezekiel elliott": "-130"
+            "brandon aiyuk v ceedee lamb": {
+                "line": 134.5,
+                "brandon aiyuk": "-115",
+                "ceedee lamb": "-115"
             },
-            "chris godwin v ceedee lamb": {
-                "line": 158.5,
-                "chris godwin": "-110",
-                "ceedee lamb": "-120"
+            "brandon aiyuk v tony pollard": {
+                "line": 122.5,
+                "brandon aiyuk": "-115",
+                "tony pollard": "-115"
+            },
+            "christian mccaffrey v tony pollard": {
+                "line": 177.5,
+                "christian mccaffrey": "+100",
+                "tony pollard": "-130"
+            },
+            "christian mccaffrey v ceedee lamb": {
+                "line": 190.5,
+                "christian mccaffrey": "-105",
+                "ceedee lamb": "-130"
             }
         },
         "rush_+_rec_yds_moneyline": {
-            "chris godwin v ezekiel elliott": {
+            "brandon aiyuk v ceedee lamb": {
                 "line": "",
-                "ezekiel elliott": "+160",
-                "chris godwin": "-215"
+                "brandon aiyuk": "+215",
+                "ceedee lamb": "-300"
             },
-            "chris godwin v ceedee lamb": {
+            "brandon aiyuk v tony pollard": {
                 "line": "",
-                "chris godwin": "+100",
-                "ceedee lamb": "-135"
-            }
-        },
-        "fgs_spread": {
-            "ryan succop v brett maher": {
-                "line": -0.5,
-                "brett maher": "-145",
-                "ryan succop": "+110"
-            }
-        },
-        "fgs_moneyline": {
-            "ryan succop v brett maher": {
+                "tony pollard": "-215",
+                "brandon aiyuk": "+160"
+            },
+            "christian mccaffrey v tony pollard": {
                 "line": "",
-                "brett maher": "+115",
-                "ryan succop": "-155"
+                "tony pollard": "+245",
+                "christian mccaffrey": "-350"
+            },
+            "christian mccaffrey v ceedee lamb": {
+                "line": "",
+                "christian mccaffrey": "-225",
+                "ceedee lamb": "+165"
             }
         }
     }

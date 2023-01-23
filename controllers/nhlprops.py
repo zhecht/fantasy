@@ -103,7 +103,7 @@ def getSplits(rankings, schedule, ttoi, dateArg):
 		splits[team]["oppSavesAgainstAboveAvgLast3"] = round(sum(oppSavesAgainstAboveAvg[:3]) / len(oppSavesAgainstAboveAvg[:3]), 3)
 	return splits
 
-def getOpportunitySplits(opportunities):
+def getOpportunitySplits(opportunities, slate=False):
 	oppSplits = {}
 
 	for team in opportunities:
@@ -126,14 +126,20 @@ def getOpportunitySplits(opportunities):
 
 		for stat in formats:
 			display = []
-			for period in ["tot", "last10", "last5", "last3"]:
+			arr = ["tot", "last10", "last5", "last3"]
+			if slate:
+				arr.append("last1")
+			for period in arr:
+				pct = 0
 				if period not in oppSplits[team]:
 					#continue
 					pass
-				pct = oppSplits[team][period][stat.replace('a','f')+'%']
-				if "Against" in formats[stat]:
-					pct = 100-pct
-				display.append(f"{round(pct, 1)}% ({oppSplits[team][period][stat+'Per60']})")
+					display.append(f"-")
+				else:
+					pct = oppSplits[team][period][stat.replace('a','f')+'%']
+					if "Against" in formats[stat]:
+						pct = 100-pct
+					display.append(f"{round(pct, 1)}% ({oppSplits[team][period][stat+'Per60']})")
 			oppSplits[team][formats[stat]] = " // ".join(display)
 	return oppSplits
 
@@ -556,6 +562,9 @@ def getProps_route():
 	if not request.args.get("date"):
 		teamTotals()
 		writeCsvs(props)
+
+	with open(f"{prefix}static/betting/nhl.json", "w") as fh:
+		json.dump(props, fh, indent=4)
 	return jsonify(props)
 
 @nhlprops_blueprint.route('/nhlprops')
@@ -575,7 +584,7 @@ def props_route():
 		players = request.args.get("players")
 
 	# locks
-	bets = ["josh anderson", "nikolaj ehlers", "martin necas"]
+	bets = []
 	# meh
 	bets.extend([])
 	# goalies
@@ -647,7 +656,7 @@ def getSlate_route():
 
 
 	splits = getSplits(rankings, schedule, ttoi, date)
-	opportunitySplits = getOpportunitySplits(opportunities)
+	opportunitySplits = getOpportunitySplits(opportunities, slate=True)
 	totals = getTotals(schedule, scores, gameLines)
 
 	for game in schedule[date]:
@@ -724,11 +733,14 @@ def getSlate_route():
 			total = f"{'o' if idx == 0 else 'u'}{gameLines[game]['total']['line']} ({gameLines[game]['total']['odds'].split(',')[idx]})"
 
 			prevMatchup = []
+			lastPlayed = ""
 			for dt in schedule:
 				if dt == date or datetime.strptime(dt, "%Y-%m-%d") > datetime.strptime(date, "%Y-%m-%d"):
 					continue
 				for g in schedule[dt]:
 					gSp = g.split(" @ ")
+					if team in gSp:
+						lastPlayed = dt
 					if gSp[0] in scores[dt] and team in gSp and opp in gSp:
 						score1 = scores[dt][gSp[0]]
 						score2 = scores[dt][gSp[1]]
@@ -756,6 +768,7 @@ def getSlate_route():
 				"team": team,
 				"opp": opp,
 				"prevMatchup": ", ".join(prevMatchup),
+				"lastPlayed": lastPlayed,
 				"puckline": puckline,
 				"moneylineOdds": moneyline,
 				"total": total,
@@ -893,7 +906,7 @@ def writeCsvs(props):
 
 	for prop in splitProps:
 		csvs[prop] = headers
-		rows = sorted(splitProps[prop], key=lambda k: (k["totalOverLast5"], k["totalOver"]), reverse=True)
+		rows = sorted(splitProps[prop], key=lambda k: (k["totalOver"], k["totalOverLast5"]), reverse=True)
 		for row in rows:
 			overOdds = row["overOdds"]
 			underOdds = row["underOdds"]
@@ -930,7 +943,7 @@ def writeCsvs(props):
 	# add top 4 to reddit
 	for prop in ["sog", "pts"]:
 		if prop in splitProps:
-			rows = sorted(splitProps[prop], key=lambda k: (k["totalOverLast5"], k["totalOver"]), reverse=True)
+			rows = sorted(splitProps[prop], key=lambda k: (k["totalOver"], k["totalOverLast5"]), reverse=True)
 			for row in rows[:4]:
 				overOdds = row["overOdds"]
 				underOdds = row["underOdds"]
@@ -1323,6 +1336,8 @@ def writeOpportunities():
 	twoWeeksAgo = str(twoWeeksAgo)[:10]
 	oneWeekAgo = datetime.now() - timedelta(days=6)
 	oneWeekAgo = str(oneWeekAgo)[:10]
+	daysAgo = datetime.now() - timedelta(days=4)
+	daysAgo = str(daysAgo)[:10]
 
 	if date in ["2023-01-12"]:
 		oneWeekAgo = "2023-01-06"
@@ -1333,6 +1348,7 @@ def writeOpportunities():
 		"last10": "&gpf=10",
 		"last5": f"&fd={twoWeeksAgo}&td={date}",
 		"last3": f"&fd={oneWeekAgo}&td={date}",
+		"last1": f"&fd={daysAgo}&td={date}",
 		"tot": ""
 	}
 

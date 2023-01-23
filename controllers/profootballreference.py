@@ -732,6 +732,8 @@ def fix_roster(roster, team):
 
 def writeSchedule(week):
 	url = f"https://www.espn.com/nfl/schedule/_/week/{week}"
+	if week > 18:
+		url = f"https://www.espn.com/nfl/schedule/_/week/{week-18}/year/2022/seasontype/3"
 	week = f"wk{week}"
 	outfile = "out"
 	call(["curl", "-k", url, "-o", outfile])
