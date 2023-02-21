@@ -255,9 +255,13 @@ def write_schedule(date):
 		schedule[date] = []
 		for row in table.findAll("tr")[1:]:
 			tds = row.findAll("td")
+			if not tds[0].find("a"):
+				continue
 			awayTeam = tds[0].findAll("a")[-1].get("href").split("/")[-2]
 			homeTeam = tds[1].findAll("a")[-1].get("href").split("/")[-2]
 			score = tds[2].find("a").text.strip()
+			if "Postponed" in score:
+				continue
 			if ", " in score:
 				scoreSp = score.replace(" (2OT)", "").replace(" (OT)", "").split(", ")
 				if f"{awayTeam.upper()} " in scoreSp[0]:

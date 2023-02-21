@@ -73,6 +73,8 @@ def write_stats(date, teamArg=""):
 		if "code" in data and data["code"] == 400:
 			continue
 
+		if "boxscore" not in data:
+			continue
 		if "players" not in data["boxscore"]:
 			continue
 		for teamRow in data["boxscore"]["players"]:

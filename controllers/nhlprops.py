@@ -560,7 +560,10 @@ def getProps_route():
 				})
 
 	if not request.args.get("date"):
-		teamTotals()
+		try:
+			teamTotals()
+		except:
+			pass
 		writeCsvs(props)
 
 	with open(f"{prefix}static/betting/nhl.json", "w") as fh:
@@ -996,8 +999,14 @@ def addNumSuffix(val):
 		return f"{val}th"
 
 def convertDKTeam(team):
-	if team == "was":
+	if team == "cls":
+		return "cbj"
+	elif team == "was":
 		return "wsh"
+	elif team == "anh":
+		return "ana"
+	elif team == "mon":
+		return "mtl"
 	return team
 
 def writeGameLines(date):
@@ -1039,7 +1048,13 @@ def writeGameLines(date):
 				for row in offerRow:
 					try:
 						game = events[row["eventId"]]
-						gameType = row["label"].lower().split(" ")[-1]
+						gameType = row["label"].lower().split(" (")[0]
+						if gameType.startswith("o/u"):
+							gameType = "total"
+						elif gameType.startswith("winner"):
+							gameType = "moneyline"
+						elif gameType.startswith("puck"):
+							gameType = "line"
 					except:
 						continue
 
@@ -1336,12 +1351,8 @@ def writeOpportunities():
 	twoWeeksAgo = str(twoWeeksAgo)[:10]
 	oneWeekAgo = datetime.now() - timedelta(days=6)
 	oneWeekAgo = str(oneWeekAgo)[:10]
-	daysAgo = datetime.now() - timedelta(days=4)
+	daysAgo = datetime.now() - timedelta(days=2)
 	daysAgo = str(daysAgo)[:10]
-
-	if date in ["2023-01-12"]:
-		oneWeekAgo = "2023-01-06"
-		twoWeeksAgo = "2022-12-31"
 
 	baseUrl = "https://www.naturalstattrick.com/teamtable.php?fromseason=20222023&thruseason=20222023&stype=2&sit=all&score=all&rate=n&team=all&loc=B"
 	periods = {

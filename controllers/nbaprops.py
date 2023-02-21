@@ -646,7 +646,10 @@ def getProps_route():
 					else:
 						diffAbs = diffAvg
 
-				pos = roster[team][name]
+				try:
+					pos = roster[team][name]
+				except:
+					continue
 
 				oppRank = ""
 				rankingsPos = pos
@@ -1074,6 +1077,12 @@ def writeGameLines(date):
 					game = events[row["eventId"]]
 					try:
 						gameType = row["label"].lower().split(" ")[-1]
+						if gameType.startswith("o/u"):
+							gameType = "total"
+						elif gameType.startswith("winner"):
+							gameType = "moneyline"
+						elif gameType.startswith("puck"):
+							gameType = "line"
 					except:
 						continue
 

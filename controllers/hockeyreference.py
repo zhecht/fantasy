@@ -389,8 +389,11 @@ def write_schedule(date):
 
 		for row in table.findAll("tr")[1:]:
 			tds = row.findAll("td")
-			awayTeam = tds[0].findAll("a")[-1].get("href").split("/")[-2]
-			homeTeam = tds[1].findAll("a")[-1].get("href").split("/")[-2]
+			try:
+				awayTeam = tds[0].findAll("a")[-1].get("href").split("/")[-2]
+				homeTeam = tds[1].findAll("a")[-1].get("href").split("/")[-2]
+			except:
+				continue
 			boxscore = tds[2].find("a").get("href")
 			score = tds[2].find("a").text.strip()
 			if score.lower() == "postponed":

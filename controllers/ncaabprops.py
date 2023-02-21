@@ -291,7 +291,11 @@ def getProps_route():
 				overPos = pos
 				if overPos == "C" and overPos not in oppOvers[opp]:
 					overPos = "F"
-				overList = oppOvers[opp][overPos][prop]
+
+				try:
+					overList = oppOvers[opp][overPos][prop]
+				except:
+					continue
 				linePerMin = 0
 				if avgMin:
 					linePerMin = line / avgMin
