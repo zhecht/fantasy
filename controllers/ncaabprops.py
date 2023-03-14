@@ -231,7 +231,7 @@ def getProps_route():
 									if chkDate == date:
 										hit = True
 
-								if len(last5) < 7:
+								if len(last5) < 10:
 									v = str(int(val))
 									if chkDate == date:
 										v = f"'{v}'"
@@ -483,8 +483,20 @@ def convertDKTeam(team):
 		return "bois"
 	elif team == "cal poly":
 		return "cp"
+	elif team == "chatt":
+		return "utc"
+	elif team == "charl":
+		return "cofc"
 	elif team == "chi st":
 		return "chst"
+	elif team == "cle st":
+		return "clev"
+	elif team == "la salle":
+		return "las"
+	elif team == "fair d":
+		return "fdu"
+	elif team == "ford":
+		return "for"
 	elif team == "furm":
 		return "fur"
 	elif team == "michigan":
@@ -493,6 +505,8 @@ def convertDKTeam(team):
 		return "minn"
 	elif team == "jville st":
 		return "jvst"
+	elif team == "merr":
+		return "mrmk"
 	elif team == "mizz":
 		return "miz"
 	elif team == "miss st":
@@ -505,10 +519,26 @@ def convertDKTeam(team):
 		return "orst"
 	elif team == "ind":
 		return "iu"
+	elif team == "lasalle":
+		return "las"
+	elif team == "lu":
+		return "lib"
+	elif team == "loy chi":
+		return "luc"
+	elif team == "kennst":
+		return "kenn"
 	elif team == "g'town":
 		return "gtwn"
+	elif team == "hofst":
+		return "hof"
 	elif team == "nc st":
 		return "ncst"
+	elif team == "ut-mar":
+		return "utm"
+	elif team == "ma-low":
+		return "uml"
+	elif team == "um-mil":
+		return "milw"
 	elif team == "mary":
 		return "md"
 	elif team == "mia fl":
@@ -533,12 +563,20 @@ def convertDKTeam(team):
 		return "val"
 	elif team == "drake":
 		return "drke"
+	elif team == "sam hou":
+		return "shsu"
 	elif team == "san fran":
 		return "sf"
 	elif team == "scar":
 		return "sc"
 	elif team == "st. joe":
 		return "joes"
+	elif team == "tarst":
+		return "tar"
+	elif team == "tntech":
+		return "tntc"
+	elif team == "towson":
+		return "tow"
 	elif team == "tulane":
 		return "tuln"
 	elif team == "tamu":
@@ -547,12 +585,20 @@ def convertDKTeam(team):
 		return "ucr"
 	elif team == "uc dav":
 		return "ucd"
+	elif team == "uc-bap":
+		return "cbu"
+	elif team == "ul-laf":
+		return "laf"
+	elif team == "umass":
+		return "mass"
 	elif team == "ut val":
 		return "uvu"
 	elif team == "uw-gb" or team == "green bay":
 		return "gb"
 	elif team == "uconn":
 		return "conn"
+	elif team == "ust":
+		return "stmn"
 	elif team == "wis":
 		return "wisc"
 	elif team == "woff":

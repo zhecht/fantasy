@@ -150,16 +150,19 @@ def write_totals():
 	with open(f"{prefix}static/ncaabreference/totals.json", "w") as fh:
 		json.dump(totals, fh, indent=4)
 
-def write_averages():
+def write_averages(teams = []):
 	with open(f"{prefix}static/ncaabreference/playerIds.json") as fh:
 		ids = json.load(fh)
+
+	if not teams:
+		teams = ids.keys()
 
 	with open(f"{prefix}static/ncaabreference/averages.json") as fh:
 		averages = json.load(fh)
 
 	lastYearStats = {}
 	headers = ["min", "fg", "fg%", "3pt", "3p%", "ft", "ft%", "reb", "ast", "blk", "stl", "pf", "to", "pts"]
-	for team in ids:
+	for team in teams:
 		if team not in averages:
 			averages[team] = {}
 
@@ -510,7 +513,10 @@ if __name__ == "__main__":
 
 	#writePlayerIds()
 	if args.averages:
-		write_averages()
+		teams = []
+		if args.teams:
+			teams = args.teams.split(",")
+		write_averages(teams)
 	elif args.colors:
 		writeColors()
 	elif args.roster:

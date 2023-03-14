@@ -382,23 +382,11 @@ def getOppOvers(schedule, roster):
 						overs[opp][pos][prop].append(val)
 	return overs
 
-
-@nbaprops_blueprint.route('/getNBAProps')
-def getProps_route():
-	res = []
-
-	teamsArg = request.args.get("teams") or ""
-	if teamsArg:
-		teamsArg = teamsArg.lower().split(",")
-	alt = request.args.get("alt") or ""
-	playersArg = request.args.get("players") or []
-	if playersArg:
-		playersArg = playersArg.split(",")
-
-	date = datetime.now()
-	date = str(date)[:10]
-	if request.args.get("date"):
-		date = request.args.get("date")
+def getPropData(date = None, playersArg = [], teamsArg = "", alt=""):
+	
+	if not date:
+		date = datetime.now()
+		date = str(date)[:10]
 
 	with open(f"{prefix}static/nbaprops/dates/{date}.json") as fh:
 		propData = json.load(fh)
@@ -733,12 +721,46 @@ def getProps_route():
 					"underOdds": underOdds
 				})
 
-	if not alt and not playersArg:
-		teamTotals(date, schedule)
-		write_csvs(props)
+	return props
+	
+
+@nbaprops_blueprint.route('/getNBAProps')
+def getProps_route():
+	if request.args.get("teams") or request.args.get("players") or request.args.get("date") or request.args.get("alt"):
+		alt = ""
+		if request.args.get("alt"):
+			alt = request.args.get("alt")
+		teams = ""
+		if request.args.get("teams"):
+			teams = request.args.get("teams").lower().split(",")
+		players = ""
+		if request.args.get("players"):
+			players = request.args.get("players").lower().split(",")
+		props = getPropData(date=request.args.get("date"), playersArg=players, teams=teams, alt=alt)
+	elif request.args.get("prop"):
+		with open(f"{prefix}static/betting/nba_{request.args.get('prop')}.json") as fh:
+			props = json.load(fh)
+	else:
+		with open(f"{prefix}static/betting/nba.json") as fh:
+			props = json.load(fh)
+	return jsonify(props)
+
+def writeStaticProps():
+	props = getPropData()
+
+	with open(f"{prefix}static/basketballreference/schedule.json") as fh:
+		schedule = json.load(fh)
+
+	teamTotals(date, schedule)
+	write_csvs(props)
+
 	with open(f"{prefix}static/betting/nba.json", "w") as fh:
 		json.dump(props, fh, indent=4)
-	return jsonify(props)
+
+	for prop in ["pts", "ast", "reb", "blk", "stl", "pts+ast", "pts+reb", "pts+reb+ast", "reb+ast", "stl+blk", "3ptm"]:
+		filteredProps = [p for p in props if p["propType"] == prop]
+		with open(f"{prefix}static/betting/nba_{prop}.json", "w") as fh:
+			json.dump(filteredProps, fh, indent=4)
 
 def h2h(props):
 	with open(f"{prefix}static/nbaprops/h2h.json") as fh:
@@ -1538,6 +1560,7 @@ if __name__ == "__main__":
 		writeTeamProps()
 		writeH2H()
 		writeGameLines(date)
+		writeStaticProps()
 	elif args.alts:
 		writeAlts()
 	elif args.h2h:

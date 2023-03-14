@@ -30,8 +30,12 @@ def get_betting_route():
 	if request.args.get("prop"):
 		prop = request.args.get("prop")
 
-	with open(f"{prefix}static/betting/{sport}.json") as fh:
-		data = json.load(fh)
+	if prop:
+		with open(f"{prefix}static/betting/{sport}_{prop}.json") as fh:
+			data = json.load(fh)
+	else:
+		with open(f"{prefix}static/betting/{sport}.json") as fh:
+			data = json.load(fh)
 
 	return jsonify(data)
 
@@ -39,7 +43,7 @@ def get_betting_route():
 def betting_route():
 	prop = sport = date = ""
 	if request.args.get("prop"):
-		prop = request.args.get("prop")
+		prop = request.args.get("prop").replace(" ", "+")
 	if request.args.get("sport"):
 		sport = request.args.get("sport")
 	else:

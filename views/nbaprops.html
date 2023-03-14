@@ -319,8 +319,8 @@
 					groupBy: "{{alt}}" != "" ? "game" : "",
 					initialSort: [
 						//{column: "pos", dir: "asc"},
-						{column: "totalOverPerMin", dir: "{{alt}}" == "under" ? "asc" : "desc"},
 						{column: "totalOverLast5", dir: "{{alt}}" == "under" ? "asc" : "desc"},
+						{column: "totalOver", dir: "{{alt}}" == "under" ? "asc" : "desc"},
 						//{column: "team", dir: "asc"},
 					],
 					columns: [
@@ -344,8 +344,8 @@
 						{title: "SZN AVG", field: "avg", hozAlign: "center", width: 80, formatter: colorFormatter},
 						{title: "W-L Splits", field: "winLossSplits", hozAlign: "center", visible: true, formatter:splitsFormatter},
 						{title: "A-H Splits", field: "awayHomeSplits", hozAlign: "center", visible: true, formatter:splitsFormatter},
-						//{title: "Total Over", field: "totalOver", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
-						{title: "Total Over Per Min", field: "totalOverPerMin", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
+						{title: "Total Over", field: "totalOver", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
+						//{title: "Total Over Per Min", field: "totalOverPerMin", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
 						{title: "L5 Total Over", field: "totalOverLast5", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
 						{title: "Last", field: "last5", hozAlign: "center"},
 						{title: "Last YR AVG", field: "lastAvg", hozAlign: "center", width: 80, formatter: colorFormatter},

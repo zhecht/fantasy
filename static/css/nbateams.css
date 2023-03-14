@@ -21,7 +21,7 @@
 
 .chi {
 	background: #ce1141;
-	color: black;
+	color: white;
 }
 
 .dal {
@@ -51,7 +51,7 @@
 
 .hou {
 	background: #ce1141;
-	color: black;
+	color: white;
 }
 
 .ind {
@@ -61,12 +61,16 @@
 
 .phx, .pho {
 	background: #e56020;
-	color: black;
+	color: white;
 }
 
 .lac {
 	background: #c8102e;
 	color: #1d428a;
+
+	/* midnight */
+	background:rgb(160, 13, 37);
+	color: rgb(130, 179, 229);
 }
 
 .lal {
@@ -102,11 +106,15 @@
 .okc {
 	background: #ef3b24;
 	color: #007ac1;
+
+	/* midnight */
+	background-color: rgb(179, 32, 13);
+	color: rgb(69, 187, 255);
 }
 
 .orl {
 	background: #0077c0;
-	color: black;
+	color: white;
 }
 
 .phi {
@@ -116,12 +124,16 @@
 
 .por {
 	background: #e03a3e;
-	color: black;
+	color: white;
 }
 
 .sac {
 	background: #5a2d81;
 	color: #64727a;
+
+	/* midnight */
+	background-color: rgb(72, 36, 103);
+	color: rgb(162, 154, 142);
 }
 
 .sa {

@@ -28,6 +28,8 @@ def convertProp(prop):
 		return "s"
 	elif prop == "goals":
 		return "g"
+	elif prop == "ast":
+		return "a"
 	return prop
 
 def getSplits(rankings, schedule, ttoi, dateArg):
@@ -145,20 +147,40 @@ def getOpportunitySplits(opportunities, slate=False):
 
 @nhlprops_blueprint.route('/getNHLProps')
 def getProps_route():
+	if request.args.get("teams") or request.args.get("players") or request.args.get("date"):
+		teams = ""
+		if request.args.get("teams"):
+			teams = request.args.get("teams").lower().split(",")
+		players = ""
+		if request.args.get("players"):
+			players = request.args.get("players").lower().split(",")
+		props = getPropData(date=request.args.get("date"), playersArg=players, teams=teams)
+	elif request.args.get("prop"):
+		with open(f"{prefix}static/betting/nhl_{request.args.get('prop')}.json") as fh:
+			props = json.load(fh)
+	else:
+		with open(f"{prefix}static/betting/nhl.json") as fh:
+			props = json.load(fh)
+	return jsonify(props)
+
+def writeStaticProps():
+	props = getPropData()
+	teamTotals()
+	writeCsvs(props)
+
+	with open(f"{prefix}static/betting/nhl.json", "w") as fh:
+		json.dump(props, fh, indent=4)
+	for prop in ["pts", "ast", "sog"]:
+		filteredProps = [p for p in props if p["propType"] == prop]
+		with open(f"{prefix}static/betting/nhl_{prop}.json", "w") as fh:
+			json.dump(filteredProps, fh, indent=4)
+
+def getPropData(date = None, playersArg = "", teams = ""):
 	res = []
 
-	teams = request.args.get("teams") or ""
-	if teams:
-		teams = teams.lower().split(",")
-	playersArg = request.args.get("players") or ""
-	if playersArg:
-		playersArg = playersArg.lower().split(",")
-	alt = request.args.get("alt") or ""
-
-	date = datetime.now()
-	date = str(date)[:10]
-	if request.args.get("date"):
-		date = request.args.get("date")
+	if not date:
+		date = datetime.now()
+		date = str(date)[:10]
 
 	yesterday = str(datetime.now() - timedelta(days=1))[:10]
 
@@ -182,6 +204,8 @@ def getProps_route():
 		opportunities = json.load(fh)
 	with open(f"{prefix}static/nhlprops/expectedGoalies.json") as fh:
 		expectedGoalies = json.load(fh)
+	with open(f"{prefix}static/hockeyreference/trades.json") as fh:
+		trades = json.load(fh)
 
 	opportunitySplits = getOpportunitySplits(opportunities)
 
@@ -193,6 +217,8 @@ def getProps_route():
 		goalies = json.load(fh)
 	with open(f"{prefix}static/nhlprops/expected.json") as fh:
 		expected = json.load(fh)
+	with open(f"{prefix}static/nhlprops/lineups.json") as fh:
+		lineups = json.load(fh)
 
 	goalieLines(propData)
 	splits = getSplits(rankings, schedule, ttoi, date)
@@ -237,9 +263,16 @@ def getProps_route():
 			if playersArg and player not in playersArg:
 				continue
 
+			beforeTradeTeam = ""
+			if player in trades:
+				beforeTradeTeam = trades[player]
+
 			avgMin = 0
 			if team in stats and name in stats[team] and stats[team][name]["gamesPlayed"]:
-				avgMin = int(stats[team][name]["toi"] / stats[team][name]["gamesPlayed"])
+				if beforeTradeTeam:
+					avgMin = int((stats[team][name]["toi"] + stats[beforeTradeTeam][name]["toi"]) / (stats[team][name]["gamesPlayed"] + stats[beforeTradeTeam][name]["gamesPlayed"]))
+				else:
+					avgMin = int(stats[team][name]["toi"] / stats[team][name]["gamesPlayed"])
 
 			for prop in propData[game][player]:
 				convertedProp = convertProp(prop)
@@ -247,23 +280,35 @@ def getProps_route():
 				avg = 0
 
 				if team in stats and name in stats[team] and stats[team][name]["gamesPlayed"]:
+					gamesPlayed = stats[team][name]["gamesPlayed"]
 					val = 0
 					if convertedProp == "pts":
 						val = stats[team][name]["g"] + stats[team][name]["a"]
 					elif convertedProp in stats[team][name]:
 						val = stats[team][name][convertedProp]
-					avg = round(val / stats[team][name]["gamesPlayed"], 2)
+
+					if beforeTradeTeam:
+						gamesPlayed += stats[beforeTradeTeam][name]["gamesPlayed"]
+						if convertedProp == "pts":
+							val += stats[beforeTradeTeam][name]["g"] + stats[beforeTradeTeam][name]["a"]
+						elif convertedProp in stats[beforeTradeTeam][name]:
+							val += stats[beforeTradeTeam][name][convertedProp]
+
+					avg = round(val / gamesPlayed, 2)
 
 				overOdds = propData[game][player][prop]["over"]
 				underOdds = propData[game][player][prop]["under"]
 
 				lastAvg = lastAvgMin = 0
 				proj = 0
-				if name in averages[team] and averages[team][name]:
-					lastAvgMin = averages[team][name]["toi/g"]
-					if convertedProp in averages[team][name]:
-						lastAvg = averages[team][name][convertedProp]
-					lastAvg = lastAvg / averages[team][name]["gamesPlayed"]
+				lastYearTeam = team
+				if beforeTradeTeam and name in averages[beforeTradeTeam]:
+					lastYearTeam = beforeTradeTeam
+				if name in averages[lastYearTeam] and averages[lastYearTeam][name]:
+					lastAvgMin = averages[lastYearTeam][name]["toi/g"]
+					if convertedProp in averages[lastYearTeam][name]:
+						lastAvg = averages[lastYearTeam][name][convertedProp]
+					lastAvg = lastAvg / averages[lastYearTeam][name]["gamesPlayed"]
 					proj = lastAvg / lastAvgMin
 					lastAvg = round(lastAvg, 2)
 
@@ -274,12 +319,15 @@ def getProps_route():
 					diff = round((lastAvg / float(line) - 1), 2)
 
 				lastTotalOver = lastTotalGames = 0
-				if line and avgMin and name in lastYearStats[team] and lastYearStats[team][name]:
-					for d in lastYearStats[team][name]:
-						minutes = lastYearStats[team][name][d]["toi/g"]
-						if minutes > 0 and convertedProp in lastYearStats[team][name][d]:
+				lastYearTeam = team
+				if beforeTradeTeam and name in lastYearStats[beforeTradeTeam]:
+					lastYearTeam = beforeTradeTeam
+				if line and avgMin and name in lastYearStats[lastYearTeam] and lastYearStats[lastYearTeam][name]:
+					for d in lastYearStats[lastYearTeam][name]:
+						minutes = lastYearStats[lastYearTeam][name][d]["toi/g"]
+						if minutes > 0 and convertedProp in lastYearStats[lastYearTeam][name][d]:
 							lastTotalGames += 1
-							val = lastYearStats[team][name][d][convertedProp]
+							val = lastYearStats[lastYearTeam][name][d][convertedProp]
 							valPerMin = float(val / minutes)
 							linePerMin = float(line) / avgMin
 							if valPerMin > linePerMin:
@@ -291,12 +339,17 @@ def getProps_route():
 				awayHomeSplits = [[],[]]
 				totalOver = totalOverLast5 = totalGames = 0
 				last5 = []
+				last5PlusMinus = []
 				prevMatchup = []
 				hit = playedYesterday = False
 				if line and avgMin:
-					files = sorted(glob.glob(f"{prefix}static/hockeyreference/{team}/*.json"), key=lambda k: datetime.strptime(k.split("/")[-1].replace(".json", ""), "%Y-%m-%d"), reverse=True)
+					files = glob.glob(f"{prefix}static/hockeyreference/{team}/*.json")
+					if beforeTradeTeam:
+						files.extend(glob.glob(f"{prefix}static/hockeyreference/{beforeTradeTeam}/*.json"))
+					files = sorted(files, key=lambda k: datetime.strptime(k.split("/")[-1].replace(".json", ""), "%Y-%m-%d"), reverse=True)
 					for file in files:
 						chkDate = file.split("/")[-1].replace(".json","")
+						currTeam = file.split("/")[-2]
 						with open(file) as fh:
 							gameStats = json.load(fh)
 
@@ -316,8 +369,8 @@ def getProps_route():
 								teamIsAway = False
 								for g in schedule[chkDate]:
 									gameSp = g.split(" @ ")
-									if team in gameSp:
-										if team == gameSp[0]:
+									if currTeam in gameSp:
+										if currTeam == gameSp[0]:
 											teamIsAway = True
 											pastOpp = gameSp[1]
 										else:
@@ -343,6 +396,7 @@ def getProps_route():
 										v = f"'{v}'"
 										last5.append(v)
 										continue
+									last5PlusMinus.append(gameStats[name].get("+/-", 0))
 									last5.append(v)
 
 								if chkDate == date or datetime.strptime(chkDate, "%Y-%m-%d") > datetime.strptime(date, "%Y-%m-%d"):
@@ -350,7 +404,7 @@ def getProps_route():
 
 								totalGames += 1
 								valPerMin = float(val / minutes)
-								teamScore = scores[chkDate][team]
+								teamScore = scores[chkDate][currTeam]
 								oppScore = scores[chkDate][pastOpp]
 								winLossVal = valPerMin
 								if prop == "sv":
@@ -378,6 +432,7 @@ def getProps_route():
 					last5Size = len(realLast5) if len(realLast5) < 5 else 5
 					if last5Size:
 						totalOverLast5 = round((totalOverLast5 / last5Size) * 100)
+						last5PlusMinus = sum(last5PlusMinus)
 
 				diffAbs = 0
 				if avgMin:
@@ -482,12 +537,25 @@ def getProps_route():
 						except:
 							gsaa = "-"
 
+				plusMinus = int(stats[team][name].get("+/-", 0))
+				if plusMinus > 0:
+					plusMinus = f"+{plusMinus}"
+				if last5PlusMinus > 0:
+					last5PlusMinus = f"+{last5PlusMinus}"
+
+				ppLine = ""
+				if team in lineups and player in lineups[team]["power play #1"]:
+					ppLine = "PP1"
+				elif team in lineups and player in lineups[team]["power play #2"]:
+					ppLine = "PP2"
+
 				props.append({
 					"player": player.title(),
 					"team": team.upper(),
 					"opponent": opp.upper(),
 					"propType": prop,
 					"line": line or "-",
+					"ppLine": ppLine,
 					"avg": avg,
 					"hit": hit,
 					"diffAvg": diffAvg,
@@ -500,6 +568,8 @@ def getProps_route():
 					"oppOver": oppOver,
 					"teamOver": teamOver,
 					"gameLine": gameLine,
+					"+/-": plusMinus,
+					"L5_+/-": last5PlusMinus,
 					"prevMatchup": ", ".join(prevMatchup),
 					"winLossSplits": winLoss,
 					"awayHome": "A" if team == game.split(" @ ")[0] else "H",
@@ -558,17 +628,7 @@ def getProps_route():
 					"underOdds": underOdds,
 					"overUnder": f"{overOdds} / {underOdds}"
 				})
-
-	if not request.args.get("date"):
-		try:
-			teamTotals()
-		except:
-			pass
-		writeCsvs(props)
-
-	with open(f"{prefix}static/betting/nhl.json", "w") as fh:
-		json.dump(props, fh, indent=4)
-	return jsonify(props)
+	return props
 
 @nhlprops_blueprint.route('/nhlprops')
 def props_route():
@@ -1185,9 +1245,12 @@ def writeProps(date):
 						for outcome in row["outcomes"]:
 							if outcome["label"].lower() == "over":
 								odds[0] = outcome["oddsAmerican"]
-								player = outcome["participant"].lower().replace(".", "").replace("'", "")
+								if "participant" in outcome:
+									player = outcome["participant"].lower().replace(".", "").replace("'", "")
 							else:
 								odds[1] = outcome["oddsAmerican"]
+								if "participant" in outcome:
+									player = outcome["participant"].lower().replace(".", "").replace("'", "")
 
 						if player not in props[game]:
 							props[game][player] = {}
@@ -1342,6 +1405,42 @@ def writeExpectedGoalies(date):
 	with open(f"{prefix}static/nhlprops/expectedGoalies.json", "w") as fh:
 		json.dump(expected, fh, indent=4)
 
+def writeLineups():
+	url = f"https://www.rotowire.com/hockey/nhl-lineups.php"
+	outfile = "out"
+	time.sleep(0.2)
+	call(["curl", "-k", url, "-o", outfile])
+	soup = BS(open(outfile, 'rb').read(), "lxml")
+
+	lineups = {}
+	expected = {}
+	for box in soup.findAll("div", class_="lineup"):
+		if "is-tools" in box.get("class") or "is-ad" in box.get("class"):
+			continue
+
+		away = convertDKTeam(box.findAll("div", class_="lineup__abbr")[0].text.lower())
+		home = convertDKTeam(box.findAll("div", class_="lineup__abbr")[1].text.lower())
+
+		for idx, lineupList in enumerate(box.findAll("ul", class_="lineup__list")):
+			team = away if idx == 0 else home
+			expected[team] = " ".join(lineupList.find("a").get("href").lower().split("/")[-1].split("-")[:-1])
+			title = ""
+			for li in lineupList.findAll("li")[1:]:
+				if "lineup__title" in li.get("class"):
+					title = li.text.lower()
+					if team not in lineups:
+						lineups[team] = {}
+					lineups[team][title] = []
+				else:
+					player = " ".join(li.find("a").get("href").lower().split("/")[-1].split("-")[:-1])
+					lineups[team][title].append(player)
+
+	with open(f"{prefix}static/nhlprops/expectedGoalies.json", "w") as fh:
+		json.dump(expected, fh, indent=4)
+	with open(f"{prefix}static/nhlprops/lineups.json", "w") as fh:
+		json.dump(lineups, fh, indent=4)
+
+
 def writeOpportunities():
 
 	date = datetime.now()
@@ -1404,6 +1503,7 @@ if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-c", "--cron", action="store_true", help="Start Cron Job")
 	parser.add_argument("--lines", action="store_true", help="Game Lines")
+	parser.add_argument("-l", "--lineups", action="store_true", help="Write Lineups")
 	parser.add_argument("--goalies", action="store_true", help="Goalie Stats")
 	parser.add_argument("--opp", action="store_true", help="Opportunities")
 	parser.add_argument("-d", "--date", help="Date")
@@ -1425,6 +1525,8 @@ if __name__ == "__main__":
 		writeExpectedGoalies(date)
 	elif args.opp:
 		writeOpportunities()
+	elif args.lineups:
+		writeLineups()
 	elif args.cron:
 		writeProps(date)
 		writeGoalieProps(date)
@@ -1432,4 +1534,7 @@ if __name__ == "__main__":
 		writeExpectations()
 		writeGameLines(date)
 		writeOpportunities()
-		writeExpectedGoalies(date)
+		#writeExpectedGoalies(date)
+		writeLineups()
+		writeStaticProps()
+
