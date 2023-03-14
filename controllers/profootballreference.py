@@ -28,6 +28,9 @@ from datetime import datetime
 prefix = ""
 if os.path.exists("/home/zhecht/fantasy"):
 	prefix = "/home/zhecht/fantasy/"
+elif os.path.exists("/home/playerprops/fantasy"):
+	# if on linux aka prod
+	prefix = "/home/playerprops/fantasy/"
 
 def merge_two_dicts(x, y):
 	z = x.copy()

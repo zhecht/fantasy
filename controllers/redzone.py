@@ -25,6 +25,9 @@ prefix = ""
 if os.path.exists("/home/zhecht/fantasy"):
     # if on linux aka prod
     prefix = "/home/zhecht/fantasy/"
+elif os.path.exists("/home/playerprops/fantasy"):
+	# if on linux aka prod
+	prefix = "/home/playerprops/fantasy/"
 
 full_team_names = {
 	"lar": "Rams",

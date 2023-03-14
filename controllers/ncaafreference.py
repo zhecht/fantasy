@@ -28,6 +28,9 @@ except:
 prefix = ""
 if os.path.exists("/home/zhecht/fantasy"):
 	prefix = "/home/zhecht/fantasy/"
+elif os.path.exists("/home/playerprops/fantasy"):
+	# if on linux aka prod
+	prefix = "/home/playerprops/fantasy/"
 
 SPORT_PREFIX = f"{prefix}static/ncaafreference"
 

@@ -22,6 +22,9 @@ prefix = ""
 if os.path.exists("/home/zhecht/fantasy"):
 	# if on linux aka prod
 	prefix = "/home/zhecht/fantasy/"
+elif os.path.exists("/home/playerprops/fantasy"):
+	# if on linux aka prod
+	prefix = "/home/playerprops/fantasy/"
 
 def teamTotals(today, schedule):
 	with open(f"{prefix}static/ncaabreference/scores.json") as fh:
@@ -108,16 +111,35 @@ def getOppOvers(schedule, roster):
 
 @ncaabprops_blueprint.route('/getNCAABProps')
 def getProps_route():
-	res = []
+	if request.args.get("teams") or request.args.get("date"):
+		teams = ""
+		if request.args.get("teams"):
+			teams = request.args.get("teams").lower().split(",")
+		props = getPropData(date=request.args.get("date"), teams=teams)
+	elif request.args.get("prop"):
+		with open(f"{prefix}static/betting/ncaab_{request.args.get('prop')}.json") as fh:
+			props = json.load(fh)
+	else:
+		with open(f"{prefix}static/betting/ncaab.json") as fh:
+			props = json.load(fh)
+	return jsonify(props)
 
-	teams = request.args.get("teams") or ""
-	if teams:
-		teams = teams.lower().split(",")
+def writeStaticProps():
+	props = getPropData()
+	writeCsvs(props)
 
-	date = datetime.now()
-	date = str(date)[:10]
-	if request.args.get("date"):
-		date = request.args.get("date")
+	with open(f"{prefix}static/betting/ncaab.json", "w") as fh:
+		json.dump(props, fh, indent=4)
+	for prop in ["pts", "ast", "reb", "pts+reb+ast", "3ptm"]:
+		filteredProps = [p for p in props if p["propType"] == prop]
+		with open(f"{prefix}static/betting/ncaab_{prop}.json", "w") as fh:
+			json.dump(filteredProps, fh, indent=4)
+
+def getPropData(teams = "", date = None):
+
+	if not date:
+		date = datetime.now()
+		date = str(date)[:10]
 
 	with open(f"{prefix}static/ncaabprops/dates/{date}.json") as fh:
 		propData = json.load(fh)
@@ -149,6 +171,13 @@ def getProps_route():
 			team = opp = ""
 			gameSp = game.split(" @ ")
 			team1, team2 = gameSp[0], gameSp[1]
+			if team1 not in stats:
+				print(team1)
+				continue
+			if team2 not in stats:
+				print(team2)
+				continue
+
 			if name in stats[team1]:
 				team = team1
 				opp = team2
@@ -348,10 +377,21 @@ def getProps_route():
 					"underOdds": underOdds
 				})
 
+	return props
 
-	writeCsvs(props)
+def updateTeamStats(date):
+	with open(f"{prefix}static/ncaabprops/lines/{date}.json") as fh:
+		games = json.load(fh)
+	with open(f"{prefix}static/ncaabreference/totals.json") as fh:
+		stats = json.load(fh)
 
-	return jsonify(props)
+	teams = []
+	for game in games:
+		for team in game.split(" @ "):
+			if team in stats:
+				teams.append(team)
+
+	call(["python", f"{prefix}controllers/ncaabreference.py", "--teams", f"{','.join(teams)}"])
 
 
 def writeCsvs(props):
@@ -575,6 +615,8 @@ def convertDKTeam(team):
 		return "tar"
 	elif team == "tntech":
 		return "tntc"
+	elif team == "toledo":
+		return "tol"
 	elif team == "towson":
 		return "tow"
 	elif team == "tulane":
@@ -725,5 +767,9 @@ if __name__ == "__main__":
 	if args.cron:
 		writeProps(date)
 		writeGameLines(date)
+		updateTeamStats(date)
+		writeStaticProps()
 	elif args.lines:
 		writeGameLines(date)
+
+	#updateTeamStats(date)

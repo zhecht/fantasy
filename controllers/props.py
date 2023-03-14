@@ -29,6 +29,9 @@ prefix = ""
 if os.path.exists("/home/zhecht/fantasy"):
 	# if on linux aka prod
 	prefix = "/home/zhecht/fantasy/"
+elif os.path.exists("/home/playerprops/fantasy"):
+	# if on linux aka prod
+	prefix = "/home/playerprops/fantasy/"
 
 pffTeamTranslations = {"ARZ": "CRD", "BLT": "RAV", "CLV": "CLE", "GB": "GNB", "HST": "HTX", "IND": "CLT", "KC": "KAN", "LAC": "SDG", "LA": "RAM", "LV": "RAI", "NO": "NOR", "NE": "NWE", "SF": "SFO", "TB": "TAM", "TEN": "OTI"}
 
