@@ -35,6 +35,12 @@
 			justify-content: center;
 			align-items: center;
 			height: 5%;
+			position: relative;
+		}
+		#header #tipjar, #propLinks #updated {
+			position: absolute;
+			left: 1rem;
+			font-size: 1rem;
 		}
 		a {
 			margin-left: 0.5rem;
@@ -52,9 +58,13 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			position: relative;
 		}
 		#header a {
 			font-size: 2rem;
+		}
+		#tipjar a {
+			font-size: 1rem;
 		}
 		a.active {
 			font-weight: bold;
@@ -92,10 +102,18 @@
 	</style>
 	<body>
 		<div id="header">
+			<div id="tipjar">
+				Tipjars: 
+				<a href="https://cash.app/$intersectinglines" target="_blank">Cash App</a>
+				<a href="https://www.buymeacoffee.com/interlines" target="_blank">Coffee</a>
+			</div>
 			<a class="active" href="/betting?sport=nhl">NHL</a>
 			<a href="/betting?sport=nba">NBA</a>
 		</div>
 		<div id="propLinks">
+			<div id="updated">
+				updated: {{updated}}
+			</div>
 			{% if sport == "nhl" %}
 			<a class="active" href="/betting?sport=nhl">FULL</a>
 			<a href="/betting?sport=nhl&prop=pts">PTS</a>
