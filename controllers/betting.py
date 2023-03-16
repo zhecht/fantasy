@@ -52,7 +52,7 @@ def betting_route():
 	else:
 		sport = "nhl"
 
-	dt = time.ctime(os.path.getmtime(f"{prefix}static/betting/{sport}.json"))
-	updated = datetime.strptime(dt, "%a %b %d %H:%M:%S %Y").strftime("%Y-%m-%d %I:%M %p")
+	with open(f"{prefix}lastUpdated") as fh:
+		updated = fh.read()
 
 	return render_template("betting.html", prop=prop, sport=sport, date=date, updated=updated)
