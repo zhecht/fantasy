@@ -344,6 +344,12 @@ def writeMissingTeamStats(teamArg):
 					if "score" not in teamRow:
 						continue
 					scores[date][t] = teamRow["score"]["value"]
+			else:
+				for teamRow in row["competitions"][0]["competitors"]:
+					t = teamRow["team"]["abbreviation"].lower()
+					if "score" not in teamRow:
+						continue
+					scores[date][t] = teamRow["score"]["value"]
 
 	with open(f"{prefix}static/ncaabreference/scores.json", "w") as fh:
 		json.dump(scores, fh, indent=4)
@@ -360,8 +366,15 @@ def writeMissingTeamStats(teamArg):
 	for team in teamArg.lower().split(","):
 		for date in schedule:
 			for game in schedule[date]:
-				if team in game.split(" @ ") and not os.path.exists(f"{prefix}static/ncaabreference/{team}/{date}.json"):
-					write_stats(date, teamArg=team)
+				if team in game.split(" @ "):
+					if not os.path.exists(f"{prefix}static/ncaabreference/{team}/{date}.json"):
+						write_stats(date, teamArg=team)
+					else:
+						with open(f"{prefix}static/ncaabreference/{team}/{date}.json") as fh:
+							data = json.load(fh)
+						if len(data.keys()) == 0:
+							write_stats(date, teamArg=team)
+
 
 def write_schedule(date):
 	#url = f"https://www.espn.com/mens-college-basketball/schedule/_/date/{date.replace('-','')}"
