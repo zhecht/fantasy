@@ -1429,14 +1429,17 @@ def writeLineups():
 			expected[team] = " ".join(lineupList.find("a").get("href").lower().split("/")[-1].split("-")[:-1])
 			title = ""
 			for li in lineupList.findAll("li")[1:]:
-				if "lineup__title" in li.get("class"):
-					title = li.text.lower()
-					if team not in lineups:
-						lineups[team] = {}
-					lineups[team][title] = []
-				else:
-					player = " ".join(li.find("a").get("href").lower().split("/")[-1].split("-")[:-1])
-					lineups[team][title].append(player)
+				try:
+					if "lineup__title" in li.get("class"):
+						title = li.text.lower()
+						if team not in lineups:
+							lineups[team] = {}
+						lineups[team][title] = []
+					else:
+						player = " ".join(li.find("a").get("href").lower().split("/")[-1].split("-")[:-1])
+						lineups[team][title].append(player)
+				except:
+					pass
 
 	with open(f"{prefix}static/nhlprops/expectedGoalies.json", "w") as fh:
 		json.dump(expected, fh, indent=4)
