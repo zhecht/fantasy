@@ -173,7 +173,7 @@ def writeStaticProps():
 
 	with open(f"{prefix}static/betting/nhl.json", "w") as fh:
 		json.dump(props, fh, indent=4)
-	for prop in ["pts", "ast", "sog"]:
+	for prop in ["pts", "ast", "sog", "g"]:
 		filteredProps = [p for p in props if p["propType"] == prop]
 		with open(f"{prefix}static/betting/nhl_{prop}.json", "w") as fh:
 			json.dump(filteredProps, fh, indent=4)
@@ -428,6 +428,7 @@ def getPropData(date = None, playersArg = "", teams = ""):
 								linePerMin = float(line) / avgMin
 								#if valPerMin > linePerMin:
 								#	totalOver += 1 
+
 				if totalGames:
 					totalOver = round((totalOver / totalGames) * 100)
 					
@@ -435,7 +436,8 @@ def getPropData(date = None, playersArg = "", teams = ""):
 					last5Size = len(realLast5) if len(realLast5) < 5 else 5
 					if last5Size:
 						totalOverLast5 = round((totalOverLast5 / last5Size) * 100)
-						last5PlusMinus = sum(last5PlusMinus)
+
+				last5PlusMinus = sum(last5PlusMinus)
 
 				diffAbs = 0
 				if avgMin:
@@ -1201,9 +1203,9 @@ def writeGoalieProps(date):
 		json.dump(props, fh, indent=4)
 
 def writeProps(date):
-	propNames = ["sog", "pts", "ast"]
-	catIds = [1189,550,550]
-	subCatIds = [12040,5586,5587]
+	propNames = ["sog", "pts", "ast", "g"]
+	catIds = [1189,550,550,1190]
+	subCatIds = [12040,5586,5587,12041]
 
 	props = {}
 	if os.path.exists(f"{prefix}static/nhlprops/dates/{date}.json"):
@@ -1243,10 +1245,24 @@ def writeProps(date):
 					for row in offerRow:
 						game = events[row["eventId"]]
 						odds = ["",""]
-						line = row["outcomes"][0]["line"]
+						line = ""
+						if prop != "g":
+							line = row["outcomes"][0]["line"]
 						player = ""
 						for outcome in row["outcomes"]:
-							if outcome["label"].lower() == "over":
+							if prop == "g" and outcome["criterionName"].lower() == "anytime scorer":
+								player = outcome["label"].lower().replace(".", "").replace("'", "")
+								odds[0] = outcome["oddsAmerican"]
+								if player not in props[game]:
+									props[game][player] = {}
+								if prop not in props[game][player]:
+									props[game][player][prop] = {}
+								props[game][player][prop] = {
+									"line": 0.5,
+									"over": odds[0],
+									"under": "0"
+								}
+							elif outcome["label"].lower() == "over":
 								odds[0] = outcome["oddsAmerican"]
 								if "participant" in outcome:
 									player = outcome["participant"].lower().replace(".", "").replace("'", "")
@@ -1255,15 +1271,16 @@ def writeProps(date):
 								if "participant" in outcome:
 									player = outcome["participant"].lower().replace(".", "").replace("'", "")
 
-						if player not in props[game]:
-							props[game][player] = {}
-						if prop not in props[game][player]:
-							props[game][player][prop] = {}
-						props[game][player][prop] = {
-							"line": line,
-							"over": odds[0],
-							"under": odds[1]
-						}
+						if prop != "g":
+							if player not in props[game]:
+								props[game][player] = {}
+							if prop not in props[game][player]:
+								props[game][player][prop] = {}
+							props[game][player][prop] = {
+								"line": line,
+								"over": odds[0],
+								"under": odds[1]
+							}
 
 	with open(f"{prefix}static/nhlprops/dates/{date}.json", "w") as fh:
 		json.dump(props, fh, indent=4)
