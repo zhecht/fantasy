@@ -37,10 +37,15 @@
 			height: 5%;
 			position: relative;
 		}
-		#header #tipjar, #propLinks #updated {
+		#tipjar {
 			position: absolute;
 			left: 1rem;
 			font-size: 1rem;
+		}
+		#updated {
+			position: absolute;
+			right: 1rem;
+			font-size: 1rem;	
 		}
 		a {
 			margin-left: 0.5rem;
@@ -109,16 +114,17 @@
 			</div>
 			<a class="active" href="/betting?sport=nhl">NHL</a>
 			<a href="/betting?sport=nba">NBA</a>
-		</div>
-		<div id="propLinks">
 			<div id="updated">
 				updated: {{updated}}
 			</div>
+		</div>
+		<div id="propLinks">
 			{% if sport == "nhl" %}
 			<a class="active" href="/betting?sport=nhl">FULL</a>
 			<a href="/betting?sport=nhl&prop=pts">PTS</a>
 			<a href="/betting?sport=nhl&prop=sog">SOG</a>
 			<a href="/betting?sport=nhl&prop=ast">AST</a>
+			<a href="/betting?sport=nhl&prop=g">G</a>
 			{% elif sport == "nba" %}
 			<a class="active" href="/betting?sport=nba">FULL</a>
 			<a href="/betting?sport=nba&prop=pts">PTS</a>
