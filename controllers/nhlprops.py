@@ -173,7 +173,7 @@ def writeStaticProps():
 
 	with open(f"{prefix}static/betting/nhl.json", "w") as fh:
 		json.dump(props, fh, indent=4)
-	for prop in ["pts", "ast", "sog", "g"]:
+	for prop in ["pts", "ast", "sog", "sv", "g"]:
 		filteredProps = [p for p in props if p["propType"] == prop]
 		with open(f"{prefix}static/betting/nhl_{prop}.json", "w") as fh:
 			json.dump(filteredProps, fh, indent=4)
