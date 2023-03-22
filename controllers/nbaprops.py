@@ -476,7 +476,7 @@ def getPropData(date = None, playersArg = [], teamsArg = "", alt=""):
 					if prop in ["stl+blk", "reb+ast"]:
 						continue
 					if prop not in ["reb", "ast"]:
-						#continue
+						continue
 						pass
 					if alt == "maxover":
 						if prop not in ["reb", "ast"]:
@@ -489,15 +489,14 @@ def getPropData(date = None, playersArg = [], teamsArg = "", alt=""):
 						else:
 							line -= 1
 					elif alt == "over":
-						if "+" in prop or prop in ["3ptm", "stl", "blk"]:
-							pass
+						if prop not in ["reb", "ast"]:
 							continue
 						if "pts+" in prop:
 							line = math.floor(line / 5)*5 - 0.5
 						elif line > 5:
 							line -= 1
 						else:
-							if overOdds > -140:
+							if int(overOdds) > -140:
 								line -= 1
 					else:
 						if prop not in ["reb", "ast"]:
@@ -591,7 +590,7 @@ def getPropData(date = None, playersArg = [], teamsArg = "", alt=""):
 										hit = True
 
 								avgVariance += (val / float(line)) - 1
-								if len(last5) < 7:
+								if len(last5) < 10:
 									v = str(int(val))
 									if chkDate == date:
 										v = f"'{v}'"
@@ -729,7 +728,7 @@ def getPropData(date = None, playersArg = [], teamsArg = "", alt=""):
 
 @nbaprops_blueprint.route('/getNBAProps')
 def getProps_route():
-	if request.args.get("teams") or request.args.get("players") or request.args.get("date") or request.args.get("alt"):
+	if request.args.get("teams") or request.args.get("players") or request.args.get("date"):
 		alt = ""
 		if request.args.get("alt"):
 			alt = request.args.get("alt")
@@ -739,7 +738,10 @@ def getProps_route():
 		players = ""
 		if request.args.get("players"):
 			players = request.args.get("players").lower().split(",")
-		props = getPropData(date=request.args.get("date"), playersArg=players, teams=teams, alt=alt)
+		props = getPropData(date=request.args.get("date"), playersArg=players, teamsArg=teams, alt=alt)
+	elif request.args.get("alt"):
+		with open(f"{prefix}static/betting/nba_{request.args.get('alt')}.json") as fh:
+			props = json.load(fh)
 	elif request.args.get("prop"):
 		with open(f"{prefix}static/betting/nba_{request.args.get('prop')}.json") as fh:
 			props = json.load(fh)
@@ -747,6 +749,14 @@ def getProps_route():
 		with open(f"{prefix}static/betting/nba.json") as fh:
 			props = json.load(fh)
 	return jsonify(props)
+
+def writeStaticAltProps():
+
+	for alt in ["over", "maxover", "under", "maxunder"]:
+		props = getPropData(alt=alt)
+
+		with open(f"{prefix}static/betting/nba_{alt}.json", "w") as fh:
+			json.dump(props, fh, indent=4)
 
 def writeStaticProps():
 	props = getPropData()
@@ -1564,6 +1574,7 @@ if __name__ == "__main__":
 		writeH2H()
 		writeGameLines(date)
 		writeStaticProps()
+		writeStaticAltProps()
 	elif args.alts:
 		writeAlts()
 	elif args.h2h:

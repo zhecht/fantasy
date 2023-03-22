@@ -21,20 +21,60 @@
 			justify-content: center;
 			height: 85%;
 		}
-		#header {
-			height: 7.5%;
-		}
 		#footer {
 			display: flex;
 			justify-content: center;
 			align-items: center;
+		}
+		#header {
+			height: 5%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: relative;
+		}
+		#sgp {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 5%;
+		}
+		a.active {
+			font-weight: bold;
+			text-decoration: underline;
+		}
+		a {
+			margin-left: 0.5rem;
+			margin-right: 0.5rem;
+			text-decoration: none;
+			color: #3391ff;
 		}
 		.negative { color: red; }
 		.positive { color: green; }
 	</style>
 	<body>
 		<div id="header">
+			<a id="full" class="active" href="/nbaprops">FULL</a>
+			<a id="pts" href="/nbaprops?prop=pts">PTS</a>
+			<a id="reb" href="/nbaprops?prop=reb">REB</a>
+			<a id="ast" href="/nbaprops?prop=ast">AST</a>
+			<a id="pts+reb+ast" href="/nbaprops?prop=pts+reb+ast">PTS+REB+AST</a>
+			<a id="pts+reb" href="/nbaprops?prop=pts+reb">PTS+REB</a>
+			<a id="pts+ast" href="/nbaprops?prop=pts+ast">PTS+AST</a>
+			<a id="reb+ast" href="/nbaprops?prop=reb+ast">REB+AST</a>
+			<a id="3ptm" href="/nbaprops?prop=3ptm">3PTM</a>
+			<a id="blk" href="/nbaprops?prop=blk">BLK</a>
+			<a id="stl" href="/nbaprops?prop=stl">STL</a>
+			<a id="maxover" href="/nbaprops?alt=maxover">SGP</a>
 		</div>
+		{% if alt %}
+		<div id="sgp">
+			<a id="maxover" class="active" href="/nbaprops?alt=maxover">maxover</a>
+			<a id="over" href="/nbaprops?alt=over">over</a>
+			<a id="under" href="/nbaprops?alt=under">under</a>
+			<button onclick="groupBy();">Toggle Group By Game</button>
+		</div>
+		{% endif %}
 		<div id="tableDiv">
 			<div id="propsTable">
 				<!-- {{table|safe}} -->
@@ -45,11 +85,14 @@
 			<button onclick="print('csv');">PRINT CSV</button>
 			<button onclick="calculateParlayOdds();">Parlay Odds</button>
 			<button onclick="addLast();">Add</button>
+			<button onclick="groupBy();">Group By</button>
 		</div>
 		<script>
 			let TABLE;
 			const line = {{line}};
 			const spread = {{spread}};
+			const propArg = "{{prop}}";
+			const alt = "{{alt}}";
 			const teamNames = ["All", "ATL", "BKN", "BOS", "CHA", "CHI", "CLE", "DAL", "DEN", "DET", "GS", "HOU", "IND", "LAC", "LAL", "MEM", "MIA", "MIL", "MIN", "NO", "NY", "OKC", "ORL", "PHI", "PHX", "POR", "SA", "SAC", "TOR", "UTAH", "WSH"];
 
 			function print(output = "") {
@@ -115,6 +158,14 @@
 					out += "\nProb="+((-(usOdds) / (-(usOdds) + 100)) * 100).toFixed(2)+"%";
 				}
 				alert(out);
+			}
+
+			function groupBy() {
+				if (TABLE.options.groupBy === undefined) {
+					TABLE.setGroupBy("game");
+				} else {
+					TABLE.setGroupBy();
+				}
 			}
 
 			function addLast() {
@@ -316,11 +367,10 @@
 					//layout: "fitDataFill",
 					//layout: window.innerWidth <= 450 ? "fitData" : "fitColumns",
 					
-					groupBy: "{{alt}}" != "" ? "game" : "",
 					initialSort: [
 						//{column: "pos", dir: "asc"},
-						{column: "totalOverLast5", dir: "{{alt}}" == "under" ? "asc" : "desc"},
-						{column: "totalOver", dir: "{{alt}}" == "under" ? "asc" : "desc"},
+						{column: "totalOverLast5", dir: alt == "under" ? "asc" : "desc"},
+						{column: "totalOver", dir: alt == "under" ? "asc" : "desc"},
 						//{column: "team", dir: "asc"},
 					],
 					columns: [
@@ -347,7 +397,7 @@
 						{title: "Total Over", field: "totalOver", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
 						//{title: "Total Over Per Min", field: "totalOverPerMin", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
 						{title: "L5 Total Over", field: "totalOverLast5", width: 80, hozAlign: "center", formatter: percentFormatter, sorter: "number"},
-						{title: "Last", field: "last5", hozAlign: "center"},
+						{title: "Last", field: "last5", hozAlign: "center", width: 200},
 						{title: "Last YR AVG", field: "lastAvg", hozAlign: "center", width: 80, formatter: colorFormatter},
 						{title: "Last YR Total Over", field: "lastTotalOver", width: 80, hozAlign: "center", formatter: percentFormatter},
 						{title: "Over", field: "overOdds", hozAlign: "center"},
@@ -357,6 +407,26 @@
 			}
 
 			renderTable();
+
+			for (const a of document.getElementById("header").getElementsByTagName("a")) {
+				if (a.classList.contains("active")) {
+					a.classList.remove("active");
+				} else if (alt !== "" && a.id === alt) {
+					a.classList.add("active");
+				} else if (a.id === propArg) {
+					a.classList.add("active");
+				}
+			}
+
+			if (alt !== "") {
+				for (const a of document.getElementById("sgp").getElementsByTagName("a")) {
+					if (a.classList.contains("active")) {
+						a.classList.remove("active");
+					} else if (alt !== "" && a.id === alt) {
+						a.classList.add("active");
+					}
+				}
+			}
 		</script>
 		{% if prop != "" %}
 			<script>
