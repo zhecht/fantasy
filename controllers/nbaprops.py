@@ -77,6 +77,8 @@ def teamTotals(today, schedule):
 		ttOvers = ",".join(totals[away]["ttOvers"][:cutoff])
 		ttOversAvg = round(sum([int(x) for x in totals[away]["ttOvers"]]) / len(totals[away]["ttOvers"]), 1)
 		ttEven = round(len([x for x in totals[away]["ttOvers"] if int(x) % 2 == 0]) * 100 / len(totals[away]["ttOvers"]), 1)
+		
+
 		out += "\t".join([str(x) for x in [away.upper(), ppg, ppga, overs, oversAvg, ttOvers, ttOversAvg, ttEven]]) + "\n"
 		ppg = round(totals[home]["ppg"] / totals[home]["games"], 1)
 		ppga = round(totals[home]["ppga"] / totals[home]["games"], 1)
@@ -545,7 +547,7 @@ def getPropData(date = None, playersArg = [], teamsArg = "", alt=""):
 				if lastTotalGames:
 					lastTotalOver = round((lastTotalOver / lastTotalGames) * 100)
 
-				totalOverPerMin = totalOver = totalOverLast5 = totalGames = avgVariance = 0
+				totalOverPerMin = totalOver = totalOverLast5 = totalOverLast15 = totalGames = avgVariance = 0
 				last5 = []
 				lastAll = []
 				lastAllPerMin = []
@@ -621,12 +623,16 @@ def getPropData(date = None, playersArg = [], teamsArg = "", alt=""):
 									totalOver += 1
 									if len(last5) <= 5:
 										totalOverLast5 += 1
+									if len(lastAll) <= 15:
+										totalOverLast15 += 1
 				if totalGames:
 					totalOver = round((totalOver / totalGames) * 100)
 					totalOverPerMin = round((totalOverPerMin / totalGames) * 100)
 					avgVariance = round(avgVariance / totalGames, 2)
 					last5Size = len(last5) if len(last5) < 5 else 5
 					totalOverLast5 = round((totalOverLast5 / last5Size) * 100)
+					last15Size = len(lastAll) if len(lastAll) < 15 else 15
+					totalOverLast15 = round((totalOverLast15 / last15Size) * 100)
 
 				diffAbs = 0
 				if avgMin:
@@ -715,6 +721,7 @@ def getPropData(date = None, playersArg = [], teamsArg = "", alt=""):
 					"totalOver": totalOver,
 					"totalOverPerMin": totalOverPerMin,
 					"totalOverLast5": totalOverLast5,
+					"totalOverLast15": totalOverLast15,
 					"lastTotalOver": lastTotalOver,
 					"last5": ",".join(last5),
 					"lastAll": ",".join(lastAll),
