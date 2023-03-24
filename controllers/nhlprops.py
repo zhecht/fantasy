@@ -251,7 +251,14 @@ def getPropData(date = None, playersArg = "", teams = ""):
 			team = opp = ""
 			gameSp = game.split(" @ ")
 			team1, team2 = gameSp[0], gameSp[1]
-			if name in stats[team1]:
+			if name in stats[team1] and name in stats[team2]:
+				if stats[team1][name]["gamesPlayed"] > stats[team2][name]["gamesPlayed"]:
+					team = team1
+					opp = team2	
+				else:
+					team = team2
+					opp = team1
+			elif name in stats[team1]:
 				team = team1
 				opp = team2
 			elif name in stats[team2]:
@@ -340,8 +347,9 @@ def getPropData(date = None, playersArg = "", teams = ""):
 
 				winLossSplits = [[],[]]
 				awayHomeSplits = [[],[]]
-				totalOver = totalOverLast5 = totalGames = 0
+				totalOver = totalOverLast5 = totalOverLast15 = totalGames = 0
 				last5 = []
+				lastAll = []
 				last5PlusMinus = []
 				prevMatchup = []
 				hit = playedYesterday = False
@@ -387,11 +395,15 @@ def getPropData(date = None, playersArg = "", teams = ""):
 									if val > float(line):
 										hit = True
 
+								lastAll.append(str(int(val)))
+
 								if float(val) > float(line):
 									if chkDate != date:
 										totalOver += 1
 										if len(last5) < 5:
 											totalOverLast5 += 1
+										if len(lastAll) < 15:
+											totalOverLast15 += 1
 
 								if len(last5) < 10:
 									v = str(int(val))
@@ -426,16 +438,17 @@ def getPropData(date = None, playersArg = "", teams = ""):
 									winLossSplits[1].append(winLossVal)
 
 								linePerMin = float(line) / avgMin
-								#if valPerMin > linePerMin:
-								#	totalOver += 1 
+
 
 				if totalGames:
 					totalOver = round((totalOver / totalGames) * 100)
 					
 					realLast5 = [x for x in last5 if "'" not in x]
 					last5Size = len(realLast5) if len(realLast5) < 5 else 5
+					last15Size = len(lastAll) if len(lastAll) < 15 else 15
 					if last5Size:
 						totalOverLast5 = round((totalOverLast5 / last5Size) * 100)
+						totalOverLast15 = round((totalOverLast15 / last15Size) * 100)
 
 				last5PlusMinus = sum(last5PlusMinus)
 
@@ -511,6 +524,7 @@ def getPropData(date = None, playersArg = "", teams = ""):
 						gameLine = gameOdds[1]
 
 				savesAboveExp = gsaa = "-"
+				goalieStatus = "expected"
 				if prop == "sv":
 					p = player.replace("-", " ")
 					if p not in expected:
@@ -531,8 +545,10 @@ def getPropData(date = None, playersArg = "", teams = ""):
 							gsaa = float(goalies[opp][goalie]["gsaa"])
 						except:
 							gsaa = "-"
-					elif opp in expectedGoalies:
-						goalie = expectedGoalies[opp]
+					elif opp in expectedGoalies["confirmed"] or expectedGoalies["expected"]:
+						if opp in expectedGoalies["confirmed"]:
+							goalieStatus = "confirmed"
+						goalie = expectedGoalies[goalieStatus][opp]
 						if goalie in expected:
 							savesAboveExp = round((float(expected[goalie]["xgoals"])-float(expected[goalie]["goals"]))*60*60 / float(expected[goalie]["icetime"]), 3)
 						else:
@@ -627,6 +643,7 @@ def getPropData(date = None, playersArg = "", teams = ""):
 					"oppSavesAgainstProjLast3": round(splits[opp]["oppSavesAgainstPer60Last3"]+splits[opp]["oppSavesAgainstPer60Last3"]*splits[team]["savesAboveAvgLast3"], 1),
 					"totalOver": totalOver,
 					"totalOverLast5": totalOverLast5,
+					"totalOverLast15": totalOverLast15,
 					"lastTotalOver": lastTotalOver,
 					"last5": ",".join(last5),
 					"overOdds": overOdds,
@@ -652,7 +669,7 @@ def props_route():
 		players = request.args.get("players")
 
 	# locks
-	bets = []
+	bets = ["steven stamkos", "brad marchand", "dylan larkin", "mats zuccarello", "mika zibanejad", "tyler toffoli", "carter verhaeghe", "logan couture", "dylan strome"]
 	# meh
 	bets.extend([])
 	# goalies
@@ -744,9 +761,13 @@ def getSlate_route():
 				puckline = f"+{puckline}"
 
 			goalie = ""
+			goalieStatus = "expected"
 			savesAboveExp = gsaa = gaa = goalieRecord = "-"
-			if team in expectedGoalies:
-				goalie = expectedGoalies[team].replace("-", " ")
+			if team in expectedGoalies["expected"] or team in expectedGoalies["confirmed"]:
+
+				if team in expectedGoalies["confirmed"]:
+					goalieStatus = "confirmed"
+				goalie = expectedGoalies[goalieStatus][team].replace("-", " ")
 				if goalie in expected:
 					savesAboveExp = round((float(expected[goalie]["xgoals"])-float(expected[goalie]["goals"]))*60*60 / float(expected[goalie]["icetime"]), 3)
 				else:
@@ -844,6 +865,7 @@ def getSlate_route():
 				"gaa": gaa,
 				"savesAboveExp": savesAboveExp,
 				"goalie": goalie,
+				"goalieStatus": True if goalieStatus == "confirmed" else False,
 				"goalieRecord": goalieRecord,
 				"goalieSplits": f"{goalieWinLossSplits[0]}-{goalieWinLossSplits[1]}",
 				"gpg": round(totals[team]["gpg"] / totals[team]["games"], 1),
@@ -979,6 +1001,8 @@ def writeCsvs(props):
 			overOdds = row["overOdds"]
 			underOdds = row["underOdds"]
 			gameLine = row["gameLine"]
+			if underOdds == '-inf':
+				underOdds = 0
 			if int(overOdds) > 0:
 				overOdds = "'"+overOdds
 			if int(underOdds) > 0:
@@ -1415,12 +1439,12 @@ def writeExpectedGoalies(date):
 	with open("out") as fh:
 		data = json.load(fh)
 
-	expected = {}
+	expected = {"confirmed": {}, "expected": {}}
 	for row in data:
 		away = convertDKTeam(row["visitteam"].lower())
 		home = convertDKTeam(row["hometeam"].lower())
-		expected[away] = row["visitPlayer"].lower()
-		expected[home] = row["homePlayer"].lower()
+		expected[row["visitStatus"].lower()][away] = row["visitPlayer"].lower()
+		expected[row["homeStatus"].lower()][home] = row["homePlayer"].lower()
 
 	with open(f"{prefix}static/nhlprops/expectedGoalies.json", "w") as fh:
 		json.dump(expected, fh, indent=4)
@@ -1433,7 +1457,7 @@ def writeLineups():
 	soup = BS(open(outfile, 'rb').read(), "lxml")
 
 	lineups = {}
-	expected = {}
+	expected = {"confirmed": {}, "expected": {}}
 	for box in soup.findAll("div", class_="lineup"):
 		if "is-tools" in box.get("class") or "is-ad" in box.get("class"):
 			continue
@@ -1443,7 +1467,8 @@ def writeLineups():
 
 		for idx, lineupList in enumerate(box.findAll("ul", class_="lineup__list")):
 			team = away if idx == 0 else home
-			expected[team] = " ".join(lineupList.find("a").get("href").lower().split("/")[-1].split("-")[:-1])
+			status = "confirmed" if "is-green" in lineupList.find("div", class_="dot").get("class") else "expected"
+			expected[status][team] = " ".join(lineupList.find("a").get("href").lower().split("/")[-1].split("-")[:-1])
 			title = ""
 			for li in lineupList.findAll("li")[1:]:
 				try:
@@ -1527,7 +1552,7 @@ if __name__ == "__main__":
 	parser.add_argument("-c", "--cron", action="store_true", help="Start Cron Job")
 	parser.add_argument("--lines", action="store_true", help="Game Lines")
 	parser.add_argument("-l", "--lineups", action="store_true", help="Write Lineups")
-	parser.add_argument("--goalies", action="store_true", help="Goalie Stats")
+	parser.add_argument("-g", "--goalies", action="store_true", help="Goalie Stats")
 	parser.add_argument("--opp", action="store_true", help="Opportunities")
 	parser.add_argument("-d", "--date", help="Date")
 	parser.add_argument("-w", "--week", help="Week", type=int)
