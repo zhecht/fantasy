@@ -531,7 +531,10 @@ def getPropData(date = None, playersArg = "", teams = ""):
 						continue
 					savesAboveExp = round((float(expected[p]["xgoals"])-float(expected[p]["goals"]))*60*60 / float(expected[p]["icetime"]), 3)
 					try:
-						gsaa = float(goalies[team][p]["gsaa"])
+						if "tot" in goalies and p in goalies["tot"]:
+							gsaa = float(goalies["tot"][p]["gsaa"])
+						else:
+							gsaa = float(goalies[team][p]["gsaa"])
 					except:
 						gsaa = "-"
 				else:
@@ -669,7 +672,7 @@ def props_route():
 		players = request.args.get("players")
 
 	# locks
-	bets = ["steven stamkos", "brad marchand", "dylan larkin", "mats zuccarello", "mika zibanejad", "tyler toffoli", "carter verhaeghe", "logan couture", "dylan strome"]
+	bets = ["nico hischier", "valeri nichushkin", "matias maccelli", "noah dobson", "barrett hayton"]
 	# meh
 	bets.extend([])
 	# goalies
@@ -1353,7 +1356,7 @@ def writeGoalieStats():
 					pass
 			rowStats[hdr] = val
 
-		player = rowStats["player"].lower().replace("-", " ")
+		player = rowStats["player"].lower().replace("-", " ").replace("\u00f6", "o").replace("\u00ed", "i").replace("\u00e1", "a").replace("\u011b", "e").replace("\u010d", "c").replace("\u0161", "s").replace("\u0159", "r")
 		if player == "daniel vladar":
 			player = "dan vladar"
 		team = rowStats["tm"].lower()

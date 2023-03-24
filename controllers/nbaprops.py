@@ -866,7 +866,7 @@ def h2h(props):
 def write_csvs(props):
 	csvs = {}
 	splitProps = {"full": []}
-	headers = "\t".join(["NAME","POS","AVG MIN","ML","A/H","TEAM","OPP","OPP RANK","PROP","LINE","SZN AVG","W-L Splits","A-H Splits","% OVER","L5 % OVER","LAST 7 GAMES ➡️","LAST YR % OVER","OVER", "UNDER"])
+	headers = "\t".join(["NAME","POS","AVG MIN","ML","A/H","TEAM","OPP","OPP RANK","PROP","LINE","SZN AVG","W-L Splits","A-H Splits","% OVER","L5 % OVER","LAST 10 GAMES ➡️","LAST YR % OVER","OVER", "UNDER"])
 	reddit = "|".join(headers.split("\t"))
 	reddit += "\n:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--"
 
