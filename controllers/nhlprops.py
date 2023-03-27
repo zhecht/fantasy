@@ -173,7 +173,7 @@ def writeStaticProps():
 
 	with open(f"{prefix}static/betting/nhl.json", "w") as fh:
 		json.dump(props, fh, indent=4)
-	for prop in ["pts", "ast", "sog", "sv", "g"]:
+	for prop in ["pts", "ast", "sog", "sv", "g", "bs"]:
 		filteredProps = [p for p in props if p["propType"] == prop]
 		with open(f"{prefix}static/betting/nhl_{prop}.json", "w") as fh:
 			json.dump(filteredProps, fh, indent=4)
@@ -693,7 +693,7 @@ def getTotals(schedule, scores, lines):
 					continue
 
 				if team not in totals:
-					totals[team] = {"wins": 0, "loss": 0, "gpg": 0, "gpga": 0, "games": 0, "overs": [], "ttOvers": [], "opp_ttOvers": [], "gpgWins": 0, "gpgLoss": 0, "gpgaWins": 0, "gpgaLoss": 0}
+					totals[team] = {"wins": 0, "loss": 0, "gpg": 0, "gpga": 0, "games": 0, "overs": [], "ttOvers": [], "opp_ttOvers": [], "gpgWins": 0, "gpgLoss": 0, "gpgAway": 0, "gpgHome": 0, "gpgaWins": 0, "gpgaLoss": 0, "gpgaAway": 0, "gpgaHome": 0}
 				totals[team]["games"] += 1
 				totals[team]["gpg"] += scores[date][team]
 				totals[team]["gpga"] += scores[date][opp]
@@ -705,6 +705,13 @@ def getTotals(schedule, scores, lines):
 					totals[team]["loss"] += 1
 					totals[team]["gpgLoss"] += scores[date][team]
 					totals[team]["gpgaLoss"] += scores[date][opp]
+
+				if idx == 0:
+					totals[team]["gpgAway"] += scores[date][team]
+					totals[team]["gpgaAway"] += scores[date][opp]
+				else:
+					totals[team]["gpgHome"] += scores[date][team]
+					totals[team]["gpgaHome"] += scores[date][opp]
 				totals[team]["ttOvers"].append(str(scores[date][team]))
 				totals[team]["opp_ttOvers"].append(str(scores[date][opp]))
 				totals[team]["overs"].append(str(scores[date][team] + scores[date][opp]))
@@ -1230,9 +1237,9 @@ def writeGoalieProps(date):
 		json.dump(props, fh, indent=4)
 
 def writeProps(date):
-	propNames = ["sog", "pts", "ast", "g"]
-	catIds = [1189,550,550,1190]
-	subCatIds = [12040,5586,5587,12041]
+	propNames = ["sog", "pts", "ast", "g", "bs"]
+	catIds = [1189,550,550,1190,550]
+	subCatIds = [12040,5586,5587,12041,10296]
 
 	props = {}
 	if os.path.exists(f"{prefix}static/nhlprops/dates/{date}.json"):
