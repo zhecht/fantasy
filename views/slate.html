@@ -52,6 +52,16 @@
 		}
 		.negative { color: red; }
 		.positive { color: green; }
+
+		@media (max-width: 500px) {
+			.game {
+				flex-direction: column;
+
+			}
+			.team {
+				width: 100%;
+			}
+		}
 	</style>
 	<body>
 		<div style="text-align: center;margin-top:1rem">
@@ -60,7 +70,7 @@
 		{% for game in data %}
 		<div class="game">
 			<div class="team">
-				<h2>{{ data[game]["A"].team.upper() }}</h2>
+				<h2 class="{{data[game]['A'].team}}">{{ data[game]["A"].team.upper() }}</h2>
 				<div>
 					{{ data[game]["A"].goalie.title() }} ({{ "C" if data[game]["A"].goalieStatus else "E" }})
 				</div>
@@ -152,7 +162,7 @@
 				</tr>
 			</table>
 			<div class="team">
-				<h2>{{ data[game]["H"].team.upper() }}</h2>
+				<h2 class="{{data[game]['H'].team}}">{{ data[game]["H"].team.upper() }}</h2>
 				<div>
 					{{ data[game]["H"].goalie.title() }} ({{ "C" if data[game]["H"].goalieStatus else "E" }})
 				</div>
