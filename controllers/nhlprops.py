@@ -148,7 +148,7 @@ def getOpportunitySplits(opportunities, slate=False):
 
 				display.append(val)
 				oppSplits[team][formats[stat]+period.title()] = val
-			oppSplits[team][formats[stat]+"Format"] = " • ".join(display)
+			oppSplits[team][formats[stat]+"Format"] = " // ".join(display)
 	return oppSplits
 
 @nhlprops_blueprint.route('/getNHLProps')
