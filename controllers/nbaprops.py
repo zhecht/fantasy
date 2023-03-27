@@ -866,9 +866,9 @@ def h2h(props):
 def write_csvs(props):
 	csvs = {}
 	splitProps = {"full": []}
-	headers = "\t".join(["NAME","POS","AVG MIN","ML","A/H","TEAM","OPP","OPP RANK","PROP","LINE","SZN AVG","W-L Splits","A-H Splits","% OVER","L5 % OVER","LAST 10 GAMES ➡️","LAST YR % OVER","OVER", "UNDER"])
+	headers = "\t".join(["NAME","POS","AVG MIN","ML","A/H","TEAM","OPP","OPP RANK","PROP","LINE","SZN AVG","W-L Splits","A-H Splits","% OVER","L15 % OVER","L5 % OVER","LAST 10 GAMES ➡️","LAST YR % OVER","OVER", "UNDER"])
 	reddit = "|".join(headers.split("\t"))
-	reddit += "\n:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--"
+	reddit += "\n:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--"
 
 	for row in props:
 		if row["propType"] not in splitProps:
@@ -892,7 +892,7 @@ def write_csvs(props):
 			if int(gameLine) > 0:
 				gameLine = "'"+gameLine
 			try:
-				csvs[prop] += "\n" + "\t".join([row["player"], row["position"], str(row["avgMin"]), gameLine, row["awayHome"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), row["winLossSplits"], row["awayHomeSplits"], f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
+				csvs[prop] += "\n" + "\t".join([row["player"], row["position"], str(row["avgMin"]), gameLine, row["awayHome"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), row["winLossSplits"], row["awayHomeSplits"], f"{row['totalOver']}%", f"{row['totalOverLast15']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
 			except:
 				pass
 
@@ -912,7 +912,7 @@ def write_csvs(props):
 		if int(gameLine) > 0:
 			gameLine = "'"+gameLine
 		try:
-			csvs["full_name"] += "\n" + "\t".join([row["player"], row["position"], str(row["avgMin"]), gameLine, row["awayHome"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), row["winLossSplits"], row["awayHomeSplits"], f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
+			csvs["full_name"] += "\n" + "\t".join([row["player"], row["position"], str(row["avgMin"]), gameLine, row["awayHome"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), row["winLossSplits"], row["awayHomeSplits"], f"{row['totalOver']}%", f"{row['totalOverLast15']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
 		except:
 			pass
 
@@ -931,7 +931,7 @@ def write_csvs(props):
 		if int(gameLine) > 0:
 			gameLine = "'"+gameLine
 		try:
-			csvs["full_hit"] += "\n" + "\t".join([row["player"], row["position"], str(row["avgMin"]), gameLine, row["awayHome"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), row["winLossSplits"], row["awayHomeSplits"], f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
+			csvs["full_hit"] += "\n" + "\t".join([row["player"], row["position"], str(row["avgMin"]), gameLine, row["awayHome"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], str(row["line"]), str(row["avg"]), row["winLossSplits"], row["awayHomeSplits"], f"{row['totalOver']}%", f"{row['totalOverLast15']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds])
 		except:
 			pass
 
@@ -966,7 +966,7 @@ def write_csvs(props):
 				awayHomeSplits[1] = f"'{awayHomeSplits[1]}'"
 			awayHomeSplits = " - ".join(awayHomeSplits)
 			try:
-				reddit += "\n" + "|".join([str(x) for x in [row["player"], row["position"], row["avgMin"], row["gameLine"], row["awayHome"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], row["line"], avg, winLossSplits, awayHomeSplits, f"{row['totalOver']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds]])
+				reddit += "\n" + "|".join([str(x) for x in [row["player"], row["position"], row["avgMin"], row["gameLine"], row["awayHome"], row["team"], row["opponent"].upper(), addNumSuffix(row["oppRank"]), row["propType"], row["line"], avg, winLossSplits, awayHomeSplits, f"{row['totalOver']}%", f"{row['totalOverLast15']}%", f"{row['totalOverLast5']}%", row["last5"], f"{row['lastTotalOver']}%",overOdds, underOdds]])
 			except:
 				pass
 		reddit += "\n-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-"

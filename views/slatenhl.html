@@ -97,7 +97,7 @@
 
 			const colorFormatter = function(cell, params, rendered) {
 				const data = cell.getRow().getData();
-				if (cell.getValue() >= parseFloat(data.line)) {
+				if (cell.getValue() >= parseFloat(data.tt)) {
 					return "<div class='positive'>"+cell.getValue()+"</div>";
 				}
 				return "<div class='negative'>"+cell.getValue()+"</div>";
@@ -127,15 +127,21 @@
 				const data = cell.getRow().getData();
 				const vals = cell.getValue().split(" - ");
 				let val1 = vals[0];
-				if (cell.getField() == "awayHomeSplits" && data.awayHome == "A") {
-					val1 = "<div style='text-decoration:underline;'>"+val1+"</div>";
-				} else if (cell.getField() == "gpg" && parseInt(data.gameLine) < 0) {
+				if (parseFloat(val1) >= parseFloat(data.tt)) {
+					val1 = "<div class='positive'>"+val1+"</div>";
+				} else {
+					val1 = "<div class='negative'>"+val1+"</div>";
+				}
+				if (data.awayHome == "A") {
 					val1 = "<div style='text-decoration:underline;'>"+val1+"</div>";
 				}
 				let val2 = vals[1];
-				if (cell.getField() == "awayHomeSplits" && data.awayHome == "H") {
-					val2 = "<div style='text-decoration:underline;'>"+val2+"</div>";
-				} else if (cell.getField() == "winLossSplits" && parseInt(data.gameLine) > 0) {
+				if (parseFloat(val2) >= parseFloat(data.tt)) {
+					val2 = "<div class='positive'>"+val2+"</div>";
+				} else {
+					val2 = "<div class='negative'>"+val2+"</div>";
+				}
+				if (data.awayHome == "H") {
 					val2 = "<div style='text-decoration:underline;'>"+val2+"</div>";
 				}
 				return "<div style='display:flex;justify-content:center;'>"+val1+"<div style='padding: 0 5px;'> - </div>"+val2+"</div>";
@@ -192,15 +198,18 @@
 						{title: "ML", field: "moneylineOdds",  hozAlign: "center", width: 70},
 						{title: "PL", field: "puckline",  hozAlign: "center", width: 150},
 						{title: "OU", field: "total",  hozAlign: "center", width: 150},
-						{title: "GPG", field: "gpg",  hozAlign: "center", width: 80, responsive: 0},
-						{title: "GPG Splits", field: "gpgSplits",  hozAlign: "center", width: 120, responsive: 0},
+						{title: "TT", field: "tt",  hozAlign: "center", width: 80},
+						{title: "TT O/U", field: "ttOU",  hozAlign: "center", width: 150},
+						{title: "GPG", field: "gpg",  hozAlign: "center", width: 80, formatter: colorFormatter, responsive: 0},
+						{title: "GPG Splits", field: "gpgSplits",  hozAlign: "center", width: 120, responsive: 0, formatter: splitsFormatter},
 						{title: "GPGA", field: "gpga",  hozAlign: "center", width: 80, responsive: 0},
 						{title: "GPGA Splits", field: "gpgaSplits",  hozAlign: "center", width: 120, responsive: 0},
 						{title: "Overs Avg", field: "oversAvg",  hozAlign: "center", width: 80, responsive: 0},
-						{title: "Status", field: "goalieStatus", formatter:"tickCross", width: 20, hozAlign: "center"},
+						{title: "Confirmed", field: "goalieStatus", formatter:"tickCross", width: 20, hozAlign: "center"},
 						{title: "Goalie", field: "goalie", width: 200},
 						{title: "W-L", field: "goalieRecord",  hozAlign: "center", width: 80},
 						{title: "W-L A/H Splits", field: "goalieSplits",  hozAlign: "center", width: 80},
+						{title: "QS%", field: "qs",  hozAlign: "center", width: 80},
 						{title: "GSAA", field: "gsaa",  hozAlign: "center", width: 80},
 						{title: "GAA", field: "gaa",  hozAlign: "center", width: 80},
 						{title: "TT Overs", field: "ttOvers",  hozAlign: "center", responsive: 1},
