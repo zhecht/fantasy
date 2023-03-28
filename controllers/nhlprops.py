@@ -1322,7 +1322,7 @@ def writeTT(date):
 			for offerRow in cRow["offerSubcategory"]["offers"]:
 				for row in offerRow:
 					team = convertDKTeam(row["label"].lower().split(" ")[0])
-					if team == "ny":
+					if team == "nyi":
 						if "rangers" in row["label"].lower():
 							team = "nyr"
 						else:
