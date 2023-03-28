@@ -555,7 +555,10 @@ def getPropData(date = None, playersArg = "", teams = ""):
 						else:
 							savesAboveExp = "-"
 						try:
-							gsaa = float(goalies[opp][goalie]["gsaa"])
+							if "tot" in goalies and goalie in goalies["tot"]:
+								gsaa = float(goalies["tot"][goalie]["gsaa"])
+							else:
+								gsaa = float(goalies[opp][goalie]["gsaa"])
 						except:
 							gsaa = "-"
 					elif opp in expectedGoalies["confirmed"] or expectedGoalies["expected"]:
@@ -570,7 +573,10 @@ def getPropData(date = None, playersArg = "", teams = ""):
 						else:
 							savesAboveExp = "-"
 						try:
-							gsaa = float(goalies[opp][goalie]["gsaa"])
+							if "tot" in goalies and goalie in goalies["tot"]:
+								gsaa = float(goalies["tot"][goalie]["gsaa"])
+							else:
+								gsaa = float(goalies[opp][goalie]["gsaa"])
 						except:
 							gsaa = "-"
 
@@ -685,7 +691,9 @@ def props_route():
 		players = request.args.get("players")
 
 	# locks
-	bets = []
+	bets = ["zach hyman", "dylan larkin", "mika zibanejad", "kyle connor", "martin necas", "tyler toffoli", "miro heiskanen", "brad marchand"]
+	# singles
+	bets.extend(["darnell nurse", "mike matheson", "andrei kuzmenko", "phillip danault", "adrian kempe", "leon draisaitl", "hampus lindholm"])
 	# meh
 	bets.extend([])
 	# goalies
@@ -807,21 +815,19 @@ def getSlateData(date = None, teams=""):
 					savesAboveExp = round((float(expected[goalie]["xgoals"])-float(expected[goalie]["goals"]))*60*60 / float(expected[goalie]["icetime"]), 3)
 				else:
 					savesAboveExp = "-"
+
+				goalieTeam = team
+				if "tot" in goalies and goalie in goalies["tot"]:
+					goalieTeam = "tot"
 				try:
-					gsaa = float(goalies[team][goalie]["gsaa"])
+					gsaa = float(goalies[goalieTeam][goalie]["gsaa"])
+					gaa = float(goalies[goalieTeam][goalie]["gaa"])
+					goalieRecord = f"{goalies[goalieTeam][goalie]['w']}W-{goalies[goalieTeam][goalie]['l']}L"
+					qs = f"{round(goalies[goalieTeam][goalie]['qs%'] * 100, 1)}%"
+					rbs = goalies[goalieTeam][goalie]["rbs"]
+					svPct = f"{round(goalies[goalieTeam][goalie]['sv%'] * 100, 1)}%"
 				except:
-					gsaa = "-"
-				try:
-					gaa = float(goalies[team][goalie]["gaa"])
-				except:
-					gaa = "-"
-				try:
-					goalieRecord = f"{goalies[team][goalie]['w']}W-{goalies[team][goalie]['l']}L"
-					qs = f"{round(goalies[team][goalie]['qs%'] * 100, 1)}%"
-					rbs = goalies[team][goalie]["rbs"]
-					svPct = f"{round(goalies[team][goalie]['sv%'] * 100, 1)}%"
-				except:
-					goalieRecord = ""
+					pass
 
 			goalieOvers = []
 			goalieWinLossSplits = [0,0]
