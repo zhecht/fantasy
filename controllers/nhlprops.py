@@ -255,7 +255,14 @@ def getPropData(date = None, playersArg = "", teams = ""):
 			gameSp = game.split(" @ ")
 			team1, team2 = gameSp[0], gameSp[1]
 			if name in stats[team1] and name in stats[team2]:
-				if stats[team1][name]["gamesPlayed"] > stats[team2][name]["gamesPlayed"]:
+				if player in trades:
+					if team1 == trades[player]:
+						team = team1
+						opp = team2
+					else:
+						team = team1
+						opp = team2
+				elif stats[team1][name]["gamesPlayed"] > stats[team2][name]["gamesPlayed"]:
 					team = team1
 					opp = team2	
 				else:
