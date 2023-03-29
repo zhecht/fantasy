@@ -411,6 +411,8 @@ def getPropData(date = None, playersArg = [], teamsArg = "", alt=""):
 		scores = json.load(fh)
 	with open(f"{prefix}static/nbaprops/lines/{date}.json") as fh:
 		gameLines = json.load(fh)
+	with open(f"{prefix}static/basketballreference/trades.json") as fh:
+		trades = json.load(fh)
 
 	oppOvers = getOppOvers(schedule, roster)
 	#propData = customPropData(propData)
@@ -423,7 +425,21 @@ def getPropData(date = None, playersArg = [], teamsArg = "", alt=""):
 			team = opp = ""
 			gameSp = game.split(" @ ")
 			team1, team2 = gameSp[0], gameSp[1]
-			if name in stats[team1]:
+			if name in stats[team1] and name in stats[team2]:
+				if name in trades:
+					if team1 == trades[name]:
+						team = team2
+						opp = team1
+					else:
+						team = team2
+						opp = team1
+				elif stats[team1][name]["gamesPlayed"] > stats[team2][name]["gamesPlayed"]:
+					team = team1
+					opp = team2	
+				else:
+					team = team2
+					opp = team1
+			elif name in stats[team1]:
 				team = team1
 				opp = team2
 			elif name in stats[team2]:
@@ -439,9 +455,17 @@ def getPropData(date = None, playersArg = [], teamsArg = "", alt=""):
 			if playersArg and name not in playersArg:
 				continue
 
+			teamBeforeTrade = ""
+			if name in trades:
+				teamBeforeTrade = trades[name]
+
 			avgMin = 0
 			if team in stats and name in stats[team] and stats[team][name]["gamesPlayed"]:
-				avgMin = int(stats[team][name]["min"] / stats[team][name]["gamesPlayed"])
+				if teamBeforeTrade:
+					avgMin = int((stats[team][name]["min"]+stats[teamBeforeTrade][name]["min"]) / (stats[team][name]["gamesPlayed"]+stats[teamBeforeTrade][name]["gamesPlayed"]))
+				else:
+					avgMin = int(stats[team][name]["min"] / stats[team][name]["gamesPlayed"])
+
 			for prop in propData[game][propName]:
 
 				if prop == "to" or "-1q" in prop:
@@ -464,7 +488,18 @@ def getPropData(date = None, playersArg = [], teamsArg = "", alt=""):
 							val += stats[team][name][p]
 					elif prop in stats[team][name]:
 						val = stats[team][name][prop]
-					avg = round(val / stats[team][name]["gamesPlayed"], 1)
+
+					gamesPlayed = stats[team][name]["gamesPlayed"]
+
+					if teamBeforeTrade:
+						gamesPlayed += stats[teamBeforeTrade][name]["gamesPlayed"]
+						if "+" in prop:
+							for p in prop.split("+"):
+								val += stats[teamBeforeTrade][name][p]
+						elif prop in stats[teamBeforeTrade][name]:
+							val += stats[teamBeforeTrade][name][prop]
+
+					avg = round(val / gamesPlayed, 1)
 
 				overOdds = propData[game][propName][prop]["over"]
 				underOdds = propData[game][propName][prop]["under"]
@@ -512,13 +547,17 @@ def getPropData(date = None, playersArg = [], teamsArg = "", alt=""):
 
 				lastAvg = lastAvgMin = 0
 				proj = 0
-				if name in averages[team] and averages[team][name]:
-					lastAvgMin = averages[team][name]["min"]
+				lastYearTeam = team
+				if teamBeforeTrade and name in averages[teamBeforeTrade]:
+					lastYearTeam = teamBeforeTrade
+
+				if name in averages[lastYearTeam] and averages[lastYearTeam][name]:
+					lastAvgMin = averages[lastYearTeam][name]["min"]
 					if "+" in prop:
 						for p in prop.split("+"):
-							lastAvg += averages[team][name][p]
-					elif prop in averages[team][name]:
-						lastAvg = averages[team][name][prop]
+							lastAvg += averages[lastYearTeam][name][p]
+					elif prop in averages[lastYearTeam][name]:
+						lastAvg = averages[lastYearTeam][name][prop]
 					proj = lastAvg / lastAvgMin
 					lastAvg = round(lastAvg, 1)
 
@@ -529,17 +568,21 @@ def getPropData(date = None, playersArg = [], teamsArg = "", alt=""):
 					diff = round((lastAvg / float(line) - 1), 2)
 
 				lastTotalOver = lastTotalGames = 0
-				if line and avgMin and name in lastYearStats[team] and lastYearStats[team][name]:
-					for dt in lastYearStats[team][name]:
-						minutes = lastYearStats[team][name][dt]["min"]
+				lastYearTeam = team
+				if teamBeforeTrade and name in lastYearStats[teamBeforeTrade]:
+					lastYearTeam = teamBeforeTrade
+
+				if line and avgMin and name in lastYearStats[lastYearTeam] and lastYearStats[lastYearTeam][name]:
+					for dt in lastYearStats[lastYearTeam][name]:
+						minutes = lastYearStats[lastYearTeam][name][dt]["min"]
 						if minutes > 0:
 							lastTotalGames += 1
 							if "+" in prop:
 								val = 0.0
 								for p in prop.split("+"):
-									val += lastYearStats[team][name][dt][p]
+									val += lastYearStats[lastYearTeam][name][dt][p]
 							else:
-								val = lastYearStats[team][name][dt][prop]
+								val = lastYearStats[lastYearTeam][name][dt][prop]
 							valPerMin = float(val / minutes)
 							linePerMin = float(line) / avgMin
 							if valPerMin > linePerMin:
@@ -555,9 +598,13 @@ def getPropData(date = None, playersArg = [], teamsArg = "", alt=""):
 				awayHomeSplits = [[],[]]
 				hit = False
 				if line and avgMin:
-					files = sorted(glob.glob(f"{prefix}static/basketballreference/{team}/*.json"), key=lambda k: datetime.strptime(k.split("/")[-1].replace(".json", ""), "%Y-%m-%d"), reverse=True)
+					files = glob.glob(f"{prefix}static/basketballreference/{team}/*.json")
+					if teamBeforeTrade:
+						files.extend(glob.glob(f"{prefix}static/basketballreference/{teamBeforeTrade}/*.json"))
+					files = sorted(files, key=lambda k: datetime.strptime(k.split("/")[-1].replace(".json", ""), "%Y-%m-%d"), reverse=True)
 					for file in files:
 						chkDate = file.split("/")[-1].replace(".json","")
+						currTeam = file.split("/")[-2]
 						with open(file) as fh:
 							gameStats = json.load(fh)
 						if name in gameStats:
@@ -575,8 +622,8 @@ def getPropData(date = None, playersArg = [], teamsArg = "", alt=""):
 								teamIsAway = False
 								for g in schedule[chkDate]:
 									gameSp = g.split(" @ ")
-									if team in gameSp:
-										if team == gameSp[0]:
+									if currTeam in gameSp:
+										if currTeam == gameSp[0]:
 											teamIsAway = True
 											pastOpp = gameSp[1]
 										else:
@@ -600,7 +647,7 @@ def getPropData(date = None, playersArg = [], teamsArg = "", alt=""):
 										continue
 									last5.append(v)
 
-								teamScore = scores[chkDate][team]
+								teamScore = scores[chkDate][currTeam]
 								oppScore = scores[chkDate][pastOpp]
 
 								if teamScore > oppScore:
@@ -642,10 +689,10 @@ def getPropData(date = None, playersArg = [], teamsArg = "", alt=""):
 					else:
 						diffAbs = diffAvg
 
-				try:
+				if teamBeforeTrade and name in roster[teamBeforeTrade]:
+					pos = roster[teamBeforeTrade][name]
+				elif name in roster[team]:
 					pos = roster[team][name]
-				except:
-					continue
 
 				oppRank = ""
 				rankingsPos = pos

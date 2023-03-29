@@ -691,9 +691,9 @@ def props_route():
 		players = request.args.get("players")
 
 	# locks
-	bets = ["zach hyman", "dylan larkin", "mika zibanejad", "kyle connor", "martin necas", "tyler toffoli", "miro heiskanen", "brad marchand"]
+	bets = []
 	# singles
-	bets.extend(["darnell nurse", "mike matheson", "andrei kuzmenko", "phillip danault", "adrian kempe", "leon draisaitl", "hampus lindholm"])
+	bets.extend([])
 	# meh
 	bets.extend([])
 	# goalies
