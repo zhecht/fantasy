@@ -55,12 +55,25 @@
 	</style>
 	<body>
 		<div id="header">
+			<a id="full" class="active" href="/mlbprops">Batting</a>
+			<a id="hr" href="/mlbprops?prop=hr">HR</a>
+			<a id="h" href="/mlbprops?prop=h">Hits</a>
+			<a id="tb" href="/mlbprops?prop=tb">Bases</a>
+			<a id="rbi" href="/mlbprops?prop=rbi">RBIs</a>
+			<a id="r" href="/mlbprops?prop=r">Runs</a>
+			<a id="h+r+rbis" href="/mlbprops?prop=h+r+rbi">H+R+RBI</a>
+			<a id="so" href="/mlbprops?prop=so">SO</a>
+			<a id="1b" href="/mlbprops?prop=1b">1B</a>
+			<a id="2b" href="/mlbprops?prop=2b">2B</a>
+			<a id="batter_bb" href="/mlbprops?prop=batter_bb">BB</a>
+		</div>
+		<div id="header">
 			<a id="full" class="active" href="/mlbprops">Pitching</a>
 			<a id="k" href="/mlbprops?prop=k">Strikeouts</a>
 			<a id="outs" href="/mlbprops?prop=outs">Outs</a>
 			<a id="win" href="/mlbprops?prop=win">Win</a>
 			<a id="hits_allowed" href="/mlbprops?prop=hits_allowed">Hits</a>
-			<a id="bb" href="/mlbprops?prop=bb">Walks</a>
+			<a id="bb" href="/mlbprops?prop=bb_allowed">Walks</a>
 			<a id="er" href="/mlbprops?prop=er">ER</a>
 		</div>
 		<div id="tableDiv">
@@ -92,6 +105,46 @@
 				return "<div class='negative'>"+cell.getValue()+"</div>";
 			}
 
+			function addNumSuffix(val) {
+				const a = val % 10;
+				const b = val % 100;
+				if (val == 0) {
+					return "";
+				}
+				if (a == 1 && b != 11) {
+					return val+"st";
+				} else if (a == 2 && b != 12) {
+					return val+"nd";
+				} else if (a == 3 && b != 13) {
+					return val+"rd";
+				} else {
+					return val+"th";
+				}
+			}
+
+			const rankFormatter = function(cell, params, rendered) {
+				const field = cell.getField();
+				const val = cell.getValue();
+				const suffix = addNumSuffix(val);
+				if (field == "oppRank" && propArg != "hits_allowed" && propArg != "so" && propArg != "bb_allowed" && propArg != "h+r+rbi" && propArg != "er" || (propArg == "bb")) {
+					if (val >= 20) {
+						return "<div class='positive'>"+suffix+"</div>";
+					} else if (val <= 10) {
+						return "<div class='negative'>"+suffix+"</div>";
+					} else {
+						return suffix;
+					}
+				} else {
+					if (val <= 10) {
+						return "<div class='positive'>"+suffix+"</div>";
+					} else if (val >= 20) {
+						return "<div class='negative'>"+suffix+"</div>";
+					} else {
+						return suffix;
+					}
+				}
+			}
+
 			function renderTable() {
 				TABLE = new Tabulator("#propsTable", {
 					tooltipsHeader: true,
@@ -104,7 +157,7 @@
 					initialSort: [
 						//{column: "pos", dir: "asc"},
 						{column: "totalOverLast5", dir: "desc"},
-						{column: "lastYearTotalOver", dir: "desc"},
+						{column: "diff", dir: "desc"},
 						//{column: "team", dir: "asc"},
 					],
 					columns: [
@@ -117,15 +170,21 @@
 						{title: "Hit", field: "hit", formatter:"tickCross", width: 60, hozAlign: "center", visible: false},
 						{title: "Player", field: "player", headerFilter: "input"},
 						{title: "Pos", field: "pos", hozAlign: "center", width: 50},
+						{title: "GP", field: "gamesPlayed", hozAlign: "center", width: 50},
+						{title: "#", field: "battingNumber", hozAlign: "center", width: 50},
 						{title: "Avg IP", field: "avgIP", hozAlign: "center", width: 80, visible: false},
 						{title: "Team", field: "team", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
 						{title: "Opp", field: "opponent", width: "80", hozAlign: "center", formatter: teamFormatter, editor: "input", headerFilter: "select", headerFilterPlaceholder:"All", headerFilterFunc: teamFilter, headerFilterParams:{values: teamNames}},
-						{title: "Prop", field: "prop", hozAlign: "center"},
+						{title: "Opp Rank", field: "oppRank", hozAlign: "center", formatter: rankFormatter, width: 70},
+						{title: "Opp Rank Val", field: "oppRankVal", hozAlign: "center", width: 70},
+						{title: "Prop", field: "displayProp", hozAlign: "center"},
 						{title: "Line", field: "line", hozAlign: "center"},
 						{title: "LYR Avg", field: "lastYearAvg", hozAlign: "center", width: 80, formatter: colorFormatter, sorter: "number"},
 						{title: "LYR % Over", field: "lastYearTotalOver", hozAlign: "center", formatter: percentFormatter, width: 80, sorter: "number"},
 						{title: "LYR vs Opp % Over", field: "lastYearTeamMatchupOver", hozAlign: "center", formatter: percentFormatter, width: 80, sorter: "number"},
 						{title: "# Matchups", field: "matchups", hozAlign: "center", width: 60},
+						{title: "Diff", field: "diff", hozAlign: "center", width: 80, sorter: "number"},
+						{title: "Hit Rate Odds", field: "hitRateOdds", hozAlign: "center", width: 80},
 						{title: "Over", field: "overOdds", hozAlign: "center"},
 						{title: "Under", field: "underOdds", hozAlign: "center"},
 					]

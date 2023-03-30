@@ -36,6 +36,22 @@ def convertDKTeam(team):
 		return "sf"
 	return team
 
+def addNumSuffix(val):
+	if not val:
+		return "-"
+	a = val % 10;
+	b = val % 100;
+	if val == 0:
+		return ""
+	if a == 1 and b != 11:
+		return f"{val}st"
+	elif a == 2 and b != 12:
+		return f"{val}nd"
+	elif a == 3 and b != 13:
+		return f"{val}rd"
+	else:
+		return f"{val}th"
+
 def writeGameLines(date):
 	lines = {}
 	if os.path.exists(f"{prefix}static/mlbprops/lines/{date}.json"):
@@ -76,8 +92,8 @@ def writeGameLines(date):
 				continue
 			for offerRow in cRow["offerSubcategory"]["offers"]:
 				for row in offerRow:
-					game = events[row["eventId"]]
 					try:
+						game = events[row["eventId"]]
 						gameType = row["label"].lower().split(" ")[-1]
 					except:
 						continue
@@ -114,6 +130,8 @@ def convertDKProp(mainCat, prop):
 		return "rbi"
 	elif prop == "runs scored":
 		return "r"
+	elif prop == "earned runs":
+		return "er"
 	elif prop == "outs recorded":
 		return "outs"
 	elif prop == "hits + runs + rbis":
@@ -124,8 +142,8 @@ def convertDKProp(mainCat, prop):
 		return "k"
 	elif prop == "walks":
 		if mainCat == "batter":
-			return "batter_bb"
-		return "bb"
+			return "bb"
+		return "bb_allowed"
 	elif prop == "singles":
 		return "1b"
 	elif prop == "doubles":
@@ -212,13 +230,13 @@ def writeProps(date):
 								player = row["outcomes"][0]["participant"].lower().replace(".", "").replace("'", "").replace("-", " ")
 							except:
 								continue
-							odds = ["",""]
+							odds = ["+0","+0"]
 							try:
 								line = row["outcomes"][0]["line"]
 							except:
 								line = 0
 							for outcome in row["outcomes"]:
-								if outcome["label"].lower() == "over":
+								if outcome["label"].lower() == "over" or (prop == "win" and outcome["label"].lower() == "yes"):
 									odds[0] = outcome["oddsAmerican"]
 								else:
 									odds[1] = outcome["oddsAmerican"]
@@ -236,8 +254,80 @@ def writeProps(date):
 	with open(f"{prefix}static/mlbprops/dates/{date}.json", "w") as fh:
 		json.dump(props, fh, indent=4)
 
+def writeCsvs(props):
+	csvs = {}
+	splitProps = {"full": []}
+	headerList = ["NAME","POS","TEAM","OPP","OPP RANK","OPP RANK VAL","PROP","LINE","LYR AVG","LYR % Over","LYR Matchup","# Matchups","OVER","UNDER"]
+	headers = "\t".join(headerList)
+	reddit = "|".join(headers.split("\t"))
+	reddit += "\n"+"|".join([":--"]*len(headerList))
+
+	for row in props:
+		if row["prop"] not in splitProps:
+			splitProps[row["prop"]] = []
+
+		if row["overOdds"] == '-inf':
+			continue
+
+		splitProps[row["prop"]].append(row)
+		splitProps["full"].append(row)
+
+	for prop in splitProps:
+		csvs[prop] = headers
+		rows = sorted(splitProps[prop], key=lambda k: (k["lastYearTotalOver"]), reverse=True)
+		for row in rows:
+			overOdds = row["overOdds"]
+			underOdds = row["underOdds"]
+			avg = row["lastYearAvg"]
+			if underOdds == '-inf':
+				underOdds = 0
+			if int(overOdds) > 0:
+				overOdds = "'"+overOdds
+			if int(underOdds) > 0:
+				underOdds = "'"+underOdds
+			#if avg >= row["line"]:
+			#	avg = f"**{avg}**"
+			csvs[prop] += "\n" + "\t".join([str(x) for x in [row["player"], row["pos"], row["team"], row["opponent"], addNumSuffix(row["oppRank"]), row["oppRankVal"], row["prop"], row["line"], avg, f"{row['lastYearTotalOver']}%", f"{row['lastYearTeamMatchupOver']}%", f"{row['matchups']}", overOdds, underOdds]])
+
+	# add full rows
+	csvs["full"] = headers
+	rows = sorted(splitProps["full"], key=lambda k: (k["player"]))
+	for row in rows:
+		overOdds = row["overOdds"]
+		underOdds = row["underOdds"]
+		avg = row["lastYearAvg"]
+		if int(overOdds) > 0:
+			overOdds = "'"+overOdds
+		if int(underOdds) > 0:
+			underOdds = "'"+underOdds
+		#if avg >= row["line"]:
+		#	avg = f"**{avg}**"
+		csvs["full"] += "\n" + "\t".join([str(x) for x in [row["player"], row["pos"], row["team"], row["opponent"], addNumSuffix(row["oppRank"]), row["oppRankVal"], row["prop"], row["line"], avg, f"{row['lastYearTotalOver']}%", f"{row['lastYearTeamMatchupOver']}%", f"{row['matchups']}", overOdds, underOdds]])
+
+	# add top 4 to reddit
+	for prop in ["h", "h+r+rbi", "so", "k", "hits_allowed"]:
+		if prop in splitProps:
+			rows = sorted(splitProps[prop], key=lambda k: (k["lastYearTotalOver"]), reverse=True)
+			for row in rows[:3]:
+				overOdds = row["overOdds"]
+				underOdds = row["underOdds"]
+				avg = row["lastYearAvg"]
+				if avg >= row["line"]:
+					avg = f"**{avg}**"
+				reddit += "\n" + "|".join([str(x) for x in [row["player"], row["pos"], row["team"], row["opponent"], addNumSuffix(row["oppRank"]), row["oppRankVal"], row["prop"], row["line"], avg, f"{row['lastYearTotalOver']}%", f"{row['lastYearTeamMatchupOver']}%", f"{row['matchups']}", overOdds, underOdds]])
+			reddit += "\n"+"|".join(["-"]*len(headerList))
+
+	with open(f"{prefix}static/mlbprops/csvs/reddit", "w") as fh:
+		fh.write(reddit)
+
+	for prop in csvs:
+		with open(f"{prefix}static/mlbprops/csvs/{prop}.csv", "w") as fh:
+			fh.write(csvs[prop])
+
 def writeStaticProps():
 	props = getPropData()
+
+	writeCsvs(props)
 
 	with open(f"{prefix}static/betting/mlb.json", "w") as fh:
 		json.dump(props, fh, indent=4)
@@ -247,8 +337,37 @@ def writeStaticProps():
 			json.dump(filteredProps, fh, indent=4)
 
 def convertProp(prop):
-	if prop == "hits_allowed":
+	if prop == "bb_allowed":
+		return "bb"
+	elif prop == "hits_allowed":
 		return "h"
+	return prop
+
+def convertRankingsProp(prop):
+	if prop == "k":
+		return "so"
+	elif prop == "so":
+		return "k"
+	elif prop in ["r", "rbi"]:
+		return "er"
+	elif prop == "er":
+		return "r"
+	elif prop == "bb":
+		return "bb_allowed"
+	elif prop == "bb_allowed":
+		return "bb"
+	elif prop == "hr_allowed":
+		return "hr"
+	elif prop == "hr":
+		return "hr_allowed"
+	elif prop == "hits_allowed":
+		return "h"
+	elif prop == "h":
+		return "hits_allowed"
+	elif prop == "h+r+rbi_allowed":
+		return "h+r+rbi"
+	elif prop == "h+r+rbi":
+		return "h+r+rbi_allowed"
 	return prop
 
 def getPropData(date = None, playersArg = [], teams = "", pitchers=False):
@@ -269,14 +388,19 @@ def getPropData(date = None, playersArg = [], teams = "", pitchers=False):
 		schedule = json.load(fh)
 	with open(f"{prefix}static/baseballreference/roster.json") as fh:
 		roster = json.load(fh)
+	with open(f"{prefix}static/baseballreference/rankings.json") as fh:
+		rankings = json.load(fh)
 	with open(f"{prefix}static/baseballreference/scores.json") as fh:
 		scores = json.load(fh)
 	with open(f"{prefix}static/mlbprops/lines/{date}.json") as fh:
 		gameLines = json.load(fh)
+	with open(f"{prefix}static/mlbprops/lineups.json") as fh:
+		lineups = json.load(fh)
 
 	props = []
 	for game in propData:
 		awayTeam, homeTeam = map(str, game.split(" @ "))
+
 		for player in propData[game]:
 
 			if player in roster[awayTeam]:
@@ -292,14 +416,22 @@ def getPropData(date = None, playersArg = [], teams = "", pitchers=False):
 				print(game, player)
 				continue
 
-			for prop in propData[game][player]:
-				displayProp = convertProp(prop)
-				lastYearAvg = lastYearTotalOver = 0
+			if teams and team not in teams:
+				continue
+
+			for propName in propData[game][player]:
+				prop = convertProp(propName)
+				lastYearAvg = lastYearTotalOver = gamesPlayed = battingNumber = 0
 				hit = False
 
-				line = propData[game][player][prop]["line"]
-				overOdds = propData[game][player][prop]["over"]
-				underOdds = propData[game][player][prop]["under"]
+				try:
+					battingNumber = lineups[team].index(player)+1
+				except:
+					pass
+
+				line = propData[game][player][propName]["line"]
+				overOdds = propData[game][player][propName]["over"]
+				underOdds = propData[game][player][propName]["under"]
 
 				if player in averages[team]:
 					lastYrGamesPlayed = 0
@@ -310,6 +442,8 @@ def getPropData(date = None, playersArg = [], teams = "", pitchers=False):
 
 					if lastYrGamesPlayed:
 						lastYearAvg = round(lastYearAvg / lastYrGamesPlayed, 2)
+
+					gamesPlayed = lastYrGamesPlayed
 
 				prevMatchup = []
 				lastTotalGames = 0
@@ -336,22 +470,42 @@ def getPropData(date = None, playersArg = [], teams = "", pitchers=False):
 
 				lastAll = []
 
+				oppRank = ""
+				oppRankVal = ""
+				rankingsProp = convertRankingsProp(propName)
+				
+				if rankingsProp in rankings[opp]:
+					oppRankVal = str(rankings[opp][rankingsProp]["season"])
+					oppRank = rankings[opp][rankingsProp]['rank']
+
+				hitRateOdds = diff = 0
+				if lastYearTotalOver != 100:
+					hitRateOdds = int((100 * lastYearTotalOver) / (-100 + lastYearTotalOver))
+					diff = -1 * (hitRateOdds - int(overOdds))
+
 				props.append({
 					"game": game,
 					"player": player.title(),
 					"team": team.upper(),
-					"opponent": opp,
+					"opponent": opp.upper(),
 					"hit": hit,
 					#"awayHomeSplits": awayHomeSplits,
 					#"winLossSplits": winLossSplits,
+					"battingNumber": battingNumber,
 					"pos": pos,
-					"prop": prop,
+					"prop": propName,
+					"displayProp": prop,
+					"gamesPlayed": gamesPlayed,
 					"matchups": len(prevMatchup),
 					"line": line or "-",
+					"diff": diff,
+					"hitRateOdds": hitRateOdds,
 					"lastYearAvg": lastYearAvg,
 					"lastYearTotalOver": lastYearTotalOver,
 					"lastYearTeamMatchupOver": lastYearTeamMatchupOver,
 					"lastAll": ",".join(lastAll),
+					"oppRank": oppRank,
+					"oppRankVal": oppRankVal,
 					"overOdds": overOdds,
 					"underOdds": underOdds
 				})
@@ -412,11 +566,14 @@ def getProps_route():
 def props_route():
 	prop = date = teams = players = ""
 	if request.args.get("prop"):
-		prop = request.args.get("prop")
+		prop = request.args.get("prop").replace(" ", "+")
+
 	if request.args.get("date"):
 		date = request.args.get("date")
 		if date == "yesterday":
 			date = str(datetime.now() - timedelta(days=1))[:10]
+		elif date == "today":
+			date = str(datetime.now())[:10]
 	if request.args.get("teams"):
 		teams = request.args.get("teams")
 	if request.args.get("players"):
@@ -447,7 +604,9 @@ if __name__ == "__main__":
 	if args.lineups:
 		writeLineups()
 	elif args.cron:
-		#writeLineups()
-		#writeProps(date)
-		#writeGameLines(date)
+		writeLineups()
+		writeProps(date)
+		writeGameLines(date)
 		writeStaticProps()
+
+	writeStaticProps()

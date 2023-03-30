@@ -209,16 +209,30 @@ def write_roster():
 		json.dump(roster, fh, indent=4)
 
 def convertTeamRankingsTeam(team):
-	return team
+	if team == "washington":
+		return "wsh"
+	elif team == "chi sox":
+		return "chw"
+	elif team == "chi cubs":
+		return "chc"
+	elif team == "sf giants":
+		return "sf"
+	elif team == "kansas city":
+		return "kc"
+	elif team == "san diego":
+		return "sd"
+	elif team == "tampa bay":
+		return "tb"
+	return team.replace(".", "").replace(" ", "")[:3]
 
 def write_rankings():
 	baseUrl = "https://www.teamrankings.com/mlb/stat/"
-	pages = ["strikeouts-per-game"]
-	ids = ["so"]
+	pages = ["strikeouts-per-game", "walks-per-game", "runs-per-game", "hits-per-game", "home-runs-per-game", "singles-per-game", "doubles-per-game", "rbis-per-game", "total-bases-per-game", "earned-run-average", "earned-runs-against-per-game", "strikeouts-per-9", "home-runs-per-9", "hits-per-9", "walks-per-9"]
+	ids = ["so", "bb", "r", "h", "hr", "1b", "2b", "rbi", "tb", "era", "er", "k", "hr_allowed", "hits_allowed", "bb_allowed"]
 
 	rankings = {}
 	for idx, page in enumerate(pages):
-		url = baseUrl+page
+		url = baseUrl+page+"?date=2022-11-06"
 		outfile = "out"
 		time.sleep(0.2)
 		call(["curl", "-k", url, "-o", outfile])
@@ -234,9 +248,35 @@ def write_rankings():
 
 			rankings[team][ids[idx]] = {
 				"rank": int(tds[0].text),
-				"season": float(tds[2].text.replace("%", "")),
-				"last3": float(tds[3].text.replace("%", ""))
+				"season": float(tds[2].text.replace("--", "0").replace("%", "")),
+				"last3": float(tds[3].text.replace("--", "0").replace("%", ""))
 			}
+
+	combined = []
+	for team in rankings:
+		combined.append({
+			"team": team,
+			"val": rankings[team]["h"]["season"]+rankings[team]["r"]["season"]+rankings[team]["rbi"]["season"]
+		})
+
+	for idx, x in enumerate(sorted(combined, key=lambda k: k["val"], reverse=True)):
+		rankings[x["team"]]["h+r+rbi"] = {
+			"rank": idx+1,
+			"season": x["val"]
+		}
+
+	combined = []
+	for team in rankings:
+		combined.append({
+			"team": team,
+			"val": rankings[team]["hits_allowed"]["season"]+rankings[team]["er"]["season"]
+		})
+
+	for idx, x in enumerate(sorted(combined, key=lambda k: k["val"], reverse=True)):
+		rankings[x["team"]]["h+r+rbi_allowed"] = {
+			"rank": idx+1,
+			"season": x["val"]
+		}
 
 	with open(f"{prefix}static/baseballreference/rankings.json", "w") as fh:
 		json.dump(rankings, fh, indent=4)
@@ -273,4 +313,5 @@ if __name__ == "__main__":
 	elif args.roster:
 		write_roster()
 	elif args.cron:
+		write_rankings()
 		write_schedule(date)
