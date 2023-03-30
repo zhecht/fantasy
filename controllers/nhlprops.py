@@ -1182,10 +1182,10 @@ def writeGameLines(date):
 
 	time.sleep(0.3)
 	url = "https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/42133?format=json"
-	outfile = "out"
+	outfile = "outnhl"
 	call(["curl", "-k", url, "-o", outfile])
 
-	with open("out") as fh:
+	with open("outnhl") as fh:
 		data = json.load(fh)
 
 	events = {}
@@ -1249,10 +1249,10 @@ def writeGoalieProps(date):
 
 	time.sleep(0.3)
 	url = "https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/42133/categories/1064?format=json"
-	outfile = "out"
+	outfile = "outnhl"
 	call(["curl", "-k", url, "-o", outfile])
 
-	with open("out") as fh:
+	with open("outnhl") as fh:
 		data = json.load(fh)
 
 	with open(f"{prefix}static/nhlprops/dates/{date}.json") as fh:
@@ -1307,7 +1307,7 @@ def writeTT(date):
 	tt = {}
 
 	time.sleep(0.2)
-	outfile = "out2"
+	outfile = "outnhl"
 	url = f"https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/42133/categories/1193/subcategories/12055?format=json"
 	call(["curl", "-k", url, "-o", outfile])
 
@@ -1365,7 +1365,7 @@ def writeProps(date):
 
 	for catId, subCatId, prop in zip(catIds, subCatIds, propNames):
 		time.sleep(0.5)
-		outfile = "out2"
+		outfile = "outnhl"
 		url = f"https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/42133/categories/{catId}/subcategories/{subCatId}?format=json"
 		call(["curl", "-k", url, "-o", outfile])
 
@@ -1455,7 +1455,7 @@ def goalieLines(props):
 
 def writeGoalieStats():
 	url = "https://www.hockey-reference.com/leagues/NHL_2023_goalies.html"
-	outfile = "out"
+	outfile = "outnhl"
 	call(["curl", "-k", url, "-o", outfile])
 	soup = BS(open(outfile, 'rb').read(), "lxml")
 
@@ -1558,12 +1558,12 @@ def convertNaturalStatTeam(team):
 
 def writeExpectedGoalies(date):
 	url = f"https://www.rotowire.com/hockey/tables/projected-goalies.php?date={date}"
-	outfile = "out"
+	outfile = "outnhl"
 	time.sleep(0.3)
 	call(["curl", "-k", url, "-o", outfile])
 	soup = BS(open(outfile, 'rb').read(), "lxml")
 
-	with open("out") as fh:
+	with open("outnhl") as fh:
 		data = json.load(fh)
 
 	expected = {"confirmed": {}, "expected": {}}
@@ -1578,7 +1578,7 @@ def writeExpectedGoalies(date):
 
 def writeLineups():
 	url = f"https://www.rotowire.com/hockey/nhl-lineups.php"
-	outfile = "out"
+	outfile = "outnhl"
 	time.sleep(0.2)
 	call(["curl", "-k", url, "-o", outfile])
 	soup = BS(open(outfile, 'rb').read(), "lxml")
@@ -1641,7 +1641,7 @@ def writeOpportunities():
 
 	for period in periods:
 		url = f"{baseUrl}{periods[period]}"
-		outfile = "out"
+		outfile = "outnhl"
 		time.sleep(0.3)
 		call(["curl", "-k", url, "-o", outfile])
 		soup = BS(open(outfile, 'rb').read(), "lxml")

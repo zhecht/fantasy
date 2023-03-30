@@ -61,7 +61,7 @@ def write_stats(date):
 			time.sleep(0.4)
 			link = boxscores[date][game].replace("game?gameId=", "boxscore/_/gameId/")
 			url = f"https://www.espn.com{link}"
-			outfile = "out2"
+			outfile = "outnhl"
 			call(["curl", "-k", url, "-o", outfile])
 			soup = BS(open(outfile, 'rb').read(), "lxml")
 
@@ -212,7 +212,7 @@ def writeRankings():
 	shortIds = ["tot", "last1", "last3", "last5", "tot", "last1", "last3", "last5"]
 	urls = ["nhl-team-saves-per-game-this-season", "nhl-team-saves-per-game-last-1-games", "nhl-team-saves-per-game-last-3-games", "nhl-team-saves-per-game-last-5-games", "nhl-team-saves-allowed-per-game-this-season", "nhl-team-saves-allowed-per-game-last-1-games", "nhl-team-saves-allowed-per-game-last-3-games", "nhl-team-saves-allowed-per-game-last-5-games"]
 	for timePeriod, url in zip(shortIds, urls):
-		outfile = "out2"
+		outfile = "outnhl"
 		time.sleep(0.3)
 		call(["curl", "-k", baseurl+url, "-o", outfile])
 		soup = BS(open(outfile, 'rb').read(), "lxml")
@@ -312,7 +312,7 @@ def write_averages():
 
 			time.sleep(0.175)
 			url = f"https://www.espn.com/nhl/player/gamelog/_/id/{pId}/type/nhl/year/2022"
-			outfile = "out2"
+			outfile = "outnhl"
 			call(["curl", "-k", url, "-o", outfile])
 			soup = BS(open(outfile, 'rb').read(), "lxml")
 
@@ -363,7 +363,7 @@ def write_averages():
 
 def write_schedule(date):
 	url = f"https://www.espn.com/nhl/schedule/_/date/{date.replace('-', '')}"
-	outfile = "out2"
+	outfile = "outnhl"
 	call(["curl", "-k", url, "-o", outfile])
 	soup = BS(open(outfile, 'rb').read(), "lxml")
 

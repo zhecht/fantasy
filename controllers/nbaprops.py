@@ -157,7 +157,7 @@ def writeLineups():
 		schedule = json.load(fh)
 
 	url = "https://www.rotowire.com/basketball/nba-lineups.php"
-	outfile = "out"
+	outfile = "outnba"
 	call(["curl", "-k", url, "-o", outfile])
 	soup = BS(open(outfile, 'rb').read(), "lxml")
 
@@ -279,12 +279,12 @@ def writeProps(date):
 			props = json.load(fh)
 
 	for prop in ids:
-		time.sleep(0.5)
+		time.sleep(0.3)
 		url = f"https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/42648/categories/{ids[prop][0]}/subcategories/{ids[prop][1]}?format=json"
-		outfile = "out"
+		outfile = "outnba"
 		call(["curl", "-k", url, "-o", outfile])
 
-		with open("out") as fh:
+		with open("outnba") as fh:
 			data = json.load(fh)
 
 		events = {}
@@ -462,7 +462,10 @@ def getPropData(date = None, playersArg = [], teamsArg = "", alt=""):
 			avgMin = 0
 			if team in stats and name in stats[team] and stats[team][name]["gamesPlayed"]:
 				if teamBeforeTrade:
-					avgMin = int((stats[team][name]["min"]+stats[teamBeforeTrade][name]["min"]) / (stats[team][name]["gamesPlayed"]+stats[teamBeforeTrade][name]["gamesPlayed"]))
+					try:
+						avgMin = int((stats[team][name]["min"]+stats[teamBeforeTrade][name]["min"]) / (stats[team][name]["gamesPlayed"]+stats[teamBeforeTrade][name]["gamesPlayed"]))
+					except:
+						continue
 				else:
 					avgMin = int(stats[team][name]["min"] / stats[team][name]["gamesPlayed"])
 
@@ -1081,10 +1084,10 @@ def convertDKTeam(team):
 
 def writeTeamProps():
 	url = f"https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/42648/categories/523?format=json"
-	outfile = "out"
+	outfile = "outnba"
 	call(["curl", "-k", url, "-o", outfile])
 
-	with open("out") as fh:
+	with open("outnba") as fh:
 		data = json.load(fh)
 
 	teamProps = {}
@@ -1131,10 +1134,10 @@ def writeGameLines(date):
 
 	time.sleep(0.3)
 	url = "https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/42648/categories/487/subcategories/4511?format=json"
-	outfile = "out"
+	outfile = "outnba"
 	call(["curl", "-k", url, "-o", outfile])
 
-	with open("out") as fh:
+	with open("outnba") as fh:
 		data = json.load(fh)
 
 	events = {}
@@ -1212,10 +1215,10 @@ def writeH2H():
 	for prop in ids:
 		time.sleep(0.3)
 		url = f"https://sportsbook-us-mi.draftkings.com//sites/US-MI-SB/api/v5/eventgroups/42648/categories/{ids[prop][0]}/subcategories/{ids[prop][1]}?format=json"
-		outfile = "out"
+		outfile = "outnba"
 		call(["curl", "-k", url, "-o", outfile])
 
-		with open("out") as fh:
+		with open("outnba") as fh:
 			data = json.load(fh)
 
 		events = {}

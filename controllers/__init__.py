@@ -8,6 +8,7 @@ from controllers.nbaprops import *
 from controllers.ncaabprops import *
 from controllers.ncaafprops import *
 from controllers.nhlprops import *
+from controllers.mlbprops import *
 from controllers.props import *
 from controllers.team import *
 from controllers.graphs import *

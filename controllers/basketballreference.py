@@ -54,7 +54,7 @@ def write_stats(date):
 
 		link = boxscores[date][game].replace("game?gameId=", "boxscore/_/gameId/")
 		url = f"https://www.espn.com{link}"
-		outfile = "out"
+		outfile = "outnba"
 		time.sleep(0.2)
 		call(["curl", "-k", url, "-o", outfile])
 		soup = BS(open(outfile, 'rb').read(), "lxml")
@@ -187,7 +187,7 @@ def write_averages():
 
 			time.sleep(0.175)
 			url = f"https://www.espn.com/nba/player/gamelog/_/id/{pId}/type/nba/year/{year}"
-			outfile = "out"
+			outfile = "outnba"
 			call(["curl", "-k", url, "-o", outfile])
 			soup = BS(open(outfile, 'rb').read(), "lxml")
 
@@ -230,7 +230,7 @@ def write_averages():
 
 def write_schedule(date):
 	url = f"https://www.espn.com/nba/schedule/_/date/{date.replace('-','')}"
-	outfile = "out"
+	outfile = "outnba"
 	time.sleep(0.2)
 	call(["curl", "-k", url, "-o", outfile])
 	soup = BS(open(outfile, 'rb').read(), "lxml")
@@ -329,7 +329,7 @@ def writeTotalsPerGame():
 
 def write_rankings():
 	url = "https://www.fantasypros.com/daily-fantasy/nba/fanduel-defense-vs-position.php"
-	outfile = "out"
+	outfile = "outnba"
 	call(["curl", "-k", url, "-o", outfile])
 	soup = BS(open(outfile, 'rb').read(), "lxml")
 
@@ -396,7 +396,7 @@ def write_roster():
 		roster[team] = {}
 		time.sleep(0.2)
 		url = f"https://www.espn.com/nba/team/roster/_/name/{team}/"
-		outfile = "out"
+		outfile = "outnba"
 		call(["curl", "-k", url, "-o", outfile])
 		soup = BS(open(outfile, 'rb').read(), "lxml")
 
